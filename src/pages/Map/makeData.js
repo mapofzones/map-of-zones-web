@@ -6,20 +6,15 @@ const range = len => {
   return arr;
 };
 
-const newPerson = () => {
-  const statusChance = Math.random();
+const newRow = () => {
   return {
-    firstName: 'Test',
-    lastName: 'Test',
-    age: Math.floor(Math.random() * 30),
-    visits: Math.floor(Math.random() * 100),
-    progress: Math.floor(Math.random() * 100),
-    status:
-      statusChance > 0.66
-        ? 'relationship'
-        : statusChance > 0.33
-        ? 'complicated'
-        : 'single',
+    name: 'Test',
+    totalTxs: Math.floor(Math.random() * 20000),
+    ibcAll: Math.floor(Math.random() * 10000),
+    ibcPercentage: `${Math.floor(Math.random() * 100)}%`,
+    ibcSent: Math.floor(Math.random() * 10000),
+    ibcReceived: Math.floor(Math.random() * 10000),
+    connections: Math.floor(Math.random() * 100),
   };
 };
 
@@ -28,7 +23,7 @@ export default function makeData(...lens) {
     const len = lens[depth];
     return range(len).map(d => {
       return {
-        ...newPerson(),
+        ...newRow(),
         subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
       };
     });

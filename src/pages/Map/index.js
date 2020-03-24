@@ -1,53 +1,53 @@
 import React from 'react';
 
-import Leaderboard from './components/Leaderboard'
+import Leaderboard from './components/Leaderboard';
 import makeData from './makeData';
 
 function Map() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
-        columns: [
-          {
-            Header: 'First Name',
-            accessor: 'firstName'
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'lastName'
-          }
-        ]
+        Header: '#',
+        id: 'position',
+        accessor: (originalRow, rowIndex) => rowIndex,
       },
       {
-        Header: 'Info',
-        columns: [
-          {
-            Header: 'Age',
-            accessor: 'age'
-          },
-          {
-            Header: 'Visits',
-            accessor: 'visits'
-          },
-          {
-            Header: 'Status',
-            accessor: 'status'
-          },
-          {
-            Header: 'Profile Progress',
-            accessor: 'progress'
-          }
-        ]
-      }
+        Header: 'Zone',
+        accessor: 'name',
+      },
+      {
+        Header: 'Overall txs',
+        accessor: 'totalTxs',
+      },
+      {
+        Header: 'IBC all',
+        accessor: 'ibcAll',
+      },
+      {
+        Header: '% IBC',
+        accessor: 'ibcPercentage',
+      },
+      {
+        Header: 'IBC sent',
+        accessor: 'ibcSent',
+      },
+      {
+        Header: 'IBC received',
+        accessor: 'ibcReceived',
+      },
+      {
+        Header: 'Connects',
+        accessor: 'connections',
+      },
+      {
+        Header: 'Txs activity',
+      },
     ],
-    []
+    [],
   );
   const data = React.useMemo(() => makeData(2000), []);
 
-  return (
-    <Leaderboard columns={columns} data={data} />
-  );
+  return <Leaderboard columns={columns} data={data} />;
 }
 
 export default Map;

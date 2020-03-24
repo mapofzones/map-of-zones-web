@@ -1,0 +1,25 @@
+.table {
+  border-spacing: 0;
+}
+
+.header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+  color: #727272;
+  opacity: 0.5;
+}
+
+.cell {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 220%;
+  text-transform: capitalize;
+  color: #000000;
+}
+
+.positionCell {
+  opacity: 0.2;
+}
