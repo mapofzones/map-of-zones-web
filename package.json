@@ -18,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "http-server ./build --cors"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "http-server": "^0.12.1",
     "prettier": "^1.19.1"
   }
 }
