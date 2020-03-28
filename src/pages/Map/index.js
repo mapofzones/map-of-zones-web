@@ -48,10 +48,10 @@ function Map() {
   );
   const leaderboardData = React.useMemo(() => makeLeaderboard(2000), []);
   const graphData = React.useMemo(() => makeGraph(), []);
-console.log({graphData})
+
   return (
     <div>
-      <Graph graphData={graphData} height={400}/>
+      <Graph data={graphData} />
       <Leaderboard columns={columns} data={leaderboardData} />
     </div>
   );
