@@ -18,7 +18,7 @@ const newRow = () => {
   };
 };
 
-export default function makeData(...lens) {
+export function makeLeaderboard(...lens) {
   const makeDataLevel = (depth = 0) => {
     const len = lens[depth];
     return range(len).map(d => {
@@ -30,4 +30,16 @@ export default function makeData(...lens) {
   };
 
   return makeDataLevel();
+}
+
+export function makeGraph(N = 300, reverse = false) {
+  return {
+    nodes: [...Array(N).keys()].map(i => ({ id: i })),
+    links: [...Array(N).keys()]
+      .filter(id => id)
+      .map(id => ({
+        [reverse ? 'target' : 'source']: id,
+        [reverse ? 'source' : 'target']: Math.round(Math.random() * (id-1))
+      }))
+  };
 }

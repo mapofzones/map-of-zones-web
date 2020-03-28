@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Leaderboard from './components/Leaderboard';
-import makeData from './makeData';
+import Graph from './components/Graph';
+import { makeLeaderboard, makeGraph } from './makeData';
 
 function Map() {
   const columns = React.useMemo(
@@ -45,9 +46,15 @@ function Map() {
     ],
     [],
   );
-  const data = React.useMemo(() => makeData(2000), []);
-
-  return <Leaderboard columns={columns} data={data} />;
+  const leaderboardData = React.useMemo(() => makeLeaderboard(2000), []);
+  const graphData = React.useMemo(() => makeGraph(), []);
+console.log({graphData})
+  return (
+    <div>
+      <Graph graphData={graphData} height={400}/>
+      <Leaderboard columns={columns} data={leaderboardData} />
+    </div>
+  );
 }
 
 export default Map;
