@@ -1,10 +1,26 @@
 import React from 'react';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 
 import Leaderboard from './components/Leaderboard';
 import Graph from './components/Graph';
 import { makeLeaderboard, makeGraph } from './makeData';
 
+const TOTAL_STATS = gql`
+  {
+    get_total_stats(args: { period_in_hours: 200, step_in_hours: 20 }) {
+      total_txs
+      total_ibc_txs
+      ibc_percent
+      channels_num
+      chart
+    }
+  }
+`;
+
 function Map() {
+  const { loading, error, data } = useQuery(TOTAL_STATS);
+
   const columns = React.useMemo(
     () => [
       {
