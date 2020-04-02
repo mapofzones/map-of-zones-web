@@ -6,9 +6,24 @@ const range = len => {
   return arr;
 };
 
+export const ibcTxsActivity = [
+  { tx: 66 },
+  { tx: 94 },
+  { tx: 12 },
+  { tx: 0 },
+  { tx: 30 },
+  { tx: 10 },
+  { tx: 20 },
+  { tx: 4 },
+  { tx: 13 },
+  { tx: 0 },
+  { tx: 12 },
+];
+
 const newRow = () => {
   return {
     name: 'Test',
+    txsActivity: ibcTxsActivity,
     totalTxs: Math.floor(Math.random() * 20000),
     ibcAll: Math.floor(Math.random() * 10000),
     ibcPercentage: `${Math.floor(Math.random() * 100)}%`,
@@ -49,17 +64,3 @@ export function makeGraph(N = 300, reverse = false) {
       })),
   };
 }
-
-export const ibcTxsActivity = [
-  { tx: 66 },
-  { tx: 94 },
-  { tx: 12 },
-  { tx: 0 },
-  { tx: 30 },
-  { tx: 10 },
-  { tx: 20 },
-  { tx: 4 },
-  { tx: 13 },
-  { tx: 0 },
-  { tx: 12 },
-];

@@ -1,6 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import { Area, AreaChart, ResponsiveContainer } from 'recharts';
 
 import Leaderboard from './components/Leaderboard';
 import Graph from './components/Graph';
@@ -59,6 +60,20 @@ function Map() {
       },
       {
         Header: 'Txs activity',
+        Cell: ({ cell }) => (
+          <ResponsiveContainer height={20}>
+            <AreaChart data={cell.value} margin={{ bottom: 0 }}>
+              <Area
+                strokeWidth={2}
+                type="linear"
+                dataKey="tx"
+                stroke="#6ea77f"
+                fill="#5CA97B"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ),
+        accessor: 'txsActivity',
       },
     ],
     [],
