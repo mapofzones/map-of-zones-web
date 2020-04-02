@@ -4,7 +4,8 @@ import { useQuery } from '@apollo/react-hooks';
 
 import Leaderboard from './components/Leaderboard';
 import Graph from './components/Graph';
-import { makeLeaderboard, makeGraph } from './makeData';
+import TotalStatTable from './components/TotalStatTable';
+import { makeLeaderboard, makeGraph, ibcTxsActivity } from './makeData';
 
 const TOTAL_STATS = gql`
   {
@@ -67,6 +68,7 @@ function Map() {
 
   return (
     <div>
+      <TotalStatTable ibcTxsActivity={ibcTxsActivity} />
       <Graph data={graphData} />
       <Leaderboard columns={columns} data={leaderboardData} />
     </div>

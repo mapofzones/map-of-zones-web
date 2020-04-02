@@ -6,7 +6,7 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function Table({ columns, data }) {
+function Leaderboard({ columns, data }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -69,4 +69,4 @@ function Table({ columns, data }) {
   );
 }
 
-export default Table;
+export default Leaderboard;
