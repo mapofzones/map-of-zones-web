@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
 
+import { ReactComponent as ArrowDown } from 'assets/images/arrow-down.svg';
+
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
@@ -21,8 +23,6 @@ function Leaderboard({ columns, data }) {
     useSortBy,
   );
 
-  // We don't want to render all 2000 rows for this example, so cap
-  // it at 20 for this use case
   const firstPageRows = rows.slice(0, 20);
 
   return (
@@ -32,12 +32,24 @@ function Leaderboard({ columns, data }) {
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
               <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
+                {...column.getHeaderProps(
+                  column.id !== 'txsActivity'
+                    ? column.getSortByToggleProps()
+                    : undefined,
+                )}
                 className={cx('header')}
               >
                 {column.render('Header')}
                 <span>
-                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                  {column.isSorted ? (
+                    column.isSortedDesc ? (
+                      <ArrowDown />
+                    ) : (
+                      <ArrowDown style={{ transform: 'rotate(-180deg)' }} />
+                    )
+                  ) : (
+                    ''
+                  )}
                 </span>
               </th>
             ))}
