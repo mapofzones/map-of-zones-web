@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/constants.css';
+
 .table {
   border-spacing: 0;
 }
@@ -7,7 +9,7 @@
   font-weight: 600;
   font-size: 12px;
   line-height: 100%;
-  color: #727272;
+  color: var(--color-secondary);
   opacity: 0.5;
 }
 
@@ -17,7 +19,7 @@
   font-size: 15px;
   line-height: 220%;
   text-transform: capitalize;
-  color: #000000;
+  color: var(--color-regular);
 }
 
 .positionCell {

@@ -14,7 +14,7 @@ function TotalStatTable({ ibcTxsActivity }) {
           <Area
             strokeWidth={2}
             type="linear"
-            dataKey="tx"
+            dataKey="txs"
             stroke="#6ea77f"
             fill="#5CA97B"
           />
