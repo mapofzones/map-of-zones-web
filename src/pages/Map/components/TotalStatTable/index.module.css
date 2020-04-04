@@ -4,7 +4,26 @@
     background: #383D4C;
 }
 
+.statContainer {
+    position: absolute;
+    top: 0;
+    color: #fff;
+    padding: 8px 14px;
+}
+
+.statName {
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.statValue {
+    font-weight: bold;
+    font-size: 22px;
+}
+
 .item {
+    position: relative;
     flex: 1;
 }
 

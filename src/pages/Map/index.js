@@ -24,7 +24,7 @@ const TOTAL_STATS = gql`
 function Map() {
   const { loading, error, data } = useQuery(TOTAL_STATS);
 
-  console.log(data)
+  console.log(data);
 
   const columns = React.useMemo(
     () => [
@@ -80,7 +80,7 @@ function Map() {
 
   return (
     <div>
-      <TotalStatTable ibcTxsActivity={ibcTxsActivity} />
+      <TotalStatTable ibcTxsActivity={ibcTxsActivity} period="24h" ibcTxs="36 876" />
       <Graph data={graphData} />
       <Leaderboard columns={columns} data={leaderboardData} />
     </div>
