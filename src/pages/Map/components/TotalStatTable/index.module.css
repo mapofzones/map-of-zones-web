@@ -4,11 +4,16 @@
     background: #383D4C;
 }
 
-.statContainer {
+.activityContainer {
     position: absolute;
     top: 0;
+}
+
+.statContainer {
     color: #fff;
     padding: 8px 14px;
+    position: relative;
+    z-index: 1;
 }
 
 .statName {

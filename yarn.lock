@@ -973,6 +973,39 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@formatjs/intl-displaynames@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-displaynames/-/intl-displaynames-1.2.2.tgz#d0f0edebad96660196d282f609a1169a88a27d4a"
+  integrity sha512-qwYxEWJEIplshOMWyLGl2g0d9g/25oQm8GWWCRcagHhv4YIfSJM5+GCTYNJiQImm10pKfEhoV5ezDs0Pr/8CRA==
+  dependencies:
+    "@formatjs/intl-utils" "^2.2.0"
+
+"@formatjs/intl-listformat@^1.4.2":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-listformat/-/intl-listformat-1.4.3.tgz#3cb75b9a9da60ca54c52dd5a239a24cd448f7a60"
+  integrity sha512-FZcc3FSYYimMEm03+1qJzmsm1Vn5qxxkrFe0kqNKujEq3MAK+uL31jpPBiD1EPl22uTD0MHZMuZF55jqd/7R/w==
+  dependencies:
+    "@formatjs/intl-utils" "^2.2.1"
+
+"@formatjs/intl-relativetimeformat@^4.5.10":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-relativetimeformat/-/intl-relativetimeformat-4.5.11.tgz#8161aba04b3dd488a00e2642e007bf5359f8ad34"
+  integrity sha512-UdZtBISVHMB1n9dOldnNpEr90/qdHcOXe+EPBAy6pXsqKwL1Nh86PU5/2wJij1wl7lQDrCb2npcYnmScv4uGRg==
+  dependencies:
+    "@formatjs/intl-utils" "^2.2.1"
+
+"@formatjs/intl-unified-numberformat@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-unified-numberformat/-/intl-unified-numberformat-3.3.0.tgz#0692346a9cd432abb2cd9b6879ddd6592585641a"
+  integrity sha512-wLT3myYq6fUhJYUh53tt5fMok+sUqO3Jy1XeSqYTphP7MmQl38tHqAIL65Dxh7M6/QlDEQTOkMZNpQcnT0AzaQ==
+  dependencies:
+    "@formatjs/intl-utils" "^2.2.0"
+
+"@formatjs/intl-utils@^2.2.0", "@formatjs/intl-utils@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-utils/-/intl-utils-2.2.1.tgz#0eeefe92d317acfcd179c14826e719b3b130d82a"
+  integrity sha512-WF3oU6l2WqJjN4OWvnjF9AHyQjHpjcfpyuckM7euFeX6ZGRPpPj+ZCqzf41g81MSksf9aZI4fFCZXWTBusgcWA==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -1331,6 +1364,19 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/hoist-non-react-statics@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+  integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+
+"@types/invariant@^2.2.31":
+  version "2.2.31"
+  resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.31.tgz#4444c03004f215289dbca3856538434317dd28b2"
+  integrity sha512-jMlgg9pIURvy9jgBHCjQp/CyBjYHUwj91etVcDdXkFl2CwTFiQlB+8tcsMeXpXf2PFE5X2pjk4Gm43hQSMHAdA==
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -1376,10 +1422,23 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/prop-types@*":
+  version "15.7.3"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
+  integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+
+"@types/react@*":
+  version "16.9.32"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.32.tgz#f6368625b224604148d1ddf5920e4fefbd98d383"
+  integrity sha512-fmejdp0CTH00mOJmxUPPbWCEBWPvRIL4m8r0qD+BSDUqmutPyGQCHifzMpMzdvZwROdEdL78IuZItntFWgPXHQ==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -3369,6 +3428,11 @@ cssstyle@^1.0.0, cssstyle@^1.1.1:
   dependencies:
     cssom "0.3.x"
 
+csstype@^2.2.0:
+  version "2.6.10"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
+  integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
+
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
@@ -5105,7 +5169,7 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^3.1.0:
+hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -5462,6 +5526,26 @@ internal-slot@^1.0.2:
     es-abstract "^1.17.0-next.1"
     has "^1.0.3"
     side-channel "^1.0.2"
+
+intl-format-cache@^4.2.22:
+  version "4.2.23"
+  resolved "https://registry.yarnpkg.com/intl-format-cache/-/intl-format-cache-4.2.23.tgz#2c508f64b3bb5862abc71392a4b1696e2b8572d2"
+  integrity sha512-a1chSSjN323lnm3f4VWR/+6uyaXgTLII8PkiDeKkC3A+eauUswf/k09iBwDQGlkLg29mZ+zShWdm+YdH+sLY4w==
+
+intl-messageformat-parser@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/intl-messageformat-parser/-/intl-messageformat-parser-4.1.1.tgz#33a3ac1854a8b9adc18dfc73db018abf91be4c32"
+  integrity sha512-RDmhjncV9VOKZ5nkoeeTxVy6G2kV5ZZNtewT89vj7vkr5NAPjw8/q6xYjUxdLnxNbQPcwno6zTD6j9VC0PW+Ag==
+  dependencies:
+    "@formatjs/intl-unified-numberformat" "^3.3.0"
+
+intl-messageformat@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/intl-messageformat/-/intl-messageformat-8.3.2.tgz#ad6b06982d749d39b6610ad26e88637d64688972"
+  integrity sha512-CMcGPciQjt1nesTME7vekUgx+Igy2sa14g/BZE2ZrYwqkdnVDO5f0bt3X0ZjQJohgZth9RvlIMvVoRUjrDRubA==
+  dependencies:
+    intl-format-cache "^4.2.22"
+    intl-messageformat-parser "^4.1.1"
 
 invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
@@ -8790,6 +8874,24 @@ react-force-graph-2d@^1.14.1:
     prop-types "^15.7.2"
     react-kapsule "^2.1.7"
 
+react-intl@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-4.3.1.tgz#a56ae90aa76bf8cac992606002dc8cbf1276ed7d"
+  integrity sha512-WaF6h1H9b4//csBTZ9JGfrKrceOCIKBjJZMBB0P/E+mjjkR1BJjytH2SEBbPV2bnDDnN6vQQaFz5MhgPfUDMYw==
+  dependencies:
+    "@formatjs/intl-displaynames" "^1.2.2"
+    "@formatjs/intl-listformat" "^1.4.2"
+    "@formatjs/intl-relativetimeformat" "^4.5.10"
+    "@formatjs/intl-unified-numberformat" "^3.3.0"
+    "@formatjs/intl-utils" "^2.2.0"
+    "@types/hoist-non-react-statics" "^3.3.1"
+    "@types/invariant" "^2.2.31"
+    hoist-non-react-statics "^3.3.2"
+    intl-format-cache "^4.2.22"
+    intl-messageformat "^8.3.2"
+    intl-messageformat-parser "^4.1.1"
+    shallow-equal "^1.2.1"
+
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -9619,6 +9721,11 @@ shallow-clone@^3.0.0:
   integrity sha512-/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==
   dependencies:
     kind-of "^6.0.2"
+
+shallow-equal@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/shallow-equal/-/shallow-equal-1.2.1.tgz#4c16abfa56043aa20d050324efa68940b0da79da"
+  integrity sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA==
 
 shebang-command@^1.2.0:
   version "1.2.0"

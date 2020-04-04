@@ -80,7 +80,13 @@ function Map() {
 
   return (
     <div>
-      <TotalStatTable ibcTxsActivity={ibcTxsActivity} period="24h" ibcTxs="36 876" />
+      <TotalStatTable
+        ibcTxsActivity={ibcTxsActivity}
+        period="24h"
+        ibcTxs="36 876"
+        zones="223"
+        channels="578"
+      />
       <Graph data={graphData} />
       <Leaderboard columns={columns} data={leaderboardData} />
     </div>
