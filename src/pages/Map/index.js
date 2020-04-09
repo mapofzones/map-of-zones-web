@@ -1,28 +1,17 @@
 import React from 'react';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
 
 import Leaderboard from './components/Leaderboard';
 import TxsActivityCell from './components/Leaderboard/cells/TxsActivity';
 import Graph from './components/Graph';
 import TotalStatTable from './components/TotalStatTable';
 import { makeLeaderboard, makeGraph } from './makeData';
-
-const TOTAL_STATS = gql`
-  {
-    get_total_stats(args: { period_in_hours: 400, step_in_hours: 100 }) {
-      zones_cnt_period
-      zones_cnt_all
-      top_zone_pair
-      channels_cnt_period
-      channels_cnt_all
-      chart
-    }
-  }
-`;
+import { useZonesStat, useTotalStat } from './hooks';
 
 function Map() {
-  const { loading, error, data } = useQuery(TOTAL_STATS);
+  const zones = useZonesStat({ variables: { period: 400, step: 100 } });
+  const { loading, error, data } = useTotalStat({
+    variables: { period: 400, step: 100 },
+  });
 
   console.log(data);
 
@@ -76,12 +65,10 @@ function Map() {
     return null; // TODO: Add spinner
   }
 
-  const ibcTxsActivity = data?.get_total_stats[0].chart;
-
   return (
     <div>
       <TotalStatTable
-        ibcTxsActivity={ibcTxsActivity}
+        ibcTxsActivity={data?.chart}
         period="24h"
         ibcTxs="36 876"
         zones="223"
