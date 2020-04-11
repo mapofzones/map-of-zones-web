@@ -22,13 +22,15 @@ const getNodeColor = sentPercentage =>
 function Graph({ data }) {
   return (
     <ForceGraph2D
-      height={400}
+      enableZoomPanInteraction={false}
+      height={500}
       nodeCanvasObject={({ x, y, id, sentPercentage, weight }, ctx) => {
         ctx.fillStyle = getNodeColor(sentPercentage);
         ctx.beginPath();
         ctx.arc(x, y, getNodeRadius(weight), 0, 2 * Math.PI, false);
         ctx.fill();
       }}
+      linkColor={() => '#fff'}
       graphData={data}
     />
   );

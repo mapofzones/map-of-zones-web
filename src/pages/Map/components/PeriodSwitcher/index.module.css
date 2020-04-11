@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.period {
+    font-weight: 800;
+    font-size: 30px;
+    border-top: 2px solid #4C4C53;
+    padding-top: 8px;
+    color: #949494;
+    line-height: 1;
+    background-color: inherit;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    width: 70px;
+}
+
+.period:not(.selected) {
+    cursor: pointer;
+}
+
+.selected {
+    border-top: 2px solid #fff;
+    color: #fff;
+}

@@ -14,6 +14,7 @@
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "modern-normalize": "^0.6.0",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-force-graph-2d": "^1.14.1",
