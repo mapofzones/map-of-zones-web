@@ -10,7 +10,9 @@ import PeriodSwitcher, { PERIODS } from './components/PeriodSwitcher';
 
 function Map() {
   const [period, setPeriod] = useState(PERIODS[0]);
-  const zones = useZonesStat({ variables: { period: period.hours, step: period.step } });
+  const zones = useZonesStat({
+    variables: { period: period.hours, step: period.step },
+  });
   const { loading, error, data } = useTotalStat({
     variables: { period: period.hours, step: period.step },
   });
@@ -70,11 +72,13 @@ function Map() {
   return (
     <div>
       <TotalStatTable
-        ibcTxsActivity={data.chart}
-        period="24h"
-        ibcTxs="36 876"
-        zones="223"
-        channels="578"
+        period={period.name}
+        ibcTxsActivity={data.ibcTxsActivity}
+        ibcTxs={data.ibcTxs}
+        allZones={data.allZones}
+        activeZones={data.activeZones}
+        allChannels={data.allChannels}
+        activeChannels={data.activeChannels}
       />
       <Graph data={graphData} />
       <PeriodSwitcher hours={period.hours} onChange={setPeriod} />

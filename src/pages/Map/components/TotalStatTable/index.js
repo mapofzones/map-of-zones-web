@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { Area, AreaChart, ResponsiveContainer } from 'recharts';
 import { FormattedMessage } from 'react-intl';
@@ -7,7 +8,15 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function TotalStatTable({ ibcTxsActivity, period, ibcTxs, zones, channels }) {
+function TotalStatTable({
+  period,
+  ibcTxsActivity,
+  ibcTxs,
+  allZones,
+  activeZones,
+  allChannels,
+  activeChannels,
+}) {
   return (
     <div className={cx('container')}>
       <div className={cx('item')}>
@@ -15,8 +24,10 @@ function TotalStatTable({ ibcTxsActivity, period, ibcTxs, zones, channels }) {
           <div className={cx('statName')}>
             <FormattedMessage
               id="number-of-ibc-txs-stat"
-              defaultMessage="Number of IBC TXS ({period})"
-              values={{ period }}
+              defaultMessage="Number of IBC TXS {period}"
+              values={{
+                period: <span className={cx('period')}>{period}</span>,
+              }}
             />
           </div>
           <div className={cx('statValue')}>{ibcTxs}</div>
@@ -34,24 +45,72 @@ function TotalStatTable({ ibcTxsActivity, period, ibcTxs, zones, channels }) {
         </ResponsiveContainer>
       </div>
       <div className={cx('item')}>
-        <div className={cx('statContainer')}>
-          <div className={cx('statName')}>
-            <FormattedMessage id="zones-stat" defaultMessage="Zones" />
+        <div className={cx('statContainerSmall')}>
+          <div className={cx('statContainer', 'small')}>
+            <div className={cx('statName')}>
+              <FormattedMessage
+                id="all-zones-stat"
+                defaultMessage="All Zones"
+              />
+            </div>
+            <div className={cx('statValue')}>{allZones}</div>
           </div>
-          <div className={cx('statValue')}>{zones}</div>
+          <div className={cx('statContainer', 'small')}>
+            <div className={cx('statName')}>
+              <FormattedMessage
+                id="active-zones-stat"
+                defaultMessage="Active Zones {period}"
+                values={{
+                  period: <span className={cx('period')}>{period}</span>,
+                }}
+              />
+            </div>
+            <div className={cx('statValue')}>{activeZones}</div>
+          </div>
         </div>
       </div>
       <div className={cx('item')}>
-        <div className={cx('statContainer')}>
-          <div className={cx('statName')}>
-            <FormattedMessage id="channels-stat" defaultMessage="Channels" />
+        <div className={cx('statContainerSmall')}>
+          <div className={cx('statContainer', 'small')}>
+            <div className={cx('statName')}>
+              <FormattedMessage
+                id="all-channels-stat"
+                defaultMessage="All Channels"
+              />
+            </div>
+            <div className={cx('statValue')}>{allChannels}</div>
           </div>
-          <div className={cx('statValue')}>{channels}</div>
+          <div className={cx('statContainer', 'small')}>
+            <div className={cx('statName')}>
+              <FormattedMessage
+                id="active-channels-stat"
+                defaultMessage="Active Channels {period}"
+                values={{
+                  period: <span className={cx('period')}>{period}</span>,
+                }}
+              />
+            </div>
+            <div className={cx('statValue')}>{activeChannels}</div>
+          </div>
         </div>
       </div>
       <div className={cx('item')} />
     </div>
   );
 }
+
+TotalStatTable.propTypes = {
+  period: PropTypes.node,
+  ibcTxsActivity: PropTypes.arrayOf(
+    PropTypes.shape({
+      txs: PropTypes.number,
+    }),
+  ),
+  ibcTxs: PropTypes.number,
+  allZones: PropTypes.number,
+  activeZones: PropTypes.number,
+  allChannels: PropTypes.number,
+  activeChannels: PropTypes.number,
+};
 
 export default TotalStatTable;

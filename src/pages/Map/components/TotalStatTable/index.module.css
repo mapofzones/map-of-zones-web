@@ -16,6 +16,10 @@
     z-index: 1;
 }
 
+.statContainer.small {
+    flex: 1;
+}
+
 .statName {
     font-weight: 600;
     font-size: 12px;
@@ -34,4 +38,14 @@
 
 .item:not(:last-child) {
     border-right: 1px solid #282B38;
+}
+
+.period {
+    font-weight: normal;
+    color: #8C909F;
+}
+
+.statContainerSmall {
+    display: flex;
+    flex-direction: row;
 }
