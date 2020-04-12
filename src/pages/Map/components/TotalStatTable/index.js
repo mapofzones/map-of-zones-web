@@ -16,6 +16,7 @@ function TotalStatTable({
   activeZones,
   allChannels,
   activeChannels,
+  mostActiveZonesPair,
 }) {
   return (
     <div className={cx('container')}>
@@ -94,7 +95,46 @@ function TotalStatTable({
           </div>
         </div>
       </div>
-      <div className={cx('item')} />
+      <div className={cx('item')}>
+        <div className={cx('statContainer')}>
+          <div className={cx('statName')}>
+            <FormattedMessage
+              id="most-active-zones-pair-stat"
+              defaultMessage="Most Active Pair of Zones {period}"
+              values={{
+                period: <span className={cx('period')}>{period}</span>,
+              }}
+            />
+          </div>
+          {mostActiveZonesPair && (
+            <div className={cx('mostActiveZonesPair')}>
+              <div className={cx('zoneNameContainer')}>
+                <div
+                  className={cx('circle')}
+                  style={{
+                    backgroundColor: mostActiveZonesPair.sourceColor,
+                  }}
+                />
+                <div className={cx('zoneName')}>
+                  {mostActiveZonesPair.source}
+                </div>
+              </div>
+              <div className={cx('zonesLink')} />
+              <div className={cx('zoneNameContainer')}>
+                <div
+                  className={cx('circle')}
+                  style={{
+                    backgroundColor: mostActiveZonesPair.targetColor,
+                  }}
+                />
+                <div className={cx('zoneName')}>
+                  {mostActiveZonesPair.target}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -111,6 +151,12 @@ TotalStatTable.propTypes = {
   activeZones: PropTypes.number,
   allChannels: PropTypes.number,
   activeChannels: PropTypes.number,
+  mostActiveZonesPair: PropTypes.shape({
+    source: PropTypes.string,
+    sourceColor: PropTypes.string,
+    target: PropTypes.string,
+    targetColor: PropTypes.string,
+  }),
 };
 
 export default TotalStatTable;

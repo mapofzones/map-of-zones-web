@@ -49,3 +49,35 @@
     display: flex;
     flex-direction: row;
 }
+
+.mostActiveZonesPair {
+    position: relative;
+}
+
+.zoneNameContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.zoneName {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.circle {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+.zonesLink {
+    position: absolute;
+    height: 9px;
+    top: 11px;
+    left: 4px;
+    border-left: 1px solid #8C909F;
+}

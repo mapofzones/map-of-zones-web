@@ -79,6 +79,7 @@ function Map() {
         activeZones={data.activeZones}
         allChannels={data.allChannels}
         activeChannels={data.activeChannels}
+        mostActiveZonesPair={data.mostActiveZonesPair}
       />
       <Graph data={graphData} />
       <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
