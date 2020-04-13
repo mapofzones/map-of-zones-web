@@ -23,7 +23,20 @@ export const ibcTxsActivity = [
 const newRow = () => {
   return {
     name: 'Test',
-    txsActivity: ibcTxsActivity,
+    // txsActivity: ibcTxsActivity,
+    txsActivity: [
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+      { tx: Math.floor(Math.random() * 50) },
+    ],
     totalTxs: Math.floor(Math.random() * 20000),
     ibcAll: Math.floor(Math.random() * 10000),
     ibcPercentage: `${Math.floor(Math.random() * 100)}%`,

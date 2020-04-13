@@ -2,6 +2,7 @@
     display: flex;
     height: 65px;
     background: #383D4C;
+    transition: 0.2s;
 }
 
 .activityContainer {
@@ -80,4 +81,8 @@
     top: 11px;
     left: 4px;
     border-left: 1px solid #8C909F;
+}
+
+.container.tableOpened {
+    margin-top: -500px;
 }

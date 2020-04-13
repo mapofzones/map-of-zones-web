@@ -8,7 +8,7 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function Leaderboard({ columns, data }) {
+function Leaderboard({ columns, data, toggleTableOpen }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -23,61 +23,133 @@ function Leaderboard({ columns, data }) {
     useSortBy,
   );
 
+  const headerWithSort = (id) => {
+    switch (id) {
+      case 'totalTxs':
+      case 'ibcAll':
+      case 'ibcSent':
+      case 'ibcReceived':
+        return true;
+      default:
+        return false;
+    }
+  };
+  const headerWithExplanation = (id) => {
+    switch (id) {
+      case 'totalTxs':
+      case 'ibcAll':
+      case 'ibcSent':
+      case 'ibcReceived':
+      case 'connections':
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  const renderCell = (cell) => {
+    switch (cell.column.id) {
+      case 'txsActivity':
+        return cell.render('Cell');
+      case 'name':
+        return (
+          <div className={cx('cell-container')}>
+            <span className={cx('text-container')}>
+              {cell.render('Cell')}
+            </span>
+            <span className={cx('position-shift',
+              {negative: cell.row.id%20 - 10 < 0},
+              {new: cell.row.id%20 - 10 === 0})}>
+
+              {cell.row.id%20 - 10 !== 0 ?
+                cell.row.id%20 - 10 :
+                <div>NEW</div>
+              }
+            </span>
+          </div>
+        );
+
+      default:
+        return <span className={cx('text-container')}>
+                 {cell.render('Cell')}
+
+                {headerWithSort(cell.column.id) &&
+                <div className={cx('shift-tooltip', {negative:cell.value - cell.row.values.ibcReceived < 0})}>
+                  {cell.value - cell.row.values.ibcReceived > 0
+                    ? "+" + cell.value - cell.row.values.ibcReceived
+                    : cell.value - cell.row.values.ibcReceived}
+                </div>}
+               </span>
+    }
+  };
+
   const firstPageRows = rows.slice(0, 20);
 
   return (
-    <table {...getTableProps()} className={cx('table')}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps(
-                  column.id !== 'txsActivity'
-                    ? column.getSortByToggleProps()
-                    : undefined,
-                )}
-                className={cx('header')}
-              >
-                {column.render('Header')}
-                <span>
-                  {column.isSorted ? (
-                    column.isSortedDesc ? (
-                      <ArrowDown />
-                    ) : (
-                      <ArrowDown style={{ transform: 'rotate(-180deg)' }} />
-                    )
-                  ) : (
-                    ''
+    <div className={cx('table-container')} onClick={()=>toggleTableOpen('open')}>
+      <table {...getTableProps()} className={cx('table')}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+
+                <th
+                  {...column.getHeaderProps(
+                    headerWithSort(column.id)
+                      ? column.getSortByToggleProps()
+                      : undefined,
                   )}
-                </span>
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {firstPageRows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return (
-                  <td
-                    {...cell.getCellProps()}
-                    className={cx('cell', {
-                      positionCell: cell.column.id === 'position',
-                    })}
-                  >
-                    {cell.render('Cell')}
-                  </td>
-                );
-              })}
+                  className={cx('header', column.id, {sortedColumn: column.isSorted})}
+                >
+                  <div className={cx('header-container')}>
+                    <div className={cx('IBC-circle',  column.id)}/>
+
+                    {column.render('Header')}
+
+                    {headerWithExplanation(column.id) &&
+                    <div className={cx('explanation-icon')}> ? </div>
+                    }
+
+                    {/*{column.isSorted ? (*/}
+                    {headerWithSort(column.id) ? (
+                      <div className={cx('sort-arrow-wrapper')}>
+                        <ArrowDown />
+                        <ArrowDown />
+                      </div>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+
+                </th>
+              ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {firstPageRows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()} className={cx('row')}>
+                {row.cells.map(cell => {
+                  return (
+                    <td
+                      onClick={()=>{console.log(cell)}}
+                      {...cell.getCellProps()}
+                      className={cx('cell', cell.column.id, {sortedColumn: cell.column.isSorted})}
+                    >
+
+                      {renderCell(cell)}
+
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
