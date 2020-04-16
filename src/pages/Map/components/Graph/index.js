@@ -21,12 +21,6 @@ function Graph({ data, isTableOpened, toggleTableOpen }) {
   const [hoveredNode, setHoveredNode] = useState(null);
 
 
-  const handler = (node) => {
-
-  };
-
-
-
   return (
     <div className={cx('graph-container', {blurMap:isTableOpened})}>
       <ForceGraph2D
