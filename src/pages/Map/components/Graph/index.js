@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
 import tinygradient from 'tinygradient';
+import NodeTooltip from './NodeHoverTooltip';
 
 import { getZoneColor } from 'common/helper';
 
@@ -15,7 +16,23 @@ const MAX_SIZE = 40;
 const getNodeRadius = weight =>
   MIN_SIZE + Math.round((MAX_SIZE - MIN_SIZE) * weight);
 
+
 function Graph({ data, isTableOpened, toggleTableOpen }) {
+  const [hoveredNode, setHoveredNode] = useState(null);
+  const [mousePos, setMousePos] = useState({offsetX:0, offsetY:0});
+
+  useEffect(()=> {
+    // document.querySelector('canvas')
+    //   .addEventListener('mousemove',
+    //     (e) => setMousePos({offsetX:e.offsetX, offsetY:e.offsetY}));
+  });
+
+  const handler = (node) => {
+    setHoveredNode(node)
+  };
+
+
+
   return (
     <div className={cx('graph-container', {blurMap:isTableOpened})}>
       <ForceGraph2D
@@ -29,7 +46,17 @@ function Graph({ data, isTableOpened, toggleTableOpen }) {
         }}
         linkColor={() => '#fff'}
         graphData={data}
+        onNodeHover={(node) => handler(node)}
+        nodeRelSize={12}
+        // enablePointerInteraction={false}
       />
+
+      {hoveredNode &&
+        <NodeTooltip
+          mousePos={mousePos}
+          node={hoveredNode}
+        />}
+
       {isTableOpened &&
       <div className={cx('close-table-button')}
            onClick={toggleTableOpen}>

@@ -4,6 +4,7 @@ import Leaderboard from './components/Leaderboard';
 import TxsActivityCell from './components/Leaderboard/cells/TxsActivity';
 import Graph from './components/Graph';
 import TotalStatTable from './components/TotalStatTable';
+import Footer from './components/Footer';
 import { makeLeaderboard, makeGraph } from './makeData';
 import { useZonesStat, useTotalStat } from './hooks';
 import PeriodSwitcher, { PERIODS } from './components/PeriodSwitcher';
@@ -38,10 +39,12 @@ function Map() {
       {
         Header: 'Total IBC Txs',
         accessor: 'totalTxs',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
         Header: 'Total Txs',
         accessor: 'ibcAll',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
         Header: 'IBC share %',
@@ -50,14 +53,17 @@ function Map() {
       {
         Header: 'IBC sent',
         accessor: 'ibcSent',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
         Header: 'IBC received',
         accessor: 'ibcReceived',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
         Header: 'Channels',
         accessor: 'connections',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
         Header: 'IBC txs activity',
@@ -90,6 +96,7 @@ function Map() {
       <Graph data={graphData} isTableOpened={isTableOpened} toggleTableOpen={toggleTableOpen}/>
       <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
       <Leaderboard columns={columns} data={leaderboardData} toggleTableOpen={(event)=>toggleTableOpen(event)}/>
+      <Footer/>
     </div>
   );
 }

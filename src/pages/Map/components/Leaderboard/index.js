@@ -86,7 +86,7 @@ function Leaderboard({ columns, data, toggleTableOpen }) {
   const firstPageRows = rows.slice(0, 20);
 
   return (
-    <div className={cx('table-container')} onClick={()=>toggleTableOpen('open')}>
+    <div className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
         <thead>
           {headerGroups.map(headerGroup => (
@@ -107,7 +107,13 @@ function Leaderboard({ columns, data, toggleTableOpen }) {
                     {column.render('Header')}
 
                     {headerWithExplanation(column.id) &&
-                    <div className={cx('explanation-icon')}> ? </div>
+                    <div className={cx('explanation-icon')}>
+                      ?
+                      <div className={cx('explanation-tooltip',
+                        {centerPos:column.id === 'connections' || column.id === 'ibcReceived'})}>
+                       {column.descr}
+                      </div>
+                    </div>
                     }
 
                     {/*{column.isSorted ? (*/}
@@ -130,7 +136,8 @@ function Leaderboard({ columns, data, toggleTableOpen }) {
           {firstPageRows.map((row, i) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} className={cx('row')}>
+              <tr {...row.getRowProps()} className={cx('row')}
+                  onClick={()=>toggleTableOpen('open')}>
                 {row.cells.map(cell => {
                   return (
                     <td
