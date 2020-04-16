@@ -19,16 +19,10 @@ const getNodeRadius = weight =>
 
 function Graph({ data, isTableOpened, toggleTableOpen }) {
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [mousePos, setMousePos] = useState({offsetX:0, offsetY:0});
 
-  useEffect(()=> {
-    // document.querySelector('canvas')
-    //   .addEventListener('mousemove',
-    //     (e) => setMousePos({offsetX:e.offsetX, offsetY:e.offsetY}));
-  });
 
   const handler = (node) => {
-    setHoveredNode(node)
+
   };
 
 
@@ -46,14 +40,12 @@ function Graph({ data, isTableOpened, toggleTableOpen }) {
         }}
         linkColor={() => '#fff'}
         graphData={data}
-        onNodeHover={(node) => handler(node)}
+        onNodeHover={(node) => setHoveredNode(node)}
         nodeRelSize={12}
-        // enablePointerInteraction={false}
       />
 
       {hoveredNode &&
         <NodeTooltip
-          mousePos={mousePos}
           node={hoveredNode}
         />}
 
