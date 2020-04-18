@@ -4,11 +4,13 @@ import Leaderboard from './components/Leaderboard';
 import TxsActivityCell from './components/Leaderboard/cells/TxsActivity';
 import Graph from './components/Graph';
 import TotalStatTable from './components/TotalStatTable';
+import Footer from './components/Footer';
 import { makeLeaderboard, makeGraph } from './makeData';
 import { useZonesStat, useTotalStat } from './hooks';
 import PeriodSwitcher, { PERIODS } from './components/PeriodSwitcher';
 
 function Map() {
+  const [isTableOpened, setIsTableOpened] = useState(false);
   const [period, setPeriod] = useState(PERIODS[0]);
   const zones = useZonesStat({
     variables: { period: period.hours, step: period.step },
@@ -18,6 +20,10 @@ function Map() {
   });
 
   console.log(data);
+
+  const toggleTableOpen = (event) => {
+    setIsTableOpened(event === 'open');
+  };
 
   const columns = React.useMemo(
     () => [
@@ -31,31 +37,36 @@ function Map() {
         accessor: 'name',
       },
       {
-        Header: 'Overall txs',
+        Header: 'Total IBC Txs',
         accessor: 'totalTxs',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
-        Header: 'IBC all',
+        Header: 'Total Txs',
         accessor: 'ibcAll',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
-        Header: '% IBC',
+        Header: 'IBC share %',
         accessor: 'ibcPercentage',
       },
       {
         Header: 'IBC sent',
         accessor: 'ibcSent',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
         Header: 'IBC received',
         accessor: 'ibcReceived',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
-        Header: 'Connects',
+        Header: 'Channels',
         accessor: 'connections',
+        descr: 'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.'
       },
       {
-        Header: 'Txs activity',
+        Header: 'IBC txs activity',
         Cell: TxsActivityCell,
         accessor: 'txsActivity',
       },
@@ -80,10 +91,12 @@ function Map() {
         allChannels={data.allChannels}
         activeChannels={data.activeChannels}
         mostActiveZonesPair={data.mostActiveZonesPair}
+        isTableOpened={isTableOpened}
       />
-      <Graph data={graphData} />
+      <Graph data={graphData} isTableOpened={isTableOpened} toggleTableOpen={toggleTableOpen}/>
       <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
-      <Leaderboard columns={columns} data={leaderboardData} />
+      <Leaderboard columns={columns} data={leaderboardData} toggleTableOpen={(event)=>toggleTableOpen(event)}/>
+      <Footer/>
     </div>
   );
 }
