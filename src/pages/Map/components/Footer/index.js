@@ -1,38 +1,103 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames/bind';
+import { FormattedMessage } from 'react-intl';
+
+import { ReactComponent as FbLogo } from 'assets/images/fb-logo.svg';
+import { ReactComponent as GitHubLogo } from 'assets/images/github-logo.svg';
+import { ReactComponent as TgLogo } from 'assets/images/tg-logo.svg';
+import { ReactComponent as TwitterLogo } from 'assets/images/twitter-logo.svg';
+
 import styles from './index.module.css';
+
 const cx = classNames.bind(styles);
 
-function Footer () {
-
+function Footer() {
   return (
-    <div className={cx('footer-container')}>
-      <div className={cx('made-by-title')}>
-        Map of Zones by <span>Bitquasar.com</span> & <span>Ztake.org</span>
+    <div className={cx('container')}>
+      <div>
+        <FormattedMessage
+          id="developers-links"
+          defaultMessage="Map of Zones by {bitquasarLink} & {ztakeLink}"
+          values={{
+            bitquasarLink: (
+              <a
+                href="https://bitquasar.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cx('link')}
+              >
+                Bitquasar.com
+              </a>
+            ),
+            ztakeLink: (
+              <a
+                href="https://ztake.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cx('link')}
+              >
+                Ztake.org
+              </a>
+            ),
+          }}
+        />
       </div>
-      <div className={cx('social-container')}>
-        <a href='' target='_blank'>
-          <div className={cx('social-icon', 'facebook')}/>
-          <span>Facebook</span>
+      <div className={cx('socialContainer')}>
+        <a
+          href=""
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cx('link', 'socialLink')}
+        >
+          <FbLogo className={cx('socialIcon')} />
+          <span className={cx('socialName')}>Facebook</span>
         </a>
-        <a href='' target='_blank'>
-          <div className={cx('social-icon', 'github')}/>
-          <span>GitHub</span>
+        <a
+          href=""
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cx('link', 'socialLink')}
+        >
+          <GitHubLogo className={cx('socialIcon')} />
+          <span className={cx('socialName')}>GitHub</span>
         </a>
-        <a href='https://twitter.com/mapofzones' target='_blank'>
-          <div className={cx('social-icon', 'twitter')}/>
-          <span>Twitter</span>
+        <a
+          href="https://twitter.com/mapofzones"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cx('link', 'socialLink')}
+        >
+          <TwitterLogo className={cx('socialIcon')} />
+          <span className={cx('socialName')}>Twitter</span>
         </a>
-        <a href='https://t.me/MapOfZones' target='_blank'>
-          <div className={cx('social-icon', 'telegram')}/>
-          <span>Telegram</span>
+        <a
+          href="https://t.me/MapOfZones"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cx('link', 'socialLink')}
+        >
+          <TgLogo className={cx('socialIcon')} />
+          <span className={cx('socialName')}>Telegram</span>
         </a>
-        <a href=''>
-          <span>Contact us: </span>
-          hi@ztake.org
+        <a
+          href="mailto:hi@ztake.org"
+          className={cx('link', 'socialLink', 'contactUsLink')}
+        >
+          <span className={cx('contactUsTitle')}>
+            <FormattedMessage
+              id="contact-us-title"
+              defaultMessage="Contact us: "
+            />
+          </span>
+          <span className={cx('socialName')}>hi@ztake.org</span>
         </a>
       </div>
-      <div className={cx('title-mobile')}>We on social media</div>
+      <div className={cx('socialMediaTitle')}>
+        <FormattedMessage
+          id="social-media-title"
+          defaultMessage="We on social media"
+        />
+      </div>
     </div>
   );
 }
