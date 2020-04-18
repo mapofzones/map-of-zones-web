@@ -11,7 +11,6 @@ const ZONES_STAT = gql`
       ibc_percent
       ibc_tx_in
       ibc_tx_out
-      ibc_tx_weight
       total_ibc_txs
       total_txs
       zone
@@ -31,13 +30,34 @@ const ZONES_STAT = gql`
   }
 `;
 
-// TODO
 const transform = data => {
   if (!data) {
     return data;
   }
 
-  return data.get_full_stats_for_each_zone;
+  return data.get_full_stats_for_each_zone.map(
+    ({
+      zone,
+      chart,
+      total_txs,
+      total_ibc_txs,
+      ibc_percent,
+      ibc_tx_in,
+      ibc_tx_out,
+      channels_num,
+    }) => {
+      return {
+        name: zone,
+        txsActivity: chart,
+        totalTxs: total_txs,
+        totalIbcTxs: total_ibc_txs,
+        ibcPercentage: ibc_percent,
+        ibcSent: ibc_tx_out,
+        ibcReceived: ibc_tx_in,
+        channels: channels_num,
+      };
+    },
+  );
 };
 
 export const useZonesStat = options => {
