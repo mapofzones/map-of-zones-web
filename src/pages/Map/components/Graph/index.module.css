@@ -1,0 +1,17 @@
+.graph-container {
+    overflow: hidden;
+    position: relative;
+}
+.graph-container.blurMap canvas {
+    filter: blur(3px);
+}
+.close-table-button {
+    position: absolute;
+    right: 13px;
+    bottom: 15px;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 100%;
+    color: #FFFFFF;
+    cursor: pointer;
+}

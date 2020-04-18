@@ -17,9 +17,10 @@ function TotalStatTable({
   allChannels,
   activeChannels,
   mostActiveZonesPair,
+  isTableOpened
 }) {
   return (
-    <div className={cx('container')}>
+    <div className={cx('container', {tableOpened:isTableOpened})}>
       <div className={cx('item')}>
         <div className={cx('statContainer')}>
           <div className={cx('statName')}>

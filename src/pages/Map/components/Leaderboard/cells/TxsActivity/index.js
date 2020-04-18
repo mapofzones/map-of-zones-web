@@ -3,14 +3,15 @@ import { Area, AreaChart, ResponsiveContainer } from 'recharts';
 
 function TxsActivity({ cell }) {
   return (
-    <ResponsiveContainer height={20}>
+    <ResponsiveContainer height={26}>
       <AreaChart data={cell.value} margin={{ bottom: 0 }}>
         <Area
           strokeWidth={2}
           type="linear"
           dataKey="tx"
-          stroke="#6ea77f"
-          fill="#5CA97B"
+          stroke={cell.value[0].tx < cell.value[cell.value.length-1].tx ? "#5ca97b" : "#fc7070" }
+          fill={cell.value[0].tx < cell.value[cell.value.length-1].tx ? "#edf6e5" : "#ffeded" }
+          fillOpacity="1"
         />
       </AreaChart>
     </ResponsiveContainer>
