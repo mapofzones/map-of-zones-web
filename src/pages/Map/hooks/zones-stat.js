@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -59,6 +60,7 @@ const transform = data => {
 
 export const useZonesStat = options => {
   const { data, ...rest } = useQuery(ZONES_STAT, options);
+  const transformedData = useMemo(() => transform(data), [data]);
 
-  return { ...rest, data: transform(data) };
+  return { ...rest, data: transformedData };
 };

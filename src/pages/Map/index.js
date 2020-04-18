@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import Leaderboard from './components/Leaderboard';
-import TxsActivityCell from './components/Leaderboard/cells/TxsActivity';
 import Graph from './components/Graph';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
@@ -21,60 +20,6 @@ function Map() {
   const toggleTableOpen = event => {
     setIsTableOpened(event === 'open');
   };
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: '#',
-        id: 'position',
-        accessor: (originalRow, rowIndex) => rowIndex,
-      },
-      {
-        Header: 'Zone',
-        accessor: 'name',
-      },
-      {
-        Header: 'Total IBC Txs',
-        accessor: 'totalTxs',
-        descr:
-          'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
-      },
-      {
-        Header: 'Total Txs',
-        accessor: 'totalIbcTxs',
-        descr:
-          'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
-      },
-      {
-        Header: 'IBC share %',
-        accessor: 'ibcPercentage',
-      },
-      {
-        Header: 'IBC sent',
-        accessor: 'ibcSent',
-        descr:
-          'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
-      },
-      {
-        Header: 'IBC received',
-        accessor: 'ibcReceived',
-        descr:
-          'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
-      },
-      {
-        Header: 'Channels',
-        accessor: 'channels',
-        descr:
-          'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
-      },
-      {
-        Header: 'IBC txs activity',
-        Cell: TxsActivityCell,
-        accessor: 'txsActivity',
-      },
-    ],
-    [],
-  );
 
   if (!totalStat || !zonesStat) {
     return null; // TODO: Add spinner
@@ -101,7 +46,6 @@ function Map() {
       />
       <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
       <Leaderboard
-        columns={columns}
         data={zonesStat.nodes}
         toggleTableOpen={event => toggleTableOpen(event)}
       />

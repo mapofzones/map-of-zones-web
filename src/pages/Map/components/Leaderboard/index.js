@@ -3,12 +3,13 @@ import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
 
 import { ReactComponent as ArrowDown } from 'assets/images/arrow-down.svg';
+import columns from './config';
 
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function Leaderboard({ columns, data, toggleTableOpen }) {
+function Leaderboard({ data, toggleTableOpen }) {
   const {
     getTableProps,
     getTableBodyProps,
