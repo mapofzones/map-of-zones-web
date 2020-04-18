@@ -1,31 +1,15 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
+import { getZoneColor } from 'common/helper';
+
 const ZONES_STAT = gql`
   query ZonesStat($period: Int!, $step: Int!) {
-    get_full_stats_for_each_zone(
+    get_nodes_stats_with_graph_on_period(
       args: { period_in_hours: $period, step_in_hours: $step }
     ) {
-      channels_num
-      chart
-      ibc_percent
-      ibc_tx_in
-      ibc_tx_out
-      total_ibc_txs
-      total_txs
-      zone
-      ibc_tx_in_diff
-      ibc_tx_in_rating
-      ibc_tx_in_rating_diff
-      ibc_tx_out_diff
-      ibc_tx_out_rating_diff
-      ibc_tx_out_rating
-      total_ibc_txs_rating
-      total_ibc_txs_diff
-      total_ibc_txs_rating_diff
-      total_txs_diff
-      total_txs_rating
-      total_txs_rating_diff
+      zones
+      graph
     }
   }
 `;
@@ -35,7 +19,9 @@ const transform = data => {
     return data;
   }
 
-  return data.get_full_stats_for_each_zone.map(
+  const { zones, graph } = data.get_nodes_stats_with_graph_on_period[0];
+
+  const zonesFormatted = zones.map(
     ({
       zone,
       chart,
@@ -45,19 +31,30 @@ const transform = data => {
       ibc_tx_in,
       ibc_tx_out,
       channels_num,
+      total_ibc_txs_weight,
     }) => {
       return {
+        id: zone,
         name: zone,
         txsActivity: chart,
         totalTxs: total_txs,
         totalIbcTxs: total_ibc_txs,
         ibcPercentage: ibc_percent,
         ibcSent: ibc_tx_out,
+        ibcSentPercentage: (ibc_tx_out / total_ibc_txs) || 0,
         ibcReceived: ibc_tx_in,
+        ibcReceivedPercentage: (ibc_tx_in / total_ibc_txs) || 0,
         channels: channels_num,
+        ibcTxsWeight: total_ibc_txs_weight,
+        color: getZoneColor(ibc_tx_out / total_ibc_txs),
       };
     },
   );
+
+  return {
+    nodes: zonesFormatted,
+    links: graph,
+  };
 };
 
 export const useZonesStat = options => {
