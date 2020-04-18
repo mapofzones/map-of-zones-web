@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
 import { FormattedMessage } from 'react-intl';
-import { getZoneColor } from 'common/helper';
 
 import NodeTooltip from './NodeHoverTooltip';
 
@@ -10,15 +9,15 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-const MAX_SIZE = 40;
+const MAX_SIZE = 20;
 
-function Graph({ data, isTableOpened, toggleTableOpen }) {
+function Graph({ data, isTableOpened, toggleTableOpen, period }) {
   const [hoveredNode, setHoveredNode] = useState(null);
   const fgRef = useRef();
 
   useEffect(() => {
     // TODO
-    fgRef.current.d3Force('link').distance(() => MAX_SIZE * 2);
+    // fgRef.current.d3Force('link').distance(() => MAX_SIZE * 2);
   }, []);
 
   return (
@@ -28,13 +27,14 @@ function Graph({ data, isTableOpened, toggleTableOpen }) {
         enableZoomPanInteraction={false}
         height={500}
         nodeRelSize={MAX_SIZE}
-        nodeVal={({ weight }) => weight}
-        nodeColor={({ sentPercentage }) => getZoneColor(sentPercentage)}
+        nodeVal={({ ibcTxsWeight }) => ibcTxsWeight}
+        nodeColor={({ color }) => color}
+        nodeLabel={null}
         linkColor={() => '#fff'}
         graphData={data}
         onNodeHover={node => setHoveredNode(node)}
       />
-      {hoveredNode && <NodeTooltip node={hoveredNode} />}
+      {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
       {isTableOpened && (
         <div className={cx('closeTableButton')} onClick={toggleTableOpen}>
           <FormattedMessage
