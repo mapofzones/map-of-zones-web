@@ -30,15 +30,18 @@ const transform = data => {
     chart,
   } = data.get_total_stats[0];
 
-  const sourceSent = 10; // TODO: tmp data
-
   const ibcTxs = chart.reduce((acc, { txs }) => acc + txs, 0);
-  const mostActiveZonesPair = top_zone_pair[0]
+  const topZonePair = top_zone_pair[0];
+  const mostActiveZonesPair = topZonePair
     ? {
-        ...top_zone_pair[0],
-        sourceColor: getZoneColor(sourceSent / top_zone_pair[0].ibc),
+        source: topZonePair.source,
+        target: topZonePair.target,
+        ibc: topZonePair.ibc,
+        sourceColor: getZoneColor(
+          topZonePair.source_to_target_txs / topZonePair.ibc,
+        ),
         targetColor: getZoneColor(
-          (top_zone_pair[0].ibc - sourceSent) / top_zone_pair[0].ibc,
+          topZonePair.target_to_source_txs / topZonePair.ibc,
         ),
       }
     : null;
