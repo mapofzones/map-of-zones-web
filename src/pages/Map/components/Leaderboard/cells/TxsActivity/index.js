@@ -8,9 +8,9 @@ function TxsActivity({ cell }) {
         <Area
           strokeWidth={2}
           type="linear"
-          dataKey="tx"
-          stroke={cell.value[0].tx < cell.value[cell.value.length-1].tx ? "#5ca97b" : "#fc7070" }
-          fill={cell.value[0].tx < cell.value[cell.value.length-1].tx ? "#edf6e5" : "#ffeded" }
+          dataKey="txs"
+          stroke={cell.value[0].txs < cell.value[cell.value.length-1].txs ? "#5ca97b" : "#fc7070" }
+          fill={cell.value[0].txs < cell.value[cell.value.length-1].txs ? "#edf6e5" : "#ffeded" }
           fillOpacity="1"
         />
       </AreaChart>

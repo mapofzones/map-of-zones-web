@@ -26,7 +26,7 @@ function Leaderboard({ columns, data, toggleTableOpen }) {
   const headerWithSort = (id) => {
     switch (id) {
       case 'totalTxs':
-      case 'ibcAll':
+      case 'totalIbcTxs':
       case 'ibcSent':
       case 'ibcReceived':
         return true;
@@ -37,10 +37,10 @@ function Leaderboard({ columns, data, toggleTableOpen }) {
   const headerWithExplanation = (id) => {
     switch (id) {
       case 'totalTxs':
-      case 'ibcAll':
+      case 'totalIbcTxs':
       case 'ibcSent':
       case 'ibcReceived':
-      case 'connections':
+      case 'channels':
         return true;
       default:
         return false;
@@ -110,7 +110,7 @@ function Leaderboard({ columns, data, toggleTableOpen }) {
                     <div className={cx('explanation-icon')}>
                       ?
                       <div className={cx('explanation-tooltip',
-                        {centerPos:column.id === 'connections' || column.id === 'ibcReceived'})}>
+                        {centerPos:column.id === 'channels' || column.id === 'ibcReceived'})}>
                        {column.descr}
                       </div>
                     </div>
