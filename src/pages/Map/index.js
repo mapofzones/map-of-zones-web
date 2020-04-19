@@ -4,8 +4,9 @@ import Leaderboard from './components/Leaderboard';
 import Graph from './components/Graph';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
+import ZonesFilter from './components/ZonesFilter';
+import { PERIODS } from './components/PeriodSwitcher';
 import { useZonesStat, useTotalStat } from './hooks';
-import PeriodSwitcher, { PERIODS } from './components/PeriodSwitcher';
 
 function Map() {
   const [isTableOpened, setIsTableOpened] = useState(false);
@@ -44,7 +45,7 @@ function Map() {
         isTableOpened={isTableOpened}
         toggleTableOpen={toggleTableOpen}
       />
-      <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
+      <ZonesFilter hours={period.hours} setPeriod={setPeriod} />
       <Leaderboard
         data={zonesStat.nodes}
         toggleTableOpen={event => toggleTableOpen(event)}
