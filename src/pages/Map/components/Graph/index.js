@@ -5,7 +5,8 @@ import ForceGraph2D from 'react-force-graph-2d';
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 
-import NodeTooltip from './NodeHoverTooltip';
+import NodeTooltip from './NodeTooltip';
+import ZonesColorDescriptor from './ZonesColorDescriptor';
 
 import styles from './index.module.css';
 
@@ -50,6 +51,7 @@ function Graph({ data, isBlurred, period }) {
         onNodeHover={node => setHoveredNode(node)}
       />
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
+      <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
       <div className={cx('zoomButtonsContainer')}>
         <button type="button" onClick={zoomIn} className={cx('zoomButton')}>
           <PlusSign />

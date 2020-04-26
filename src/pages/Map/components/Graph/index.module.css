@@ -29,3 +29,10 @@
   margin-bottom: 5px;
   cursor: pointer;
 }
+
+.zonesColorDescriptor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 13px;
+}

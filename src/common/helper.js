@@ -9,4 +9,11 @@ const gradient = tinygradient([
 ]);
 
 export const getZoneColor = sentPercentage =>
-  gradient.rgbAt(sentPercentage || 0).toHexString();
+  gradient.rgbAt(1 - (sentPercentage || 0)).toHexString();
+
+export function roundNumber(number, decimalDigits = 0) {
+  return parseFloat(parseFloat(number).toFixed(decimalDigits));
+}
+
+export const formatPercentage = (percentage, decimalDigits) =>
+  `${roundNumber(percentage * 100, decimalDigits)}%`;

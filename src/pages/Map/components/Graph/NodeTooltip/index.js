@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
+import { roundNumber, formatPercentage } from 'common/helper';
+
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
-
-const formatPercentage = percentage => `${percentage * 100}%`;
 
 function NodeTooltip({ node, period }) {
   const [isActive, setIsActive] = useState(false);
@@ -46,7 +46,9 @@ function NodeTooltip({ node, period }) {
         </div>
         <div className={cx('col')}>
           <div className={cx('key-text')}>% IBC</div>
-          <div className={cx('item-text')}>{node.ibcPercentage}</div>
+          <div className={cx('item-text')}>
+            {roundNumber(node.ibcPercentage, 2)}
+          </div>
         </div>
       </div>
       <div className={cx('row-tooltip')}>
@@ -54,14 +56,14 @@ function NodeTooltip({ node, period }) {
           <div className={cx('key-text')}>IBC Sent</div>
           <div className={cx('item-text')}>{node.ibcSent}</div>
           <div className={cx('item-text', 'sent-title')}>
-            {formatPercentage(node.ibcSentPercentage)}
+            {formatPercentage(node.ibcSentPercentage, 2)}
           </div>
         </div>
         <div className={cx('col')}>
           <div className={cx('key-text')}>IBC received</div>
           <div className={cx('item-text')}>{node.ibcReceived}</div>
           <div className={cx('item-text', 'received-title')}>
-            {formatPercentage(node.ibcReceivedPercentage)}
+            {formatPercentage(node.ibcReceivedPercentage, 2)}
           </div>
         </div>
       </div>
