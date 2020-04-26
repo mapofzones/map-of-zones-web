@@ -17,3 +17,26 @@
   color: #ffffff;
   cursor: pointer;
 }
+
+.zoomButtonsContainer {
+  position: absolute;
+  right: 0;
+  top: 40%;
+  display: flex;
+  flex-direction: column;
+  margin: 13px;
+}
+
+.zoomButton {
+  width: 50px;
+  height: 50px;
+  background: rgba(64, 74, 100, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
