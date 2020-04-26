@@ -1,0 +1,54 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+
+import { ReactComponent as Logo } from 'assets/images/logo.svg';
+
+import Graph from '../Graph';
+import ZonesFilter from '../ZonesFilter';
+
+import styles from './index.module.css';
+
+const cx = classNames.bind(styles);
+
+function GraphContainer({
+  period,
+  zonesStat,
+  isTableOpened,
+  toggleTableOpen,
+  setPeriod,
+}) {
+  return (
+    <div className={cx('container')}>
+      <Graph
+        period={period.name}
+        data={zonesStat}
+        isTableOpened={isTableOpened}
+        toggleTableOpen={toggleTableOpen}
+      />
+      <Logo className={cx('logo')} />
+      <ZonesFilter
+        hours={period.hours}
+        setPeriod={setPeriod}
+        className={cx('filter')}
+      />
+    </div>
+  );
+}
+
+GraphContainer.propTypes = {
+  period: PropTypes.shape({
+    hours: PropTypes.number,
+    step: PropTypes.number,
+    name: PropTypes.node,
+  }),
+  zonesStat: PropTypes.shape({
+    nodes: PropTypes.array, // TODO
+    links: PropTypes.array, // TODO
+  }),
+  isTableOpened: PropTypes.bool,
+  toggleTableOpen: PropTypes.func,
+  setPeriod: PropTypes.func,
+};
+
+export default GraphContainer;

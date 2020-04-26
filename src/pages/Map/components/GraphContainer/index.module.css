@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+}
+
+.logo {
+  width: 116px;
+  position: absolute;
+  top: 0;
+  margin: 13px;
+}
+
+.filter {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

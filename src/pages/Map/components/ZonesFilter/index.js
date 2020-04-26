@@ -8,9 +8,9 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function ZonesFilter({ hours, setPeriod }) {
+function ZonesFilter({ hours, setPeriod, className }) {
   return (
-    <div className={cx('container')}>
+    <div className={cx('container', className)}>
       <div />
       <PeriodSwitcher hours={hours} onChange={setPeriod} />
     </div>
@@ -20,6 +20,7 @@ function ZonesFilter({ hours, setPeriod }) {
 ZonesFilter.propTypes = {
   hours: PropTypes.number,
   setPeriod: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default ZonesFilter;

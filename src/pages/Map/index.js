@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
 import Leaderboard from './components/Leaderboard';
-import Graph from './components/Graph';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
-import ZonesFilter from './components/ZonesFilter';
+import GraphContainer from './components/GraphContainer';
 import { PERIODS } from './components/PeriodSwitcher';
 import { useZonesStat, useTotalStat } from './hooks';
 
@@ -39,13 +38,13 @@ function Map() {
         mostActiveZonesPair={totalStat.mostActiveZonesPair}
         isTableOpened={isTableOpened}
       />
-      <Graph
-        period={period.name}
-        data={zonesStat}
+      <GraphContainer
+        period={period}
+        zonesStat={zonesStat}
         isTableOpened={isTableOpened}
         toggleTableOpen={toggleTableOpen}
+        setPeriod={setPeriod}
       />
-      <ZonesFilter hours={period.hours} setPeriod={setPeriod} />
       <Leaderboard
         data={zonesStat.nodes}
         toggleTableOpen={event => toggleTableOpen(event)}
