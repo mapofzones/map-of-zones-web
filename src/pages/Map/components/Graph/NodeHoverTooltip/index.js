@@ -12,7 +12,7 @@ function NodeTooltip({ node, period }) {
 
   useEffect(() => {
     setIsActive(true);
-  });
+  }, []);
 
   let mapTooltip = document.querySelector('.graph-tooltip');
 
