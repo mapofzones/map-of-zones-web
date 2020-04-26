@@ -24,7 +24,7 @@ const columns = [
   },
   {
     Header: 'IBC share %',
-    accessor: 'ibcPercentage',
+    accessor: 'ibcPercentage', // TODO: roundNumber
   },
   {
     Header: 'IBC sent',

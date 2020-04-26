@@ -1,0 +1,20 @@
+.circlesContainer {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.circle {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.descriptionsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.description {
+  font-size: 12px;
+  line-height: 100%;
+}
