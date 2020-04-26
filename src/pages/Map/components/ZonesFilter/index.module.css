@@ -2,3 +2,18 @@
   display: flex;
   justify-content: space-between;
 }
+
+.closeTableButton {
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 100%;
+  color: #fff;
+  cursor: pointer;
+  margin: 15px;
+  border: none;
+  background-color: inherit;
+}
+
+.arrowTop {
+  margin-right: 8px;
+}

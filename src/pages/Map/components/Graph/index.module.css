@@ -3,19 +3,8 @@
   position: relative;
 }
 
-.blurMap canvas {
+.container.blurred canvas {
   filter: blur(3px);
-}
-
-.closeTableButton {
-  position: absolute;
-  right: 13px;
-  bottom: 15px;
-  font-weight: 800;
-  font-size: 20px;
-  line-height: 100%;
-  color: #ffffff;
-  cursor: pointer;
 }
 
 .zoomButtonsContainer {
