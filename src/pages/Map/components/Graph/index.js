@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
-import { FormattedMessage } from 'react-intl';
 
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
@@ -14,7 +13,7 @@ const cx = classNames.bind(styles);
 
 const MAX_SIZE = 20;
 
-function Graph({ data, isTableOpened, toggleTableOpen, period }) {
+function Graph({ data, isBlurred, period }) {
   const [hoveredNode, setHoveredNode] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const fgRef = useRef();
@@ -37,7 +36,7 @@ function Graph({ data, isTableOpened, toggleTableOpen, period }) {
   const zoomOut = useCallback(() => zoom(0.5), [zoom]);
 
   return (
-    <div className={cx('container', { blurMap: isTableOpened })}>
+    <div className={cx('container', { blurred: isBlurred })}>
       <ForceGraph2D
         ref={fgRef}
         enableZoomPanInteraction={false}
@@ -51,14 +50,6 @@ function Graph({ data, isTableOpened, toggleTableOpen, period }) {
         onNodeHover={node => setHoveredNode(node)}
       />
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
-      {isTableOpened && (
-        <div className={cx('closeTableButton')} onClick={toggleTableOpen}>
-          <FormattedMessage
-            id="back-to-map-title"
-            defaultMessage="Back to Map"
-          />
-        </div>
-      )}
       <div className={cx('zoomButtonsContainer')}>
         <button type="button" onClick={zoomIn} className={cx('zoomButton')}>
           <PlusSign />

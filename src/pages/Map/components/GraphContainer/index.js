@@ -23,14 +23,15 @@ function GraphContainer({
       <Graph
         period={period.name}
         data={zonesStat}
-        isTableOpened={isTableOpened}
-        toggleTableOpen={toggleTableOpen}
+        isBlurred={isTableOpened}
       />
       <Logo className={cx('logo')} />
       <ZonesFilter
         hours={period.hours}
         setPeriod={setPeriod}
         className={cx('filter')}
+        isTableOpened={isTableOpened}
+        toggleTableOpen={toggleTableOpen}
       />
     </div>
   );
