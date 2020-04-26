@@ -1,3 +1,5 @@
+import { roundNumber } from 'common/helper';
+
 import TxsActivityCell from './cells/TxsActivity';
 
 const columns = [
@@ -12,19 +14,20 @@ const columns = [
   },
   {
     Header: 'Total IBC Txs',
-    accessor: 'totalTxs',
-    descr:
-      'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
-  },
-  {
-    Header: 'Total Txs',
     accessor: 'totalIbcTxs',
     descr:
       'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
   },
   {
+    Header: 'Total Txs',
+    accessor: 'totalTxs',
+    descr:
+      'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
+  },
+  {
     Header: 'IBC share %',
-    accessor: 'ibcPercentage', // TODO: roundNumber
+    accessor: 'ibcPercentage',
+    Cell: ({ cell }) => roundNumber(cell.value, 2),
   },
   {
     Header: 'IBC sent',
