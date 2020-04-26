@@ -35,6 +35,9 @@ function Graph({ data, isBlurred, period }) {
   );
   const zoomIn = useCallback(() => zoom(2), [zoom]);
   const zoomOut = useCallback(() => zoom(0.5), [zoom]);
+  const onNodeHover = useCallback(node => setHoveredNode(node), []);
+  const linkColor = useCallback(() => '#fff', []);
+  const nodeVal = useCallback(({ ibcTxsWeight }) => ibcTxsWeight, []);
 
   return (
     <div className={cx('container', { blurred: isBlurred })}>
@@ -43,12 +46,12 @@ function Graph({ data, isBlurred, period }) {
         enableZoomPanInteraction={false}
         height={500}
         nodeRelSize={MAX_SIZE}
-        nodeVal={({ ibcTxsWeight }) => ibcTxsWeight}
-        nodeColor={({ color }) => color}
+        nodeVal={nodeVal}
+        nodeColor="color"
         nodeLabel={null}
-        linkColor={() => '#fff'}
+        linkColor={linkColor}
         graphData={data}
-        onNodeHover={node => setHoveredNode(node)}
+        onNodeHover={onNodeHover}
       />
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
       <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
