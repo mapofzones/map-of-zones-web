@@ -16,6 +16,7 @@ const ZONES_STAT = gql`
 `;
 
 const MIN_WEIGHT = 0.005;
+const DEFAULT_COLOR = '#72727A';
 
 const getMinimumWeight = (zones, key) =>
   Math.min(1, ...zones.map(({ [key]: weight }) => weight).filter(Boolean)) / 2;
@@ -72,7 +73,9 @@ const transform = data => {
         ibcReceived: ibc_tx_in,
         ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
         channels: channels_num,
-        color: getZoneColor(ibc_tx_out / total_ibc_txs),
+        color: total_ibc_txs
+          ? getZoneColor(ibc_tx_out / total_ibc_txs)
+          : DEFAULT_COLOR,
         ibcTxsWeight: Math.max(
           total_ibc_txs_weight || defaultIbcTxsWeight,
           MIN_WEIGHT,
