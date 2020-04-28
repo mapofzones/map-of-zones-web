@@ -1,6 +1,18 @@
 .container {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  padding: 12px;
+}
+
+.sortContainer {
+  font-weight: 800;
+  font-size: 30px;
+  color: #fff;
+}
+
+.sort {
+  color: #949494;
 }
 
 .closeTableButton {

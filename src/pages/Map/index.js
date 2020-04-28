@@ -10,6 +10,7 @@ import { useZonesStat, useTotalStat } from './hooks';
 function Map() {
   const [isTableOpened, setIsTableOpened] = useState(false);
   const [period, setPeriod] = useState(PERIODS[0]);
+  const [sortedByColumn, setSort] = useState(undefined);
   const { data: zonesStat } = useZonesStat({
     variables: { period: period.hours, step: period.step },
   });
@@ -44,10 +45,13 @@ function Map() {
         isTableOpened={isTableOpened}
         toggleTableOpen={toggleTableOpen}
         setPeriod={setPeriod}
+        sortBy={sortedByColumn?.Header}
+        isSortedDesc={sortedByColumn?.isSortedDesc}
       />
       <Leaderboard
         data={zonesStat.nodes}
         toggleTableOpen={event => toggleTableOpen(event)}
+        onSortChange={setSort}
       />
       <Footer />
     </div>

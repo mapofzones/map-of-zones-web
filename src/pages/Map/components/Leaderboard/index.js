@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
 
 import { ReactComponent as ArrowDown } from 'assets/images/arrow-down.svg';
-import columns from './config';
+import columnsConfig from './config';
 
 import styles from './index.module.css';
 
@@ -25,20 +25,26 @@ function Leaderboard({
     rows,
     prepareRow,
     state,
+    columns,
   } = useTable(
     {
-      columns,
       data,
       initialState,
       disableMultiSort,
       disableSortRemove,
+      columns: columnsConfig,
     },
     useSortBy,
   );
 
-  const sortedColumn = state?.sortBy?.[0]?.id;
+  const sortBy = state?.sortBy?.[0];
+  const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
-  useEffect(() => onSortChange(sortedColumn), [sortedColumn, onSortChange]);
+  useEffect(() => onSortChange({ ...sortedColumn }), [
+    sortBy,
+    sortedColumn,
+    onSortChange,
+  ]);
 
   const headerWithExplanation = id => {
     switch (id) {
