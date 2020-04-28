@@ -52,14 +52,10 @@ const transform = data => {
     },
   );
 
-  const linksFormatted = graph.map(
-    ({
-       source,
-      target
-     }) => {
-      return {source: source, target:target};
-    },
-  );
+  const linksFormatted = graph.map(({ source, target }) => ({
+    source,
+    target,
+  }));
 
   return {
     nodes: zonesFormatted,
