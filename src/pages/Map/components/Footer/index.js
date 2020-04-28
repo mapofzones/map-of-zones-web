@@ -89,7 +89,7 @@ function Footer() {
               defaultMessage="Contact us: "
             />
           </span>
-          <span className={cx('socialName')}>hi@ztake.org</span>
+          <span className={cx('socialName')}>support@mapofzones.com</span>
         </a>
       </div>
       <div className={cx('socialMediaTitle')}>
