@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
 
@@ -21,6 +22,14 @@ function Leaderboard({ data, toggleTableOpen, onSortChange }) {
     {
       columns,
       data,
+      initialState: {
+        sortBy: [
+          {
+            id: 'totalIbcTxs',
+            desc: false,
+          },
+        ],
+      },
     },
     useSortBy,
   );
@@ -29,17 +38,6 @@ function Leaderboard({ data, toggleTableOpen, onSortChange }) {
 
   useEffect(() => onSortChange(sortedColumn), [sortedColumn, onSortChange]);
 
-  const headerWithSort = id => {
-    switch (id) {
-      case 'totalTxs':
-      case 'totalIbcTxs':
-      case 'ibcSent':
-      case 'ibcReceived':
-        return true;
-      default:
-        return false;
-    }
-  };
   const headerWithExplanation = id => {
     switch (id) {
       case 'totalTxs':
@@ -80,7 +78,7 @@ function Leaderboard({ data, toggleTableOpen, onSortChange }) {
         return (
           <span className={cx('text-container')}>
             {cell.render('Cell')}
-            {headerWithSort(cell.column.id) && (
+            {!cell.column.disableSortBy && (
               <div
                 className={cx('shift-tooltip', {
                   negative: cell.value - cell.row.values.ibcReceived < 0,
@@ -104,11 +102,7 @@ function Leaderboard({ data, toggleTableOpen, onSortChange }) {
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
                 <th
-                  {...column.getHeaderProps(
-                    headerWithSort(column.id)
-                      ? column.getSortByToggleProps()
-                      : undefined,
-                  )}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                   className={cx('header', column.id, {
                     sortedColumn: column.isSorted,
                   })}
@@ -130,13 +124,21 @@ function Leaderboard({ data, toggleTableOpen, onSortChange }) {
                         </div>
                       </div>
                     )}
-                    {headerWithSort(column.id) ? (
-                      <div className={cx('sort-arrow-wrapper')}>
-                        <ArrowDown />
-                        <ArrowDown />
+                    {!column.disableSortBy && (
+                      <div className={cx('sortArrowWrapper')}>
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <ArrowDown className={cx('arrow')} />
+                          ) : (
+                            <ArrowDown className={cx('arrow', 'arrowUp')} />
+                          )
+                        ) : (
+                          <div>
+                            <ArrowDown className={cx('arrow', 'arrowUp')} />
+                            <ArrowDown className={cx('arrow')} />
+                          </div>
+                        )}
                       </div>
-                    ) : (
-                      ''
                     )}
                   </div>
                 </th>
@@ -176,5 +178,16 @@ function Leaderboard({ data, toggleTableOpen, onSortChange }) {
     </div>
   );
 }
+
+Leaderboard.propTypes = {
+  data: PropTypes.array, // TODO
+  onSortChange: PropTypes.func,
+  toggleTableOpen: PropTypes.func,
+};
+
+Leaderboard.defaultProps = {
+  onSortChange: () => {},
+  toggleTableOpen: () => {},
+};
 
 export default Leaderboard;

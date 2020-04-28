@@ -177,28 +177,24 @@
   background: var(--color-regular);
   height: 2px;
 }
-.sort-arrow-wrapper {
+
+.sortArrowWrapper {
   display: block;
   padding-left: 6px;
 }
 
-.sort-arrow-wrapper > svg {
+.arrow {
   width: 10px;
   display: block;
-}
-.sort-arrow-wrapper > svg:first-child {
-  transform: rotate(-180deg);
-}
-.sort-arrow-wrapper > svg:last-child {
-  position: relative;
-  top: 1px;
+  color: var(--table-gray);
 }
 
-.sort-arrow-wrapper > svg path {
-  fill: var(--table-gray);
+.header.sortedColumn .arrow {
+  color: var(--color-regular);
 }
-.header.sortedColumn .sort-arrow-wrapper > svg path {
-  fill: var(--color-regular);
+
+.arrowUp {
+  transform: rotate(-180deg);
 }
 
 /*header-icons*/
