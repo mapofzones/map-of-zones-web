@@ -17,10 +17,10 @@ function TotalStatTable({
   allChannels,
   activeChannels,
   mostActiveZonesPair,
-  isTableOpened
+  isTableOpened,
 }) {
   return (
-    <div className={cx('container', {tableOpened:isTableOpened})}>
+    <div className={cx('container', { tableOpened: isTableOpened })}>
       <div className={cx('item')}>
         <div className={cx('statContainer')}>
           <div className={cx('statName')}>
@@ -98,14 +98,27 @@ function TotalStatTable({
       </div>
       <div className={cx('item')}>
         <div className={cx('statContainer')}>
-          <div className={cx('statName')}>
-            <FormattedMessage
-              id="most-active-zones-pair-stat"
-              defaultMessage="Most Active Pair of Zones {period}"
-              values={{
-                period: <span className={cx('period')}>{period}</span>,
-              }}
-            />
+          <div className={cx('statNameContainer')}>
+            <div className={cx('statName')}>
+              <FormattedMessage
+                id="most-active-zones-pair-stat"
+                defaultMessage="Most Active Pair of Zones {period}"
+                values={{
+                  period: <span className={cx('period')}>{period}</span>,
+                }}
+              />
+            </div>
+            {mostActiveZonesPair?.ibc && (
+              <div className={cx('mostActiveZonesPairTxs')}>
+                <FormattedMessage
+                  id="most-active-zones-pair-ibc-txs"
+                  defaultMessage="{txs} Txs"
+                  values={{
+                    txs: mostActiveZonesPair.ibc,
+                  }}
+                />
+              </div>
+            )}
           </div>
           {mostActiveZonesPair && (
             <div className={cx('mostActiveZonesPair')}>
