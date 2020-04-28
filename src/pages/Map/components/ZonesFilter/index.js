@@ -17,10 +17,35 @@ function ZonesFilter({
   className,
   isTableOpened,
   toggleTableOpen,
+  sortBy,
+  isSortedDesc,
 }) {
   return (
     <div className={cx('container', className)}>
-      <div />
+      <div className={cx('sortContainer')}>
+        {sortBy && (
+          <FormattedMessage
+            id="zones-sort-title"
+            defaultMessage="{desc} Active Zones {sort}"
+            values={{
+              desc: isSortedDesc ? (
+                <FormattedMessage id="most" defaultMessage="Most" />
+              ) : (
+                <FormattedMessage id="least" defaultMessage="Least" />
+              ),
+              sort: (
+                <span className={cx('sort')}>
+                  <FormattedMessage
+                    id="sort-by"
+                    defaultMessage="by {sortBy}"
+                    values={{ sortBy }}
+                  />
+                </span>
+              ),
+            }}
+          />
+        )}
+      </div>
       {isTableOpened ? (
         <button
           type="button"
@@ -46,6 +71,8 @@ ZonesFilter.propTypes = {
   className: PropTypes.string,
   isTableOpened: PropTypes.bool,
   toggleTableOpen: PropTypes.func,
+  sortBy: PropTypes.node,
+  isSortedDesc: PropTypes.bool,
 };
 
 export default ZonesFilter;

@@ -17,16 +17,16 @@ function GraphContainer({
   isTableOpened,
   toggleTableOpen,
   setPeriod,
+  sortBy,
+  isSortedDesc,
 }) {
   return (
     <div className={cx('container')}>
-      <Graph
-        period={period.name}
-        data={zonesStat}
-        isBlurred={isTableOpened}
-      />
+      <Graph period={period.name} data={zonesStat} isBlurred={isTableOpened} />
       <Logo className={cx('logo')} />
       <ZonesFilter
+        sortBy={sortBy}
+        isSortedDesc={isSortedDesc}
         hours={period.hours}
         setPeriod={setPeriod}
         className={cx('filter')}
@@ -50,6 +50,8 @@ GraphContainer.propTypes = {
   isTableOpened: PropTypes.bool,
   toggleTableOpen: PropTypes.func,
   setPeriod: PropTypes.func,
+  sortBy: PropTypes.node,
+  isSortedDesc: PropTypes.bool,
 };
 
 export default GraphContainer;
