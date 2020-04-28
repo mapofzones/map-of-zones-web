@@ -15,12 +15,35 @@ const ZONES_STAT = gql`
   }
 `;
 
+const MIN_WEIGHT = 0.005;
+
+const getMinimumWeight = (zones, key) =>
+  Math.min(1, ...zones.map(({ [key]: weight }) => weight).filter(Boolean)) / 2;
+
 const transform = data => {
   if (!data) {
     return data;
   }
 
   const { zones, graph } = data.get_nodes_stats_with_graph_on_period[0];
+
+  const asd = zones.reduce(
+    (
+      acc,
+      {
+        total_ibc_txs_weight,
+        total_txs_weight,
+        ibc_tx_in_weight,
+        ibc_tx_out_weight,
+      },
+    ) => acc + total_ibc_txs_weight,
+    0,
+  );
+
+  const defaultIbcTxsWeight = getMinimumWeight(zones, 'total_ibc_txs_weight');
+  const defaultTxsWeight = getMinimumWeight(zones, 'total_txs_weight');
+  const defaultIbcReceivedWeight = getMinimumWeight(zones, 'ibc_tx_in_weight');
+  const defaultIbcSentWeight = getMinimumWeight(zones, 'ibc_tx_out_weight');
 
   const zonesFormatted = zones.map(
     ({
@@ -49,11 +72,20 @@ const transform = data => {
         ibcReceived: ibc_tx_in,
         ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
         channels: channels_num,
-        ibcTxsWeight: total_ibc_txs_weight,
-        txsWeight: total_txs_weight,
-        ibcReceivedWeight: ibc_tx_in_weight,
-        ibcSentWeight: ibc_tx_out_weight,
         color: getZoneColor(ibc_tx_out / total_ibc_txs),
+        ibcTxsWeight: Math.max(
+          total_ibc_txs_weight || defaultIbcTxsWeight,
+          MIN_WEIGHT,
+        ),
+        txsWeight: Math.max(total_txs_weight || defaultTxsWeight, MIN_WEIGHT),
+        ibcReceivedWeight: Math.max(
+          ibc_tx_in_weight || defaultIbcReceivedWeight,
+          MIN_WEIGHT,
+        ),
+        ibcSentWeight: Math.max(
+          ibc_tx_out_weight || defaultIbcSentWeight,
+          MIN_WEIGHT,
+        ),
       };
     },
   );
