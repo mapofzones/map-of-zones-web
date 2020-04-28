@@ -10,7 +10,13 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function Leaderboard({ data, toggleTableOpen, onSortChange }) {
+function Leaderboard({
+  data,
+  toggleTableOpen,
+  onSortChange,
+  initialState,
+  disableMultiSort,
+}) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -22,14 +28,8 @@ function Leaderboard({ data, toggleTableOpen, onSortChange }) {
     {
       columns,
       data,
-      initialState: {
-        sortBy: [
-          {
-            id: 'totalIbcTxs',
-            desc: false,
-          },
-        ],
-      },
+      initialState,
+      disableMultiSort,
     },
     useSortBy,
   );
@@ -183,11 +183,22 @@ Leaderboard.propTypes = {
   data: PropTypes.array, // TODO
   onSortChange: PropTypes.func,
   toggleTableOpen: PropTypes.func,
+  initialState: PropTypes.object,
+  disableMultiSort: PropTypes.bool,
 };
 
 Leaderboard.defaultProps = {
   onSortChange: () => {},
   toggleTableOpen: () => {},
+  initialState: {
+    sortBy: [
+      {
+        id: 'totalIbcTxs',
+        desc: false,
+      },
+    ],
+  },
+  disableMultiSort: true,
 };
 
 export default Leaderboard;
