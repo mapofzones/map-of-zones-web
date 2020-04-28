@@ -38,6 +38,27 @@ function Graph({ data, isBlurred, period }) {
   const onNodeHover = useCallback(node => setHoveredNode(node), []);
   const linkColor = useCallback(() => '#fff', []);
   const nodeVal = useCallback(({ ibcTxsWeight }) => ibcTxsWeight, []);
+  const nodeCanvasObjectMode = useCallback(() => 'after', []);
+  const nodeCanvasObject = useCallback(({ x, y, name }, ctx, globalScale) => {
+    const deltaY = 30; // TODO: Get this data from the node size
+    const fontSize = 12 / globalScale;
+    const textWidth = ctx.measureText(name).width;
+    const backgroundDimensions = [textWidth, fontSize].map(
+      n => n + fontSize * 0.5,
+    );
+
+    ctx.font = `${fontSize}px Poppins`;
+    ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
+    ctx.fillRect(
+      x - backgroundDimensions[0] / 2,
+      y - backgroundDimensions[1] / 2 + deltaY,
+      ...backgroundDimensions,
+    );
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
+    ctx.fillText(name, x, y + deltaY);
+  }, []);
 
   return (
     <div className={cx('container', { blurred: isBlurred })}>
@@ -52,6 +73,8 @@ function Graph({ data, isBlurred, period }) {
         linkColor={linkColor}
         graphData={data}
         onNodeHover={onNodeHover}
+        nodeCanvasObject={nodeCanvasObject}
+        nodeCanvasObjectMode={nodeCanvasObjectMode}
       />
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
       <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
