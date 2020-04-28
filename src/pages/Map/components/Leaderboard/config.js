@@ -7,7 +7,8 @@ const columns = [
     Header: '#',
     id: 'position',
     accessor: (originalRow, rowIndex) => rowIndex,
-    Cell: ({ row, rows }) => rows.indexOf(row) + 1,
+    Cell: ({ row, rows, state }) =>
+      (state?.sortBy?.[0]?.desc ? rows : [...rows].reverse()).indexOf(row) + 1,
     disableSortBy: true,
   },
   {
