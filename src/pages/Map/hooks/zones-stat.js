@@ -33,6 +33,9 @@ const transform = data => {
       ibc_tx_out,
       channels_num,
       total_ibc_txs_weight,
+      total_txs_weight,
+      ibc_tx_in_weight,
+      ibc_tx_out_weight,
     }) => {
       return {
         id: zone,
@@ -47,6 +50,9 @@ const transform = data => {
         ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
         channels: channels_num,
         ibcTxsWeight: total_ibc_txs_weight,
+        txsWeight: total_txs_weight,
+        ibcReceivedWeight: ibc_tx_in_weight,
+        ibcSentWeight: ibc_tx_out_weight,
         color: getZoneColor(ibc_tx_out / total_ibc_txs),
       };
     },

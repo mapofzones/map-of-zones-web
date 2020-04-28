@@ -19,10 +19,16 @@ function GraphContainer({
   setPeriod,
   sortBy,
   isSortedDesc,
+  zoneWeightAccessor,
 }) {
   return (
     <div className={cx('container')}>
-      <Graph period={period.name} data={zonesStat} isBlurred={isTableOpened} />
+      <Graph
+        period={period.name}
+        data={zonesStat}
+        isBlurred={isTableOpened}
+        zoneWeightAccessor={zoneWeightAccessor}
+      />
       <Logo className={cx('logo')} />
       <ZonesFilter
         sortBy={sortBy}
@@ -52,6 +58,7 @@ GraphContainer.propTypes = {
   setPeriod: PropTypes.func,
   sortBy: PropTypes.node,
   isSortedDesc: PropTypes.bool,
+  zoneWeightAccessor: PropTypes.string,
 };
 
 export default GraphContainer;
