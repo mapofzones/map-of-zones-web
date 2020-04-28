@@ -6,7 +6,8 @@ const columns = [
   {
     Header: '#',
     id: 'position',
-    accessor: (originalRow, rowIndex) => rowIndex + 1,
+    accessor: (originalRow, rowIndex) => rowIndex,
+    Cell: ({ row, rows }) => rows.indexOf(row) + 1,
     disableSortBy: true,
   },
   {
