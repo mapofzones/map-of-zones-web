@@ -1,88 +1,99 @@
 .container {
-    display: flex;
-    height: 65px;
-    background: #383D4C;
-    transition: 0.2s;
+  display: flex;
+  height: 65px;
+  background: #383d4c;
+  transition: 0.2s;
 }
 
 .activityContainer {
-    position: absolute;
-    top: 0;
+  position: absolute;
+  top: 0;
 }
 
 .statContainer {
-    color: #fff;
-    padding: 8px 14px;
-    position: relative;
-    z-index: 1;
+  color: #fff;
+  padding: 8px 14px;
+  position: relative;
+  z-index: 1;
 }
 
 .statContainer.small {
-    flex: 1;
+  flex: 1;
+}
+
+.statNameContainer {
+  display: flex;
+  justify-content: space-between;
 }
 
 .statName {
-    font-weight: 600;
-    font-size: 12px;
-    margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.mostActiveZonesPairTxs {
+  font-weight: 600;
+  font-size: 12px;
+  color: #61ab8b;
 }
 
 .statValue {
-    font-weight: bold;
-    font-size: 22px;
+  font-weight: bold;
+  font-size: 22px;
 }
 
 .item {
-    position: relative;
-    flex: 1;
+  position: relative;
+  flex: 1;
 }
 
 .item:not(:last-child) {
-    border-right: 1px solid #282B38;
+  border-right: 1px solid #282b38;
 }
 
 .period {
-    font-weight: normal;
-    color: #8C909F;
+  font-weight: normal;
+  color: #8c909f;
 }
 
 .statContainerSmall {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .mostActiveZonesPair {
-    position: relative;
+  position: relative;
 }
 
 .zoneNameContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
 .zoneName {
-    font-size: 12px;
-    margin-left: 5px;
+  font-size: 12px;
+  margin-left: 5px;
 }
 
 .circle {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    position: relative;
-    z-index: 1;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
 }
 
 .zonesLink {
-    position: absolute;
-    height: 9px;
-    top: 11px;
-    left: 4px;
-    border-left: 1px solid #8C909F;
+  position: absolute;
+  height: 9px;
+  top: 11px;
+  left: 4px;
+  border-left: 1px solid #8c909f;
 }
 
 .container.tableOpened {
-    margin-top: -500px;
+  margin-top: -500px;
 }
