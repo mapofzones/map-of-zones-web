@@ -33,14 +33,14 @@ function ZonesColorDescriptor({ className }) {
       <div className={cx('descriptionsContainer')}>
         <div className={cx('description')} style={{ color: getZoneColor(1) }}>
           <FormattedMessage
-            id="mostly-sends-title"
-            defaultMessage="Mostly Sends"
+            id="mainly-sends-title"
+            defaultMessage="Mainly Sends"
           />
         </div>
         <div className={cx('description')} style={{ color: getZoneColor(0) }}>
           <FormattedMessage
-            id="mostly-receives-title"
-            defaultMessage="Mostly Receives"
+            id="mainly-receives-title"
+            defaultMessage="Mainly Receives"
           />
         </div>
       </div>
