@@ -28,6 +28,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
     opacity: 0;
     transition: 0.2s;
+    z-index: 1;
 }
 .node-custom-tooltip.active {
     opacity: 1;
