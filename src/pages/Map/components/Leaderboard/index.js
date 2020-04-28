@@ -16,6 +16,7 @@ function Leaderboard({
   onSortChange,
   initialState,
   disableMultiSort,
+  disableSortRemove,
 }) {
   const {
     getTableProps,
@@ -30,6 +31,7 @@ function Leaderboard({
       data,
       initialState,
       disableMultiSort,
+      disableSortRemove,
     },
     useSortBy,
   );
@@ -185,6 +187,7 @@ Leaderboard.propTypes = {
   toggleTableOpen: PropTypes.func,
   initialState: PropTypes.object,
   disableMultiSort: PropTypes.bool,
+  disableSortRemove: PropTypes.bool,
 };
 
 Leaderboard.defaultProps = {
@@ -194,11 +197,12 @@ Leaderboard.defaultProps = {
     sortBy: [
       {
         id: 'totalIbcTxs',
-        desc: false,
+        desc: true,
       },
     ],
   },
   disableMultiSort: true,
+  disableSortRemove: true,
 };
 
 export default Leaderboard;
