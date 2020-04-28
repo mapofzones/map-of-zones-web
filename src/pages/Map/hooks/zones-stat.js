@@ -52,9 +52,18 @@ const transform = data => {
     },
   );
 
+  const linksFormatted = graph.map(
+    ({
+       source,
+      target
+     }) => {
+      return {source: source, target:target};
+    },
+  );
+
   return {
     nodes: zonesFormatted,
-    links: graph,
+    links: linksFormatted,
   };
 };
 
