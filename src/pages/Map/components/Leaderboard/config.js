@@ -27,6 +27,7 @@ const columns = [
   {
     Header: 'Total Txs',
     accessor: 'totalTxs',
+    zoneWeightAccessor: 'txsWeight',
     sortDescFirst: true,
     descr:
       'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
@@ -40,6 +41,7 @@ const columns = [
   {
     Header: 'IBC sent',
     accessor: 'ibcSent',
+    zoneWeightAccessor: 'ibcSentWeight',
     sortDescFirst: true,
     descr:
       'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
@@ -47,6 +49,7 @@ const columns = [
   {
     Header: 'IBC received',
     accessor: 'ibcReceived',
+    zoneWeightAccessor: 'ibcReceivedWeight',
     sortDescFirst: true,
     descr:
       'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',

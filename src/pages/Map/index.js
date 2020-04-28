@@ -47,6 +47,7 @@ function Map() {
         setPeriod={setPeriod}
         sortBy={sortedByColumn?.Header}
         isSortedDesc={sortedByColumn?.isSortedDesc}
+        zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
       />
       <Leaderboard
         data={zonesStat.nodes}

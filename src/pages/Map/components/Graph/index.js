@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
 
@@ -14,7 +15,7 @@ const cx = classNames.bind(styles);
 
 const MAX_SIZE = 20;
 
-function Graph({ data, isBlurred, period }) {
+function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
   const [hoveredNode, setHoveredNode] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const fgRef = useRef();
@@ -37,7 +38,6 @@ function Graph({ data, isBlurred, period }) {
   const zoomOut = useCallback(() => zoom(0.5), [zoom]);
   const onNodeHover = useCallback(node => setHoveredNode(node), []);
   const linkColor = useCallback(() => '#fff', []);
-  const nodeVal = useCallback(({ ibcTxsWeight }) => ibcTxsWeight, []);
   const nodeCanvasObjectMode = useCallback(() => 'after', []);
   const nodeCanvasObject = useCallback(({ x, y, name }, ctx, globalScale) => {
     const deltaY = 30; // TODO: Get this data from the node size
@@ -67,7 +67,7 @@ function Graph({ data, isBlurred, period }) {
         enableZoomPanInteraction={false}
         height={500}
         nodeRelSize={MAX_SIZE}
-        nodeVal={nodeVal}
+        nodeVal={zoneWeightAccessor}
         nodeColor="color"
         nodeLabel={null}
         linkColor={linkColor}
@@ -89,5 +89,19 @@ function Graph({ data, isBlurred, period }) {
     </div>
   );
 }
+
+Graph.propTypes = {
+  data: PropTypes.shape({
+    nodes: PropTypes.array,
+    links: PropTypes.array,
+  }),
+  isBlurred: PropTypes.bool,
+  period: PropTypes.node,
+  zoneWeightAccessor: PropTypes.string,
+};
+
+Graph.defaultProps = {
+  zoneWeightAccessor: 'ibcTxsWeight',
+};
 
 export default Graph;
