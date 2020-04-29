@@ -61,31 +61,34 @@ function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
   }, []);
 
   return (
-    <div className={cx('container', { blurred: isBlurred })}>
-      <ForceGraph2D
-        ref={fgRef}
-        enableZoomPanInteraction={false}
-        height={500}
-        nodeRelSize={MAX_SIZE}
-        nodeVal={zoneWeightAccessor}
-        nodeColor="color"
-        nodeLabel={null}
-        linkColor={linkColor}
-        graphData={data}
-        onNodeHover={onNodeHover}
-        nodeCanvasObject={nodeCanvasObject}
-        nodeCanvasObjectMode={nodeCanvasObjectMode}
-      />
-      {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
-      <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
-      <div className={cx('zoomButtonsContainer')}>
-        <button type="button" onClick={zoomIn} className={cx('zoomButton')}>
-          <PlusSign />
-        </button>
-        <button type="button" onClick={zoomOut} className={cx('zoomButton')}>
-          <MinusSign />
-        </button>
+    <div>
+      <div className={cx('container', { blurred: isBlurred })}>
+        <ForceGraph2D
+          ref={fgRef}
+          enableZoomPanInteraction={false}
+          height={500}
+          nodeRelSize={MAX_SIZE}
+          nodeVal={zoneWeightAccessor}
+          nodeColor="color"
+          nodeLabel={null}
+          linkColor={linkColor}
+          graphData={data}
+          onNodeHover={onNodeHover}
+          nodeCanvasObject={nodeCanvasObject}
+          nodeCanvasObjectMode={nodeCanvasObjectMode}
+        />
+        <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
+        <div className={cx('zoomButtonsContainer')}>
+          <button type="button" onClick={zoomIn} className={cx('zoomButton')}>
+            <PlusSign />
+          </button>
+          <button type="button" onClick={zoomOut} className={cx('zoomButton')}>
+            <MinusSign />
+          </button>
+        </div>
       </div>
+
+      {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
     </div>
   );
 }

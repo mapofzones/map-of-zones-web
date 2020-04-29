@@ -4,6 +4,9 @@
   align-items: flex-end;
   padding: 12px;
 }
+.container.right {
+  right: 0;
+}
 
 .sortContainer {
   font-weight: 800;
