@@ -21,47 +21,53 @@ function ZonesFilter({
   isSortedDesc,
 }) {
   return (
-    <div className={cx('container', className)}>
-      <div className={cx('sortContainer')}>
-        {sortBy && (
-          <FormattedMessage
-            id="zones-sort-title"
-            defaultMessage="{desc} Active Zones {sort}"
-            values={{
-              desc: isSortedDesc ? (
-                <FormattedMessage id="most" defaultMessage="Most" />
-              ) : (
-                <FormattedMessage id="least" defaultMessage="Least" />
-              ),
-              sort: (
-                <span className={cx('sort')}>
+    <div>
+      <div className={cx('container', className)}>
+        <div className={cx('sortContainer')}>
+          {sortBy && (
+            <FormattedMessage
+              id="zones-sort-title"
+              defaultMessage="{desc} Active Zones {sort}"
+              values={{
+                desc: isSortedDesc ? (
+                  <FormattedMessage id="most" defaultMessage="Most" />
+                ) : (
+                  <FormattedMessage id="least" defaultMessage="Least" />
+                ),
+                sort: (
+                  <span className={cx('sort')}>
                   <FormattedMessage
                     id="sort-by"
                     defaultMessage="by {sortBy}"
                     values={{ sortBy }}
                   />
                 </span>
-              ),
-            }}
-          />
+                ),
+              }}
+            />
+          )}
+        </div>
+      </div>
+
+      <div className={cx('container', 'right', className)}>
+        {isTableOpened ? (
+          <button
+            type="button"
+            className={cx('closeTableButton')}
+            onClick={toggleTableOpen}
+          >
+            <ArrowTop className={cx('arrowTop')} />
+            <FormattedMessage
+              id="back-to-map-title"
+              defaultMessage="Back to Map"
+            />
+          </button>
+        ) : (
+          <PeriodSwitcher hours={hours} onChange={setPeriod} />
         )}
       </div>
-      {isTableOpened ? (
-        <button
-          type="button"
-          className={cx('closeTableButton')}
-          onClick={toggleTableOpen}
-        >
-          <ArrowTop className={cx('arrowTop')} />
-          <FormattedMessage
-            id="back-to-map-title"
-            defaultMessage="Back to Map"
-          />
-        </button>
-      ) : (
-        <PeriodSwitcher hours={hours} onChange={setPeriod} />
-      )}
     </div>
+
   );
 }
 

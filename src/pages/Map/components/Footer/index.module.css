@@ -16,6 +16,9 @@
   font-size: 12px;
   line-height: 220%;
   color: #ffffff;
+  position: sticky;
+  bottom: 0;
+  z-index: 9;
 }
 
 .link {
@@ -89,6 +92,7 @@
     padding: 40px 10px 15px 10px;
     text-align: center;
     flex-direction: column-reverse;
+    position: static;
   }
 
   .socialContainer {
