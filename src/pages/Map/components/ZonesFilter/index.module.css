@@ -32,3 +32,9 @@
 .arrowTop {
   margin-right: 8px;
 }
+
+@media (max-width: 840px) {
+  .container:not(.right) {
+    display: none;
+  }
+}

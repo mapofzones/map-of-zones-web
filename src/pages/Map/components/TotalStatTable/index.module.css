@@ -1,7 +1,7 @@
 .container {
   display: flex;
   height: 65px;
-  background: #383d4c;
+  background: #212737;
   transition: 0.2s;
 }
 
@@ -46,10 +46,11 @@
 .item {
   position: relative;
   flex: 1;
+  max-width: 300px;
 }
 
 .item:not(:last-child) {
-  border-right: 1px solid #282b38;
+  border-right: 2px solid #110A19;
 }
 
 .period {
@@ -96,4 +97,76 @@
 
 .container.tableOpened {
   margin-top: -500px;
+}
+
+@media (max-width: 1180px) {
+  .item:last-child {
+    display: none;
+  }
+  .statContainer.small {
+    flex: none;
+  }
+  .statContainerSmall {
+    justify-content: space-between;
+  }
+  .item:nth-last-child(2) {
+    border-right: none;
+  }
+}
+@media (max-width: 750px) {
+  .statContainer.small:last-child {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .container {
+    height: 27px;
+    padding: 8px 0 5px 2px;
+    overflow: hidden;
+  }
+  .statContainer {
+    padding: 0 6px 0 7px;
+    display: flex;
+  }
+  .statValue {
+    font-size: 14px;
+    line-height: 14px;
+    margin-left: 5px;
+  }
+  .statName {
+    line-height: 12px;
+  }
+  .period {
+    margin-left: 5px;
+  }
+  .activityContainer {
+    display: none;
+  }
+  .item {
+    flex: none;
+    position: relative;
+  }
+  .item:not(:last-child) {
+    border: none;
+  }
+  .item:after,
+  .statContainer.small:last-child:after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 5px;
+    /*transform: translateY(-2px);*/
+    width: 3px;
+    height: 3px;
+    border-radius: 100%;
+    background: #ffffff;
+  }
+  .statContainer.small:last-child {
+    display: flex;
+    position: relative;
+  }
+  .statContainer.small:last-child:after {
+    left: -1px;
+    right: unset;
+  }
 }
