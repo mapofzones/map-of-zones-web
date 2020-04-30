@@ -5,6 +5,8 @@ import ForceGraph2D from 'react-force-graph-2d';
 
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
+import { ReactComponent as FullScreenIcon } from '../../../../assets/images/fulll-screen-icon.svg';
+import { ReactComponent as CloseIcon } from '../../../../assets/images/close-icon.svg';
 
 import NodeTooltip from './NodeTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
@@ -15,7 +17,7 @@ const cx = classNames.bind(styles);
 
 const MAX_SIZE = 20;
 
-function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
+function Graph({ data, isBlurred, period, zoneWeightAccessor, mapOpened, toggleMapOpen }) {
   const [hoveredNode, setHoveredNode] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const fgRef = useRef();
@@ -23,7 +25,18 @@ function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
   useEffect(() => {
     // TODO
     // fgRef.current.d3Force('link').distance(() => MAX_SIZE * 2);
+
+
   }, []);
+
+  useEffect(() => {
+    if (mapOpened) {
+      window.scrollTo(0,0);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [mapOpened]);
 
   const zoom = useCallback(
     val => {
@@ -62,11 +75,11 @@ function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
 
   return (
     <div>
-      <div className={cx('container', { blurred: isBlurred })}>
+      <div className={cx('container', { blurred: isBlurred }, {opened: mapOpened})}>
         <ForceGraph2D
           ref={fgRef}
           // enableZoomPanInteraction={false}
-          height={500}
+          height={mapOpened?document.documentElement.clientHeight:500}
           nodeRelSize={MAX_SIZE}
           nodeVal={zoneWeightAccessor}
           nodeColor="color"
@@ -76,6 +89,7 @@ function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
           nodeCanvasObjectMode={nodeCanvasObjectMode}
+
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('zoomButtonsContainer')}>
@@ -85,7 +99,13 @@ function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
           <button type="button" onClick={zoomOut} className={cx('zoomButton')}>
             <MinusSign />
           </button>
+          {!mapOpened && <button type="button" onClick={()=>toggleMapOpen('open')} className={cx('zoomButton', 'full-screen-button')}>
+            <FullScreenIcon />
+          </button>}
         </div>
+        {mapOpened && <button type="button" onClick={toggleMapOpen} className={cx('zoomButton', 'close-button')}>
+          <CloseIcon />
+        </button>}
       </div>
 
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
