@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 
-import { ReactComponent as FbLogo } from 'assets/images/fb-logo.svg';
 import { ReactComponent as GitHubLogo } from 'assets/images/github-logo.svg';
 import { ReactComponent as TgLogo } from 'assets/images/tg-logo.svg';
 import { ReactComponent as TwitterLogo } from 'assets/images/twitter-logo.svg';
@@ -43,15 +42,6 @@ function Footer() {
         />
       </div>
       <div className={cx('socialContainer')}>
-        <a
-          href=""
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cx('link', 'socialLink')}
-        >
-          <FbLogo className={cx('socialIcon')} />
-          <span className={cx('socialName')}>Facebook</span>
-        </a>
         <a
           href=""
           target="_blank"

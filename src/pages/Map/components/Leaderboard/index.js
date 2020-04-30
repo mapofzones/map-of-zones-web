@@ -12,7 +12,6 @@ const cx = classNames.bind(styles);
 
 function Leaderboard({
   data,
-  toggleTableOpen,
   onSortChange,
   initialState,
   disableMultiSort,
@@ -157,7 +156,6 @@ function Leaderboard({
               <tr
                 {...row.getRowProps()}
                 className={cx('row')}
-                onClick={() => toggleTableOpen('open')}
               >
                 {row.cells.map(cell => {
                   return (
@@ -186,7 +184,6 @@ function Leaderboard({
 Leaderboard.propTypes = {
   data: PropTypes.array, // TODO
   onSortChange: PropTypes.func,
-  toggleTableOpen: PropTypes.func,
   initialState: PropTypes.object,
   disableMultiSort: PropTypes.bool,
   disableSortRemove: PropTypes.bool,
@@ -194,7 +191,6 @@ Leaderboard.propTypes = {
 
 Leaderboard.defaultProps = {
   onSortChange: () => {},
-  toggleTableOpen: () => {},
   initialState: {
     sortBy: [
       {

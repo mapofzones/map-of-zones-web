@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
@@ -14,8 +14,6 @@ const cx = classNames.bind(styles);
 function GraphContainer({
   period,
   zonesStat,
-  isTableOpened,
-  toggleTableOpen,
   setPeriod,
   sortBy,
   isSortedDesc,
@@ -23,8 +21,36 @@ function GraphContainer({
   mapOpened,
   toggleMapOpen
 }) {
+
+  const [isTableOpened, setIsTableOpened] = useState(false);
+
+  useEffect( () => {
+    let map = document.documentElement.querySelector('canvas');
+    window.addEventListener('scroll', ()=>handleScroll(map) );
+
+    return window.removeEventListener('scroll', ()=>handleScroll(map) );
+  }, []);
+
+
+  const handleScroll = (map) => {
+    if (map.getBoundingClientRect().top <= -450) {
+      setIsTableOpened(true);
+    } else {
+      setIsTableOpened(false);
+    }
+  };
+
+  const backToMap = () => {
+    if (isTableOpened) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
-    <div className={cx('container')}>
+    <div className={cx('container', {cursorPointer:isTableOpened})} onClick={backToMap}>
       <Graph
         period={period.name}
         data={zonesStat}
@@ -41,7 +67,6 @@ function GraphContainer({
         setPeriod={setPeriod}
         className={cx('filter')}
         isTableOpened={isTableOpened}
-        toggleTableOpen={toggleTableOpen}
       />}
     </div>
   );
@@ -58,7 +83,7 @@ GraphContainer.propTypes = {
     links: PropTypes.array, // TODO
   }),
   isTableOpened: PropTypes.bool,
-  toggleTableOpen: PropTypes.func,
+  backToMap: PropTypes.func,
   setPeriod: PropTypes.func,
   sortBy: PropTypes.node,
   isSortedDesc: PropTypes.bool,

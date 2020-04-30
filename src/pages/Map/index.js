@@ -8,7 +8,6 @@ import { PERIODS } from './components/PeriodSwitcher';
 import { useZonesStat, useTotalStat } from './hooks';
 
 function Map() {
-  const [isTableOpened, setIsTableOpened] = useState(false);
   const [mapOpened, setIsMapOpened] = useState(false);
   const [period, setPeriod] = useState(PERIODS[0]);
   const [sortedByColumn, setSort] = useState(undefined);
@@ -18,10 +17,6 @@ function Map() {
   const { loading, error, data: totalStat } = useTotalStat({
     variables: { period: period.hours, step: period.step },
   });
-
-  const toggleTableOpen = event => {
-    setIsTableOpened(event === 'open');
-  };
 
   const toggleMapOpen = event => {
     setIsMapOpened(event === 'open');
@@ -42,13 +37,10 @@ function Map() {
         allChannels={totalStat.allChannels}
         activeChannels={totalStat.activeChannels}
         mostActiveZonesPair={totalStat.mostActiveZonesPair}
-        isTableOpened={isTableOpened}
       />}
       <GraphContainer
         period={period}
         zonesStat={zonesStat}
-        isTableOpened={isTableOpened}
-        toggleTableOpen={toggleTableOpen}
         setPeriod={setPeriod}
         sortBy={sortedByColumn?.Header}
         isSortedDesc={sortedByColumn?.isSortedDesc}
@@ -58,7 +50,6 @@ function Map() {
       />
       {!mapOpened && <Leaderboard
         data={zonesStat.nodes}
-        toggleTableOpen={event => toggleTableOpen(event)}
         onSortChange={setSort}
       />}
       <Footer />

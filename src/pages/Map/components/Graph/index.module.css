@@ -1,10 +1,7 @@
 .container {
   overflow: hidden;
   position: relative;
-  background: url("../../../../assets/images/stars-bg.svg") center/contain;
-}
-.container.opened {
-    background-size: auto;
+  background: url("../../../../assets/images/stars-bg.svg") center/contain #130E26;
 }
 
 .container.blurred canvas {

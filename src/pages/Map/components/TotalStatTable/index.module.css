@@ -95,10 +95,6 @@
   border-left: 1px solid #8c909f;
 }
 
-.container.tableOpened {
-  margin-top: -500px;
-}
-
 @media (max-width: 1180px) {
   .item:last-child {
     display: none;
@@ -132,6 +128,7 @@
     font-size: 14px;
     line-height: 14px;
     margin-left: 5px;
+    margin-bottom: 6px;
   }
   .statName {
     line-height: 12px;
