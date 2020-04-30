@@ -9,6 +9,7 @@ import { useZonesStat, useTotalStat } from './hooks';
 
 function Map() {
   const [isTableOpened, setIsTableOpened] = useState(false);
+  const [mapOpened, setIsMapOpened] = useState(false);
   const [period, setPeriod] = useState(PERIODS[0]);
   const [sortedByColumn, setSort] = useState(undefined);
   const { data: zonesStat } = useZonesStat({
@@ -22,13 +23,17 @@ function Map() {
     setIsTableOpened(event === 'open');
   };
 
+  const toggleMapOpen = event => {
+    setIsMapOpened(event === 'open');
+  };
+
   if (!totalStat || !zonesStat) {
     return null; // TODO: Add spinner
   }
 
   return (
     <div>
-      <TotalStatTable
+      {!mapOpened && <TotalStatTable
         period={period.name}
         ibcTxsActivity={totalStat.ibcTxsActivity}
         ibcTxs={totalStat.ibcTxs}
@@ -38,7 +43,7 @@ function Map() {
         activeChannels={totalStat.activeChannels}
         mostActiveZonesPair={totalStat.mostActiveZonesPair}
         isTableOpened={isTableOpened}
-      />
+      />}
       <GraphContainer
         period={period}
         zonesStat={zonesStat}
@@ -48,12 +53,14 @@ function Map() {
         sortBy={sortedByColumn?.Header}
         isSortedDesc={sortedByColumn?.isSortedDesc}
         zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
+        mapOpened={mapOpened}
+        toggleMapOpen={(event) => toggleMapOpen(event)}
       />
-      <Leaderboard
+      {!mapOpened && <Leaderboard
         data={zonesStat.nodes}
         toggleTableOpen={event => toggleTableOpen(event)}
         onSortChange={setSort}
-      />
+      />}
       <Footer />
     </div>
   );

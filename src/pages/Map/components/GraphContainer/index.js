@@ -20,6 +20,8 @@ function GraphContainer({
   sortBy,
   isSortedDesc,
   zoneWeightAccessor,
+  mapOpened,
+  toggleMapOpen
 }) {
   return (
     <div className={cx('container')}>
@@ -28,9 +30,11 @@ function GraphContainer({
         data={zonesStat}
         isBlurred={isTableOpened}
         zoneWeightAccessor={zoneWeightAccessor}
+        mapOpened={mapOpened}
+        toggleMapOpen={toggleMapOpen}
       />
       <Logo className={cx('logo')} />
-      <ZonesFilter
+      {!mapOpened && <ZonesFilter
         sortBy={sortBy}
         isSortedDesc={isSortedDesc}
         hours={period.hours}
@@ -38,7 +42,7 @@ function GraphContainer({
         className={cx('filter')}
         isTableOpened={isTableOpened}
         toggleTableOpen={toggleTableOpen}
-      />
+      />}
     </div>
   );
 }

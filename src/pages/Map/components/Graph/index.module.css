@@ -3,6 +3,9 @@
   position: relative;
   background: url("../../../../assets/images/stars-bg.svg") center/contain;
 }
+.container.opened {
+    background-size: auto;
+}
 
 .container.blurred canvas {
   filter: blur(3px);
@@ -11,7 +14,8 @@
 .zoomButtonsContainer {
   position: absolute;
   right: 0;
-  top: 40%;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   margin: 13px;
@@ -29,6 +33,17 @@
   border: none;
   margin-bottom: 5px;
   cursor: pointer;
+}
+.full-screen-button,
+.close-button {
+    padding: 0;
+    background: none;
+    margin: 16px 0 0 0;
+}
+.close-button {
+  position: absolute;
+  top: 62px;
+  right: 12px;
 }
 
 .zonesColorDescriptor {
