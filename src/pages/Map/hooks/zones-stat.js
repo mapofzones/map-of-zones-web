@@ -60,6 +60,17 @@ const transform = data => {
       total_txs_weight,
       ibc_tx_in_weight,
       ibc_tx_out_weight,
+
+       total_txs_diff,
+       total_ibc_txs_diff,
+       ibc_tx_out_diff,
+       ibc_tx_in_diff,
+
+       total_txs_rating_diff,
+       total_ibc_txs_rating_diff,
+       ibc_tx_out_rating_diff,
+       ibc_tx_in_rating_diff,
+
     }) => {
       return {
         id: zone,
@@ -89,6 +100,16 @@ const transform = data => {
           ibc_tx_out_weight || defaultIbcSentWeight,
           MIN_WEIGHT,
         ),
+
+        totalTxsDiff: total_txs_diff,
+        totalIbcTxsDiff: total_ibc_txs_diff,
+        ibcSentDiff: ibc_tx_out_diff,
+        ibcReceivedDiff: ibc_tx_in_diff,
+
+        totalTxsRatingDiff: total_txs_rating_diff,
+        totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
+        ibcSentRatingDiff: ibc_tx_out_rating_diff,
+        ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
       };
     },
   );
