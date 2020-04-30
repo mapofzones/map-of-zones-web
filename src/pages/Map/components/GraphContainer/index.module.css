@@ -1,5 +1,10 @@
 .container {
-  position: relative;
+  position: sticky;
+  top: -450px;
+  z-index: 8;
+}
+.container.cursorPointer {
+  cursor: pointer;
 }
 
 .logo {

@@ -24,9 +24,10 @@
   line-height: 100%;
   color: #fff;
   cursor: pointer;
-  margin: 15px;
+  padding: 3px 1px;
   border: none;
   background-color: inherit;
+  display: flex;
 }
 
 .arrowTop {

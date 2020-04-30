@@ -16,7 +16,6 @@ function ZonesFilter({
   setPeriod,
   className,
   isTableOpened,
-  toggleTableOpen,
   sortBy,
   isSortedDesc,
 }) {
@@ -54,7 +53,6 @@ function ZonesFilter({
           <button
             type="button"
             className={cx('closeTableButton')}
-            onClick={toggleTableOpen}
           >
             <ArrowTop className={cx('arrowTop')} />
             <FormattedMessage
@@ -76,7 +74,6 @@ ZonesFilter.propTypes = {
   setPeriod: PropTypes.func,
   className: PropTypes.string,
   isTableOpened: PropTypes.bool,
-  toggleTableOpen: PropTypes.func,
   sortBy: PropTypes.node,
   isSortedDesc: PropTypes.bool,
 };

@@ -75,7 +75,7 @@ function Graph({ data, isBlurred, period, zoneWeightAccessor, mapOpened, toggleM
 
   return (
     <div>
-      <div className={cx('container', { blurred: isBlurred }, {opened: mapOpened})}>
+      <div className={cx('container', { blurred: isBlurred })}>
         <ForceGraph2D
           ref={fgRef}
           // enableZoomPanInteraction={false}
