@@ -67,19 +67,15 @@ function Leaderboard({
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
+            {cell.row.original[sortedColumn.id+'RatingDiff'] !== 0 &&
             <span
               className={cx(
                 'position-shift',
-                { negative: (cell.row.id % 20) - 10 < 0 },
-                { new: (cell.row.id % 20) - 10 === 0 },
+                { negative: cell.row.original[sortedColumn.id+'RatingDiff'] < 0 }
               )}
             >
-              {(cell.row.id % 20) - 10 !== 0 ? (
-                (cell.row.id % 20) - 10
-              ) : (
-                <div>NEW</div>
-              )}
-            </span>
+              {cell.row.original[sortedColumn.id+'RatingDiff']}
+            </span>}
           </div>
         );
       default:
@@ -89,12 +85,12 @@ function Leaderboard({
             {!cell.column.disableSortBy && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.value - cell.row.values.ibcReceived < 0,
+                  negative: cell.row.original[cell.column.id+'Diff'] < 0,
                 })}
               >
-                {cell.value - cell.row.values.ibcReceived > 0
-                  ? '+' + cell.value - cell.row.values.ibcReceived
-                  : cell.value - cell.row.values.ibcReceived}
+                {cell.row.original[cell.column.id+'Diff'] > 0
+                  ? '+' + cell.row.original[cell.column.id+'Diff']
+                  : cell.row.original[cell.column.id+'Diff']}
               </div>
             )}
           </span>

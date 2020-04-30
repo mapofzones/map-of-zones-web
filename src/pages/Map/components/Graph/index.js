@@ -65,7 +65,7 @@ function Graph({ data, isBlurred, period, zoneWeightAccessor }) {
       <div className={cx('container', { blurred: isBlurred })}>
         <ForceGraph2D
           ref={fgRef}
-          enableZoomPanInteraction={false}
+          // enableZoomPanInteraction={false}
           height={500}
           nodeRelSize={MAX_SIZE}
           nodeVal={zoneWeightAccessor}
