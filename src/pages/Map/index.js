@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Leaderboard from './components/Leaderboard';
 import TotalStatTable from './components/TotalStatTable';
@@ -15,10 +15,17 @@ function Map() {
   const { data: zonesStat } = useZonesStat({
     variables: { period: period.hours, step: period.step },
   });
-  const { loading, error, data: totalStat } = useTotalStat({
+  const { data: totalStat } = useTotalStat({
     variables: { period: period.hours, step: period.step },
   });
   const [isTableOpened, setIsTableOpened] = useState('');
+  const updatePeriod = useCallback(
+    newPeriod => {
+      setPeriod(newPeriod);
+      setFocusedZone(undefined);
+    },
+    [setPeriod, setFocusedZone],
+  );
 
   const handleScroll = table => {
     if (table) {
@@ -57,7 +64,7 @@ function Map() {
       <GraphContainer
         period={period}
         zonesStat={zonesStat}
-        setPeriod={setPeriod}
+        setPeriod={updatePeriod}
         sortBy={sortedByColumn?.Header}
         isSortedDesc={sortedByColumn?.isSortedDesc}
         zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}

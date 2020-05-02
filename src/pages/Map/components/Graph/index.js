@@ -61,6 +61,8 @@ function Graph({
     if (focusedNode) {
       fgRef.current.centerAt(focusedNode.x, focusedNode.y, 500);
       zoom(2);
+    } else {
+      zoom(1);
     }
   }, [focusedNode, zoom]);
 
@@ -76,9 +78,8 @@ function Graph({
 
     if (focusedNode) {
       onNodeFocus(null);
-      zoom(1);
     }
-  }, [mapOpened, toggleMapOpen, focusedNode, onNodeFocus, zoom]);
+  }, [mapOpened, toggleMapOpen, focusedNode, onNodeFocus]);
   const linkColor = useLinkColor(focusedNode);
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const nodeCanvasObject = useNodeCanvasObject(
