@@ -18,12 +18,16 @@ function ZonesFilter({
   isTableOpened,
   sortBy,
   isSortedDesc,
+  focusedZoneName,
 }) {
   return (
     <div>
       <div className={cx('container', className)}>
         <div className={cx('sortContainer')}>
-          {sortBy && (
+          {focusedZoneName && (
+            <span>{focusedZoneName}</span>
+          )}
+          {!focusedZoneName && sortBy && (
             <FormattedMessage
               id="zones-sort-title"
               defaultMessage="{desc} Active Zones {sort}"
@@ -35,25 +39,21 @@ function ZonesFilter({
                 ),
                 sort: (
                   <span className={cx('sort')}>
-                  <FormattedMessage
-                    id="sort-by"
-                    defaultMessage="by {sortBy}"
-                    values={{ sortBy }}
-                  />
-                </span>
+                    <FormattedMessage
+                      id="sort-by"
+                      defaultMessage="by {sortBy}"
+                      values={{ sortBy }}
+                    />
+                  </span>
                 ),
               }}
             />
           )}
         </div>
       </div>
-
       <div className={cx('container', 'right', className)}>
         {isTableOpened ? (
-          <button
-            type="button"
-            className={cx('closeTableButton')}
-          >
+          <button type="button" className={cx('closeTableButton')}>
             <ArrowTop className={cx('arrowTop')} />
             <FormattedMessage
               id="back-to-map-title"
@@ -65,7 +65,6 @@ function ZonesFilter({
         )}
       </div>
     </div>
-
   );
 }
 
@@ -76,6 +75,7 @@ ZonesFilter.propTypes = {
   isTableOpened: PropTypes.bool,
   sortBy: PropTypes.node,
   isSortedDesc: PropTypes.bool,
+  focusedZoneName: PropTypes.string,
 };
 
 export default ZonesFilter;
