@@ -15,11 +15,23 @@ const ZONES_STAT = gql`
   }
 `;
 
-const MIN_WEIGHT = 0.005;
 const DEFAULT_COLOR = '#72727A';
 
-const getMinimumWeight = (zones, key) =>
-  Math.min(1, ...zones.map(({ [key]: weight }) => weight).filter(Boolean)) / 2;
+const getScaleParams = (zones, key) => {
+  const weights = zones.map(({ [key]: weight }) => weight).filter(Boolean);
+
+  if (!weights.length) {
+    return [1, 1];
+  }
+
+  const minWeight = Math.min(...weights);
+  const min = weights.length === zones.length ? minWeight : minWeight / 2;
+  const scale = min < 1 ? 1 / min : min;
+
+  return [min, scale];
+};
+
+const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
 const transform = data => {
   if (!data) {
@@ -28,23 +40,19 @@ const transform = data => {
 
   const { zones, graph } = data.get_nodes_stats_with_graph_on_period[0];
 
-  const asd = zones.reduce(
-    (
-      acc,
-      {
-        total_ibc_txs_weight,
-        total_txs_weight,
-        ibc_tx_in_weight,
-        ibc_tx_out_weight,
-      },
-    ) => acc + total_ibc_txs_weight,
-    0,
+  const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
+    zones,
+    'total_ibc_txs_weight',
   );
-
-  const defaultIbcTxsWeight = getMinimumWeight(zones, 'total_ibc_txs_weight');
-  const defaultTxsWeight = getMinimumWeight(zones, 'total_txs_weight');
-  const defaultIbcReceivedWeight = getMinimumWeight(zones, 'ibc_tx_in_weight');
-  const defaultIbcSentWeight = getMinimumWeight(zones, 'ibc_tx_out_weight');
+  const [minTxsWeight, txsScale] = getScaleParams(zones, 'total_txs_weight');
+  const [minIbcReceivedWeight, ibcReceivedScale] = getScaleParams(
+    zones,
+    'ibc_tx_in_weight',
+  );
+  const [minIbcSentWeight, ibcSentScale] = getScaleParams(
+    zones,
+    'ibc_tx_out_weight',
+  );
 
   const zonesFormatted = zones.map(
     ({
@@ -60,17 +68,14 @@ const transform = data => {
       total_txs_weight,
       ibc_tx_in_weight,
       ibc_tx_out_weight,
-
-       total_txs_diff,
-       total_ibc_txs_diff,
-       ibc_tx_out_diff,
-       ibc_tx_in_diff,
-
-       total_txs_rating_diff,
-       total_ibc_txs_rating_diff,
-       ibc_tx_out_rating_diff,
-       ibc_tx_in_rating_diff,
-
+      total_txs_diff,
+      total_ibc_txs_diff,
+      ibc_tx_out_diff,
+      ibc_tx_in_diff,
+      total_txs_rating_diff,
+      total_ibc_txs_rating_diff,
+      ibc_tx_out_rating_diff,
+      ibc_tx_in_rating_diff,
     }) => {
       return {
         id: zone,
@@ -84,32 +89,33 @@ const transform = data => {
         ibcReceived: ibc_tx_in,
         ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
         channels: channels_num,
-        color: total_ibc_txs
-          ? getZoneColor(ibc_tx_out / total_ibc_txs)
-          : DEFAULT_COLOR,
-        ibcTxsWeight: Math.max(
-          total_ibc_txs_weight || defaultIbcTxsWeight,
-          MIN_WEIGHT,
-        ),
-        txsWeight: Math.max(total_txs_weight || defaultTxsWeight, MIN_WEIGHT),
-        ibcReceivedWeight: Math.max(
-          ibc_tx_in_weight || defaultIbcReceivedWeight,
-          MIN_WEIGHT,
-        ),
-        ibcSentWeight: Math.max(
-          ibc_tx_out_weight || defaultIbcSentWeight,
-          MIN_WEIGHT,
-        ),
-
         totalTxsDiff: total_txs_diff,
         totalIbcTxsDiff: total_ibc_txs_diff,
         ibcSentDiff: ibc_tx_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
-
         totalTxsRatingDiff: total_txs_rating_diff,
         totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
         ibcSentRatingDiff: ibc_tx_out_rating_diff,
         ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
+        color: total_ibc_txs
+          ? getZoneColor(ibc_tx_out / total_ibc_txs)
+          : DEFAULT_COLOR,
+        ibcTxsWeight: getNodeWeight(
+          total_ibc_txs_weight,
+          minIbcTxsWeight,
+          ibcTxsScale,
+        ),
+        txsWeight: getNodeWeight(total_txs_weight, minTxsWeight, txsScale),
+        ibcReceivedWeight: getNodeWeight(
+          ibc_tx_in_weight,
+          minIbcReceivedWeight,
+          ibcReceivedScale,
+        ),
+        ibcSentWeight: getNodeWeight(
+          ibc_tx_out_weight,
+          minIbcSentWeight,
+          ibcSentScale,
+        ),
       };
     },
   );
