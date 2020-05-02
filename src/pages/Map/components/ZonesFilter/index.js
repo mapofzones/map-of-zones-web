@@ -72,7 +72,7 @@ ZonesFilter.propTypes = {
   hours: PropTypes.number,
   setPeriod: PropTypes.func,
   className: PropTypes.string,
-  isTableOpened: PropTypes.bool,
+  isTableOpened: PropTypes.string,
   sortBy: PropTypes.node,
   isSortedDesc: PropTypes.bool,
   focusedZoneName: PropTypes.string,

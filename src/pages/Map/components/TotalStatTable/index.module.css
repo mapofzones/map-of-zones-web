@@ -3,6 +3,8 @@
   height: 65px;
   background: #212737;
   transition: 0.2s;
+  position: relative;
+  z-index: 4;
 }
 
 .activityContainer {

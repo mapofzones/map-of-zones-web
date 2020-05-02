@@ -1,7 +1,7 @@
 .container {
   position: sticky;
   top: -450px;
-  z-index: 8;
+  z-index: 10;
 }
 .container.cursorPointer {
   cursor: pointer;

@@ -149,7 +149,7 @@ Graph.propTypes = {
     nodes: PropTypes.array,
     links: PropTypes.array,
   }),
-  isBlurred: PropTypes.bool,
+  isBlurred: PropTypes.string,
   period: PropTypes.node,
   zoneWeightAccessor: PropTypes.string,
   mapOpened: PropTypes.bool,

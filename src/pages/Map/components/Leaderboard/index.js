@@ -16,6 +16,8 @@ function Leaderboard({
   initialState,
   disableMultiSort,
   disableSortRemove,
+  isTableOpened,
+  handleScroll
 }) {
   const {
     getTableProps,
@@ -44,6 +46,13 @@ function Leaderboard({
     sortedColumn,
     onSortChange,
   ]);
+
+  useEffect( () => {
+    let table = document.documentElement.querySelector('table');
+    window.addEventListener('scroll', ()=>handleScroll(table) );
+
+    return window.removeEventListener('scroll', ()=>handleScroll(table) );
+  }, []);
 
   const headerWithExplanation = id => {
     switch (id) {
@@ -100,54 +109,105 @@ function Leaderboard({
   return (
     <div className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
+        {/* TODO: Add thead component*/}
         <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className={cx('header', column.id, {
-                    sortedColumn: column.isSorted,
-                  })}
-                >
-                  <div className={cx('header-container')}>
-                    <div className={cx('IBC-circle', column.id)} />
-                    {column.render('Header')}
-                    {headerWithExplanation(column.id) && (
-                      <div className={cx('explanation-icon')}>
-                        ?
-                        <div
-                          className={cx('explanation-tooltip', {
-                            centerPos:
-                              column.id === 'channels' ||
-                              column.id === 'ibcReceived',
-                          })}
-                        >
-                          {column.descr}
-                        </div>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                className={cx('header', column.id, {
+                  sortedColumn: column.isSorted,
+                })}
+              >
+                <div className={cx('header-container')}>
+                  <div className={cx('IBC-circle', column.id)} />
+                  {column.render('Header')}
+                  {headerWithExplanation(column.id) && (
+                    <div className={cx('explanation-icon')}>
+                      ?
+                      <div
+                        className={cx('explanation-tooltip', {
+                          centerPos:
+                            column.id === 'channels' ||
+                            column.id === 'ibcReceived',
+                        })}
+                      >
+                        {column.descr}
                       </div>
-                    )}
-                    {!column.disableSortBy && (
-                      <div className={cx('sortArrowWrapper')}>
-                        {column.isSorted ? (
-                          column.isSortedDesc ? (
-                            <ArrowDown className={cx('arrow')} />
-                          ) : (
-                            <ArrowDown className={cx('arrow', 'arrowUp')} />
-                          )
+                    </div>
+                  )}
+                  {!column.disableSortBy && (
+                    <div className={cx('sortArrowWrapper')}>
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <ArrowDown className={cx('arrow')} />
                         ) : (
-                          <div>
-                            <ArrowDown className={cx('arrow', 'arrowUp')} />
-                            <ArrowDown className={cx('arrow')} />
-                          </div>
-                        )}
+                          <ArrowDown className={cx('arrow', 'arrowUp')} />
+                        )
+                      ) : (
+                        <div>
+                          <ArrowDown className={cx('arrow', 'arrowUp')} />
+                          <ArrowDown className={cx('arrow')} />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </th>
+            ))}
+          </tr>
+        ))}
+        </thead>
+
+        <thead className={cx('fixed', {active:(isTableOpened === 'fixed-thead')})}>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                className={cx('header', column.id, {
+                  sortedColumn: column.isSorted,
+                })}
+              >
+                <div className={cx('header-container')}>
+                  <div className={cx('IBC-circle', column.id)} />
+                  {column.render('Header')}
+                  {headerWithExplanation(column.id) && (
+                    <div className={cx('explanation-icon')}>
+                      ?
+                      <div
+                        className={cx('explanation-tooltip', {
+                          centerPos:
+                            column.id === 'channels' ||
+                            column.id === 'ibcReceived',
+                        })}
+                      >
+                        {column.descr}
                       </div>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
+                    </div>
+                  )}
+                  {!column.disableSortBy && (
+                    <div className={cx('sortArrowWrapper')}>
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <ArrowDown className={cx('arrow')} />
+                        ) : (
+                          <ArrowDown className={cx('arrow', 'arrowUp')} />
+                        )
+                      ) : (
+                        <div>
+                          <ArrowDown className={cx('arrow', 'arrowUp')} />
+                          <ArrowDown className={cx('arrow')} />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </th>
+            ))}
+          </tr>
+        ))}
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {
@@ -181,6 +241,8 @@ function Leaderboard({
   );
 }
 
+
+
 Leaderboard.propTypes = {
   data: PropTypes.array, // TODO
   onSortChange: PropTypes.func,
@@ -204,3 +266,4 @@ Leaderboard.defaultProps = {
 };
 
 export default Leaderboard;
+

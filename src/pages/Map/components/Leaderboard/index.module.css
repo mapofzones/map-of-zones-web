@@ -134,13 +134,23 @@
   padding: 0;
 }
 
+.header.position > div,
+.header.position,
+.cell.position {
+  width: 32px;
+  padding: 0;
+}
+
 /*2-nd col*/
 .header.name {
   color: rgba(114, 114, 114, 0.5);
 }
+.header.name > div {
+  width: 385px;
+}
+.header.name,
 .cell.name {
   width: 400px;
-  /*text-align: left;*/
 }
 .cell.name .text-container {
   padding: 0;
@@ -150,22 +160,51 @@
   width: unset;
 }
 
+/*3-d col*/
+.header.totalIbcTxs,
+.cell.totalIbcTxs {
+  width: 123px;
+}
+
+/*4-th col*/
+.header.totalTxs,
+.cell.totalTxs,
+  /*5 col*/
+.header.ibcPercentage,
+.cell.ibcPercentage{
+  width: 99px;
+}
+
 
 /*6 col*/
 .header.ibcSent,
 .cell.ibcSent {
   border-left: 1px solid  var(--table-borders-color);
+  width: 109px;
 }
 
 /*7 col*/
 .header.ibcReceived,
 .cell.ibcReceived {
+  width: 135px;
   border-right: 1px solid  var(--table-borders-color);
 }
 
+/*8 col*/
+.header.channels,
+.cell.channels {
+  min-width: 95px;
+}
+
+
+
 /*9 col*/
-.cell.txsActivity {
+.cell.txsActivity,
+.header.txsActivity {
   width: 146px;
+}
+.header.txsActivity > div {
+  width: 131px;
 }
 
 /*sort styles*/
@@ -312,6 +351,16 @@
   content: none;
 }
 
+thead.fixed {
+  position: fixed;
+  top: 25px;
+  z-index: 2;
+  transition: 0.3s;
+}
+thead.fixed.active {
+  top: 53px;
+}
+
 
 @media (max-width: 1320px) {
   .explanation-icon .explanation-tooltip.centerPos {
@@ -337,6 +386,9 @@
   }
   .cell.name .text-container {
     max-width: calc(210px - 35px);
+  }
+  thead.fixed {
+    display: none;
   }
 }
 

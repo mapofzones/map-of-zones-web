@@ -22,23 +22,8 @@ function GraphContainer({
   toggleMapOpen,
   setFocusedZone,
   focusedZoneName,
+  isTableOpened
 }) {
-  const [isTableOpened, setIsTableOpened] = useState(false);
-
-  useEffect(() => {
-    let map = document.documentElement.querySelector('canvas');
-    window.addEventListener('scroll', () => handleScroll(map));
-
-    return window.removeEventListener('scroll', () => handleScroll(map));
-  }, []);
-
-  const handleScroll = map => {
-    if (map.getBoundingClientRect().top <= -450) {
-      setIsTableOpened(true);
-    } else {
-      setIsTableOpened(false);
-    }
-  };
 
   const backToMap = () => {
     if (isTableOpened) {
@@ -89,7 +74,8 @@ GraphContainer.propTypes = {
     nodes: PropTypes.array, // TODO
     links: PropTypes.array, // TODO
   }),
-  isTableOpened: PropTypes.bool,
+  isTableOpened: PropTypes.string,
+  handleScroll: PropTypes.func,
   backToMap: PropTypes.func,
   setPeriod: PropTypes.func,
   sortBy: PropTypes.node,
