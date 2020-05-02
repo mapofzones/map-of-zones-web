@@ -18,19 +18,15 @@ export const useNodeCanvasObject = (
       const r =
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
       const deltaY = r + backgroundDimensions[1] / 2 + 2 / globalScale;
+      const isFocused =
+        focusedNode === node ||
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
-      if (focusedNode) {
-        if (
-          focusedNode === node ||
-          (focusedNodeNeighbors && focusedNodeNeighbors.includes(node))
-        ) {
-          ctx.fillStyle = color;
-        } else {
-          ctx.fillStyle = tinycolor(color)
-            .desaturate(25)
-            .setAlpha(0.9)
-            .toString();
-        }
+      if (focusedNode && !isFocused) {
+        ctx.fillStyle = tinycolor(color)
+          .desaturate(25)
+          .setAlpha(0.9)
+          .toString();
       } else {
         ctx.fillStyle = color;
       }
@@ -46,7 +42,13 @@ export const useNodeCanvasObject = (
       ctx.shadowColor = null;
       ctx.shadowBlur = null;
       ctx.font = `${fontSize}px Poppins`;
-      ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
+
+      if (focusedNode && !isFocused) {
+        ctx.fillStyle = 'rgba(10, 11, 42, 0.1)';
+      } else {
+        ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
+      }
+
       ctx.fillRect(
         x - backgroundDimensions[0] / 2,
         y - backgroundDimensions[1] / 2 + deltaY,
@@ -54,7 +56,13 @@ export const useNodeCanvasObject = (
       );
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
+
+      if (focusedNode && !isFocused) {
+        ctx.fillStyle = 'rgba(235, 235, 235, 0.1)';
+      } else {
+        ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
+      }
+
       ctx.fillText(name, x, y + deltaY);
     },
     [zoneWeightAccessor, focusedNode, focusedNodeNeighbors, nodeRelSize],
