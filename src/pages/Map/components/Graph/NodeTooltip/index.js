@@ -21,8 +21,8 @@ function NodeTooltip({ node, period }) {
       className={cx('node-custom-tooltip', { active: isActive })}
       style={{
         borderTop: `4px solid ${node.color}`,
-        left: mapTooltip.style.left,
-        top: mapTooltip.style.top,
+        left: (parseInt(mapTooltip.style.left) + 15) + 'px',
+        top: (parseInt(mapTooltip.style.top) + 15) + 'px',
       }}
     >
       <div className={cx('header-row')}>
