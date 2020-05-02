@@ -24,9 +24,7 @@ function ZonesFilter({
     <div>
       <div className={cx('container', className)}>
         <div className={cx('sortContainer')}>
-          {focusedZoneName && (
-            <span>{focusedZoneName}</span>
-          )}
+          {focusedZoneName && <span>{focusedZoneName}</span>}
           {!focusedZoneName && sortBy && (
             <FormattedMessage
               id="zones-sort-title"
