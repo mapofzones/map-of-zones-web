@@ -1,9 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import tinycolor from 'tinycolor2';
 
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
   focusedNode,
+  focusedNodeNeighbors,
   nodeRelSize,
 ) =>
   useCallback(
@@ -19,13 +20,17 @@ export const useNodeCanvasObject = (
       const deltaY = r + backgroundDimensions[1] / 2 + 2 / globalScale;
 
       if (focusedNode) {
-        ctx.fillStyle =
-          focusedNode === node
-            ? color
-            : tinycolor(color)
-                .desaturate(25)
-                .setAlpha(0.9)
-                .toString();
+        if (
+          focusedNode === node ||
+          (focusedNodeNeighbors && focusedNodeNeighbors.includes(node))
+        ) {
+          ctx.fillStyle = color;
+        } else {
+          ctx.fillStyle = tinycolor(color)
+            .desaturate(25)
+            .setAlpha(0.9)
+            .toString();
+        }
       } else {
         ctx.fillStyle = color;
       }
@@ -52,5 +57,30 @@ export const useNodeCanvasObject = (
       ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
       ctx.fillText(name, x, y + deltaY);
     },
-    [zoneWeightAccessor, focusedNode, nodeRelSize],
+    [zoneWeightAccessor, focusedNode, focusedNodeNeighbors, nodeRelSize],
+  );
+
+export const useFocusedNodeNeighbors = (focusedNode, graph) =>
+  useMemo(
+    () =>
+      focusedNode
+        ? graph.neighbors(focusedNode.id).map(id => graph.node(id))
+        : null,
+    [focusedNode, graph],
+  );
+
+export const useLinkColor = focusedNode =>
+  useCallback(
+    ({ source, target }) => {
+      if (!focusedNode) {
+        return 'rgba(255, 255, 255, 0.5)';
+      }
+
+      if (focusedNode === source || focusedNode === target) {
+        return 'rgba(255, 255, 255, 0.5)';
+      }
+
+      return 'rgba(255, 255, 255, 0.1)';
+    },
+    [focusedNode],
   );
