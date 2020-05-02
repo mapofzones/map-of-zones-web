@@ -154,9 +154,6 @@
 .header.name {
   color: rgba(114, 114, 114, 0.5);
 }
-.header.name > div {
-  width: 385px;
-}
 .header.name,
 .cell.name {
   width: 400px;
@@ -173,6 +170,7 @@
 .header.totalIbcTxs,
 .cell.totalIbcTxs {
   width: 123px;
+  min-width: 99px;
 }
 
 /*4-th col*/
@@ -182,6 +180,7 @@
 .header.ibcPercentage,
 .cell.ibcPercentage{
   width: 99px;
+  min-width: 99px;
 }
 
 
@@ -288,7 +287,7 @@
   width: max-content;
   max-width: 260px;
   background: #FFFFFF;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
   padding: 14px 20px 16px 17px;
 
@@ -371,15 +370,21 @@ thead.fixed.active {
 }
 
 
+tbody.bodyWithFocus {
+  transform: translateY(33px);
+}
+.row.focusedRow {
+  position: absolute;
+  top: -33px;
+  box-shadow: 0 1px 2px #C7C7C7;
+  z-index: 3;
+}
+
+.row.focusedRow > .cell {
+  box-shadow: none;
+}
+
 @media (min-width: 1200px) {
-  tbody.bodyWithFocus {
-    transform: translateY(33px);
-  }
-  .row.focusedRow {
-    position: absolute;
-    top: -33px;
-    box-shadow: 0 1px 2px #C7C7C7;
-  }
   .row.focusedRow.fixed {
     position: fixed;
     top: 80px;
@@ -409,7 +414,12 @@ thead.fixed.active {
     left: 40px;
     box-shadow: 2px 4px 4px rgba(186, 186, 186, 0.47);
     z-index: 1;
+    max-width: 230px;
     width: 230px;
+    min-width: 230px;
+  }
+  .header.name {
+    box-shadow: none;
   }
   .cell.name .text-container {
     max-width: calc(210px - 35px);
@@ -420,8 +430,11 @@ thead.fixed.active {
 }
 
 @media (max-width: 500px) {
+  .header.name,
   .cell.name {
+    max-width: 155px;
     width: 155px;
+    min-width: 155px;
   }
   .cell.name .text-container {
     max-width: 155px;
