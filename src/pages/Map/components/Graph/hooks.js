@@ -24,8 +24,7 @@ export const useNodeCanvasObject = (
 
       if (focusedNode && !isFocused) {
         ctx.fillStyle = tinycolor(color)
-          .desaturate(25)
-          .setAlpha(0.9)
+          .setAlpha(0.1)
           .toString();
       } else {
         ctx.fillStyle = color;
@@ -80,15 +79,11 @@ export const useFocusedNodeNeighbors = (focusedNode, graph) =>
 export const useLinkColor = focusedNode =>
   useCallback(
     ({ source, target }) => {
-      if (!focusedNode) {
-        return 'rgba(255, 255, 255, 0.5)';
+      if (!focusedNode || focusedNode === source || focusedNode === target) {
+        return 'rgba(255, 255, 255, 0.2)';
       }
 
-      if (focusedNode === source || focusedNode === target) {
-        return 'rgba(255, 255, 255, 0.5)';
-      }
-
-      return 'rgba(255, 255, 255, 0.1)';
+      return 'transparent';
     },
     [focusedNode],
   );
