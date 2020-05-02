@@ -73,7 +73,7 @@ function Map() {
         data={zonesStat.nodes}
         onSortChange={setSort}
         isTableOpened={isTableOpened}
-        handleScroll={(table) => handleScroll(table)}
+        handleScroll={handleScroll}
       />}
       <Footer />
     </div>
