@@ -24,6 +24,7 @@
     "react-table": "^7.0.0",
     "recharts": "^1.8.5",
     "subscriptions-transport-ws": "^0.9.16",
+    "tinycolor2": "^1.4.1",
     "tinygradient": "^1.1.1"
   },
   "scripts": {
