@@ -17,7 +17,9 @@ function Leaderboard({
   disableMultiSort,
   disableSortRemove,
   isTableOpened,
-  handleScroll
+  handleScroll,
+  setFocusedZone,
+  focusedZoneName
 }) {
   const {
     getTableProps,
@@ -209,20 +211,25 @@ function Leaderboard({
           </tr>
         ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
+        <tbody {...getTableBodyProps()}
+        className={cx({bodyWithFocus:focusedZoneName},
+          {focusFixed:(focusedZoneName && isTableOpened === 'fixed-thead')})}>
+
           {rows.map((row, i) => {
             prepareRow(row);
             return (
               <tr
                 {...row.getRowProps()}
-                className={cx('row')}
+                className={cx('row',
+                  {focusedRow:row.original.name === focusedZoneName},
+                  {fixed:(row.original.name === focusedZoneName && isTableOpened === 'fixed-thead')}) }
+
+                onClick={() => {setFocusedZone(row.original)}}
               >
                 {row.cells.map(cell => {
                   return (
                     <td
-                      onClick={() => {
-                        console.log(cell);
-                      }}
+
                       {...cell.getCellProps()}
                       className={cx('cell', cell.column.id, {
                         sortedColumn: cell.column.isSorted,

@@ -30,9 +30,9 @@ function Graph({
   mapOpened,
   toggleMapOpen,
   onNodeFocus,
+  focusedZone:focusedNode
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [focusedNode, setFocusedNode] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const fgRef = useRef();
 
@@ -49,21 +49,19 @@ function Graph({
     }
   }, [mapOpened]);
 
+  useEffect(() => {
+    if (focusedNode) {
+      fgRef.current.centerAt(focusedNode.x, focusedNode.y, 500);
+      zoom(2);
+    }
+  }, [focusedNode]);
+
   const zoom = useCallback(
     val => {
       fgRef.current.zoom(val, 500);
       updateZoom(val);
     },
     [updateZoom],
-  );
-  const onNodeClick = useCallback(
-    node => {
-      fgRef.current.centerAt(node.x, node.y, 500);
-      zoom(2);
-      setFocusedNode(node);
-      onNodeFocus(node);
-    },
-    [zoom, setFocusedNode, onNodeFocus],
   );
   const zoomIn = useCallback(() => zoom(currentZoom * 2), [currentZoom, zoom]);
   const zoomOut = useCallback(() => zoom(currentZoom / 2), [currentZoom, zoom]);
@@ -76,7 +74,6 @@ function Graph({
     }
 
     if (focusedNode) {
-      setFocusedNode(null);
       onNodeFocus(null);
       zoom(1);
     }
@@ -84,7 +81,6 @@ function Graph({
     mapOpened,
     toggleMapOpen,
     focusedNode,
-    setFocusedNode,
     onNodeFocus,
     zoom,
   ]);
@@ -111,7 +107,7 @@ function Graph({
           graphData={data}
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
-          onNodeClick={onNodeClick}
+          onNodeClick={(node)=>onNodeFocus(node)}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('zoomButtonsContainer')}>

@@ -6,7 +6,8 @@
 }
 
 .table-container {
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   background: #ffffff;
 }
 .table-container::-webkit-scrollbar {
@@ -23,6 +24,8 @@
   border-spacing: 0;
   margin: 0 auto;
 }
+
+
 
 .header {
   font-style: normal;
@@ -76,9 +79,15 @@
   background: #ffffff;
 }
 
+.row {
+  cursor: pointer;
+}
+.row.focusedRow .cell,
 .row:hover .cell {
   background: #F4F4F5;
 }
+
+
 
 .cell .cell-container {
   display: flex;
@@ -362,6 +371,24 @@ thead.fixed.active {
 }
 
 
+@media (min-width: 1200px) {
+  tbody.bodyWithFocus {
+    transform: translateY(33px);
+  }
+  .row.focusedRow {
+    position: absolute;
+    top: -33px;
+    box-shadow: 0 1px 2px #C7C7C7;
+  }
+  .row.focusedRow.fixed {
+    position: fixed;
+    top: 80px;
+    z-index: 1;
+  }
+  tbody.bodyWithFocus.focusFixed {
+    transform: none;
+  }
+}
 @media (max-width: 1320px) {
   .explanation-icon .explanation-tooltip.centerPos {
     left: 0;
