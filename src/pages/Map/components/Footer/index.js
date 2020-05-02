@@ -43,7 +43,7 @@ function Footer() {
       </div>
       <div className={cx('socialContainer')}>
         <a
-          href=""
+          href="https://github.com/mapofzones"
           target="_blank"
           rel="noopener noreferrer"
           className={cx('link', 'socialLink')}
