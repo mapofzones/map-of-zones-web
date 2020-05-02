@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Leaderboard from './components/Leaderboard';
 import TotalStatTable from './components/TotalStatTable';
@@ -20,8 +20,7 @@ function Map() {
   });
   const [isTableOpened, setIsTableOpened] = useState('');
 
-
-  const handleScroll = (table) => {
+  const handleScroll = table => {
     if (table) {
       if (table.getBoundingClientRect().top <= 20) {
         setIsTableOpened('fixed-thead');
@@ -32,7 +31,6 @@ function Map() {
       }
     }
   };
-
 
   const toggleMapOpen = event => {
     setIsMapOpened(event === 'open');
@@ -70,14 +68,16 @@ function Map() {
         isTableOpened={isTableOpened}
         handleScroll={handleScroll}
       />
-      {!mapOpened && <Leaderboard
-        data={zonesStat.nodes}
-        onSortChange={setSort}
-        isTableOpened={isTableOpened}
-        handleScroll={handleScroll}
-        setFocusedZone={setFocusedZone}
-        focusedZoneName={focusedZone?.name}
-      />}
+      {!mapOpened && (
+        <Leaderboard
+          data={zonesStat.nodes}
+          onSortChange={setSort}
+          isTableOpened={isTableOpened}
+          handleScroll={handleScroll}
+          setFocusedZone={setFocusedZone}
+          focusedZoneId={focusedZone?.name}
+        />
+      )}
       <Footer />
     </div>
   );

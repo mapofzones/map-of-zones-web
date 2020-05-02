@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
@@ -22,9 +22,8 @@ function GraphContainer({
   toggleMapOpen,
   setFocusedZone,
   focusedZone,
-  isTableOpened
+  isTableOpened,
 }) {
-
   const backToMap = () => {
     if (isTableOpened) {
       window.scrollTo({
@@ -47,7 +46,7 @@ function GraphContainer({
         mapOpened={mapOpened}
         toggleMapOpen={toggleMapOpen}
         onNodeFocus={setFocusedZone}
-        focusedZone={focusedZone}
+        focusedNode={focusedZone}
       />
       <Logo className={cx('logo')} />
       {!mapOpened && (
@@ -84,7 +83,7 @@ GraphContainer.propTypes = {
   isSortedDesc: PropTypes.bool,
   zoneWeightAccessor: PropTypes.string,
   setFocusedZone: PropTypes.func,
-  focusedZoneName: PropTypes.string,
+  focusedZone: PropTypes.object,
 };
 
 export default GraphContainer;
