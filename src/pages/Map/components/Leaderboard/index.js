@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
+import Thead from './Thead';
 
-import { ReactComponent as ArrowDown } from 'assets/images/arrow-down.svg';
 import columnsConfig from './config';
 
 import styles from './index.module.css';
@@ -56,19 +56,6 @@ function Leaderboard({
     return window.removeEventListener('scroll', () => handleScroll(table));
   }, [handleScroll]);
 
-  const headerWithExplanation = id => {
-    switch (id) {
-      case 'totalTxs':
-      case 'totalIbcTxs':
-      case 'ibcSent':
-      case 'ibcReceived':
-      case 'channels':
-        return true;
-      default:
-        return false;
-    }
-  };
-
   const renderCell = cell => {
     switch (cell.column.id) {
       case 'txsActivity':
@@ -112,107 +99,13 @@ function Leaderboard({
   return (
     <div className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
-        {/* TODO: Add thead component*/}
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className={cx('header', column.id, {
-                    sortedColumn: column.isSorted,
-                  })}
-                >
-                  <div className={cx('header-container')}>
-                    <div className={cx('IBC-circle', column.id)} />
-                    {column.render('Header')}
-                    {headerWithExplanation(column.id) && (
-                      <div className={cx('explanation-icon')}>
-                        ?
-                        <div
-                          className={cx('explanation-tooltip', {
-                            centerPos:
-                              column.id === 'channels' ||
-                              column.id === 'ibcReceived',
-                          })}
-                        >
-                          {column.descr}
-                        </div>
-                      </div>
-                    )}
-                    {!column.disableSortBy && (
-                      <div className={cx('sortArrowWrapper')}>
-                        {column.isSorted ? (
-                          column.isSortedDesc ? (
-                            <ArrowDown className={cx('arrow')} />
-                          ) : (
-                            <ArrowDown className={cx('arrow', 'arrowUp')} />
-                          )
-                        ) : (
-                          <div>
-                            <ArrowDown className={cx('arrow', 'arrowUp')} />
-                            <ArrowDown className={cx('arrow')} />
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <thead
-          className={cx('fixed', { active: isTableOpened === 'fixed-thead' })}
-        >
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className={cx('header', column.id, {
-                    sortedColumn: column.isSorted,
-                  })}
-                >
-                  <div className={cx('header-container')}>
-                    <div className={cx('IBC-circle', column.id)} />
-                    {column.render('Header')}
-                    {headerWithExplanation(column.id) && (
-                      <div className={cx('explanation-icon')}>
-                        ?
-                        <div
-                          className={cx('explanation-tooltip', {
-                            centerPos:
-                              column.id === 'channels' ||
-                              column.id === 'ibcReceived',
-                          })}
-                        >
-                          {column.descr}
-                        </div>
-                      </div>
-                    )}
-                    {!column.disableSortBy && (
-                      <div className={cx('sortArrowWrapper')}>
-                        {column.isSorted ? (
-                          column.isSortedDesc ? (
-                            <ArrowDown className={cx('arrow')} />
-                          ) : (
-                            <ArrowDown className={cx('arrow', 'arrowUp')} />
-                          )
-                        ) : (
-                          <div>
-                            <ArrowDown className={cx('arrow', 'arrowUp')} />
-                            <ArrowDown className={cx('arrow')} />
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+        <Thead headerGroups={headerGroups} />
+        <Thead
+          headerGroups={headerGroups}
+          fixed
+          isTableOpened={isTableOpened}
+        />
+
         <tbody
           {...getTableBodyProps()}
           className={cx(
