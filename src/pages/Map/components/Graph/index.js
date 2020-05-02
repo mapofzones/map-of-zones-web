@@ -2,13 +2,13 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
-import tinycolor from 'tinycolor2';
 
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
 
+import { useNodeCanvasObject } from './hooks';
 import NodeTooltip from './NodeTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 
@@ -45,74 +45,54 @@ function Graph({
     }
   }, [mapOpened]);
 
-  const zoom = useCallback(val => {
-    fgRef.current.zoom(val, 500);
-    updateZoom(val);
-  }, []);
+  const zoom = useCallback(
+    val => {
+      fgRef.current.zoom(val, 500);
+      updateZoom(val);
+    },
+    [updateZoom],
+  );
   const onNodeClick = useCallback(
     node => {
       fgRef.current.centerAt(node.x, node.y, 500);
-      zoom(1);
+      zoom(2);
       setFocusedNode(node);
       onNodeFocus(node);
     },
-    [zoom, onNodeFocus],
+    [zoom, setFocusedNode, onNodeFocus],
   );
   const zoomIn = useCallback(() => zoom(currentZoom * 2), [currentZoom, zoom]);
   const zoomOut = useCallback(() => zoom(currentZoom / 2), [currentZoom, zoom]);
-  const onNodeHover = useCallback(node => setHoveredNode(node), []);
+  const onNodeHover = useCallback(node => setHoveredNode(node), [
+    setHoveredNode,
+  ]);
+  const onCloseButtonClick = useCallback(() => {
+    if (mapOpened) {
+      toggleMapOpen();
+    }
+
+    if (focusedNode) {
+      setFocusedNode(null);
+      onNodeFocus(null);
+      zoom(1);
+    }
+  }, [
+    mapOpened,
+    toggleMapOpen,
+    focusedNode,
+    setFocusedNode,
+    onNodeFocus,
+    zoom,
+  ]);
   const linkColor = useCallback(() => {
     return focusedNode
       ? 'rgba(255, 255, 255, 0.1)'
       : 'rgba(255, 255, 255, 0.5)';
   }, [focusedNode]);
-  const nodeCanvasObject = useCallback(
-    (node, ctx, globalScale) => {
-      const { x, y, name, color } = node;
-      const fontSize = 12 / globalScale;
-      const textWidth = ctx.measureText(name).width;
-      const backgroundDimensions = [textWidth, fontSize].map(
-        n => n + fontSize * 0.5,
-      );
-      const r =
-        Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * NODE_REL_SIZE;
-      const deltaY = r + backgroundDimensions[1] / 2 + 2 / globalScale;
-
-      if (focusedNode) {
-        ctx.fillStyle =
-          focusedNode === node
-            ? color
-            : tinycolor(color)
-                .desaturate(25)
-                .setAlpha(0.9)
-                .toString();
-      } else {
-        ctx.fillStyle = color;
-      }
-
-      if (focusedNode === node) {
-        ctx.shadowColor = color;
-        ctx.shadowBlur = 15;
-      }
-
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-      ctx.fill();
-      ctx.shadowColor = null;
-      ctx.shadowBlur = null;
-      ctx.font = `${fontSize}px Poppins`;
-      ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
-      ctx.fillRect(
-        x - backgroundDimensions[0] / 2,
-        y - backgroundDimensions[1] / 2 + deltaY,
-        ...backgroundDimensions,
-      );
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
-      ctx.fillText(name, x, y + deltaY);
-    },
-    [zoneWeightAccessor, focusedNode],
+  const nodeCanvasObject = useNodeCanvasObject(
+    zoneWeightAccessor,
+    focusedNode,
+    NODE_REL_SIZE,
   );
 
   return (
@@ -149,10 +129,10 @@ function Graph({
             </button>
           )}
         </div>
-        {mapOpened && (
+        {(mapOpened || focusedNode) && (
           <button
             type="button"
-            onClick={toggleMapOpen}
+            onClick={onCloseButtonClick}
             className={cx('zoomButton', 'close-button')}
           >
             <CloseIcon />
