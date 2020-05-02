@@ -5,6 +5,7 @@
   transition: 0.2s;
   position: relative;
   z-index: 4;
+  will-change: transform;
 }
 
 .activityContainer {
