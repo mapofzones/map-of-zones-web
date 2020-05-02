@@ -21,7 +21,7 @@ function GraphContainer({
   mapOpened,
   toggleMapOpen,
   setFocusedZone,
-  focusedZoneName,
+  focusedZone,
   isTableOpened
 }) {
 
@@ -47,6 +47,7 @@ function GraphContainer({
         mapOpened={mapOpened}
         toggleMapOpen={toggleMapOpen}
         onNodeFocus={setFocusedZone}
+        focusedZone={focusedZone}
       />
       <Logo className={cx('logo')} />
       {!mapOpened && (
@@ -57,7 +58,7 @@ function GraphContainer({
           setPeriod={setPeriod}
           className={cx('filter')}
           isTableOpened={isTableOpened}
-          focusedZoneName={focusedZoneName}
+          focusedZoneName={focusedZone?.name}
         />
       )}
     </div>

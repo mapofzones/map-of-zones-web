@@ -33,6 +33,7 @@ function Map() {
     }
   };
 
+
   const toggleMapOpen = event => {
     setIsMapOpened(event === 'open');
   };
@@ -64,7 +65,7 @@ function Map() {
         zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
         mapOpened={mapOpened}
         setFocusedZone={setFocusedZone}
-        focusedZoneName={focusedZone?.name}
+        focusedZone={focusedZone}
         toggleMapOpen={event => toggleMapOpen(event)}
         isTableOpened={isTableOpened}
         handleScroll={handleScroll}
@@ -74,6 +75,8 @@ function Map() {
         onSortChange={setSort}
         isTableOpened={isTableOpened}
         handleScroll={handleScroll}
+        setFocusedZone={setFocusedZone}
+        focusedZoneName={focusedZone?.name}
       />}
       <Footer />
     </div>
