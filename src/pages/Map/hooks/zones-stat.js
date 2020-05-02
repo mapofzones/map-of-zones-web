@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import { Graph } from '@dagrejs/graphlib';
 
 import { getZoneColor } from 'common/helper';
 
@@ -16,6 +17,15 @@ const ZONES_STAT = gql`
 `;
 
 const DEFAULT_COLOR = '#72727A';
+
+const createGraph = (nodes, links) => {
+  const g = new Graph();
+
+  nodes.forEach(node => g.setNode(node.id, node));
+  links.forEach(({ source, target }) => g.setEdge(source, target));
+
+  return g;
+};
 
 const getScaleParams = (zones, key) => {
   const weights = zones.map(({ [key]: weight }) => weight).filter(Boolean);
@@ -128,6 +138,7 @@ const transform = data => {
   return {
     nodes: zonesFormatted,
     links: linksFormatted,
+    graph: createGraph(zonesFormatted, linksFormatted),
   };
 };
 

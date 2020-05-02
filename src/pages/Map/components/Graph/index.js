@@ -8,7 +8,11 @@ import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
 
-import { useNodeCanvasObject } from './hooks';
+import {
+  useNodeCanvasObject,
+  useFocusedNodeNeighbors,
+  useLinkColor,
+} from './hooks';
 import NodeTooltip from './NodeTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 
@@ -84,14 +88,12 @@ function Graph({
     onNodeFocus,
     zoom,
   ]);
-  const linkColor = useCallback(() => {
-    return focusedNode
-      ? 'rgba(255, 255, 255, 0.1)'
-      : 'rgba(255, 255, 255, 0.5)';
-  }, [focusedNode]);
+  const linkColor = useLinkColor(focusedNode);
+  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
     focusedNode,
+    focusedNodeNeighbors,
     NODE_REL_SIZE,
   );
 
@@ -148,6 +150,7 @@ Graph.propTypes = {
   data: PropTypes.shape({
     nodes: PropTypes.array,
     links: PropTypes.array,
+    graph: PropTypes.object,
   }),
   isBlurred: PropTypes.string,
   period: PropTypes.node,

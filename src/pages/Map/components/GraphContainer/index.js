@@ -73,6 +73,7 @@ GraphContainer.propTypes = {
   zonesStat: PropTypes.shape({
     nodes: PropTypes.array, // TODO
     links: PropTypes.array, // TODO
+    graph: PropTypes.object,
   }),
   isTableOpened: PropTypes.string,
   handleScroll: PropTypes.func,
