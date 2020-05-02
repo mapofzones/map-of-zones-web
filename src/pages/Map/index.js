@@ -11,6 +11,7 @@ function Map() {
   const [mapOpened, setIsMapOpened] = useState(false);
   const [period, setPeriod] = useState(PERIODS[0]);
   const [sortedByColumn, setSort] = useState(undefined);
+  const [focusedZone, setFocusedZone] = useState(undefined);
   const { data: zonesStat } = useZonesStat({
     variables: { period: period.hours, step: period.step },
   });
@@ -28,16 +29,18 @@ function Map() {
 
   return (
     <div>
-      {!mapOpened && <TotalStatTable
-        period={period.name}
-        ibcTxsActivity={totalStat.ibcTxsActivity}
-        ibcTxs={totalStat.ibcTxs}
-        allZones={totalStat.allZones}
-        activeZones={totalStat.activeZones}
-        allChannels={totalStat.allChannels}
-        activeChannels={totalStat.activeChannels}
-        mostActiveZonesPair={totalStat.mostActiveZonesPair}
-      />}
+      {!mapOpened && (
+        <TotalStatTable
+          period={period.name}
+          ibcTxsActivity={totalStat.ibcTxsActivity}
+          ibcTxs={totalStat.ibcTxs}
+          allZones={totalStat.allZones}
+          activeZones={totalStat.activeZones}
+          allChannels={totalStat.allChannels}
+          activeChannels={totalStat.activeChannels}
+          mostActiveZonesPair={totalStat.mostActiveZonesPair}
+        />
+      )}
       <GraphContainer
         period={period}
         zonesStat={zonesStat}
@@ -46,12 +49,13 @@ function Map() {
         isSortedDesc={sortedByColumn?.isSortedDesc}
         zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
         mapOpened={mapOpened}
-        toggleMapOpen={(event) => toggleMapOpen(event)}
+        setFocusedZone={setFocusedZone}
+        focusedZoneName={focusedZone?.name}
+        toggleMapOpen={event => toggleMapOpen(event)}
       />
-      {!mapOpened && <Leaderboard
-        data={zonesStat.nodes}
-        onSortChange={setSort}
-      />}
+      {!mapOpened && (
+        <Leaderboard data={zonesStat.nodes} onSortChange={setSort} />
+      )}
       <Footer />
     </div>
   );

@@ -19,20 +19,20 @@ function GraphContainer({
   isSortedDesc,
   zoneWeightAccessor,
   mapOpened,
-  toggleMapOpen
+  toggleMapOpen,
+  setFocusedZone,
+  focusedZoneName,
 }) {
-
   const [isTableOpened, setIsTableOpened] = useState(false);
 
-  useEffect( () => {
+  useEffect(() => {
     let map = document.documentElement.querySelector('canvas');
-    window.addEventListener('scroll', ()=>handleScroll(map) );
+    window.addEventListener('scroll', () => handleScroll(map));
 
-    return window.removeEventListener('scroll', ()=>handleScroll(map) );
+    return window.removeEventListener('scroll', () => handleScroll(map));
   }, []);
 
-
-  const handleScroll = (map) => {
+  const handleScroll = map => {
     if (map.getBoundingClientRect().top <= -450) {
       setIsTableOpened(true);
     } else {
@@ -44,13 +44,16 @@ function GraphContainer({
     if (isTableOpened) {
       window.scrollTo({
         top: 0,
-        behavior: "smooth"
+        behavior: 'smooth',
       });
     }
   };
 
   return (
-    <div className={cx('container', {cursorPointer:isTableOpened})} onClick={backToMap}>
+    <div
+      className={cx('container', { cursorPointer: isTableOpened })}
+      onClick={backToMap}
+    >
       <Graph
         period={period.name}
         data={zonesStat}
@@ -58,16 +61,20 @@ function GraphContainer({
         zoneWeightAccessor={zoneWeightAccessor}
         mapOpened={mapOpened}
         toggleMapOpen={toggleMapOpen}
+        onNodeFocus={setFocusedZone}
       />
       <Logo className={cx('logo')} />
-      {!mapOpened && <ZonesFilter
-        sortBy={sortBy}
-        isSortedDesc={isSortedDesc}
-        hours={period.hours}
-        setPeriod={setPeriod}
-        className={cx('filter')}
-        isTableOpened={isTableOpened}
-      />}
+      {!mapOpened && (
+        <ZonesFilter
+          sortBy={sortBy}
+          isSortedDesc={isSortedDesc}
+          hours={period.hours}
+          setPeriod={setPeriod}
+          className={cx('filter')}
+          isTableOpened={isTableOpened}
+          focusedZoneName={focusedZoneName}
+        />
+      )}
     </div>
   );
 }
@@ -88,6 +95,8 @@ GraphContainer.propTypes = {
   sortBy: PropTypes.node,
   isSortedDesc: PropTypes.bool,
   zoneWeightAccessor: PropTypes.string,
+  setFocusedZone: PropTypes.func,
+  focusedZoneName: PropTypes.string,
 };
 
 export default GraphContainer;
