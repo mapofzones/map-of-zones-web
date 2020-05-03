@@ -39,7 +39,7 @@ function GraphContainer({
       onClick={backToMap}
     >
       <Graph
-        period={period.name}
+        period={period}
         data={zonesStat}
         isBlurred={isTableOpened}
         zoneWeightAccessor={zoneWeightAccessor}
@@ -69,6 +69,7 @@ GraphContainer.propTypes = {
     hours: PropTypes.number,
     step: PropTypes.number,
     name: PropTypes.node,
+    rawText: PropTypes.string,
   }),
   zonesStat: PropTypes.shape({
     nodes: PropTypes.array, // TODO
