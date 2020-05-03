@@ -33,8 +33,10 @@ export const usePeriodSelector = () => {
       if (matchedPeriod) {
         setPeriod(matchedPeriod);
       }
+    } else {
+      updatePeriod(PERIODS[0]);
     }
-  }, [period, setPeriod]);
+  }, [period, setPeriod, updatePeriod]);
 
   return [selectedPeriod, updatePeriod];
 };
