@@ -43,7 +43,7 @@ const columns = [
     disableSortBy: true,
   },
   {
-    Header: 'IBC sent',
+    Header: 'IBC out',
     accessor: 'ibcSent',
     id: 'ibcSent',
     zoneWeightAccessor: 'ibcSentWeight',
@@ -52,7 +52,7 @@ const columns = [
       'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
   },
   {
-    Header: 'IBC received',
+    Header: 'IBC in',
     accessor: 'ibcReceived',
     id: 'ibcReceived',
     zoneWeightAccessor: 'ibcReceivedWeight',

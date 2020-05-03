@@ -31,21 +31,21 @@ function NodeTooltip({ node, period }) {
       </div>
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>
-          <div className={cx('key-text')}>Connects</div>
+          <div className={cx('key-text')}>Channels</div>
           <div className={cx('item-text')}>{node.channels}</div>
         </div>
         <div className={cx('col')}>
-          <div className={cx('key-text')}>Overall txs</div>
+          <div className={cx('key-text')}>Total TXs</div>
           <div className={cx('item-text')}>{node.totalTxs}</div>
         </div>
       </div>
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>
-          <div className={cx('key-text')}>IBC All</div>
+          <div className={cx('key-text')}>IBC TXs</div>
           <div className={cx('item-text')}>{node.totalIbcTxs}</div>
         </div>
         <div className={cx('col')}>
-          <div className={cx('key-text')}>% IBC</div>
+          <div className={cx('key-text')}>IBC share %</div>
           <div className={cx('item-text')}>
             {roundNumber(node.ibcPercentage, 2)}
           </div>
@@ -53,14 +53,14 @@ function NodeTooltip({ node, period }) {
       </div>
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>
-          <div className={cx('key-text')}>IBC Sent</div>
+          <div className={cx('key-text')}>IBC out</div>
           <div className={cx('item-text')}>{node.ibcSent}</div>
           <div className={cx('item-text', 'sent-title')}>
             {formatPercentage(node.ibcSentPercentage, 2)}
           </div>
         </div>
         <div className={cx('col')}>
-          <div className={cx('key-text')}>IBC received</div>
+          <div className={cx('key-text')}>IBC in</div>
           <div className={cx('item-text')}>{node.ibcReceived}</div>
           <div className={cx('item-text', 'received-title')}>
             {formatPercentage(node.ibcReceivedPercentage, 2)}
