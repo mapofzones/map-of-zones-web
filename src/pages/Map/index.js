@@ -4,44 +4,49 @@ import Leaderboard from './components/Leaderboard';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
 import GraphContainer from './components/GraphContainer';
-import { PERIODS } from './components/PeriodSwitcher';
-import { useZonesStat, useTotalStat } from './hooks';
+import {
+  useZonesStat,
+  useTotalStat,
+  usePeriodSelector,
+  useFocusedZone,
+} from './hooks';
 
 function Map() {
+  const [period, setPeriod] = usePeriodSelector();
   const [mapOpened, setIsMapOpened] = useState(false);
-  const [period, setPeriod] = useState(PERIODS[0]);
   const [sortedByColumn, setSort] = useState(undefined);
-  const [focusedZone, setFocusedZone] = useState(undefined);
   const { data: zonesStat } = useZonesStat({
     variables: { period: period.hours, step: period.step },
   });
   const { data: totalStat } = useTotalStat({
     variables: { period: period.hours, step: period.step },
   });
+  const [focusedZone, setFocusedZone] = useFocusedZone(
+    zonesStat && zonesStat.nodes,
+  );
   const [isTableOpened, setIsTableOpened] = useState('');
-  const updatePeriod = useCallback(
-    newPeriod => {
-      setPeriod(newPeriod);
-      setFocusedZone(undefined);
+
+  const handleScroll = useCallback(
+    table => {
+      if (table) {
+        if (table.getBoundingClientRect().top <= 20) {
+          setIsTableOpened('fixed-thead');
+        } else if (table.getBoundingClientRect().top <= 60) {
+          setIsTableOpened('opened');
+        } else {
+          setIsTableOpened('');
+        }
+      }
     },
-    [setPeriod, setFocusedZone],
+    [setIsTableOpened],
   );
 
-  const handleScroll = table => {
-    if (table) {
-      if (table.getBoundingClientRect().top <= 20) {
-        setIsTableOpened('fixed-thead');
-      } else if (table.getBoundingClientRect().top <= 60) {
-        setIsTableOpened('opened');
-      } else {
-        setIsTableOpened('');
-      }
-    }
-  };
-
-  const toggleMapOpen = event => {
-    setIsMapOpened(event === 'open');
-  };
+  const toggleMapOpen = useCallback(
+    event => {
+      setIsMapOpened(event === 'open');
+    },
+    [setIsMapOpened],
+  );
 
   if (!totalStat || !zonesStat) {
     return null; // TODO: Add spinner
@@ -64,7 +69,7 @@ function Map() {
       <GraphContainer
         period={period}
         zonesStat={zonesStat}
-        setPeriod={updatePeriod}
+        setPeriod={setPeriod}
         sortBy={sortedByColumn?.Header}
         isSortedDesc={sortedByColumn?.isSortedDesc}
         zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
@@ -82,7 +87,7 @@ function Map() {
           isTableOpened={isTableOpened}
           handleScroll={handleScroll}
           setFocusedZone={setFocusedZone}
-          focusedZoneId={focusedZone?.name}
+          focusedZoneId={focusedZone?.id}
         />
       )}
       <Footer />
