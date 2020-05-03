@@ -2,16 +2,21 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
+import { FormattedMessage } from 'react-intl';
 
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
+import { ReactComponent as TgShareLogo } from 'assets/images/tg-share.svg';
+import { ReactComponent as TwitterShareLogo } from 'assets/images/twitter-share.svg';
 
 import {
   useNodeCanvasObject,
   useFocusedNodeNeighbors,
   useLinkColor,
+  useTwitterShareText,
+  useTelegramShareText,
 } from './hooks';
 import NodeTooltip from './NodeTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
@@ -88,6 +93,8 @@ function Graph({
     focusedNodeNeighbors,
     NODE_REL_SIZE,
   );
+  const twitterShareText = useTwitterShareText(focusedNode, period);
+  const telegramShareText = useTelegramShareText(focusedNode, period);
 
   return (
     <div>
@@ -106,34 +113,57 @@ function Graph({
           onNodeClick={onNodeFocus}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
-        <div className={cx('zoomButtonsContainer')}>
-          <button type="button" onClick={zoomIn} className={cx('zoomButton')}>
+        <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
+          <button type="button" onClick={zoomIn} className={cx('roundButton')}>
             <PlusSign />
           </button>
-          <button type="button" onClick={zoomOut} className={cx('zoomButton')}>
+          <button type="button" onClick={zoomOut} className={cx('roundButton')}>
             <MinusSign />
           </button>
           {!mapOpened && (
             <button
               type="button"
               onClick={() => toggleMapOpen('open')}
-              className={cx('zoomButton', 'full-screen-button')}
+              className={cx('roundButton', 'fullScreenButton')}
             >
               <FullScreenIcon />
             </button>
           )}
         </div>
-        {(mapOpened || focusedNode) && (
+        {!!focusedNode && (
+          <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
+            <div className={cx('shareTitle')}>
+              <FormattedMessage id="share" defaultMessage="Share" />
+            </div>
+            <a
+              href={telegramShareText}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cx('roundButton')}
+            >
+              <TgShareLogo />
+            </a>
+            <a
+              href={twitterShareText}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cx('roundButton')}
+            >
+              <TwitterShareLogo />
+            </a>
+          </div>
+        )}
+        {(mapOpened || !!focusedNode) && (
           <button
             type="button"
             onClick={onCloseButtonClick}
-            className={cx('zoomButton', 'close-button')}
+            className={cx('roundButton', 'closeButton')}
           >
             <CloseIcon />
           </button>
         )}
       </div>
-      {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
+      {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
     </div>
   );
 }
@@ -145,7 +175,12 @@ Graph.propTypes = {
     graph: PropTypes.object,
   }),
   isBlurred: PropTypes.string,
-  period: PropTypes.node,
+  period: PropTypes.shape({
+    hours: PropTypes.number,
+    step: PropTypes.number,
+    name: PropTypes.node,
+    rawText: PropTypes.string,
+  }),
   zoneWeightAccessor: PropTypes.string,
   mapOpened: PropTypes.bool,
   toggleMapOpen: PropTypes.func,

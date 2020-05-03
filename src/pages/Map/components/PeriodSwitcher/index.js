@@ -18,6 +18,7 @@ export const PERIODS = [
         values={{ period: 24 }}
       />
     ),
+    rawText: '24h',
   },
   {
     hours: 168,
@@ -29,6 +30,7 @@ export const PERIODS = [
         values={{ period: 7 }}
       />
     ),
+    rawText: '7d',
   },
   {
     hours: 720,
@@ -40,6 +42,7 @@ export const PERIODS = [
         values={{ period: 30 }}
       />
     ),
+    rawText: '30d',
   },
 ];
 

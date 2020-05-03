@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import tinycolor from 'tinycolor2';
 
 export const useNodeCanvasObject = (
@@ -87,3 +88,37 @@ export const useLinkColor = focusedNode =>
     },
     [focusedNode],
   );
+
+export const useTwitterShareText = (focusedNode, period) => {
+  const location = useLocation();
+  const shareLink = useMemo(
+    () => window.location.origin + location.pathname + location.search,
+    [location],
+  );
+  const text = useMemo(
+    () => `Check out the ${focusedNode?.name} zone inter-connection activity for the last ${period?.rawText}:
+${shareLink}
+by @mapofzones
+#CosmosNetwork #IBC #MapOfZones #gameofzones #GoZ`,
+    [shareLink, focusedNode, period],
+  );
+
+  return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+};
+
+export const useTelegramShareText = (focusedNode, period) => {
+  const location = useLocation();
+  const shareLink = useMemo(
+    () => window.location.origin + location.pathname + location.search,
+    [location],
+  );
+  const text = useMemo(
+    () => `Check out the ${focusedNode?.name} zone inter-connection activity for the last ${period?.rawText}
+by @mapofzones`,
+    [focusedNode, period],
+  );
+
+  return `https://t.me/share/url?url=${encodeURIComponent(
+    shareLink,
+  )}&text=${encodeURIComponent(text)}`;
+};

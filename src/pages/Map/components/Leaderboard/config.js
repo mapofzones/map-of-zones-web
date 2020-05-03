@@ -14,11 +14,13 @@ const columns = [
   {
     Header: 'Zone',
     accessor: 'name',
+    id: 'name',
     disableSortBy: true,
   },
   {
     Header: 'Total IBC Txs',
     accessor: 'totalIbcTxs',
+    id: 'totalIbcTxs',
     zoneWeightAccessor: 'ibcTxsWeight',
     sortDescFirst: true,
     descr:
@@ -27,6 +29,7 @@ const columns = [
   {
     Header: 'Total Txs',
     accessor: 'totalTxs',
+    id: 'totalTxs',
     zoneWeightAccessor: 'txsWeight',
     sortDescFirst: true,
     descr:
@@ -35,12 +38,14 @@ const columns = [
   {
     Header: 'IBC share %',
     accessor: 'ibcPercentage',
+    id: 'ibcPercentage',
     Cell: ({ cell }) => roundNumber(cell.value, 2),
     disableSortBy: true,
   },
   {
     Header: 'IBC sent',
     accessor: 'ibcSent',
+    id: 'ibcSent',
     zoneWeightAccessor: 'ibcSentWeight',
     sortDescFirst: true,
     descr:
@@ -49,6 +54,7 @@ const columns = [
   {
     Header: 'IBC received',
     accessor: 'ibcReceived',
+    id: 'ibcReceived',
     zoneWeightAccessor: 'ibcReceivedWeight',
     sortDescFirst: true,
     descr:
@@ -57,6 +63,7 @@ const columns = [
   {
     Header: 'Channels',
     accessor: 'channels',
+    id: 'channels',
     descr:
       'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
     disableSortBy: true,
@@ -65,6 +72,7 @@ const columns = [
     Header: 'IBC txs activity',
     Cell: TxsActivityCell,
     accessor: 'txsActivity',
+    id: 'txsActivity',
     disableSortBy: true,
   },
 ];
