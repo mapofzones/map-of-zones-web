@@ -96,7 +96,7 @@ export const useTwitterShareText = (focusedNode, period) => {
     [location],
   );
   const text = useMemo(
-    () => `Check out the ${focusedNode?.name} zone inter-connection activity for the last ${period?.rawText}:
+    () => `Check out the «${focusedNode?.name}» zone inter-connection activity for the last ${period?.rawText}:
 ${shareLink}
 by @mapofzones
 #CosmosNetwork #IBC #MapOfZones #gameofzones #GoZ`,
@@ -113,7 +113,7 @@ export const useTelegramShareText = (focusedNode, period) => {
     [location],
   );
   const text = useMemo(
-    () => `Check out the ${focusedNode?.name} zone inter-connection activity for the last ${period?.rawText}
+    () => `Check out the «${focusedNode?.name}» zone inter-connection activity for the last ${period?.rawText}
 by @mapofzones`,
     [focusedNode, period],
   );
