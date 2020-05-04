@@ -80,16 +80,14 @@ function Map() {
         isTableOpened={isTableOpened}
         handleScroll={handleScroll}
       />
-      {!mapOpened && (
-        <Leaderboard
-          data={zonesStat.nodes}
-          onSortChange={setSort}
-          isTableOpened={isTableOpened}
-          handleScroll={handleScroll}
-          setFocusedZone={setFocusedZone}
-          focusedZoneId={focusedZone?.id}
-        />
-      )}
+      <Leaderboard
+        data={zonesStat.nodes}
+        onSortChange={setSort}
+        isTableOpened={isTableOpened}
+        handleScroll={handleScroll}
+        setFocusedZone={setFocusedZone}
+        focusedZoneId={focusedZone?.id}
+      />
       <Footer />
     </div>
   );
