@@ -96,6 +96,17 @@ function Leaderboard({
     }
   };
 
+  const focusZone = zone => {
+    setFocusedZone(zone);
+
+    if (isTableOpened) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <div className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
@@ -128,7 +139,7 @@ function Leaderboard({
                   },
                 )}
                 onClick={() => {
-                  setFocusedZone(row.original);
+                  focusZone(row.original);
                 }}
               >
                 {row.cells.map(cell => {
