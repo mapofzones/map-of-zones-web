@@ -107,8 +107,35 @@ function Leaderboard({
     }
   };
 
+  useEffect(() => {
+    let table = document.getElementById('table-container');
+    let fixedHeader = document.getElementById('fixed-header');
+    let fixedRow = document.getElementById('fixed-row');
+
+    const onTableScroll = event => {
+      [fixedHeader, fixedRow].forEach(item => {
+        if (item) {
+          item.style.transform = `translateX(-${event.target.scrollLeft}px)`;
+        }
+      });
+    };
+
+    if (
+      isTableOpened === 'fixed-thead' &&
+      document.documentElement.clientWidth < 1120
+    ) {
+      table.addEventListener('scroll', onTableScroll);
+    }
+    if (isTableOpened !== 'fixed-thead') {
+      table.removeEventListener('scroll', onTableScroll);
+    }
+  }, [isTableOpened]);
+
   return (
-    <div className={cx('table-container')}>
+    <div
+      id="table-container"
+      className={cx('table-container', { fixedTable: isTableOpened })}
+    >
       <table {...getTableProps()} className={cx('table')}>
         <Thead headerGroups={headerGroups} />
         <Thead
@@ -141,6 +168,12 @@ function Leaderboard({
                 onClick={() => {
                   focusZone(row.original);
                 }}
+                id={
+                  row.original.id === focusedZoneId &&
+                  isTableOpened === 'fixed-thead'
+                    ? 'fixed-row'
+                    : ''
+                }
               >
                 {row.cells.map(cell => {
                   return (

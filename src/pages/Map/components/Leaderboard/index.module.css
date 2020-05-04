@@ -164,7 +164,7 @@
 .header.totalIbcTxs,
 .cell.totalIbcTxs {
   width: 123px;
-  min-width: 99px;
+  min-width: 123px;
 }
 
 /*4-th col*/
@@ -182,12 +182,14 @@
 .cell.ibcSent {
   border-left: 1px solid var(--table-borders-color);
   width: 109px;
+  min-width: 103px;
 }
 
 /*7 col*/
 .header.ibcReceived,
 .cell.ibcReceived {
   width: 135px;
+  min-width: 95px;
   border-right: 1px solid var(--table-borders-color);
 }
 
@@ -352,12 +354,11 @@
 
 thead.fixed {
   position: fixed;
-  top: 25px;
-  z-index: 3;
-  display: none;
+  top: 53px;
+  z-index: -1;
 }
 thead.fixed.active {
-  top: 53px;
+  z-index: 3;
 }
 
 tbody.bodyWithFocus {
@@ -369,23 +370,20 @@ tbody.bodyWithFocus {
   box-shadow: 0 1px 2px #c7c7c7;
   z-index: 3;
 }
-
 .row.focusedRow > .cell {
   box-shadow: none;
 }
-
-@media (min-width: 1120px) {
-  .row.focusedRow.fixed {
-    position: fixed;
-    top: 80px;
-  }
-  tbody.bodyWithFocus.focusFixed {
-    transform: none;
-  }
-  thead.fixed {
-    display: block;
-  }
+tbody.bodyWithFocus.focusFixed {
+  transform: none;
 }
+.row.focusedRow.fixed {
+  position: fixed;
+  top: 79px;
+}
+.row.focusedRow:not(.fixed) {
+  transform: translateX(0px) !important;
+}
+
 @media (max-width: 1320px) {
   .explanation-icon .explanation-tooltip.centerPos {
     left: 0;
@@ -417,7 +415,6 @@ tbody.bodyWithFocus {
     max-width: calc(210px - 35px);
   }
 }
-
 @media (max-width: 500px) {
   .header.name,
   .cell.name {
