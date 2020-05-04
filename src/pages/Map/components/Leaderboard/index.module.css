@@ -140,7 +140,7 @@
 .header.position > div,
 .header.position,
 .cell.position {
-  width: 32px;
+  /*width: 32px;*/
   padding: 0;
 }
 
@@ -413,6 +413,11 @@ tbody.bodyWithFocus.focusFixed {
   }
   .cell.name .text-container {
     max-width: calc(210px - 35px);
+  }
+}
+@media (max-width: 1120px) {
+  .shift-tooltip {
+    display: none;
   }
 }
 @media (max-width: 500px) {

@@ -124,12 +124,20 @@ function Leaderboard({
       isTableOpened === 'fixed-thead' &&
       document.documentElement.clientWidth < 1120
     ) {
+      [fixedHeader, fixedRow].forEach(item => {
+        if (item) {
+          item.style.transform = `translateX(-${table.scrollLeft}px)`;
+        }
+      });
+
       table.addEventListener('scroll', onTableScroll);
     }
-    if (isTableOpened !== 'fixed-thead') {
+
+    return () => {
+      if (fixedRow) fixedRow.style.transform = 'unset';
       table.removeEventListener('scroll', onTableScroll);
-    }
-  }, [isTableOpened]);
+    };
+  }, [isTableOpened, focusedZoneId]);
 
   return (
     <div
