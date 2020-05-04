@@ -26,6 +26,7 @@ const Thead = ({ fixed, isTableOpened, headerGroups }) => {
         { fixed: fixed },
         { active: isTableOpened === 'fixed-thead' },
       )}
+      id={fixed ? 'fixed-header' : ''}
     >
       {headerGroups.map(headerGroup => (
         <tr {...headerGroup.getHeaderGroupProps()}>
