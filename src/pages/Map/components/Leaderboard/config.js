@@ -23,8 +23,7 @@ const columns = [
     id: 'totalIbcTxs',
     zoneWeightAccessor: 'ibcTxsWeight',
     sortDescFirst: true,
-    descr:
-      'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
+    descr: 'Transactions that transfer data via IBC relayer',
   },
   {
     Header: 'Total Txs',
@@ -32,8 +31,7 @@ const columns = [
     id: 'totalTxs',
     zoneWeightAccessor: 'txsWeight',
     sortDescFirst: true,
-    descr:
-      'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
+    descr: 'All transactions in a specified zone (internal and IBC)',
   },
   {
     Header: 'IBC share %',
@@ -49,7 +47,7 @@ const columns = [
     zoneWeightAccessor: 'ibcSentWeight',
     sortDescFirst: true,
     descr:
-      'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
+      'Transactions sent successfully from one zone to another zone (in order to be considered successful it has to be received by the other zone)',
   },
   {
     Header: 'IBC in',
@@ -58,14 +56,13 @@ const columns = [
     zoneWeightAccessor: 'ibcReceivedWeight',
     sortDescFirst: true,
     descr:
-      'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
+      'Successfully received transactions by a zone from another zone (completed data/token transfer)',
   },
   {
     Header: 'Channels',
     accessor: 'channels',
     id: 'channels',
-    descr:
-      'A financial transaction is an agreement, or communication, carried out between a buyer and a seller to exchange an asset for payment.',
+    descr: '',
     disableSortBy: true,
   },
   {

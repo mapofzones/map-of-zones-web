@@ -13,7 +13,6 @@ const Thead = ({ fixed, isTableOpened, headerGroups }) => {
       case 'totalIbcTxs':
       case 'ibcSent':
       case 'ibcReceived':
-      case 'channels':
         return true;
       default:
         return false;
