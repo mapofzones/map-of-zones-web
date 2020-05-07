@@ -18,7 +18,9 @@ function NodeTooltip({ node, period }) {
 
   return (
     <div
-      className={cx('node-custom-tooltip', { active: isActive })}
+      className={cx('custom-tooltip', 'node-custom-tooltip', {
+        active: isActive,
+      })}
       style={{
         borderTop: `4px solid ${node.color}`,
         left: parseInt(mapTooltip.style.left) + 15 + 'px',
@@ -27,7 +29,7 @@ function NodeTooltip({ node, period }) {
     >
       <div className={cx('header-row')}>
         <div className={cx('item-text')}>{node.name}</div>
-        <div className={cx('key-text')}>{period}</div>
+        <div className={cx('key-text', 'period-title')}>{period}</div>
       </div>
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>

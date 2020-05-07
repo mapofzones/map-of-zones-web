@@ -1,0 +1,101 @@
+@import '../../../../../assets/styles/constants.css';
+
+:root {
+  --tooltip-gray: #808080;
+}
+
+.key-text {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 100%;
+  color: var(--tooltip-gray);
+}
+.item-text {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 100%;
+  color: var(--color-regular);
+}
+.item-text.normal-weight {
+  font-weight: normal;
+}
+.arrow-right {
+  line-height: 20px;
+  padding: 0 2px;
+}
+.arrow-right:after {
+  content: '\2192';
+  font-size: 16px;
+}
+
+.custom-tooltip {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  opacity: 0;
+  transition: 0.2s;
+  z-index: 1;
+}
+.node-custom-tooltip {
+  min-width: 160px;
+  padding: 0 7px 7px 7px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.link-tooltip {
+  background: #fcfcfc;
+  padding: 6px 7px;
+  min-width: 150px;
+}
+.custom-tooltip.active {
+  opacity: 1;
+}
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 25px;
+  border-bottom: 2px solid var(--color-regular);
+}
+.row {
+  display: flex;
+  align-items: center;
+  margin: 0 -1px 3px -1px;
+}
+.row:nth-child(2n) {
+  margin-bottom: 12px;
+}
+.row:last-child {
+  margin-bottom: 0;
+}
+.row > .col {
+  padding: 0 1px;
+}
+.row-tooltip {
+  display: flex;
+  padding: 5px 0 2px 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+  margin-bottom: 1px;
+}
+.row-tooltip:last-child {
+  border: none;
+}
+.row-tooltip .key-text {
+  margin-bottom: 2px;
+}
+.row-tooltip > .col:first-child {
+  width: 63px;
+}
+.item-text.sent-title {
+  color: var(--color-red);
+  margin-top: 2px;
+}
+.item-text.received-title {
+  font-weight: 500;
+  color: var(--color-green);
+  margin-top: 2px;
+}
+.period-title {
+  padding-left: 10px;
+}

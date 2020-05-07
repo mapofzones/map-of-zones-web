@@ -18,7 +18,8 @@ import {
   useTwitterShareText,
   useTelegramShareText,
 } from './hooks';
-import NodeTooltip from './NodeTooltip';
+import NodeTooltip from './Tooltips/NodeTooltip';
+import LinkTooltip from './Tooltips/LinkTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 
 import styles from './index.module.css';
@@ -38,6 +39,7 @@ function Graph({
   focusedNode,
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [hoveredLink, setHoveredLink] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const fgRef = useRef();
 
@@ -76,6 +78,9 @@ function Graph({
   const onNodeHover = useCallback(node => setHoveredNode(node), [
     setHoveredNode,
   ]);
+  const onLinkHover = useCallback(link => setHoveredLink(link), [
+    setHoveredLink,
+  ]);
   const onCloseButtonClick = useCallback(() => {
     if (mapOpened) {
       toggleMapOpen();
@@ -111,6 +116,7 @@ function Graph({
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
           onNodeClick={onNodeFocus}
+          onLinkHover={onLinkHover}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
@@ -164,6 +170,7 @@ function Graph({
         )}
       </div>
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
+      {hoveredLink && <LinkTooltip link={hoveredLink} period={period.name} />}
     </div>
   );
 }
