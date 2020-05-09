@@ -22,6 +22,8 @@ import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 
+import { forceCollide } from 'd3-force';
+
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
@@ -44,8 +46,25 @@ function Graph({
   const fgRef = useRef();
 
   useEffect(() => {
-    fgRef.current.d3Force('link').distance(() => 150);
+    const fg = fgRef.current;
+
+    // links
+    fg.d3Force('link').distance(() => Math.random() * 100 + 150);
+
+    // charge
+    fg.d3Force('charge').distanceMax(200);
   }, []);
+
+  useEffect(() => {
+    // collision
+    const collide = forceCollide(node => {
+      return (
+        Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * NODE_REL_SIZE +
+        2
+      );
+    });
+    fgRef.current.d3Force('collide', collide);
+  }, [zoneWeightAccessor]);
 
   useEffect(() => {
     if (mapOpened) {
@@ -117,6 +136,8 @@ function Graph({
           nodeCanvasObject={nodeCanvasObject}
           onNodeClick={onNodeFocus}
           onLinkHover={onLinkHover}
+          d3AlphaDecay={0.02}
+          d3VelocityDecay={0.3}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
