@@ -176,6 +176,7 @@
 .cell.ibcPercentage {
   width: 99px;
   min-width: 99px;
+  max-width: 99px;
 }
 
 /*6 col*/

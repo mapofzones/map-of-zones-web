@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: flex-end;
   padding: 12px;
+  backdrop-filter: blur(8px);
+  background: rgba(19, 14, 38, 0.37);
 }
 .container.right {
   right: 0;
