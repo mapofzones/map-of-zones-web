@@ -412,7 +412,7 @@ tbody.bodyWithFocus.focusFixed {
     min-width: 230px;
   }
   .header.name {
-    box-shadow: none;
+    box-shadow: 2px 0 4px rgba(186, 186, 186, 0.47);
   }
   .cell.name .text-container {
     max-width: calc(210px - 35px);
