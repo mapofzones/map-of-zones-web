@@ -13,6 +13,9 @@
   font-size: 30px;
   color: #fff;
 }
+.sortContainer::first-letter {
+  text-transform: uppercase;
+}
 
 .sort {
   color: #949494;
