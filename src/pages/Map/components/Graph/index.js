@@ -138,6 +138,10 @@ function Graph({
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
+          linkDirectionalParticles={2}
+          linkDirectionalParticleSpeed={0.006}
+          linkDirectionalParticleWidth={2.5}
+          linkDirectionalParticleColor={() => 'rgba(255,255,255,0.6)'}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
