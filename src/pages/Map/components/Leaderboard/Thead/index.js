@@ -13,6 +13,7 @@ const Thead = ({ fixed, isTableOpened, headerGroups }) => {
       case 'totalIbcTxs':
       case 'ibcSent':
       case 'ibcReceived':
+      case 'ibcPercentage':
         return true;
       default:
         return false;
@@ -36,7 +37,11 @@ const Thead = ({ fixed, isTableOpened, headerGroups }) => {
                 sortedColumn: column.isSorted,
               })}
             >
-              <div className={cx('header-container')}>
+              <div
+                className={cx('header-container', {
+                  ableSortCol: !column.disableSortBy,
+                })}
+              >
                 <div className={cx('IBC-circle', column.id)} />
                 {column.render('Header')}
                 {headerWithExplanation(column.id) && (

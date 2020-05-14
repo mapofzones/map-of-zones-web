@@ -18,12 +18,12 @@ const columns = [
     disableSortBy: true,
   },
   {
-    Header: 'Total IBC Txs',
+    Header: 'IBC transfers',
     accessor: 'totalIbcTxs',
     id: 'totalIbcTxs',
     zoneWeightAccessor: 'ibcTxsWeight',
     sortDescFirst: true,
-    descr: 'Transactions that transfer data via IBC relayer',
+    descr: 'Token transfers via IBC relayer',
   },
   {
     Header: 'Total Txs',
@@ -31,7 +31,7 @@ const columns = [
     id: 'totalTxs',
     zoneWeightAccessor: 'txsWeight',
     sortDescFirst: true,
-    descr: 'All transactions in a specified zone (internal and IBC)',
+    descr: 'All transactions in a specified zone',
   },
   {
     Header: 'IBC share %',
@@ -39,6 +39,9 @@ const columns = [
     id: 'ibcPercentage',
     Cell: ({ cell }) => roundNumber(cell.value, 2),
     disableSortBy: true,
+    descr:
+      'The proportion of the number of transactions having IBC ' +
+      'messages to the total number of transactions in a certain zone',
   },
   {
     Header: 'IBC out',
@@ -47,7 +50,8 @@ const columns = [
     zoneWeightAccessor: 'ibcSentWeight',
     sortDescFirst: true,
     descr:
-      'Transactions sent successfully from one zone to another zone (in order to be considered successful it has to be received by the other zone)',
+      'Transfers sent successfully from one zone to another zone (note: ' +
+      'in order to be considered successful it has NOT to be received by the other zone)',
   },
   {
     Header: 'IBC in',
@@ -56,7 +60,7 @@ const columns = [
     zoneWeightAccessor: 'ibcReceivedWeight',
     sortDescFirst: true,
     descr:
-      'Successfully received transactions by a zone from another zone (completed data/token transfer)',
+      'Successfully received token by a zone from another zone (completed token transfer)',
   },
   {
     Header: 'Channels',

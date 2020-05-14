@@ -48,7 +48,7 @@
   height: 26px;
   position: relative;
 }
-.header-container:after {
+.ableSortCol.header-container:after {
   content: '';
   position: absolute;
   width: calc(100% + 10px);
@@ -58,7 +58,7 @@
   transition: 0.1s;
   background: #bfbfbf;
 }
-.header-container:hover:after {
+.ableSortCol.header-container:hover:after {
   height: 2px;
 }
 
@@ -291,6 +291,7 @@
   font-weight: normal;
   color: var(--color-regular);
   white-space: normal;
+  text-align: left;
 
   opacity: 0;
   visibility: hidden;
