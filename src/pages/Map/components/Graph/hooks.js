@@ -33,7 +33,7 @@ export const useNodeCanvasObject = (
 
       if (focusedNode === node) {
         ctx.shadowColor = color;
-        ctx.shadowBlur = 15;
+        ctx.shadowBlur = 30;
       }
 
       ctx.beginPath();
