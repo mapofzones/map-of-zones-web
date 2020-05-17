@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
 import { FormattedMessage } from 'react-intl';
+import { forceCollide } from 'd3-force-3d';
 
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
@@ -21,8 +22,6 @@ import {
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
-
-import { forceCollide } from 'd3-force';
 
 import styles from './index.module.css';
 
