@@ -17,3 +17,13 @@ export function roundNumber(number, decimalDigits = 0) {
 
 export const formatPercentage = (percentage, decimalDigits) =>
   `${roundNumber(percentage * 100, decimalDigits)}%`;
+
+export function trackEvent({ action, category, label, value }) {
+  if (window.gtag) {
+    window.gtag('event', action, {
+      event_label: label,
+      event_category: category,
+      value,
+    });
+  }
+}

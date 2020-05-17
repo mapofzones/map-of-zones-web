@@ -5,6 +5,8 @@ import ForceGraph2D from 'react-force-graph-2d';
 import { FormattedMessage } from 'react-intl';
 import { forceCollide } from 'd3-force-3d';
 
+import { trackEvent } from 'common/helper';
+
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
@@ -91,8 +93,14 @@ function Graph({
     }
   }, [focusedNode, zoom]);
 
-  const zoomIn = useCallback(() => zoom(currentZoom * 2), [currentZoom, zoom]);
-  const zoomOut = useCallback(() => zoom(currentZoom / 2), [currentZoom, zoom]);
+  const zoomIn = useCallback(() => {
+    zoom(currentZoom * 2);
+    trackEvent({ category: 'Map', action: 'zoom', label: 'in' });
+  }, [currentZoom, zoom]);
+  const zoomOut = useCallback(() => {
+    zoom(currentZoom / 2);
+    trackEvent({ category: 'Map', action: 'zoom', label: 'out' });
+  }, [currentZoom, zoom]);
   const onNodeHover = useCallback(node => setHoveredNode(node), [
     setHoveredNode,
   ]);
@@ -108,6 +116,17 @@ function Graph({
       onNodeFocus(null);
     }
   }, [mapOpened, toggleMapOpen, focusedNode, onNodeFocus]);
+  const onNodeClick = useCallback(
+    node => {
+      onNodeFocus(node);
+      trackEvent({
+        category: 'Map',
+        action: 'select zone',
+        label: node.name,
+      });
+    },
+    [onNodeFocus],
+  );
   const linkColor = useLinkColor(focusedNode);
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const nodeCanvasObject = useNodeCanvasObject(
@@ -133,7 +152,7 @@ function Graph({
           graphData={data}
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
-          onNodeClick={onNodeFocus}
+          onNodeClick={onNodeClick}
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
@@ -166,6 +185,13 @@ function Graph({
               <FormattedMessage id="share" defaultMessage="Share" />
             </div>
             <a
+              onClick={() =>
+                trackEvent({
+                  category: 'Map',
+                  action: 'telegram share',
+                  label: focusedNode.name,
+                })
+              }
               href={telegramShareText}
               target="_blank"
               rel="noopener noreferrer"
@@ -174,6 +200,13 @@ function Graph({
               <TgShareLogo />
             </a>
             <a
+              onClick={() =>
+                trackEvent({
+                  category: 'Map',
+                  action: 'twitter share',
+                  label: focusedNode.name,
+                })
+              }
               href={twitterShareText}
               target="_blank"
               rel="noopener noreferrer"
