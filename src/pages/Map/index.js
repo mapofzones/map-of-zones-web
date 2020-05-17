@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
+import { trackEvent } from 'common/helper';
+
 import Leaderboard from './components/Leaderboard';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
@@ -43,7 +45,14 @@ function Map() {
 
   const toggleMapOpen = useCallback(
     event => {
-      setIsMapOpened(event === 'open');
+      const isOpened = event === 'open';
+
+      setIsMapOpened(isOpened);
+      trackEvent({
+        category: 'Map',
+        action: 'full screen',
+        label: isOpened ? 'on' : 'off',
+      });
     },
     [setIsMapOpened],
   );

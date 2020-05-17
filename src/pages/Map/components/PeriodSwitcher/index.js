@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
+
+import { trackEvent } from 'common/helper';
 
 import styles from './index.module.css';
 
@@ -47,6 +49,18 @@ export const PERIODS = [
 ];
 
 function PeriodSwitcher({ hours, onChange }) {
+  const onPeriodChange = useCallback(
+    period => {
+      onChange(period);
+      trackEvent({
+        category: 'Map',
+        action: 'change period',
+        label: period.rawText,
+      });
+    },
+    [onChange],
+  );
+
   return (
     <div className={cx('container')}>
       {PERIODS.map(period => (
@@ -54,7 +68,7 @@ function PeriodSwitcher({ hours, onChange }) {
           type="button"
           key={period.hours}
           className={cx('period', { selected: period.hours === hours })}
-          onClick={() => onChange(period)}
+          onClick={() => onPeriodChange(period)}
         >
           {period.name}
         </button>

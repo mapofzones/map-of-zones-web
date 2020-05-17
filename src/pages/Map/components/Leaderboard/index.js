@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
-import Thead from './Thead';
 
+import { trackEvent } from 'common/helper';
+
+import Thead from './Thead';
 import columnsConfig from './config';
 
 import styles from './index.module.css';
@@ -43,11 +45,14 @@ function Leaderboard({
   const sortBy = state?.sortBy?.[0];
   const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
-  useEffect(() => onSortChange({ ...sortedColumn }), [
-    sortBy,
-    sortedColumn,
-    onSortChange,
-  ]);
+  useEffect(() => {
+    onSortChange({ ...sortedColumn });
+    trackEvent({
+      category: 'Table',
+      action: 'sort',
+      label: sortedColumn.id,
+    });
+  }, [sortBy, sortedColumn, onSortChange]);
 
   useEffect(() => {
     let table = document.documentElement.querySelector('table');
@@ -105,6 +110,12 @@ function Leaderboard({
         behavior: 'smooth',
       });
     }
+
+    trackEvent({
+      category: 'Table',
+      action: 'select zone',
+      label: zone.name,
+    });
   };
 
   useEffect(() => {
