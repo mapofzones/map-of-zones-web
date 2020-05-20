@@ -122,3 +122,53 @@ by @mapofzones`,
     shareLink,
   )}&text=${encodeURIComponent(text)}`;
 };
+
+export const useLinkCanvasObject = focusedNode =>
+  useCallback(
+    ({ source, target }, ctx, globalScale) => {
+      const width = 1;
+      const lineWidth = width / globalScale;
+
+      if (focusedNode && focusedNode !== source && focusedNode !== target) {
+        return;
+      }
+
+      if (
+        !source ||
+        !target ||
+        !source.hasOwnProperty('x') ||
+        !target.hasOwnProperty('x')
+      ) {
+        return;
+      }
+
+      const gradient = ctx.createLinearGradient(
+        source.x,
+        source.y,
+        target.x,
+        target.y,
+      );
+
+      gradient.addColorStop(
+        0,
+        tinycolor(source.color)
+          .setAlpha(0.4)
+          .toString(),
+      );
+      gradient.addColorStop(
+        1,
+        tinycolor(target.color)
+          .setAlpha(0.4)
+          .toString(),
+      );
+
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = lineWidth;
+
+      ctx.beginPath();
+      ctx.moveTo(source.x, source.y);
+      ctx.lineTo(target.x, target.y);
+      ctx.stroke();
+    },
+    [focusedNode],
+  );

@@ -16,6 +16,7 @@ import { ReactComponent as TwitterShareLogo } from 'assets/images/twitter-share.
 
 import {
   useNodeCanvasObject,
+  useLinkCanvasObject,
   useFocusedNodeNeighbors,
   useLinkColor,
   useTwitterShareText,
@@ -135,6 +136,7 @@ function Graph({
     focusedNodeNeighbors,
     NODE_REL_SIZE,
   );
+  const linkCanvasObject = useLinkCanvasObject(focusedNode);
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
 
@@ -152,6 +154,7 @@ function Graph({
           graphData={data}
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
+          linkCanvasObject={linkCanvasObject}
           onNodeClick={onNodeClick}
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
