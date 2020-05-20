@@ -11,7 +11,7 @@ export const useNodeCanvasObject = (
   useCallback(
     (node, ctx, globalScale) => {
       const { x, y, name, color } = node;
-      const fontSize = 12 / globalScale;
+      const fontSize = 10 / globalScale;
       const textWidth = ctx.measureText(name).width;
       const backgroundDimensions = [textWidth, fontSize].map(
         n => n + fontSize * 0.5,
