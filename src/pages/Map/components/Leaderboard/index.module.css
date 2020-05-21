@@ -262,6 +262,7 @@
 .explanation-icon {
   background: #bfbfbf;
   border-radius: 100%;
+  min-width: 11px;
   width: 11px;
   height: 11px;
   margin-left: 4px;
