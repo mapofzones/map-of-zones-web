@@ -43,7 +43,7 @@ function NodeTooltip({ node, period }) {
       </div>
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>
-          <div className={cx('key-text')}>IBC TXs</div>
+          <div className={cx('key-text')}>IBC transfers</div>
           <div className={cx('item-text')}>{node.totalIbcTxs}</div>
         </div>
         <div className={cx('col')}>

@@ -70,7 +70,7 @@ const columns = [
     disableSortBy: true,
   },
   {
-    Header: 'IBC txs activity',
+    Header: 'IBC transfers activity',
     Cell: TxsActivityCell,
     accessor: 'txsActivity',
     id: 'txsActivity',
