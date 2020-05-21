@@ -13,10 +13,15 @@
   top: 0;
   margin: 13px;
 }
+.logo-beta {
+  width: 28px;
+  position: absolute;
+  top: 11px;
+  left: calc(116px + 13px + 7px);
+}
 
 .filter {
   position: absolute;
   bottom: 0;
   width: auto;
 }
-

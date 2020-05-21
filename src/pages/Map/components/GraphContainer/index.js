@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
+import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
 
 import Graph from '../Graph';
 import ZonesFilter from '../ZonesFilter';
@@ -48,7 +49,10 @@ function GraphContainer({
         onNodeFocus={setFocusedZone}
         focusedNode={focusedZone}
       />
+
       <Logo className={cx('logo')} />
+      <LogoBeta className={cx('logo-beta')} />
+
       {!mapOpened && (
         <ZonesFilter
           sortBy={sortBy}
