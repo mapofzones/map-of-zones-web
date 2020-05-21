@@ -28,6 +28,13 @@ function Map() {
   );
   const [isTableOpened, setIsTableOpened] = useState('');
 
+  const preSetFocusedZone = zone => {
+    if (!zone || !focusedZone || zone.id !== focusedZone.id) {
+      setFocusedZone(zone);
+    } else {
+      setFocusedZone(null);
+    }
+  };
   const handleScroll = useCallback(
     table => {
       if (table) {
@@ -83,7 +90,7 @@ function Map() {
         isSortedDesc={sortedByColumn?.isSortedDesc}
         zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
         mapOpened={mapOpened}
-        setFocusedZone={setFocusedZone}
+        setFocusedZone={preSetFocusedZone}
         focusedZone={focusedZone}
         toggleMapOpen={event => toggleMapOpen(event)}
         isTableOpened={isTableOpened}
@@ -94,7 +101,7 @@ function Map() {
         onSortChange={setSort}
         isTableOpened={isTableOpened}
         handleScroll={handleScroll}
-        setFocusedZone={setFocusedZone}
+        setFocusedZone={preSetFocusedZone}
         focusedZoneId={focusedZone?.id}
       />
       <Footer />
