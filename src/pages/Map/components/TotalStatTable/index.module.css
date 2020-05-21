@@ -33,6 +33,7 @@
   font-weight: 600;
   font-size: 12px;
   margin-bottom: 6px;
+  white-space: nowrap;
 }
 
 .mostActiveZonesPairTxs {
@@ -52,7 +53,7 @@
 }
 
 .item:not(:last-child) {
-  border-right: 2px solid #110A19;
+  border-right: 2px solid #110a19;
 }
 
 .period {
@@ -115,6 +116,9 @@
   .statContainer.small:last-child {
     display: none;
   }
+  .period {
+    display: none;
+  }
 }
 @media (max-width: 520px) {
   .container {
@@ -137,6 +141,7 @@
   }
   .period {
     margin-left: 5px;
+    display: inline;
   }
   .activityContainer {
     display: none;
