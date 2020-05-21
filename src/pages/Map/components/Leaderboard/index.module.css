@@ -91,7 +91,7 @@
   flex-wrap: nowrap;
 }
 .cell .text-container {
-  padding-right: 35%;
+  padding-right: 30px;
   display: inline-block;
   white-space: nowrap;
   width: 100%;
@@ -141,7 +141,7 @@
 .header.position > div,
 .header.position,
 .cell.position {
-  /*width: 32px;*/
+  width: 32px;
   padding: 0;
 }
 
@@ -166,6 +166,7 @@
 .cell.totalIbcTxs {
   width: 123px;
   min-width: 123px;
+  max-width: 123px;
 }
 
 /*4-th col*/
@@ -183,8 +184,9 @@
 .header.ibcSent,
 .cell.ibcSent {
   border-left: 1px solid var(--table-borders-color);
-  width: 109px;
-  min-width: 103px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
 }
 
 /*7 col*/
@@ -198,7 +200,7 @@
 /*8 col*/
 .header.channels,
 .cell.channels {
-  min-width: 95px;
+  min-width: 100px;
 }
 
 /*9 col*/
