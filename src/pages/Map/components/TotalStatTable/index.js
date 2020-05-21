@@ -26,7 +26,7 @@ function TotalStatTable({
           <div className={cx('statName')}>
             <FormattedMessage
               id="number-of-ibc-txs-stat"
-              defaultMessage="Number of IBC TXS {period}"
+              defaultMessage="Number of IBC transfers {period}"
               values={{
                 period: <span className={cx('period')}>{period}</span>,
               }}
@@ -112,7 +112,7 @@ function TotalStatTable({
               <div className={cx('mostActiveZonesPairTxs')}>
                 <FormattedMessage
                   id="most-active-zones-pair-ibc-txs"
-                  defaultMessage="{txs} Txs"
+                  defaultMessage="{txs} transfers"
                   values={{
                     txs: mostActiveZonesPair.ibc,
                   }}
