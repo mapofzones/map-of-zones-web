@@ -1,4 +1,5 @@
 import tinygradient from 'tinygradient';
+import amplitude from 'amplitude-js';
 
 const gradient = tinygradient([
   '#D76969',
@@ -18,12 +19,24 @@ export function roundNumber(number, decimalDigits = 0) {
 export const formatPercentage = (percentage, decimalDigits) =>
   `${roundNumber(percentage * 100, decimalDigits)}%`;
 
-export function trackEvent({ action, category, label, value }) {
-  if (window.gtag) {
-    window.gtag('event', action, {
-      event_label: label,
-      event_category: category,
-      value,
-    });
+export function trackEvent({ category, action, label, value }) {
+  if (process.env.NODE_ENV === 'production') {
+    const instance = amplitude.getInstance();
+
+    instance.init(process.env.REACT_APP_AMPLITUDE_KEY);
+    instance.logEvent(
+      `${category}:${action}`.toUpperCase().replace(/\s/g, '_'),
+      {
+        value: label,
+      },
+    );
+
+    if (window.gtag) {
+      window.gtag('event', action, {
+        event_category: category,
+        event_label: label,
+        value,
+      });
+    }
   }
 }
