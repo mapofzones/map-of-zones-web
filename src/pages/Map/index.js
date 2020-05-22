@@ -28,13 +28,16 @@ function Map() {
   );
   const [isTableOpened, setIsTableOpened] = useState('');
 
-  const preSetFocusedZone = zone => {
-    if (!zone || !focusedZone || zone.id !== focusedZone.id) {
-      setFocusedZone(zone);
-    } else {
-      setFocusedZone(null);
-    }
-  };
+  const preSetFocusedZone = useCallback(
+    zone => {
+      if (!zone || !focusedZone || zone.id !== focusedZone.id) {
+        setFocusedZone(zone);
+      } else {
+        setFocusedZone(null);
+      }
+    },
+    [focusedZone, setFocusedZone],
+  );
   const handleScroll = useCallback(
     table => {
       if (table) {
