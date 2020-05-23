@@ -124,9 +124,10 @@ function Graph({
         category: 'Map',
         action: 'select zone',
         label: node.name,
+        extra: { period: period?.rawText },
       });
     },
-    [onNodeFocus],
+    [onNodeFocus, period],
   );
   const linkDirectionalParticleColor = useLinkColor(focusedNode);
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
@@ -207,6 +208,7 @@ function Graph({
                   category: 'Map',
                   action: 'twitter share',
                   label: focusedNode.name,
+                  extra: { period: period?.rawText },
                 })
               }
               href={twitterShareText}

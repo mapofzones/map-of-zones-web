@@ -100,6 +100,7 @@ function Map() {
         handleScroll={handleScroll}
       />
       <Leaderboard
+        period={period}
         data={zonesStat.nodes}
         onSortChange={setSort}
         isTableOpened={isTableOpened}

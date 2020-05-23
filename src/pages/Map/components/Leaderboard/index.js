@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
@@ -22,6 +22,7 @@ function Leaderboard({
   handleScroll,
   setFocusedZone,
   focusedZoneId,
+  period,
 }) {
   const {
     getTableProps,
@@ -51,6 +52,7 @@ function Leaderboard({
       category: 'Table',
       action: 'sort',
       label: sortedColumn.id,
+      extra: { direction: sortBy.desc ? 'desc' : 'asc' },
     });
   }, [sortBy, sortedColumn, onSortChange]);
 
@@ -101,22 +103,26 @@ function Leaderboard({
     }
   };
 
-  const focusZone = zone => {
-    setFocusedZone(zone);
+  const focusZone = useCallback(
+    zone => {
+      setFocusedZone(zone);
 
-    if (isTableOpened) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
+      if (isTableOpened) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
+
+      trackEvent({
+        category: 'Table',
+        action: 'select zone',
+        label: zone.name,
+        extra: { period: period?.rawText },
       });
-    }
-
-    trackEvent({
-      category: 'Table',
-      action: 'select zone',
-      label: zone.name,
-    });
-  };
+    },
+    [setFocusedZone, isTableOpened, period],
+  );
 
   useEffect(() => {
     let table = document.getElementById('table-container');
@@ -223,6 +229,12 @@ Leaderboard.propTypes = {
   disableSortRemove: PropTypes.bool,
   focusedZoneId: PropTypes.string,
   setFocusedZone: PropTypes.func,
+  period: PropTypes.shape({
+    hours: PropTypes.number,
+    step: PropTypes.number,
+    name: PropTypes.node,
+    rawText: PropTypes.string,
+  }),
 };
 
 Leaderboard.defaultProps = {
