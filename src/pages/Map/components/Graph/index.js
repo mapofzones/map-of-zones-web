@@ -128,7 +128,7 @@ function Graph({
     },
     [onNodeFocus],
   );
-  const linkColor = useLinkColor(focusedNode);
+  const linkDirectionalParticleColor = useLinkColor(focusedNode);
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
@@ -150,7 +150,6 @@ function Graph({
           nodeVal={zoneWeightAccessor}
           nodeColor="color"
           nodeLabel={null}
-          linkColor={linkColor}
           graphData={data}
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
@@ -162,7 +161,7 @@ function Graph({
           linkDirectionalParticles={2}
           linkDirectionalParticleSpeed={0.006}
           linkDirectionalParticleWidth={2.5}
-          // linkDirectionalParticleColor={() => 'rgba(255,255,255,0.6)'}
+          linkDirectionalParticleColor={linkDirectionalParticleColor}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
