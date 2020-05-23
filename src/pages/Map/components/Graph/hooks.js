@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import tinycolor from 'tinycolor2';
+import { parse, stringify } from 'querystringify';
 
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
@@ -89,12 +90,27 @@ export const useLinkColor = focusedNode =>
     [focusedNode],
   );
 
-export const useTwitterShareText = (focusedNode, period) => {
+export const useShareLink = queryParams => {
   const location = useLocation();
-  const shareLink = useMemo(
-    () => window.location.origin + location.pathname + location.search,
-    [location],
+
+  return useMemo(
+    () =>
+      `${window.location.origin}${location.pathname}?${stringify({
+        ...parse(location.search),
+        ...(queryParams || {}),
+      })}`,
+    [location, queryParams],
   );
+};
+
+export const useTwitterShareText = (focusedNode, period) => {
+  const queryParams = useMemo(
+    () => ({
+      utm_source: 'twitter.com',
+    }),
+    [],
+  );
+  const shareLink = useShareLink(queryParams);
   const text = useMemo(
     () => `Check out the «${focusedNode?.name}» zone inter-connection activity for the last ${period?.rawText}:
 ${shareLink}
@@ -107,11 +123,13 @@ by @mapofzones
 };
 
 export const useTelegramShareText = (focusedNode, period) => {
-  const location = useLocation();
-  const shareLink = useMemo(
-    () => window.location.origin + location.pathname + location.search,
-    [location],
+  const queryParams = useMemo(
+    () => ({
+      utm_source: 'telegram.org',
+    }),
+    [],
   );
+  const shareLink = useShareLink(queryParams);
   const text = useMemo(
     () => `Check out the «${focusedNode?.name}» zone inter-connection activity for the last ${period?.rawText}
 by @mapofzones`,
