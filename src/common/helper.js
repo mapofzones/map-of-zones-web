@@ -19,7 +19,7 @@ export function roundNumber(number, decimalDigits = 0) {
 export const formatPercentage = (percentage, decimalDigits) =>
   `${roundNumber(percentage * 100, decimalDigits)}%`;
 
-export function trackEvent({ category, action, label, value }) {
+export function trackEvent({ category, action, label, extra = {} }) {
   if (process.env.NODE_ENV === 'production') {
     const instance = amplitude.getInstance();
 
@@ -27,6 +27,7 @@ export function trackEvent({ category, action, label, value }) {
     instance.logEvent(
       `${category}:${action}`.toUpperCase().replace(/\s/g, '_'),
       {
+        ...extra,
         value: label,
       },
     );
@@ -35,7 +36,6 @@ export function trackEvent({ category, action, label, value }) {
       window.gtag('event', action, {
         event_category: category,
         event_label: label,
-        value,
       });
     }
   }
