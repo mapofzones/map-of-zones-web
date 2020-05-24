@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { trackEvent } from 'common/helper';
+import { useLocationTracker } from 'common/hooks';
 
 import Leaderboard from './components/Leaderboard';
 import TotalStatTable from './components/TotalStatTable';
@@ -14,6 +15,8 @@ import {
 } from './hooks';
 
 function Map() {
+  useLocationTracker(); // TODO: Move to App component
+
   const [period, setPeriod] = usePeriodSelector();
   const [mapOpened, setIsMapOpened] = useState(false);
   const [sortedByColumn, setSort] = useState(undefined);

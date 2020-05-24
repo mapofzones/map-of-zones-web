@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 
+import { trackEvent } from 'common/helper';
+
 import { ReactComponent as GitHubLogo } from 'assets/images/github-logo.svg';
 import { ReactComponent as TgLogo } from 'assets/images/tg-logo.svg';
 import { ReactComponent as TwitterLogo } from 'assets/images/twitter-logo.svg';
@@ -24,6 +26,12 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cx('link')}
+                onClick={() =>
+                  trackEvent({
+                    category: 'Footer',
+                    action: 'bitquasar link click',
+                  })
+                }
               >
                 Bitquasar.com
               </a>
@@ -34,6 +42,12 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cx('link')}
+                onClick={() =>
+                  trackEvent({
+                    category: 'Footer',
+                    action: 'ztake link click',
+                  })
+                }
               >
                 Ztake.org
               </a>
@@ -47,6 +61,12 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           className={cx('link', 'socialLink')}
+          onClick={() =>
+            trackEvent({
+              category: 'Footer',
+              action: 'github link click',
+            })
+          }
         >
           <GitHubLogo className={cx('socialIcon')} />
           <span className={cx('socialName')}>GitHub</span>
@@ -56,6 +76,12 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           className={cx('link', 'socialLink')}
+          onClick={() =>
+            trackEvent({
+              category: 'Footer',
+              action: 'twitter link click',
+            })
+          }
         >
           <TwitterLogo className={cx('socialIcon')} />
           <span className={cx('socialName')}>Twitter</span>
@@ -65,6 +91,12 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           className={cx('link', 'socialLink')}
+          onClick={() =>
+            trackEvent({
+              category: 'Footer',
+              action: 'telegram link click',
+            })
+          }
         >
           <TgLogo className={cx('socialIcon')} />
           <span className={cx('socialName')}>Telegram</span>
@@ -72,6 +104,12 @@ function Footer() {
         <a
           href="mailto:hi@ztake.org"
           className={cx('link', 'socialLink', 'contactUsLink')}
+          onClick={() =>
+            trackEvent({
+              category: 'Footer',
+              action: 'ztake email click',
+            })
+          }
         >
           <span className={cx('contactUsTitle')}>
             <FormattedMessage
