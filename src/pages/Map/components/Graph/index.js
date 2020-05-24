@@ -163,6 +163,12 @@ function Graph({
           linkDirectionalParticleSpeed={0.006}
           linkDirectionalParticleWidth={2.5}
           linkDirectionalParticleColor={linkDirectionalParticleColor}
+          onNodeDragEnd={() =>
+            trackEvent({
+              category: 'Map',
+              action: 'drag zone',
+            })
+          }
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
