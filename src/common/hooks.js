@@ -10,6 +10,17 @@ export const useLocationTracker = () => {
   useEffect(
     () =>
       trackEvent({
+        category: 'App',
+        action: 'open',
+        label: location.pathname + location.search,
+        extra: parse(location.search),
+      }),
+    [], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  useEffect(
+    () =>
+      trackEvent({
         category: 'Location',
         action: 'change',
         label: location.pathname + location.search,
