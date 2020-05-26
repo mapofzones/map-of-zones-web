@@ -44,17 +44,21 @@ function Leaderboard({
   );
 
   const sortBy = state?.sortBy?.[0];
+  const initialSortBy = initialState?.sortBy?.[0];
   const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
   useEffect(() => {
     onSortChange({ ...sortedColumn });
-    trackEvent({
-      category: 'Table',
-      action: 'sort',
-      label: sortedColumn.id,
-      extra: { direction: sortBy.desc ? 'desc' : 'asc' },
-    });
-  }, [sortBy, sortedColumn, onSortChange]);
+
+    if (sortBy !== initialSortBy) {
+      trackEvent({
+        category: 'Table',
+        action: 'sort',
+        label: sortedColumn.id,
+        extra: { direction: sortBy?.desc ? 'desc' : 'asc' },
+      });
+    }
+  }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
 
   useEffect(() => {
     let table = document.documentElement.querySelector('table');
