@@ -22,7 +22,6 @@
 
 .table {
   border-spacing: 0;
-  margin: 0 auto;
 }
 
 .header {
@@ -48,6 +47,10 @@
   height: 26px;
   position: relative;
 }
+.header.ibcReceived > .header-container {
+  justify-content: flex-end;
+}
+
 .ableSortCol.header-container:after {
   content: '';
   position: absolute;
@@ -113,6 +116,10 @@
   opacity: 0;
   transition: 0.2s;
   z-index: 5;
+}
+.focusedRow .text-container .shift-tooltip {
+  top: unset;
+  bottom: -8px;
 }
 .cell .text-container .shift-tooltip.negative {
   background: var(--color-red);
@@ -192,8 +199,8 @@
 /*7 col*/
 .header.ibcReceived,
 .cell.ibcReceived {
-  /*width: 135px;*/
-  min-width: 95px;
+  width: 110px;
+  min-width: 110px;
   border-right: 1px solid var(--table-borders-color);
 }
 
@@ -374,7 +381,7 @@ tbody.bodyWithFocus {
   position: absolute;
   top: -33px;
   box-shadow: 0 1px 2px #c7c7c7;
-  z-index: 3;
+  z-index: 2;
 }
 .row.focusedRow > .cell {
   box-shadow: none;
@@ -402,7 +409,7 @@ tbody.bodyWithFocus.focusFixed {
     position: sticky;
     left: 0;
     min-width: 40px;
-    z-index: 2;
+    z-index: 1;
   }
   .header.name,
   .cell.name {
