@@ -85,7 +85,7 @@
   margin-bottom: 2px;
 }
 .row-tooltip > .col:first-child {
-  width: 63px;
+  width: 80px;
 }
 .item-text.sent-title {
   color: var(--color-red);

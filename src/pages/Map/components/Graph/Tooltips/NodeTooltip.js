@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
-import { roundNumber, formatPercentage } from 'common/helper';
+import { formatNumber, formatPercentage } from 'common/helper';
 
 import styles from './index.module.css';
 
@@ -34,38 +34,42 @@ function NodeTooltip({ node, period }) {
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>
           <div className={cx('key-text')}>Channels</div>
-          <div className={cx('item-text')}>{node.channels}</div>
+          <div className={cx('item-text')}>{formatNumber(node.channels)}</div>
         </div>
         <div className={cx('col')}>
           <div className={cx('key-text')}>Total TXs</div>
-          <div className={cx('item-text')}>{node.totalTxs}</div>
+          <div className={cx('item-text')}>{formatNumber(node.totalTxs)}</div>
         </div>
       </div>
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>
           <div className={cx('key-text')}>IBC transfers</div>
-          <div className={cx('item-text')}>{node.totalIbcTxs}</div>
+          <div className={cx('item-text')}>
+            {formatNumber(node.totalIbcTxs)}
+          </div>
         </div>
         <div className={cx('col')}>
           <div className={cx('key-text')}>IBC share %</div>
           <div className={cx('item-text')}>
-            {roundNumber(node.ibcPercentage, 2)}
+            {formatPercentage(node.ibcPercentage)}
           </div>
         </div>
       </div>
       <div className={cx('row-tooltip')}>
         <div className={cx('col')}>
           <div className={cx('key-text')}>IBC out</div>
-          <div className={cx('item-text')}>{node.ibcSent}</div>
+          <div className={cx('item-text')}>{formatNumber(node.ibcSent)}</div>
           <div className={cx('item-text', 'sent-title')}>
-            {formatPercentage(node.ibcSentPercentage, 2)}
+            {formatPercentage(node.ibcSentPercentage)}
           </div>
         </div>
         <div className={cx('col')}>
           <div className={cx('key-text')}>IBC in</div>
-          <div className={cx('item-text')}>{node.ibcReceived}</div>
+          <div className={cx('item-text')}>
+            {formatNumber(node.ibcReceived)}
+          </div>
           <div className={cx('item-text', 'received-title')}>
-            {formatPercentage(node.ibcReceivedPercentage, 2)}
+            {formatPercentage(node.ibcReceivedPercentage)}
           </div>
         </div>
       </div>
