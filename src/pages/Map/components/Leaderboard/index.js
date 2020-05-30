@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy } from 'react-table';
 
-import { trackEvent } from 'common/helper';
+import { formatNumber, trackEvent } from 'common/helper';
 
 import Thead from './Thead';
 import columnsConfig from './config';
@@ -98,8 +98,9 @@ function Leaderboard({
                 })}
               >
                 {cell.row.original[cell.column.id + 'Diff'] > 0
-                  ? '+' + cell.row.original[cell.column.id + 'Diff']
-                  : cell.row.original[cell.column.id + 'Diff']}
+                  ? '+' +
+                    formatNumber(cell.row.original[cell.column.id + 'Diff'])
+                  : formatNumber(cell.row.original[cell.column.id + 'Diff'])}
               </div>
             )}
           </span>

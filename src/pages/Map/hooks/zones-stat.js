@@ -93,7 +93,7 @@ const transform = data => {
         txsActivity: chart,
         totalTxs: total_txs,
         totalIbcTxs: total_ibc_txs,
-        ibcPercentage: ibc_percent,
+        ibcPercentage: ibc_percent / 100,
         ibcSent: ibc_tx_out,
         ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
         ibcReceived: ibc_tx_in,

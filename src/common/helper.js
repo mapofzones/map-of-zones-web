@@ -12,12 +12,17 @@ const gradient = tinygradient([
 export const getZoneColor = sentPercentage =>
   gradient.rgbAt(1 - (sentPercentage || 0)).toHexString();
 
-export function roundNumber(number, decimalDigits = 0) {
-  return parseFloat(parseFloat(number).toFixed(decimalDigits));
-}
+export const toFixed = (number, decimalDigits = 0) =>
+  parseFloat(number).toFixed(decimalDigits);
 
-export const formatPercentage = (percentage, decimalDigits) =>
-  `${roundNumber(percentage * 100, decimalDigits)}%`;
+export const roundNumber = (number, decimalDigits = 0) =>
+  parseFloat(toFixed(number, decimalDigits));
+
+export const formatPercentage = (percentage, decimalDigits = 2) =>
+  `${toFixed(percentage * 100, decimalDigits).replace('.', ',')}%`;
+
+export const formatNumber = number =>
+  Intl ? new Intl.NumberFormat().format(number) : number;
 
 export function trackEvent({ category, action, label, extra = {} }) {
   if (process.env.NODE_ENV === 'production') {

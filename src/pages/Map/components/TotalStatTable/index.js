@@ -4,6 +4,8 @@ import classNames from 'classnames/bind';
 import { Area, AreaChart, ResponsiveContainer } from 'recharts';
 import { FormattedMessage } from 'react-intl';
 
+import { formatNumber } from 'common/helper';
+
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
@@ -32,7 +34,7 @@ function TotalStatTable({
               }}
             />
           </div>
-          <div className={cx('statValue')}>{ibcTxs}</div>
+          <div className={cx('statValue')}>{formatNumber(ibcTxs)}</div>
         </div>
         <ResponsiveContainer className={cx('activityContainer')}>
           <AreaChart data={ibcTxsActivity} margin={{ bottom: 0 }}>
@@ -55,7 +57,7 @@ function TotalStatTable({
                 defaultMessage="All Zones"
               />
             </div>
-            <div className={cx('statValue')}>{allZones}</div>
+            <div className={cx('statValue')}>{formatNumber(allZones)}</div>
           </div>
           <div className={cx('statContainer', 'small')}>
             <div className={cx('statName')}>
@@ -67,7 +69,7 @@ function TotalStatTable({
                 }}
               />
             </div>
-            <div className={cx('statValue')}>{activeZones}</div>
+            <div className={cx('statValue')}>{formatNumber(activeZones)}</div>
           </div>
         </div>
       </div>
@@ -80,7 +82,7 @@ function TotalStatTable({
                 defaultMessage="All Channels"
               />
             </div>
-            <div className={cx('statValue')}>{allChannels}</div>
+            <div className={cx('statValue')}>{formatNumber(allChannels)}</div>
           </div>
           <div className={cx('statContainer', 'small')}>
             <div className={cx('statName')}>
@@ -92,7 +94,9 @@ function TotalStatTable({
                 }}
               />
             </div>
-            <div className={cx('statValue')}>{activeChannels}</div>
+            <div className={cx('statValue')}>
+              {formatNumber(activeChannels)}
+            </div>
           </div>
         </div>
       </div>
@@ -114,7 +118,7 @@ function TotalStatTable({
                   id="most-active-zones-pair-ibc-txs"
                   defaultMessage="{txs} transfers"
                   values={{
-                    txs: mostActiveZonesPair.ibc,
+                    txs: formatNumber(mostActiveZonesPair.ibc),
                   }}
                 />
               </div>

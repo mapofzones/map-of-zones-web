@@ -1,4 +1,4 @@
-import { roundNumber } from 'common/helper';
+import { formatPercentage, formatNumber } from 'common/helper';
 
 import TxsActivityCell from './cells/TxsActivity';
 
@@ -21,6 +21,7 @@ const columns = [
     Header: 'IBC transfers',
     accessor: 'totalIbcTxs',
     id: 'totalIbcTxs',
+    Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcTxsWeight',
     sortDescFirst: true,
     descr: 'Token transfers via IBC relayer',
@@ -29,6 +30,7 @@ const columns = [
     Header: 'Total Txs',
     accessor: 'totalTxs',
     id: 'totalTxs',
+    Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'txsWeight',
     sortDescFirst: true,
     descr: 'All transactions in a specified zone',
@@ -37,7 +39,7 @@ const columns = [
     Header: 'IBC share %',
     accessor: 'ibcPercentage',
     id: 'ibcPercentage',
-    Cell: ({ cell }) => roundNumber(cell.value, 2),
+    Cell: ({ cell }) => formatPercentage(cell.value),
     disableSortBy: true,
     descr:
       'The proportion of the number of transactions having IBC ' +
@@ -47,6 +49,7 @@ const columns = [
     Header: 'IBC out',
     accessor: 'ibcSent',
     id: 'ibcSent',
+    Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcSentWeight',
     sortDescFirst: true,
     descr:
@@ -57,6 +60,7 @@ const columns = [
     Header: 'IBC in',
     accessor: 'ibcReceived',
     id: 'ibcReceived',
+    Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcReceivedWeight',
     sortDescFirst: true,
     descr:
@@ -66,6 +70,7 @@ const columns = [
     Header: 'Channels',
     accessor: 'channels',
     id: 'channels',
+    Cell: ({ cell }) => formatNumber(cell.value),
     descr: '',
     disableSortBy: true,
   },
