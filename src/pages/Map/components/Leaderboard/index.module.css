@@ -253,6 +253,7 @@
 .IBC-circle {
   display: none;
   width: 8px;
+  min-width: 8px;
   height: 8px;
   line-height: 17px;
   border-radius: 100%;
