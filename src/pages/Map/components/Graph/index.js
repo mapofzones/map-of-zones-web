@@ -10,7 +10,7 @@ import { trackEvent } from 'common/helper';
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
-import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
+import { ReactComponent as CollapseScreenIcon } from 'assets/images/collapse-screen-icon.svg';
 import { ReactComponent as TgShareLogo } from 'assets/images/tg-share.svg';
 import { ReactComponent as TwitterShareLogo } from 'assets/images/twitter-share.svg';
 
@@ -109,28 +109,34 @@ function Graph({
     setHoveredLink,
   ]);
   const onCloseButtonClick = useCallback(() => {
-    if (mapOpened) {
-      toggleMapOpen();
-    }
-
     if (focusedNode) {
       onNodeFocus(null);
     }
-  }, [mapOpened, toggleMapOpen, focusedNode, onNodeFocus]);
+  }, [focusedNode, onNodeFocus]);
+  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const onNodeClick = useCallback(
     node => {
-      onNodeFocus(node);
-      trackEvent({
-        category: 'Map',
-        action: 'select zone',
-        label: node.name,
-        extra: { period: period?.rawText },
-      });
+      if (!focusedNode || focusedNodeNeighbors.includes(node)) {
+        onNodeFocus(node);
+        trackEvent({
+          category: 'Map',
+          action: 'select zone',
+          label: node.name,
+          extra: { period: period?.rawText },
+        });
+      } else {
+        onCloseButtonClick();
+      }
     },
-    [onNodeFocus, period],
+    [
+      focusedNode,
+      onNodeFocus,
+      focusedNodeNeighbors,
+      onCloseButtonClick,
+      period,
+    ],
   );
   const linkDirectionalParticleColor = useLinkColor(focusedNode);
-  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
     focusedNode,
@@ -169,6 +175,7 @@ function Graph({
               action: 'drag zone',
             })
           }
+          onBackgroundClick={onCloseButtonClick}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
@@ -178,13 +185,21 @@ function Graph({
           <button type="button" onClick={zoomOut} className={cx('roundButton')}>
             <MinusSign />
           </button>
-          {!mapOpened && (
+          {(!mapOpened && (
             <button
               type="button"
               onClick={() => toggleMapOpen('open')}
               className={cx('roundButton', 'fullScreenButton')}
             >
               <FullScreenIcon />
+            </button>
+          )) || (
+            <button
+              type="button"
+              onClick={toggleMapOpen}
+              className={cx('roundButton', 'fullScreenButton')}
+            >
+              <CollapseScreenIcon />
             </button>
           )}
         </div>
@@ -225,15 +240,6 @@ function Graph({
               <TwitterShareLogo />
             </a>
           </div>
-        )}
-        {(mapOpened || !!focusedNode) && (
-          <button
-            type="button"
-            onClick={onCloseButtonClick}
-            className={cx('roundButton', 'closeButton')}
-          >
-            <CloseIcon />
-          </button>
         )}
       </div>
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
