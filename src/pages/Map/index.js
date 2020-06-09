@@ -7,6 +7,7 @@ import Leaderboard from './components/Leaderboard';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
 import GraphContainer from './components/GraphContainer';
+import Loader from './components/Loader';
 import {
   useZonesStat,
   useTotalStat,
@@ -71,49 +72,49 @@ function Map() {
   );
 
   if (!totalStat || !zonesStat) {
-    return null; // TODO: Add spinner
-  }
-
-  return (
-    <div>
-      {!mapOpened && (
-        <TotalStatTable
-          period={period.name}
-          ibcTxsActivity={totalStat.ibcTxsActivity}
-          ibcTxs={totalStat.ibcTxs}
-          allZones={totalStat.allZones}
-          activeZones={totalStat.activeZones}
-          allChannels={totalStat.allChannels}
-          activeChannels={totalStat.activeChannels}
-          mostActiveZonesPair={totalStat.mostActiveZonesPair}
+    return <Loader />;
+  } else {
+    return (
+      <div>
+        {!mapOpened && (
+          <TotalStatTable
+            period={period.name}
+            ibcTxsActivity={totalStat.ibcTxsActivity}
+            ibcTxs={totalStat.ibcTxs}
+            allZones={totalStat.allZones}
+            activeZones={totalStat.activeZones}
+            allChannels={totalStat.allChannels}
+            activeChannels={totalStat.activeChannels}
+            mostActiveZonesPair={totalStat.mostActiveZonesPair}
+          />
+        )}
+        <GraphContainer
+          period={period}
+          zonesStat={zonesStat}
+          setPeriod={setPeriod}
+          sortBy={sortedByColumn?.Header}
+          isSortedDesc={sortedByColumn?.isSortedDesc}
+          zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
+          mapOpened={mapOpened}
+          setFocusedZone={preSetFocusedZone}
+          focusedZone={focusedZone}
+          toggleMapOpen={event => toggleMapOpen(event)}
+          isTableOpened={isTableOpened}
+          handleScroll={handleScroll}
         />
-      )}
-      <GraphContainer
-        period={period}
-        zonesStat={zonesStat}
-        setPeriod={setPeriod}
-        sortBy={sortedByColumn?.Header}
-        isSortedDesc={sortedByColumn?.isSortedDesc}
-        zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
-        mapOpened={mapOpened}
-        setFocusedZone={preSetFocusedZone}
-        focusedZone={focusedZone}
-        toggleMapOpen={event => toggleMapOpen(event)}
-        isTableOpened={isTableOpened}
-        handleScroll={handleScroll}
-      />
-      <Leaderboard
-        period={period}
-        data={zonesStat.nodes}
-        onSortChange={setSort}
-        isTableOpened={isTableOpened}
-        handleScroll={handleScroll}
-        setFocusedZone={preSetFocusedZone}
-        focusedZoneId={focusedZone?.id}
-      />
-      <Footer />
-    </div>
-  );
+        <Leaderboard
+          period={period}
+          data={zonesStat.nodes}
+          onSortChange={setSort}
+          isTableOpened={isTableOpened}
+          handleScroll={handleScroll}
+          setFocusedZone={preSetFocusedZone}
+          focusedZoneId={focusedZone?.id}
+        />
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default Map;
