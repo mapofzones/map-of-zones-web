@@ -40,6 +40,8 @@
   font-weight: 600;
   font-size: 12px;
   color: #61ab8b;
+  white-space: nowrap;
+  margin-left: 10px;
 }
 
 .statValue {

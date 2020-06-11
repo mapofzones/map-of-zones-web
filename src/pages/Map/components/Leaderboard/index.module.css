@@ -199,8 +199,9 @@
 /*7 col*/
 .header.ibcReceived,
 .cell.ibcReceived {
-  width: 110px;
-  min-width: 110px;
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
   border-right: 1px solid var(--table-borders-color);
 }
 
