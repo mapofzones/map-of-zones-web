@@ -11,6 +11,7 @@ import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
 import { ReactComponent as CollapseScreenIcon } from 'assets/images/collapse-screen-icon.svg';
+import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
 import { ReactComponent as TgShareLogo } from 'assets/images/tg-share.svg';
 import { ReactComponent as TwitterShareLogo } from 'assets/images/twitter-share.svg';
 
@@ -240,6 +241,15 @@ function Graph({
               <TwitterShareLogo />
             </a>
           </div>
+        )}
+        {!!focusedNode && (
+          <button
+            type="button"
+            onClick={onCloseButtonClick}
+            className={cx('roundButton', 'closeButton')}
+          >
+            <CloseIcon />
+          </button>
         )}
       </div>
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
