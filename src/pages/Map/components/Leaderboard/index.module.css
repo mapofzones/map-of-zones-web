@@ -22,6 +22,7 @@
 
 .table {
   border-spacing: 0;
+  position: relative;
 }
 
 .header {
@@ -376,20 +377,24 @@ thead.fixed.active {
   z-index: 3;
 }
 
-tbody.bodyWithFocus {
+tbody.bodyWithFocus .row {
   transform: translateY(33px);
+}
+tbody.bodyWithFocus .row.focusedRow {
+  transform: unset;
 }
 .row.focusedRow {
   position: absolute;
-  top: -33px;
+  top: 27px;
   box-shadow: 0 1px 2px #c7c7c7;
   z-index: 2;
 }
+
 .row.focusedRow > .cell {
   box-shadow: none;
 }
-tbody.bodyWithFocus.focusFixed {
-  transform: none;
+tbody.bodyWithFocus.focusFixed .row {
+  transform: unset;
 }
 .row.focusedRow.fixed {
   position: fixed;
