@@ -1,3 +1,8 @@
+# map-of-zones-web
+
+Status of Last Deployment:<br>
+<img src="https://github.com/mapofzones/map-of-zones-web/workflows/Build%20and%20Deploy/badge.svg"><br>
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
