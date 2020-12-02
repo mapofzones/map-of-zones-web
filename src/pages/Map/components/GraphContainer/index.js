@@ -6,7 +6,7 @@ import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
 
 import Graph from '../Graph';
-import ZonesFilter from '../ZonesFilter';
+import ZonesSorter from '../ZonesSorter';
 
 import styles from './index.module.css';
 
@@ -54,7 +54,7 @@ function GraphContainer({
       <LogoBeta className={cx('logo-beta')} />
 
       {!mapOpened && (
-        <ZonesFilter
+        <ZonesSorter
           sortBy={sortBy}
           isSortedDesc={isSortedDesc}
           hours={period.hours}
