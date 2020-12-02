@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 
 import { formatNumber, trackEvent } from 'common/helper';
 
@@ -23,7 +23,13 @@ function Leaderboard({
   setFocusedZone,
   focusedZoneId,
   period,
+  filter,
 }) {
+  const globalFilter = React.useMemo(
+    () => (rows, columnIds, filterValue) => filterValue(rows),
+    [],
+  );
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -32,14 +38,17 @@ function Leaderboard({
     prepareRow,
     state,
     columns,
+    setGlobalFilter,
   } = useTable(
     {
       data,
       initialState,
       disableMultiSort,
       disableSortRemove,
+      globalFilter,
       columns: columnsConfig,
     },
+    useGlobalFilter,
     useSortBy,
   );
 
@@ -59,6 +68,10 @@ function Leaderboard({
       });
     }
   }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
+
+  useEffect(() => {
+    setGlobalFilter(() => rowsToSort => filter(rowsToSort, sortBy));
+  }, [setGlobalFilter, filter, sortBy]);
 
   useEffect(() => {
     let table = document.documentElement.querySelector('table');
@@ -234,6 +247,7 @@ Leaderboard.propTypes = {
   disableSortRemove: PropTypes.bool,
   focusedZoneId: PropTypes.string,
   setFocusedZone: PropTypes.func,
+  filter: PropTypes.func,
   period: PropTypes.shape({
     hours: PropTypes.number,
     step: PropTypes.number,
@@ -255,6 +269,7 @@ Leaderboard.defaultProps = {
   disableMultiSort: true,
   disableSortRemove: true,
   setFocusedZone: () => {},
+  filter: rows => rows,
 };
 
 export default Leaderboard;
