@@ -7,6 +7,7 @@ import { forceCollide } from 'd3-force-3d';
 
 import { trackEvent } from 'common/helper';
 
+import { ReactComponent as FilterIcon } from 'assets/images/filter.svg';
 import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
 import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
@@ -180,6 +181,9 @@ function Graph({
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
+          <button type="button" className={cx('roundButton')}>
+            <FilterIcon />
+          </button>
           <button type="button" onClick={zoomIn} className={cx('roundButton')}>
             <PlusSign />
           </button>

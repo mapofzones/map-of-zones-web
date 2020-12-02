@@ -11,7 +11,7 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function ZonesFilter({
+function ZonesSorter({
   hours,
   setPeriod,
   className,
@@ -66,7 +66,7 @@ function ZonesFilter({
   );
 }
 
-ZonesFilter.propTypes = {
+ZonesSorter.propTypes = {
   hours: PropTypes.number,
   setPeriod: PropTypes.func,
   className: PropTypes.string,
@@ -76,4 +76,4 @@ ZonesFilter.propTypes = {
   focusedZoneName: PropTypes.string,
 };
 
-export default ZonesFilter;
+export default ZonesSorter;
