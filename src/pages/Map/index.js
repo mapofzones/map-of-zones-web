@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 
 import { trackEvent } from 'common/helper';
 import { useLocationTracker } from 'common/hooks';
@@ -15,12 +15,50 @@ import {
   useFocusedZone,
 } from './hooks';
 
+import { createGraph } from './hooks/zones-stat';
+
+function getZonesForGraph(zonesStat, filter) {
+  if (filter?.sortOrder && filter?.columnId && filter?.filterAmount) {
+    const nodes = zonesStat.nodes
+      .sort(
+        (a, b) =>
+          (filter.sortOrder === 'desc' ? b : a)[filter.columnId] -
+          (filter.sortOrder === 'desc' ? a : b)[filter.columnId],
+      )
+      .slice(0, filter.filterAmount);
+
+    const links = zonesStat.links
+      .filter(
+        ({ source, target }) =>
+          nodes.includes(source) && nodes.includes(target),
+      )
+      .map(({ source, target }) => ({
+        source,
+        target,
+      }));
+
+    return {
+      nodes,
+      links,
+      graph: createGraph(nodes, links),
+    };
+  }
+
+  return zonesStat;
+}
+
 function Map() {
   useLocationTracker(); // TODO: Move to App component
 
   const [period, setPeriod] = usePeriodSelector();
   const [mapOpened, setIsMapOpened] = useState(false);
   const [sortedByColumn, setSort] = useState(undefined);
+  const [isTableOpened, setIsTableOpened] = useState('');
+  const [currentFilter, setFilter] = useState(undefined);
+  const filter = useMemo(
+    () => ({ ...currentFilter, columnId: sortedByColumn?.id }),
+    [currentFilter, sortedByColumn],
+  );
   const { data: zonesStat } = useZonesStat({
     variables: { period: period.hours, step: period.step },
   });
@@ -30,21 +68,24 @@ function Map() {
   const [focusedZone, setFocusedZone] = useFocusedZone(
     zonesStat && zonesStat.nodes,
   );
-  const [isTableOpened, setIsTableOpened] = useState('');
-  const [currentFilter, setFilter] = useState(undefined);
   const filterFn = useCallback(
-    (rows, sortBy) =>
-      currentFilter?.sortOrder
+    rows =>
+      filter?.sortOrder
         ? [...rows]
             .sort(
               (a, b) =>
-                (currentFilter.sortOrder === 'desc' ? b : a).values[sortBy.id] -
-                (currentFilter.sortOrder === 'desc' ? a : b).values[sortBy.id],
+                (filter.sortOrder === 'desc' ? b : a).values[filter.columnId] -
+                (filter.sortOrder === 'desc' ? a : b).values[filter.columnId],
             )
-            .slice(0, currentFilter.filterAmount)
+            .slice(0, filter.filterAmount)
         : rows,
-    [currentFilter],
+    [filter],
   );
+
+  const zones = useMemo(() => getZonesForGraph(zonesStat, filter), [
+    zonesStat,
+    filter,
+  ]);
 
   const preSetFocusedZone = useCallback(
     zone => {
@@ -104,7 +145,7 @@ function Map() {
         )}
         <GraphContainer
           period={period}
-          zonesStat={zonesStat}
+          zonesStat={zones}
           setPeriod={setPeriod}
           sortBy={sortedByColumn?.Header}
           isSortedDesc={sortedByColumn?.isSortedDesc}
