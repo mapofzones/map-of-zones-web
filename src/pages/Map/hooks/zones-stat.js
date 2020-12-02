@@ -18,7 +18,7 @@ const ZONES_STAT = gql`
 
 const DEFAULT_COLOR = '#72727A';
 
-const createGraph = (nodes, links) => {
+export const createGraph = (nodes, links) => {
   const g = new Graph();
 
   nodes.forEach(node => g.setNode(node.id, node));
