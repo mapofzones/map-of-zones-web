@@ -31,6 +31,20 @@ function Map() {
     zonesStat && zonesStat.nodes,
   );
   const [isTableOpened, setIsTableOpened] = useState('');
+  const [currentFilter, setFilter] = useState(undefined);
+  const filterFn = useCallback(
+    (rows, sortBy) =>
+      currentFilter?.sortOrder
+        ? [...rows]
+            .sort(
+              (a, b) =>
+                (currentFilter.sortOrder === 'desc' ? b : a).values[sortBy.id] -
+                (currentFilter.sortOrder === 'desc' ? a : b).values[sortBy.id],
+            )
+            .slice(0, currentFilter.filterAmount)
+        : rows,
+    [currentFilter],
+  );
 
   const preSetFocusedZone = useCallback(
     zone => {
@@ -101,8 +115,11 @@ function Map() {
           toggleMapOpen={event => toggleMapOpen(event)}
           isTableOpened={isTableOpened}
           handleScroll={handleScroll}
+          setFilter={setFilter}
+          currentFilter={currentFilter}
         />
         <Leaderboard
+          filter={filterFn}
           period={period}
           data={zonesStat.nodes}
           onSortChange={setSort}

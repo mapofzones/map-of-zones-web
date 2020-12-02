@@ -24,6 +24,8 @@ function GraphContainer({
   setFocusedZone,
   focusedZone,
   isTableOpened,
+  setFilter,
+  currentFilter,
 }) {
   const backToMap = () => {
     if (isTableOpened) {
@@ -48,6 +50,8 @@ function GraphContainer({
         toggleMapOpen={toggleMapOpen}
         onNodeFocus={setFocusedZone}
         focusedNode={focusedZone}
+        currentFilter={currentFilter}
+        setFilter={setFilter}
       />
 
       <Logo className={cx('logo')} />
@@ -88,7 +92,9 @@ GraphContainer.propTypes = {
   isSortedDesc: PropTypes.bool,
   zoneWeightAccessor: PropTypes.string,
   setFocusedZone: PropTypes.func,
+  setFilter: PropTypes.func,
   focusedZone: PropTypes.object,
+  currentFilter: PropTypes.object,
 };
 
 export default GraphContainer;
