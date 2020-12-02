@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
@@ -40,9 +40,11 @@ function ZonesFilter({ className, initialFilter, applyFilter }) {
   const clearFilter = useCallback(() => {
     setSortOrder(initialFilter.sortOrder);
     seFilterAmount(initialFilter.filterAmount);
-  }, [setSortOrder, seFilterAmount, initialFilter]);
-
-  useEffect(() => clearFilter(), [clearFilter]);
+    applyFilter({
+      sortOrder: SORT_ORDER[0].sortBy,
+      filterAmount: FILTER_AMOUNT[0].amount,
+    });
+  }, [setSortOrder, seFilterAmount, initialFilter, applyFilter]);
 
   return (
     <div className={cx('container', className)}>
@@ -103,7 +105,7 @@ function ZonesFilter({ className, initialFilter, applyFilter }) {
         onClick={() => applyFilter({ sortOrder, filterAmount })}
         disabled={
           sortOrder === initialFilter.sortOrder &&
-          filterAmount === initialFilter.filterAmount
+          (filterAmount === initialFilter.filterAmount || !sortOrder)
         }
       >
         <FormattedMessage id="apply-button-title" defaultMessage="Apply" />

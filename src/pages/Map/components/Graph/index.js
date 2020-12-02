@@ -27,6 +27,7 @@ import {
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
+import ZonesFilter from '../ZonesFilter';
 
 import styles from './index.module.css';
 
@@ -43,10 +44,13 @@ function Graph({
   toggleMapOpen,
   onNodeFocus,
   focusedNode,
+  setFilter,
+  currentFilter,
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
+  const [showFilter, setShowFilter] = useState(false);
   const fgRef = useRef();
 
   useEffect(() => {
@@ -110,6 +114,17 @@ function Graph({
   const onLinkHover = useCallback(link => setHoveredLink(link), [
     setHoveredLink,
   ]);
+  const toggleFilter = useCallback(() => setShowFilter(!showFilter), [
+    setShowFilter,
+    showFilter,
+  ]);
+  const applyFilter = useCallback(
+    filter => {
+      setFilter(filter);
+      setShowFilter(false);
+    },
+    [setShowFilter, setFilter],
+  );
   const onCloseButtonClick = useCallback(() => {
     if (focusedNode) {
       onNodeFocus(null);
@@ -181,9 +196,23 @@ function Graph({
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
-          <button type="button" className={cx('roundButton')}>
-            <FilterIcon />
-          </button>
+          <div className={cx('zonesFilterContainer')}>
+            {showFilter && (
+              <ZonesFilter
+                className={cx('zonesFilter')}
+                applyFilter={applyFilter}
+                initialFilter={currentFilter}
+              />
+            )}
+            {currentFilter?.sortOrder && <div className={cx('dot')} />}
+            <button
+              type="button"
+              onClick={toggleFilter}
+              className={cx('roundButton', 'filterButton')}
+            >
+              <FilterIcon />
+            </button>
+          </div>
           <button type="button" onClick={zoomIn} className={cx('roundButton')}>
             <PlusSign />
           </button>
@@ -279,6 +308,8 @@ Graph.propTypes = {
   mapOpened: PropTypes.bool,
   toggleMapOpen: PropTypes.func,
   onNodeFocus: PropTypes.func,
+  setFilter: PropTypes.func,
+  currentFilter: PropTypes.object,
   focusedNode: PropTypes.object,
 };
 
