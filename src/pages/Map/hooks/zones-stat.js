@@ -6,12 +6,32 @@ import { Graph } from '@dagrejs/graphlib';
 import { getZoneColor } from 'common/helper';
 
 const ZONES_STAT = gql`
-  query ZonesStat($period: Int!, $step: Int!) {
-    get_nodes_stats_with_graph_on_period(
-      args: { period_in_hours: $period, step_in_hours: $step }
-    ) {
-      zones
-      graph
+  query ZonesStat($period: Int!) {
+    zones_stats(where: { timeframe: { _eq: $period } }) {
+      zone
+      chart
+      total_txs
+      total_ibc_txs
+      ibc_percent
+      ibc_tx_in
+      ibc_tx_out
+      channels_num
+      total_ibc_txs_weight
+      total_txs_weight
+      ibc_tx_in_weight
+      ibc_tx_out_weight
+      total_txs_diff
+      total_ibc_txs_diff
+      ibc_tx_out_diff
+      ibc_tx_in_diff
+      total_txs_rating_diff
+      total_ibc_txs_rating_diff
+      ibc_tx_out_rating_diff
+      ibc_tx_in_rating_diff
+    }
+    zones_graphs(where: { timeframe: { _eq: $period } }) {
+      source
+      target
     }
   }
 `;
@@ -48,7 +68,8 @@ const transform = data => {
     return data;
   }
 
-  const { zones, graph } = data.get_nodes_stats_with_graph_on_period[0];
+  const zones = data.zones_stats;
+  const graph = data.zones_graphs;
 
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
     zones,
@@ -92,7 +113,7 @@ const transform = data => {
         name: zone,
         txsActivity: chart,
         totalTxs: total_txs,
-        totalIbcTxs: Math.round(Math.random() * 10000),
+        totalIbcTxs: total_ibc_txs,
         ibcPercentage: ibc_percent / 100,
         ibcSent: ibc_tx_out,
         ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,

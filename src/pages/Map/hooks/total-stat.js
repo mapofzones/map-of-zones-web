@@ -5,8 +5,8 @@ import { useQuery } from '@apollo/react-hooks';
 import { getZoneColor } from 'common/helper';
 
 const TOTAL_STAT = gql`
-  query TotalStat($period: Int!, $step: Int!) {
-    get_total_stats(args: { period_in_hours: $period, step_in_hours: $step }) {
+  query TotalStat($period: Int!) {
+    headers(where: { timeframe: { _eq: $period } }) {
       zones_cnt_period
       zones_cnt_all
       top_zone_pair
@@ -29,7 +29,7 @@ const transform = data => {
     channels_cnt_period,
     channels_cnt_all,
     chart,
-  } = data.get_total_stats[0];
+  } = data.headers[0];
 
   const ibcTxs = chart.reduce((acc, { txs }) => acc + txs, 0);
   const topZonePair = top_zone_pair[0];

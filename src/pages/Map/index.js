@@ -29,10 +29,10 @@ function Map() {
     [currentFilter, sortedByColumn],
   );
   const { data: zonesStat } = useZonesStat({
-    variables: { period: period.hours, step: period.step },
+    variables: { period: period.hours },
   });
   const { data: totalStat } = useTotalStat({
-    variables: { period: period.hours, step: period.step },
+    variables: { period: period.hours },
   });
   const [focusedZone, setFocusedZone] = useFocusedZone(
     zonesStat && zonesStat.nodes,
