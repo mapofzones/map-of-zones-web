@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useSubscription } from '@apollo/react-hooks';
 
 import { getZoneColor } from 'common/helper';
 
 const TOTAL_STAT = gql`
-  query TotalStat($period: Int!) {
+  subscription TotalStat($period: Int!) {
     headers(where: { timeframe: { _eq: $period } }) {
       zones_cnt_period
       zones_cnt_all
@@ -59,7 +59,7 @@ const transform = data => {
 };
 
 export const useTotalStat = options => {
-  const { data, ...rest } = useQuery(TOTAL_STAT, options);
+  const { data, ...rest } = useSubscription(TOTAL_STAT, options);
   const transformedData = useMemo(() => transform(data), [data]);
 
   return { ...rest, data: transformedData };

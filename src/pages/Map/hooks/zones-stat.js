@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useSubscription } from '@apollo/react-hooks';
 import { Graph } from '@dagrejs/graphlib';
 
 import { getZoneColor } from 'common/helper';
 
 const ZONES_STAT = gql`
-  query ZonesStat($period: Int!) {
+  subscription ZonesStat($period: Int!) {
     zones_stats(where: { timeframe: { _eq: $period } }) {
       zone
       chart
@@ -29,6 +29,11 @@ const ZONES_STAT = gql`
       ibc_tx_out_rating_diff
       ibc_tx_in_rating_diff
     }
+  }
+`;
+
+const ZONES_GRAPH = gql`
+  subscription ZonesGraph($period: Int!) {
     zones_graphs(where: { timeframe: { _eq: $period } }) {
       source
       target
@@ -63,13 +68,10 @@ const getScaleParams = (zones, key) => {
 
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
-const transform = data => {
-  if (!data) {
-    return data;
+const transform = (zones, graph) => {
+  if (!zones || !graph) {
+    return null;
   }
-
-  const zones = data.zones_stats;
-  const graph = data.zones_graphs;
 
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
     zones,
@@ -164,10 +166,18 @@ const transform = data => {
 };
 
 export const useZonesStat = options => {
-  const { data, ...rest } = useQuery(ZONES_STAT, options);
-  const transformedData = useMemo(() => transform(data), [data]);
+  const zones = useSubscription(ZONES_STAT, options);
+  const graph = useSubscription(ZONES_GRAPH, options);
+  const transformedData = useMemo(
+    () => transform(zones?.data?.zones_stats, graph?.data?.zones_graphs),
+    [zones, graph],
+  );
 
-  return { ...rest, data: transformedData };
+  return {
+    data: transformedData,
+    loading: zones.loading || graph.loading,
+    error: zones.error || graph.error,
+  };
 };
 
 export const useZonesStatFiltered = (zonesStat, filter) => {
