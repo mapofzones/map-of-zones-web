@@ -18,7 +18,7 @@ const ZONES_STAT = gql`
 
 const DEFAULT_COLOR = '#72727A';
 
-export const createGraph = (nodes, links) => {
+const createGraph = (nodes, links) => {
   const g = new Graph();
 
   nodes.forEach(node => g.setNode(node.id, node));
@@ -92,7 +92,7 @@ const transform = data => {
         name: zone,
         txsActivity: chart,
         totalTxs: total_txs,
-        totalIbcTxs: total_ibc_txs,
+        totalIbcTxs: Math.round(Math.random() * 10000),
         ibcPercentage: ibc_percent / 100,
         ibcSent: ibc_tx_out,
         ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
@@ -147,4 +147,36 @@ export const useZonesStat = options => {
   const transformedData = useMemo(() => transform(data), [data]);
 
   return { ...rest, data: transformedData };
+};
+
+export const useZonesStatFiltered = (zonesStat, filter) => {
+  return useMemo(() => {
+    if (filter?.sortOrder && filter?.columnId && filter?.filterAmount) {
+      const nodes = zonesStat.nodes
+        .sort(
+          (a, b) =>
+            (filter.sortOrder === 'desc' ? b : a)[filter.columnId] -
+            (filter.sortOrder === 'desc' ? a : b)[filter.columnId],
+        )
+        .slice(0, filter.filterAmount);
+
+      const links = zonesStat.links
+        .filter(
+          ({ source, target }) =>
+            nodes.includes(source) && nodes.includes(target),
+        )
+        .map(({ source, target }) => ({
+          source,
+          target,
+        }));
+
+      return {
+        nodes,
+        links,
+        graph: createGraph(nodes, links),
+      };
+    }
+
+    return zonesStat;
+  }, [zonesStat, filter]);
 };

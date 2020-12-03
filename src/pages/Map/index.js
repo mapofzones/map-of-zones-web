@@ -13,39 +13,8 @@ import {
   useTotalStat,
   usePeriodSelector,
   useFocusedZone,
+  useZonesStatFiltered,
 } from './hooks';
-
-import { createGraph } from './hooks/zones-stat';
-
-function getZonesForGraph(zonesStat, filter) {
-  if (filter?.sortOrder && filter?.columnId && filter?.filterAmount) {
-    const nodes = zonesStat.nodes
-      .sort(
-        (a, b) =>
-          (filter.sortOrder === 'desc' ? b : a)[filter.columnId] -
-          (filter.sortOrder === 'desc' ? a : b)[filter.columnId],
-      )
-      .slice(0, filter.filterAmount);
-
-    const links = zonesStat.links
-      .filter(
-        ({ source, target }) =>
-          nodes.includes(source) && nodes.includes(target),
-      )
-      .map(({ source, target }) => ({
-        source,
-        target,
-      }));
-
-    return {
-      nodes,
-      links,
-      graph: createGraph(nodes, links),
-    };
-  }
-
-  return zonesStat;
-}
 
 function Map() {
   useLocationTracker(); // TODO: Move to App component
@@ -82,10 +51,7 @@ function Map() {
     [filter],
   );
 
-  const zones = useMemo(() => getZonesForGraph(zonesStat, filter), [
-    zonesStat,
-    filter,
-  ]);
+  const zonesStatFiltered = useZonesStatFiltered(zonesStat, filter);
 
   const preSetFocusedZone = useCallback(
     zone => {
@@ -145,7 +111,7 @@ function Map() {
         )}
         <GraphContainer
           period={period}
-          zonesStat={zones}
+          zonesStat={zonesStatFiltered}
           setPeriod={setPeriod}
           sortBy={sortedByColumn?.Header}
           isSortedDesc={sortedByColumn?.isSortedDesc}
