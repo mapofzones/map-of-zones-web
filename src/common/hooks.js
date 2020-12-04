@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { parse } from 'querystringify';
+import { useQuery } from '@apollo/react-hooks';
 
 import { trackEvent } from './helper';
 
@@ -28,4 +29,22 @@ export const useLocationTracker = () => {
       }),
     [location],
   );
+};
+
+export const useRealtimeQuery = (query, subscription, options) => {
+  const { variables } = options;
+  const { subscribeToMore, data } = useQuery(query, options);
+
+  useEffect(
+    () =>
+      subscribeToMore({
+        document: subscription,
+        variables,
+        updateQuery: (prev, { subscriptionData }) =>
+          subscriptionData.data || prev,
+      }),
+    [subscribeToMore, variables, subscription],
+  );
+
+  return data;
 };

@@ -24,16 +24,19 @@ function Map() {
   const [sortedByColumn, setSort] = useState(undefined);
   const [isTableOpened, setIsTableOpened] = useState('');
   const [currentFilter, setFilter] = useState(undefined);
-  const filter = useMemo(
-    () => ({ ...currentFilter, columnId: sortedByColumn?.id }),
-    [currentFilter, sortedByColumn],
+  const columnId = sortedByColumn?.id;
+  const filter = useMemo(() => ({ ...currentFilter, columnId }), [
+    currentFilter,
+    columnId,
+  ]);
+  const options = useMemo(
+    () => ({
+      variables: { period: period.hours },
+    }),
+    [period],
   );
-  const { data: zonesStat } = useZonesStat({
-    variables: { period: period.hours },
-  });
-  const { data: totalStat } = useTotalStat({
-    variables: { period: period.hours },
-  });
+  const zonesStat = useZonesStat(options);
+  const totalStat = useTotalStat(options);
   const [focusedZone, setFocusedZone] = useFocusedZone(
     zonesStat && zonesStat.nodes,
   );

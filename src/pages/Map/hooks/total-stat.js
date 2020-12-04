@@ -1,20 +1,36 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
-import { useSubscription } from '@apollo/react-hooks';
 
 import { getZoneColor } from 'common/helper';
+import { useRealtimeQuery } from 'common/hooks';
 
-const TOTAL_STAT = gql`
-  subscription TotalStat($period: Int!) {
+const TOTAL_STAT_FRAGMENT = gql`
+  fragment header on headers {
+    zones_cnt_period
+    zones_cnt_all
+    top_zone_pair
+    channels_cnt_period
+    channels_cnt_all
+    chart
+  }
+`;
+
+const TOTAL_STAT_QUERY = gql`
+  query TotalStat($period: Int!) {
     headers(where: { timeframe: { _eq: $period } }) {
-      zones_cnt_period
-      zones_cnt_all
-      top_zone_pair
-      channels_cnt_period
-      channels_cnt_all
-      chart
+      ...header
     }
   }
+  ${TOTAL_STAT_FRAGMENT}
+`;
+
+const TOTAL_STAT_SUBSCRIPTION = gql`
+  subscription TotalStat($period: Int!) {
+    headers(where: { timeframe: { _eq: $period } }) {
+      ...header
+    }
+  }
+  ${TOTAL_STAT_FRAGMENT}
 `;
 
 const transform = data => {
@@ -59,8 +75,11 @@ const transform = data => {
 };
 
 export const useTotalStat = options => {
-  const { data, ...rest } = useSubscription(TOTAL_STAT, options);
-  const transformedData = useMemo(() => transform(data), [data]);
+  const data = useRealtimeQuery(
+    TOTAL_STAT_QUERY,
+    TOTAL_STAT_SUBSCRIPTION,
+    options,
+  );
 
-  return { ...rest, data: transformedData };
+  return useMemo(() => transform(data), [data]);
 };
