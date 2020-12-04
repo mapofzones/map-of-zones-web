@@ -1,44 +1,82 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
-import { useSubscription } from '@apollo/react-hooks';
 import { Graph } from '@dagrejs/graphlib';
 
 import { getZoneColor } from 'common/helper';
+import { useRealtimeQuery } from 'common/hooks';
 
-const ZONES_STAT = gql`
-  subscription ZonesStat($period: Int!) {
-    zones_stats(where: { timeframe: { _eq: $period } }) {
-      zone
-      chart
-      total_txs
-      total_ibc_txs
-      ibc_percent
-      ibc_tx_in
-      ibc_tx_out
-      channels_num
-      total_ibc_txs_weight
-      total_txs_weight
-      ibc_tx_in_weight
-      ibc_tx_out_weight
-      total_txs_diff
-      total_ibc_txs_diff
-      ibc_tx_out_diff
-      ibc_tx_in_diff
-      total_txs_rating_diff
-      total_ibc_txs_rating_diff
-      ibc_tx_out_rating_diff
-      ibc_tx_in_rating_diff
-    }
+const ZONES_STAT_FRAGMENT = gql`
+  fragment stat on zones_stats {
+    zone
+    chart
+    total_txs
+    total_ibc_txs
+    ibc_percent
+    ibc_tx_in
+    ibc_tx_out
+    channels_num
+    total_ibc_txs_weight
+    total_txs_weight
+    ibc_tx_in_weight
+    ibc_tx_out_weight
+    total_txs_diff
+    total_ibc_txs_diff
+    ibc_tx_out_diff
+    ibc_tx_in_diff
+    total_txs_rating_diff
+    total_ibc_txs_rating_diff
+    ibc_tx_out_rating_diff
+    ibc_tx_in_rating_diff
   }
 `;
 
-const ZONES_GRAPH = gql`
-  subscription ZonesGraph($period: Int!) {
-    zones_graphs(where: { timeframe: { _eq: $period } }) {
-      source
-      target
+const ZONES_STAT_QUERY = gql`
+  query ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
     }
   }
+  ${ZONES_STAT_FRAGMENT}
+`;
+
+const ZONES_STAT_SUBSCRIPTION = gql`
+  subscription ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
+  }
+  ${ZONES_STAT_FRAGMENT}
+`;
+
+const ZONES_GRAPH_FRAGMENT = gql`
+  fragment graph on zones_graphs {
+    source
+    target
+  }
+`;
+
+const ZONES_GRAPH_QUERY = gql`
+  query ZonesGraph($period: Int!) {
+    zones_graphs(where: { timeframe: { _eq: $period } }) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
+const ZONES_GRAPH_SUBSCRIPTION = gql`
+  subscription ZonesGraph($period: Int!) {
+    zones_graphs(where: { timeframe: { _eq: $period } }) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
 `;
 
 const DEFAULT_COLOR = '#72727A';
@@ -166,18 +204,21 @@ const transform = (zones, graph) => {
 };
 
 export const useZonesStat = options => {
-  const zones = useSubscription(ZONES_STAT, options);
-  const graph = useSubscription(ZONES_GRAPH, options);
-  const transformedData = useMemo(
-    () => transform(zones?.data?.zones_stats, graph?.data?.zones_graphs),
-    [zones, graph],
+  const zones = useRealtimeQuery(
+    ZONES_STAT_QUERY,
+    ZONES_STAT_SUBSCRIPTION,
+    options,
+  );
+  const graph = useRealtimeQuery(
+    ZONES_GRAPH_QUERY,
+    ZONES_GRAPH_SUBSCRIPTION,
+    options,
   );
 
-  return {
-    data: transformedData,
-    loading: zones.loading || graph.loading,
-    error: zones.error || graph.error,
-  };
+  return useMemo(() => transform(zones?.zones_stats, graph?.zones_graphs), [
+    zones,
+    graph,
+  ]);
 };
 
 export const useZonesStatFiltered = (zonesStat, filter) => {
