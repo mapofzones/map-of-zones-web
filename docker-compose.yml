@@ -13,5 +13,5 @@ services:
     ports:
       - 3000:3000
     environment:
-      - REACT_APP_GRAPH_QL_HTTP_URI=http://165.232.107.244:8081/v1/graphql
-      - REACT_APP_GRAPH_QL_WS_URI=ws://165.232.107.244:8081/v1/graphql
+      - REACT_APP_GRAPH_QL_HTTP_URI=https://biteacon.xyz/v1/graphql
+      - REACT_APP_GRAPH_QL_WS_URI=wss://biteacon.xyz/v1/graphql
