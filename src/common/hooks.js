@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { parse } from 'querystringify';
 import { useQuery } from '@apollo/react-hooks';
 
 import { trackEvent } from './helper';
+import { MOBILE_MAX_WIDTH } from './constants';
 
 export const useLocationTracker = () => {
   const location = useLocation();
@@ -47,4 +48,33 @@ export const useRealtimeQuery = (query, subscription, options) => {
   );
 
   return data;
+};
+
+export const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowSize;
+};
+
+export const useMobileSize = () => {
+  const { width } = useWindowSize();
+
+  return !!width && width <= MOBILE_MAX_WIDTH;
 };

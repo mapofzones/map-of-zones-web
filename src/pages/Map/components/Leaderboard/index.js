@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 
 import { formatNumber, trackEvent } from 'common/helper';
+import { useMobileSize } from 'common/hooks';
 
 import Thead from './Thead';
+import SortModal from './SortModal';
 import columnsConfig from './config';
 
 import styles from './index.module.css';
@@ -25,7 +27,7 @@ function Leaderboard({
   period,
   filter,
 }) {
-  const globalFilter = React.useMemo(
+  const globalFilter = useMemo(
     () => (rows, columnIds, filterValue) => filterValue(rows),
     [],
   );
@@ -39,6 +41,7 @@ function Leaderboard({
     state,
     columns,
     setGlobalFilter,
+    setHiddenColumns,
   } = useTable(
     {
       data,
@@ -174,19 +177,64 @@ function Leaderboard({
     };
   }, [isTableOpened, focusedZoneId]);
 
+  const isMobile = useMobileSize();
+
+  const [selectedColumnIndex, updateSelectedColumnIndex] = useState(0);
+
+  const [isSortModalOpened, setSortModalOpened] = useState(false);
+
+  const hiddenColumns = useMemo(
+    () => columns.filter(({ alwaysVisible }) => !alwaysVisible),
+    [columns],
+  );
+
+  const hiddenColumnsHeaders = useMemo(
+    () => hiddenColumns.map(({ Header }) => Header),
+    [hiddenColumns],
+  );
+
+  const onHeaderClick = useCallback(
+    e => {
+      if (isMobile) {
+        e.stopPropagation();
+        setSortModalOpened(true);
+      }
+    },
+    [setSortModalOpened, isMobile],
+  );
+
+  useEffect(() => {
+    if (isMobile) {
+      const hiddenColumnsIds = hiddenColumns.map(({ id }) => id);
+
+      setHiddenColumns(
+        [
+          ...hiddenColumnsIds.slice(0, selectedColumnIndex),
+          ...hiddenColumnsIds.slice(
+            selectedColumnIndex + 1,
+            hiddenColumnsIds.length,
+          ),
+        ],
+        true,
+      );
+    } else {
+      setHiddenColumns([], true);
+    }
+  }, [setHiddenColumns, hiddenColumns, isMobile, selectedColumnIndex]);
+
   return (
     <div
       id="table-container"
       className={cx('table-container', { fixedTable: isTableOpened })}
     >
       <table {...getTableProps()} className={cx('table')}>
-        <Thead headerGroups={headerGroups} />
+        <Thead headerGroups={headerGroups} onHeaderClick={onHeaderClick} />
         <Thead
-          headerGroups={headerGroups}
           fixed
           isTableOpened={isTableOpened}
+          headerGroups={headerGroups}
+          onHeaderClick={onHeaderClick}
         />
-
         <tbody
           {...getTableBodyProps()}
           className={cx(
@@ -235,6 +283,13 @@ function Leaderboard({
           })}
         </tbody>
       </table>
+      <SortModal
+        isOpen={isSortModalOpened}
+        onRequestClose={() => setSortModalOpened(false)}
+        data={hiddenColumnsHeaders}
+        selectedIndex={selectedColumnIndex}
+        updateSelection={updateSelectedColumnIndex}
+      />
     </div>
   );
 }

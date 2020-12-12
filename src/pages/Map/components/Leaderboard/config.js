@@ -10,12 +10,14 @@ const columns = [
     Cell: ({ row, rows, state }) =>
       (state?.sortBy?.[0]?.desc ? rows : [...rows].reverse()).indexOf(row) + 1,
     disableSortBy: true,
+    alwaysVisible: true,
   },
   {
     Header: 'Zone',
     accessor: 'name',
     id: 'name',
     disableSortBy: true,
+    alwaysVisible: true,
   },
   {
     Header: 'IBC transfers',
@@ -24,7 +26,7 @@ const columns = [
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcTxsWeight',
     sortDescFirst: true,
-    descr: 'Token transfers via IBC relayer',
+    tooltip: 'Token transfers via IBC relayer',
   },
   {
     Header: 'Total Txs',
@@ -33,7 +35,7 @@ const columns = [
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'txsWeight',
     sortDescFirst: true,
-    descr: 'All transactions in a specified zone',
+    tooltip: 'All transactions in a specified zone',
   },
   {
     Header: 'IBC share %',
@@ -41,7 +43,7 @@ const columns = [
     id: 'ibcPercentage',
     Cell: ({ cell }) => formatPercentage(cell.value),
     disableSortBy: true,
-    descr:
+    tooltip:
       'The proportion of the number of transactions having IBC ' +
       'messages to the total number of transactions in a certain zone',
   },
@@ -52,7 +54,7 @@ const columns = [
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcSentWeight',
     sortDescFirst: true,
-    descr:
+    tooltip:
       'Transfers sent successfully from one zone to another zone (note: ' +
       'in order to be considered successful it has NOT to be received by the other zone)',
   },
@@ -63,7 +65,7 @@ const columns = [
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcReceivedWeight',
     sortDescFirst: true,
-    descr:
+    tooltip:
       'Successfully received token by a zone from another zone (completed token transfer)',
   },
   {
@@ -71,7 +73,7 @@ const columns = [
     accessor: 'channels',
     id: 'channels',
     Cell: ({ cell }) => formatNumber(cell.value),
-    descr: '',
+    tooltip: '',
     disableSortBy: true,
   },
   {
