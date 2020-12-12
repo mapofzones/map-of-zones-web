@@ -35,7 +35,7 @@ function SortModal({
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       overlayClassName={cx('overlay')}
-      className={cx('content')}
+      // className={cx('content')}
     >
       <div className={cx('selectedValueContainer')}>
         <div>

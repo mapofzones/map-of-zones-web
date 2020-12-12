@@ -6,8 +6,7 @@
 }
 
 .table-container {
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
   background: #ffffff;
 }
 
