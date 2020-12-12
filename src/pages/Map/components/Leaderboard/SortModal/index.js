@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 import Modal from 'react-modal';
-import WheelPicker from 'react-wheelpicker';
+import WheelPicker from '@maksim-tolo/react-wheel-picker';
+import debounce from 'lodash.debounce';
 
 import styles from './index.module.css';
 
@@ -16,6 +17,19 @@ function SortModal({
   selectedIndex,
   updateSelection,
 }) {
+  const onChange = useCallback(
+    debounce(
+      selected =>
+        updateSelection(data.findIndex(({ id }) => id === selected.id)),
+      500,
+    ),
+    [updateSelection, data],
+  );
+
+  if (!data) {
+    return null;
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -30,17 +44,18 @@ function SortModal({
             defaultMessage="Show indicator"
           />
         </div>
-        <div className={cx('selectedValue')}>{data[selectedIndex]}</div>
+        <div className={cx('selectedValue')}>{data[selectedIndex].value}</div>
       </div>
       <WheelPicker
-        animation="flat"
         data={data}
-        height={40}
-        parentHeight={250}
-        fontSize={13}
-        defaultSelection={selectedIndex}
-        updateSelection={updateSelection}
-        scrollerId="sort-modal-scroll-select"
+        onChange={onChange}
+        height={150}
+        itemHeight={32}
+        selectedID={data[selectedIndex].id}
+        color="#ccc"
+        activeColor="#333"
+        backgroundColor="#fff"
+        shadowColor="#fff"
       />
     </Modal>
   );
@@ -49,7 +64,7 @@ function SortModal({
 SortModal.propTypes = {
   isOpen: PropTypes.bool,
   onRequestClose: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.string),
+  data: PropTypes.array,
   selectedIndex: PropTypes.number,
   updateSelection: PropTypes.func,
 };
