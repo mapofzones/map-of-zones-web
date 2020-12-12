@@ -189,7 +189,7 @@ function Leaderboard({
   );
 
   const hiddenColumnsHeaders = useMemo(
-    () => hiddenColumns.map(({ Header }) => Header),
+    () => hiddenColumns.map(({ Header, id }) => ({ id, value: Header })),
     [hiddenColumns],
   );
 
