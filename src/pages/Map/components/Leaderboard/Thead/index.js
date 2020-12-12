@@ -1,24 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+
+import { useMobileSize } from 'common/hooks';
 import { ReactComponent as ArrowDown } from 'assets/images/arrow-down.svg';
 
-import classNames from 'classnames/bind';
 import styles from '../index.module.css';
+
 const cx = classNames.bind(styles);
 
-const Thead = ({ fixed, isTableOpened, headerGroups }) => {
-  const headerWithExplanation = id => {
-    switch (id) {
-      case 'totalTxs':
-      case 'totalIbcTxs':
-      case 'ibcSent':
-      case 'ibcReceived':
-      case 'ibcPercentage':
-        return true;
-      default:
-        return false;
-    }
-  };
+const Thead = ({ fixed, isTableOpened, headerGroups, onHeaderClick }) => {
+  const isMobile = useMobileSize();
 
   return (
     <thead
@@ -43,8 +35,8 @@ const Thead = ({ fixed, isTableOpened, headerGroups }) => {
                 })}
               >
                 <div className={cx('IBC-circle', column.id)} />
-                {column.render('Header')}
-                {headerWithExplanation(column.id) && (
+                <div onClick={onHeaderClick}>{column.render('Header')}</div>
+                {!!column.tooltip && !isMobile && (
                   <div className={cx('explanation-icon')}>
                     ?
                     <div
@@ -54,7 +46,7 @@ const Thead = ({ fixed, isTableOpened, headerGroups }) => {
                           column.id === 'ibcReceived',
                       })}
                     >
-                      {column.descr}
+                      {column.tooltip}
                     </div>
                   </div>
                 )}
@@ -83,10 +75,11 @@ const Thead = ({ fixed, isTableOpened, headerGroups }) => {
   );
 };
 
-Thead.defaultProps = {
+Thead.propTypes = {
   fixed: PropTypes.bool,
   isTableOpened: PropTypes.string,
   headerGroups: PropTypes.array,
+  onHeaderClick: PropTypes.func,
 };
 
 Thead.defaultProps = {
