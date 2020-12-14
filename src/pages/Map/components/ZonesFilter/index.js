@@ -2,6 +2,9 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
+import Modal from 'react-modal';
+
+import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
 
 import styles from './index.module.css';
 
@@ -34,37 +37,56 @@ export const FILTER_AMOUNT = [
   },
 ];
 
-function ZonesFilter({ className, initialFilter, applyFilter }) {
-  const [sortOrder, setSortOrder] = useState(initialFilter.sortOrder);
-  const [filterAmount, seFilterAmount] = useState(initialFilter.filterAmount);
+const initialFilter = {
+  sortOrder: SORT_ORDER[0].sortBy,
+  filterAmount: FILTER_AMOUNT[0].amount,
+};
+
+function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
+  const [sortOrder, setSortOrder] = useState(currentFilter.sortOrder);
+  const [filterAmount, seFilterAmount] = useState(currentFilter.filterAmount);
   const clearFilter = useCallback(() => {
     setSortOrder(initialFilter.sortOrder);
     seFilterAmount(initialFilter.filterAmount);
     applyFilter({
-      sortOrder: SORT_ORDER[0].sortBy,
-      filterAmount: FILTER_AMOUNT[0].amount,
+      sortOrder: initialFilter.sortOrder,
+      filterAmount: initialFilter.filterAmount,
     });
-  }, [setSortOrder, seFilterAmount, initialFilter, applyFilter]);
+  }, [setSortOrder, seFilterAmount, applyFilter]);
 
   return (
-    <div className={cx('container', className)}>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      overlayClassName={cx('overlay')}
+      className={cx('content')}
+    >
       <div className={cx('wrapper')}>
-        <div className={cx('titleContainer')}>
-          <div className={cx('title')}>
-            <FormattedMessage
-              id="zones-filter-title"
-              defaultMessage="Filters"
-            />
+        <div className={cx('header')}>
+          <div className={cx('titleContainer')}>
+            <div className={cx('title')}>
+              <FormattedMessage
+                id="zones-filter-title"
+                defaultMessage="Filters"
+              />
+            </div>
+            <button
+              type="button"
+              className={cx('clearButton')}
+              onClick={clearFilter}
+            >
+              <FormattedMessage
+                id="zones-filter-clear-button-title"
+                defaultMessage="Clear"
+              />
+            </button>
           </div>
           <button
             type="button"
-            className={cx('clearButton')}
-            onClick={clearFilter}
+            onClick={onRequestClose}
+            className={cx('closeButton')}
           >
-            <FormattedMessage
-              id="zones-filter-clear-button-title"
-              defaultMessage="Clear"
-            />
+            <CloseIcon />
           </button>
         </div>
         <div className={cx('subtitle')}>
@@ -90,7 +112,9 @@ function ZonesFilter({ className, initialFilter, applyFilter }) {
               <button
                 type="button"
                 key={amount}
-                className={cx('amount', { selected: amount === filterAmount })}
+                className={cx('amount', {
+                  selected: amount === filterAmount,
+                })}
                 onClick={() => seFilterAmount(amount)}
               >
                 {amount}
@@ -104,28 +128,26 @@ function ZonesFilter({ className, initialFilter, applyFilter }) {
         className={cx('applyButton')}
         onClick={() => applyFilter({ sortOrder, filterAmount })}
         disabled={
-          sortOrder === initialFilter.sortOrder &&
-          (filterAmount === initialFilter.filterAmount || !sortOrder)
+          sortOrder === currentFilter.sortOrder &&
+          (filterAmount === currentFilter.filterAmount || !sortOrder)
         }
       >
         <FormattedMessage id="apply-button-title" defaultMessage="Apply" />
       </button>
-    </div>
+    </Modal>
   );
 }
 
 ZonesFilter.propTypes = {
-  className: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onRequestClose: PropTypes.func,
   applyFilter: PropTypes.func,
-  initialFilter: PropTypes.object,
+  currentFilter: PropTypes.object,
 };
 
 ZonesFilter.defaultProps = {
   applyFilter() {},
-  initialFilter: {
-    sortOrder: SORT_ORDER[0].sortBy,
-    filterAmount: FILTER_AMOUNT[0].amount,
-  },
+  currentFilter: initialFilter,
 };
 
 export default ZonesFilter;

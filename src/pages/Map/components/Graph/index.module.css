@@ -43,13 +43,11 @@
 
 .fullScreenButton {
   padding: 0;
-  background: none;
   margin: 16px 0 0 0;
 }
 
 .closeButton {
   padding: 0;
-  background: none;
   margin: 16px 0 0 0;
   position: absolute;
   top: 62px;
@@ -77,11 +75,6 @@
 
 .zonesFilterContainer {
   position: relative;
-}
-
-.zonesFilter {
-  position: absolute;
-  right: 60px;
 }
 
 .dot {
