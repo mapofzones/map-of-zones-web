@@ -197,13 +197,6 @@ function Graph({
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
           <div className={cx('zonesFilterContainer')}>
-            {showFilter && (
-              <ZonesFilter
-                className={cx('zonesFilter')}
-                applyFilter={applyFilter}
-                initialFilter={currentFilter}
-              />
-            )}
             {currentFilter?.sortOrder && <div className={cx('dot')} />}
             <button
               type="button"
@@ -287,6 +280,12 @@ function Graph({
       </div>
       {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
       {hoveredLink && <LinkTooltip link={hoveredLink} period={period.name} />}
+      <ZonesFilter
+        onRequestClose={toggleFilter}
+        isOpen={showFilter}
+        applyFilter={applyFilter}
+        currentFilter={currentFilter}
+      />
     </div>
   );
 }
