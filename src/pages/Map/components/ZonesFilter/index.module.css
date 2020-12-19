@@ -52,54 +52,8 @@
   margin-bottom: 15px;
 }
 
-.sortOrderContainer {
-  display: flex;
-  flex-direction: row;
-}
-
-.sortOrder {
-  font-weight: 500;
-  font-size: 15px;
-  border-top: 2px solid #f4f4f5;
-  color: #000;
-  line-height: 2;
-  background-color: inherit;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-}
-
-.sortOrder:not(.selected) {
-  cursor: pointer;
-}
-
-.sortOrder.selected {
-  border-top: 2px solid #000;
-  font-weight: bold;
-}
-
-.amountContainer {
-}
-
-.amount {
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 2;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  background-color: inherit;
-  text-align: left;
-  padding: 0 8px;
-}
-
-.amount.selected {
-  background-color: #f4f4f5;
-}
-
-.amount.selected::after {
-  content: '✓';
-  float: right;
+.sortOrderDropdown {
+  margin-bottom: 10px;
 }
 
 .applyButton {

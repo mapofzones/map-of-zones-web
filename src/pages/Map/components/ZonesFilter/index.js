@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
+import Select from 'react-select';
 
 import Modal from 'components/Modal';
 
@@ -13,34 +14,55 @@ const cx = classNames.bind(styles);
 
 export const SORT_ORDER = [
   {
-    text: <FormattedMessage id="order-default" defaultMessage="All" />,
-    sortBy: null,
+    label: <FormattedMessage id="order-default" defaultMessage="All" />,
+    value: null,
   },
   {
-    text: <FormattedMessage id="order-desc" defaultMessage="Most" />,
-    sortBy: 'desc',
+    label: <FormattedMessage id="order-desc" defaultMessage="Most Active" />,
+    value: 'desc',
   },
   {
-    text: <FormattedMessage id="order-asc" defaultMessage="Least" />,
-    sortBy: 'asc',
+    label: <FormattedMessage id="order-asc" defaultMessage="Least Active" />,
+    value: 'asc',
   },
 ];
 
 export const FILTER_AMOUNT = [
   {
-    amount: 10,
+    label: (
+      <FormattedMessage
+        id="filter-amount"
+        defaultMessage="Top {amount}"
+        values={{ amount: 50 }}
+      />
+    ),
+    value: 50,
   },
   {
-    amount: 20,
+    label: (
+      <FormattedMessage
+        id="filter-amount"
+        defaultMessage="Top {amount}"
+        values={{ amount: 20 }}
+      />
+    ),
+    value: 20,
   },
   {
-    amount: 30,
+    label: (
+      <FormattedMessage
+        id="filter-amount"
+        defaultMessage="Top {amount}"
+        values={{ amount: 10 }}
+      />
+    ),
+    value: 10,
   },
 ];
 
 const initialFilter = {
-  sortOrder: SORT_ORDER[0].sortBy,
-  filterAmount: FILTER_AMOUNT[0].amount,
+  sortOrder: SORT_ORDER[0].value,
+  filterAmount: FILTER_AMOUNT[0].value,
 };
 
 function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
@@ -54,6 +76,10 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
       filterAmount: initialFilter.filterAmount,
     });
   }, [setSortOrder, seFilterAmount, applyFilter]);
+  const selectedSortOrder = SORT_ORDER.find(({ value }) => value === sortOrder);
+  const selectedFilterAmount = FILTER_AMOUNT.find(
+    ({ value }) => value === filterAmount,
+  );
 
   return (
     <Modal
@@ -96,37 +122,23 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
           </button>
         </div>
         <div className={cx('subtitle')}>
-          <FormattedMessage id="zones-filter-subtitle" defaultMessage="Show" />
+          <FormattedMessage
+            id="zones-filter-subtitle"
+            defaultMessage="Activity"
+          />
         </div>
-        <div className={cx('sortOrderContainer')}>
-          {SORT_ORDER.map(order => (
-            <button
-              type="button"
-              key={order.sortBy}
-              className={cx('sortOrder', {
-                selected: order.sortBy === sortOrder,
-              })}
-              onClick={() => setSortOrder(order.sortBy)}
-            >
-              {order.text}
-            </button>
-          ))}
-        </div>
+        <Select
+          value={selectedSortOrder}
+          onChange={({ value }) => setSortOrder(value)}
+          options={SORT_ORDER}
+          className={cx('sortOrderDropdown')}
+        />
         {sortOrder && (
-          <div className={cx('amountContainer')}>
-            {FILTER_AMOUNT.map(({ amount }) => (
-              <button
-                type="button"
-                key={amount}
-                className={cx('amount', {
-                  selected: amount === filterAmount,
-                })}
-                onClick={() => seFilterAmount(amount)}
-              >
-                {amount}
-              </button>
-            ))}
-          </div>
+          <Select
+            value={selectedFilterAmount}
+            onChange={({ value }) => seFilterAmount(value)}
+            options={FILTER_AMOUNT}
+          />
         )}
       </div>
       <button
