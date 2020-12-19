@@ -1,26 +1,12 @@
-.overlay {
-  z-index: 101;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.4);
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .content {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: rgb(255, 255, 255);
+  max-height: 100vh;
+  height: 100vh;
   min-width: 220px;
+  right: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-align: left;
 }
 
 .wrapper {
@@ -148,6 +134,7 @@
 @media (max-width: 500px) {
   .content {
     width: 100%;
+    max-width: 100vw;
   }
 
   .closeButton {
