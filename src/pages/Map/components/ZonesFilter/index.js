@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
-import Modal from 'react-modal';
+
+import Modal from 'components/Modal';
 
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
 
@@ -58,8 +59,13 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      overlayClassName={cx('overlay')}
-      className={cx('content')}
+      contentClassName={cx('content')}
+      animations={{
+        afterOpen: 'animate__slideInRight',
+        beforeClose: 'animate__slideOutRight',
+        overlayAfterOpen: 'overlayFadeIn',
+        overlayBeforeClose: 'overlayFadeOut',
+      }}
     >
       <div className={cx('wrapper')}>
         <div className={cx('header')}>
