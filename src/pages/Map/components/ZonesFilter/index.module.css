@@ -52,7 +52,7 @@
   margin-bottom: 15px;
 }
 
-.sortOrderDropdown {
+.dropdown {
   margin-bottom: 10px;
 }
 
@@ -83,6 +83,14 @@
   color: #000;
   padding: 0;
   display: none;
+}
+
+.trendLineContainer {
+  display: flex;
+}
+
+.trendLineArrow {
+  margin-left: 3px;
 }
 
 @media (max-width: 500px) {

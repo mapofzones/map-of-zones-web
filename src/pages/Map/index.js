@@ -4,6 +4,7 @@ import { trackEvent } from 'common/helper';
 import { useLocationTracker } from 'common/hooks';
 
 import Leaderboard from './components/Leaderboard';
+import leaderboardColumnsConfig from './components/Leaderboard/config';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
 import GraphContainer from './components/GraphContainer';
@@ -41,16 +42,35 @@ function Map() {
     zonesStat && zonesStat.nodes,
   );
   const filterFn = useCallback(
-    rows =>
-      filter?.sortOrder
-        ? [...rows]
-            .sort(
-              (a, b) =>
-                (filter.sortOrder === 'desc' ? b : a).values[filter.columnId] -
-                (filter.sortOrder === 'desc' ? a : b).values[filter.columnId],
-            )
-            .slice(0, filter.filterAmount)
-        : rows,
+    rows => {
+      let result = rows;
+
+      if (filter?.sortOrder && filter.filterAmount) {
+        result = [...result]
+          .sort(
+            (a, b) =>
+              (filter.sortOrder === 'desc' ? b : a).values[filter.columnId] -
+              (filter.sortOrder === 'desc' ? a : b).values[filter.columnId],
+          )
+          .slice(0, filter.filterAmount);
+      }
+
+      if (filter?.trendLine) {
+        const column = leaderboardColumnsConfig.find(
+          ({ id }) => id === filter.columnId,
+        );
+
+        if (column?.diffAccessor) {
+          result = result.filter(row => {
+            const value = row.values[column.diffAccessor];
+
+            return filter.trendLine === 'asc' ? value > 0 : value < 0;
+          });
+        }
+      }
+
+      return result;
+    },
     [filter],
   );
 

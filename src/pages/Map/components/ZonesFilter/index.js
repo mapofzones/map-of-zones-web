@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
@@ -7,6 +7,8 @@ import Select from 'react-select';
 import Modal from 'components/Modal';
 
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
+import { ReactComponent as ArrowUptrend } from 'assets/images/arrow-uptrend.svg';
+import { ReactComponent as ArrowDowntrend } from 'assets/images/arrow-downtrend.svg';
 
 import styles from './index.module.css';
 
@@ -24,6 +26,34 @@ export const SORT_ORDER = [
   {
     label: <FormattedMessage id="order-asc" defaultMessage="Least Active" />,
     value: 'asc',
+  },
+];
+
+export const TREND_LINE = [
+  {
+    label: '',
+    value: null,
+  },
+  {
+    label: (
+      <div className={cx('trendLineContainer')}>
+        <FormattedMessage id="trend-line-uptrend" defaultMessage="Uptrend" />
+        <ArrowUptrend className={cx('trendLineArrow')} />
+      </div>
+    ),
+    value: 'asc',
+  },
+  {
+    label: (
+      <div className={cx('trendLineContainer')}>
+        <FormattedMessage
+          id="trend-line-downtrend"
+          defaultMessage="Downtrend"
+        />
+        <ArrowDowntrend className={cx('trendLineArrow')} />
+      </div>
+    ),
+    value: 'desc',
   },
 ];
 
@@ -63,22 +93,34 @@ export const FILTER_AMOUNT = [
 const initialFilter = {
   sortOrder: SORT_ORDER[0].value,
   filterAmount: FILTER_AMOUNT[0].value,
+  trendLine: TREND_LINE[0].value,
 };
 
 function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
   const [sortOrder, setSortOrder] = useState(currentFilter.sortOrder);
   const [filterAmount, seFilterAmount] = useState(currentFilter.filterAmount);
+  const [trendLine, setTrendLine] = useState(currentFilter.trendLine);
   const clearFilter = useCallback(() => {
     setSortOrder(initialFilter.sortOrder);
     seFilterAmount(initialFilter.filterAmount);
+    setTrendLine(initialFilter.trendLine);
     applyFilter({
       sortOrder: initialFilter.sortOrder,
       filterAmount: initialFilter.filterAmount,
+      trendLine: initialFilter.trendLine,
     });
-  }, [setSortOrder, seFilterAmount, applyFilter]);
-  const selectedSortOrder = SORT_ORDER.find(({ value }) => value === sortOrder);
-  const selectedFilterAmount = FILTER_AMOUNT.find(
-    ({ value }) => value === filterAmount,
+  }, [setSortOrder, seFilterAmount, setTrendLine, applyFilter]);
+  const selectedSortOrder = useMemo(
+    () => SORT_ORDER.find(({ value }) => value === sortOrder),
+    [sortOrder],
+  );
+  const selectedFilterAmount = useMemo(
+    () => FILTER_AMOUNT.find(({ value }) => value === filterAmount),
+    [filterAmount],
+  );
+  const selectedTrendLine = useMemo(
+    () => TREND_LINE.find(({ value }) => value === trendLine),
+    [trendLine],
   );
 
   return (
@@ -123,7 +165,7 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
         </div>
         <div className={cx('subtitle')}>
           <FormattedMessage
-            id="zones-filter-subtitle"
+            id="zones-filter-subtitle-activity"
             defaultMessage="Activity"
           />
         </div>
@@ -131,21 +173,35 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
           value={selectedSortOrder}
           onChange={({ value }) => setSortOrder(value)}
           options={SORT_ORDER}
-          className={cx('sortOrderDropdown')}
+          className={cx('dropdown')}
         />
         {sortOrder && (
           <Select
             value={selectedFilterAmount}
             onChange={({ value }) => seFilterAmount(value)}
             options={FILTER_AMOUNT}
+            className={cx('dropdown')}
           />
         )}
+        <div className={cx('subtitle')}>
+          <FormattedMessage
+            id="zones-filter-subtitle-trend-line"
+            defaultMessage="Trendline"
+          />
+        </div>
+        <Select
+          value={selectedTrendLine}
+          onChange={({ value }) => setTrendLine(value)}
+          options={TREND_LINE}
+          className={cx('dropdown')}
+        />
       </div>
       <button
         type="button"
         className={cx('applyButton')}
-        onClick={() => applyFilter({ sortOrder, filterAmount })}
+        onClick={() => applyFilter({ sortOrder, filterAmount, trendLine })}
         disabled={
+          trendLine === currentFilter.trendLine &&
           sortOrder === currentFilter.sortOrder &&
           (filterAmount === currentFilter.filterAmount || !sortOrder)
         }

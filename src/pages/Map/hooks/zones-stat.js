@@ -4,6 +4,7 @@ import { Graph } from '@dagrejs/graphlib';
 
 import { getZoneColor } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
+import leaderboardColumnsConfig from 'pages/Map/components/Leaderboard/config';
 
 const ZONES_STAT_FRAGMENT = gql`
   fragment stat on zones_stats {
@@ -223,14 +224,37 @@ export const useZonesStat = options => {
 
 export const useZonesStatFiltered = (zonesStat, filter) => {
   return useMemo(() => {
-    if (filter?.sortOrder && filter?.columnId && filter?.filterAmount) {
-      const nodes = zonesStat.nodes
-        .sort(
-          (a, b) =>
-            (filter.sortOrder === 'desc' ? b : a)[filter.columnId] -
-            (filter.sortOrder === 'desc' ? a : b)[filter.columnId],
-        )
-        .slice(0, filter.filterAmount);
+    if (
+      filter?.columnId &&
+      ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)
+    ) {
+      let nodes = zonesStat.nodes;
+
+      if (filter?.sortOrder && filter.filterAmount) {
+        nodes = [...nodes]
+          .sort(
+            (a, b) =>
+              (filter.sortOrder === 'desc' ? b : a)[filter.columnId] -
+              (filter.sortOrder === 'desc' ? a : b)[filter.columnId],
+          )
+          .slice(0, filter.filterAmount);
+      }
+
+      if (filter?.trendLine) {
+        const column = leaderboardColumnsConfig.find(
+          ({ id }) => id === filter.columnId,
+        );
+
+        if (column?.diffAccessor) {
+          nodes = nodes.filter(node => {
+            const value = node[column.diffAccessor];
+
+            console.log({ node });
+
+            return filter.trendLine === 'asc' ? value > 0 : value < 0;
+          });
+        }
+      }
 
       const links = zonesStat.links
         .filter(
