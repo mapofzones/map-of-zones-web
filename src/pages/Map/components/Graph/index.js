@@ -192,7 +192,9 @@ function Graph({
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
           <div className={cx('zonesFilterContainer')}>
-            {currentFilter?.sortOrder && <div className={cx('dot')} />}
+            {(currentFilter?.sortOrder || currentFilter?.trendLine) && (
+              <div className={cx('dot')} />
+            )}
             <button
               type="button"
               onClick={toggleFilter}
