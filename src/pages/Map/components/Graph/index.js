@@ -118,14 +118,7 @@ function Graph({
     setShowFilter,
     showFilter,
   ]);
-  const applyFilter = useCallback(
-    filter => {
-      setFilter(filter);
-      setShowFilter(false);
-    },
-    [setShowFilter, setFilter],
-  );
-  const onCloseButtonClick = useCallback(() => {
+  const clearNodeFocus = useCallback(() => {
     if (focusedNode) {
       onNodeFocus(null);
     }
@@ -142,16 +135,10 @@ function Graph({
           extra: { period: period?.rawText },
         });
       } else {
-        onCloseButtonClick();
+        clearNodeFocus();
       }
     },
-    [
-      focusedNode,
-      onNodeFocus,
-      focusedNodeNeighbors,
-      onCloseButtonClick,
-      period,
-    ],
+    [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
   );
   const linkDirectionalParticleColor = useLinkColor(focusedNode);
   const nodeCanvasObject = useNodeCanvasObject(
@@ -159,6 +146,14 @@ function Graph({
     focusedNode,
     focusedNodeNeighbors,
     NODE_REL_SIZE,
+  );
+  const applyFilter = useCallback(
+    filter => {
+      clearNodeFocus();
+      setFilter(filter);
+      setShowFilter(false);
+    },
+    [setShowFilter, setFilter, clearNodeFocus],
   );
   const linkCanvasObject = useLinkCanvasObject(focusedNode);
   const twitterShareText = useTwitterShareText(focusedNode, period);
@@ -192,7 +187,7 @@ function Graph({
               action: 'drag zone',
             })
           }
-          onBackgroundClick={onCloseButtonClick}
+          onBackgroundClick={clearNodeFocus}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
@@ -271,7 +266,7 @@ function Graph({
         {!!focusedNode && (
           <button
             type="button"
-            onClick={onCloseButtonClick}
+            onClick={clearNodeFocus}
             className={cx('roundButton', 'closeButton')}
           >
             <CloseIcon />
