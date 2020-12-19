@@ -288,7 +288,10 @@ function Leaderboard({
         onRequestClose={() => setSortModalOpened(false)}
         data={hiddenColumnsHeaders}
         selectedIndex={selectedColumnIndex}
-        updateSelection={updateSelectedColumnIndex}
+        updateSelection={index => {
+          updateSelectedColumnIndex(index);
+          setSortModalOpened(false);
+        }}
       />
     </div>
   );
