@@ -2,8 +2,9 @@ import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
-import Modal from 'react-modal';
 import WheelPicker from '@maksim-tolo/react-wheel-picker';
+
+import Modal from 'components/Modal';
 
 import styles from './index.module.css';
 
@@ -36,8 +37,7 @@ function SortModal({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      overlayClassName={cx('overlay')}
-      className={cx('content')}
+      contentClassName={cx('content')}
     >
       <div className={cx('container')}>
         <div className={cx('selectedValueContainer')}>
