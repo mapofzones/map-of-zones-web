@@ -9,9 +9,16 @@ import styles from '../index.module.css';
 
 const cx = classNames.bind(styles);
 
-const Thead = ({ fixed, isTableOpened, headerGroups, onHeaderClick }) => {
+const Thead = ({
+  fixed,
+  period,
+  isTableOpened,
+  headerGroups,
+  onHeaderClick,
+}) => {
   const isMobile = useMobileSize();
 
+  console.log(period);
   return (
     <thead
       className={cx(
@@ -35,7 +42,15 @@ const Thead = ({ fixed, isTableOpened, headerGroups, onHeaderClick }) => {
                 })}
               >
                 <div className={cx('IBC-circle', column.id)} />
-                <div onClick={onHeaderClick}>{column.render('Header')}</div>
+                {column.dependOnPeriod ? (
+                  <div>
+                    {period === '24h' && <div onClick={onHeaderClick}>DAU</div>}
+                    {period === '7d' && <div onClick={onHeaderClick}>WAU</div>}
+                    {period === '30d' && <div onClick={onHeaderClick}>MAU</div>}
+                  </div>
+                ) : (
+                  <div onClick={onHeaderClick}>{column.render('Header')}</div>
+                )}
                 {!!column.tooltip && !isMobile && (
                   <div className={cx('explanation-icon')}>
                     ?

@@ -77,8 +77,15 @@ const columns = [
     accessor: 'channels',
     id: 'channels',
     Cell: ({ cell }) => formatNumber(cell.value),
-    tooltip: '',
+    tooltip: 'Channels',
     disableSortBy: true,
+  },
+  {
+    Header: 'Active Addresses',
+    id: 'blank',
+    tooltip: 'Active addresses',
+    disableSortBy: true,
+    dependOnPeriod: true,
   },
   {
     Header: 'IBC transfers activity',

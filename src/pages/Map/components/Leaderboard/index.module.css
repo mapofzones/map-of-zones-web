@@ -183,13 +183,19 @@
   overflow: hidden;
   width: unset;
 }
-
 /*3-d col*/
 .header.totalIbcTxs,
 .cell.totalIbcTxs {
   width: 123px;
   min-width: 123px;
   max-width: 123px;
+}
+
+.header.activeAddresses,
+.cell.activeAddresses {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
 }
 
 /*4-th col*/

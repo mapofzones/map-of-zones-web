@@ -73,6 +73,24 @@ function NodeTooltip({ node, period }) {
           </div>
         </div>
       </div>
+      <div className={cx('row-tooltip')}>
+        <div className={cx('col')}>
+          <div className={cx('key-text')}>
+            IBC Out
+            <br />
+            Failed
+          </div>
+          <div className={cx('item-text')}>-</div>
+        </div>
+        <div className={cx('col')}>
+          <div className={cx('key-text')}>
+            IBC in
+            <br />
+            Failed
+          </div>
+          <div className={cx('item-text')}>-</div>
+        </div>
+      </div>
     </div>
   );
 }
