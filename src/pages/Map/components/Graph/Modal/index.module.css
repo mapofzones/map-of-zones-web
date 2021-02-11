@@ -1,0 +1,83 @@
+@import '../../../../../assets/styles/constants.css';
+
+:root {
+  --tooltip-gray: #808080;
+}
+
+.node-modal {
+  position: relative;
+  padding: 25px;
+}
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-regular);
+}
+.header-text {
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 100%;
+  color: var(--color-regular);
+}
+.modal-content {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  padding-top: 20px;
+}
+.col-modal {
+  width: 50%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 15%;
+  box-sizing: border-box;
+  margin-bottom: 1px;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.row:last-child {
+  padding: 10px 0 0;
+}
+.key-double {
+  display: flex;
+  flex-direction: row;
+}
+.key-text {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 100%;
+  color: var(--tooltip-gray);
+}
+.item-text {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 100%;
+  margin-right: 7px;
+  color: var(--color-regular);
+}
+.item-text.sent-title {
+  color: var(--color-red);
+}
+.item-text.received-title {
+  color: var(--color-green);
+}
+.period-title {
+  position: absolute;
+  bottom: 30px;
+  right: 25px;
+  font-weight: 600;
+  color: #808080;
+}
+.close-btn {
+  -webkit-appearance: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}

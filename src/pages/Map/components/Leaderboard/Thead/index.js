@@ -18,7 +18,6 @@ const Thead = ({
 }) => {
   const isMobile = useMobileSize();
 
-  console.log(period);
   return (
     <thead
       className={cx(

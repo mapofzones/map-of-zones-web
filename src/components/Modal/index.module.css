@@ -22,6 +22,30 @@
   position: fixed;
 }
 
+.overlay-none {
+  z-index: 101;
+  position: fixed;
+  background: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.content-top {
+  max-height: calc(100vh - 40px);
+  text-align: center;
+  background: #fff;
+  overflow: hidden;
+  outline: none;
+  animation-duration: 0.6s;
+  max-width: calc(100vw - 40px);
+  position: fixed;
+}
+
 @keyframes overlayFadeIn {
   from {
     background-color: transparent;
@@ -41,7 +65,6 @@
     background-color: transparent;
   }
 }
-
 .overlayFadeIn {
   animation-name: overlayFadeIn;
 }

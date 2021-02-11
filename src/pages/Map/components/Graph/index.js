@@ -29,6 +29,8 @@ import LinkTooltip from './Tooltips/LinkTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 import ZonesFilter from '../ZonesFilter';
 
+import NodeModal from './Modal/NodeModal';
+
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
@@ -48,9 +50,11 @@ function Graph({
   currentFilter,
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [clickedNode, setClickedNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const [showFilter, setShowFilter] = useState(false);
+  const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
   useEffect(() => {
@@ -134,12 +138,15 @@ function Graph({
           label: node.name,
           extra: { period: period?.rawText },
         });
+        setModalOpened(true);
+        setClickedNode(node);
       } else {
         clearNodeFocus();
       }
     },
     [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
   );
+
   const linkDirectionalParticleColor = useLinkColor(focusedNode);
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
@@ -283,6 +290,14 @@ function Graph({
         applyFilter={applyFilter}
         currentFilter={currentFilter}
       />
+      {clickedNode && (
+        <NodeModal
+          isOpen={isModalOpened}
+          onRequestClose={() => setModalOpened(false)}
+          node={clickedNode}
+          period={period.name}
+        />
+      )}
     </div>
   );
 }
