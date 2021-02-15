@@ -10,13 +10,18 @@
   font-size: 30px;
   border-top: 2px solid #4c4c53;
   padding-top: 8px;
-  color: #949494;
+  color: #ff9494;
   line-height: 1;
   background-color: inherit;
   border-bottom: none;
   border-left: none;
   border-right: none;
   width: 70px;
+}
+
+.period span {
+  width: 70px;
+  text-align: center;
 }
 
 .period:not(.selected) {
