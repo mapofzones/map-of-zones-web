@@ -28,6 +28,12 @@ const ZONES_STAT_FRAGMENT = gql`
     total_ibc_txs_rating_diff
     ibc_tx_out_rating_diff
     ibc_tx_in_rating_diff
+    total_active_addresses
+    total_active_addresses_diff
+    ibc_tx_failed
+    ibc_tx_failed_diff
+    total_active_addresses_rating
+    total_active_addresses_rating_diff
   }
 `;
 
@@ -148,6 +154,12 @@ const transform = (zones, graph) => {
       total_ibc_txs_rating_diff,
       ibc_tx_out_rating_diff,
       ibc_tx_in_rating_diff,
+      total_active_addresses,
+      total_active_addresses_diff,
+      ibc_tx_failed,
+      ibc_tx_failed_diff,
+      total_active_addresses_rating,
+      total_active_addresses_rating_diff,
     }) => {
       return {
         id: zone,
@@ -169,6 +181,12 @@ const transform = (zones, graph) => {
         totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
         ibcSentRatingDiff: ibc_tx_out_rating_diff,
         ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
+        totalActiveAddresses: total_active_addresses,
+        totalActiveAddressesDiff: total_active_addresses_diff,
+        ibcTxFailed: ibc_tx_failed,
+        ibcTxFailedDiff: ibc_tx_failed_diff,
+        totalActiveAddressesRating: total_active_addresses_rating,
+        totalActiveAddressesRatingDiff: total_active_addresses_rating_diff,
         color: total_ibc_txs
           ? getZoneColor(ibc_tx_out / total_ibc_txs)
           : DEFAULT_COLOR,
