@@ -173,7 +173,7 @@
 
 .header.name,
 .cell.name {
-  width: 400px;
+  width: 239px;
 }
 
 .cell.name .text-container {
@@ -207,6 +207,12 @@
   width: 99px;
   min-width: 99px;
   max-width: 99px;
+}
+.header.totalActiveAddresses,
+.cell.totalActiveAddresses {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
 }
 
 /*6 col*/

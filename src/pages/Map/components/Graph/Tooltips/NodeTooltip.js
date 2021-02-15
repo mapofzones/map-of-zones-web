@@ -80,7 +80,9 @@ function NodeTooltip({ node, period }) {
             <br />
             Failed
           </div>
-          <div className={cx('item-text')}>-</div>
+          <div className={cx('item-text')}>
+            {formatNumber(node.ibcTxFailed)}
+          </div>
         </div>
         <div className={cx('col')}>
           <div className={cx('key-text')}>
@@ -88,7 +90,9 @@ function NodeTooltip({ node, period }) {
             <br />
             Failed
           </div>
-          <div className={cx('item-text')}>-</div>
+          <div className={cx('item-text')}>
+            {formatNumber(node.ibcTxFailed)}
+          </div>
         </div>
       </div>
     </div>

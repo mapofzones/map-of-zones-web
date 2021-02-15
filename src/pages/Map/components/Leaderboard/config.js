@@ -82,10 +82,13 @@ const columns = [
   },
   {
     Header: 'Active Addresses',
-    id: 'blank',
+    id: 'totalActiveAddresses',
+    accessor: 'totalActiveAddresses',
+    Cell: ({ cell }) => formatNumber(cell.value),
     tooltip: 'Active addresses',
-    disableSortBy: true,
     dependOnPeriod: true,
+    zoneWeightAccessor: 'totalActiveAddresses',
+    sortDescFirst: true,
   },
   {
     Header: 'IBC transfers activity',

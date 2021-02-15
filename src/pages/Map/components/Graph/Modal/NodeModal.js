@@ -84,11 +84,15 @@ function NodeModal({ isOpen, onRequestClose, node, period }) {
             </div>
             <div className={cx('row')}>
               <div className={cx('key-text')}>IBC Out Failed</div>
-              <div className={cx('item-text')}>-</div>
+              <div className={cx('item-text')}>
+                {formatNumber(node.ibcTxFailed)}
+              </div>
             </div>
             <div className={cx('row')}>
               <div className={cx('key-text')}>IBC in Failed</div>
-              <div className={cx('item-text')}>-</div>
+              <div className={cx('item-text')}>
+                {formatNumber(node.ibcTxFailed)}
+              </div>
             </div>
           </div>
         </div>
