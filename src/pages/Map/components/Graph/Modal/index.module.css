@@ -81,3 +81,34 @@
   background: none;
   cursor: pointer;
 }
+
+@media (max-width: 800px) {
+  .modal-content {
+    max-width: calc(100vw - 40px);
+  }
+}
+
+@media (max-width: 520px) {
+  .modal-content {
+    flex-direction: column;
+  }
+  .col-modal {
+    width: calc(100% - 32px);
+    padding-right: 0;
+    max-width: unset;
+  }
+  .row:last-child {
+    padding: 10px 0;
+  }
+  .period-title {
+    bottom: 13px;
+    right: 18px;
+  }
+  .node-modal {
+    position: relative;
+    padding: 25px 20px 30px;
+  }
+  .header-text {
+    font-size: 24px;
+  }
+}

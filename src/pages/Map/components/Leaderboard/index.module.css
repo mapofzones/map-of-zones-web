@@ -210,9 +210,9 @@
 }
 .header.totalActiveAddresses,
 .cell.totalActiveAddresses {
-  width: 60px;
-  min-width: 60px;
-  max-width: 60px;
+  width: 74px;
+  min-width: 74px;
+  max-width: 74px;
 }
 
 /*6 col*/
