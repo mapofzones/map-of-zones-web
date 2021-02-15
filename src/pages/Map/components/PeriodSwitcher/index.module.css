@@ -1,11 +1,11 @@
 .container {
   display: flex;
   flex-direction: row;
-  text-align: center;
 }
 
 .period {
-  display: inline-block;
+  -webkit-appearance: none;
+  text-align: center;
   font-weight: 800;
   font-size: 30px;
   border-top: 2px solid #4c4c53;
