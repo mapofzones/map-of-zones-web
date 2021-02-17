@@ -186,7 +186,7 @@ function Graph({
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
-          onRenderFramePre={onRenderFrame}
+          onRenderFramePost={onRenderFrame}
           // linkDirectionalParticles={2}
           // linkDirectionalParticleSpeed={0.006}
           // linkDirectionalParticleWidth={2.5}
