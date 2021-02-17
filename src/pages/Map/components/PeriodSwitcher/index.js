@@ -70,7 +70,7 @@ function PeriodSwitcher({ hours, onChange }) {
           className={cx('period', { selected: period.hours === hours })}
           onClick={() => onPeriodChange(period)}
         >
-          {period.name}
+          <span>{period.name}</span>
         </button>
       ))}
     </div>

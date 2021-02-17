@@ -85,6 +85,8 @@ function Leaderboard({
 
   const renderCell = cell => {
     switch (cell.column.id) {
+      case 'blank':
+        return <div>-</div>;
       case 'txsActivity':
         return cell.render('Cell');
       case 'name':
@@ -228,12 +230,17 @@ function Leaderboard({
       className={cx('table-container', { fixedTable: isTableOpened })}
     >
       <table {...getTableProps()} className={cx('table')}>
-        <Thead headerGroups={headerGroups} onHeaderClick={onHeaderClick} />
+        <Thead
+          headerGroups={headerGroups}
+          onHeaderClick={onHeaderClick}
+          period={period.rawText}
+        />
         <Thead
           fixed
           isTableOpened={isTableOpened}
           headerGroups={headerGroups}
           onHeaderClick={onHeaderClick}
+          period={period.rawText}
         />
         <tbody
           {...getTableBodyProps()}

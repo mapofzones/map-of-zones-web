@@ -20,14 +20,17 @@ import {
   useNodeCanvasObject,
   useLinkCanvasObject,
   useFocusedNodeNeighbors,
-  useLinkColor,
+  // useLinkColor,
   useTwitterShareText,
   useTelegramShareText,
+  useRenderFrame,
 } from './hooks';
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 import ZonesFilter from '../ZonesFilter';
+
+// import NodeModal from './Modal/NodeModal';
 
 import styles from './index.module.css';
 
@@ -48,9 +51,11 @@ function Graph({
   currentFilter,
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
+  // const [clickedNode, setClickedNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const [showFilter, setShowFilter] = useState(false);
+  // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
   useEffect(() => {
@@ -134,13 +139,16 @@ function Graph({
           label: node.name,
           extra: { period: period?.rawText },
         });
+        // setModalOpened(true);
+        // setClickedNode(node);
       } else {
         clearNodeFocus();
       }
     },
     [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
   );
-  const linkDirectionalParticleColor = useLinkColor(focusedNode);
+
+  // const linkDirectionalParticleColor = useLinkColor(focusedNode);
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
     focusedNode,
@@ -158,6 +166,7 @@ function Graph({
   const linkCanvasObject = useLinkCanvasObject(focusedNode);
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
+  const onRenderFrame = useRenderFrame();
 
   return (
     <div>
@@ -177,10 +186,11 @@ function Graph({
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
-          linkDirectionalParticles={2}
-          linkDirectionalParticleSpeed={0.006}
-          linkDirectionalParticleWidth={2.5}
-          linkDirectionalParticleColor={linkDirectionalParticleColor}
+          onRenderFramePost={onRenderFrame}
+          // linkDirectionalParticles={2}
+          // linkDirectionalParticleSpeed={0.006}
+          // linkDirectionalParticleWidth={2.5}
+          // linkDirectionalParticleColor={linkDirectionalParticleColor}
           onNodeDragEnd={() =>
             trackEvent({
               category: 'Map',
@@ -283,6 +293,14 @@ function Graph({
         applyFilter={applyFilter}
         currentFilter={currentFilter}
       />
+      {/*{clickedNode && (*/}
+      {/*  <NodeModal*/}
+      {/*    isOpen={isModalOpened}*/}
+      {/*    onRequestClose={() => setModalOpened(false)}*/}
+      {/*    node={clickedNode}*/}
+      {/*    period={period.name}*/}
+      {/*  />*/}
+      {/*)}*/}
     </div>
   );
 }
