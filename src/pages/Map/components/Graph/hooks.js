@@ -17,7 +17,7 @@ export const useNodeCanvasObject = (
       const backgroundDimensions = [textWidth, fontSize].map(
         n => n + fontSize * 0.5,
       );
-      let r =
+      const r =
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
       const deltaY = r + backgroundDimensions[1] / 2 + 2 / globalScale;
       const isFocused =
@@ -36,8 +36,6 @@ export const useNodeCanvasObject = (
         ctx.shadowColor = color;
         ctx.shadowBlur = 30;
       }
-
-      if (offset > 0.99) r *= 1 + Math.abs(1 - offset) * 12;
 
       ctx.beginPath();
       ctx.arc(x, y, r, 0, 2 * Math.PI, false);
