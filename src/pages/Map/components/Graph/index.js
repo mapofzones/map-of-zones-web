@@ -20,10 +20,9 @@ import {
   useNodeCanvasObject,
   useLinkCanvasObject,
   useFocusedNodeNeighbors,
-  // useLinkColor,
   useTwitterShareText,
   useTelegramShareText,
-  useRenderFrame,
+  // useRenderFrame,
 } from './hooks';
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
@@ -148,7 +147,6 @@ function Graph({
     [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
   );
 
-  // const linkDirectionalParticleColor = useLinkColor(focusedNode);
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
     focusedNode,
@@ -166,7 +164,7 @@ function Graph({
   const linkCanvasObject = useLinkCanvasObject(focusedNode);
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
-  const onRenderFrame = useRenderFrame();
+  // const onRenderFrame = useRenderFrame();
 
   return (
     <div>
@@ -186,11 +184,7 @@ function Graph({
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
-          onRenderFramePost={onRenderFrame}
-          // linkDirectionalParticles={2}
-          // linkDirectionalParticleSpeed={0.006}
-          // linkDirectionalParticleWidth={2.5}
-          // linkDirectionalParticleColor={linkDirectionalParticleColor}
+          // onRenderFramePost={onRenderFrame}
           onNodeDragEnd={() =>
             trackEvent({
               category: 'Map',

@@ -194,13 +194,20 @@ export const useLinkCanvasObject = focusedNode =>
   );
 
 let offset = 0;
-export const useRenderFrame = () =>
-  useCallback(() => {
-    if (offset >= 1) {
-      offset = 0;
-    }
-    offset += 0.005;
-  }, []);
+// export const useRenderFrame = () =>
+//   useCallback(() => {
+//     if (offset >= 1) {
+//       offset = 0;
+//     }
+//     offset += 0.005;
+//   }, []);
+
+setInterval(() => {
+  if (offset >= 1) {
+    offset = 0;
+  }
+  offset += 0.00825;
+}, 33);
 
 const drawLinkComet = (ctx, source, target) => {
   const xLength = target.x - source.x;
