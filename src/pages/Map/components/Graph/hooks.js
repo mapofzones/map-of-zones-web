@@ -187,6 +187,78 @@ export const useLinkCanvasObject = focusedNode =>
       ctx.moveTo(source.x, source.y);
       ctx.lineTo(target.x, target.y);
       ctx.stroke();
+
+      drawLinkComet(ctx, source, target, globalScale);
     },
     [focusedNode],
   );
+
+let offset = 0;
+export const useRenderFrame = () =>
+  useCallback(() => {
+    if (offset >= 1) {
+      offset = 0;
+    }
+    offset += 0.005;
+  }, []);
+
+const drawLinkComet = (ctx, source, target) => {
+  const xLength = target.x - source.x;
+  const yLength = target.y - source.y;
+  const cometPosX = source.x + offset * xLength;
+  const cometPosY = source.y + offset * yLength;
+  const tailOffset = offset - 0.1 > 0 ? offset - 0.1 : 0;
+  const tailPosX = source.x + tailOffset * xLength;
+  const tailPosY = source.y + tailOffset * yLength;
+
+  //draw comet
+  ctx.beginPath();
+  ctx.arc(cometPosX, cometPosY, 0.5, 0, 2 * Math.PI, true);
+  ctx.fillStyle = '#78B481';
+  ctx.fill();
+
+  //draw comet tail
+  const gradient = ctx.createLinearGradient(
+    cometPosX,
+    cometPosY,
+    tailPosX,
+    tailPosY,
+  );
+
+  gradient.addColorStop(
+    0,
+    tinycolor('#60AB8B')
+      .setAlpha(1)
+      .toString(),
+  );
+  gradient.addColorStop(
+    0.3,
+    tinycolor('#D2D65A')
+      .setAlpha(0.7)
+      .toString(),
+  );
+  gradient.addColorStop(
+    0.5,
+    tinycolor('#E9B880')
+      .setAlpha(0.5)
+      .toString(),
+  );
+  gradient.addColorStop(
+    0.65,
+    tinycolor('#D76969')
+      .setAlpha(0.35)
+      .toString(),
+  );
+  gradient.addColorStop(
+    1,
+    tinycolor('#D76969')
+      .setAlpha(0)
+      .toString(),
+  );
+
+  ctx.strokeStyle = gradient;
+  ctx.beginPath();
+  ctx.moveTo(cometPosX, cometPosY);
+  ctx.lineTo(tailPosX, tailPosY);
+  ctx.stroke();
+};

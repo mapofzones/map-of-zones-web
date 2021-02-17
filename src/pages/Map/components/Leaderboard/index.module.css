@@ -173,7 +173,7 @@
 
 .header.name,
 .cell.name {
-  width: 400px;
+  width: 239px;
 }
 
 .cell.name .text-container {
@@ -183,13 +183,19 @@
   overflow: hidden;
   width: unset;
 }
-
 /*3-d col*/
 .header.totalIbcTxs,
 .cell.totalIbcTxs {
   width: 123px;
   min-width: 123px;
   max-width: 123px;
+}
+
+.header.activeAddresses,
+.cell.activeAddresses {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
 }
 
 /*4-th col*/
@@ -201,6 +207,12 @@
   width: 99px;
   min-width: 99px;
   max-width: 99px;
+}
+.header.totalActiveAddresses,
+.cell.totalActiveAddresses {
+  width: 74px;
+  min-width: 74px;
+  max-width: 74px;
 }
 
 /*6 col*/
