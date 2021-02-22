@@ -242,7 +242,10 @@ function Graph({
           )}
           <button
             type="button"
-            onClick={() => toggleGraphType('2D')}
+            onClick={() => {
+              clearNodeFocus();
+              toggleGraphType('2D');
+            }}
             className={cx('roundButton', 'graphTypeButton')}
           >
             2D
