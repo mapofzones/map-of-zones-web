@@ -43,6 +43,7 @@ function Graph({
   focusedNode,
   setFilter,
   currentFilter,
+  toggleGraphType,
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
@@ -239,6 +240,13 @@ function Graph({
               <CollapseScreenIcon />
             </button>
           )}
+          <button
+            type="button"
+            onClick={() => toggleGraphType('2D')}
+            className={cx('roundButton', 'graphTypeButton')}
+          >
+            2D
+          </button>
         </div>
         {!!focusedNode && (
           <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
@@ -318,6 +326,7 @@ Graph.propTypes = {
   toggleMapOpen: PropTypes.func,
   onNodeFocus: PropTypes.func,
   setFilter: PropTypes.func,
+  toggleGraphType: PropTypes.func,
   currentFilter: PropTypes.object,
   focusedNode: PropTypes.object,
 };

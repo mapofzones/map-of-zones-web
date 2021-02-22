@@ -73,6 +73,10 @@
   margin-bottom: 16px;
 }
 
+.graphTypeButton {
+  margin-top: 16px;
+}
+
 .zonesFilterContainer {
   position: relative;
 }

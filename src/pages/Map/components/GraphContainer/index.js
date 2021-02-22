@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
 
-import { Graph3D } from '../Graph';
+import { Graph3D, Graph2D } from '../Graph';
 import ZonesSorter from '../ZonesSorter';
 
 import styles from './index.module.css';
@@ -36,12 +36,16 @@ function GraphContainer({
     }
   };
 
+  const [graphType, toggleGraphType] = useState('2D');
+
+  const Graph = graphType === '2D' ? Graph2D : Graph3D;
+
   return (
     <div
       className={cx('container', { cursorPointer: isTableOpened })}
       onClick={backToMap}
     >
-      <Graph3D
+      <Graph
         period={period}
         data={zonesStat}
         isBlurred={isTableOpened}
@@ -52,6 +56,7 @@ function GraphContainer({
         focusedNode={focusedZone}
         currentFilter={currentFilter}
         setFilter={setFilter}
+        toggleGraphType={toggleGraphType}
       />
 
       <Logo className={cx('logo')} />
