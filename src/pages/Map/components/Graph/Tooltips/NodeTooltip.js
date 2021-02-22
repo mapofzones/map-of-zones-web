@@ -16,6 +16,10 @@ function NodeTooltip({ node, period }) {
 
   let mapTooltip = document.querySelector('.graph-tooltip');
 
+  if (!mapTooltip) {
+    return null;
+  }
+
   return (
     <div
       className={cx('custom-tooltip', 'node-custom-tooltip', {
