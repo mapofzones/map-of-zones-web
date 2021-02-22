@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
 
-import Graph from '../Graph';
+import { Graph3D } from '../Graph';
 import ZonesSorter from '../ZonesSorter';
 
 import styles from './index.module.css';
@@ -41,7 +41,7 @@ function GraphContainer({
       className={cx('container', { cursorPointer: isTableOpened })}
       onClick={backToMap}
     >
-      <Graph
+      <Graph3D
         period={period}
         data={zonesStat}
         isBlurred={isTableOpened}
