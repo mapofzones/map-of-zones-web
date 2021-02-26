@@ -22,7 +22,6 @@ import {
   useFocusedNodeNeighbors,
   useTwitterShareText,
   useTelegramShareText,
-  // useRenderFrame,
 } from './hooks';
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
@@ -165,7 +164,6 @@ function Graph({
   const linkCanvasObject = useLinkCanvasObject(focusedNode);
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
-  // const onRenderFrame = useRenderFrame();
 
   return (
     <div>
@@ -185,7 +183,6 @@ function Graph({
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
-          // onRenderFramePost={onRenderFrame}
           onNodeDragEnd={() =>
             trackEvent({
               category: 'Map',
