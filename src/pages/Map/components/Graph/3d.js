@@ -4,8 +4,6 @@ import classNames from 'classnames/bind';
 import ForceGraph3D from 'react-force-graph-3d';
 import { FormattedMessage } from 'react-intl';
 import { forceCollide } from 'd3-force-3d';
-import SpriteText from 'three-spritetext';
-import { Scene } from 'three';
 
 import { trackEvent } from 'common/helper';
 
@@ -20,6 +18,10 @@ import {
   useFocusedNodeNeighbors,
   useTwitterShareText,
   useTelegramShareText,
+  useLinkThreeObject,
+  useLinkColor,
+  useNodeColor,
+  useNodeThreeObject,
 } from './hooks';
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
@@ -168,6 +170,10 @@ function Graph({
   );
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
+  const nodeColor = useNodeColor(focusedNode, focusedNodeNeighbors);
+  const nodeThreeObject = useNodeThreeObject(focusedNode, focusedNodeNeighbors);
+  const linkThreeObject = useLinkThreeObject(focusedNode);
+  const linkColor = useLinkColor(focusedNode);
 
   return (
     <div>
@@ -177,30 +183,21 @@ function Graph({
           height={mapOpened ? document.documentElement.clientHeight : 500}
           nodeRelSize={NODE_REL_SIZE}
           nodeVal={zoneWeightAccessor}
-          nodeColor="color"
+          nodeColor={nodeColor}
+          nodeResolution={16}
           nodeLabel={null}
           graphData={data}
           onNodeHover={onNodeHover}
-          nodeThreeObject={node => {
-            const scene = new Scene();
-            const text = new SpriteText(node.name);
-
-            text.color = node.color;
-
-            scene.add(text);
-            scene.position.set(scene.position.x, -10, scene.position.z);
-
-            return scene;
-          }}
+          nodeThreeObject={nodeThreeObject}
           nodeThreeObjectExtend
           onNodeClick={onNodeClick}
           onLinkHover={onLinkHover}
+          linkColor={linkColor}
+          linkThreeObject={linkThreeObject}
+          linkThreeObjectExtend
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
           showNavInfo={false}
-          linkDirectionalParticles={2}
-          linkDirectionalParticleSpeed={0.006}
-          linkDirectionalParticleWidth={2.5}
           onNodeDragEnd={() =>
             trackEvent({
               category: 'Map',

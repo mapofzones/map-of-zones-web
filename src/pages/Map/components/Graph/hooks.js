@@ -2,6 +2,19 @@ import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import tinycolor from 'tinycolor2';
 import { parse, stringify } from 'querystringify';
+import {
+  BufferAttribute,
+  BufferGeometry,
+  Line,
+  LineBasicMaterial,
+  Scene,
+  Vector3,
+  VertexColors,
+  SphereGeometry,
+  MeshBasicMaterial,
+  Mesh,
+} from 'three';
+import SpriteText from 'three-spritetext';
 
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
@@ -82,7 +95,7 @@ export const useLinkColor = focusedNode =>
   useCallback(
     ({ source, target }) => {
       if (!focusedNode || focusedNode === source || focusedNode === target) {
-        return 'rgba(255, 255, 255, 0.2)';
+        return 'rgb(255, 255, 255)';
       }
 
       return 'transparent';
@@ -187,21 +200,12 @@ export const useLinkCanvasObject = focusedNode =>
       ctx.moveTo(source.x, source.y);
       ctx.lineTo(target.x, target.y);
       ctx.stroke();
-
       drawLinkComet(ctx, source, target, globalScale);
     },
     [focusedNode],
   );
 
 let offset = 0;
-// export const useRenderFrame = () =>
-//   useCallback(() => {
-//     if (offset >= 1) {
-//       offset = 0;
-//     }
-//     offset += 0.005;
-//   }, []);
-
 setInterval(() => {
   if (offset >= 1) {
     offset = 0;
@@ -268,4 +272,121 @@ const drawLinkComet = (ctx, source, target) => {
   ctx.moveTo(cometPosX, cometPosY);
   ctx.lineTo(tailPosX, tailPosY);
   ctx.stroke();
+};
+
+//for 3d
+export const useLinkThreeObject = focusedNode => {
+  return useCallback(
+    link => {
+      if (
+        focusedNode &&
+        focusedNode !== link.source &&
+        focusedNode !== link.target
+      ) {
+        return;
+      }
+      const scene = new Scene();
+
+      //draw comet sphere
+      const sphereGeometry = new SphereGeometry(0.5, 16, 16);
+      const sphereMaterial = new MeshBasicMaterial({ color: 0x78b481 });
+      const sphere = new Mesh(sphereGeometry, sphereMaterial);
+      scene.add(sphere);
+
+      //draw comet tail
+      const cometTailGeometry = new BufferGeometry();
+      const material = new LineBasicMaterial({
+        vertexColors: VertexColors,
+      });
+      const cometTail = new Line(cometTailGeometry, material);
+      const colors = new Float32Array([
+        215 / 255,
+        105 / 255,
+        105 / 255,
+        48 / 255,
+        48 / 255,
+        62 / 255,
+      ]);
+      cometTail.geometry.setAttribute('color', new BufferAttribute(colors, 4));
+      scene.add(cometTail);
+
+      //animate comet
+      const animateComet = () => {
+        if (sphere && link) {
+          const xLength = link.target.x - link.source.x;
+          const yLength = link.target.y - link.source.y;
+          const zLength = link.target.z - link.source.z;
+          const cometPosX = link.source.x + offset * xLength;
+          const cometPosY = link.source.y + offset * yLength;
+          const cometPosZ = link.source.z + offset * zLength;
+          const tailOffset = offset - 0.1 > 0 ? offset - 0.1 : 0;
+          const cometTailPosX = link.source.x + tailOffset * xLength;
+          const cometTailPosY = link.source.y + tailOffset * yLength;
+          const cometTailPosZ = link.source.z + tailOffset * zLength;
+
+          //update sphere position
+          sphere.position.x = cometPosX;
+          sphere.position.y = cometPosY;
+          sphere.position.z = cometPosZ;
+
+          //update tail position
+          const cometTailPoints = [];
+          cometTailPoints.push(new Vector3(cometPosX, cometPosY, cometPosZ));
+          cometTailPoints.push(
+            new Vector3(cometTailPosX, cometTailPosY, cometTailPosZ),
+          );
+          cometTail.geometry.setFromPoints(cometTailPoints);
+
+          requestAnimationFrame(animateComet);
+        }
+      };
+      requestAnimationFrame(animateComet);
+
+      return scene;
+    },
+    [focusedNode],
+  );
+};
+export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
+  useCallback(
+    node => {
+      const isFocused =
+        focusedNode === node ||
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
+
+      if (focusedNode && !isFocused) {
+        return hex2rgba(node.color, 0.2);
+      }
+
+      return node.color;
+    },
+    [focusedNode, focusedNodeNeighbors],
+  );
+
+export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
+  useCallback(
+    node => {
+      const scene = new Scene();
+      const text = new SpriteText(node.name);
+      const isFocused =
+        focusedNode === node ||
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
+
+      if (focusedNode && !isFocused) {
+        text.color = hex2rgba(node.color, 0.2);
+      } else {
+        text.color = node.color;
+      }
+
+      scene.add(text);
+      scene.position.set(scene.position.x, -10, scene.position.z);
+
+      return scene;
+    },
+    [focusedNode, focusedNodeNeighbors],
+  );
+
+const hex2rgba = (hex, alpha = 1) => {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+  return `rgba(${r},${g},${b},${alpha})`;
 };

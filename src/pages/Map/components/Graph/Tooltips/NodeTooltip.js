@@ -14,7 +14,9 @@ function NodeTooltip({ node, period }) {
     setIsActive(true);
   }, []);
 
-  let mapTooltip = document.querySelector('.graph-tooltip');
+  let mapTooltip =
+    document.querySelector('.graph-tooltip') ||
+    document.querySelector('.scene-tooltip');
 
   if (!mapTooltip) {
     return null;
