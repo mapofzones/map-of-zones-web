@@ -123,10 +123,16 @@
   }
 }
 @media (max-width: 520px) {
+  .wrapper {
+    overflow: hidden;
+    background: #212737;
+  }
   .container {
     height: 27px;
-    padding: 8px 0 5px 2px;
-    overflow: hidden;
+    background: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 15s linear infinite;
   }
   .statContainer {
     padding: 0 6px 0 7px;
@@ -151,6 +157,11 @@
   .item {
     flex: none;
     position: relative;
+    display: inline-block;
+    padding: 7px 0;
+  }
+  .item * {
+    margin-bottom: 0;
   }
   .item:not(:last-child) {
     border: none;
@@ -159,9 +170,8 @@
   .statContainer.small:last-child:after {
     content: '';
     position: absolute;
-    right: -2px;
-    top: 5px;
-    /*transform: translateY(-2px);*/
+    left: 0;
+    top: calc(50% - 2px);
     width: 3px;
     height: 3px;
     border-radius: 100%;
@@ -174,5 +184,17 @@
   .statContainer.small:last-child:after {
     left: -1px;
     right: unset;
+  }
+  .item:first-child:after {
+    display: none;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
