@@ -22,135 +22,137 @@ function TotalStatTable({
   isTableOpened,
 }) {
   return (
-    <div className={cx('container', { tableOpened: isTableOpened })}>
-      <div className={cx('item')}>
-        <div className={cx('statContainer')}>
-          <div className={cx('statName')}>
-            <FormattedMessage
-              id="number-of-ibc-txs-stat"
-              defaultMessage="Number of IBC transfers {period}"
-              values={{
-                period: <span className={cx('period')}>{period}</span>,
-              }}
-            />
-          </div>
-          <div className={cx('statValue')}>{formatNumber(ibcTxs)}</div>
-        </div>
-        <ResponsiveContainer className={cx('activityContainer')}>
-          <AreaChart data={ibcTxsActivity} margin={{ bottom: 0 }}>
-            <Area
-              strokeWidth={2}
-              type="linear"
-              dataKey="txs"
-              stroke="#6ea77f"
-              fill="#5CA97B"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-      <div className={cx('item')}>
-        <div className={cx('statContainerSmall')}>
-          <div className={cx('statContainer', 'small')}>
+    <div className={cx('wrapper')}>
+      <div className={cx('container', { tableOpened: isTableOpened })}>
+        <div className={cx('item')}>
+          <div className={cx('statContainer')}>
             <div className={cx('statName')}>
               <FormattedMessage
-                id="all-zones-stat"
-                defaultMessage="All Zones"
-              />
-            </div>
-            <div className={cx('statValue')}>{formatNumber(allZones)}</div>
-          </div>
-          <div className={cx('statContainer', 'small')}>
-            <div className={cx('statName')}>
-              <FormattedMessage
-                id="active-zones-stat"
-                defaultMessage="Active Zones {period}"
+                id="number-of-ibc-txs-stat"
+                defaultMessage="Number of IBC transfers {period}"
                 values={{
                   period: <span className={cx('period')}>{period}</span>,
                 }}
               />
             </div>
-            <div className={cx('statValue')}>{formatNumber(activeZones)}</div>
+            <div className={cx('statValue')}>{formatNumber(ibcTxs)}</div>
           </div>
+          <ResponsiveContainer className={cx('activityContainer')}>
+            <AreaChart data={ibcTxsActivity} margin={{ bottom: 0 }}>
+              <Area
+                strokeWidth={2}
+                type="linear"
+                dataKey="txs"
+                stroke="#6ea77f"
+                fill="#5CA97B"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
-      </div>
-      <div className={cx('item')}>
-        <div className={cx('statContainerSmall')}>
-          <div className={cx('statContainer', 'small')}>
-            <div className={cx('statName')}>
-              <FormattedMessage
-                id="all-channels-stat"
-                defaultMessage="All Channels"
-              />
-            </div>
-            <div className={cx('statValue')}>{formatNumber(allChannels)}</div>
-          </div>
-          <div className={cx('statContainer', 'small')}>
-            <div className={cx('statName')}>
-              <FormattedMessage
-                id="active-channels-stat"
-                defaultMessage="Active Channels {period}"
-                values={{
-                  period: <span className={cx('period')}>{period}</span>,
-                }}
-              />
-            </div>
-            <div className={cx('statValue')}>
-              {formatNumber(activeChannels)}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={cx('item')}>
-        <div className={cx('statContainer')}>
-          <div className={cx('statNameContainer')}>
-            <div className={cx('statName')}>
-              <FormattedMessage
-                id="most-active-zones-pair-stat"
-                defaultMessage="Most Active Pair of Zones {period}"
-                values={{
-                  period: <span className={cx('period')}>{period}</span>,
-                }}
-              />
-            </div>
-            {mostActiveZonesPair?.ibc && (
-              <div className={cx('mostActiveZonesPairTxs')}>
+        <div className={cx('item')}>
+          <div className={cx('statContainerSmall')}>
+            <div className={cx('statContainer', 'small')}>
+              <div className={cx('statName')}>
                 <FormattedMessage
-                  id="most-active-zones-pair-ibc-txs"
-                  defaultMessage="{txs} transfers"
+                  id="all-zones-stat"
+                  defaultMessage="All Zones"
+                />
+              </div>
+              <div className={cx('statValue')}>{formatNumber(allZones)}</div>
+            </div>
+            <div className={cx('statContainer', 'small')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
+                  id="active-zones-stat"
+                  defaultMessage="Active Zones {period}"
                   values={{
-                    txs: formatNumber(mostActiveZonesPair.ibc),
+                    period: <span className={cx('period')}>{period}</span>,
                   }}
                 />
+              </div>
+              <div className={cx('statValue')}>{formatNumber(activeZones)}</div>
+            </div>
+          </div>
+        </div>
+        <div className={cx('item')}>
+          <div className={cx('statContainerSmall')}>
+            <div className={cx('statContainer', 'small')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
+                  id="all-channels-stat"
+                  defaultMessage="All Channels"
+                />
+              </div>
+              <div className={cx('statValue')}>{formatNumber(allChannels)}</div>
+            </div>
+            <div className={cx('statContainer', 'small')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
+                  id="active-channels-stat"
+                  defaultMessage="Active Channels {period}"
+                  values={{
+                    period: <span className={cx('period')}>{period}</span>,
+                  }}
+                />
+              </div>
+              <div className={cx('statValue')}>
+                {formatNumber(activeChannels)}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={cx('item')}>
+          <div className={cx('statContainer')}>
+            <div className={cx('statNameContainer')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
+                  id="most-active-zones-pair-stat"
+                  defaultMessage="Most Active Pair of Zones {period}"
+                  values={{
+                    period: <span className={cx('period')}>{period}</span>,
+                  }}
+                />
+              </div>
+              {mostActiveZonesPair?.ibc && (
+                <div className={cx('mostActiveZonesPairTxs')}>
+                  <FormattedMessage
+                    id="most-active-zones-pair-ibc-txs"
+                    defaultMessage="{txs} transfers"
+                    values={{
+                      txs: formatNumber(mostActiveZonesPair.ibc),
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+            {mostActiveZonesPair && (
+              <div className={cx('mostActiveZonesPair')}>
+                <div className={cx('zoneNameContainer')}>
+                  <div
+                    className={cx('circle')}
+                    style={{
+                      backgroundColor: mostActiveZonesPair.sourceColor,
+                    }}
+                  />
+                  <div className={cx('zoneName')}>
+                    {mostActiveZonesPair.source}
+                  </div>
+                </div>
+                <div className={cx('zonesLink')} />
+                <div className={cx('zoneNameContainer')}>
+                  <div
+                    className={cx('circle')}
+                    style={{
+                      backgroundColor: mostActiveZonesPair.targetColor,
+                    }}
+                  />
+                  <div className={cx('zoneName')}>
+                    {mostActiveZonesPair.target}
+                  </div>
+                </div>
               </div>
             )}
           </div>
-          {mostActiveZonesPair && (
-            <div className={cx('mostActiveZonesPair')}>
-              <div className={cx('zoneNameContainer')}>
-                <div
-                  className={cx('circle')}
-                  style={{
-                    backgroundColor: mostActiveZonesPair.sourceColor,
-                  }}
-                />
-                <div className={cx('zoneName')}>
-                  {mostActiveZonesPair.source}
-                </div>
-              </div>
-              <div className={cx('zonesLink')} />
-              <div className={cx('zoneNameContainer')}>
-                <div
-                  className={cx('circle')}
-                  style={{
-                    backgroundColor: mostActiveZonesPair.targetColor,
-                  }}
-                />
-                <div className={cx('zoneName')}>
-                  {mostActiveZonesPair.target}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
