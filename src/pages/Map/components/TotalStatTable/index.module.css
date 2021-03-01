@@ -164,6 +164,7 @@
   }
   .item * {
     margin-bottom: 0;
+    line-height: 14px;
   }
   .item:not(:last-child) {
     border: none;
