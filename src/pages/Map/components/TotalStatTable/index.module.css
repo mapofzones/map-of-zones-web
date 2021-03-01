@@ -132,9 +132,9 @@
     background: transparent;
     display: inline-block;
     white-space: nowrap;
-    -moz-animation: marquee 15s linear infinite;
-    -webkit-animation: marquee 15s linear infinite;
-    animation: marquee 15s linear infinite;
+    -moz-animation: marquee 22s linear infinite;
+    -webkit-animation: marquee 22s linear infinite;
+    animation: marquee 22s linear infinite;
   }
   .statContainer {
     padding: 0 6px 0 7px;
