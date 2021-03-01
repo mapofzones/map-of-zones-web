@@ -132,6 +132,8 @@
     background: transparent;
     display: inline-block;
     white-space: nowrap;
+    -moz-animation: marquee 15s linear infinite;
+    -webkit-animation: marquee 15s linear infinite;
     animation: marquee 15s linear infinite;
   }
   .statContainer {
@@ -190,11 +192,31 @@
   }
 }
 
-@keyframes marquee {
+@-moz-keyframes marquee {
   0% {
     transform: translateX(100vw);
   }
   100% {
+    transform: translateX(-100%);
+  }
+}
+@-webkit-keyframes marquee {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes marquee {
+  0% {
+    -moz-transform: translateX(100vw);
+    -webkit-transform: translateX(100vw);
+    transform: translateX(100vw);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
   }
 }
