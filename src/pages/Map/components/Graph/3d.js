@@ -8,8 +8,6 @@ import { forceCollide } from 'd3-force-3d';
 import { trackEvent } from 'common/helper';
 
 import { ReactComponent as FilterIcon } from 'assets/images/filter.svg';
-import { ReactComponent as MinusSign } from 'assets/images/minus.svg';
-import { ReactComponent as PlusSign } from 'assets/images/plus.svg';
 import { ReactComponent as FullScreenIcon } from 'assets/images/fulll-screen-icon.svg';
 import { ReactComponent as CollapseScreenIcon } from 'assets/images/collapse-screen-icon.svg';
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
@@ -53,7 +51,6 @@ function Graph({
   const [hoveredLink, setHoveredLink] = useState(null);
   const [showFilter, setShowFilter] = useState(false);
   const [initialCameraPosition, setCameraPosition] = useState(false);
-  const [currentZoom, updateZoom] = useState(0);
   const fgRef = useRef();
 
   // TODO: Find a better way to get notified when 3d layout is ready
@@ -62,7 +59,6 @@ function Graph({
       const position = fgRef.current.cameraPosition();
 
       setCameraPosition(position);
-      updateZoom(position.z);
     }, 3000);
 
     return () => clearTimeout(timeoutId);
@@ -132,20 +128,6 @@ function Graph({
     }
   }, [focusedNode, initialCameraPosition]);
 
-  useEffect(() => {
-    if (initialCameraPosition && fgRef.current) {
-      fgRef.current.cameraPosition(
-        {
-          x: initialCameraPosition.x,
-          y: initialCameraPosition.y,
-          z: currentZoom,
-        },
-        initialCameraPosition.lookAt,
-        1000,
-      );
-    }
-  }, [currentZoom, initialCameraPosition]);
-
   const onNodeHover = useCallback(node => setHoveredNode(node), [
     setHoveredNode,
   ]);
@@ -192,18 +174,6 @@ function Graph({
   const nodeThreeObject = useNodeThreeObject(focusedNode, focusedNodeNeighbors);
   const linkThreeObject = useLinkThreeObject(focusedNode);
   const linkColor = useLinkColor(focusedNode);
-  const zoomIn = useCallback(() => {
-    let zoom = Math.floor(currentZoom) / 2;
-    if (zoom < 100) zoom = 0;
-    updateZoom(zoom);
-  }, [currentZoom, updateZoom]);
-  const zoomOut = useCallback(() => {
-    let zoom = 100;
-    if (currentZoom !== 0) {
-      zoom = Math.floor(currentZoom) * 2;
-    }
-    updateZoom(zoom);
-  }, [currentZoom, updateZoom]);
 
   return (
     <div>
@@ -249,12 +219,6 @@ function Graph({
               <FilterIcon />
             </button>
           </div>
-          <button type="button" onClick={zoomIn} className={cx('roundButton')}>
-            <PlusSign />
-          </button>
-          <button type="button" onClick={zoomOut} className={cx('roundButton')}>
-            <MinusSign />
-          </button>
           {(!mapOpened && (
             <button
               type="button"
