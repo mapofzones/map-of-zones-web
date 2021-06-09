@@ -70,7 +70,7 @@ function LinkTooltip({ link }) {
                 <div className={cx('item-text', 'sent-title')}>
                   {Math.round(
                     (link.source.openChannels / link.source.channels) * 100,
-                  )}
+                  ) || 0}
                   %
                 </div>
               </div>
