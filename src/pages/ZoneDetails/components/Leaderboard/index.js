@@ -114,13 +114,13 @@ function Leaderboard({
             {!cell.column.disableSortBy && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.id + 'Diff'] < 0,
+                  negative: cell.row.original[cell.column.id + '_diff'] < 0,
                 })}
               >
-                {cell.row.original[cell.column.id + 'Diff'] > 0
+                {cell.row.original[cell.column.id + '_diff'] > 0
                   ? '+' +
-                    formatNumber(cell.row.original[cell.column.id + 'Diff'])
-                  : formatNumber(cell.row.original[cell.column.id + 'Diff'])}
+                    formatNumber(cell.row.original[cell.column.id + '_diff'])
+                  : formatNumber(cell.row.original[cell.column.id + '_diff'])}
               </div>
             )}
           </span>

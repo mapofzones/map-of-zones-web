@@ -14,12 +14,15 @@ const SOURCE_STAT_FRAGMENT = gql`
     ibc_tx_1d
     ibc_tx_1d_diff
     ibc_tx_1d_failed
+    ibc_tx_1d_failed_diff
     ibc_tx_7d
     ibc_tx_7d_diff
     ibc_tx_7d_failed
+    ibc_tx_7d_failed_diff
     ibc_tx_30d
     ibc_tx_30d_diff
     ibc_tx_30d_failed
+    ibc_tx_30d_failed_diff
   }
 `;
 
@@ -57,12 +60,15 @@ const transform = (channels, options) => {
       ibc_tx_1d,
       ibc_tx_1d_diff,
       ibc_tx_1d_failed,
+      ibc_tx_1d_failed_diff,
       ibc_tx_7d,
       ibc_tx_7d_diff,
       ibc_tx_7d_failed,
+      ibc_tx_7d_failed_diff,
       ibc_tx_30d,
       ibc_tx_30d_diff,
       ibc_tx_30d_failed,
+      ibc_tx_30d_failed_diff,
     }) => {
       return {
         id: zone,
@@ -75,12 +81,15 @@ const transform = (channels, options) => {
         ibc_tx_1d,
         ibc_tx_1d_diff,
         ibc_tx_1d_failed,
+        ibc_tx_1d_failed_diff,
         ibc_tx_7d,
         ibc_tx_7d_diff,
         ibc_tx_7d_failed,
+        ibc_tx_7d_failed_diff,
         ibc_tx_30d,
         ibc_tx_30d_diff,
         ibc_tx_30d_failed,
+        ibc_tx_30d_failed_diff,
       };
     },
   );
