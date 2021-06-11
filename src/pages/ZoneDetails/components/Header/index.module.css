@@ -1,0 +1,68 @@
+.container {
+  position: sticky;
+}
+
+.logo {
+  width: 116px;
+  margin: 13px;
+}
+.logo-beta {
+  width: 28px;
+  position: absolute;
+  top: 11px;
+  left: calc(116px + 13px + 7px);
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 17px 13px 13px;
+}
+.header-title {
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 100%;
+  color: #ffffff;
+}
+.header-title-counter {
+  color: var(--color-secondary);
+}
+.stick {
+  margin: 0 13px;
+}
+
+.arrow-down-button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.arrow-down {
+  width: 16px;
+  height: 10px;
+  margin: 0 12px;
+  color: #ffffff;
+}
+
+.roundButton {
+  width: 50px;
+  height: 50px;
+  background: rgba(64, 74, 100, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.closeButton {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 80px;
+  right: 12px;
+}
