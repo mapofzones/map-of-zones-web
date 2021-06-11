@@ -10,6 +10,9 @@
   line-height: 100%;
   color: var(--tooltip-gray);
 }
+.key-text-long {
+  width: 70%;
+}
 .item-text {
   font-weight: 600;
   font-size: 13px;
@@ -18,6 +21,9 @@
 }
 .item-text.normal-weight {
   font-weight: normal;
+}
+.item-text.header {
+  margin-bottom: 6px;
 }
 .arrow-right {
   line-height: 20px;
@@ -45,8 +51,13 @@
 
 .link-tooltip {
   background: #fcfcfc;
-  padding: 6px 7px;
   min-width: 150px;
+  position: relative;
+  left: 15px;
+  top: 15px;
+}
+.link-tooltip-content {
+  padding: 6px 7px;
 }
 .custom-tooltip.active {
   opacity: 1;
@@ -55,8 +66,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 25px;
+  min-height: 25px;
   border-bottom: 2px solid var(--color-regular);
+}
+.header-row.with-line {
+  justify-content: flex-start;
+}
+.curved-line {
+  margin-right: 5px;
+  position: relative;
+  bottom: 1px;
 }
 .row {
   display: flex;
@@ -98,4 +117,26 @@
 }
 .period-title {
   padding-left: 10px;
+}
+
+.details-button {
+  width: 100%;
+  -webkit-appearance: none;
+  text-align: center;
+  border-top: 1px solid #e9e9e9;
+  padding: 8px 0;
+  margin: 0 auto;
+  background-color: inherit;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 19px;
+  color: #000000;
+  cursor: pointer;
+}
+.details-button:hover {
+  background-color: #e9e9e9;
 }
