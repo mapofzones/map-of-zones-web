@@ -45,3 +45,11 @@ export function trackEvent({ category, action, label, extra = {} }) {
     }
   }
 }
+
+export function removeDuplicatedZoneCounerparties(arr) {
+  return arr.filter(
+    ({ zone_counerparty }, index, array) =>
+      array.findIndex(item => item.zone_counerparty === zone_counerparty) ===
+      index,
+  );
+}

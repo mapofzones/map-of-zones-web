@@ -53,6 +53,19 @@ function Leaderboard({
   const initialSortBy = initialState?.sortBy?.[0];
   const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
+  const focusZone = useCallback(
+    zone => {
+      setFocusedZone(zone);
+
+      trackEvent({
+        category: 'Table',
+        action: 'select zone',
+        label: zone.name,
+      });
+    },
+    [setFocusedZone],
+  );
+
   useEffect(() => {
     if (sortedColumn) {
       onSortChange({ ...sortedColumn });
@@ -80,7 +93,12 @@ function Leaderboard({
         return cell.render('Cell');
       case 'name':
         return (
-          <div className={cx('cell-container')}>
+          <div
+            className={cx('cell-container')}
+            onClick={() => {
+              focusZone(cell.row.original);
+            }}
+          >
             <span className={cx('text-container')}>
               <div
                 className={cx('IBC-circle', {
@@ -128,19 +146,6 @@ function Leaderboard({
     }
   };
 
-  const focusZone = useCallback(
-    zone => {
-      setFocusedZone(zone);
-
-      trackEvent({
-        category: 'Table',
-        action: 'select zone',
-        label: zone.name,
-      });
-    },
-    [setFocusedZone],
-  );
-
   return (
     <div id="table-container" className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
@@ -152,15 +157,7 @@ function Leaderboard({
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <tr
-                {...row.getRowProps()}
-                className={cx('row', {
-                  focusedRow: row.original.id === focusedZoneId,
-                })}
-                onClick={() => {
-                  focusZone(row.original);
-                }}
-              >
+              <tr {...row.getRowProps()} className={cx('row')}>
                 {row.cells.map(cell => {
                   return (
                     <td

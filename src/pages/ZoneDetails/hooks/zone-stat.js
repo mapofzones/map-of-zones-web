@@ -94,9 +94,15 @@ const transform = (channels, options) => {
     },
   );
 
-  const selectedNodes = zonesFormatted.filter(({ zone_counerparty }) =>
-    options.additionalData.targets.find(target => target === zone_counerparty),
-  );
+  let selectedNodes = zonesFormatted;
+
+  if (options.additionalData.targets?.length) {
+    selectedNodes = zonesFormatted.filter(({ zone_counerparty }) =>
+      options.additionalData.targets.find(
+        target => target === zone_counerparty,
+      ),
+    );
+  }
 
   return {
     nodes: zonesFormatted,
