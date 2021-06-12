@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+// import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+// import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import { ReactComponent as CurvedLine } from 'assets/images/curved-line.svg';
@@ -9,8 +10,8 @@ import styles from './index.module.css';
 const cx = classNames.bind(styles);
 
 function LinkTooltip({ link }) {
-  const history = useHistory();
-  const location = useLocation();
+  // const history = useHistory();
+  // const location = useLocation();
 
   const [isActive, setIsActive] = useState(false);
 
@@ -18,11 +19,11 @@ function LinkTooltip({ link }) {
     setIsActive(true);
   }, []);
 
-  const onDetailsPress = useCallback(() => {
-    history.push(`/zone?source=${link.source.id}&targets=${link.target.id}`, {
-      navigateFrom: location.pathname + location.search,
-    });
-  }, [history, link.source.id, link.target.id, location]);
+  // const onDetailsPress = useCallback(() => {
+  //   history.push(`/zone?source=${link.source.id}&targets=${link.target.id}`, {
+  //     navigateFrom: location.pathname + location.search,
+  //   });
+  // }, [history, link.source.id, link.target.id, location]);
 
   let mapTooltip = document.querySelector('.graph-tooltip');
 
@@ -88,13 +89,13 @@ function LinkTooltip({ link }) {
           </div>
         </div>
 
-        <button
+        {/* <button
           type="button"
           onClick={onDetailsPress}
           className={cx('details-button')}
         >
           Details
-        </button>
+        </button> */}
       </div>
     </div>
   );

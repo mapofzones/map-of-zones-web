@@ -44,9 +44,14 @@
 }
 .node-custom-tooltip {
   min-width: 160px;
-  padding: 0 7px 7px 7px;
   background: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  position: relative;
+  left: 15px;
+  top: 15px;
+}
+.node-custom-tooltip-content {
+  padding: 0 7px 7px 7px;
 }
 
 .link-tooltip {

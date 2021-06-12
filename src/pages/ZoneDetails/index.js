@@ -2,6 +2,8 @@ import React, { useCallback, useState, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { parse } from 'querystringify';
 
+import { removeDuplicatedZoneCounerparties } from 'common/helper';
+
 import Leaderboard from './components/Leaderboard';
 import leaderboardColumnsConfig from './components/Leaderboard/config';
 import Footer from './components/Footer';
@@ -16,14 +18,19 @@ function Channel() {
   const location = useLocation();
   const history = useHistory();
 
-  const { source, targets } = useMemo(() => parse(location.search), [
-    location.search,
-  ]);
+  const { source, targets } = useMemo(() => {
+    const { source, targets } = parse(location.search);
+
+    return {
+      source,
+      targets: (targets || '').split(',').filter(Boolean),
+    };
+  }, [location.search]);
 
   const options = useMemo(
     () => ({
       variables: { source },
-      additionalData: { targets: targets.split(',') },
+      additionalData: { targets },
     }),
     [source, targets],
   );
@@ -99,12 +106,19 @@ function Channel() {
 
   const selectZones = useCallback(
     newTargets => {
-      history.push(
-        `/zone?source=${source}&targets=${newTargets.join(',')}`,
-        location.state,
-      );
+      if (
+        newTargets.length ===
+        removeDuplicatedZoneCounerparties(zoneStat.nodes).length
+      ) {
+        history.push(`/zone?source=${source}`, location.state);
+      } else {
+        history.push(
+          `/zone?source=${source}&targets=${newTargets.join(',')}`,
+          location.state,
+        );
+      }
     },
-    [history, location.state, source],
+    [history, location.state, source, zoneStat],
   );
 
   const onCloseClick = useCallback(() => {
@@ -124,7 +138,7 @@ function Channel() {
           onCloseClick={onCloseClick}
           source={source}
           toggleZonesPicker={toggleZonesPicker}
-          targets={targets}
+          zoneStat={zoneStat}
         />
         <Leaderboard
           filter={filterFn}
@@ -140,8 +154,7 @@ function Channel() {
         <ZonesPicker
           onRequestClose={toggleZonesPicker}
           isOpen={showZonesPicker}
-          targets={targets}
-          availableNodes={zoneStat.nodes}
+          zoneStat={zoneStat}
           selectZones={selectZones}
         />
         <Footer />

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 
-import Modal from 'components/Modal';
-
 import { ReactComponent as CheckIcon } from 'assets/images/check.svg';
 import { ReactComponent as CloseIcon } from 'assets/images/close-btn.svg';
+
+import Modal from 'components/Modal';
+import { removeDuplicatedZoneCounerparties } from 'common/helper';
 
 import styles from './index.module.css';
 
@@ -25,26 +26,23 @@ function Zone({ item, onClick, isSelected }) {
   );
 }
 
-function ZonesPicker({
-  availableNodes,
-  isOpen,
-  onRequestClose,
-  selectZones,
-  targets,
-}) {
-  const [selectedItems, setSelectedItems] = useState(targets.split(',') || []);
+function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
+  const targets = useMemo(
+    () =>
+      removeDuplicatedZoneCounerparties(zoneStat.selectedNodes).map(
+        ({ zone_counerparty }) => zone_counerparty,
+      ),
+    [zoneStat],
+  );
+
+  const [selectedItems, setSelectedItems] = useState(targets);
 
   const data = useMemo(
     () =>
-      availableNodes
-        .filter(
-          ({ zone_counerparty }, index, array) =>
-            array.findIndex(
-              item => item.zone_counerparty === zone_counerparty,
-            ) === index,
-        )
-        .map(({ zone_counerparty }) => zone_counerparty),
-    [availableNodes],
+      removeDuplicatedZoneCounerparties(zoneStat.nodes).map(
+        ({ zone_counerparty }) => zone_counerparty,
+      ),
+    [zoneStat],
   );
 
   const onSelectZone = useCallback(
@@ -81,7 +79,7 @@ function ZonesPicker({
 
   useEffect(() => {
     if (!isOpen) {
-      setSelectedItems(targets.split(','));
+      setSelectedItems(targets);
     }
   }, [isOpen, targets]);
 
