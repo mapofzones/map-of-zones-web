@@ -17,6 +17,8 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_out
     channels_num
     channels_cnt_open
+    channels_cnt_active_period
+    channels_percent_active_period
     total_ibc_txs_weight
     total_txs_weight
     ibc_tx_in_weight
@@ -144,6 +146,8 @@ const transform = (zones, graph) => {
       ibc_tx_out,
       channels_num,
       channels_cnt_open,
+      channels_cnt_active_period,
+      channels_percent_active_period,
       total_ibc_txs_weight,
       total_txs_weight,
       ibc_tx_in_weight,
@@ -176,6 +180,8 @@ const transform = (zones, graph) => {
         ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
         channels: channels_num,
         openChannels: channels_cnt_open,
+        activeChannels: channels_cnt_active_period,
+        activeChannelsPercent: channels_percent_active_period,
         totalTxsDiff: total_txs_diff,
         totalIbcTxsDiff: total_ibc_txs_diff,
         ibcSentDiff: ibc_tx_out_diff,
