@@ -13,7 +13,13 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function Header({ onCloseClick, source, toggleZonesPicker, zoneStat }) {
+function Header({
+  navigateToMainPage,
+  onCloseClick,
+  source,
+  toggleZonesPicker,
+  zoneStat,
+}) {
   const targets = useMemo(
     () =>
       removeDuplicatedZoneCounerparties(zoneStat.selectedNodes).map(
@@ -24,7 +30,7 @@ function Header({ onCloseClick, source, toggleZonesPicker, zoneStat }) {
 
   return (
     <div className={cx('container')}>
-      <Logo className={cx('logo')} />
+      <Logo onClick={navigateToMainPage} className={cx('logo')} />
       <LogoBeta className={cx('logo-beta')} />
 
       <div className={cx('header-container')}>

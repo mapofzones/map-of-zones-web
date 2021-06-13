@@ -121,6 +121,10 @@ function Channel() {
     [history, location.state, source, zoneStat],
   );
 
+  const navigateToMainPage = useCallback(() => {
+    history.push('/');
+  }, [history]);
+
   const onCloseClick = useCallback(() => {
     if (location.state?.navigateFrom) {
       history.push(location.state.navigateFrom);
@@ -135,6 +139,7 @@ function Channel() {
     return (
       <div>
         <Header
+          navigateToMainPage={navigateToMainPage}
           onCloseClick={onCloseClick}
           source={source}
           toggleZonesPicker={toggleZonesPicker}
