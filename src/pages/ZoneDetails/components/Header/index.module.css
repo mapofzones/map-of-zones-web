@@ -25,6 +25,17 @@
   line-height: 100%;
   color: #ffffff;
 }
+.header-clickable {
+  cursor: pointer;
+}
+.header-clickable:hover,
+.header-clickable:hover > .arrow-down {
+  color: var(--color-secondary);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
 .header-title-counter {
   color: var(--color-secondary);
 }
