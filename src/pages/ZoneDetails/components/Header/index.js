@@ -30,20 +30,17 @@ function Header({ onCloseClick, source, toggleZonesPicker, zoneStat }) {
       <div className={cx('header-container')}>
         <div className={cx('header-title')}>{source}</div>
         <Stick className={cx('stick')} />
-        <div className={cx('header-title')}>
+        <div
+          className={cx('header-title', 'header-clickable')}
+          onClick={toggleZonesPicker}
+        >
           {[...targets].splice(0, 3).join(', ')}
           &nbsp;
           <span className={cx('header-title-counter')}>
             {targets.length > 3 ? `(+ ${targets.length - 3})` : ''}
           </span>
-        </div>
-        <button
-          type="button"
-          onClick={toggleZonesPicker}
-          className={cx('arrow-down-button')}
-        >
           <ArrowDown className={cx('arrow-down')} />
-        </button>
+        </div>
       </div>
 
       <button
