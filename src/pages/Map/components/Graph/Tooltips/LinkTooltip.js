@@ -1,5 +1,5 @@
-// import React, { useCallback, useEffect, useState } from 'react';
-import React, { useEffect, useState } from 'react';
+// import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 // import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
@@ -26,6 +26,25 @@ function LinkTooltip({ link }) {
   // }, [history, link.source.id, link.target.id, location]);
 
   let mapTooltip = document.querySelector('.graph-tooltip');
+
+  const totalOpenedChannels = useMemo(
+    () => link?.source?.openChannels + link?.target?.openChannels || 0,
+    [link],
+  );
+
+  const totalActiveChannels = useMemo(
+    () => link?.source?.activeChannels + link?.target?.activeChannels || 0,
+    [link],
+  );
+
+  const totalActivePercent = useMemo(
+    () =>
+      Math.round(
+        (link?.source?.activeChannelsPercent +
+          link?.target?.activeChannelsPercent || 0) / 2,
+      ),
+    [link],
+  );
 
   if (!mapTooltip) {
     return null;
@@ -62,16 +81,14 @@ function LinkTooltip({ link }) {
                 <div className={cx('key-text', 'key-text-long')}>
                   Open Channels
                 </div>
-                <div className={cx('item-text')}>{link.source.channels}</div>
+                <div className={cx('item-text')}>{totalOpenedChannels}</div>
               </div>
               <div
                 className={cx('row')}
                 style={{ marginTop: '6px', marginBottom: 0 }}
               >
                 <div className={cx('key-text', 'key-text-long')}>Active</div>
-                <div className={cx('item-text')}>
-                  {link.source.openChannels}
-                </div>
+                <div className={cx('item-text')}>{totalActiveChannels}</div>
               </div>
               <div
                 className={cx('row')}
@@ -79,10 +96,7 @@ function LinkTooltip({ link }) {
               >
                 <div className={cx('key-text', 'key-text-long')}>Active, %</div>
                 <div className={cx('item-text', 'sent-title')}>
-                  {Math.round(
-                    (link.source.openChannels / link.source.channels) * 100,
-                  ) || 0}
-                  %
+                  {totalActivePercent}%
                 </div>
               </div>
             </div>
