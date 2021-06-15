@@ -25,7 +25,9 @@ function LinkTooltip({ link }) {
   //   });
   // }, [history, link.source.id, link.target.id, location]);
 
-  let mapTooltip = document.querySelector('.graph-tooltip');
+  let mapTooltip =
+    document.querySelector('.graph-tooltip') ||
+    document.querySelector('.scene-tooltip');
 
   if (!mapTooltip) {
     return null;
