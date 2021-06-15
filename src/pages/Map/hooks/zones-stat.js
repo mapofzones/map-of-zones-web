@@ -68,6 +68,9 @@ const ZONES_GRAPH_FRAGMENT = gql`
   fragment graph on zones_graphs {
     source
     target
+    channels_cnt_open
+    channels_cnt_active
+    channels_percent_active
   }
 `;
 
@@ -219,10 +222,21 @@ const transform = (zones, graph) => {
     },
   );
 
-  const linksFormatted = graph.map(({ source, target }) => ({
-    source,
-    target,
-  }));
+  const linksFormatted = graph.map(
+    ({
+      source,
+      target,
+      channels_cnt_open,
+      channels_cnt_active,
+      channels_percent_active,
+    }) => ({
+      source,
+      target,
+      openedChannels: channels_cnt_open,
+      activeChannels: channels_cnt_active,
+      activeChannelsPercent: channels_percent_active,
+    }),
+  );
 
   return {
     nodes: zonesFormatted,
