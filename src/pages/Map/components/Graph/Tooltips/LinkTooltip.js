@@ -1,16 +1,29 @@
+// import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import React, { useEffect, useState } from 'react';
+// import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
+
+import { ReactComponent as CurvedLine } from 'assets/images/curved-line.svg';
 
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function LinkTooltip({ period }) {
+function LinkTooltip({ link }) {
+  // const history = useHistory();
+  // const location = useLocation();
+
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    setIsActive(false);
+    setIsActive(true);
   }, []);
+
+  // const onDetailsPress = useCallback(() => {
+  //   history.push(`/zone?source=${link.source.id}&targets=${link.target.id}`, {
+  //     navigateFrom: location.pathname + location.search,
+  //   });
+  // }, [history, link.source.id, link.target.id, location]);
 
   let mapTooltip = document.querySelector('.graph-tooltip');
 
@@ -20,31 +33,64 @@ function LinkTooltip({ period }) {
 
   return (
     <div
-      className={cx('custom-tooltip', 'link-tooltip', { active: isActive })}
+      className={cx('custom-tooltip', { active: isActive })}
       style={{
-        left: parseInt(mapTooltip.style.left) + 15 + 'px',
-        top: parseInt(mapTooltip.style.top) + 15 + 'px',
+        left: parseInt(mapTooltip.style.left) + 'px',
+        top: parseInt(mapTooltip.style.top) + 'px',
       }}
     >
-      <div className={cx('row')}>
-        <div className={cx('col')}>
-          <div className={cx('item-text', 'normal-weight')}>White rabbit</div>
-        </div>
-        <div className={cx('col')}>
-          <div className={cx('arrow-right')} />
-        </div>
-        <div className={cx('col')}>
-          <div className={cx('item-text', 'normal-weight')}>Famer</div>
-        </div>
-      </div>
+      <div className={cx('link-tooltip')}>
+        <div className={cx('link-tooltip-content')}>
+          <div className={cx('header-row', 'with-line')}>
+            <CurvedLine className={cx('curved-line')} />
+            <div className={cx('col')}>
+              <div className={cx('item-text', 'header')}>
+                {link.source.name}
+              </div>
+              <div className={cx('item-text', 'header')}>
+                {link.target.name}
+              </div>
+            </div>
+          </div>
 
-      <div className={cx('row')}>
-        <div className={cx('col')}>
-          <div className={cx('item-text')}>138</div>
+          <div className={cx('row')}>
+            <div className={cx('col')} style={{ width: '100%' }}>
+              <div
+                className={cx('row')}
+                style={{ marginTop: '10px', marginBottom: 0 }}
+              >
+                <div className={cx('key-text', 'key-text-long')}>
+                  Open Channels
+                </div>
+                <div className={cx('item-text')}>{link.openedChannels}</div>
+              </div>
+              <div
+                className={cx('row')}
+                style={{ marginTop: '6px', marginBottom: 0 }}
+              >
+                <div className={cx('key-text', 'key-text-long')}>Active</div>
+                <div className={cx('item-text')}>{link.activeChannels}</div>
+              </div>
+              <div
+                className={cx('row')}
+                style={{ marginTop: '6px', marginBottom: '10px' }}
+              >
+                <div className={cx('key-text', 'key-text-long')}>Active, %</div>
+                <div className={cx('item-text', 'sent-title')}>
+                  {Math.round(link.activeChannelsPercent)}%
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className={cx('col')}>
-          <div className={cx('key-text')}>TXs per {period}</div>
-        </div>
+
+        {/* <button
+          type="button"
+          onClick={onDetailsPress}
+          className={cx('details-button')}
+        >
+          Details
+        </button> */}
       </div>
     </div>
   );
