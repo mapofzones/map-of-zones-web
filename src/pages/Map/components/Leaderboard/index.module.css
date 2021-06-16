@@ -442,7 +442,7 @@ tbody.bodyWithFocus.focusFixed .row {
 
 .row.focusedRow.fixed {
   position: fixed;
-  top: 79px;
+  top: 77px;
 }
 
 .row.focusedRow:not(.fixed) {
