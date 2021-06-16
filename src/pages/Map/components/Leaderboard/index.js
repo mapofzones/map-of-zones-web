@@ -325,8 +325,8 @@ Leaderboard.defaultProps = {
   initialState: {
     sortBy: [
       {
-        id: 'totalIbcTxs',
-        desc: true,
+        id: 'position',
+        desc: false,
       },
     ],
   },
