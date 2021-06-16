@@ -94,9 +94,13 @@
   background: #ffffff;
 }
 
-.cell.name:hover {
-  background: #f4f4f5;
+.row {
   cursor: pointer;
+}
+
+.row.focusedRow .cell,
+.row:hover .cell {
+  background: #f4f4f5;
 }
 
 .cell .cell-container {
