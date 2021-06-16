@@ -19,10 +19,10 @@ function NodeTooltip({ node, period }) {
   }, []);
 
   const onDetailsPress = useCallback(() => {
-    history.push(`/zone?source=${node.id}`, {
+    history.push(`/zone?period=${period.hours}&source=${node.id}`, {
       navigateFrom: location.pathname + location.search,
     });
-  }, [history, location, node]);
+  }, [history, location.pathname, location.search, node.id, period]);
 
   let mapTooltip =
     document.querySelector('.graph-tooltip') ||
@@ -49,7 +49,7 @@ function NodeTooltip({ node, period }) {
         <div className={cx('node-custom-tooltip-content')}>
           <div className={cx('header-row')}>
             <div className={cx('item-text')}>{node.name}</div>
-            <div className={cx('key-text', 'period-title')}>{period}</div>
+            <div className={cx('key-text', 'period-title')}>{period.name}</div>
           </div>
           <div className={cx('row-tooltip')}>
             <div className={cx('col')}>

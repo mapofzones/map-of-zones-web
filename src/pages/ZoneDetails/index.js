@@ -14,16 +14,23 @@ import ZonesPicker from './components/ZonesPicker';
 
 import { useZoneStat } from './hooks';
 
+const SORT_BY_PERIOD = {
+  24: 'ibc_tx_1d',
+  168: 'ibc_tx_7d',
+  720: 'ibc_tx_30d',
+};
+
 function Channel() {
   const location = useLocation();
   const history = useHistory();
 
-  const { source, targets } = useMemo(() => {
-    const { source, targets } = parse(location.search);
+  const { source, targets, period } = useMemo(() => {
+    const { source, targets, period } = parse(location.search);
 
     return {
       source,
       targets: (targets || '').split(',').filter(Boolean),
+      period,
     };
   }, [location.search]);
 
@@ -33,6 +40,18 @@ function Channel() {
       additionalData: { targets },
     }),
     [source, targets],
+  );
+
+  const initialState = useMemo(
+    () => ({
+      sortBy: [
+        {
+          id: SORT_BY_PERIOD[period],
+          desc: true,
+        },
+      ],
+    }),
+    [period],
   );
 
   const [sortedByColumn, setSort] = useState(undefined);
@@ -150,6 +169,7 @@ function Channel() {
           data={zoneStat.selectedNodes}
           onSortChange={setSort}
           setFocusedZone={preSetFocusedZone}
+          initialState={initialState}
         />
         <ZoneDetails
           onRequestClose={toggleZoneDetails}

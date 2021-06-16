@@ -288,8 +288,8 @@ function Graph({
           </button>
         )}
       </div>
-      {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
-      {hoveredLink && <LinkTooltip link={hoveredLink} period={period.name} />}
+      {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
+      {hoveredLink && <LinkTooltip link={hoveredLink} />}
       <ZonesFilter
         onRequestClose={toggleFilter}
         isOpen={showFilter}
