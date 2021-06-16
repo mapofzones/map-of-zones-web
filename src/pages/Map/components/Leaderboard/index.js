@@ -174,7 +174,6 @@ function Leaderboard({
     }
 
     return () => {
-      if (fixedRow) fixedRow.style.transform = 'unset';
       table.removeEventListener('scroll', onTableScroll);
     };
   }, [isTableOpened, focusedZoneId]);
