@@ -28,6 +28,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_out_diff
     ibc_tx_in_diff
     total_txs_rating_diff
+    total_ibc_txs_rating
     total_ibc_txs_rating_diff
     ibc_tx_out_rating_diff
     ibc_tx_in_rating_diff
@@ -161,6 +162,7 @@ const transform = (zones, graph) => {
       ibc_tx_out_diff,
       ibc_tx_in_diff,
       total_txs_rating_diff,
+      total_ibc_txs_rating,
       total_ibc_txs_rating_diff,
       ibc_tx_out_rating_diff,
       ibc_tx_in_rating_diff,
@@ -192,6 +194,7 @@ const transform = (zones, graph) => {
         ibcSentDiff: ibc_tx_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
         totalTxsRatingDiff: total_txs_rating_diff,
+        totalIbcTxsRating: total_ibc_txs_rating,
         totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
         ibcSentRatingDiff: ibc_tx_out_rating_diff,
         ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
