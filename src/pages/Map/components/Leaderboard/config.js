@@ -83,11 +83,11 @@ const columns = [
   {
     Header: 'Active Addresses',
     id: 'totalActiveAddresses',
-    accessor: 'totalActiveAddresses',
+    accessor: 'totalActiveAddressesWeight',
     Cell: ({ cell }) => formatNumber(cell.value),
     tooltip: 'Active addresses',
     dependOnPeriod: true,
-    zoneWeightAccessor: 'totalActiveAddresses',
+    zoneWeightAccessor: 'totalActiveAddressesWeight',
     sortDescFirst: true,
   },
   {

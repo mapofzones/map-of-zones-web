@@ -33,6 +33,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_in_rating_diff
     total_active_addresses
     total_active_addresses_diff
+    total_active_addresses_weight
     ibc_tx_failed
     ibc_tx_failed_diff
     total_active_addresses_rating
@@ -165,6 +166,7 @@ const transform = (zones, graph) => {
       ibc_tx_in_rating_diff,
       total_active_addresses,
       total_active_addresses_diff,
+      total_active_addresses_weight,
       ibc_tx_failed,
       ibc_tx_failed_diff,
       total_active_addresses_rating,
@@ -195,6 +197,7 @@ const transform = (zones, graph) => {
         ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
         totalActiveAddresses: total_active_addresses,
         totalActiveAddressesDiff: total_active_addresses_diff,
+        totalActiveAddressesWeight: total_active_addresses_weight,
         ibcTxFailed: ibc_tx_failed,
         ibcTxFailedDiff: ibc_tx_failed_diff,
         totalActiveAddressesRating: total_active_addresses_rating,
