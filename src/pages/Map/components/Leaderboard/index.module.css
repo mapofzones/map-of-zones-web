@@ -409,7 +409,7 @@
 
 thead.fixed {
   position: fixed;
-  top: 53px;
+  top: 50px;
   z-index: -1;
 }
 
