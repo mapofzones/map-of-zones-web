@@ -296,8 +296,6 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
           nodes = nodes.filter(node => {
             const value = node[column.diffAccessor];
 
-            console.log({ node });
-
             return filter.trendLine === 'asc' ? value > 0 : value < 0;
           });
         }

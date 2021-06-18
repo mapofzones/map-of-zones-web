@@ -115,48 +115,48 @@ function Map() {
     [setIsMapOpened],
   );
 
-  if (!totalStat || !zonesStat) {
+  if (!totalStat || !zonesStatFiltered) {
     return <Loader />;
   } else {
     return (
       <div>
         {!mapOpened && (
           <TotalStatTable
-            period={period.name}
-            ibcTxsActivity={totalStat.ibcTxsActivity}
-            ibcTxs={totalStat.ibcTxs}
-            allZones={totalStat.allZones}
+            activeChannels={totalStat.activeChannels}
             activeZones={totalStat.activeZones}
             allChannels={totalStat.allChannels}
-            activeChannels={totalStat.activeChannels}
+            allZones={totalStat.allZones}
+            ibcTxs={totalStat.ibcTxs}
+            ibcTxsActivity={totalStat.ibcTxsActivity}
             mostActiveZonesPair={totalStat.mostActiveZonesPair}
+            period={period.name}
           />
         )}
         <GraphContainer
+          currentFilter={currentFilter}
+          focusedZone={focusedZone}
+          handleScroll={handleScroll}
+          isSortedDesc={sortedByColumn?.isSortedDesc}
+          isTableOpened={isTableOpened}
+          mapOpened={mapOpened}
           period={period}
-          zonesStat={zonesStatFiltered}
+          setFilter={setFilter}
+          setFocusedZone={preSetFocusedZone}
           setPeriod={setPeriod}
           sortBy={sortedByColumn?.Header}
-          isSortedDesc={sortedByColumn?.isSortedDesc}
-          zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
-          mapOpened={mapOpened}
-          setFocusedZone={preSetFocusedZone}
-          focusedZone={focusedZone}
           toggleMapOpen={event => toggleMapOpen(event)}
-          isTableOpened={isTableOpened}
-          handleScroll={handleScroll}
-          setFilter={setFilter}
-          currentFilter={currentFilter}
+          zonesStat={zonesStatFiltered}
+          zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
         />
         <Leaderboard
+          data={zonesStatFiltered.nodes}
           filter={filterFn}
-          period={period}
-          data={zonesStat.nodes}
-          onSortChange={setSort}
-          isTableOpened={isTableOpened}
-          handleScroll={handleScroll}
-          setFocusedZone={preSetFocusedZone}
           focusedZoneId={focusedZone?.id}
+          handleScroll={handleScroll}
+          isTableOpened={isTableOpened}
+          onSortChange={setSort}
+          period={period}
+          setFocusedZone={preSetFocusedZone}
         />
         <Footer />
       </div>
