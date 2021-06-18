@@ -18,7 +18,6 @@ function Leaderboard({
   data,
   disableMultiSort,
   disableSortRemove,
-  filter,
   focusedZoneId,
   handleScroll,
   initialState,
@@ -27,8 +26,8 @@ function Leaderboard({
   period,
   setFocusedZone,
 }) {
-  const globalFilter = useMemo(
-    () => (rows, columnIds, filterValue) => filterValue(rows),
+  const globalFilter = useCallback(
+    (rows, columnIds, filterValue) => filterValue(rows),
     [],
   );
 
@@ -40,7 +39,6 @@ function Leaderboard({
     prepareRow,
     state,
     columns,
-    setGlobalFilter,
     setHiddenColumns,
   } = useTable(
     {
@@ -59,9 +57,7 @@ function Leaderboard({
   const initialSortBy = useMemo(() => initialState?.sortBy?.[0], [
     initialState,
   ]);
-  const sortedColumn = useMemo(() => columns.find(({ isSorted }) => isSorted), [
-    columns,
-  ]);
+  const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
   useEffect(() => {
     onSortChange({ ...sortedColumn });
@@ -77,10 +73,6 @@ function Leaderboard({
   }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
 
   useEffect(() => {
-    setGlobalFilter(() => rowsToSort => filter(rowsToSort, sortBy));
-  }, [setGlobalFilter, filter, sortBy]);
-
-  useEffect(() => {
     let table = document.documentElement.querySelector('table');
     window.addEventListener('scroll', () => handleScroll(table));
 
@@ -94,17 +86,20 @@ function Leaderboard({
       case 'txsActivity':
         return cell.render('Cell');
       case 'name': {
+        const sortedColumnId =
+          sortedColumn.id === 'position' ? 'totalIbcTxs' : sortedColumn.id;
+
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
-            {cell.row.original[sortedColumn.id + 'RatingDiff'] !== 0 && (
+            {cell.row.original[sortedColumnId + 'RatingDiff'] !== 0 && (
               <span
                 className={cx('position-shift', {
                   negative:
-                    cell.row.original[sortedColumn.id + 'RatingDiff'] < 0,
+                    cell.row.original[sortedColumnId + 'RatingDiff'] < 0,
                 })}
               >
-                {cell.row.original[sortedColumn.id + 'RatingDiff']}
+                {cell.row.original[sortedColumnId + 'RatingDiff']}
               </span>
             )}
           </div>
@@ -327,14 +322,6 @@ Leaderboard.propTypes = {
 
 Leaderboard.defaultProps = {
   onSortChange: () => {},
-  initialState: {
-    sortBy: [
-      {
-        id: 'position',
-        desc: false,
-      },
-    ],
-  },
   disableMultiSort: true,
   disableSortRemove: true,
   setFocusedZone: () => {},

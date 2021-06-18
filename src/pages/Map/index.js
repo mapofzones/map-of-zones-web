@@ -4,7 +4,6 @@ import { trackEvent } from 'common/helper';
 import { useLocationTracker } from 'common/hooks';
 
 import Leaderboard from './components/Leaderboard';
-import leaderboardColumnsConfig from './components/Leaderboard/config';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
 import GraphContainer from './components/GraphContainer';
@@ -25,11 +24,28 @@ function Map() {
   const [sortedByColumn, setSort] = useState(undefined);
   const [isTableOpened, setIsTableOpened] = useState('');
   const [currentFilter, setFilter] = useState(undefined);
-  const columnId = sortedByColumn?.id;
-  const filter = useMemo(() => ({ ...currentFilter, columnId }), [
-    currentFilter,
-    columnId,
+
+  const sortedColumnId = useMemo(() => sortedByColumn?.id, [sortedByColumn]);
+  const sortedByDesc = useMemo(() => sortedByColumn?.isSortedDesc, [
+    sortedByColumn,
   ]);
+
+  const initialState = useMemo(
+    () => ({
+      sortBy: [
+        {
+          id: sortedColumnId || 'position',
+          desc: sortedByDesc,
+        },
+      ],
+    }),
+    [sortedColumnId, sortedByDesc],
+  );
+
+  const filter = useMemo(
+    () => ({ ...currentFilter, columnId: sortedByColumn?.id }),
+    [currentFilter, sortedByColumn],
+  );
   const options = useMemo(
     () => ({
       variables: { period: period.hours },
@@ -40,38 +56,6 @@ function Map() {
   const totalStat = useTotalStat(options);
   const [focusedZone, setFocusedZone] = useFocusedZone(
     zonesStat && zonesStat.nodes,
-  );
-  const filterFn = useCallback(
-    rows => {
-      let result = rows;
-
-      if (filter?.sortOrder && filter.filterAmount) {
-        result = [...result]
-          .sort(
-            (a, b) =>
-              (filter.sortOrder === 'desc' ? b : a).values[filter.columnId] -
-              (filter.sortOrder === 'desc' ? a : b).values[filter.columnId],
-          )
-          .slice(0, filter.filterAmount);
-      }
-
-      if (filter?.trendLine) {
-        const column = leaderboardColumnsConfig.find(
-          ({ id }) => id === filter.columnId,
-        );
-
-        if (column?.diffAccessor) {
-          result = result.filter(row => {
-            const value = row.values[column.diffAccessor];
-
-            return filter.trendLine === 'asc' ? value > 0 : value < 0;
-          });
-        }
-      }
-
-      return result;
-    },
-    [filter],
   );
 
   const zonesStatFiltered = useZonesStatFiltered(zonesStat, filter);
@@ -150,13 +134,13 @@ function Map() {
         />
         <Leaderboard
           data={zonesStatFiltered.nodes}
-          filter={filterFn}
           focusedZoneId={focusedZone?.id}
           handleScroll={handleScroll}
           isTableOpened={isTableOpened}
           onSortChange={setSort}
           period={period}
           setFocusedZone={preSetFocusedZone}
+          initialState={initialState}
         />
         <Footer />
       </div>
