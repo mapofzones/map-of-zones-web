@@ -69,6 +69,7 @@ function Graph({
   const [currentZoom, updateZoom] = useState(1);
   const [showFilter, setShowFilter] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
+  const [isFocused, setIsFocused] = useState(true);
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
@@ -154,7 +155,17 @@ function Graph({
       onNodeFocus(null);
     }
   }, [focusedNode, onNodeFocus]);
+
+  const onMouseEnter = useCallback(() => {
+    setIsFocused(true);
+  }, [setIsFocused]);
+
+  const onMouseLeave = useCallback(() => {
+    setIsFocused(false);
+  }, [setIsFocused]);
+
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
+
   const onNodeClick = useCallback(
     node => {
       if (!focusedNode || focusedNodeNeighbors.includes(node)) {
@@ -193,7 +204,7 @@ function Graph({
   const telegramShareText = useTelegramShareText(focusedNode, period);
 
   return (
-    <div>
+    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={cx('container', { blurred: isBlurred })}>
         <ForceGraph2D
           ref={fgRef}
@@ -314,8 +325,10 @@ function Graph({
           </button>
         )}
       </div>
-      {hoveredNode && <NodeTooltip node={hoveredNode} period={period} />}
-      {hoveredLink && <LinkTooltip link={hoveredLink} />}
+      {hoveredNode && isFocused && (
+        <NodeTooltip node={hoveredNode} period={period} />
+      )}
+      {hoveredLink && isFocused && <LinkTooltip link={hoveredLink} />}
       <ZonesFilter
         onRequestClose={toggleFilter}
         isOpen={showFilter}
