@@ -16,16 +16,16 @@ const cx = classNames.bind(styles);
 
 function Leaderboard({
   data,
-  onSortChange,
-  initialState,
   disableMultiSort,
   disableSortRemove,
-  isTableOpened,
-  handleScroll,
-  setFocusedZone,
-  focusedZoneId,
-  period,
   filter,
+  focusedZoneId,
+  handleScroll,
+  initialState,
+  isTableOpened,
+  onSortChange,
+  period,
+  setFocusedZone,
 }) {
   const globalFilter = useMemo(
     () => (rows, columnIds, filterValue) => filterValue(rows),
@@ -55,9 +55,13 @@ function Leaderboard({
     useSortBy,
   );
 
-  const sortBy = state?.sortBy?.[0];
-  const initialSortBy = initialState?.sortBy?.[0];
-  const sortedColumn = columns.find(({ isSorted }) => isSorted);
+  const sortBy = useMemo(() => state?.sortBy?.[0], [state]);
+  const initialSortBy = useMemo(() => initialState?.sortBy?.[0], [
+    initialState,
+  ]);
+  const sortedColumn = useMemo(() => columns.find(({ isSorted }) => isSorted), [
+    columns,
+  ]);
 
   useEffect(() => {
     onSortChange({ ...sortedColumn });
@@ -89,7 +93,7 @@ function Leaderboard({
         return <div>-</div>;
       case 'txsActivity':
         return cell.render('Cell');
-      case 'name':
+      case 'name': {
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
@@ -105,6 +109,7 @@ function Leaderboard({
             )}
           </div>
         );
+      }
       default:
         return (
           <span className={cx('text-container')}>
