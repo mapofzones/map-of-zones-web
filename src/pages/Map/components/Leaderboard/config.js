@@ -81,7 +81,7 @@ const columns = [
   {
     Header: 'Active Addresses',
     id: 'totalActiveAddresses',
-    accessor: 'totalActiveAddressesWeight',
+    accessor: 'totalActiveAddresses',
     Cell: ({ cell }) => formatNumber(cell.value),
     tooltip: 'Active addresses',
     dependOnPeriod: true,
