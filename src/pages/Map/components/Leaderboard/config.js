@@ -6,7 +6,9 @@ const columns = [
   {
     Header: '#',
     id: 'position',
-    accessor: 'totalIbcTxsRating',
+    accessor: (originalRow, rowIndex) => rowIndex,
+    Cell: ({ row, rows, state }) =>
+      (state?.sortBy?.[0]?.desc ? rows : [...rows].reverse()).indexOf(row) + 1,
     disableSortBy: true,
     alwaysVisible: true,
   },
