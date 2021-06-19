@@ -200,7 +200,7 @@ const transform = (zones, graph) => {
         ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
         totalActiveAddresses: total_active_addresses,
         totalActiveAddressesDiff: total_active_addresses_diff,
-        totalActiveAddressesWeight: total_active_addresses_weight,
+        totalActiveAddressesWeight: total_active_addresses_weight * 10 + 1,
         ibcTxFailed: ibc_tx_failed,
         ibcTxFailedDiff: ibc_tx_failed_diff,
         totalActiveAddressesRating: total_active_addresses_rating,

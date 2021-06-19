@@ -87,8 +87,7 @@ function Graph({
     // collision
     const collide = forceCollide(node => {
       return (
-        Math.sqrt(Math.max(0, node[zoneWeightAccessor] * 10 || 1)) * // TODO: maybe remove x10
-          NODE_REL_SIZE +
+        Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * NODE_REL_SIZE +
         2
       );
     });
