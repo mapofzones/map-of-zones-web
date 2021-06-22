@@ -34,7 +34,7 @@ function Map() {
     () => ({
       sortBy: [
         {
-          id: sortedColumnId || 'totalIbcTxs',
+          id: sortedColumnId || 'totalIbcTxsRating',
           desc: sortedColumnId ? sortedByDesc : true,
         },
       ],

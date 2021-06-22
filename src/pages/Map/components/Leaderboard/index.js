@@ -92,14 +92,13 @@ function Leaderboard({
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
-            {cell.row.original[sortedColumnId + 'RatingDiff'] !== 0 && (
+            {cell.row.original[sortedColumnId + 'Diff'] !== 0 && (
               <span
                 className={cx('position-shift', {
-                  negative:
-                    cell.row.original[sortedColumnId + 'RatingDiff'] < 0,
+                  negative: cell.row.original[sortedColumnId + 'Diff'] < 0,
                 })}
               >
-                {cell.row.original[sortedColumnId + 'RatingDiff']}
+                {cell.row.original[sortedColumnId + 'Diff']}
               </span>
             )}
           </div>
@@ -112,13 +111,13 @@ function Leaderboard({
             {!cell.column.disableSortBy && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.id + 'Diff'] < 0,
+                  negative: cell.row.original[cell.column.diffAccessor] < 0,
                 })}
               >
-                {cell.row.original[cell.column.id + 'Diff'] > 0
+                {cell.row.original[cell.column.diffAccessor] > 0
                   ? '+' +
-                    formatNumber(cell.row.original[cell.column.id + 'Diff'])
-                  : formatNumber(cell.row.original[cell.column.id + 'Diff'])}
+                    formatNumber(cell.row.original[cell.column.diffAccessor])
+                  : formatNumber(cell.row.original[cell.column.diffAccessor])}
               </div>
             )}
           </span>
