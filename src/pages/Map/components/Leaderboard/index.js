@@ -86,19 +86,17 @@ function Leaderboard({
       case 'txsActivity':
         return cell.render('Cell');
       case 'name': {
-        const sortedColumnId =
-          sortedColumn.id === 'position' ? 'totalIbcTxs' : sortedColumn.id;
-
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
-            {cell.row.original[sortedColumnId + 'Diff'] !== 0 && (
+            {cell.row.original[sortedColumn.id + 'RatingDiff'] !== 0 && (
               <span
                 className={cx('position-shift', {
-                  negative: cell.row.original[sortedColumnId + 'Diff'] < 0,
+                  negative:
+                    cell.row.original[sortedColumn.id + 'RatingDiff'] < 0,
                 })}
               >
-                {cell.row.original[sortedColumnId + 'Diff']}
+                {cell.row.original[sortedColumn.id + 'RatingDiff']}
               </span>
             )}
           </div>
