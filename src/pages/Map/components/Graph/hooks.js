@@ -156,7 +156,7 @@ by @mapofzones`,
 
 export const useLinkCanvasObject = focusedNode =>
   useCallback(
-    ({ source, target }, ctx, globalScale) => {
+    ({ activeChannels, source, target }, ctx, globalScale) => {
       const width = 1;
       const lineWidth = width / globalScale;
 
@@ -200,7 +200,10 @@ export const useLinkCanvasObject = focusedNode =>
       ctx.moveTo(source.x, source.y);
       ctx.lineTo(target.x, target.y);
       ctx.stroke();
-      drawLinkComet(ctx, source, target, globalScale);
+
+      if (activeChannels) {
+        drawLinkComet(ctx, source, target, globalScale);
+      }
     },
     [focusedNode],
   );
@@ -279,9 +282,10 @@ export const useLinkThreeObject = focusedNode => {
   return useCallback(
     link => {
       if (
-        focusedNode &&
-        focusedNode !== link.source &&
-        focusedNode !== link.target
+        (focusedNode &&
+          focusedNode !== link.source &&
+          focusedNode !== link.target) ||
+        !link.activeChannels
       ) {
         return;
       }
