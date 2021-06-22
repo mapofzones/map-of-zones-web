@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useMedia } from 'react-media';
 import classNames from 'classnames/bind';
 
 import { ReactComponent as ArrowDown } from 'assets/images/arrow-down.svg';
@@ -20,6 +21,8 @@ function Header({
   toggleZonesPicker,
   zoneStat,
 }) {
+  const isSmallScreen = useMedia({ query: '(max-width: 500px)' });
+
   const targets = useMemo(
     () =>
       removeDuplicatedZoneCounerparties(zoneStat.selectedNodes).map(
@@ -34,13 +37,15 @@ function Header({
       <LogoBeta className={cx('logo-beta')} />
 
       <div className={cx('header-container')}>
-        <div className={cx('header-title')}>{source}</div>
-        <Stick className={cx('stick')} />
+        <div className={cx('header-title')}>
+          {source}
+          <Stick className={cx('stick')} />
+        </div>
         <div
           className={cx('header-title', 'header-clickable')}
           onClick={toggleZonesPicker}
         >
-          {[...targets].splice(0, 3).join(', ')}
+          {[...targets].splice(0, isSmallScreen ? 1 : 3).join(', ')}
           &nbsp;
           <span className={cx('header-title-counter')}>
             {targets.length > 3 ? `(+ ${targets.length - 3})` : ''}

@@ -529,9 +529,10 @@ tbody.bodyWithFocus.focusFixed .row {
     display: none;
   }
 }
+*/
 
 @media (max-width: 500px) {
-  .header.name,
+  /* .header.name,
   .cell.name {
     max-width: 155px;
     width: 155px;
@@ -545,5 +546,21 @@ tbody.bodyWithFocus.focusFixed .row {
   .position-shift.new {
     display: none;
   }
+  */
+
+  .table-container {
+    min-height: 50vh;
+  }
+
+  .header.ibcSent,
+  .cell.ibcSent,
+  .header.zone_counerparty,
+  .cell.zone_counerparty {
+    border-left: none;
+  }
+
+  .header.ibcReceived,
+  .cell.ibcReceived {
+    border-right: none;
+  }
 }
-*/
