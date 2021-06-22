@@ -24,6 +24,10 @@
   font-size: 30px;
   line-height: 100%;
   color: #ffffff;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+  display: flex;
 }
 .header-clickable {
   cursor: pointer;
@@ -76,4 +80,14 @@
   position: absolute;
   top: 80px;
   right: 12px;
+}
+
+@media (max-width: 500px) {
+  .header-container {
+    display: block;
+  }
+
+  .closeButton {
+    top: 13px;
+  }
 }
