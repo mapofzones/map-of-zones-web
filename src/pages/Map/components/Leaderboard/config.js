@@ -22,7 +22,7 @@ const columns = [
   {
     Header: 'IBC transfers',
     accessor: 'totalIbcTxs',
-    id: 'totalIbcTxs',
+    id: 'totalIbcTxsRating',
     diffAccessor: 'totalIbcTxsDiff',
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcTxsWeight',
@@ -32,7 +32,7 @@ const columns = [
   {
     Header: 'Total Txs',
     accessor: 'totalTxs',
-    id: 'totalTxs',
+    id: 'totalTxsRating',
     diffAccessor: 'totalTxsDiff',
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'txsWeight',
@@ -52,7 +52,7 @@ const columns = [
   {
     Header: 'IBC out',
     accessor: 'ibcSent',
-    id: 'ibcSent',
+    id: 'ibcSentRating',
     diffAccessor: 'ibcSentDiff',
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcSentWeight',
@@ -64,7 +64,7 @@ const columns = [
   {
     Header: 'IBC in',
     accessor: 'ibcReceived',
-    id: 'ibcReceived',
+    id: 'ibcReceivedRating',
     diffAccessor: 'ibcReceivedDiff',
     Cell: ({ cell }) => formatNumber(cell.value),
     zoneWeightAccessor: 'ibcReceivedWeight',
@@ -82,8 +82,9 @@ const columns = [
   },
   {
     Header: 'Active Addresses',
-    id: 'totalActiveAddresses',
     accessor: 'totalActiveAddresses',
+    id: 'totalActiveAddressesRating',
+    diffAccessor: 'totalActiveAddressesDiff',
     Cell: ({ cell }) => formatNumber(cell.value),
     tooltip: 'Active addresses',
     dependOnPeriod: true,

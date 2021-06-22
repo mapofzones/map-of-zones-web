@@ -27,10 +27,13 @@ const ZONES_STAT_FRAGMENT = gql`
     total_ibc_txs_diff
     ibc_tx_out_diff
     ibc_tx_in_diff
+    total_txs_rating
     total_txs_rating_diff
     total_ibc_txs_rating
     total_ibc_txs_rating_diff
+    ibc_tx_out_rating
     ibc_tx_out_rating_diff
+    ibc_tx_in_rating
     ibc_tx_in_rating_diff
     total_active_addresses
     total_active_addresses_diff
@@ -161,10 +164,13 @@ const transform = (zones, graph) => {
       total_ibc_txs_diff,
       ibc_tx_out_diff,
       ibc_tx_in_diff,
+      total_txs_rating,
       total_txs_rating_diff,
       total_ibc_txs_rating,
       total_ibc_txs_rating_diff,
+      ibc_tx_out_rating,
       ibc_tx_out_rating_diff,
+      ibc_tx_in_rating,
       ibc_tx_in_rating_diff,
       total_active_addresses,
       total_active_addresses_diff,
@@ -193,10 +199,13 @@ const transform = (zones, graph) => {
         totalIbcTxsDiff: total_ibc_txs_diff,
         ibcSentDiff: ibc_tx_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
+        totalTxsRating: total_txs_rating,
         totalTxsRatingDiff: total_txs_rating_diff,
         totalIbcTxsRating: total_ibc_txs_rating,
         totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
+        ibcSentRating: ibc_tx_out_rating,
         ibcSentRatingDiff: ibc_tx_out_rating_diff,
+        ibcReceivedRating: ibc_tx_in_rating,
         ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
         totalActiveAddresses: total_active_addresses,
         totalActiveAddressesDiff: total_active_addresses_diff,
