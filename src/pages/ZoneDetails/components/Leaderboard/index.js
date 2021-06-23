@@ -93,12 +93,7 @@ function Leaderboard({
         return cell.render('Cell');
       case 'name':
         return (
-          <div
-            className={cx('cell-container')}
-            onClick={() => {
-              focusZone(cell.row.original);
-            }}
-          >
+          <div className={cx('cell-container')}>
             <span className={cx('text-container')}>
               <div
                 className={cx('IBC-circle', {
@@ -157,7 +152,13 @@ function Leaderboard({
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} className={cx('row')}>
+              <tr
+                {...row.getRowProps()}
+                className={cx('row')}
+                onClick={() => {
+                  focusZone(row.original);
+                }}
+              >
                 {row.cells.map(cell => {
                   return (
                     <td

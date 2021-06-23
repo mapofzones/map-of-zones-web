@@ -1,9 +1,16 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import ForceGraph2D from 'react-force-graph-2d';
 import { FormattedMessage } from 'react-intl';
 import { forceCollide } from 'd3-force-3d';
+import { parse } from 'querystringify';
 
 import { trackEvent } from 'common/helper';
 
@@ -31,6 +38,7 @@ import ZonesFilter from '../ZonesFilter';
 // import NodeModal from './Modal/NodeModal';
 
 import styles from './index.module.css';
+import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -49,11 +57,19 @@ function Graph({
   currentFilter,
   toggleGraphType,
 }) {
+  const location = useLocation();
+
+  const zoneFromSearch = useMemo(() => parse(location.search).zone, [
+    location.search,
+  ]);
+
   const [hoveredNode, setHoveredNode] = useState(null);
   // const [clickedNode, setClickedNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
   const [showFilter, setShowFilter] = useState(false);
+  const [isRendered, setIsRendered] = useState(false);
+  const [isFocused, setIsFocused] = useState(true);
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
@@ -96,13 +112,24 @@ function Graph({
   );
 
   useEffect(() => {
+    if (!zoneFromSearch) {
+      setIsRendered(true);
+    }
+
     if (focusedNode) {
       fgRef.current.centerAt(focusedNode.x, focusedNode.y, 500);
+
+      if (!isRendered) {
+        setTimeout(() => {
+          setIsRendered(true);
+          fgRef.current.centerAt(focusedNode.x, focusedNode.y, 2000);
+        }, 2000);
+      }
       zoom(2);
     } else {
       zoom(1);
     }
-  }, [focusedNode, zoom]);
+  }, [data, focusedNode, isRendered, zoneFromSearch, zoom]);
 
   const zoomIn = useCallback(() => {
     zoom(currentZoom * 2);
@@ -127,7 +154,17 @@ function Graph({
       onNodeFocus(null);
     }
   }, [focusedNode, onNodeFocus]);
+
+  const onMouseEnter = useCallback(() => {
+    setIsFocused(true);
+  }, [setIsFocused]);
+
+  const onMouseLeave = useCallback(() => {
+    setIsFocused(false);
+  }, [setIsFocused]);
+
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
+
   const onNodeClick = useCallback(
     node => {
       if (!focusedNode || focusedNodeNeighbors.includes(node)) {
@@ -166,7 +203,7 @@ function Graph({
   const telegramShareText = useTelegramShareText(focusedNode, period);
 
   return (
-    <div>
+    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={cx('container', { blurred: isBlurred })}>
         <ForceGraph2D
           ref={fgRef}
@@ -287,8 +324,10 @@ function Graph({
           </button>
         )}
       </div>
-      {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
-      {hoveredLink && <LinkTooltip link={hoveredLink} period={period.name} />}
+      {hoveredNode && isFocused && (
+        <NodeTooltip node={hoveredNode} period={period} />
+      )}
+      {hoveredLink && isFocused && <LinkTooltip link={hoveredLink} />}
       <ZonesFilter
         onRequestClose={toggleFilter}
         isOpen={showFilter}

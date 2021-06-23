@@ -9,6 +9,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   background: #ffffff;
+  min-height: calc(100vh - 598px);
 }
 
 .table-container::-webkit-scrollbar {
@@ -173,7 +174,7 @@
 
 .header.name,
 .cell.name {
-  width: 239px;
+  width: 275px;
 }
 
 .cell.name .text-container {
@@ -409,7 +410,7 @@
 
 thead.fixed {
   position: fixed;
-  top: 53px;
+  top: 49px;
   z-index: -1;
 }
 
@@ -442,7 +443,7 @@ tbody.bodyWithFocus.focusFixed .row {
 
 .row.focusedRow.fixed {
   position: fixed;
-  top: 79px;
+  top: 77px;
 }
 
 .row.focusedRow:not(.fixed) {

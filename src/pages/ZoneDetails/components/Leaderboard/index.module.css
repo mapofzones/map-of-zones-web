@@ -9,6 +9,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   background: #ffffff;
+  min-height: calc(100vh - 178px);
 }
 
 .table-container::-webkit-scrollbar {
@@ -93,9 +94,13 @@
   background: #ffffff;
 }
 
-.cell.name:hover {
-  background: #f4f4f5;
+.row {
   cursor: pointer;
+}
+
+.row.focusedRow .cell,
+.row:hover .cell {
+  background: #f4f4f5;
 }
 
 .cell .cell-container {
@@ -442,7 +447,7 @@
 
 thead.fixed {
   position: fixed;
-  top: 53px;
+  top: 50px;
   z-index: -1;
 }
 
@@ -475,7 +480,7 @@ tbody.bodyWithFocus.focusFixed .row {
 
 .row.focusedRow.fixed {
   position: fixed;
-  top: 79px;
+  top: 77px;
 }
 
 .row.focusedRow:not(.fixed) {
@@ -524,9 +529,10 @@ tbody.bodyWithFocus.focusFixed .row {
     display: none;
   }
 }
+*/
 
 @media (max-width: 500px) {
-  .header.name,
+  /* .header.name,
   .cell.name {
     max-width: 155px;
     width: 155px;
@@ -540,5 +546,21 @@ tbody.bodyWithFocus.focusFixed .row {
   .position-shift.new {
     display: none;
   }
+  */
+
+  .table-container {
+    min-height: 50vh;
+  }
+
+  .header.ibcSent,
+  .cell.ibcSent,
+  .header.zone_counerparty,
+  .cell.zone_counerparty {
+    border-left: none;
+  }
+
+  .header.ibcReceived,
+  .cell.ibcReceived {
+    border-right: none;
+  }
 }
-*/

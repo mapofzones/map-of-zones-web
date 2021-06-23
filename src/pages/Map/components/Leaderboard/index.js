@@ -16,19 +16,18 @@ const cx = classNames.bind(styles);
 
 function Leaderboard({
   data,
-  onSortChange,
-  initialState,
   disableMultiSort,
   disableSortRemove,
-  isTableOpened,
-  handleScroll,
-  setFocusedZone,
   focusedZoneId,
+  handleScroll,
+  initialState,
+  isTableOpened,
+  onSortChange,
   period,
-  filter,
+  setFocusedZone,
 }) {
-  const globalFilter = useMemo(
-    () => (rows, columnIds, filterValue) => filterValue(rows),
+  const globalFilter = useCallback(
+    (rows, columnIds, filterValue) => filterValue(rows),
     [],
   );
 
@@ -40,7 +39,6 @@ function Leaderboard({
     prepareRow,
     state,
     columns,
-    setGlobalFilter,
     setHiddenColumns,
   } = useTable(
     {
@@ -55,8 +53,10 @@ function Leaderboard({
     useSortBy,
   );
 
-  const sortBy = state?.sortBy?.[0];
-  const initialSortBy = initialState?.sortBy?.[0];
+  const sortBy = useMemo(() => state?.sortBy?.[0], [state]);
+  const initialSortBy = useMemo(() => initialState?.sortBy?.[0], [
+    initialState,
+  ]);
   const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
   useEffect(() => {
@@ -73,10 +73,6 @@ function Leaderboard({
   }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
 
   useEffect(() => {
-    setGlobalFilter(() => rowsToSort => filter(rowsToSort, sortBy));
-  }, [setGlobalFilter, filter, sortBy]);
-
-  useEffect(() => {
     let table = document.documentElement.querySelector('table');
     window.addEventListener('scroll', () => handleScroll(table));
 
@@ -89,7 +85,7 @@ function Leaderboard({
         return <div>-</div>;
       case 'txsActivity':
         return cell.render('Cell');
-      case 'name':
+      case 'name': {
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
@@ -105,6 +101,7 @@ function Leaderboard({
             )}
           </div>
         );
+      }
       default:
         return (
           <span className={cx('text-container')}>
@@ -112,13 +109,13 @@ function Leaderboard({
             {!cell.column.disableSortBy && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.id + 'Diff'] < 0,
+                  negative: cell.row.original[cell.column.diffAccessor] < 0,
                 })}
               >
-                {cell.row.original[cell.column.id + 'Diff'] > 0
+                {cell.row.original[cell.column.diffAccessor] > 0
                   ? '+' +
-                    formatNumber(cell.row.original[cell.column.id + 'Diff'])
-                  : formatNumber(cell.row.original[cell.column.id + 'Diff'])}
+                    formatNumber(cell.row.original[cell.column.diffAccessor])
+                  : formatNumber(cell.row.original[cell.column.diffAccessor])}
               </div>
             )}
           </span>
@@ -174,7 +171,6 @@ function Leaderboard({
     }
 
     return () => {
-      if (fixedRow) fixedRow.style.transform = 'unset';
       table.removeEventListener('scroll', onTableScroll);
     };
   }, [isTableOpened, focusedZoneId]);
@@ -323,14 +319,6 @@ Leaderboard.propTypes = {
 
 Leaderboard.defaultProps = {
   onSortChange: () => {},
-  initialState: {
-    sortBy: [
-      {
-        id: 'totalIbcTxs',
-        desc: true,
-      },
-    ],
-  },
   disableMultiSort: true,
   disableSortRemove: true,
   setFocusedZone: () => {},
