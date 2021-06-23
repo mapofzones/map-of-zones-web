@@ -53,3 +53,6 @@ export function removeDuplicatedZoneCounerparties(arr) {
       index,
   );
 }
+
+export const getIsUptrend = txsActivities =>
+  txsActivities[0].txs < txsActivities[txsActivities.length - 1].txs;
