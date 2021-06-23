@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { Graph } from '@dagrejs/graphlib';
 
-import { getZoneColor } from 'common/helper';
+import { getIsUptrend, getZoneColor } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
-import leaderboardColumnsConfig from 'pages/Map/components/Leaderboard/config';
 
 const ZONES_STAT_FRAGMENT = gql`
   fragment stat on zones_stats {
@@ -284,10 +283,19 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
       filter?.columnId &&
       ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)
     ) {
-      let nodes = zonesStat.nodes;
+      let nodes = [...zonesStat.nodes];
+
+      if (filter?.trendLine) {
+        nodes = nodes.filter(node => {
+          const isUptrend = getIsUptrend(node.txsActivity);
+
+          return filter.trendLine === 'asc' ? isUptrend : !isUptrend;
+        });
+      }
 
       if (filter?.sortOrder && filter.filterAmount) {
-        nodes = [...nodes]
+        nodes = nodes
+          .reverse()
           .sort(
             (a, b) =>
               (filter.sortOrder === 'desc' ? b : a)[filter.columnId] -
@@ -296,29 +304,10 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
           .slice(0, filter.filterAmount);
       }
 
-      if (filter?.trendLine) {
-        const column = leaderboardColumnsConfig.find(
-          ({ id }) => id === filter.columnId,
-        );
-
-        if (column?.diffAccessor) {
-          nodes = nodes.filter(node => {
-            const value = node[column.diffAccessor];
-
-            return filter.trendLine === 'asc' ? value > 0 : value < 0;
-          });
-        }
-      }
-
-      const links = zonesStat.links
-        .filter(
-          ({ source, target }) =>
-            nodes.includes(source) && nodes.includes(target),
-        )
-        .map(({ source, target }) => ({
-          source,
-          target,
-        }));
+      const links = zonesStat.links.filter(
+        ({ source, target }) =>
+          nodes.includes(source) && nodes.includes(target),
+      );
 
       return {
         nodes,
