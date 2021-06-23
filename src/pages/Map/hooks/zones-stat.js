@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { Graph } from '@dagrejs/graphlib';
 
-import { getZoneColor } from 'common/helper';
+import { getIsUptrend, getZoneColor } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
-import leaderboardColumnsConfig from 'pages/Map/components/Leaderboard/config';
 
 const ZONES_STAT_FRAGMENT = gql`
   fragment stat on zones_stats {
@@ -27,12 +26,17 @@ const ZONES_STAT_FRAGMENT = gql`
     total_ibc_txs_diff
     ibc_tx_out_diff
     ibc_tx_in_diff
+    total_txs_rating
     total_txs_rating_diff
+    total_ibc_txs_rating
     total_ibc_txs_rating_diff
+    ibc_tx_out_rating
     ibc_tx_out_rating_diff
+    ibc_tx_in_rating
     ibc_tx_in_rating_diff
     total_active_addresses
     total_active_addresses_diff
+    total_active_addresses_weight
     ibc_tx_failed
     ibc_tx_failed_diff
     total_active_addresses_rating
@@ -159,12 +163,17 @@ const transform = (zones, graph) => {
       total_ibc_txs_diff,
       ibc_tx_out_diff,
       ibc_tx_in_diff,
+      total_txs_rating,
       total_txs_rating_diff,
+      total_ibc_txs_rating,
       total_ibc_txs_rating_diff,
+      ibc_tx_out_rating,
       ibc_tx_out_rating_diff,
+      ibc_tx_in_rating,
       ibc_tx_in_rating_diff,
       total_active_addresses,
       total_active_addresses_diff,
+      total_active_addresses_weight,
       ibc_tx_failed,
       ibc_tx_failed_diff,
       total_active_addresses_rating,
@@ -189,12 +198,17 @@ const transform = (zones, graph) => {
         totalIbcTxsDiff: total_ibc_txs_diff,
         ibcSentDiff: ibc_tx_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
+        totalTxsRating: total_txs_rating,
         totalTxsRatingDiff: total_txs_rating_diff,
+        totalIbcTxsRating: total_ibc_txs_rating,
         totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
+        ibcSentRating: ibc_tx_out_rating,
         ibcSentRatingDiff: ibc_tx_out_rating_diff,
+        ibcReceivedRating: ibc_tx_in_rating,
         ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
         totalActiveAddresses: total_active_addresses,
         totalActiveAddressesDiff: total_active_addresses_diff,
+        totalActiveAddressesWeight: total_active_addresses_weight * 10 + 1,
         ibcTxFailed: ibc_tx_failed,
         ibcTxFailedDiff: ibc_tx_failed_diff,
         totalActiveAddressesRating: total_active_addresses_rating,
@@ -269,10 +283,19 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
       filter?.columnId &&
       ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)
     ) {
-      let nodes = zonesStat.nodes;
+      let nodes = [...zonesStat.nodes];
+
+      if (filter?.trendLine) {
+        nodes = nodes.filter(node => {
+          const isUptrend = getIsUptrend(node.txsActivity);
+
+          return filter.trendLine === 'asc' ? isUptrend : !isUptrend;
+        });
+      }
 
       if (filter?.sortOrder && filter.filterAmount) {
-        nodes = [...nodes]
+        nodes = nodes
+          .reverse()
           .sort(
             (a, b) =>
               (filter.sortOrder === 'desc' ? b : a)[filter.columnId] -
@@ -281,31 +304,10 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
           .slice(0, filter.filterAmount);
       }
 
-      if (filter?.trendLine) {
-        const column = leaderboardColumnsConfig.find(
-          ({ id }) => id === filter.columnId,
-        );
-
-        if (column?.diffAccessor) {
-          nodes = nodes.filter(node => {
-            const value = node[column.diffAccessor];
-
-            console.log({ node });
-
-            return filter.trendLine === 'asc' ? value > 0 : value < 0;
-          });
-        }
-      }
-
-      const links = zonesStat.links
-        .filter(
-          ({ source, target }) =>
-            nodes.includes(source) && nodes.includes(target),
-        )
-        .map(({ source, target }) => ({
-          source,
-          target,
-        }));
+      const links = zonesStat.links.filter(
+        ({ source, target }) =>
+          nodes.includes(source) && nodes.includes(target),
+      );
 
       return {
         nodes,

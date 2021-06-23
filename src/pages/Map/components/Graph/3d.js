@@ -54,6 +54,8 @@ function Graph({
   const [showFilter, setShowFilter] = useState(false);
   const [initialCameraPosition, setCameraPosition] = useState(false);
   const [currentZoom, updateZoom] = useState(0);
+  const [isFocused, setIsFocused] = useState(true);
+
   const fgRef = useRef();
 
   // TODO: Find a better way to get notified when 3d layout is ready
@@ -205,8 +207,16 @@ function Graph({
     updateZoom(zoom);
   }, [currentZoom, updateZoom]);
 
+  const onMouseEnter = useCallback(() => {
+    setIsFocused(true);
+  }, [setIsFocused]);
+
+  const onMouseLeave = useCallback(() => {
+    setIsFocused(false);
+  }, [setIsFocused]);
+
   return (
-    <div>
+    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={cx('container', { blurred: isBlurred })}>
         <ForceGraph3D
           ref={fgRef}
@@ -331,8 +341,12 @@ function Graph({
           </button>
         )}
       </div>
-      {hoveredNode && <NodeTooltip node={hoveredNode} period={period.name} />}
-      {hoveredLink && <LinkTooltip link={hoveredLink} period={period.name} />}
+      {hoveredNode && isFocused && (
+        <NodeTooltip node={hoveredNode} period={period.name} />
+      )}
+      {hoveredLink && isFocused && (
+        <LinkTooltip link={hoveredLink} period={period.name} />
+      )}
       <ZonesFilter
         onRequestClose={toggleFilter}
         isOpen={showFilter}
