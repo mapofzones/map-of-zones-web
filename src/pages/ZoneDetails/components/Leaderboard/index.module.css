@@ -9,7 +9,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   background: #ffffff;
-  min-height: 79vh;
+  min-height: calc(100vh - 178px);
 }
 
 .table-container::-webkit-scrollbar {

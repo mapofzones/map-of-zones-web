@@ -9,6 +9,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   background: #ffffff;
+  min-height: calc(100vh - 598px);
 }
 
 .table-container::-webkit-scrollbar {
@@ -409,7 +410,7 @@
 
 thead.fixed {
   position: fixed;
-  top: 50px;
+  top: 49px;
   z-index: -1;
 }
 
