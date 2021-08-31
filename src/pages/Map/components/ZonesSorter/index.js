@@ -31,9 +31,9 @@ function ZonesSorter({
               defaultMessage="{desc} Active Zones {sort}"
               values={{
                 desc: isSortedDesc ? (
-                  <FormattedMessage id="most" defaultMessage="Most" />
-                ) : (
                   <FormattedMessage id="least" defaultMessage="Least" />
+                ) : (
+                  <FormattedMessage id="most" defaultMessage="Most" />
                 ),
                 sort: (
                   <span className={cx('sort')}>
