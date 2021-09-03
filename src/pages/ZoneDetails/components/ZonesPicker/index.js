@@ -117,7 +117,9 @@ function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
         <button type="button" className={cx('select-all')} onClick={selectAll}>
           <FormattedMessage
             id="select-all-button-title"
-            defaultMessage="Select all"
+            defaultMessage={
+              selectedItems.length === data.length ? 'Clear all' : 'Select all'
+            }
           />
         </button>
 
