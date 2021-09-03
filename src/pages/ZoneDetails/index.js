@@ -129,15 +129,17 @@ function Channel() {
         newTargets.length ===
         removeDuplicatedZoneCounerparties(zoneStat.nodes).length
       ) {
-        history.push(`/zone?source=${source}`, location.state);
+        history.push(`/zone?period=${period}&source=${source}`, location.state);
       } else {
         history.push(
-          `/zone?source=${source}&targets=${newTargets.join(',')}`,
+          `/zone?period=${period}&source=${source}&targets=${newTargets.join(
+            ',',
+          )}`,
           location.state,
         );
       }
     },
-    [history, location.state, source, zoneStat],
+    [history, location.state, period, source, zoneStat],
   );
 
   const navigateToMainPage = useCallback(() => {
