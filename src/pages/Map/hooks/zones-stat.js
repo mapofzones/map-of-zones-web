@@ -284,13 +284,15 @@ export const useZonesStat = options => {
   ]);
 };
 
-export const useZonesStatFiltered = (zonesStat, filter) => {
+export const useZonesStatFiltered = (zonesStat, filter, focusedZone) => {
   return useMemo(() => {
     if (
-      filter?.columnId &&
-      ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)
+      (filter?.columnId &&
+        ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)) ||
+      focusedZone
     ) {
       let nodes = [...zonesStat.nodes];
+      let links = [...zonesStat.links];
 
       if (filter?.trendLine) {
         nodes = nodes.filter(node => {
@@ -311,12 +313,27 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
           .slice(0, filter.filterAmount);
       }
 
-      const links = zonesStat.links.filter(
+      links = links.map(({ source, target, ...restLinkData }) => ({
+        ...restLinkData,
+        source: source?.id || source,
+        target: target?.id || target,
+      }));
+
+      links = links.filter(
         ({ source, target }) =>
-          (nodes.includes(source) && nodes.includes(target)) ||
-          (!!nodes.find(({ id }) => id === source) &&
-            !!nodes.find(({ id }) => id === target)),
+          !!nodes.find(({ id }) => id === source) &&
+          !!nodes.find(({ id }) => id === target),
       );
+
+      if (focusedZone) {
+        links = links.filter(
+          ({ source, target }) =>
+            source === focusedZone.id ||
+            target === focusedZone.id ||
+            source.id === focusedZone.id ||
+            target.id === focusedZone.id,
+        );
+      }
 
       return {
         nodes,
@@ -326,5 +343,5 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
     }
 
     return zonesStat;
-  }, [zonesStat, filter]);
+  }, [filter, focusedZone, zonesStat]);
 };
