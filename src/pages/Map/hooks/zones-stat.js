@@ -271,6 +271,7 @@ export const useZonesStat = options => {
     ZONES_STAT_SUBSCRIPTION,
     options,
   );
+
   const graph = useRealtimeQuery(
     ZONES_GRAPH_QUERY,
     ZONES_GRAPH_SUBSCRIPTION,
@@ -312,7 +313,9 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
 
       const links = zonesStat.links.filter(
         ({ source, target }) =>
-          nodes.includes(source) && nodes.includes(target),
+          (nodes.includes(source) && nodes.includes(target)) ||
+          (!!nodes.find(({ id }) => id === source) &&
+            !!nodes.find(({ id }) => id === target)),
       );
 
       return {

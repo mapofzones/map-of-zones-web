@@ -145,10 +145,10 @@ function Graph({
   const onLinkHover = useCallback(link => setHoveredLink(link), [
     setHoveredLink,
   ]);
-  const toggleFilter = useCallback(() => setShowFilter(!showFilter), [
-    setShowFilter,
-    showFilter,
-  ]);
+  const toggleFilter = useCallback(
+    () => setShowFilter(prevState => !prevState),
+    [setShowFilter],
+  );
   const clearNodeFocus = useCallback(() => {
     if (focusedNode) {
       onNodeFocus(null);
