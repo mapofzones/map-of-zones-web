@@ -174,7 +174,8 @@
 
 .header.name,
 .cell.name {
-  width: 275px;
+  width: 340px;
+  max-width: 340px;
 }
 
 .cell.name .text-container {
