@@ -34,6 +34,7 @@ const Thead = ({
               className={cx('header', column.id, {
                 sortedColumn: column.isSorted,
               })}
+              title=""
             >
               <div
                 className={cx('header-container', {
