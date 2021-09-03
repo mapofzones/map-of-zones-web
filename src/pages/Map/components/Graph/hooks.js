@@ -154,7 +154,7 @@ by @mapofzones`,
   )}&text=${encodeURIComponent(text)}`;
 };
 
-export const useLinkCanvasObject = focusedNode =>
+export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
   useCallback(
     ({ activeChannels, source, target }, ctx, globalScale) => {
       const width = 1;
@@ -162,6 +162,16 @@ export const useLinkCanvasObject = focusedNode =>
 
       if (focusedNode && focusedNode !== source && focusedNode !== target) {
         return;
+      }
+
+      let alpha = 0.4;
+
+      if (hoveredNode) {
+        if (hoveredNode !== source && hoveredNode !== target) {
+          alpha = 0.1;
+        } else {
+          alpha = 1;
+        }
       }
 
       if (
@@ -183,13 +193,13 @@ export const useLinkCanvasObject = focusedNode =>
       gradient.addColorStop(
         0,
         tinycolor(source.color)
-          .setAlpha(0.4)
+          .setAlpha(alpha)
           .toString(),
       );
       gradient.addColorStop(
         1,
         tinycolor(target.color)
-          .setAlpha(0.4)
+          .setAlpha(alpha)
           .toString(),
       );
 
@@ -205,7 +215,7 @@ export const useLinkCanvasObject = focusedNode =>
         drawLinkComet(ctx, source, target, globalScale);
       }
     },
-    [focusedNode],
+    [focusedNode, hoveredNode],
   );
 
 let offset = 0;

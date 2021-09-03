@@ -198,7 +198,7 @@ function Graph({
     },
     [setShowFilter, setFilter, clearNodeFocus],
   );
-  const linkCanvasObject = useLinkCanvasObject(focusedNode);
+  const linkCanvasObject = useLinkCanvasObject(focusedNode, hoveredNode);
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
 
