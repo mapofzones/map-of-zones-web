@@ -170,7 +170,7 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
         if (hoveredNode !== source && hoveredNode !== target) {
           alpha = 0.1;
         } else {
-          alpha = 1;
+          alpha = 0.6;
         }
       }
 
