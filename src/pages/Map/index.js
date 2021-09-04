@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useMemo } from 'react';
 
-import { trackEvent } from 'common/helper';
 import { useLocationTracker } from 'common/hooks';
 
 import Leaderboard from './components/Leaderboard';
@@ -14,13 +13,15 @@ import {
   usePeriodSelector,
   useFocusedZone,
   useZonesStatFiltered,
+  useMapFullscreen,
 } from './hooks';
 
 function Map() {
   useLocationTracker(); // TODO: Move to App component
 
   const [period, setPeriod] = usePeriodSelector();
-  const [mapOpened, setIsMapOpened] = useState(false);
+  const [isMapFullscreen, toggleFullScreen] = useMapFullscreen();
+
   const [sortedByColumn, setSort] = useState(undefined);
   const [isTableOpened, setIsTableOpened] = useState('');
   const [currentFilter, setFilter] = useState(undefined);
@@ -89,26 +90,12 @@ function Map() {
     [setIsTableOpened],
   );
 
-  const toggleMapOpen = useCallback(
-    event => {
-      const isOpened = event === 'open';
-
-      setIsMapOpened(isOpened);
-      trackEvent({
-        category: 'Map',
-        action: 'full screen',
-        label: isOpened ? 'on' : 'off',
-      });
-    },
-    [setIsMapOpened],
-  );
-
   if (!totalStat || !zonesStatFiltered) {
     return <Loader />;
   } else {
     return (
       <div>
-        {!mapOpened && (
+        {!isMapFullscreen && (
           <TotalStatTable
             activeChannels={totalStat.activeChannels}
             activeZones={totalStat.activeZones}
@@ -126,13 +113,13 @@ function Map() {
           handleScroll={handleScroll}
           isSortedDesc={sortedByColumn?.isSortedDesc}
           isTableOpened={isTableOpened}
-          mapOpened={mapOpened}
+          mapOpened={isMapFullscreen}
           period={period}
           setFilter={setFilter}
           setFocusedZone={preSetFocusedZone}
           setPeriod={setPeriod}
           sortBy={sortedByColumn?.Header}
-          toggleMapOpen={event => toggleMapOpen(event)}
+          toggleMapOpen={toggleFullScreen}
           zonesStat={zonesStatFiltered}
           zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
         />
