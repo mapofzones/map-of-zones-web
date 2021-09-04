@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { parse, stringify } from 'querystringify';
 
@@ -74,10 +74,27 @@ function Channel() {
   }, [location.search]);
 
   const [showZonesPicker, setShowZonesPicker] = useState(false);
-  const [showZoneDetails, setShowZoneDetails] = useState(false);
-  const [zoneDetails, setZoneDetails] = useState(null);
+  const [showZoneDetails, setShowZoneDetails] = useState(null);
 
   const zoneStat = useZoneStat(options);
+
+  const zoneDetails = useMemo(() => {
+    const { zoneDetailsChanelId, zoneDetailsChanelCounerparty } = parse(
+      location.search,
+    );
+
+    if (zoneStat?.selectedNodes) {
+      const zone = zoneStat?.selectedNodes.find(
+        ({ channel_id, zone_counerparty }) =>
+          channel_id === zoneDetailsChanelId &&
+          zone_counerparty === zoneDetailsChanelCounerparty,
+      );
+
+      return zone;
+    }
+
+    return null;
+  }, [location.search, zoneStat]);
 
   const onSortChange = useCallback(
     sort => {
@@ -93,23 +110,38 @@ function Channel() {
   );
 
   const toggleZonesPicker = useCallback(
-    () => setShowZonesPicker(!showZonesPicker),
-    [setShowZonesPicker, showZonesPicker],
+    () => setShowZonesPicker(prevState => !prevState),
+    [setShowZonesPicker],
   );
 
+  const removeZoneDetails = useCallback(() => {
+    const search = parse(location.search);
+
+    delete search.zoneDetailsChanelId;
+    delete search.zoneDetailsChanelCounerparty;
+
+    history.push(`/zone?${stringify(search)}`, location.state);
+  }, [history, location.search, location.state]);
+
   const toggleZoneDetails = useCallback(
-    () => setShowZoneDetails(!showZoneDetails),
-    [setShowZoneDetails, showZoneDetails],
+    () => setShowZoneDetails(prevState => !prevState),
+    [setShowZoneDetails],
   );
 
   const preSetFocusedZone = useCallback(
     zone => {
       if (zone) {
-        setZoneDetails(zone);
+        const search = parse(location.search);
+
+        search.zoneDetailsChanelId = zone.channel_id;
+        search.zoneDetailsChanelCounerparty = zone.zone_counerparty;
+
+        history.push(`/zone?${stringify(search)}`, location.state);
+
         toggleZoneDetails();
       }
     },
-    [toggleZoneDetails],
+    [history, location.search, location.state, toggleZoneDetails],
   );
 
   const selectZones = useCallback(
@@ -140,6 +172,12 @@ function Channel() {
     }
   }, [history, location.state]);
 
+  useEffect(() => {
+    if (showZoneDetails === null && zoneDetails) {
+      toggleZoneDetails();
+    }
+  }, [showZoneDetails, toggleZoneDetails, zoneDetails]);
+
   if (!zoneStat) {
     return <Loader />;
   } else {
@@ -159,8 +197,9 @@ function Channel() {
           initialState={initialState}
         />
         <ZoneDetails
+          onAfterClose={removeZoneDetails}
           onRequestClose={toggleZoneDetails}
-          isOpen={showZoneDetails}
+          isOpen={!!showZoneDetails}
           zone={zoneDetails}
         />
         <ZonesPicker
