@@ -48,7 +48,16 @@ function NodeTooltip({ node, period }) {
       >
         <div className={cx('node-custom-tooltip-content')}>
           <div className={cx('header-row')}>
-            <div className={cx('item-text')}>{node.name}</div>
+            <div className={cx('item-text-and-image')}>
+              {!!node.zoneLabelUrl && (
+                <img
+                  className={cx('item-image')}
+                  src={node.zoneLabelUrl}
+                  alt={node.name}
+                />
+              )}
+              <div className={cx('item-text')}>{node.name}</div>
+            </div>
             <div className={cx('key-text', 'period-title')}>{period.name}</div>
           </div>
           <div className={cx('row-tooltip')}>

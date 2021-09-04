@@ -46,6 +46,7 @@ const ZONES_STAT_FRAGMENT = gql`
     is_zone_up_to_date
     is_zone_mainnet
     zone_readable_name
+    zone_label_url
   }
 `;
 
@@ -188,6 +189,7 @@ const transform = (zones, graph) => {
       is_zone_up_to_date,
       is_zone_mainnet,
       zone_readable_name,
+      zone_label_url,
     }) => {
       return {
         id: zone,
@@ -246,6 +248,7 @@ const transform = (zones, graph) => {
         ),
         isZoneUpToDate: is_zone_up_to_date,
         isZoneMainnet: is_zone_mainnet,
+        zoneLabelUrl: zone_label_url,
       };
     },
   );
