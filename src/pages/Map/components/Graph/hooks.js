@@ -16,6 +16,18 @@ import {
 } from 'three';
 import SpriteText from 'three-spritetext';
 
+function roundRect(canvas, x, y, w, h, r) {
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  canvas.beginPath();
+  canvas.moveTo(x + r, y);
+  canvas.arcTo(x + w, y, x + w, y + h, r);
+  canvas.arcTo(x + w, y + h, x, y + h, r);
+  canvas.arcTo(x, y + h, x, y, r);
+  canvas.arcTo(x, y, x + w, y, r);
+  canvas.closePath();
+}
+
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
   focusedNode,
@@ -26,13 +38,17 @@ export const useNodeCanvasObject = (
     (node, ctx, globalScale) => {
       const { x, y, name, color } = node;
       const fontSize = 10 / globalScale;
-      const textWidth = ctx.measureText(name).width;
+      const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
+      const textWidth = ctx.measureText(nameInCamelCase).width;
       const backgroundDimensions = [textWidth, fontSize].map(
         n => n + fontSize * 0.5,
       );
       const r =
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
-      const deltaY = r + backgroundDimensions[1] / 2 + 2 / globalScale;
+      const paddingHorizontal = 2;
+      const paddingVertical = 1;
+      const deltaY =
+        r + backgroundDimensions[1] / 2 + 2 / globalScale + paddingVertical * 2;
       const isFocused =
         focusedNode === node ||
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
@@ -60,24 +76,38 @@ export const useNodeCanvasObject = (
       if (focusedNode && !isFocused) {
         ctx.fillStyle = 'rgba(10, 11, 42, 0.1)';
       } else {
-        ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
+        if (node.isZoneMainnet) {
+          ctx.fillStyle = '#212737';
+        } else {
+          ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
+        }
       }
 
-      ctx.fillRect(
-        x - backgroundDimensions[0] / 2,
-        y - backgroundDimensions[1] / 2 + deltaY,
-        ...backgroundDimensions,
+      roundRect(
+        ctx,
+        x - backgroundDimensions[0] / 2 - paddingHorizontal,
+        y - backgroundDimensions[1] / 2 + deltaY - paddingVertical,
+        backgroundDimensions[0] + paddingHorizontal * 2,
+        backgroundDimensions[1] + paddingVertical * 2,
+        4,
       );
+
+      ctx.fill();
+
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
       if (focusedNode && !isFocused) {
         ctx.fillStyle = 'rgba(235, 235, 235, 0.1)';
       } else {
-        ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
+        if (node.isZoneMainnet) {
+          ctx.fillStyle = 'rgb(255, 255, 255)';
+        } else {
+          ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
+        }
       }
 
-      ctx.fillText(name, x, y + deltaY);
+      ctx.fillText(nameInCamelCase, x, y + deltaY);
     },
     [zoneWeightAccessor, focusedNode, focusedNodeNeighbors, nodeRelSize],
   );
