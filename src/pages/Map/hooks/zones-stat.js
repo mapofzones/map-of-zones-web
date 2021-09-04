@@ -43,6 +43,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_failed_diff
     total_active_addresses_rating
     total_active_addresses_rating_diff
+    is_zone_up_to_date
   }
 `;
 
@@ -182,6 +183,7 @@ const transform = (zones, graph) => {
       ibc_tx_failed_diff,
       total_active_addresses_rating,
       total_active_addresses_rating_diff,
+      is_zone_up_to_date,
     }) => {
       return {
         id: zone,
@@ -238,6 +240,7 @@ const transform = (zones, graph) => {
           minIbcSentWeight,
           ibcSentScale,
         ),
+        isZoneUpToDate: is_zone_up_to_date,
       };
     },
   );

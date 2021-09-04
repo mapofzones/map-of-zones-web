@@ -174,8 +174,8 @@
 
 .header.name,
 .cell.name {
-  width: 340px;
-  max-width: 340px;
+  width: 350px;
+  max-width: 350px;
 }
 
 .cell.name .text-container {
@@ -449,6 +449,11 @@ tbody.bodyWithFocus.focusFixed .row {
 
 .row.focusedRow:not(.fixed) {
   transform: translateX(0px) !important;
+}
+
+.zoneStatusIcon {
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 /*
