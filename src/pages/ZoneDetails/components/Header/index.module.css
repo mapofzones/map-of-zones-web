@@ -87,6 +87,21 @@
   right: 12px;
 }
 
+.switch-container {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  top: 14px;
+  right: 13px;
+}
+
+.switch-text {
+  font-weight: 600;
+  font-size: 12px;
+  color: #ffffff;
+  margin-left: 8px;
+}
+
 @media (max-width: 500px) {
   .header-container {
     display: block;

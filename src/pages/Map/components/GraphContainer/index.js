@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import Switch from 'react-switch';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
@@ -28,6 +29,8 @@ function GraphContainer({
   isTableOpened,
   setFilter,
   currentFilter,
+  isOnlyMainnet,
+  toggleShowTestnet,
 }) {
   const backToMap = useCallback(() => {
     if (isTableOpened) {
@@ -65,6 +68,19 @@ function GraphContainer({
 
       <Logo className={cx('logo')} />
       <LogoBeta className={cx('logo-beta')} />
+
+      <div className={cx('switch-container')}>
+        <Switch
+          checkedIcon={null}
+          uncheckedIcon={null}
+          onChange={toggleShowTestnet}
+          checked={!isOnlyMainnet}
+          height={15}
+          width={28}
+          onColor="#5FAA8C"
+        />
+        <span className={cx('switch-text')}>Show testnet</span>
+      </div>
 
       {!mapOpened && (
         <ZonesSorter

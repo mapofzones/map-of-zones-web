@@ -6,3 +6,4 @@ export * from './map-fullscreen';
 export * from './graph-type';
 export * from './filters';
 export * from './sorting';
+export * from './only-mainnet-visible';

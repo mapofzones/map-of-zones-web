@@ -11,7 +11,7 @@ import Loader from './components/Loader';
 import ZoneDetails from './components/ZoneDetails';
 import ZonesPicker from './components/ZonesPicker';
 
-import { useZoneStat } from './hooks';
+import { useShowTestnet, useZoneStat } from './hooks';
 
 const SORT_BY_PERIOD = {
   24: 'ibc_tx_1d',
@@ -45,6 +45,8 @@ function Channel() {
   const location = useLocation();
   const history = useHistory();
 
+  const [isOnlyMainnet, toggleShowTestnet] = useShowTestnet();
+
   const source = useMemo(() => {
     return parse(location.search).source;
   }, [location.search]);
@@ -76,7 +78,7 @@ function Channel() {
   const [showZonesPicker, setShowZonesPicker] = useState(false);
   const [showZoneDetails, setShowZoneDetails] = useState(null);
 
-  const zoneStat = useZoneStat(options);
+  const zoneStat = useZoneStat(options, isOnlyMainnet);
 
   const zoneDetails = useMemo(() => {
     const { zoneDetailsChanelId, zoneDetailsChanelCounerparty } = parse(
@@ -168,11 +170,21 @@ function Channel() {
 
   const onCloseClick = useCallback(() => {
     if (location.state?.navigateFrom) {
-      history.push(location.state.navigateFrom);
+      const search = parse(location.state.navigateFrom.search);
+
+      if (isOnlyMainnet) {
+        search.isOnlyMainnet = true;
+      } else {
+        delete search.isOnlyMainnet;
+      }
+
+      history.push(
+        `${location.state.navigateFrom.pathname}?${stringify(search)}`,
+      );
     } else {
       history.replace('/');
     }
-  }, [history, location.state]);
+  }, [history, isOnlyMainnet, location.state]);
 
   useEffect(() => {
     if (showZoneDetails === null && zoneDetails) {
@@ -191,6 +203,8 @@ function Channel() {
           source={source}
           toggleZonesPicker={toggleZonesPicker}
           zoneStat={zoneStat}
+          isOnlyMainnet={isOnlyMainnet}
+          toggleShowTestnet={toggleShowTestnet}
         />
         <Leaderboard
           data={zoneStat.selectedNodes}

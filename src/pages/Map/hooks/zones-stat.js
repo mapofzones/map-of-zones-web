@@ -75,6 +75,30 @@ const ZONES_STAT_SUBSCRIPTION = gql`
   ${ZONES_STAT_FRAGMENT}
 `;
 
+const ZONES_STAT_QUERY_ONLY_MAINNET = gql`
+  query ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
+  }
+  ${ZONES_STAT_FRAGMENT}
+`;
+
+const ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
+  }
+  ${ZONES_STAT_FRAGMENT}
+`;
+
 const ZONES_GRAPH_FRAGMENT = gql`
   fragment graph on zones_graphs {
     source
@@ -97,6 +121,28 @@ const ZONES_GRAPH_QUERY = gql`
 const ZONES_GRAPH_SUBSCRIPTION = gql`
   subscription ZonesGraph($period: Int!) {
     zones_graphs(where: { timeframe: { _eq: $period } }) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
+const ZONES_GRAPH_QUERY_ONLY_MAINNET = gql`
+  query ZonesGraph($period: Int!) {
+    zones_graphs(
+      where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
+    ) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
+const ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription ZonesGraph($period: Int!) {
+    zones_graphs(
+      where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
+    ) {
       ...graph
     }
   }
@@ -149,7 +195,7 @@ const transform = (zones, graph) => {
     'ibc_tx_out_weight',
   );
 
-  const zonesFormatted = zones.map(
+  let zonesFormatted = zones.map(
     ({
       zone,
       chart,
@@ -256,7 +302,7 @@ const transform = (zones, graph) => {
     },
   );
 
-  const linksFormatted = graph.map(
+  let linksFormatted = graph.map(
     ({
       source,
       target,
@@ -279,7 +325,7 @@ const transform = (zones, graph) => {
   };
 };
 
-export const useZonesStat = options => {
+export const useZonesStat = (options, isOnlyMainnet) => {
   const zones = useRealtimeQuery(
     ZONES_STAT_QUERY,
     ZONES_STAT_SUBSCRIPTION,
@@ -292,10 +338,27 @@ export const useZonesStat = options => {
     options,
   );
 
-  return useMemo(() => transform(zones?.zones_stats, graph?.zones_graphs), [
-    zones,
-    graph,
-  ]);
+  const mainnetZones = useRealtimeQuery(
+    ZONES_STAT_QUERY_ONLY_MAINNET,
+    ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET,
+    options,
+  );
+
+  const mainnetGraph = useRealtimeQuery(
+    ZONES_GRAPH_QUERY_ONLY_MAINNET,
+    ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET,
+    options,
+  );
+
+  return useMemo(
+    () =>
+      transform(
+        isOnlyMainnet ? mainnetZones?.zones_stats : zones?.zones_stats,
+        isOnlyMainnet ? mainnetGraph?.zones_graphs : graph?.zones_graphs,
+        isOnlyMainnet,
+      ),
+    [isOnlyMainnet, mainnetZones, zones, mainnetGraph, graph],
+  );
 };
 
 export const useZonesStatFiltered = (zonesStat, filter, focusedZone) => {
