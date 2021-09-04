@@ -75,6 +75,21 @@ function Graph({
 
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
 
+  const [images, setImages] = useState({});
+
+  useEffect(() => {
+    if (data?.nodes) {
+      data.nodes.forEach(({ id, zoneLabelUrlBig }) => {
+        if (!images[id] && zoneLabelUrlBig) {
+          const image = new Image();
+          image.src = zoneLabelUrlBig;
+
+          setImages(prevState => ({ ...prevState, [id]: image }));
+        }
+      });
+    }
+  }, [data, images]);
+
   useEffect(() => {
     const fg = fgRef.current;
 
@@ -206,6 +221,7 @@ function Graph({
     focusedNode,
     focusedNodeNeighbors,
     NODE_REL_SIZE,
+    images,
   );
   const applyFilter = useCallback(
     filter => {
