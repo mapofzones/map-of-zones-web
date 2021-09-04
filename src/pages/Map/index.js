@@ -14,6 +14,7 @@ import {
   useFocusedZone,
   useZonesStatFiltered,
   useMapFullscreen,
+  useFilters,
 } from './hooks';
 
 function Map() {
@@ -24,7 +25,7 @@ function Map() {
 
   const [sortedByColumn, setSort] = useState(undefined);
   const [isTableOpened, setIsTableOpened] = useState('');
-  const [currentFilter, setFilter] = useState(undefined);
+  const [currentFilter, setFilter] = useFilters(undefined);
 
   const sortedColumnId = useMemo(() => sortedByColumn?.id, [sortedByColumn]);
   const sortedByDesc = useMemo(() => sortedByColumn?.isSortedDesc, [
