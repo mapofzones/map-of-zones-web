@@ -15,7 +15,14 @@ import {
   useZonesStatFiltered,
   useMapFullscreen,
   useFilters,
+  useSorting,
 } from './hooks';
+import columns from './components/Leaderboard/config';
+
+const SORT_ORDER = {
+  true: 'desc',
+  false: 'asc',
+};
 
 function Map() {
   useLocationTracker(); // TODO: Move to App component
@@ -23,31 +30,31 @@ function Map() {
   const [period, setPeriod] = usePeriodSelector();
   const [isMapFullscreen, toggleFullScreen] = useMapFullscreen();
 
-  const [sortedByColumn, setSort] = useState(undefined);
+  const [sort, setSort] = useSorting();
   const [isTableOpened, setIsTableOpened] = useState('');
   const [currentFilter, setFilter] = useFilters(undefined);
 
-  const sortedColumnId = useMemo(() => sortedByColumn?.id, [sortedByColumn]);
-  const sortedByDesc = useMemo(() => sortedByColumn?.isSortedDesc, [
-    sortedByColumn,
-  ]);
+  const sortedByColumn = useMemo(
+    () => columns.find(({ id }) => id === sort.orderBy),
+    [sort.orderBy],
+  );
 
   const initialState = useMemo(
     () => ({
       sortBy: [
         {
-          id: sortedColumnId || 'totalIbcTxs',
-          desc: sortedColumnId ? sortedByDesc : false,
+          id: sort.orderBy,
+          desc: SORT_ORDER[sort.sortOrder],
         },
       ],
     }),
-    [sortedColumnId, sortedByDesc],
+    [sort.orderBy, sort.sortOrder],
   );
 
-  const filter = useMemo(
-    () => ({ ...currentFilter, columnId: sortedByColumn?.id }),
-    [currentFilter, sortedByColumn],
-  );
+  const filter = useMemo(() => ({ ...currentFilter, columnId: sort.orderBy }), [
+    currentFilter,
+    sort.orderBy,
+  ]);
   const options = useMemo(
     () => ({
       variables: { period: period.hours },
@@ -112,7 +119,7 @@ function Map() {
           currentFilter={currentFilter}
           focusedZone={focusedZone}
           handleScroll={handleScroll}
-          isSortedDesc={sortedByColumn?.isSortedDesc}
+          isSortedDesc={SORT_ORDER[sort.sortOrder]}
           isTableOpened={isTableOpened}
           mapOpened={isMapFullscreen}
           period={period}
