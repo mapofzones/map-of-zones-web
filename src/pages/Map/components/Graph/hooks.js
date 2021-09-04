@@ -38,6 +38,7 @@ export const useNodeCanvasObject = (
     (node, ctx, globalScale) => {
       const { x, y, name, color } = node;
       const fontSize = 10 / globalScale;
+      const fontWeight = node.isZoneMainnet ? 600 : 500;
       const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
       const textWidth = ctx.measureText(nameInCamelCase).width;
       const backgroundDimensions = [textWidth, fontSize].map(
@@ -71,7 +72,7 @@ export const useNodeCanvasObject = (
       ctx.fill();
       ctx.shadowColor = null;
       ctx.shadowBlur = null;
-      ctx.font = `${fontSize}px Poppins`;
+      ctx.font = `${fontWeight} ${fontSize}px Poppins`;
 
       if (focusedNode && !isFocused) {
         ctx.fillStyle = 'rgba(10, 11, 42, 0.1)';
