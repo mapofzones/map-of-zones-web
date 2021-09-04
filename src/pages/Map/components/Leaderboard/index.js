@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 
+import { ReactComponent as ZoneStatusConnectedIcon } from 'assets/images/zone-status-connected.svg';
+import { ReactComponent as ZoneStatusProgressIcon } from 'assets/images/zone-status-in-progress.svg';
+import { ReactComponent as ZoneStatusNotConnectedIcon } from 'assets/images/zone-status-not-connected.svg';
+
 import { formatNumber, trackEvent } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 
@@ -11,6 +15,12 @@ import SortModal from './SortModal';
 import columnsConfig from './config';
 
 import styles from './index.module.css';
+
+const STATUS_ICON_BY_ZONE = {
+  null: ZoneStatusNotConnectedIcon,
+  true: ZoneStatusConnectedIcon,
+  false: ZoneStatusProgressIcon,
+};
 
 const cx = classNames.bind(styles);
 
@@ -86,9 +96,13 @@ function Leaderboard({
       case 'txsActivity':
         return cell.render('Cell');
       case 'name': {
+        const StatusIcon =
+          STATUS_ICON_BY_ZONE[cell.row.original.isZoneUpToDate];
+
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
+            {!!StatusIcon && <StatusIcon className={cx('zoneStatusIcon')} />}
             {cell.row.original[sortedColumn.id + 'RatingDiff'] !== 0 && (
               <span
                 className={cx('position-shift', {
