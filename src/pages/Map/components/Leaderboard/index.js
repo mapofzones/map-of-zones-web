@@ -95,6 +95,21 @@ function Leaderboard({
         return <div>-</div>;
       case 'txsActivity':
         return cell.render('Cell');
+      case 'zoneLabelUrl': {
+        return (
+          <div className={cx('cell-container', 'cell-image-container')}>
+            {cell.row.original.zoneLabelUrl ? (
+              <img
+                className={cx('image-container')}
+                src={cell.row.original.zoneLabelUrl}
+                alt=""
+              />
+            ) : (
+              <div className={cx('image-empty')} />
+            )}
+          </div>
+        );
+      }
       case 'name': {
         const StatusIcon =
           STATUS_ICON_BY_ZONE[cell.row.original.isZoneUpToDate];
