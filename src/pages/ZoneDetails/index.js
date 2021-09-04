@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { parse } from 'querystringify';
+import { parse, stringify } from 'querystringify';
 
 import { removeDuplicatedZoneCounerparties } from 'common/helper';
 
@@ -91,14 +91,16 @@ function Channel() {
 
   const onSortChange = useCallback(
     sort => {
-      history.push(
-        `/zone?period=${PERIOD_BY_ID[sort.id]}&orderBy=${getOrderBy(
-          sort.id,
-        )}&sortOrder=${SORT_ORDER[sort.isSortedDesc]}&source=${source}`,
-        location.state,
-      );
+      const search = parse(location.search);
+
+      search.period = PERIOD_BY_ID[sort.id];
+      search.orderBy = getOrderBy(sort.id);
+      search.sortOrder = SORT_ORDER[sort.isSortedDesc];
+      search.source = source;
+
+      history.push(`/zone?${stringify(search)}`, location.state);
     },
-    [history, location.state, source],
+    [history, location.search, location.state, source],
   );
 
   const toggleZonesPicker = useCallback(
@@ -124,20 +126,17 @@ function Channel() {
   const selectZones = useCallback(
     newTargets => {
       if (
-        newTargets.length ===
+        newTargets.length !==
         removeDuplicatedZoneCounerparties(zoneStat.nodes).length
       ) {
-        history.push(`/zone?period=${period}&source=${source}`, location.state);
-      } else {
-        history.push(
-          `/zone?period=${period}&source=${source}&targets=${newTargets.join(
-            ',',
-          )}`,
-          location.state,
-        );
+        const search = parse(location.search);
+
+        search.targets = newTargets.join(',');
+
+        history.push(`/zone?${stringify(search)}`, location.state);
       }
     },
-    [history, location.state, period, source, zoneStat],
+    [history, location.search, location.state, zoneStat],
   );
 
   const navigateToMainPage = useCallback(() => {
