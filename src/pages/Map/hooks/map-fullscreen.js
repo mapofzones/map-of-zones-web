@@ -23,7 +23,9 @@ export const useMapFullscreen = () => {
       label: search.fullscreen ? 'on' : 'off',
     });
 
-    history.push(`?${stringify(search)}`);
+    if (location.search !== `?${stringify(search)}`) {
+      history.push(`?${stringify(search)}`);
+    }
   }, [history, location.search]);
 
   const isMapFullscreen = useMemo(() => parse(location.search).fullscreen, [

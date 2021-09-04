@@ -19,9 +19,12 @@ function NodeTooltip({ node, period }) {
   }, []);
 
   const onDetailsPress = useCallback(() => {
-    history.push(`/zone?period=${period.hours}&source=${node.id}`, {
-      navigateFrom: location.pathname + location.search,
-    });
+    history.push(
+      `/zone?period=${period.hours}&source=${node.id}&orderBy=success&sortOrder=desc`,
+      {
+        navigateFrom: location.pathname + location.search,
+      },
+    );
   }, [history, location.pathname, location.search, node.id, period]);
 
   let mapTooltip =
