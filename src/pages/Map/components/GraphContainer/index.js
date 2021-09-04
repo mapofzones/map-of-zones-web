@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
+
+import { useGraphType } from '../../hooks';
 
 import { Graph3D, Graph2D } from '../Graph';
 import ZonesSorter from '../ZonesSorter';
@@ -27,18 +29,20 @@ function GraphContainer({
   setFilter,
   currentFilter,
 }) {
-  const backToMap = () => {
+  const backToMap = useCallback(() => {
     if (isTableOpened) {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
     }
-  };
+  }, [isTableOpened]);
 
-  const [graphType, toggleGraphType] = useState('2D');
+  const [graphType, toggleGraphType] = useGraphType();
 
-  const Graph = graphType === '2D' ? Graph2D : Graph3D;
+  const Graph = useMemo(() => (graphType === '2D' ? Graph2D : Graph3D), [
+    graphType,
+  ]);
 
   return (
     <div
