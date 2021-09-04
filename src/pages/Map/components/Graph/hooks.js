@@ -33,6 +33,7 @@ export const useNodeCanvasObject = (
   focusedNode,
   focusedNodeNeighbors,
   nodeRelSize,
+  images,
 ) =>
   useCallback(
     (node, ctx, globalScale) => {
@@ -67,9 +68,27 @@ export const useNodeCanvasObject = (
         ctx.shadowBlur = 30;
       }
 
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-      ctx.fill();
+      if (images[node.id]) {
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.drawImage(
+          images[node.id],
+          x - r + 2,
+          y - r + 2,
+          r * 2 - 4,
+          r * 2 - 4,
+        );
+      } else {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+      }
+
       ctx.shadowColor = null;
       ctx.shadowBlur = null;
       ctx.font = `${fontWeight} ${fontSize}px Poppins`;
@@ -110,7 +129,13 @@ export const useNodeCanvasObject = (
 
       ctx.fillText(nameInCamelCase, x, y + deltaY);
     },
-    [zoneWeightAccessor, focusedNode, focusedNodeNeighbors, nodeRelSize],
+    [
+      zoneWeightAccessor,
+      nodeRelSize,
+      focusedNode,
+      focusedNodeNeighbors,
+      images,
+    ],
   );
 
 export const useFocusedNodeNeighbors = (focusedNode, graph) =>
