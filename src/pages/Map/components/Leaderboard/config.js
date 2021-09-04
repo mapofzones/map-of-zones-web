@@ -13,6 +13,13 @@ const columns = [
     alwaysVisible: true,
   },
   {
+    Header: '',
+    accessor: 'zoneLabelUrl',
+    id: 'zoneLabelUrl',
+    disableSortBy: true,
+    alwaysVisible: true,
+  },
+  {
     Header: 'Zone',
     accessor: 'name',
     id: 'name',

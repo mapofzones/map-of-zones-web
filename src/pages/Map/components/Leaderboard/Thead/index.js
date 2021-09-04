@@ -49,7 +49,9 @@ const Thead = ({
                     {period === '30d' && <div onClick={onHeaderClick}>MAU</div>}
                   </div>
                 ) : (
-                  <div onClick={onHeaderClick}>{column.render('Header')}</div>
+                  <div className={cx('header-name')} onClick={onHeaderClick}>
+                    {column.render('Header')}
+                  </div>
                 )}
                 {!!column.tooltip && !isMobile && (
                   <div className={cx('explanation-icon')}>
