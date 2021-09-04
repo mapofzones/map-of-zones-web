@@ -45,43 +45,33 @@ function Channel() {
   const location = useLocation();
   const history = useHistory();
 
-  const { source, targets, period, orderBy, sortOrder } = useMemo(() => {
-    const {
-      source,
-      targets,
-      period,
-      orderBy = 'success',
-      sortOrder = 'desc',
-    } = parse(location.search);
+  const source = useMemo(() => {
+    return parse(location.search).source;
+  }, [location.search]);
+
+  const options = useMemo(() => {
+    const { source, targets } = parse(location.search);
 
     return {
-      source,
-      targets: (targets || '').split(',').filter(Boolean),
-      period,
-      orderBy,
-      sortOrder,
+      variables: { source },
+      additionalData: { targets: (targets || '').split(',').filter(Boolean) },
     };
   }, [location.search]);
 
-  const options = useMemo(
-    () => ({
-      variables: { source },
-      additionalData: { targets },
-    }),
-    [source, targets],
-  );
+  const initialState = useMemo(() => {
+    const { period, orderBy = 'success', sortOrder = 'desc' } = parse(
+      location.search,
+    );
 
-  const initialState = useMemo(
-    () => ({
+    return {
       sortBy: [
         {
           id: getSortBy(period, orderBy),
           desc: sortOrder === 'desc',
         },
       ],
-    }),
-    [orderBy, period, sortOrder],
-  );
+    };
+  }, [location.search]);
 
   const [showZonesPicker, setShowZonesPicker] = useState(false);
   const [showZoneDetails, setShowZoneDetails] = useState(false);
@@ -96,11 +86,10 @@ function Channel() {
       search.period = PERIOD_BY_ID[sort.id];
       search.orderBy = getOrderBy(sort.id);
       search.sortOrder = SORT_ORDER[sort.isSortedDesc];
-      search.source = source;
 
       history.push(`/zone?${stringify(search)}`, location.state);
     },
-    [history, location.search, location.state, source],
+    [history, location.search, location.state],
   );
 
   const toggleZonesPicker = useCallback(
