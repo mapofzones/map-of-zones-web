@@ -5,7 +5,6 @@ import { parse } from 'querystringify';
 import { removeDuplicatedZoneCounerparties } from 'common/helper';
 
 import Leaderboard from './components/Leaderboard';
-import leaderboardColumnsConfig from './components/Leaderboard/config';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Loader from './components/Loader';
@@ -20,17 +19,47 @@ const SORT_BY_PERIOD = {
   720: 'ibc_tx_30d',
 };
 
+const PERIOD_BY_ID = {
+  ibc_tx_1d: 24,
+  ibc_tx_1d_failed: 24,
+  ibc_tx_7d: 168,
+  ibc_tx_7d_failed: 168,
+  ibc_tx_30d: 720,
+  ibc_tx_30d_failed: 720,
+};
+
+const SORT_ORDER = {
+  true: 'desc',
+  false: 'asc',
+};
+
+const getSortBy = (period, orderBy) => {
+  return SORT_BY_PERIOD[period] + (orderBy === 'success' ? '' : '_failed');
+};
+
+const getOrderBy = columnId => {
+  return columnId.includes('failed') ? 'failed' : 'success';
+};
+
 function Channel() {
   const location = useLocation();
   const history = useHistory();
 
-  const { source, targets, period } = useMemo(() => {
-    const { source, targets, period } = parse(location.search);
+  const { source, targets, period, orderBy, sortOrder } = useMemo(() => {
+    const {
+      source,
+      targets,
+      period,
+      orderBy = 'success',
+      sortOrder = 'desc',
+    } = parse(location.search);
 
     return {
       source,
       targets: (targets || '').split(',').filter(Boolean),
       period,
+      orderBy,
+      sortOrder,
     };
   }, [location.search]);
 
@@ -46,61 +75,30 @@ function Channel() {
     () => ({
       sortBy: [
         {
-          id: SORT_BY_PERIOD[period],
-          desc: true,
+          id: getSortBy(period, orderBy),
+          desc: sortOrder === 'desc',
         },
       ],
     }),
-    [period],
+    [orderBy, period, sortOrder],
   );
-
-  const [sortedByColumn, setSort] = useState(undefined);
-  const [currentFilter] = useState(undefined);
 
   const [showZonesPicker, setShowZonesPicker] = useState(false);
   const [showZoneDetails, setShowZoneDetails] = useState(false);
   const [zoneDetails, setZoneDetails] = useState(null);
 
-  const columnId = useMemo(() => sortedByColumn?.id, [sortedByColumn]);
-
-  const filter = useMemo(() => ({ ...currentFilter, columnId }), [
-    currentFilter,
-    columnId,
-  ]);
-
   const zoneStat = useZoneStat(options);
 
-  const filterFn = useCallback(
-    rows => {
-      let result = rows;
-
-      if (filter?.sortOrder && filter.filterAmount) {
-        result = [...result]
-          .sort(
-            (a, b) =>
-              (filter.sortOrder === 'desc' ? b : a).values[filter.columnId] -
-              (filter.sortOrder === 'desc' ? a : b).values[filter.columnId],
-          )
-          .slice(0, filter.filterAmount);
-      }
-
-      if (filter?.trendLine) {
-        const column = leaderboardColumnsConfig.find(
-          ({ id }) => id === filter.columnId,
-        );
-
-        if (column?.diffAccessor) {
-          result = result.filter(row => {
-            const value = row.values[column.diffAccessor];
-
-            return filter.trendLine === 'asc' ? value > 0 : value < 0;
-          });
-        }
-      }
-
-      return result;
+  const onSortChange = useCallback(
+    sort => {
+      history.push(
+        `/zone?period=${PERIOD_BY_ID[sort.id]}&orderBy=${getOrderBy(
+          sort.id,
+        )}&sortOrder=${SORT_ORDER[sort.isSortedDesc]}&source=${source}`,
+        location.state,
+      );
     },
-    [filter],
+    [history, location.state, source],
   );
 
   const toggleZonesPicker = useCallback(
@@ -167,9 +165,8 @@ function Channel() {
           zoneStat={zoneStat}
         />
         <Leaderboard
-          filter={filterFn}
           data={zoneStat.selectedNodes}
-          onSortChange={setSort}
+          onSortChange={onSortChange}
           setFocusedZone={preSetFocusedZone}
           initialState={initialState}
         />
