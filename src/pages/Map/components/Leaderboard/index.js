@@ -22,6 +22,12 @@ const STATUS_ICON_BY_ZONE = {
   false: ZoneStatusProgressIcon,
 };
 
+const STATUS_TITLE_BY_ZONE = {
+  null: 'Not connected',
+  true: 'Connected',
+  false: 'Synchronizing',
+};
+
 const cx = classNames.bind(styles);
 
 function Leaderboard({
@@ -117,7 +123,14 @@ function Leaderboard({
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
-            {!!StatusIcon && <StatusIcon className={cx('zoneStatusIcon')} />}
+            <div className={cx('zone-status-container')}>
+              {!!StatusIcon && (
+                <StatusIcon className={cx('zone-status-icon')} />
+              )}
+              <div className={cx('zone-status-tooltip')}>
+                {STATUS_TITLE_BY_ZONE[cell.row.original.isZoneUpToDate]}
+              </div>
+            </div>
             {cell.row.original[sortedColumn.id + 'RatingDiff'] !== 0 && (
               <span
                 className={cx('position-shift', {
