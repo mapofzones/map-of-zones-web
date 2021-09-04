@@ -184,6 +184,13 @@ function Graph({
     [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
   );
 
+  const onNodeDragEnd = useCallback(() => {
+    trackEvent({
+      category: 'Map',
+      action: 'drag zone',
+    });
+  }, []);
+
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
     focusedNode,
@@ -220,12 +227,7 @@ function Graph({
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
-          onNodeDragEnd={() =>
-            trackEvent({
-              category: 'Map',
-              action: 'drag zone',
-            })
-          }
+          onNodeDragEnd={onNodeDragEnd}
           onBackgroundClick={clearNodeFocus}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
