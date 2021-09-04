@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useMedia } from 'react-media';
 import classNames from 'classnames/bind';
 
@@ -24,12 +24,31 @@ function Header({
   const isSmallScreen = useMedia({ query: '(max-width: 500px)' });
 
   const targets = useMemo(
-    () =>
-      removeDuplicatedZoneCounerparties(zoneStat.selectedNodes).map(
-        ({ zone_counerparty }) => zone_counerparty,
-      ),
+    () => removeDuplicatedZoneCounerparties(zoneStat.selectedNodes),
     [zoneStat],
   );
+
+  const sourceURL = useMemo(() => targets?.[0]?.zone_label_url2, [targets]);
+
+  const renderTarget = useCallback((item, index, array) => {
+    return (
+      <div
+        className={cx('header-title')}
+        key={`target_${item.zone_counerparty}`}
+      >
+        {!!item.zone_counterparty_label_url2 && (
+          <img
+            className={cx('header-title-image')}
+            src={item.zone_counterparty_label_url2}
+            alt=""
+          />
+        )}
+        {`${item.zone_counerparty}${
+          index !== array.length - 1 ? ',\u00A0\u00A0' : ''
+        }`}
+      </div>
+    );
+  }, []);
 
   return (
     <div className={cx('container')}>
@@ -38,6 +57,9 @@ function Header({
 
       <div className={cx('header-container')}>
         <div className={cx('header-title')}>
+          {!!sourceURL && (
+            <img className={cx('header-title-image')} src={sourceURL} alt="" />
+          )}
           {source}
           <Stick className={cx('stick')} />
         </div>
@@ -45,7 +67,7 @@ function Header({
           className={cx('header-title', 'header-clickable')}
           onClick={toggleZonesPicker}
         >
-          {[...targets].splice(0, isSmallScreen ? 1 : 3).join(', ')}
+          {[...targets].splice(0, isSmallScreen ? 1 : 3).map(renderTarget)}
           &nbsp;
           <span className={cx('header-title-counter')}>
             {targets.length > 3 ? `(+ ${targets.length - 3})` : ''}

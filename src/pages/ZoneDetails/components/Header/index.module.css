@@ -29,6 +29,11 @@
   align-items: center;
   display: flex;
 }
+.header-title-image {
+  width: 40px;
+  height: 40px;
+  margin-right: 6px;
+}
 .header-clickable {
   cursor: pointer;
 }
