@@ -73,6 +73,8 @@ function Graph({
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
+  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
+
   useEffect(() => {
     const fg = fgRef.current;
 
@@ -139,9 +141,19 @@ function Graph({
     zoom(currentZoom / 2);
     trackEvent({ category: 'Map', action: 'zoom', label: 'out' });
   }, [currentZoom, zoom]);
-  const onNodeHover = useCallback(node => setHoveredNode(node), [
-    setHoveredNode,
-  ]);
+  const onNodeHover = useCallback(
+    node => {
+      if (
+        !node ||
+        !focusedNode ||
+        focusedNode === node ||
+        focusedNodeNeighbors.includes(node)
+      ) {
+        setHoveredNode(node);
+      }
+    },
+    [focusedNode, focusedNodeNeighbors],
+  );
   const onLinkHover = useCallback(link => setHoveredLink(link), [
     setHoveredLink,
   ]);
@@ -162,8 +174,6 @@ function Graph({
   const onMouseLeave = useCallback(() => {
     setIsFocused(false);
   }, [setIsFocused]);
-
-  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
 
   const onNodeClick = useCallback(
     node => {
