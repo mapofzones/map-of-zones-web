@@ -182,7 +182,13 @@ function Channel() {
         `${location.state.navigateFrom.pathname}?${stringify(search)}`,
       );
     } else {
-      history.replace('/');
+      const search = {};
+
+      if (isOnlyMainnet) {
+        search.isOnlyMainnet = true;
+      }
+
+      history.replace(`/?${stringify(search)}`);
     }
   }, [history, isOnlyMainnet, location.state]);
 
