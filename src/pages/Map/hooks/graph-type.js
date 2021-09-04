@@ -23,7 +23,9 @@ export const useGraphType = () => {
       label: search.graphType ? '3D' : '2D',
     });
 
-    history.push(`?${stringify(search)}`);
+    if (location.search !== `?${stringify(search)}`) {
+      history.push(`?${stringify(search)}`);
+    }
   }, [history, location.search]);
 
   const graphType = useMemo(() => parse(location.search).graphType || '2D', [

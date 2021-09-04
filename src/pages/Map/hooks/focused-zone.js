@@ -26,7 +26,9 @@ export const useFocusedZone = nodes => {
         delete search.zone;
       }
 
-      history.push(`?${stringify(search)}`);
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`?${stringify(search)}`);
+      }
     },
     [history, location.search],
   );

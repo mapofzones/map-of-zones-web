@@ -24,7 +24,9 @@ export const useFilters = () => {
         };
       }
 
-      history.push(`?${stringify(search)}`);
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`?${stringify(search)}`);
+      }
     },
     [history, location.search],
   );

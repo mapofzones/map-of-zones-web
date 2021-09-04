@@ -18,7 +18,9 @@ export const useSorting = () => {
       search.orderBy = newSort.id;
       search.sortOrder = SORT_ORDER[newSort.isSortedDesc] || 'ask';
 
-      history.push(`?${stringify(search)}`);
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`?${stringify(search)}`);
+      }
     },
     [history, location.search],
   );

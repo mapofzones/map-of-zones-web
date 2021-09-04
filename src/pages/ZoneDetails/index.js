@@ -104,7 +104,9 @@ function Channel() {
       search.orderBy = getOrderBy(sort.id);
       search.sortOrder = SORT_ORDER[sort.isSortedDesc];
 
-      history.push(`/zone?${stringify(search)}`, location.state);
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`/zone?${stringify(search)}`, location.state);
+      }
     },
     [history, location.search, location.state],
   );
