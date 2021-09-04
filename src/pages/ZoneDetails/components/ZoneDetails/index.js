@@ -12,10 +12,11 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function ZoneDetails({ isOpen, onRequestClose, zone }) {
+function ZoneDetails({ isOpen, onAfterClose, onRequestClose, zone }) {
   return (
     <Modal
       isOpen={isOpen}
+      onAfterClose={onAfterClose}
       onRequestClose={onRequestClose}
       contentClassName={cx('container')}
       animations={{
