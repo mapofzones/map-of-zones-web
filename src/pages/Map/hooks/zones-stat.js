@@ -44,6 +44,8 @@ const ZONES_STAT_FRAGMENT = gql`
     total_active_addresses_rating
     total_active_addresses_rating_diff
     is_zone_up_to_date
+    is_zone_mainnet
+    zone_readable_name
   }
 `;
 
@@ -184,10 +186,12 @@ const transform = (zones, graph) => {
       total_active_addresses_rating,
       total_active_addresses_rating_diff,
       is_zone_up_to_date,
+      is_zone_mainnet,
+      zone_readable_name,
     }) => {
       return {
         id: zone,
-        name: zone,
+        name: zone_readable_name,
         txsActivity: chart,
         totalTxs: total_txs,
         totalIbcTxs: total_ibc_txs,
@@ -241,6 +245,7 @@ const transform = (zones, graph) => {
           ibcSentScale,
         ),
         isZoneUpToDate: is_zone_up_to_date,
+        isZoneMainnet: is_zone_mainnet,
       };
     },
   );

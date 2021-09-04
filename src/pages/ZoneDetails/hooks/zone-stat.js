@@ -23,6 +23,7 @@ const SOURCE_STAT_FRAGMENT = gql`
     ibc_tx_30d_diff
     ibc_tx_30d_failed
     ibc_tx_30d_failed_diff
+    zone_readable_name
   }
 `;
 
@@ -69,10 +70,11 @@ const transform = (channels, options) => {
       ibc_tx_30d_diff,
       ibc_tx_30d_failed,
       ibc_tx_30d_failed_diff,
+      zone_readable_name,
     }) => {
       return {
         id: zone,
-        name: zone,
+        name: zone_readable_name,
         client_id,
         connection_id,
         channel_id,
