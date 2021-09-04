@@ -91,9 +91,9 @@ export const FILTER_AMOUNT = [
 ];
 
 const initialFilter = {
-  sortOrder: SORT_ORDER[0].value,
-  filterAmount: FILTER_AMOUNT[0].value,
-  trendLine: TREND_LINE[0].value,
+  sortOrder: null,
+  filterAmount: null,
+  trendLine: null,
 };
 
 function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
