@@ -24,6 +24,7 @@ const SOURCE_STAT_FRAGMENT = gql`
     ibc_tx_30d_failed
     ibc_tx_30d_failed_diff
     zone_readable_name
+    zone_counterparty_label_url
   }
 `;
 
@@ -71,6 +72,7 @@ const transform = (channels, options) => {
       ibc_tx_30d_failed,
       ibc_tx_30d_failed_diff,
       zone_readable_name,
+      zone_counterparty_label_url,
     }) => {
       return {
         id: zone,
@@ -92,6 +94,7 @@ const transform = (channels, options) => {
         ibc_tx_30d_diff,
         ibc_tx_30d_failed,
         ibc_tx_30d_failed_diff,
+        zone_counterparty_label_url,
       };
     },
   );
