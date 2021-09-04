@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import { parse, stringify } from 'querystringify';
 
 import { formatNumber, formatPercentage } from 'common/helper';
 
@@ -19,13 +20,23 @@ function NodeTooltip({ node, period }) {
   }, []);
 
   const onDetailsPress = useCallback(() => {
-    history.push(
-      `/zone?period=${period.hours}&source=${node.id}&orderBy=success&sortOrder=desc`,
-      {
-        navigateFrom: location.pathname + location.search,
-      },
-    );
-  }, [history, location.pathname, location.search, node.id, period]);
+    const { isOnlyMainnet } = parse(location.search);
+
+    const search = {
+      period: period.hours,
+      source: node.id,
+      orderBy: 'success',
+      sortOrder: 'desc',
+    };
+
+    if (isOnlyMainnet) {
+      search.isOnlyMainnet = true;
+    }
+
+    history.push(`/zone?${stringify(search)}`, {
+      navigateFrom: location,
+    });
+  }, [history, location, node.id, period.hours]);
 
   let mapTooltip =
     document.querySelector('.graph-tooltip') ||

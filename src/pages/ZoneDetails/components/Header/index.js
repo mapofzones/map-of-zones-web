@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import Switch from 'react-switch';
 import { useMedia } from 'react-media';
 import classNames from 'classnames/bind';
 
@@ -20,6 +21,8 @@ function Header({
   source,
   toggleZonesPicker,
   zoneStat,
+  isOnlyMainnet,
+  toggleShowTestnet,
 }) {
   const isSmallScreen = useMedia({ query: '(max-width: 500px)' });
 
@@ -54,6 +57,19 @@ function Header({
     <div className={cx('container')}>
       <Logo onClick={navigateToMainPage} className={cx('logo')} />
       <LogoBeta className={cx('logo-beta')} />
+
+      <div className={cx('switch-container')}>
+        <Switch
+          checkedIcon={null}
+          uncheckedIcon={null}
+          onChange={toggleShowTestnet}
+          checked={!isOnlyMainnet}
+          height={15}
+          width={28}
+          onColor="#5FAA8C"
+        />
+        <span className={cx('switch-text')}>Show testnet</span>
+      </div>
 
       <div className={cx('header-container')}>
         <div className={cx('header-title')}>

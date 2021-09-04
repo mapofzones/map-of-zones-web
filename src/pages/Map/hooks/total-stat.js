@@ -33,8 +33,30 @@ const TOTAL_STAT_SUBSCRIPTION = gql`
   ${TOTAL_STAT_FRAGMENT}
 `;
 
+const TOTAL_STAT_QUERY_ONLY_MAINNET = gql`
+  query TotalStat($period: Int!) {
+    headers(
+      where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: true } }
+    ) {
+      ...header
+    }
+  }
+  ${TOTAL_STAT_FRAGMENT}
+`;
+
+const TOTAL_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription TotalStat($period: Int!) {
+    headers(
+      where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: true } }
+    ) {
+      ...header
+    }
+  }
+  ${TOTAL_STAT_FRAGMENT}
+`;
+
 const transform = data => {
-  if (!data) {
+  if (!data?.headers?.[0]) {
     return data;
   }
 
@@ -74,12 +96,22 @@ const transform = data => {
   };
 };
 
-export const useTotalStat = options => {
-  const data = useRealtimeQuery(
+export const useTotalStat = (options, isOnlyMainnet) => {
+  let data = useRealtimeQuery(
     TOTAL_STAT_QUERY,
     TOTAL_STAT_SUBSCRIPTION,
     options,
   );
 
-  return useMemo(() => transform(data), [data]);
+  let mainnetData = useRealtimeQuery(
+    TOTAL_STAT_QUERY_ONLY_MAINNET,
+    TOTAL_STAT_SUBSCRIPTION_ONLY_MAINNET,
+    options,
+  );
+
+  return useMemo(() => transform(isOnlyMainnet ? mainnetData : data), [
+    data,
+    isOnlyMainnet,
+    mainnetData,
+  ]);
 };

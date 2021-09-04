@@ -4,23 +4,23 @@ import { parse, stringify } from 'querystringify';
 
 import { trackEvent } from 'common/helper';
 
-export const useMapFullscreen = () => {
+export const useShowTestnet = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const toggleFullScreen = useCallback(() => {
+  const toggleShowTestnet = useCallback(() => {
     const search = parse(location.search);
 
-    if (search.fullscreen) {
-      delete search.fullscreen;
+    if (search.isOnlyMainnet) {
+      delete search.isOnlyMainnet;
     } else {
-      search.fullscreen = true;
+      search.isOnlyMainnet = true;
     }
 
     trackEvent({
       category: 'Map',
-      action: 'full screen',
-      label: search.fullscreen ? 'on' : 'off',
+      action: 'toggle testnet',
+      label: search.isOnlyMainnet ? 'on' : 'off',
     });
 
     if (location.search !== `?${stringify(search)}`) {
@@ -28,9 +28,10 @@ export const useMapFullscreen = () => {
     }
   }, [history, location.search]);
 
-  const isMapFullscreen = useMemo(() => !!parse(location.search).fullscreen, [
-    location.search,
-  ]);
+  const isOnlyMainnetVisible = useMemo(
+    () => !!parse(location.search).isOnlyMainnet,
+    [location.search],
+  );
 
-  return [isMapFullscreen, toggleFullScreen];
+  return [isOnlyMainnetVisible, toggleShowTestnet];
 };

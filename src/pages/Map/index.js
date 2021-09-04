@@ -16,6 +16,7 @@ import {
   useMapFullscreen,
   useFilters,
   useSorting,
+  useShowTestnet,
 } from './hooks';
 import columns from './components/Leaderboard/config';
 
@@ -29,8 +30,9 @@ function Map() {
 
   const [period, setPeriod] = usePeriodSelector();
   const [isMapFullscreen, toggleFullScreen] = useMapFullscreen();
-
   const [sort, setSort] = useSorting();
+  const [isOnlyMainnet, toggleShowTestnet] = useShowTestnet();
+
   const [isTableOpened, setIsTableOpened] = useState('');
   const [currentFilter, setFilter] = useFilters(undefined);
 
@@ -57,12 +59,14 @@ function Map() {
   ]);
   const options = useMemo(
     () => ({
-      variables: { period: period.hours },
+      variables: {
+        period: period.hours,
+      },
     }),
-    [period],
+    [period.hours],
   );
-  const zonesStat = useZonesStat(options);
-  const totalStat = useTotalStat(options);
+  const zonesStat = useZonesStat(options, isOnlyMainnet);
+  const totalStat = useTotalStat(options, isOnlyMainnet);
   const [focusedZone, setFocusedZone] = useFocusedZone(
     zonesStat && zonesStat.nodes,
   );
@@ -130,6 +134,8 @@ function Map() {
           toggleMapOpen={toggleFullScreen}
           zonesStat={zonesStatFiltered}
           zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
+          isOnlyMainnet={isOnlyMainnet}
+          toggleShowTestnet={toggleShowTestnet}
         />
         <Leaderboard
           data={zonesStatFiltered.nodes}

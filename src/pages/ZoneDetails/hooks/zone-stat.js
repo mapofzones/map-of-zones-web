@@ -48,6 +48,34 @@ const SOURCE_STAT_SUBSCRIPTION = gql`
   ${SOURCE_STAT_FRAGMENT}
 `;
 
+const SOURCE_STAT_QUERY_ONLY_MAINNET = gql`
+  query SourceStat($source: String!) {
+    channels_stats(
+      where: {
+        zone: { _eq: $source }
+        is_zone_counerparty_mainnet: { _eq: true }
+      }
+    ) {
+      ...stat
+    }
+  }
+  ${SOURCE_STAT_FRAGMENT}
+`;
+
+const SOURCE_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription SourceStat($source: String!) {
+    channels_stats(
+      where: {
+        zone: { _eq: $source }
+        is_zone_counerparty_mainnet: { _eq: true }
+      }
+    ) {
+      ...stat
+    }
+  }
+  ${SOURCE_STAT_FRAGMENT}
+`;
+
 const transform = (channels, options) => {
   if (!channels) {
     return null;
@@ -121,15 +149,27 @@ const transform = (channels, options) => {
   };
 };
 
-export const useZoneStat = options => {
+export const useZoneStat = (options, isOnlyMainnet) => {
   const channels = useRealtimeQuery(
     SOURCE_STAT_QUERY,
     SOURCE_STAT_SUBSCRIPTION,
     options,
   );
 
-  return useMemo(() => transform(channels?.channels_stats, options), [
-    channels,
+  const mainnetChannels = useRealtimeQuery(
+    SOURCE_STAT_QUERY_ONLY_MAINNET,
+    SOURCE_STAT_SUBSCRIPTION_ONLY_MAINNET,
     options,
-  ]);
+  );
+
+  return useMemo(
+    () =>
+      transform(
+        isOnlyMainnet
+          ? mainnetChannels?.channels_stats
+          : channels?.channels_stats,
+        options,
+      ),
+    [channels, isOnlyMainnet, mainnetChannels, options],
+  );
 };
