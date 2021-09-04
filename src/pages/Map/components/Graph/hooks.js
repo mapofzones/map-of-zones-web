@@ -211,7 +211,10 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
       ctx.lineTo(target.x, target.y);
       ctx.stroke();
 
-      if (activeChannels) {
+      if (
+        activeChannels &&
+        (!hoveredNode || hoveredNode === source || hoveredNode === target)
+      ) {
         drawLinkComet(ctx, source, target, globalScale);
       }
     },
