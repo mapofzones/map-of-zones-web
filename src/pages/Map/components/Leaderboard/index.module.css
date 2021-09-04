@@ -162,6 +162,10 @@
   visibility: visible;
 }
 
+.header.zoneLabelUrl {
+  width: 35px;
+}
+
 /*1-st col*/
 .header.position {
   color: rgba(128, 128, 128, 0.5);
@@ -169,6 +173,10 @@
 
 .header.position .header-container {
   justify-content: center;
+}
+
+.cell.zoneLabelUrl {
+  width: 35px;
 }
 
 .cell.position {
