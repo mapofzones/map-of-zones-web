@@ -152,7 +152,7 @@ function Graph({
       setIsRendered(true);
     }
 
-    if (focusedNode) {
+    if (focusedNode?.x && focusedNode?.y) {
       fgRef.current.centerAt(focusedNode.x, focusedNode.y, 500);
 
       if (!isRendered) {
