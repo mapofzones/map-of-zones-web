@@ -63,6 +63,21 @@ function Graph({
     location.search,
   ]);
 
+  const [graphData, setGraphData] = useState(data);
+
+  useEffect(() => {
+    setGraphData(prevState => {
+      if (
+        prevState.graph._nodeCount !== data.graph._nodeCount ||
+        prevState.graph._edgeCount !== data.graph._edgeCount
+      ) {
+        return data;
+      }
+
+      return prevState;
+    });
+  }, [data]);
+
   const [hoveredNode, setHoveredNode] = useState(null);
   // const [clickedNode, setClickedNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
@@ -73,13 +88,16 @@ function Graph({
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
-  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
+  const focusedNodeNeighbors = useFocusedNodeNeighbors(
+    focusedNode,
+    graphData.graph,
+  );
 
   const [images, setImages] = useState({});
 
   useEffect(() => {
-    if (data?.nodes) {
-      data.nodes.forEach(({ id, zoneLabelUrlBig }) => {
+    if (graphData?.nodes) {
+      graphData.nodes.forEach(({ id, zoneLabelUrlBig }) => {
         if (!images[id] && zoneLabelUrlBig) {
           const image = new Image();
           image.src = zoneLabelUrlBig;
@@ -88,7 +106,7 @@ function Graph({
         }
       });
     }
-  }, [data, images]);
+  }, [graphData, images]);
 
   useEffect(() => {
     const fg = fgRef.current;
@@ -146,7 +164,7 @@ function Graph({
     } else {
       zoom(1);
     }
-  }, [data, focusedNode, isRendered, zoneFromSearch, zoom]);
+  }, [graphData, focusedNode, isRendered, zoneFromSearch, zoom]);
 
   const zoomIn = useCallback(() => {
     zoom(currentZoom * 2);
@@ -245,7 +263,7 @@ function Graph({
           nodeVal={zoneWeightAccessor}
           nodeColor="color"
           nodeLabel={null}
-          graphData={data}
+          graphData={graphData}
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
           linkCanvasObject={linkCanvasObject}
