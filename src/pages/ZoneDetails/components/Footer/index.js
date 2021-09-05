@@ -131,7 +131,7 @@ function Footer() {
             })
           }
         >
-          <span className={cx('socialName')}>Contact us</span>
+          <span className={cx('socialName')}>not listed?</span>
         </a>
       </div>
       <div className={cx('socialMediaTitle')}>
