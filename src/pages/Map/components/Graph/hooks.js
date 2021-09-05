@@ -53,6 +53,7 @@ export const useNodeCanvasObject = (
         r + backgroundDimensions[1] / 2 + 2 / globalScale + paddingVertical * 2;
       const isFocused =
         focusedNode === node ||
+        focusedNode?.id === node?.id ||
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
       if (focusedNode && !isFocused) {
@@ -63,7 +64,7 @@ export const useNodeCanvasObject = (
         ctx.fillStyle = color;
       }
 
-      if (focusedNode === node) {
+      if (focusedNode === node || focusedNode?.id === node?.id) {
         ctx.shadowColor = color;
         ctx.shadowBlur = 30;
       }
@@ -429,6 +430,7 @@ export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
     node => {
       const isFocused =
         focusedNode === node ||
+        focusedNode?.id === node?.id ||
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
       if (focusedNode && !isFocused) {
@@ -447,6 +449,7 @@ export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
       const text = new SpriteText(node.name);
       const isFocused =
         focusedNode === node ||
+        focusedNode?.id === node?.id ||
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
       if (focusedNode && !isFocused) {

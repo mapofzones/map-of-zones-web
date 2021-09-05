@@ -180,6 +180,7 @@ function Graph({
         !node ||
         !focusedNode ||
         focusedNode === node ||
+        focusedNode?.id === node?.id ||
         focusedNodeNeighbors.includes(node)
       ) {
         setHoveredNode(node);
