@@ -244,11 +244,12 @@ function Graph({
   );
 
   const onNodeDragEnd = useCallback(() => {
+    setDraggedNode(null);
     trackEvent({
       category: 'Map',
       action: 'drag zone',
     });
-  }, []);
+  }, [setDraggedNode]);
 
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
