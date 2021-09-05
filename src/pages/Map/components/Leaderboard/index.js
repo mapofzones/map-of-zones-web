@@ -2,33 +2,20 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
-
-import { ReactComponent as ZoneStatusConnectedIcon } from 'assets/images/zone-status-connected.svg';
-import { ReactComponent as ZoneStatusProgressIcon } from 'assets/images/zone-status-in-progress.svg';
-import { ReactComponent as ZoneStatusNotConnectedIcon } from 'assets/images/zone-status-not-connected.svg';
+import animate from 'animate.css';
 
 import { formatNumber, trackEvent } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 
 import Thead from './Thead';
 import SortModal from './SortModal';
+import Status from './Status';
+
 import columnsConfig from './config';
 
 import styles from './index.module.css';
 
-const STATUS_ICON_BY_ZONE = {
-  null: ZoneStatusNotConnectedIcon,
-  true: ZoneStatusConnectedIcon,
-  false: ZoneStatusProgressIcon,
-};
-
-const STATUS_TITLE_BY_ZONE = {
-  null: 'Not connected',
-  true: 'Connected',
-  false: 'Synchronizing',
-};
-
-const cx = classNames.bind(styles);
+const cx = classNames.bind({ ...animate, ...styles });
 
 function Leaderboard({
   data,
@@ -117,20 +104,10 @@ function Leaderboard({
         );
       }
       case 'name': {
-        const StatusIcon =
-          STATUS_ICON_BY_ZONE[cell.row.original.isZoneUpToDate];
-
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
-            <div className={cx('zone-status-container')}>
-              {!!StatusIcon && (
-                <StatusIcon className={cx('zone-status-icon')} />
-              )}
-              <div className={cx('zone-status-tooltip')}>
-                {STATUS_TITLE_BY_ZONE[cell.row.original.isZoneUpToDate]}
-              </div>
-            </div>
+            <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
             {cell.row.original[sortedColumn.id + 'RatingDiff'] !== 0 && (
               <span
                 className={cx('position-shift', {
