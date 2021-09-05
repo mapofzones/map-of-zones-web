@@ -239,6 +239,12 @@
   min-width: 104px;
   max-width: 104px;
 }
+.header.totalActiveAddresses,
+.cell.totalActiveAddresses {
+  width: 84px;
+  min-width: 84px;
+  max-width: 84px;
+}
 
 /*6 col*/
 .header.ibcSent,
