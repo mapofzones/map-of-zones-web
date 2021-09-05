@@ -79,6 +79,7 @@ function Graph({
   }, [data]);
 
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [draggedNode, setDraggedNode] = useState(null);
   // const [clickedNode, setClickedNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
@@ -188,6 +189,20 @@ function Graph({
     },
     [focusedNode, focusedNodeNeighbors],
   );
+  const onNodeDrag = useCallback(
+    node => {
+      if (
+        !node ||
+        !focusedNode ||
+        focusedNode === node ||
+        focusedNode?.id === node?.id ||
+        focusedNodeNeighbors.includes(node)
+      ) {
+        setDraggedNode(node);
+      }
+    },
+    [focusedNode, focusedNodeNeighbors],
+  );
   const onLinkHover = useCallback(link => setHoveredLink(link), [
     setHoveredLink,
   ]);
@@ -250,7 +265,10 @@ function Graph({
     },
     [setShowFilter, setFilter, clearNodeFocus],
   );
-  const linkCanvasObject = useLinkCanvasObject(focusedNode, hoveredNode);
+  const linkCanvasObject = useLinkCanvasObject(
+    focusedNode,
+    hoveredNode || draggedNode,
+  );
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
 
@@ -274,6 +292,7 @@ function Graph({
           d3VelocityDecay={0.3}
           onNodeDragEnd={onNodeDragEnd}
           onBackgroundClick={clearNodeFocus}
+          onNodeDrag={onNodeDrag}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>
