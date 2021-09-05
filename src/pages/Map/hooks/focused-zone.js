@@ -20,7 +20,7 @@ export const useFocusedZone = nodes => {
     zone => {
       const search = parse(location.search);
 
-      if (zone && zone.id) {
+      if (zone?.id) {
         search.zone = zone.id;
       } else {
         delete search.zone;
