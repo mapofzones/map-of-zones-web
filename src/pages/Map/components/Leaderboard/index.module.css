@@ -241,9 +241,9 @@
 }
 .header.totalActiveAddresses,
 .cell.totalActiveAddresses {
-  width: 84px;
-  min-width: 84px;
-  max-width: 84px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
 }
 
 /*6 col*/
