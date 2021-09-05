@@ -367,8 +367,8 @@ export const useZonesStatFiltered = (zonesStat, filter, focusedZone) => {
         ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)) ||
       focusedZone
     ) {
-      let nodes = [...zonesStat.nodes];
-      let links = [...zonesStat.links];
+      let nodes = [...(zonesStat?.nodes || [])];
+      let links = [...(zonesStat?.links || [])];
 
       if (filter?.trendLine) {
         nodes = nodes.filter(node => {
