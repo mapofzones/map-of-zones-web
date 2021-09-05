@@ -21,7 +21,7 @@ function Header({
   source,
   toggleZonesPicker,
   zoneStat,
-  isOnlyMainnet,
+  isTestnetVisible,
   toggleShowTestnet,
 }) {
   const isSmallScreen = useMedia({ query: '(max-width: 500px)' });
@@ -63,7 +63,7 @@ function Header({
           checkedIcon={null}
           uncheckedIcon={null}
           onChange={toggleShowTestnet}
-          checked={!isOnlyMainnet}
+          checked={isTestnetVisible}
           height={15}
           width={28}
           onColor="#5FAA8C"

@@ -20,7 +20,7 @@ function NodeTooltip({ node, period }) {
   }, []);
 
   const onDetailsPress = useCallback(() => {
-    const { isOnlyMainnet } = parse(location.search);
+    const { testnet } = parse(location.search);
 
     const search = {
       period: period.hours,
@@ -29,8 +29,8 @@ function NodeTooltip({ node, period }) {
       sortOrder: 'desc',
     };
 
-    if (isOnlyMainnet) {
-      search.isOnlyMainnet = true;
+    if (testnet) {
+      search.testnet = true;
     }
 
     history.push(`/zone?${stringify(search)}`, {

@@ -31,7 +31,7 @@ function Map() {
   const [period, setPeriod] = usePeriodSelector();
   const [isMapFullscreen, toggleFullScreen] = useMapFullscreen();
   const [sort, setSort] = useSorting();
-  const [isOnlyMainnet, toggleShowTestnet] = useShowTestnet();
+  const [isTestnetVisible, toggleShowTestnet] = useShowTestnet();
 
   const [isTableOpened, setIsTableOpened] = useState('');
   const [currentFilter, setFilter] = useFilters(undefined);
@@ -65,8 +65,8 @@ function Map() {
     }),
     [period.hours],
   );
-  const zonesStat = useZonesStat(options, isOnlyMainnet);
-  const totalStat = useTotalStat(options, isOnlyMainnet);
+  const zonesStat = useZonesStat(options, isTestnetVisible);
+  const totalStat = useTotalStat(options, isTestnetVisible);
   const [focusedZone, setFocusedZone] = useFocusedZone(
     zonesStat && zonesStat.nodes,
   );
@@ -134,7 +134,7 @@ function Map() {
           toggleMapOpen={toggleFullScreen}
           zonesStat={zonesStatFiltered}
           zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
-          isOnlyMainnet={isOnlyMainnet}
+          isTestnetVisible={isTestnetVisible}
           toggleShowTestnet={toggleShowTestnet}
         />
         <Leaderboard
