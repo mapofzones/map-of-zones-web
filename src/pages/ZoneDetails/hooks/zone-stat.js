@@ -149,7 +149,7 @@ const transform = (channels, options) => {
   };
 };
 
-export const useZoneStat = (options, isOnlyMainnet) => {
+export const useZoneStat = (options, isTestnetVisible) => {
   const channels = useRealtimeQuery(
     SOURCE_STAT_QUERY,
     SOURCE_STAT_SUBSCRIPTION,
@@ -165,11 +165,11 @@ export const useZoneStat = (options, isOnlyMainnet) => {
   return useMemo(
     () =>
       transform(
-        isOnlyMainnet
-          ? mainnetChannels?.channels_stats
-          : channels?.channels_stats,
+        isTestnetVisible
+          ? channels?.channels_stats
+          : mainnetChannels?.channels_stats,
         options,
       ),
-    [channels, isOnlyMainnet, mainnetChannels, options],
+    [channels, isTestnetVisible, mainnetChannels, options],
   );
 };

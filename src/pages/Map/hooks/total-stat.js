@@ -96,7 +96,7 @@ const transform = data => {
   };
 };
 
-export const useTotalStat = (options, isOnlyMainnet) => {
+export const useTotalStat = (options, isTestnetVisible) => {
   let data = useRealtimeQuery(
     TOTAL_STAT_QUERY,
     TOTAL_STAT_SUBSCRIPTION,
@@ -109,9 +109,9 @@ export const useTotalStat = (options, isOnlyMainnet) => {
     options,
   );
 
-  return useMemo(() => transform(isOnlyMainnet ? mainnetData : data), [
+  return useMemo(() => transform(isTestnetVisible ? data : mainnetData), [
     data,
-    isOnlyMainnet,
+    isTestnetVisible,
     mainnetData,
   ]);
 };

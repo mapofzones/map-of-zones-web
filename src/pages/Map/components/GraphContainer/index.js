@@ -29,7 +29,7 @@ function GraphContainer({
   isTableOpened,
   setFilter,
   currentFilter,
-  isOnlyMainnet,
+  isTestnetVisible,
   toggleShowTestnet,
 }) {
   const backToMap = useCallback(() => {
@@ -74,7 +74,7 @@ function GraphContainer({
           checkedIcon={null}
           uncheckedIcon={null}
           onChange={toggleShowTestnet}
-          checked={!isOnlyMainnet}
+          checked={isTestnetVisible}
           height={15}
           width={28}
           onColor="#5FAA8C"

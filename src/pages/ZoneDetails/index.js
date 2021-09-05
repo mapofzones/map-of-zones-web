@@ -45,7 +45,7 @@ function Channel() {
   const location = useLocation();
   const history = useHistory();
 
-  const [isOnlyMainnet, toggleShowTestnet] = useShowTestnet();
+  const [isTestnetVisible, toggleShowTestnet] = useShowTestnet();
 
   const source = useMemo(() => {
     return parse(location.search).source;
@@ -78,7 +78,7 @@ function Channel() {
   const [showZonesPicker, setShowZonesPicker] = useState(false);
   const [showZoneDetails, setShowZoneDetails] = useState(null);
 
-  const zoneStat = useZoneStat(options, isOnlyMainnet);
+  const zoneStat = useZoneStat(options, isTestnetVisible);
 
   const zoneDetails = useMemo(() => {
     const { zoneDetailsChanelId, zoneDetailsChanelCounerparty } = parse(
@@ -172,10 +172,10 @@ function Channel() {
     if (location.state?.navigateFrom) {
       const search = parse(location.state.navigateFrom.search);
 
-      if (isOnlyMainnet) {
-        search.isOnlyMainnet = true;
+      if (isTestnetVisible) {
+        search.testnet = true;
       } else {
-        delete search.isOnlyMainnet;
+        delete search.testnet;
       }
 
       history.push(
@@ -184,13 +184,13 @@ function Channel() {
     } else {
       const search = {};
 
-      if (isOnlyMainnet) {
-        search.isOnlyMainnet = true;
+      if (isTestnetVisible) {
+        search.testnet = true;
       }
 
       history.replace(`/?${stringify(search)}`);
     }
-  }, [history, isOnlyMainnet, location.state]);
+  }, [history, isTestnetVisible, location.state]);
 
   useEffect(() => {
     if (showZoneDetails === null && zoneDetails) {
@@ -209,7 +209,7 @@ function Channel() {
           source={source}
           toggleZonesPicker={toggleZonesPicker}
           zoneStat={zoneStat}
-          isOnlyMainnet={isOnlyMainnet}
+          isTestnetVisible={isTestnetVisible}
           toggleShowTestnet={toggleShowTestnet}
         />
         <Leaderboard

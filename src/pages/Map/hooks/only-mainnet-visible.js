@@ -11,16 +11,16 @@ export const useShowTestnet = () => {
   const toggleShowTestnet = useCallback(() => {
     const search = parse(location.search);
 
-    if (search.isOnlyMainnet) {
-      delete search.isOnlyMainnet;
+    if (search.testnet) {
+      delete search.testnet;
     } else {
-      search.isOnlyMainnet = true;
+      search.testnet = true;
     }
 
     trackEvent({
       category: 'Map',
       action: 'toggle testnet',
-      label: search.isOnlyMainnet ? 'on' : 'off',
+      label: search.testnet ? 'on' : 'off',
     });
 
     if (location.search !== `?${stringify(search)}`) {
@@ -28,10 +28,9 @@ export const useShowTestnet = () => {
     }
   }, [history, location.search]);
 
-  const isOnlyMainnetVisible = useMemo(
-    () => !!parse(location.search).isOnlyMainnet,
-    [location.search],
-  );
+  const isTestnetVisible = useMemo(() => !!parse(location.search).testnet, [
+    location.search,
+  ]);
 
-  return [isOnlyMainnetVisible, toggleShowTestnet];
+  return [isTestnetVisible, toggleShowTestnet];
 };

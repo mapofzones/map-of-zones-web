@@ -325,7 +325,7 @@ const transform = (zones, graph) => {
   };
 };
 
-export const useZonesStat = (options, isOnlyMainnet) => {
+export const useZonesStat = (options, isTestnetVisible) => {
   const zones = useRealtimeQuery(
     ZONES_STAT_QUERY,
     ZONES_STAT_SUBSCRIPTION,
@@ -353,11 +353,10 @@ export const useZonesStat = (options, isOnlyMainnet) => {
   return useMemo(
     () =>
       transform(
-        isOnlyMainnet ? mainnetZones?.zones_stats : zones?.zones_stats,
-        isOnlyMainnet ? mainnetGraph?.zones_graphs : graph?.zones_graphs,
-        isOnlyMainnet,
+        isTestnetVisible ? zones?.zones_stats : mainnetZones?.zones_stats,
+        isTestnetVisible ? graph?.zones_graphs : mainnetGraph?.zones_graphs,
       ),
-    [isOnlyMainnet, mainnetZones, zones, mainnetGraph, graph],
+    [isTestnetVisible, mainnetZones, zones, mainnetGraph, graph],
   );
 };
 
