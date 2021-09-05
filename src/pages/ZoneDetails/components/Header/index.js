@@ -31,6 +31,7 @@ function Header({
     [zoneStat],
   );
 
+  const sourceName = useMemo(() => targets?.[0]?.name, [targets]);
   const sourceURL = useMemo(() => targets?.[0]?.zone_label_url2, [targets]);
 
   const renderTarget = useCallback((item, index, array) => {
@@ -46,7 +47,7 @@ function Header({
             alt=""
           />
         )}
-        {`${item.zone_counerparty}${
+        {`${item.zone_counterparty_readable_name}${
           index !== array.length - 1 ? ',\u00A0\u00A0' : ''
         }`}
       </div>
@@ -76,7 +77,7 @@ function Header({
           {!!sourceURL && (
             <img className={cx('header-title-image')} src={sourceURL} alt="" />
           )}
-          {source}
+          {sourceName}
           <Stick className={cx('stick')} />
         </div>
         <div
