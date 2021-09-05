@@ -27,6 +27,7 @@ const SOURCE_STAT_FRAGMENT = gql`
     zone_counterparty_label_url
     zone_label_url2
     zone_counterparty_label_url2
+    zone_counterparty_readable_name
   }
 `;
 
@@ -88,6 +89,7 @@ const transform = (channels, options) => {
       connection_id,
       channel_id,
       zone_counerparty,
+      zone_counterparty_readable_name,
       is_opened,
       ibc_tx_1d,
       ibc_tx_1d_diff,
@@ -113,6 +115,7 @@ const transform = (channels, options) => {
         connection_id,
         channel_id,
         zone_counerparty,
+        zone_counterparty_readable_name,
         is_opened,
         ibc_tx_1d,
         ibc_tx_1d_diff,
