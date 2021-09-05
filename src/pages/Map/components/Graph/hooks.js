@@ -216,7 +216,11 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
       const width = 1;
       const lineWidth = width / globalScale;
 
-      if (focusedNode && focusedNode !== source && focusedNode !== target) {
+      if (
+        focusedNode &&
+        focusedNode?.id !== source?.id &&
+        focusedNode?.id !== target?.id
+      ) {
         return;
       }
 
