@@ -235,15 +235,9 @@
   /*5 col*/
 .header.ibcPercentage,
 .cell.ibcPercentage {
-  width: 99px;
-  min-width: 99px;
-  max-width: 99px;
-}
-.header.totalActiveAddresses,
-.cell.totalActiveAddresses {
-  width: 74px;
-  min-width: 74px;
-  max-width: 74px;
+  width: 104px;
+  min-width: 104px;
+  max-width: 104px;
 }
 
 /*6 col*/
