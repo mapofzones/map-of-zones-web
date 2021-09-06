@@ -276,14 +276,7 @@ const transform = (zones, graph) => {
         totalActiveAddressesRating: total_active_addresses_rating,
         totalActiveAddressesRatingDiff: total_active_addresses_rating_diff,
         color: total_ibc_txs
-          ? getZoneColor(
-              ibc_tx_out / total_ibc_txs === 0.5
-                ? 0.5
-                : ibc_tx_out / total_ibc_txs < 0.5
-                ? 1 -
-                  Math.sqrt(Math.abs(ibc_tx_out / total_ibc_txs - 0.5)) * 1.4
-                : Math.sqrt(ibc_tx_out / total_ibc_txs - 0.5) * 1.4,
-            )
+          ? getZoneColor(ibc_tx_out / total_ibc_txs)
           : DEFAULT_COLOR,
         ibcTxsWeight: getNodeWeight(
           total_ibc_txs_weight,

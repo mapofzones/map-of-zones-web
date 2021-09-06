@@ -9,8 +9,16 @@ const gradient = tinygradient([
   '#5CA98D',
 ]);
 
-export const getZoneColor = sentPercentage =>
-  gradient.rgbAt(1 - (sentPercentage || 0)).toHexString();
+export const getZoneColor = sentPercentage => {
+  const value =
+    sentPercentage === 0.5
+      ? 0.5
+      : sentPercentage < 0.5
+      ? 1 - Math.sqrt(Math.abs(sentPercentage - 0.5)) * 1.4
+      : Math.sqrt(sentPercentage - 0.5) * 1.4;
+
+  return gradient.rgbAt(1 - (value || 0)).toHexString();
+};
 
 export const toFixed = (number, decimalDigits = 0) =>
   parseFloat(number).toFixed(decimalDigits);
