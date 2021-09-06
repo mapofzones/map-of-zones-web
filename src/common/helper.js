@@ -14,9 +14,8 @@ export const getZoneColor = sentPercentage => {
     sentPercentage === 0.5
       ? 0.5
       : sentPercentage < 0.5
-      ? 1 - Math.sqrt(Math.abs(sentPercentage - 0.5)) * 1.4
-      : Math.sqrt(sentPercentage - 0.5) * 1.4;
-
+      ? Math.abs(Math.sqrt(Math.abs(sentPercentage - 0.5)) * 1.4 - 0.5)
+      : 1 - Math.abs(Math.sqrt(sentPercentage - 0.5) * 1.4 - 0.5);
   return gradient.rgbAt(1 - (value || 0)).toHexString();
 };
 
