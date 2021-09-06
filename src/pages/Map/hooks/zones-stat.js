@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { Graph } from '@dagrejs/graphlib';
 
-import { getIsUptrend, getZoneColor } from 'common/helper';
+import { getIsUptrend, getNodeColor } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
 
 const ZONES_STAT_FRAGMENT = gql`
@@ -276,7 +276,7 @@ const transform = (zones, graph) => {
         totalActiveAddressesRating: total_active_addresses_rating,
         totalActiveAddressesRatingDiff: total_active_addresses_rating_diff,
         color: total_ibc_txs
-          ? getZoneColor(ibc_tx_out / total_ibc_txs)
+          ? getNodeColor(ibc_tx_out / total_ibc_txs)
           : DEFAULT_COLOR,
         ibcTxsWeight: getNodeWeight(
           total_ibc_txs_weight,
