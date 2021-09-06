@@ -31,7 +31,14 @@ function Header({
     [zoneStat],
   );
 
-  const sourceName = useMemo(() => targets?.[0]?.name, [targets]);
+  const sourceName = useMemo(() => {
+    if (targets?.[0]?.name) {
+      return targets[0].name[0].toUpperCase() + targets[0].name.substring(1);
+    }
+
+    return '';
+  }, [targets]);
+
   const sourceURL = useMemo(() => targets?.[0]?.zone_label_url2, [targets]);
 
   const renderTarget = useCallback((item, index, array) => {
@@ -47,7 +54,8 @@ function Header({
             alt=""
           />
         )}
-        {`${item.zone_counterparty_readable_name}${
+        {`${item.zone_counterparty_readable_name[0].toUpperCase() +
+          item.zone_counterparty_readable_name.substring(1)}${
           index !== array.length - 1 ? ',\u00A0\u00A0' : ''
         }`}
       </div>
