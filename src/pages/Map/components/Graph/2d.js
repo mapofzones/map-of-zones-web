@@ -44,6 +44,18 @@ const cx = classNames.bind(styles);
 
 const NODE_REL_SIZE = 4;
 
+const zoomValue = nodesCount => {
+  if (nodesCount < 5) {
+    return 2 - nodesCount * 0.1;
+  }
+
+  if (nodesCount < 15) {
+    return 2 - nodesCount * 0.05;
+  }
+
+  return nodesCount > 50 ? 0.8 : 1;
+};
+
 function Graph({
   data,
   isBlurred,
@@ -161,10 +173,9 @@ function Graph({
           fgRef.current.centerAt(focusedNode.x, focusedNode.y, 2000);
         }, 2000);
       }
-      zoom(2);
-    } else {
-      zoom(1);
     }
+
+    zoom(zoomValue(graphData.nodes.length));
   }, [graphData, focusedNode, isRendered, zoneFromSearch, zoom]);
 
   const zoomIn = useCallback(() => {
