@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
 
-import { getZoneColor } from 'common/helper';
+import { getNodeColor } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
 
 const TOTAL_STAT_FRAGMENT = gql`
@@ -76,10 +76,10 @@ const transform = data => {
         source: topZonePair.source,
         target: topZonePair.target,
         ibc: topZonePair.ibc,
-        sourceColor: getZoneColor(
+        sourceColor: getNodeColor(
           topZonePair.source_to_target_txs / topZonePair.ibc,
         ),
-        targetColor: getZoneColor(
+        targetColor: getNodeColor(
           topZonePair.target_to_source_txs / topZonePair.ibc,
         ),
       }

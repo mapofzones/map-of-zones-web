@@ -9,7 +9,10 @@ const gradient = tinygradient([
   '#5CA98D',
 ]);
 
-export const getZoneColor = sentPercentage => {
+export const getZoneColor = sentPercentage =>
+  gradient.rgbAt(1 - (sentPercentage || 0)).toHexString();
+
+export const getNodeColor = sentPercentage => {
   const value =
     sentPercentage === 0.5
       ? 0.5
