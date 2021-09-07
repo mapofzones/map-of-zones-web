@@ -278,7 +278,7 @@ const transform = (zones, graph, isTestnetVisible) => {
         txsActivity: chart,
         totalTxs: total_txs,
         totalIbcTxs: total_ibc_txs,
-        ibcPercentage: ibc_percent / 100,
+        ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         ibcSent: ibc_tx_out,
         ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
         ibcReceived: ibc_tx_in,
