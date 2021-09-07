@@ -19,30 +19,45 @@ const ZONES_STAT_FRAGMENT = gql`
     channels_cnt_active_period
     channels_percent_active_period
     total_ibc_txs_weight
+    total_ibc_txs_mainnet_weight
     total_txs_weight
+    total_txs_mainnet_weight
     ibc_tx_in_weight
+    ibc_tx_in_mainnet_weight
     ibc_tx_out_weight
+    ibc_tx_out_mainnet_weight
     total_txs_diff
     total_ibc_txs_diff
     ibc_tx_out_diff
     ibc_tx_in_diff
     total_txs_rating
     total_txs_rating_diff
+    total_txs_mainnet_rating
+    total_txs_mainnet_rating_diff
     total_ibc_txs_rating
     total_ibc_txs_rating_diff
+    total_ibc_txs_mainnet_rating
+    total_ibc_txs_mainnet_rating_diff
     ibc_tx_out_rating
     ibc_tx_out_rating_diff
+    ibc_tx_out_mainnet_rating
+    ibc_tx_out_mainnet_rating_diff
     ibc_tx_in_rating
     ibc_tx_in_rating_diff
+    ibc_tx_in_mainnet_rating
+    ibc_tx_in_mainnet_rating_diff
     total_active_addresses
     total_active_addresses_diff
     total_active_addresses_weight
+    total_active_addresses_mainnet_weight
     ibc_tx_failed
     ibc_tx_out_failed
     ibc_tx_in_failed
     ibc_tx_failed_diff
     total_active_addresses_rating
     total_active_addresses_rating_diff
+    total_active_addresses_mainnet_rating
+    total_active_addresses_mainnet_rating_diff
     is_zone_up_to_date
     is_zone_mainnet
     zone_readable_name
@@ -176,23 +191,26 @@ const getScaleParams = (zones, key) => {
 
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
-const transform = (zones, graph) => {
+const transform = (zones, graph, isTestnetVisible) => {
   if (!zones || !graph) {
     return null;
   }
 
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
     zones,
-    'total_ibc_txs_weight',
+    isTestnetVisible ? 'total_ibc_txs_weight' : 'total_ibc_txs_mainnet_weight',
   );
-  const [minTxsWeight, txsScale] = getScaleParams(zones, 'total_txs_weight');
+  const [minTxsWeight, txsScale] = getScaleParams(
+    zones,
+    isTestnetVisible ? 'total_txs_weight' : 'total_txs_mainnet_weight',
+  );
   const [minIbcReceivedWeight, ibcReceivedScale] = getScaleParams(
     zones,
-    'ibc_tx_in_weight',
+    isTestnetVisible ? 'ibc_tx_in_weight' : 'ibc_tx_in_mainnet_weight',
   );
   const [minIbcSentWeight, ibcSentScale] = getScaleParams(
     zones,
-    'ibc_tx_out_weight',
+    isTestnetVisible ? 'ibc_tx_out_weight' : 'ibc_tx_out_mainnet_weight',
   );
 
   let zonesFormatted = zones.map(
@@ -209,30 +227,45 @@ const transform = (zones, graph) => {
       channels_cnt_active_period,
       channels_percent_active_period,
       total_ibc_txs_weight,
+      total_ibc_txs_mainnet_weight,
       total_txs_weight,
+      total_txs_mainnet_weight,
       ibc_tx_in_weight,
+      ibc_tx_in_mainnet_weight,
       ibc_tx_out_weight,
+      ibc_tx_out_mainnet_weight,
       total_txs_diff,
       total_ibc_txs_diff,
       ibc_tx_out_diff,
       ibc_tx_in_diff,
       total_txs_rating,
       total_txs_rating_diff,
+      total_txs_mainnet_rating,
+      total_txs_mainnet_rating_diff,
       total_ibc_txs_rating,
       total_ibc_txs_rating_diff,
+      total_ibc_txs_mainnet_rating,
+      total_ibc_txs_mainnet_rating_diff,
       ibc_tx_out_rating,
       ibc_tx_out_rating_diff,
+      ibc_tx_out_mainnet_rating,
+      ibc_tx_out_mainnet_rating_diff,
       ibc_tx_in_rating,
       ibc_tx_in_rating_diff,
+      ibc_tx_in_mainnet_rating,
+      ibc_tx_in_mainnet_rating_diff,
       total_active_addresses,
       total_active_addresses_diff,
       total_active_addresses_weight,
+      total_active_addresses_mainnet_weight,
       ibc_tx_failed,
       ibc_tx_out_failed,
       ibc_tx_in_failed,
       ibc_tx_failed_diff,
       total_active_addresses_rating,
       total_active_addresses_rating_diff,
+      total_active_addresses_mainnet_rating,
+      total_active_addresses_mainnet_rating_diff,
       is_zone_up_to_date,
       is_zone_mainnet,
       zone_readable_name,
@@ -258,39 +291,70 @@ const transform = (zones, graph) => {
         totalIbcTxsDiff: total_ibc_txs_diff,
         ibcSentDiff: ibc_tx_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
-        totalTxsRating: total_txs_rating,
-        totalTxsRatingDiff: total_txs_rating_diff,
-        totalIbcTxsRating: total_ibc_txs_rating,
-        totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
-        ibcSentRating: ibc_tx_out_rating,
-        ibcSentRatingDiff: ibc_tx_out_rating_diff,
-        ibcReceivedRating: ibc_tx_in_rating,
-        ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
+        totalTxsRating: isTestnetVisible
+          ? total_txs_rating
+          : total_txs_mainnet_rating,
+        totalTxsRatingDiff: isTestnetVisible
+          ? total_txs_rating_diff
+          : total_txs_mainnet_rating_diff,
+        totalIbcTxsRating: isTestnetVisible
+          ? total_ibc_txs_rating
+          : total_ibc_txs_mainnet_rating,
+        totalIbcTxsRatingDiff: isTestnetVisible
+          ? total_ibc_txs_rating_diff
+          : total_ibc_txs_mainnet_rating_diff,
+        ibcSentRating: isTestnetVisible
+          ? ibc_tx_out_rating
+          : ibc_tx_out_mainnet_rating,
+        ibcSentRatingDiff: isTestnetVisible
+          ? ibc_tx_out_rating_diff
+          : ibc_tx_out_mainnet_rating_diff,
+        ibcReceivedRating: isTestnetVisible
+          ? ibc_tx_in_rating
+          : ibc_tx_in_mainnet_rating,
+        ibcReceivedRatingDiff: isTestnetVisible
+          ? ibc_tx_in_rating_diff
+          : ibc_tx_in_mainnet_rating_diff,
         totalActiveAddresses: total_active_addresses,
         totalActiveAddressesDiff: total_active_addresses_diff,
-        totalActiveAddressesWeight: total_active_addresses_weight * 10 + 1,
+        totalActiveAddressesWeight:
+          (isTestnetVisible
+            ? total_active_addresses_weight
+            : total_active_addresses_mainnet_weight) *
+            10 +
+          1,
         ibcTxFailed: ibc_tx_failed,
         ibcTxOutFailed: ibc_tx_out_failed,
         ibcTxInFailed: ibc_tx_in_failed,
         ibcTxFailedDiff: ibc_tx_failed_diff,
-        totalActiveAddressesRating: total_active_addresses_rating,
-        totalActiveAddressesRatingDiff: total_active_addresses_rating_diff,
+        totalActiveAddressesRating: isTestnetVisible
+          ? total_active_addresses_rating
+          : total_active_addresses_mainnet_rating,
+        totalActiveAddressesRatingDiff: isTestnetVisible
+          ? total_active_addresses_rating_diff
+          : total_active_addresses_mainnet_rating_diff,
         color: total_ibc_txs
           ? getZoneColor(ibc_tx_out / total_ibc_txs)
           : DEFAULT_COLOR,
         ibcTxsWeight: getNodeWeight(
-          total_ibc_txs_weight,
+          isTestnetVisible
+            ? total_ibc_txs_weight
+            : total_ibc_txs_mainnet_weight,
           minIbcTxsWeight,
           ibcTxsScale,
         ),
-        txsWeight: getNodeWeight(total_txs_weight, minTxsWeight, txsScale),
+        txsWeight: getNodeWeight(
+          isTestnetVisible ? total_txs_weight : total_txs_mainnet_weight,
+          minTxsWeight,
+          txsScale,
+        ),
         ibcReceivedWeight: getNodeWeight(
-          ibc_tx_in_weight,
+          isTestnetVisible ? ibc_tx_in_weight : ibc_tx_in_mainnet_weight,
           minIbcReceivedWeight,
           ibcReceivedScale,
         ),
         ibcSentWeight: getNodeWeight(
-          ibc_tx_out_weight,
+          isTestnetVisible ? ibc_tx_out_weight : ibc_tx_out_mainnet_weight,
           minIbcSentWeight,
           ibcSentScale,
         ),
@@ -355,6 +419,7 @@ export const useZonesStat = (options, isTestnetVisible) => {
       transform(
         isTestnetVisible ? zones?.zones_stats : mainnetZones?.zones_stats,
         isTestnetVisible ? graph?.zones_graphs : mainnetGraph?.zones_graphs,
+        isTestnetVisible,
       ),
     [isTestnetVisible, mainnetZones, zones, mainnetGraph, graph],
   );
