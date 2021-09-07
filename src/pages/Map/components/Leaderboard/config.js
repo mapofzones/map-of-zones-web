@@ -98,7 +98,7 @@ const columns = [
     diffAccessor: 'totalActiveAddressesDiff',
     ratingAccessor: 'totalActiveAddressesRatingDiff',
     Cell: ({ cell }) =>
-      cell.value === null
+      cell.row.original.totalActiveAddresses === null
         ? '-'
         : formatNumber(cell.row.original.totalActiveAddresses),
     tooltip: 'Active addresses',
