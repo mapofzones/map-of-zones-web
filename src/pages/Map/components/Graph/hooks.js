@@ -143,7 +143,7 @@ export const useFocusedNodeNeighbors = (focusedNode, graph) =>
   useMemo(
     () =>
       focusedNode
-        ? graph.neighbors(focusedNode.id).map(id => graph.node(id))
+        ? (graph.neighbors(focusedNode.id) || []).map(id => graph.node(id))
         : null,
     [focusedNode, graph],
   );
