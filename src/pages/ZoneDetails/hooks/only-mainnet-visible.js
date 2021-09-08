@@ -11,8 +11,8 @@ export const useShowTestnet = () => {
   const toggleShowTestnet = useCallback(() => {
     const search = parse(location.search);
 
-    if (search.testnet) {
-      delete search.testnet;
+    if (search.testnet === 'true') {
+      search.testnet = false;
     } else {
       search.testnet = true;
     }
@@ -28,9 +28,10 @@ export const useShowTestnet = () => {
     }
   }, [history, location.search, location.state]);
 
-  const isTestnetVisible = useMemo(() => !!parse(location.search).testnet, [
-    location.search,
-  ]);
+  const isTestnetVisible = useMemo(
+    () => parse(location.search).testnet === 'true',
+    [location.search],
+  );
 
   return [isTestnetVisible, toggleShowTestnet];
 };

@@ -175,7 +175,7 @@ function Channel() {
       if (isTestnetVisible) {
         search.testnet = true;
       } else {
-        delete search.testnet;
+        search.testnet = false;
       }
 
       history.push(
