@@ -78,22 +78,9 @@ function Graph({
   const [graphData, setGraphData] = useState(data);
 
   useEffect(() => {
-    setGraphData(prevState => {
-      if (
-        prevState.graph._nodeCount !== data.graph._nodeCount ||
-        prevState.graph._edgeCount !== data.graph._edgeCount
-      ) {
-        return data;
-      }
-
-      return prevState;
-    });
-  }, [data]);
-
-  useEffect(() => {
     setGraphData(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [period]);
+  }, [period, data.graph._nodeCount, data.graph._edgeCount]);
 
   const [hoveredNode, setHoveredNode] = useState(null);
   const [draggedNode, setDraggedNode] = useState(null);
