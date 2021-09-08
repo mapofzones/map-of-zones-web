@@ -38,7 +38,7 @@ export const useNodeCanvasObject = (
   useCallback(
     (node, ctx, globalScale) => {
       const { x, y, name, color } = node;
-      const fontSize = 10 / globalScale;
+      const fontSize = Math.max(4, 10 / globalScale);
       const fontWeight = node.isZoneMainnet ? 600 : 500;
       const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
       const textWidth = ctx.measureText(nameInCamelCase).width;
