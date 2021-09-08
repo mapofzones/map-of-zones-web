@@ -175,7 +175,7 @@ const createGraph = (nodes, links) => {
   return g;
 };
 
-const getScaleParams = (zones, key) => {
+const getScaleParams = (zones, key, isTestnetVisible) => {
   const weights = zones.map(({ [key]: weight }) => weight).filter(Boolean);
 
   if (!weights.length) {
@@ -186,7 +186,7 @@ const getScaleParams = (zones, key) => {
   const min = weights.length === zones.length ? minWeight : minWeight / 2;
   const scale = min < 1 ? 1 / min : min;
 
-  return [min, scale];
+  return [min, scale * (isTestnetVisible ? 1 : 3)];
 };
 
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
@@ -199,18 +199,22 @@ const transform = (zones, graph, isTestnetVisible) => {
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
     zones,
     isTestnetVisible ? 'total_ibc_txs_weight' : 'total_ibc_txs_mainnet_weight',
+    isTestnetVisible,
   );
   const [minTxsWeight, txsScale] = getScaleParams(
     zones,
     isTestnetVisible ? 'total_txs_weight' : 'total_txs_mainnet_weight',
+    isTestnetVisible,
   );
   const [minIbcReceivedWeight, ibcReceivedScale] = getScaleParams(
     zones,
     isTestnetVisible ? 'ibc_tx_in_weight' : 'ibc_tx_in_mainnet_weight',
+    isTestnetVisible,
   );
   const [minIbcSentWeight, ibcSentScale] = getScaleParams(
     zones,
     isTestnetVisible ? 'ibc_tx_out_weight' : 'ibc_tx_out_mainnet_weight',
+    isTestnetVisible,
   );
 
   let zonesFormatted = zones.map(
@@ -320,7 +324,7 @@ const transform = (zones, graph, isTestnetVisible) => {
         totalActiveAddressesWeight:
           (isTestnetVisible
             ? total_active_addresses_weight
-            : total_active_addresses_mainnet_weight) *
+            : total_active_addresses_mainnet_weight || 0.15) *
             10 +
           1,
         ibcTxFailed: ibc_tx_failed,
