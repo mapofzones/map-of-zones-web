@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
-import { ReactComponent as ZoneStatusConnectedIcon } from 'assets/images/zone-status-connected.svg';
-import { ReactComponent as ZoneStatusProgressIcon } from 'assets/images/zone-status-in-progress.svg';
-import { ReactComponent as ZoneStatusNotConnectedIcon } from 'assets/images/zone-status-not-connected.svg';
-
 import styles from './index.module.css';
 
-const STATUS_ICON_BY_ZONE = {
-  null: ZoneStatusNotConnectedIcon,
-  true: ZoneStatusConnectedIcon,
-  false: ZoneStatusProgressIcon,
+const STATUS_ICON_COLOR_BY_ZONE = {
+  null: '#D76969',
+  true: '#5CA97B',
+  false: '#EABA82',
 };
 
 const STATUS_TITLE_BY_ZONE = {
@@ -22,8 +18,6 @@ const STATUS_TITLE_BY_ZONE = {
 const cx = classNames.bind(styles);
 
 export default function Status({ isZoneUpToDate }) {
-  const StatusIcon = STATUS_ICON_BY_ZONE[isZoneUpToDate];
-
   const [isFaded, setIsFaded] = useState(true);
 
   useEffect(() => {
@@ -44,14 +38,19 @@ export default function Status({ isZoneUpToDate }) {
 
   return (
     <div className={cx('zone-status-container')}>
-      {!!StatusIcon && (
-        <StatusIcon
-          className={cx('zone-status-icon', {
+      <div className={cx('zone-status')}>
+        <div
+          style={{ background: STATUS_ICON_COLOR_BY_ZONE[isZoneUpToDate] }}
+          className={cx('zone-status-icon-background', {
             'zone-status-icon-faded': isFaded,
             'zone-status-icon-fading': !isFaded,
           })}
         />
-      )}
+        <div
+          style={{ background: STATUS_ICON_COLOR_BY_ZONE[isZoneUpToDate] }}
+          className={cx('zone-status-icon')}
+        />
+      </div>
       <div className={cx('zone-status-tooltip')}>
         {STATUS_TITLE_BY_ZONE[isZoneUpToDate]}
       </div>
