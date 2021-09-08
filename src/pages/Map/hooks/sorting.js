@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
-const SORT_ORDER = {
+const ORDER_SORT = {
   true: 'desc',
   false: 'asc',
 };
@@ -15,8 +15,8 @@ export const useSorting = () => {
     newSort => {
       const search = parse(location.search);
 
-      search.orderBy = newSort.id;
-      search.sortOrder = SORT_ORDER[newSort.isSortedDesc] || 'ask';
+      search.tableOrderBy = newSort.id;
+      search.tableOrderSort = ORDER_SORT[newSort.isSortedDesc] || 'ask';
 
       if (location.search !== `?${stringify(search)}`) {
         history.push(`?${stringify(search)}`);
@@ -26,13 +26,13 @@ export const useSorting = () => {
   );
 
   const sort = useMemo(() => {
-    const { orderBy = 'totalIbcTxs', sortOrder = 'ask' } = parse(
+    const { tableOrderBy = 'totalIbcTxs', tableOrderSort = 'ask' } = parse(
       location.search,
     );
 
     return {
-      orderBy,
-      sortOrder,
+      tableOrderBy,
+      tableOrderSort,
     };
   }, [location.search]);
 
