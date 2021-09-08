@@ -17,7 +17,9 @@ const TOTAL_STAT_FRAGMENT = gql`
 
 const TOTAL_STAT_QUERY = gql`
   query TotalStat($period: Int!) {
-    headers(where: { timeframe: { _eq: $period } }) {
+    headers(
+      where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: false } }
+    ) {
       ...header
     }
   }
@@ -26,7 +28,9 @@ const TOTAL_STAT_QUERY = gql`
 
 const TOTAL_STAT_SUBSCRIPTION = gql`
   subscription TotalStat($period: Int!) {
-    headers(where: { timeframe: { _eq: $period } }) {
+    headers(
+      where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: false } }
+    ) {
       ...header
     }
   }
