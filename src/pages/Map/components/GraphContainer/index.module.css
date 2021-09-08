@@ -40,3 +40,10 @@
   color: #ffffff;
   margin-left: 8px;
 }
+
+@media (max-width: 540px) {
+  .switch-container {
+    top: 48px;
+    right: 16px;
+  }
+}
