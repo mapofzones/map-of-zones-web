@@ -14,7 +14,7 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-export const SORT_ORDER = [
+export const ORDER_SORT = [
   {
     label: <FormattedMessage id="order-default" defaultMessage="All" />,
     value: null,
@@ -111,7 +111,7 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
     });
   }, [setSortOrder, seFilterAmount, setTrendLine, applyFilter]);
   const selectedSortOrder = useMemo(
-    () => SORT_ORDER.find(({ value }) => value === sortOrder),
+    () => ORDER_SORT.find(({ value }) => value === sortOrder),
     [sortOrder],
   );
   const selectedFilterAmount = useMemo(
@@ -172,7 +172,7 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
         <Select
           value={selectedSortOrder}
           onChange={({ value }) => setSortOrder(value)}
-          options={SORT_ORDER}
+          options={ORDER_SORT}
           className={cx('dropdown')}
         />
         {sortOrder && (

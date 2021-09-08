@@ -25,8 +25,8 @@ function NodeTooltip({ node, period }) {
     const search = {
       period: period.hours,
       source: node.id,
-      orderBy: 'success',
-      sortOrder: 'desc',
+      tableOrderBy: 'success',
+      tableOrderSort: 'desc',
     };
 
     if (testnet === 'true') {

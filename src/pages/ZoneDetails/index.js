@@ -28,13 +28,13 @@ const PERIOD_BY_ID = {
   ibc_tx_30d_failed: 720,
 };
 
-const SORT_ORDER = {
+const ORDER_SORT = {
   true: 'desc',
   false: 'asc',
 };
 
-const getSortBy = (period, orderBy) => {
-  return SORT_BY_PERIOD[period] + (orderBy === 'success' ? '' : '_failed');
+const getSortBy = (period, tableOrderBy) => {
+  return SORT_BY_PERIOD[period] + (tableOrderBy === 'success' ? '' : '_failed');
 };
 
 const getOrderBy = columnId => {
@@ -61,15 +61,15 @@ function Channel() {
   }, [location.search]);
 
   const initialState = useMemo(() => {
-    const { period, orderBy = 'success', sortOrder = 'desc' } = parse(
+    const { period, tableOrderBy = 'success', tableOrderSort = 'desc' } = parse(
       location.search,
     );
 
     return {
       sortBy: [
         {
-          id: getSortBy(period, orderBy),
-          desc: sortOrder === 'desc',
+          id: getSortBy(period, tableOrderBy),
+          desc: tableOrderSort === 'desc',
         },
       ],
     };
@@ -103,8 +103,8 @@ function Channel() {
       const search = parse(location.search);
 
       search.period = PERIOD_BY_ID[sort.id];
-      search.orderBy = getOrderBy(sort.id);
-      search.sortOrder = SORT_ORDER[sort.isSortedDesc];
+      search.tableOrderBy = getOrderBy(sort.id);
+      search.tableOrderSort = ORDER_SORT[sort.isSortedDesc];
 
       if (location.search !== `?${stringify(search)}`) {
         history.push(`/zone?${stringify(search)}`, location.state);

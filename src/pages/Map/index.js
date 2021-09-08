@@ -20,7 +20,7 @@ import {
 } from './hooks';
 import columns from './components/Leaderboard/config';
 
-const SORT_ORDER = {
+const ORDER_SORT = {
   true: 'desc',
   false: 'asc',
 };
@@ -37,26 +37,26 @@ function Map() {
   const [currentFilter, setFilter] = useFilters(undefined);
 
   const sortedByColumn = useMemo(
-    () => columns.find(({ id }) => id === sort.orderBy),
-    [sort.orderBy],
+    () => columns.find(({ id }) => id === sort.tableOrderBy),
+    [sort.tableOrderBy],
   );
 
   const initialState = useMemo(
     () => ({
       sortBy: [
         {
-          id: sort.orderBy,
-          desc: SORT_ORDER[sort.sortOrder],
+          id: sort.tableOrderBy,
+          desc: ORDER_SORT[sort.tableOrderSort],
         },
       ],
     }),
-    [sort.orderBy, sort.sortOrder],
+    [sort.tableOrderBy, sort.tableOrderSort],
   );
 
-  const filter = useMemo(() => ({ ...currentFilter, columnId: sort.orderBy }), [
-    currentFilter,
-    sort.orderBy,
-  ]);
+  const filter = useMemo(
+    () => ({ ...currentFilter, columnId: sort.tableOrderBy }),
+    [currentFilter, sort.tableOrderBy],
+  );
   const options = useMemo(
     () => ({
       variables: {
@@ -123,7 +123,7 @@ function Map() {
           currentFilter={currentFilter}
           focusedZone={focusedZone}
           handleScroll={handleScroll}
-          isSortedDesc={SORT_ORDER[sort.sortOrder]}
+          isSortedDesc={ORDER_SORT[sort.tableOrderSort]}
           isTableOpened={isTableOpened}
           mapOpened={isMapFullscreen}
           period={period}
