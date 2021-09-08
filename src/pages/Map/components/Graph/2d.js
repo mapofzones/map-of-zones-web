@@ -90,6 +90,11 @@ function Graph({
     });
   }, [data]);
 
+  useEffect(() => {
+    setGraphData(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [period]);
+
   const [hoveredNode, setHoveredNode] = useState(null);
   const [draggedNode, setDraggedNode] = useState(null);
   // const [clickedNode, setClickedNode] = useState(null);
