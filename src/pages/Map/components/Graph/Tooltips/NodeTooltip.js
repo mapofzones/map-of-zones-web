@@ -29,8 +29,10 @@ function NodeTooltip({ node, period }) {
       sortOrder: 'desc',
     };
 
-    if (testnet) {
+    if (testnet === 'true') {
       search.testnet = true;
+    } else {
+      search.testnet = false;
     }
 
     history.push(`/zone?${stringify(search)}`, {
