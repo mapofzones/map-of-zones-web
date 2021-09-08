@@ -10,8 +10,8 @@ const STATUS_ICON_COLOR_BY_ZONE = {
 };
 
 const STATUS_TITLE_BY_ZONE = {
-  null: 'Not connected',
-  true: 'Connected',
+  null: 'Indirectly obtained data',
+  true: 'Connected & Up to date',
   false: 'Synchronizing',
 };
 
