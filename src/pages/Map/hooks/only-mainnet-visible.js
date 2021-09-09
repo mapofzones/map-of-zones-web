@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
@@ -32,6 +32,18 @@ export const useShowTestnet = () => {
     () => parse(location.search).testnet === 'true',
     [location.search],
   );
+
+  useEffect(() => {
+    const search = parse(location.search);
+
+    if (!search.testnet) {
+      search.testnet = false;
+
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`?${stringify(search)}`);
+      }
+    }
+  }, [history, location.search]);
 
   return [isTestnetVisible, toggleShowTestnet];
 };
