@@ -72,16 +72,17 @@ export const useNodeCanvasObject = (
       if (images[node.id]) {
         ctx.strokeStyle = color;
         ctx.beginPath();
+        ctx.lineWidth = 2;
         ctx.arc(x, y, r, 0, 2 * Math.PI, false);
         ctx.closePath();
         ctx.stroke();
 
         ctx.drawImage(
           images[node.id],
-          x - r + 2,
-          y - r + 2,
-          r * 2 - 4,
-          r * 2 - 4,
+          x - r + 3,
+          y - r + 3,
+          r * 2 - 6,
+          r * 2 - 6,
         );
       } else {
         ctx.beginPath();
