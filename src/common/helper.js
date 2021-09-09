@@ -17,8 +17,8 @@ export const getNodeColor = sentPercentage => {
     sentPercentage === 0.5
       ? 0.5
       : sentPercentage < 0.5
-      ? Math.abs(Math.sqrt(Math.abs(sentPercentage - 0.5)) * 1.4 - 0.5)
-      : 1 - Math.abs(Math.sqrt(sentPercentage - 0.5) * 1.4 - 0.5);
+      ? 0.5 - Math.pow(Math.abs(sentPercentage - 0.5), 1 / 3) / 1.59
+      : Math.pow(sentPercentage - 0.5, 1 / 3) / 1.59 + 0.5;
   return gradient.rgbAt(1 - (value || 0)).toHexString();
 };
 
