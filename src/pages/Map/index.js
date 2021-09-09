@@ -71,11 +71,7 @@ function Map() {
     zonesStat && zonesStat.nodes,
   );
 
-  const zonesStatFiltered = useZonesStatFiltered(
-    zonesStat,
-    filter,
-    focusedZone,
-  );
+  const zonesStatFiltered = useZonesStatFiltered(zonesStat, filter);
 
   const preSetFocusedZone = useCallback(
     zone => {

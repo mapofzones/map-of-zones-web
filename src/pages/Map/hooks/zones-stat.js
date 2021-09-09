@@ -429,12 +429,11 @@ export const useZonesStat = (options, isTestnetVisible) => {
   );
 };
 
-export const useZonesStatFiltered = (zonesStat, filter, focusedZone) => {
+export const useZonesStatFiltered = (zonesStat, filter) => {
   return useMemo(() => {
     if (
-      (filter?.columnId &&
-        ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)) ||
-      focusedZone
+      filter?.columnId &&
+      ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)
     ) {
       let nodes = [...(zonesStat?.nodes || [])];
       let links = [...(zonesStat?.links || [])];
@@ -470,16 +469,6 @@ export const useZonesStatFiltered = (zonesStat, filter, focusedZone) => {
           !!nodes.find(({ id }) => id === target),
       );
 
-      if (focusedZone) {
-        links = links.filter(
-          ({ source, target }) =>
-            source === focusedZone.id ||
-            target === focusedZone.id ||
-            source.id === focusedZone.id ||
-            target.id === focusedZone.id,
-        );
-      }
-
       return {
         nodes,
         links,
@@ -488,5 +477,5 @@ export const useZonesStatFiltered = (zonesStat, filter, focusedZone) => {
     }
 
     return zonesStat;
-  }, [filter, focusedZone, zonesStat]);
+  }, [filter, zonesStat]);
 };

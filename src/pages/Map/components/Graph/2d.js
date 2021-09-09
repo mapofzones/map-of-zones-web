@@ -11,6 +11,7 @@ import ForceGraph2D from 'react-force-graph-2d';
 import { FormattedMessage } from 'react-intl';
 import { forceCollide } from 'd3-force-3d';
 import { parse } from 'querystringify';
+import { useLocation } from 'react-router-dom';
 
 import { trackEvent } from 'common/helper';
 
@@ -38,7 +39,6 @@ import ZonesFilter from '../ZonesFilter';
 // import NodeModal from './Modal/NodeModal';
 
 import styles from './index.module.css';
-import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -156,15 +156,30 @@ function Graph({
       setIsRendered(true);
     }
 
-    if (focusedNode?.x && focusedNode?.y) {
-      fgRef.current.centerAt(focusedNode.x, focusedNode.y, 500);
+    if (focusedNode) {
+      let { x, y } = focusedNode;
 
-      if (!isRendered) {
-        setTimeout(() => {
-          setIsRendered(true);
-          fgRef.current.centerAt(focusedNode.x, focusedNode.y, 2000);
-        }, 2000);
+      if (!x || !y) {
+        const nodeCoords = fgRef.current.getGraphBbox(
+          ({ id }) => id === focusedNode.id,
+        );
+
+        x = (nodeCoords.x[0] + nodeCoords.x[1]) / 2;
+        y = (nodeCoords.y[0] + nodeCoords.y[1]) / 2;
       }
+
+      if (x && y) {
+        fgRef.current.centerAt(x, y, 500);
+
+        if (!isRendered) {
+          setTimeout(() => {
+            setIsRendered(true);
+            fgRef.current.centerAt(x, y, 2000);
+          }, 2000);
+        }
+      }
+    } else {
+      fgRef.current.centerAt(0, 0, 500);
     }
 
     zoom(zoomValue(graphData.nodes.length));
@@ -206,9 +221,19 @@ function Graph({
     },
     [focusedNode, focusedNodeNeighbors],
   );
-  const onLinkHover = useCallback(link => setHoveredLink(link), [
-    setHoveredLink,
-  ]);
+  const onLinkHover = useCallback(
+    link => {
+      if (
+        !link ||
+        !focusedNode ||
+        link.source?.id === focusedNode?.id ||
+        link.target?.id === focusedNode?.id
+      ) {
+        setHoveredLink(link);
+      }
+    },
+    [focusedNode],
+  );
   const toggleFilter = useCallback(
     () => setShowFilter(prevState => !prevState),
     [setShowFilter],
