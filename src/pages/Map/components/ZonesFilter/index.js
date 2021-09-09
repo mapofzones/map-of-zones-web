@@ -115,7 +115,8 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
     [sortOrder],
   );
   const selectedFilterAmount = useMemo(
-    () => FILTER_AMOUNT.find(({ value }) => value === filterAmount),
+    () =>
+      FILTER_AMOUNT.find(({ value }) => value === parseInt(filterAmount, 10)),
     [filterAmount],
   );
   const selectedTrendLine = useMemo(
