@@ -16,7 +16,7 @@ export const useSorting = () => {
       const search = parse(location.search);
 
       search.tableOrderBy = newSort.id;
-      search.tableOrderSort = ORDER_SORT[newSort.isSortedDesc] || 'ask';
+      search.tableOrderSort = ORDER_SORT[newSort.isSortedDesc] || 'asc';
 
       if (location.search !== `?${stringify(search)}`) {
         history.push(`?${stringify(search)}`);
@@ -26,7 +26,7 @@ export const useSorting = () => {
   );
 
   const sort = useMemo(() => {
-    const { tableOrderBy = 'totalIbcTxs', tableOrderSort = 'ask' } = parse(
+    const { tableOrderBy = 'totalIbcTxs', tableOrderSort = 'asc' } = parse(
       location.search,
     );
 
