@@ -60,11 +60,15 @@ function Leaderboard({
   const initialSortBy = useMemo(() => initialState?.sortBy?.[0], [
     initialState,
   ]);
-  const sortedColumn = columns.find(({ isSorted }) => isSorted);
+  const sortedColumn = useMemo(() => columns.find(({ isSorted }) => isSorted), [
+    columns,
+  ]);
 
   useEffect(() => {
     onSortChange({ ...sortedColumn });
+  }, [sortedColumn, onSortChange]);
 
+  useEffect(() => {
     if (sortBy !== initialSortBy) {
       trackEvent({
         category: 'Table',
@@ -73,7 +77,7 @@ function Leaderboard({
         extra: { direction: sortBy?.desc ? 'desc' : 'asc' },
       });
     }
-  }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
+  }, [initialSortBy, sortBy, sortedColumn.id]);
 
   useEffect(() => {
     let table = document.documentElement.querySelector('table');
