@@ -3,8 +3,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
 const ORDER_SORT = {
-  true: 'desc',
-  false: 'asc',
+  true: 'asc', // swap for querystring misleading
+  false: 'desc', // swap for querystring misleading
 };
 
 export const useSorting = () => {
@@ -16,7 +16,8 @@ export const useSorting = () => {
       const search = parse(location.search);
 
       search.tableOrderBy = newSort.id;
-      search.tableOrderSort = ORDER_SORT[newSort.isSortedDesc] || 'asc';
+      search.tableOrderSort =
+        ORDER_SORT[newSort.isSortedDesc] || ORDER_SORT[false];
 
       if (location.search !== `?${stringify(search)}`) {
         history.push(`?${stringify(search)}`);
