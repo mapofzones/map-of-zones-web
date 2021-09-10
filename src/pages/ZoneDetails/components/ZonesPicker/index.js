@@ -40,7 +40,8 @@ function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
   const data = useMemo(
     () =>
       removeDuplicatedZoneCounerparties(zoneStat.nodes).map(
-        ({ zone_counerparty }) => zone_counerparty,
+        ({ zone_counterparty_readable_name }) =>
+          zone_counterparty_readable_name,
       ),
     [zoneStat],
   );
