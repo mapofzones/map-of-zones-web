@@ -120,7 +120,7 @@ function Footer() {
           <span className={cx('socialName')}>support@mapofzones.com</span>
         </a>
         <a
-          href="TODO: add link"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSczp-YbmECgX3_DsycgHVsZiJlQZLhB46jFfchQKPxiwFR4ig/viewform?usp=sf_link"
           target="_blank"
           rel="noopener noreferrer"
           className={cx('link', 'socialLink', 'contactUsLink')}
