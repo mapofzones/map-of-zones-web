@@ -18,6 +18,10 @@ export const useFocusedZone = nodes => {
 
   const [focusedZone, setFocusedZone] = useState(undefined);
 
+  const zoneFromSearch = useMemo(() => parse(location.search).zone, [
+    location.search,
+  ]);
+
   const updateZone = useCallback(
     zone => {
       if (zone && nodes) {
@@ -56,6 +60,18 @@ export const useFocusedZone = nodes => {
       updateZone(undefined);
     }
   }, [period, prevPeriod, updateZone]);
+
+  useEffect(() => {
+    if (zoneFromSearch && nodes) {
+      const matchedZone = nodes.find(({ id }) => zoneFromSearch === id);
+
+      if (matchedZone) {
+        setFocusedZone(matchedZone);
+      }
+    } else {
+      setFocusedZone(undefined);
+    }
+  }, [nodes, zoneFromSearch, setFocusedZone]);
 
   return [focusedZone, updateZone];
 };
