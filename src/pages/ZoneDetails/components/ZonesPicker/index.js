@@ -20,7 +20,7 @@ function Zone({ item, onClick, isSelected }) {
       role="button"
       onClick={() => onClick(item)}
     >
-      {item}
+      {item.zone_counterparty_readable_name}
       {isSelected && <CheckIcon />}
     </div>
   );
@@ -28,22 +28,14 @@ function Zone({ item, onClick, isSelected }) {
 
 function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
   const targets = useMemo(
-    () =>
-      removeDuplicatedZoneCounerparties(zoneStat.selectedNodes).map(
-        ({ zone_counterparty_readable_name }) =>
-          zone_counterparty_readable_name,
-      ),
+    () => removeDuplicatedZoneCounerparties(zoneStat.selectedNodes),
     [zoneStat],
   );
 
   const [selectedItems, setSelectedItems] = useState(targets);
 
   const data = useMemo(
-    () =>
-      removeDuplicatedZoneCounerparties(zoneStat.nodes).map(
-        ({ zone_counterparty_readable_name }) =>
-          zone_counterparty_readable_name,
-      ),
+    () => removeDuplicatedZoneCounerparties(zoneStat.nodes),
     [zoneStat],
   );
 
@@ -129,7 +121,7 @@ function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
           {data.map(item => (
             <Zone
               item={item}
-              key={item}
+              key={item.zone_counterparty}
               isSelected={selectedItems.find(i => i === item)}
               onClick={onSelectZone}
             />

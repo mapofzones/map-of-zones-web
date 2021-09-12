@@ -36,8 +36,8 @@ function Header({
       return targets[0].name[0].toUpperCase() + targets[0].name.substring(1);
     }
 
-    return '';
-  }, [targets]);
+    return source;
+  }, [source, targets]);
 
   const sourceURL = useMemo(() => targets?.[0]?.zone_label_url2, [targets]);
 
