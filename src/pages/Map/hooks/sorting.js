@@ -16,8 +16,7 @@ export const useSorting = () => {
       const search = parse(location.search);
 
       search.tableOrderBy = newSort.id;
-      search.tableOrderSort =
-        ORDER_SORT[newSort.isSortedDesc] || ORDER_SORT[false];
+      search.tableOrderSort = ORDER_SORT[!!newSort.desc] || ORDER_SORT[false];
 
       if (location.search !== `?${stringify(search)}`) {
         history.push(`?${stringify(search)}`);

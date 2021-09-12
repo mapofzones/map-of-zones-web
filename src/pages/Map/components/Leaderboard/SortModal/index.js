@@ -18,10 +18,12 @@ function SortModal({
   updateSelection,
 }) {
   const [index, setIndex] = useState(selectedIndex);
+
   const onChange = useCallback(
     selected => setIndex(data.findIndex(({ id }) => id === selected.id)),
     [setIndex, data],
   );
+
   const applyChanges = useCallback(() => updateSelection(index), [
     updateSelection,
     index,
