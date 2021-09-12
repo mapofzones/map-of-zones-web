@@ -156,7 +156,9 @@ function Channel() {
       ) {
         const search = parse(location.search);
 
-        search.targets = newTargets.join(',');
+        search.targets = newTargets
+          .map(({ zone_counerparty }) => zone_counerparty)
+          .join(',');
 
         history.push(`/zone?${stringify(search)}`, location.state);
       }
