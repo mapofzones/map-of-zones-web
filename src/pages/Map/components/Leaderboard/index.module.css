@@ -515,6 +515,10 @@ tbody.bodyWithFocus.focusFixed .row {
   visibility: visible;
 }
 
+.fixed-header-container {
+  height: 28px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
