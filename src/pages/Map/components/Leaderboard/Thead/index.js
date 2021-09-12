@@ -27,7 +27,10 @@ const Thead = ({
       id={fixed ? 'fixed-header' : ''}
     >
       {headerGroups.map(headerGroup => (
-        <tr {...headerGroup.getHeaderGroupProps()}>
+        <tr
+          className={cx('fixed-header-container')}
+          {...headerGroup.getHeaderGroupProps()}
+        >
           {headerGroup.headers.map(column => (
             <th
               {...column.getHeaderProps(column.getSortByToggleProps())}
