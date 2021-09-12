@@ -60,13 +60,11 @@ function Leaderboard({
   const initialSortBy = useMemo(() => initialState?.sortBy?.[0], [
     initialState,
   ]);
-  const sortedColumn = useMemo(() => columns.find(({ isSorted }) => isSorted), [
-    columns,
-  ]);
+  const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
   useEffect(() => {
-    onSortChange({ ...sortedColumn });
-  }, [sortedColumn, onSortChange]);
+    onSortChange({ id: sortBy.id, desc: sortBy.desc });
+  }, [sortBy.id, sortBy.desc, onSortChange]);
 
   useEffect(() => {
     if (sortBy !== initialSortBy) {
