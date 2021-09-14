@@ -151,9 +151,15 @@ function Channel() {
   const selectZones = useCallback(
     newTargets => {
       if (
-        newTargets.length !==
+        newTargets.length ===
         removeDuplicatedZoneCounerparties(zoneStat.nodes).length
       ) {
+        const search = parse(location.search);
+
+        delete search.targets;
+
+        history.push(`/zone?${stringify(search)}`, location.state);
+      } else {
         const search = parse(location.search);
 
         search.targets = newTargets
