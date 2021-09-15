@@ -1,12 +1,46 @@
 .content {
+  padding: 50px;
   max-height: 100vh;
-  height: 100vh;
   min-width: 220px;
-  right: 0;
+  max-width: 550px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
+}
+
+.content h1 {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 39px;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.content h2 {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14px;
+  color: #828282;
+  margin-top: 0;
+  margin-bottom: 34px;
+}
+
+h2 a {
+  color: #000 !important;
+  cursor: pointer;
+}
+
+.required-label {
+  display: block;
+  float: right;
+}
+
+.required-label:before {
+  margin-left: 0.3rem;
+  content: '*';
+  color: #dc3545;
+  font-size: initial;
 }
 
 .wrapper {
@@ -93,13 +127,6 @@
   margin-left: 3px;
 }
 
-.required-label:after {
-  margin-left: 0.3rem;
-  content: '*';
-  color: #dc3545;
-  font-size: initial;
-}
-
 :global .icon {
   color: #7eb4ef;
 }
@@ -109,15 +136,19 @@
 }
 
 .my-button__green {
+  padding: 12px;
   color: #fff;
   border-radius: 2px;
-  background: #219653;
-  padding: 10px;
-  margin: 0 auto;
+  background-color: #4f4f4f;
+  margin: 35px auto 0 auto;
   text-align: center;
   cursor: pointer;
   border: 1px solid #219653;
   box-sizing: border-box;
+}
+
+.my-button_disabled {
+  background-color: #4f4f4f;
 }
 
 .sub-section-title-wrapper {

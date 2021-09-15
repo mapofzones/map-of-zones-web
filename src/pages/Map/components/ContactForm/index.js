@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 
 import styles from './index.module.css';
 import useAlerts from '../../../../components/Alerts';
-import { Textbox } from 'react-inputs-validation';
+import { Textbox, Textarea } from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 
 const cx = classNames.bind(styles);
@@ -18,22 +18,25 @@ const emailPattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\
 
 const rowStyle = {
   display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'space-between',
-  padding: '2%',
+  flexDirection: 'column',
   fontSize: '14px',
 };
 const rowWrapperStyle = {
   display: 'table',
   width: '100%',
+  marginBottom: '27px',
 };
 const rowContainerStyle = {
   display: 'table-cell',
   verticalAlign: 'middle',
-  borderBottom: '1px solid #e5e5e5',
 };
 const labelStyle = {
   display: 'inline-block',
+  marginBottom: '5px',
+  color: '#828282',
+  fontWeight: '600',
+  fontSize: '12px',
+  lineHeight: '19px',
 };
 const labelContentStyle = {
   verticalAlign: 'middle',
@@ -57,9 +60,8 @@ function ContactForm({ isOpen, onRequestClose }) {
   const [alerts, success, danger] = useAlerts();
 
   const handleSubmit = event => {
-    event.preventDefault();
-    setValidate(true);
-
+    // event.preventDefault();
+    // setValidate(true);
     // if (!all valid) {
     // axios
     //   .post(googleContactFormURI, {
@@ -82,8 +84,8 @@ function ContactForm({ isOpen, onRequestClose }) {
       onRequestClose={onRequestClose}
       contentClassName={cx('content')}
       animations={{
-        afterOpen: 'animate__slideInRight',
-        beforeClose: 'animate__slideOutRight',
+        afterOpen: 'animate__slideInTop',
+        beforeClose: 'animate__slideOutTop',
         overlayAfterOpen: 'overlayFadeIn',
         overlayBeforeClose: 'overlayFadeOut',
       }}
@@ -93,9 +95,18 @@ function ContactForm({ isOpen, onRequestClose }) {
         <h2>
           Please fill out the form below and our team will expedite the process
           of lighting up your Zone on the{' '}
-          <a className={cx('bold-link')}>mapofzones.com</a> Any information you
-          may consider relevant is encouraged to be provided in the “Auxiliary
-          information” section.
+          <a
+            href="https://mapofzones.com"
+            target="_blank
+          "
+            className={cx('bold-link')}
+          >
+            mapofzones.com
+          </a>
+          <br />
+          <br />
+          Any information you may consider relevant is encouraged to be provided
+          in the “Auxiliary information” section.
         </h2>
         <form onSubmit={handleSubmit}>
           <div style={rowWrapperStyle}>
@@ -104,30 +115,29 @@ function ContactForm({ isOpen, onRequestClose }) {
                 <div
                   style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
                 >
-                  <span
-                    className="icon icon-person"
-                    style={{ ...labelContentStyle, fontSize: '20px' }}
-                  />
-                  &nbsp;
-                  <span style={labelContentStyle} className="required-label">
-                    Website or GitHub
-                  </span>
+                  <span className="required-label">Website or GitHub</span>
                 </div>
                 <div style={{ flex: '6 6 0px' }}>
                   <Textbox
-                    attributesWrapper={{}}
+                    customStyleInput={{
+                      padding: '17px 13px',
+                      backgroundColor: '#E0E0E0',
+                    }}
                     attributesInput={{
-                      name: 'webSite',
+                      id: 'webSite',
                       type: 'text',
                       placeholder: 'i. e. https://example.com',
                     }}
+                    onBlur={e => {}}
                     value={state.webSite}
-                    validate={validate}
+                    // validate={validate}
                     onChange={value => {
                       setState({ webSite: value });
                     }}
                     validationOption={{
                       reg: sitePattern,
+                      regMsg: 'Please enter a valid Website or GitHub',
+                      required: true,
                       max: 50,
                     }}
                   />
@@ -141,28 +151,29 @@ function ContactForm({ isOpen, onRequestClose }) {
                 <div
                   style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
                 >
-                  <span
-                    className="icon icon-person"
-                    style={{ ...labelContentStyle, fontSize: '20px' }}
-                  />
-                  &nbsp;
                   <span style={labelContentStyle}>Zone RPC</span>
                 </div>
                 <div style={{ flex: '6 6 0px' }}>
                   <Textbox
                     attributesWrapper={{}}
+                    customStyleInput={{
+                      padding: '17px 13px',
+                      backgroundColor: '#F4F4F5',
+                    }}
                     attributesInput={{
                       name: 'zoneRPC',
                       type: 'text',
                       placeholder: 'i. e. https://123.45.67.89:26657',
                     }}
                     value={state.zoneRPC}
-                    validate={validate}
+                    onBlur={e => {}}
+                    // validate={validate}
                     onChange={value => {
                       setState({ zoneRPC: value });
                     }}
                     validationOption={{
                       reg: zoneRPCPattern,
+                      regMsg: 'Please enter a valid Zone RPC',
                       max: 50,
                       required: false,
                     }}
@@ -177,21 +188,21 @@ function ContactForm({ isOpen, onRequestClose }) {
                 <div
                   style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
                 >
-                  <span
-                    className="icon icon-person"
-                    style={{ ...labelContentStyle, fontSize: '20px' }}
-                  />
-                  &nbsp;
                   <span style={labelContentStyle}>Your Contacts</span>
                 </div>
                 <div style={{ flex: '6 6 0px' }}>
                   <Textbox
                     attributesWrapper={{}}
+                    customStyleInput={{
+                      padding: '17px 13px',
+                      backgroundColor: '#F4F4F5',
+                    }}
                     attributesInput={{
                       name: 'contacts',
                       type: 'text',
                       placeholder: 'i. e. Telegram, Twitter or Email',
                     }}
+                    onBlur={e => {}}
                     value={state.contacts}
                     validate={validate}
                     onChange={value => {
@@ -199,6 +210,7 @@ function ContactForm({ isOpen, onRequestClose }) {
                     }}
                     validationOption={{
                       reg: emailPattern,
+                      regMsg: 'Please enter a valid contact',
                       max: 100,
                       required: false,
                     }}
@@ -213,18 +225,18 @@ function ContactForm({ isOpen, onRequestClose }) {
                 <div
                   style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
                 >
-                  <span
-                    className="icon icon-person"
-                    style={{ ...labelContentStyle, fontSize: '20px' }}
-                  />
-                  &nbsp;
                   <span style={labelContentStyle}>Auxiliary info</span>
                 </div>
                 <div style={{ flex: '6 6 0px' }}>
-                  <Textbox
+                  <Textarea
                     attributesWrapper={{}}
+                    customStyleInput={{
+                      padding: '17px 13px',
+                      backgroundColor: '#F4F4F5',
+                    }}
                     attributesInput={{
                       name: 'auxiliaryInfo',
+                      rows: 6,
                       placeholder:
                         'i. e. links to repositories, logo files, style guidelines, preferred communication channels and other information',
                     }}
@@ -244,7 +256,12 @@ function ContactForm({ isOpen, onRequestClose }) {
           </div>
           <div style={{ height: '10px' }} />
           <div
-            className={cx('my-button', 'my-button__green', 'save-button')}
+            className={cx(
+              'my-button',
+              'my-button__green',
+              'save-button',
+              'button_disabled',
+            )}
             onClick={handleSubmit}
           >
             Submit
