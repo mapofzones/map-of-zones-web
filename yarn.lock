@@ -10576,6 +10576,11 @@ react-input-autosize@^2.2.2:
   dependencies:
     prop-types "^15.5.8"
 
+react-inputs-validation@^4.8.3:
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/react-inputs-validation/-/react-inputs-validation-4.8.3.tgz#a733f5cb31310c696ea3c646ec5a2deae3f42e6d"
+  integrity sha512-Hx+Mv5mFF8cmIgPxHAe72JEgXMcCYR69p0dFqcFIUtlHpRHuj4gzjSBzXrnbcTUX6BvPxYpkE6nbdwAcTiCXPw==
+
 react-intl@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-4.3.1.tgz#a56ae90aa76bf8cac992606002dc8cbf1276ed7d"
@@ -10781,6 +10786,16 @@ react-transition-group@^4.3.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
   integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
+
+react-transition-group@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
+  integrity sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==
   dependencies:
     "@babel/runtime" "^7.5.5"
     dom-helpers "^5.0.1"
