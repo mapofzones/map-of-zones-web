@@ -68,7 +68,7 @@ function ContactForm({
     zoneRPC: '',
     contacts: '',
     auxiliaryInfo: '',
-    hasWebSiteError: false,
+    hasWebSiteError: true,
     hasZoneError: false,
     hasContactError: false,
     hasWebSiteTouch: false,

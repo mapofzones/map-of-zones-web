@@ -152,6 +152,7 @@ h2 a {
 
 .my-button_disabled {
   background-color: #4f4f4f;
+  cursor: not-allowed;
 }
 
 .sub-section-title-wrapper {
