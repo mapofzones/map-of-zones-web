@@ -7,6 +7,7 @@ import styles from './index.module.css';
 import useAlerts from '../../../../components/Alerts';
 import { Textbox, Textarea } from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
+import { ReactComponent as CloseIcon } from '../../../../assets/images/close-btn.svg';
 
 const cx = classNames.bind(styles);
 
@@ -91,165 +92,176 @@ function ContactForm({ isOpen, onRequestClose }) {
       }}
     >
       <div>
-        <h1>Let’s make your Star shining bright</h1>
-        <h2>
-          Please fill out the form below and our team will expedite the process
-          of lighting up your Zone on the{' '}
-          <a
-            href="https://mapofzones.com"
-            target="_blank
-          "
-            className={cx('bold-link')}
+        <div className={cx('mobile-wrapper')}>
+          <button
+            type="button"
+            onClick={onRequestClose}
+            className={cx('closeButton')}
           >
-            mapofzones.com
-          </a>
-          <br />
-          <br />
-          Any information you may consider relevant is encouraged to be provided
-          in the “Auxiliary information” section.
-        </h2>
+            <CloseIcon />
+          </button>
+          <h1>Let’s make your Star shining bright</h1>
+          <h2>
+            Please fill out the form below and our team will expedite the
+            process of lighting up your Zone on the{' '}
+            <a
+              href="https://mapofzones.com"
+              target="_blank
+          "
+              className={cx('bold-link')}
+            >
+              mapofzones.com
+            </a>
+            <br />
+            <br />
+            Any information you may consider relevant is encouraged to be
+            provided in the “Auxiliary information” section.
+          </h2>
+        </div>
         <form onSubmit={handleSubmit}>
-          <div style={rowWrapperStyle}>
-            <div style={rowContainerStyle}>
-              <div style={rowStyle}>
-                <div
-                  style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
-                >
-                  <span className="required-label">Website or GitHub</span>
-                </div>
-                <div style={{ flex: '6 6 0px' }}>
-                  <Textbox
-                    customStyleInput={{
-                      padding: '17px 13px',
-                      backgroundColor: '#E0E0E0',
-                    }}
-                    attributesInput={{
-                      id: 'webSite',
-                      type: 'text',
-                      placeholder: 'i. e. https://example.com',
-                    }}
-                    onBlur={e => {}}
-                    value={state.webSite}
-                    // validate={validate}
-                    onChange={value => {
-                      setState({ webSite: value });
-                    }}
-                    validationOption={{
-                      reg: sitePattern,
-                      regMsg: 'Please enter a valid Website or GitHub',
-                      required: true,
-                      max: 50,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div style={rowWrapperStyle}>
-            <div style={rowContainerStyle}>
-              <div style={rowStyle}>
-                <div
-                  style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
-                >
-                  <span style={labelContentStyle}>Zone RPC</span>
-                </div>
-                <div style={{ flex: '6 6 0px' }}>
-                  <Textbox
-                    attributesWrapper={{}}
-                    customStyleInput={{
-                      padding: '17px 13px',
-                      backgroundColor: '#F4F4F5',
-                    }}
-                    attributesInput={{
-                      name: 'zoneRPC',
-                      type: 'text',
-                      placeholder: 'i. e. https://123.45.67.89:26657',
-                    }}
-                    value={state.zoneRPC}
-                    onBlur={e => {}}
-                    // validate={validate}
-                    onChange={value => {
-                      setState({ zoneRPC: value });
-                    }}
-                    validationOption={{
-                      reg: zoneRPCPattern,
-                      regMsg: 'Please enter a valid Zone RPC',
-                      max: 50,
-                      required: false,
-                    }}
-                  />
+          <div className={cx('mobile-wrapper')}>
+            <div style={rowWrapperStyle}>
+              <div style={rowContainerStyle}>
+                <div style={rowStyle}>
+                  <div
+                    style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
+                  >
+                    <span className="required-label">Website or GitHub</span>
+                  </div>
+                  <div style={{ flex: '6 6 0px' }}>
+                    <Textbox
+                      customStyleInput={{
+                        padding: '17px 13px',
+                        backgroundColor: '#E0E0E0',
+                      }}
+                      attributesInput={{
+                        id: 'webSite',
+                        type: 'text',
+                        placeholder: 'i. e. https://example.com',
+                      }}
+                      onBlur={e => {}}
+                      value={state.webSite}
+                      // validate={validate}
+                      onChange={value => {
+                        setState({ webSite: value });
+                      }}
+                      validationOption={{
+                        reg: sitePattern,
+                        regMsg: 'Please enter a valid Website or GitHub',
+                        required: true,
+                        max: 50,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div style={rowWrapperStyle}>
-            <div style={rowContainerStyle}>
-              <div style={rowStyle}>
-                <div
-                  style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
-                >
-                  <span style={labelContentStyle}>Your Contacts</span>
-                </div>
-                <div style={{ flex: '6 6 0px' }}>
-                  <Textbox
-                    attributesWrapper={{}}
-                    customStyleInput={{
-                      padding: '17px 13px',
-                      backgroundColor: '#F4F4F5',
-                    }}
-                    attributesInput={{
-                      name: 'contacts',
-                      type: 'text',
-                      placeholder: 'i. e. Telegram, Twitter or Email',
-                    }}
-                    onBlur={e => {}}
-                    value={state.contacts}
-                    validate={validate}
-                    onChange={value => {
-                      setState({ contacts: value });
-                    }}
-                    validationOption={{
-                      reg: emailPattern,
-                      regMsg: 'Please enter a valid contact',
-                      max: 100,
-                      required: false,
-                    }}
-                  />
+            <div style={rowWrapperStyle}>
+              <div style={rowContainerStyle}>
+                <div style={rowStyle}>
+                  <div
+                    style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
+                  >
+                    <span style={labelContentStyle}>Zone RPC</span>
+                  </div>
+                  <div style={{ flex: '6 6 0px' }}>
+                    <Textbox
+                      attributesWrapper={{}}
+                      customStyleInput={{
+                        padding: '17px 13px',
+                        backgroundColor: '#F4F4F5',
+                      }}
+                      attributesInput={{
+                        name: 'zoneRPC',
+                        type: 'text',
+                        placeholder: 'i. e. https://123.45.67.89:26657',
+                      }}
+                      value={state.zoneRPC}
+                      onBlur={e => {}}
+                      // validate={validate}
+                      onChange={value => {
+                        setState({ zoneRPC: value });
+                      }}
+                      validationOption={{
+                        reg: zoneRPCPattern,
+                        regMsg: 'Please enter a valid Zone RPC',
+                        max: 50,
+                        required: false,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div style={rowWrapperStyle}>
-            <div style={rowContainerStyle}>
-              <div style={rowStyle}>
-                <div
-                  style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
-                >
-                  <span style={labelContentStyle}>Auxiliary info</span>
+            <div style={rowWrapperStyle}>
+              <div style={rowContainerStyle}>
+                <div style={rowStyle}>
+                  <div
+                    style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
+                  >
+                    <span style={labelContentStyle}>Your Contacts</span>
+                  </div>
+                  <div style={{ flex: '6 6 0px' }}>
+                    <Textbox
+                      attributesWrapper={{}}
+                      customStyleInput={{
+                        padding: '17px 13px',
+                        backgroundColor: '#F4F4F5',
+                      }}
+                      attributesInput={{
+                        name: 'contacts',
+                        type: 'text',
+                        placeholder: 'i. e. Telegram, Twitter or Email',
+                      }}
+                      onBlur={e => {}}
+                      value={state.contacts}
+                      validate={validate}
+                      onChange={value => {
+                        setState({ contacts: value });
+                      }}
+                      validationOption={{
+                        reg: emailPattern,
+                        regMsg: 'Please enter a valid contact',
+                        max: 100,
+                        required: false,
+                      }}
+                    />
+                  </div>
                 </div>
-                <div style={{ flex: '6 6 0px' }}>
-                  <Textarea
-                    attributesWrapper={{}}
-                    customStyleInput={{
-                      padding: '17px 13px',
-                      backgroundColor: '#F4F4F5',
-                    }}
-                    attributesInput={{
-                      name: 'auxiliaryInfo',
-                      rows: 6,
-                      placeholder:
-                        'i. e. links to repositories, logo files, style guidelines, preferred communication channels and other information',
-                    }}
-                    value={state.auxiliaryInfo}
-                    validate={validate}
-                    onChange={value => {
-                      setState({ auxiliaryInfo: value });
-                    }}
-                    validationOption={{
-                      max: 500,
-                      required: false,
-                    }}
-                  />
+              </div>
+            </div>
+            <div style={rowWrapperStyle}>
+              <div style={rowContainerStyle}>
+                <div style={rowStyle}>
+                  <div
+                    style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
+                  >
+                    <span style={labelContentStyle}>Auxiliary info</span>
+                  </div>
+                  <div style={{ flex: '6 6 0px' }}>
+                    <Textarea
+                      attributesWrapper={{}}
+                      customStyleInput={{
+                        padding: '17px 13px',
+                        backgroundColor: '#F4F4F5',
+                      }}
+                      attributesInput={{
+                        name: 'auxiliaryInfo',
+                        rows: 6,
+                        placeholder:
+                          'i. e. links to repositories, logo files, style guidelines, preferred communication channels and other information',
+                      }}
+                      value={state.auxiliaryInfo}
+                      validate={validate}
+                      onChange={value => {
+                        setState({ auxiliaryInfo: value });
+                      }}
+                      validationOption={{
+                        max: 500,
+                        required: false,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

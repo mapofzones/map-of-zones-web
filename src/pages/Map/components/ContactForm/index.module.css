@@ -143,7 +143,6 @@ h2 a {
   margin: 35px auto 0 auto;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #219653;
   box-sizing: border-box;
 }
 
@@ -194,10 +193,29 @@ body {
   .content {
     width: 100%;
     max-width: 100vw;
+    padding: 11px 0 0;
+    overflow: scroll;
+  }
+
+  .mobile-wrapper {
+    padding: 0 25px;
+  }
+
+  .my-button {
+    font-size: 16px;
+  }
+
+  .my-button__green {
+    padding: 25px;
+  }
+
+  .content h1 {
+    font-size: 18px;
   }
 
   .closeButton {
     display: flex;
+    margin-left: auto;
   }
 
   .titleContainer {
