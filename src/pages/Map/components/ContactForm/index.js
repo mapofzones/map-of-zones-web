@@ -57,13 +57,7 @@ function ContactForm({
     ...updatedProperty,
   });
 
-  const handleShowCircleTimer = () => {
-    onRequestClose();
-    handleShowCircle();
-    setTimeout(handleCloseCircle, 3000);
-  };
-
-  const [state, setState] = useReducer(reducer, {
+  const initialState = {
     webSite: '',
     zoneRPC: '',
     contacts: '',
@@ -74,12 +68,21 @@ function ContactForm({
     hasWebSiteTouch: false,
     hasZoneTouch: false,
     hasContactTouch: false,
-  });
+  };
+
+  const [state, setState] = useReducer(reducer, initialState);
   const [validInputs, setValidateInputs] = useState([]);
   const [validate, setValidate] = useState(false);
   const [operating, setOperating] = useState(false);
   const [errors, setErrors] = useState({});
   const [alerts, success, danger] = useAlerts();
+
+  const handleShowCircleTimer = () => {
+    onRequestClose();
+    setState(initialState);
+    handleShowCircle();
+    setTimeout(handleCloseCircle, 3000);
+  };
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -92,12 +95,13 @@ function ContactForm({
       data.append('entry.1004796790', state.contacts);
       data.append('entry.1483119905', state.auxiliaryInfo);
 
+      handleShowCircleTimer();
+
       await axiosClient
         .post(googleContactFormURI, data, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(function(response) {
-          handleShowCircleTimer();
           console.log(response);
         });
     } catch (err) {
