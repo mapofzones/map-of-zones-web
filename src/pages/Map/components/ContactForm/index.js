@@ -197,6 +197,7 @@ function ContactForm({
                       }}
                     />
                     {state.hasWebSiteTouch &&
+                      state.webSite &&
                       (state.hasWebSiteError ? (
                         <ErrorIcon
                           className={cx({
@@ -264,6 +265,7 @@ function ContactForm({
                       }}
                     />
                     {state.hasZoneTouch &&
+                      state.zoneRPC &&
                       (state.hasZoneError ? (
                         <ErrorIcon
                           className={cx({
@@ -332,6 +334,7 @@ function ContactForm({
                       }}
                     />
                     {state.hasContactTouch &&
+                      state.contacts &&
                       (state.hasContactError ? (
                         <ErrorIcon
                           className={cx({
