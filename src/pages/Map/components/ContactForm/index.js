@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid,no-unused-vars,no-useless-escape */
 import React, { useReducer, useState } from 'react';
+import axiosClient from '../../../../utils/axiosClient';
 import Modal from 'components/Modal';
 import classNames from 'classnames/bind';
+import { stringify } from 'querystringify';
 
 import styles from './index.module.css';
 import useAlerts from '../../../../components/Alerts';
@@ -11,7 +13,7 @@ import { ReactComponent as CloseIcon } from '../../../../assets/images/close-btn
 
 const cx = classNames.bind(styles);
 
-const googleContactFormURI = process.env.GOOGLE_CONTACT_FORM_URI;
+const googleContactFormURI = process.env.REACT_APP_GOOGLE_CONTACT_FORM_URI;
 
 const sitePattern = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
 const zoneRPCPattern = /^https?:\/\/(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$/;
@@ -60,23 +62,27 @@ function ContactForm({ isOpen, onRequestClose }) {
   const [errors, setErrors] = useState({});
   const [alerts, success, danger] = useAlerts();
 
-  const handleSubmit = event => {
-    // event.preventDefault();
-    // setValidate(true);
+  const handleSubmit = async event => {
+    event.preventDefault();
+    setValidate(true);
     // if (!all valid) {
-    // axios
-    //   .post(googleContactFormURI, {
-    //     'entry.1591308327': state.webSite,
-    //     'entry.1591308328': state.zoneRPC,
-    //     'entry.1591308329': state.contacts,
-    //     'entry.1591308330': state.auxiliaryInfo,
-    //   })
-    //   .then(function(response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+    try {
+      const data = new FormData();
+      data.append('entry.87677407', state.webSite);
+      data.append('entry.574402888', state.zoneRPC);
+      data.append('entry.1004796790', state.contacts);
+      data.append('entry.1483119905', state.auxiliaryInfo);
+
+      await axiosClient
+        .post(googleContactFormURI, data, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then(function(response) {
+          console.log(response);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
