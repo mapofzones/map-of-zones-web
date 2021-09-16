@@ -74,51 +74,53 @@ function Footer() {
           />
         </div>
         <div className={cx('socialContainer')}>
-          <a
-            href="https://github.com/mapofzones"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cx('link', 'socialLink')}
-            onClick={() =>
-              trackEvent({
-                category: 'Footer',
-                action: 'github link click',
-              })
-            }
-          >
-            <GitHubLogo className={cx('socialIcon')} />
-            <span className={cx('socialName')}>GitHub</span>
-          </a>
-          <a
-            href="https://twitter.com/mapofzones"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cx('link', 'socialLink')}
-            onClick={() =>
-              trackEvent({
-                category: 'Footer',
-                action: 'twitter link click',
-              })
-            }
-          >
-            <TwitterLogo className={cx('socialIcon')} />
-            <span className={cx('socialName')}>Twitter</span>
-          </a>
-          <a
-            href="https://t.me/MapOfZones"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cx('link', 'socialLink')}
-            onClick={() =>
-              trackEvent({
-                category: 'Footer',
-                action: 'telegram link click',
-              })
-            }
-          >
-            <TgLogo className={cx('socialIcon')} />
-            <span className={cx('socialName')}>Telegram</span>
-          </a>
+          <div className={cx('socialWrapper')}>
+            <a
+              href="https://github.com/mapofzones"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cx('link', 'socialLink')}
+              onClick={() =>
+                trackEvent({
+                  category: 'Footer',
+                  action: 'github link click',
+                })
+              }
+            >
+              <GitHubLogo className={cx('socialIcon')} />
+              <span className={cx('socialName')}>GitHub</span>
+            </a>
+            <a
+              href="https://twitter.com/mapofzones"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cx('link', 'socialLink')}
+              onClick={() =>
+                trackEvent({
+                  category: 'Footer',
+                  action: 'twitter link click',
+                })
+              }
+            >
+              <TwitterLogo className={cx('socialIcon')} />
+              <span className={cx('socialName')}>Twitter</span>
+            </a>
+            <a
+              href="https://t.me/MapOfZones"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cx('link', 'socialLink')}
+              onClick={() =>
+                trackEvent({
+                  category: 'Footer',
+                  action: 'telegram link click',
+                })
+              }
+            >
+              <TgLogo className={cx('socialIcon')} />
+              <span className={cx('socialName')}>Telegram</span>
+            </a>
+          </div>
           <a
             href="mailto:hi@ztake.org"
             className={cx('link', 'socialLink', 'contactUsLink')}
@@ -138,10 +140,10 @@ function Footer() {
             <span className={cx('socialName')}>support@mapofzones.com</span>
           </a>
           <div
-            className={cx('link', 'socialLink', 'contactUsLink')}
+            className={cx('link', 'socialLink', 'notListed')}
             onClick={() => handleShowContactForm()}
           >
-            <span className={cx('socialName')}>not listed?</span>
+            <span>not listed?</span>
           </div>
         </div>
         <div className={cx('socialMediaTitle')}>
