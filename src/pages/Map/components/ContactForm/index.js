@@ -46,11 +46,22 @@ const labelContentStyle = {
   verticalAlign: 'middle',
 };
 
-function ContactForm({ isOpen, onRequestClose }) {
+function ContactForm({
+  isOpen,
+  onRequestClose,
+  handleCloseCircle,
+  handleShowCircle,
+}) {
   const reducer = (prevState, updatedProperty) => ({
     ...prevState,
     ...updatedProperty,
   });
+
+  const handleShowCircleTimer = () => {
+    onRequestClose();
+    handleShowCircle();
+    setTimeout(handleCloseCircle, 3000);
+  };
 
   const [state, setState] = useReducer(reducer, {
     webSite: '',
@@ -86,6 +97,7 @@ function ContactForm({ isOpen, onRequestClose }) {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(function(response) {
+          handleShowCircleTimer();
           console.log(response);
         });
     } catch (err) {
@@ -376,7 +388,7 @@ function ContactForm({ isOpen, onRequestClose }) {
             className={cx('my-button', 'my-button__green', 'save-button', {
               'my-button_disabled': state.hasWebSiteError,
             })}
-            onClick={state.hasWebSiteError ? handleSubmit() : () => {}}
+            onClick={!state.hasWebSiteError ? handleSubmit : () => {}}
           >
             Submit
           </div>
