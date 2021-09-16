@@ -11,7 +11,7 @@ function SuccessfulCircle({ isOpen }) {
           <h1>Your form has been sent successfully</h1>
           <p>
             We highly appreciate your effort and will do our best to make it
-            real. stay tuned
+            real. Stay tuned
           </p>
         </div>
       </div>

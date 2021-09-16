@@ -87,7 +87,6 @@ function ContactForm({
   const handleSubmit = async event => {
     event.preventDefault();
     setValidate(true);
-    // if (!all valid) {
     try {
       const data = new FormData();
       data.append('entry.87677407', state.webSite);
@@ -101,12 +100,8 @@ function ContactForm({
         .post(googleContactFormURI, data, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(function(response) {
-          console.log(response);
-        });
-    } catch (err) {
-      console.log(err);
-    }
+        .then(function(response) {});
+    } catch (err) {}
   };
 
   return (
