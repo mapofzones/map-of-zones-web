@@ -10,21 +10,28 @@ import { ReactComponent as TwitterLogo } from 'assets/images/twitter-logo.svg';
 
 import styles from './index.module.css';
 import ContactForm from '../ContactForm';
+import SuccessfulCircle from '../SuccessfulCircle';
 
 const cx = classNames.bind(styles);
 
 function Footer() {
   const [showContactForm, setShowContactForm] = useState(false);
+  const [showSuccessCircle, setShowSuccessCircle] = useState(false);
 
   const handleCloseContactForm = () => setShowContactForm(false);
   const handleShowContactForm = () => setShowContactForm(true);
+  const handleShowSuccessCircle = () => setShowSuccessCircle(true);
+  const handleCloseSuccessCircle = () => setShowSuccessCircle(false);
 
   return (
     <>
       <ContactForm
         isOpen={showContactForm}
         onRequestClose={handleCloseContactForm}
+        handleCloseCircle={handleCloseSuccessCircle}
+        handleShowCircle={handleShowSuccessCircle}
       />
+      <SuccessfulCircle isOpen={showSuccessCircle} />
       <div className={cx('container')}>
         <div>
           <FormattedMessage
