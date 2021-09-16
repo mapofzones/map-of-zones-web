@@ -5,6 +5,8 @@ import classNames from 'classnames/bind';
 
 import styles from './index.module.css';
 import useAlerts from '../../../../components/Alerts';
+import { ReactComponent as ErrorIcon } from 'assets/images/errorIcon.svg';
+import { ReactComponent as SuccessIcon } from 'assets/images/successIcon.svg';
 import { Textbox, Textarea } from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 
@@ -53,13 +55,21 @@ function ContactForm({ isOpen, onRequestClose }) {
     zoneRPC: '',
     contacts: '',
     auxiliaryInfo: '',
+    hasWebSiteError: false,
+    hasZoneError: false,
+    hasContactError: false,
+    hasWebSiteTouch: false,
+    hasZoneTouch: false,
+    hasContactTouch: false,
   });
+  const [validInputs, setValidateInputs] = useState([]);
   const [validate, setValidate] = useState(false);
   const [operating, setOperating] = useState(false);
   const [errors, setErrors] = useState({});
   const [alerts, success, danger] = useAlerts();
 
   const handleSubmit = event => {
+    console.log('aosp');
     // event.preventDefault();
     // setValidate(true);
     // if (!all valid) {
@@ -77,7 +87,7 @@ function ContactForm({ isOpen, onRequestClose }) {
     //     console.log(error);
     //   });
   };
-
+  console.log(state);
   return (
     <Modal
       isOpen={isOpen}
@@ -117,20 +127,34 @@ function ContactForm({ isOpen, onRequestClose }) {
                 >
                   <span className="required-label">Website or GitHub</span>
                 </div>
-                <div style={{ flex: '6 6 0px' }}>
+                <div
+                  style={{
+                    flex: '6 6 0px',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
                   <Textbox
                     customStyleInput={{
                       padding: '17px 13px',
                       backgroundColor: '#E0E0E0',
+                    }}
+                    customStyleWrapper={{
+                      width: '100%',
+                      marginRight: state.hasWebSiteTouch ? '10px' : 0,
                     }}
                     attributesInput={{
                       id: 'webSite',
                       type: 'text',
                       placeholder: 'i. e. https://example.com',
                     }}
-                    onBlur={e => {}}
+                    validationCallback={isNotValidate => {
+                      setState({ hasWebSiteError: isNotValidate });
+                    }}
+                    onBlur={value => {
+                      setState({ hasWebSiteTouch: true });
+                    }}
                     value={state.webSite}
-                    // validate={validate}
                     onChange={value => {
                       setState({ webSite: value });
                     }}
@@ -141,6 +165,22 @@ function ContactForm({ isOpen, onRequestClose }) {
                       max: 50,
                     }}
                   />
+                  {state.hasWebSiteTouch &&
+                    (state.hasWebSiteError ? (
+                      <ErrorIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasWebSiteError && state.hasWebSiteTouch,
+                        })}
+                      />
+                    ) : (
+                      <SuccessIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasWebSiteError && state.hasWebSiteTouch,
+                        })}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
@@ -153,12 +193,22 @@ function ContactForm({ isOpen, onRequestClose }) {
                 >
                   <span style={labelContentStyle}>Zone RPC</span>
                 </div>
-                <div style={{ flex: '6 6 0px' }}>
+                <div
+                  style={{
+                    flex: '6 6 0px',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
                   <Textbox
                     attributesWrapper={{}}
                     customStyleInput={{
                       padding: '17px 13px',
                       backgroundColor: '#F4F4F5',
+                    }}
+                    customStyleWrapper={{
+                      width: '100%',
+                      marginRight: state.hasZoneTouch ? '10px' : 0,
                     }}
                     attributesInput={{
                       name: 'zoneRPC',
@@ -166,8 +216,12 @@ function ContactForm({ isOpen, onRequestClose }) {
                       placeholder: 'i. e. https://123.45.67.89:26657',
                     }}
                     value={state.zoneRPC}
-                    onBlur={e => {}}
-                    // validate={validate}
+                    onBlur={value => {
+                      setState({ hasZoneTouch: true });
+                    }}
+                    validationCallback={isNotValidate => {
+                      setState({ hasZoneError: isNotValidate });
+                    }}
                     onChange={value => {
                       setState({ zoneRPC: value });
                     }}
@@ -178,6 +232,22 @@ function ContactForm({ isOpen, onRequestClose }) {
                       required: false,
                     }}
                   />
+                  {state.hasZoneTouch &&
+                    (state.hasZoneError ? (
+                      <ErrorIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasZoneError && state.hasZoneTouch,
+                        })}
+                      />
+                    ) : (
+                      <SuccessIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasZoneError && state.hasZoneTouch,
+                        })}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
@@ -190,23 +260,38 @@ function ContactForm({ isOpen, onRequestClose }) {
                 >
                   <span style={labelContentStyle}>Your Contacts</span>
                 </div>
-                <div style={{ flex: '6 6 0px' }}>
+                <div
+                  style={{
+                    flex: '6 6 0px',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
                   <Textbox
                     attributesWrapper={{}}
                     customStyleInput={{
                       padding: '17px 13px',
                       backgroundColor: '#F4F4F5',
                     }}
+                    customStyleWrapper={{
+                      width: '100%',
+                      marginRight: state.hasContactTouch ? '10px' : 0,
+                    }}
                     attributesInput={{
                       name: 'contacts',
                       type: 'text',
                       placeholder: 'i. e. Telegram, Twitter or Email',
                     }}
-                    onBlur={e => {}}
+                    validationCallback={isNotValidate => {
+                      setState({ hasContactError: isNotValidate });
+                    }}
+                    onBlur={value => {
+                      setState({ hasContactTouch: true });
+                    }}
                     value={state.contacts}
                     validate={validate}
                     onChange={value => {
-                      setState({ contacts: value });
+                      setState({ ...state, contacts: value });
                     }}
                     validationOption={{
                       reg: emailPattern,
@@ -215,6 +300,22 @@ function ContactForm({ isOpen, onRequestClose }) {
                       required: false,
                     }}
                   />
+                  {state.hasContactTouch &&
+                    (state.hasContactError ? (
+                      <ErrorIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasContactError && state.hasContactTouch,
+                        })}
+                      />
+                    ) : (
+                      <SuccessIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasContactError && state.hasContactTouch,
+                        })}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
@@ -256,13 +357,10 @@ function ContactForm({ isOpen, onRequestClose }) {
           </div>
           <div style={{ height: '10px' }} />
           <div
-            className={cx(
-              'my-button',
-              'my-button__green',
-              'save-button',
-              'button_disabled',
-            )}
-            onClick={handleSubmit}
+            className={cx('my-button', 'my-button__green', 'save-button', {
+              'my-button_disabled': state.hasWebSiteError,
+            })}
+            onClick={state.hasWebSiteError ? handleSubmit() : () => {}}
           >
             Submit
           </div>
