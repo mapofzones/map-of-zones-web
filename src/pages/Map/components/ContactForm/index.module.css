@@ -1,5 +1,5 @@
 .content {
-  padding: 50px;
+  padding: 36px;
   max-height: 100vh;
   min-width: 220px;
   max-width: 550px;
@@ -34,6 +34,10 @@ h2 a {
 .required-label {
   display: block;
   float: right;
+}
+
+.responseStatus {
+  margin-bottom: 10px;
 }
 
 .required-label:before {
@@ -139,7 +143,7 @@ h2 a {
   padding: 12px;
   color: #fff;
   border-radius: 2px;
-  background-color: #4f4f4f;
+  background-color: #219653;
   margin: 35px auto 0 auto;
   text-align: center;
   cursor: pointer;
