@@ -115,8 +115,8 @@ function ContactForm({
       onRequestClose={onRequestClose}
       contentClassName={cx('content')}
       animations={{
-        afterOpen: 'animate__slideInTop',
-        beforeClose: 'animate__slideOutTop',
+        afterOpen: 'animate__slideInRight',
+        beforeClose: 'animate__slideOutRight',
         overlayAfterOpen: 'overlayFadeIn',
         overlayBeforeClose: 'overlayFadeOut',
       }}
