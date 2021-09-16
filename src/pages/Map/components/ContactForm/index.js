@@ -57,7 +57,7 @@ function ContactForm({ isOpen, onRequestClose }) {
     zoneRPC: '',
     contacts: '',
     auxiliaryInfo: '',
-    hasWebSiteError: false,
+    hasWebSiteError: true,
     hasZoneError: false,
     hasContactError: false,
     hasWebSiteTouch: false,
@@ -376,7 +376,7 @@ function ContactForm({ isOpen, onRequestClose }) {
             className={cx('my-button', 'my-button__green', 'save-button', {
               'my-button_disabled': state.hasWebSiteError,
             })}
-            onClick={state.hasWebSiteError ? handleSubmit() : () => {}}
+            onClick={!state.hasWebSiteError ? handleSubmit : () => {}}
           >
             Submit
           </div>
