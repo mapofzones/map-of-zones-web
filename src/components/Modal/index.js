@@ -14,6 +14,7 @@ function AnimatedModal({
   children,
   overlayClassName,
   contentClassName,
+  backdropFilterBlur,
   ...props
 }) {
   return (
@@ -31,7 +32,10 @@ function AnimatedModal({
         beforeClose: cx(animations.overlayBeforeClose),
       }}
       style={{
-        overlay: { animationDuration: `${closeTimeoutMS}ms` },
+        overlay: {
+          animationDuration: `${closeTimeoutMS}ms`,
+          backdropFilter: `${backdropFilterBlur}`,
+        },
         content: { animationDuration: `${closeTimeoutMS}ms` },
       }}
     >
@@ -46,6 +50,7 @@ AnimatedModal.propTypes = {
   closeTimeoutMS: PropTypes.number,
   overlayClassName: PropTypes.any,
   contentClassName: PropTypes.any,
+  backdropFilterBlur: PropTypes.any,
 };
 
 AnimatedModal.defaultProps = {
