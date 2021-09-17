@@ -119,7 +119,7 @@ function Map() {
           currentFilter={currentFilter}
           focusedZone={focusedZone}
           handleScroll={handleScroll}
-          isSortedDesc={ORDER_SORT[sort.tableOrderSort]}
+          isSortedDesc={sort}
           isTableOpened={isTableOpened}
           mapOpened={isMapFullscreen}
           period={period}
