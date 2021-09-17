@@ -15,6 +15,7 @@
   height: 100vh;
   overflow: hidden;
   z-index: 10;
+  backdrop-filter: blur(8px);
 }
 
 .show {
@@ -28,12 +29,13 @@
   height: 360px;
   width: 360px;
   border-radius: 50%;
-  border: 20px solid #27ae60;
+  border: 15px solid #27ae60;
   box-sizing: border-box;
-  box-shadow: 0 0 24px 10px rgba(39, 174, 96, 1);
+  box-shadow: 0 0 24px 10px rgba(39, 174, 96, 0.55);
 }
 
 .circle {
+  position: relative;
   height: 300px;
   width: 300px;
   border-radius: 50%;
@@ -41,7 +43,13 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  background: url('../../../../assets/images/dots.svg') #fff center no-repeat;
+  background: #fff;
+}
+
+.circle img {
+  position: absolute;
+  top: -35px;
+  left: 28px;
 }
 
 .circle h1 {
@@ -51,6 +59,9 @@
 }
 
 .circle p {
-  font-size: 14.2px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 115%;
   color: #333333;
+  opacity: 0.6;
 }
