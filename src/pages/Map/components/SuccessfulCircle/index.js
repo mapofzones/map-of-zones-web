@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './index.module.css';
+import dots from '../../../../assets/images/dots.svg';
 const cx = classNames.bind(styles);
 
 function SuccessfulCircle({ isOpen }) {
@@ -11,8 +12,9 @@ function SuccessfulCircle({ isOpen }) {
           <h1>Your form has been sent successfully</h1>
           <p>
             We highly appreciate your effort and will do our best to make it
-            real. Stay tuned
+            real. <br /> Stay tuned
           </p>
+          <img src={dots} alt="dots" />
         </div>
       </div>
     </div>
