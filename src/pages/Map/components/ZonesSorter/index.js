@@ -23,7 +23,7 @@ function ZonesSorter({
   const [decs, setDecs] = useState(true);
 
   useEffect(() => {
-    if (isSortedDesc.tableOrderBy === 'totalIbcTxs') {
+    if (isSortedDesc.tableOrderBy) {
       if (isSortedDesc.tableOrderSort === 'desc') {
         setDecs(true);
       }
