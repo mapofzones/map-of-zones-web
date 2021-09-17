@@ -106,6 +106,7 @@ function ContactForm({
 
   return (
     <Modal
+      backdropFilterBlur="blur(8px)"
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentClassName={cx('content')}
