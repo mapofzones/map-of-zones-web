@@ -67,7 +67,7 @@ function Leaderboard({
   }, [sortBy.id, sortBy.desc, onSortChange]);
 
   useEffect(() => {
-    if (sortBy !== initialSortBy) {
+    if (sortBy !== initialSortBy && sortedColumn) {
       trackEvent({
         category: 'Table',
         action: 'sort',
@@ -75,7 +75,7 @@ function Leaderboard({
         extra: { direction: sortBy?.desc ? 'desc' : 'asc' },
       });
     }
-  }, [initialSortBy, sortBy, sortedColumn.id]);
+  }, [initialSortBy, sortBy, sortedColumn]);
 
   useEffect(() => {
     let table = document.documentElement.querySelector('table');
@@ -240,6 +240,12 @@ function Leaderboard({
       setHiddenColumns([], true);
     }
   }, [setHiddenColumns, hiddenColumns, isMobile, selectedColumnIndex]);
+
+  useEffect(() => {
+    if (isMobile && columns[selectedColumnIndex + 3]?.toggleSortBy) {
+      columns[selectedColumnIndex + 3].toggleSortBy(false, false);
+    }
+  }, [columns, selectedColumnIndex, isMobile]);
 
   return (
     <div
