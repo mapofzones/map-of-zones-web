@@ -28,7 +28,7 @@ const rowStyle = {
 const rowWrapperStyle = {
   display: 'table',
   width: '100%',
-  marginBottom: '27px',
+  marginBottom: '10px',
 };
 const rowContainerStyle = {
   display: 'table-cell',
@@ -162,7 +162,7 @@ function ContactForm({
                   >
                     <Textbox
                       customStyleInput={{
-                        padding: '17px 13px',
+                        padding: '15px 13px',
                         backgroundColor: '#E0E0E0',
                       }}
                       customStyleWrapper={{
@@ -230,7 +230,7 @@ function ContactForm({
                     <Textbox
                       attributesWrapper={{}}
                       customStyleInput={{
-                        padding: '17px 13px',
+                        padding: '15px 13px',
                         backgroundColor: '#F4F4F5',
                       }}
                       customStyleWrapper={{
@@ -298,7 +298,7 @@ function ContactForm({
                     <Textbox
                       attributesWrapper={{}}
                       customStyleInput={{
-                        padding: '17px 13px',
+                        padding: '15px 13px',
                         backgroundColor: '#F4F4F5',
                       }}
                       customStyleWrapper={{
@@ -361,12 +361,12 @@ function ContactForm({
                     <Textarea
                       attributesWrapper={{}}
                       customStyleInput={{
-                        padding: '17px 13px',
+                        padding: '15px 13px',
                         backgroundColor: '#F4F4F5',
                       }}
                       attributesInput={{
                         name: 'auxiliaryInfo',
-                        rows: 6,
+                        rows: 5,
                         placeholder:
                           'i. e. links to repositories, logo files, style guidelines, preferred communication channels and other information',
                       }}
@@ -385,7 +385,7 @@ function ContactForm({
               </div>
             </div>
           </div>
-          <div style={{ height: '10px' }} />
+          {/*<div style={{ height: '10px' }} />*/}
           <div
             className={cx('my-button', 'my-button__green', 'save-button', {
               'my-button_disabled': state.hasWebSiteError,
