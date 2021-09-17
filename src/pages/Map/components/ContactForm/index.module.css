@@ -1,5 +1,5 @@
 .content {
-  padding: 36px;
+  padding: 20px 40px 36px;
   min-width: 220px;
   max-width: 550px;
   display: flex;
@@ -10,21 +10,21 @@
 }
 
 .content h1 {
-  font-size: 24px;
   font-weight: 800;
-  line-height: 39px;
+  font-size: 18.5px;
+  line-height: 160%;
   margin-top: 0;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
   color: #219653;
 }
 
 .content h2 {
-  font-size: 12px;
   font-weight: 600;
-  line-height: 14px;
+  font-size: 11px;
+  line-height: 115%;
   color: #828282;
   margin-top: 0;
-  margin-bottom: 34px;
+  margin-bottom: 25px;
 }
 
 h2 a {
