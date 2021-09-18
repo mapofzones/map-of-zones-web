@@ -1,5 +1,5 @@
 .content {
-  padding: 20px 40px 36px;
+  padding: 20px 40px;
   min-width: 220px;
   max-width: 550px;
   display: flex;
@@ -145,7 +145,7 @@ h2 a {
   color: #fff;
   border-radius: 2px;
   background-color: #219653;
-  margin: 35px auto 0 auto;
+  margin: 25px auto 0 auto;
   text-align: center;
   cursor: pointer;
   box-sizing: border-box;
@@ -199,16 +199,19 @@ body {
     width: 100%;
     max-width: 100vw;
     max-height: 100vh;
-    padding: 11px 0 0;
     overflow: scroll;
+    position: relative;
+    padding: 50px 24px 80px;
   }
 
   .mobile-wrapper {
-    padding: 0 25px;
   }
 
   .my-button {
+    position: absolute;
     font-size: 16px;
+    width: 100%;
+    left: 0;
   }
 
   .my-button__green {
@@ -217,11 +220,22 @@ body {
 
   .content h1 {
     font-size: 18px;
+    font-weight: 800;
+    line-height: 160%;
+    color: #333333;
+  }
+  .content h2 {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 115%;
+    color: #828282;
   }
 
   .closeButton {
     display: flex;
-    margin-left: auto;
+    position: absolute;
+    right: 10px;
+    top: 0;
   }
 
   .titleContainer {

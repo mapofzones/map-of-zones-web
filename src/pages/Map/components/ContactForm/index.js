@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid,no-unused-vars,no-useless-escape */
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import axiosClient from '../../../../utils/axiosClient';
 import Modal from 'components/Modal';
 import classNames from 'classnames/bind';
@@ -68,6 +68,7 @@ function ContactForm({
     hasWebSiteTouch: false,
     hasZoneTouch: false,
     hasContactTouch: false,
+    hasNetworkError: false,
   };
 
   const [state, setState] = useReducer(reducer, initialState);
@@ -84,9 +85,14 @@ function ContactForm({
     setTimeout(handleCloseCircle, 3000);
   };
 
+  useEffect(() => {
+    return () => setState({ hasNetworkError: false });
+  }, []);
+
   const handleSubmit = async event => {
     event.preventDefault();
     setValidate(true);
+    setState({ ...state, hasNetworkError: false });
     try {
       const data = new FormData();
       data.append('entry.87677407', state.webSite);
@@ -94,14 +100,18 @@ function ContactForm({
       data.append('entry.1004796790', state.contacts);
       data.append('entry.1483119905', state.auxiliaryInfo);
 
-      handleShowCircleTimer();
-
       await axiosClient
         .post(googleContactFormURI, data, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(function(response) {});
-    } catch (err) {}
+        .then(function(response) {
+          handleShowCircleTimer();
+        });
+    } catch (err) {
+      if (err.message === 'Network Error') {
+        setState({ hasNetworkError: true });
+      }
+    }
   };
 
   return (
@@ -152,7 +162,9 @@ function ContactForm({
                   <div
                     style={{ ...labelStyle, flex: '3 3 0px', marginTop: '3px' }}
                   >
-                    <span className="required-label">Website or GitHub</span>
+                    <span className="required-label">
+                      Website or GitHub <span style={{ color: 'red' }}>*</span>
+                    </span>
                   </div>
                   <div
                     style={{
@@ -386,7 +398,19 @@ function ContactForm({
               </div>
             </div>
           </div>
-          {/*<div style={{ height: '10px' }} />*/}
+          <div
+            style={{
+              height: '100%',
+              margin: 0,
+            }}
+          >
+            {state.hasNetworkError && (
+              <p style={{ ...labelStyle, margin: 0 }}>
+                if you experience difficulties sending your form, please contact
+                us via Twitter @MapOfZones
+              </p>
+            )}
+          </div>
           <div
             className={cx('my-button', 'my-button__green', 'save-button', {
               'my-button_disabled': state.hasWebSiteError,
