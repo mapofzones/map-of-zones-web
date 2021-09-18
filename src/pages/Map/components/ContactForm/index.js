@@ -17,8 +17,6 @@ const cx = classNames.bind(styles);
 const googleContactFormURI = process.env.REACT_APP_GOOGLE_CONTACT_FORM_URI;
 
 const sitePattern = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
-const zoneRPCPattern = /^https?:\/\/(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$/;
-const emailPattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 const rowStyle = {
   display: 'flex',
@@ -173,6 +171,13 @@ function ContactForm({
                         width: '100%',
                         marginRight: state.hasWebSiteTouch ? '10px' : 0,
                       }}
+                      classNameInput={cx('formInput', {
+                        formInput_error:
+                          state.hasWebSiteError && state.hasWebSiteTouch,
+                        formInput_clicked:
+                          state.hasWebSiteTouch && !state.hasWebSiteError,
+                        formInput_success: !state.hasWebSiteError,
+                      })}
                       attributesInput={{
                         id: 'webSite',
                         type: 'text',
@@ -181,7 +186,8 @@ function ContactForm({
                       validationCallback={isNotValidate => {
                         setState({ hasWebSiteError: isNotValidate });
                       }}
-                      onBlur={() => {
+                      onKeyUp={() => {}}
+                      onFocus={() => {
                         setState({ hasWebSiteTouch: true });
                       }}
                       value={state.webSite}
@@ -237,6 +243,10 @@ function ContactForm({
                         padding: '15px 13px',
                         backgroundColor: '#F4F4F5',
                       }}
+                      classNameInput={cx('formInput', {
+                        formInput_clicked: state.hasZoneTouch,
+                        formInput_success: state.hasZoneTouch && state.zoneRPC,
+                      })}
                       customStyleWrapper={{
                         width: '100%',
                         marginRight: state.hasZoneTouch ? '10px' : 0,
@@ -285,6 +295,11 @@ function ContactForm({
                         padding: '15px 13px',
                         backgroundColor: '#F4F4F5',
                       }}
+                      classNameInput={cx('formInput', {
+                        formInput_clicked: state.hasContactTouch,
+                        formInput_success:
+                          state.hasContactTouch && state.contacts,
+                      })}
                       customStyleWrapper={{
                         width: '100%',
                         marginRight: state.hasContactTouch ? '10px' : 0,
@@ -333,8 +348,11 @@ function ContactForm({
                         padding: '15px 13px',
                         backgroundColor: '#F4F4F5',
                       }}
-                      classNameInput={cx({
+                      classNameInput={cx('formInput', {
                         background: 'red',
+                        formInput_clicked: state.hasAuxiliaryInfoTouch,
+                        formInput_success:
+                          state.hasAuxiliaryInfoTouch && state.auxiliaryInfo,
                       })}
                       customStyleWrapper={{
                         width: '100%',
