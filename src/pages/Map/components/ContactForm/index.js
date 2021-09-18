@@ -85,10 +85,6 @@ function ContactForm({
     setTimeout(handleCloseCircle, 3000);
   };
 
-  useEffect(() => {
-    return () => setState({ hasNetworkError: false });
-  }, []);
-
   const handleSubmit = async event => {
     event.preventDefault();
     setValidate(true);
@@ -99,13 +95,13 @@ function ContactForm({
       data.append('entry.635160045', state.contacts);
       data.append('entry.1462032948', state.auxiliaryInfo);
 
+      handleShowCircleTimer();
+
       await axiosClient
         .post(googleContactFormURI, data, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(function(response) {
-          handleShowCircleTimer();
-        });
+        .then(function(response) {});
     } catch (err) {}
   };
 
