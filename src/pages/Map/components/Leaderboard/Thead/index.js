@@ -74,9 +74,9 @@ const Thead = ({
                   <div className={cx('sortArrowWrapper')}>
                     {column.isSorted ? (
                       column.isSortedDesc ? (
-                        <ArrowDown className={cx('arrow')} />
-                      ) : (
                         <ArrowDown className={cx('arrow', 'arrowUp')} />
+                      ) : (
+                        <ArrowDown className={cx('arrow')} />
                       )
                     ) : (
                       <div>
