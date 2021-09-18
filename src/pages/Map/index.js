@@ -21,8 +21,8 @@ import {
 import columns from './components/Leaderboard/config';
 
 const ORDER_SORT = {
-  true: 'desc',
-  false: 'asc',
+  desc: false,
+  asc: true,
 };
 
 function Map() {
