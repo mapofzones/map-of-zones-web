@@ -94,10 +94,10 @@ function ContactForm({
     setValidate(true);
     try {
       const data = new FormData();
-      data.append('entry.87677407', state.webSite);
-      data.append('entry.574402888', state.zoneRPC);
-      data.append('entry.1004796790', state.contacts);
-      data.append('entry.1483119905', state.auxiliaryInfo);
+      data.append('entry.1045144184', state.webSite);
+      data.append('entry.1411184760', state.zoneRPC);
+      data.append('entry.635160045', state.contacts);
+      data.append('entry.1462032948', state.auxiliaryInfo);
 
       await axiosClient
         .post(googleContactFormURI, data, {
