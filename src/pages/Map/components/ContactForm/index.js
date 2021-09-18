@@ -68,6 +68,7 @@ function ContactForm({
     hasWebSiteTouch: false,
     hasZoneTouch: false,
     hasContactTouch: false,
+    hasAuxiliaryInfoTouch: false,
     hasNetworkError: false,
   };
 
@@ -190,7 +191,7 @@ function ContactForm({
                       validationCallback={isNotValidate => {
                         setState({ hasWebSiteError: isNotValidate });
                       }}
-                      onBlur={value => {
+                      onBlur={() => {
                         setState({ hasWebSiteTouch: true });
                       }}
                       value={state.webSite}
@@ -256,39 +257,19 @@ function ContactForm({
                         placeholder: 'i. e. https://123.45.67.89:26657',
                       }}
                       value={state.zoneRPC}
-                      onBlur={value => {
-                        setState({ hasZoneTouch: true });
-                      }}
-                      validationCallback={isNotValidate => {
-                        setState({ hasZoneError: isNotValidate });
-                      }}
                       onChange={value => {
                         setState({ zoneRPC: value });
-                      }}
-                      validationOption={{
-                        reg: zoneRPCPattern,
-                        regMsg: 'Please enter a valid Zone RPC',
-                        max: 50,
-                        required: false,
+                        setState({ hasZoneTouch: true });
                       }}
                     />
-                    {state.hasZoneTouch &&
-                      state.zoneRPC &&
-                      (state.hasZoneError ? (
-                        <ErrorIcon
-                          className={cx({
-                            responseStatus:
-                              state.hasZoneError && state.hasZoneTouch,
-                          })}
-                        />
-                      ) : (
-                        <SuccessIcon
-                          className={cx({
-                            responseStatus:
-                              state.hasZoneError && state.hasZoneTouch,
-                          })}
-                        />
-                      ))}
+                    {state.hasZoneTouch && state.zoneRPC && (
+                      <SuccessIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasZoneError && state.hasZoneTouch,
+                        })}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -323,41 +304,21 @@ function ContactForm({
                         type: 'text',
                         placeholder: 'i. e. Telegram, Twitter or Email',
                       }}
-                      validationCallback={isNotValidate => {
-                        setState({ hasContactError: isNotValidate });
-                      }}
-                      onBlur={value => {
-                        setState({ hasContactTouch: true });
-                      }}
                       value={state.contacts}
                       validate={validate}
                       onChange={value => {
                         setState({ ...state, contacts: value });
-                      }}
-                      validationOption={{
-                        reg: emailPattern,
-                        regMsg: 'Please enter a valid contact',
-                        max: 100,
-                        required: false,
+                        setState({ hasContactTouch: true });
                       }}
                     />
-                    {state.hasContactTouch &&
-                      state.contacts &&
-                      (state.hasContactError ? (
-                        <ErrorIcon
-                          className={cx({
-                            responseStatus:
-                              state.hasContactError && state.hasContactTouch,
-                          })}
-                        />
-                      ) : (
-                        <SuccessIcon
-                          className={cx({
-                            responseStatus:
-                              state.hasContactError && state.hasContactTouch,
-                          })}
-                        />
-                      ))}
+                    {state.hasContactTouch && state.contacts && (
+                      <SuccessIcon
+                        className={cx({
+                          responseStatus:
+                            state.hasContactError && state.hasContactTouch,
+                        })}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -370,12 +331,25 @@ function ContactForm({
                   >
                     <span style={labelContentStyle}>Auxiliary info</span>
                   </div>
-                  <div style={{ flex: '6 6 0px' }}>
+                  <div
+                    style={{
+                      flex: '6 6 0px',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
                     <Textarea
                       attributesWrapper={{}}
                       customStyleInput={{
                         padding: '15px 13px',
                         backgroundColor: '#F4F4F5',
+                      }}
+                      classNameInput={cx({
+                        background: 'red',
+                      })}
+                      customStyleWrapper={{
+                        width: '100%',
+                        marginRight: state.hasAuxiliaryInfoTouch ? '10px' : 0,
                       }}
                       attributesInput={{
                         name: 'auxiliaryInfo',
@@ -387,12 +361,20 @@ function ContactForm({
                       validate={validate}
                       onChange={value => {
                         setState({ auxiliaryInfo: value });
+                        setState({ hasAuxiliaryInfoTouch: true });
                       }}
                       validationOption={{
                         max: 500,
                         required: false,
                       }}
                     />
+                    {state.hasAuxiliaryInfoTouch && state.auxiliaryInfo && (
+                      <SuccessIcon
+                        className={cx({
+                          responseStatus: state.hasAuxiliaryInfoTouch,
+                        })}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -405,7 +387,7 @@ function ContactForm({
             }}
           >
             {state.hasNetworkError && (
-              <p style={{ ...labelStyle, margin: 0 }}>
+              <p style={{ ...labelStyle, margin: 0, color: 'red' }}>
                 if you experience difficulties sending your form, please contact
                 us via Twitter @MapOfZones
               </p>
