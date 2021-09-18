@@ -1,5 +1,5 @@
 .content {
-  padding: 20px 40px;
+  padding: 20px 38px;
   min-width: 220px;
   max-width: 550px;
   display: flex;
@@ -7,6 +7,26 @@
   justify-content: space-between;
   text-align: left;
   overflow: auto;
+}
+
+.formInput {
+  transition: 0.1s;
+}
+
+.formInput:hover {
+  border: 2px solid #2f80ed !important;
+}
+
+.formInput_error {
+  border: 1px solid #eb5757 !important;
+}
+
+.formInput_clicked {
+  border: 1px solid #2f80ed !important;
+}
+
+.formInput_success {
+  border: 1px solid #219653 !important;
 }
 
 .content h1 {
@@ -202,9 +222,6 @@ body {
     overflow: scroll;
     position: relative;
     padding: 50px 24px 80px;
-  }
-
-  .mobile-wrapper {
   }
 
   .my-button {
