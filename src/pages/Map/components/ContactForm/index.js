@@ -69,7 +69,6 @@ function ContactForm({
     hasZoneTouch: false,
     hasContactTouch: false,
     hasAuxiliaryInfoTouch: false,
-    hasNetworkError: false,
   };
 
   const [state, setState] = useReducer(reducer, initialState);
@@ -93,7 +92,6 @@ function ContactForm({
   const handleSubmit = async event => {
     event.preventDefault();
     setValidate(true);
-    setState({ ...state, hasNetworkError: false });
     try {
       const data = new FormData();
       data.append('entry.87677407', state.webSite);
@@ -108,11 +106,7 @@ function ContactForm({
         .then(function(response) {
           handleShowCircleTimer();
         });
-    } catch (err) {
-      if (err.message === 'Network Error') {
-        setState({ hasNetworkError: true });
-      }
-    }
+    } catch (err) {}
   };
 
   return (
@@ -305,7 +299,6 @@ function ContactForm({
                         placeholder: 'i. e. Telegram, Twitter or Email',
                       }}
                       value={state.contacts}
-                      validate={validate}
                       onChange={value => {
                         setState({ ...state, contacts: value });
                         setState({ hasContactTouch: true });
@@ -380,7 +373,7 @@ function ContactForm({
               </div>
             </div>
           </div>
-          <div
+          {/*<div
             style={{
               height: '100%',
               margin: 0,
@@ -392,7 +385,7 @@ function ContactForm({
                 us via Twitter @MapOfZones
               </p>
             )}
-          </div>
+          </div>*/}
           <div
             className={cx('my-button', 'my-button__green', 'save-button', {
               'my-button_disabled': state.hasWebSiteError,
