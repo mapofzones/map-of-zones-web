@@ -1,16 +1,18 @@
 .content {
   padding: 20px 38px;
   min-width: 220px;
-  max-width: 550px;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
   overflow: auto;
+  text-align: justify;
 }
 
 .formInput {
-  transition: 0.1s;
+  transition: all 0.1s ease-in-out;
+  border: 2px solid transparent !important;
 }
 
 .formInput:hover {
@@ -21,12 +23,11 @@
   border: 1px solid #eb5757 !important;
 }
 
-.formInput_clicked {
-  border: 1px solid #2f80ed !important;
-}
-
 .formInput_success {
   border: 1px solid #219653 !important;
+}
+.formInput:focus {
+  border: 1px solid #2f80ed !important;
 }
 
 .content h1 {
@@ -58,7 +59,7 @@ h2 a {
 }
 
 .responseStatus {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .required-label:before {
