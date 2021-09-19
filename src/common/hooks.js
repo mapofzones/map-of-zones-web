@@ -35,7 +35,6 @@ export const useLocationTracker = () => {
 export const useRealtimeQuery = (query, subscription, options) => {
   const { variables } = options;
   const { subscribeToMore, data } = useQuery(query, options);
-
   useEffect(
     () =>
       subscribeToMore({
