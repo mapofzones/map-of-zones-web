@@ -117,6 +117,15 @@ function Leaderboard({
       case 'zone_counerparty':
         return (
           <div className={cx('cell-container')}>
+            {cell.row.original.zone_counterparty_label_url ? (
+              <img
+                className={cx('image-container')}
+                src={cell.row.original.zone_counterparty_label_url}
+                alt=""
+              />
+            ) : (
+              <div className={cx('image-empty')} />
+            )}
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
           </div>
         );

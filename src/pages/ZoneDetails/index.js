@@ -1,18 +1,18 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { parse } from 'querystringify';
+import { parse, stringify } from 'querystringify';
 
 import { removeDuplicatedZoneCounerparties } from 'common/helper';
 
 import Leaderboard from './components/Leaderboard';
-import leaderboardColumnsConfig from './components/Leaderboard/config';
-import Footer from './components/Footer';
+// TODO: What is purpose to use two same footers and headers? I Just change this for remove code duplication, but could be return
+import Footer from 'pages/Map/components/Footer';
 import Header from './components/Header';
 import Loader from './components/Loader';
 import ZoneDetails from './components/ZoneDetails';
 import ZonesPicker from './components/ZonesPicker';
 
-import { useZoneStat } from './hooks';
+import { useShowTestnet, useZoneStat } from './hooks';
 
 const SORT_BY_PERIOD = {
   24: 'ibc_tx_1d',
@@ -20,107 +20,133 @@ const SORT_BY_PERIOD = {
   720: 'ibc_tx_30d',
 };
 
+const PERIOD_BY_ID = {
+  ibc_tx_1d: 24,
+  ibc_tx_1d_failed: 24,
+  ibc_tx_7d: 168,
+  ibc_tx_7d_failed: 168,
+  ibc_tx_30d: 720,
+  ibc_tx_30d_failed: 720,
+};
+
+const ORDER_SORT = {
+  true: 'desc',
+  false: 'asc',
+};
+
+const getSortBy = (period, tableOrderBy) => {
+  return SORT_BY_PERIOD[period] + (tableOrderBy === 'success' ? '' : '_failed');
+};
+
+const getOrderBy = columnId => {
+  return columnId.includes('failed') ? 'failed' : 'success';
+};
+
 function Channel() {
   const location = useLocation();
   const history = useHistory();
 
-  const { source, targets, period } = useMemo(() => {
-    const { source, targets, period } = parse(location.search);
+  const [isTestnetVisible, toggleShowTestnet] = useShowTestnet();
+
+  const source = useMemo(() => {
+    return parse(location.search).source;
+  }, [location.search]);
+
+  const options = useMemo(() => {
+    const { source, targets } = parse(location.search);
 
     return {
-      source,
-      targets: (targets || '').split(',').filter(Boolean),
-      period,
+      variables: { source },
+      additionalData: { targets: (targets || '').split(',').filter(Boolean) },
     };
   }, [location.search]);
 
-  const options = useMemo(
-    () => ({
-      variables: { source },
-      additionalData: { targets },
-    }),
-    [source, targets],
-  );
+  const initialState = useMemo(() => {
+    const { period, tableOrderBy = 'success', tableOrderSort = 'desc' } = parse(
+      location.search,
+    );
 
-  const initialState = useMemo(
-    () => ({
+    return {
       sortBy: [
         {
-          id: SORT_BY_PERIOD[period],
-          desc: true,
+          id: getSortBy(period, tableOrderBy),
+          desc: tableOrderSort === 'desc',
         },
       ],
-    }),
-    [period],
-  );
-
-  const [sortedByColumn, setSort] = useState(undefined);
-  const [currentFilter] = useState(undefined);
+    };
+  }, [location.search]);
 
   const [showZonesPicker, setShowZonesPicker] = useState(false);
-  const [showZoneDetails, setShowZoneDetails] = useState(false);
-  const [zoneDetails, setZoneDetails] = useState(null);
+  const [showZoneDetails, setShowZoneDetails] = useState(null);
 
-  const columnId = useMemo(() => sortedByColumn?.id, [sortedByColumn]);
+  const zoneStat = useZoneStat(options, isTestnetVisible);
 
-  const filter = useMemo(() => ({ ...currentFilter, columnId }), [
-    currentFilter,
-    columnId,
-  ]);
+  const zoneDetails = useMemo(() => {
+    const { zoneDetailsChanelId, zoneDetailsChanelCounerparty } = parse(
+      location.search,
+    );
 
-  const zoneStat = useZoneStat(options);
+    if (zoneStat?.selectedNodes) {
+      const zone = zoneStat?.selectedNodes.find(
+        ({ channel_id, zone_counerparty }) =>
+          channel_id === zoneDetailsChanelId &&
+          zone_counerparty === zoneDetailsChanelCounerparty,
+      );
 
-  const filterFn = useCallback(
-    rows => {
-      let result = rows;
+      return zone;
+    }
 
-      if (filter?.sortOrder && filter.filterAmount) {
-        result = [...result]
-          .sort(
-            (a, b) =>
-              (filter.sortOrder === 'desc' ? b : a).values[filter.columnId] -
-              (filter.sortOrder === 'desc' ? a : b).values[filter.columnId],
-          )
-          .slice(0, filter.filterAmount);
+    return null;
+  }, [location.search, zoneStat]);
+
+  const onSortChange = useCallback(
+    sort => {
+      const search = parse(location.search);
+
+      search.period = PERIOD_BY_ID[sort.id];
+      search.tableOrderBy = getOrderBy(sort.id);
+      search.tableOrderSort = ORDER_SORT[sort.isSortedDesc];
+
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`/zone?${stringify(search)}`, location.state);
       }
-
-      if (filter?.trendLine) {
-        const column = leaderboardColumnsConfig.find(
-          ({ id }) => id === filter.columnId,
-        );
-
-        if (column?.diffAccessor) {
-          result = result.filter(row => {
-            const value = row.values[column.diffAccessor];
-
-            return filter.trendLine === 'asc' ? value > 0 : value < 0;
-          });
-        }
-      }
-
-      return result;
     },
-    [filter],
+    [history, location.search, location.state],
   );
 
   const toggleZonesPicker = useCallback(
-    () => setShowZonesPicker(!showZonesPicker),
-    [setShowZonesPicker, showZonesPicker],
+    () => setShowZonesPicker(prevState => !prevState),
+    [setShowZonesPicker],
   );
 
+  const removeZoneDetails = useCallback(() => {
+    const search = parse(location.search);
+
+    delete search.zoneDetailsChanelId;
+    delete search.zoneDetailsChanelCounerparty;
+
+    history.push(`/zone?${stringify(search)}`, location.state);
+  }, [history, location.search, location.state]);
+
   const toggleZoneDetails = useCallback(
-    () => setShowZoneDetails(!showZoneDetails),
-    [setShowZoneDetails, showZoneDetails],
+    () => setShowZoneDetails(prevState => !prevState),
+    [setShowZoneDetails],
   );
 
   const preSetFocusedZone = useCallback(
     zone => {
       if (zone) {
-        setZoneDetails(zone);
+        const search = parse(location.search);
+
+        search.zoneDetailsChanelId = zone.channel_id;
+        search.zoneDetailsChanelCounerparty = zone.zone_counerparty;
+
+        history.push(`/zone?${stringify(search)}`, location.state);
+
         toggleZoneDetails();
       }
     },
-    [toggleZoneDetails],
+    [history, location.search, location.state, toggleZoneDetails],
   );
 
   const selectZones = useCallback(
@@ -129,15 +155,22 @@ function Channel() {
         newTargets.length ===
         removeDuplicatedZoneCounerparties(zoneStat.nodes).length
       ) {
-        history.push(`/zone?source=${source}`, location.state);
+        const search = parse(location.search);
+
+        delete search.targets;
+
+        history.push(`/zone?${stringify(search)}`, location.state);
       } else {
-        history.push(
-          `/zone?source=${source}&targets=${newTargets.join(',')}`,
-          location.state,
-        );
+        const search = parse(location.search);
+
+        search.targets = newTargets
+          .map(({ zone_counerparty }) => zone_counerparty)
+          .join(',');
+
+        history.push(`/zone?${stringify(search)}`, location.state);
       }
     },
-    [history, location.state, source, zoneStat],
+    [history, location.search, location.state, zoneStat],
   );
 
   const navigateToMainPage = useCallback(() => {
@@ -146,11 +179,33 @@ function Channel() {
 
   const onCloseClick = useCallback(() => {
     if (location.state?.navigateFrom) {
-      history.push(location.state.navigateFrom);
+      const search = parse(location.state.navigateFrom.search);
+
+      if (isTestnetVisible) {
+        search.testnet = true;
+      } else {
+        search.testnet = false;
+      }
+
+      history.push(
+        `${location.state.navigateFrom.pathname}?${stringify(search)}`,
+      );
     } else {
-      history.replace('/');
+      const search = {};
+
+      if (isTestnetVisible) {
+        search.testnet = true;
+      }
+
+      history.replace(`/?${stringify(search)}`);
     }
-  }, [history, location.state]);
+  }, [history, isTestnetVisible, location.state]);
+
+  useEffect(() => {
+    if (showZoneDetails === null && zoneDetails) {
+      toggleZoneDetails();
+    }
+  }, [showZoneDetails, toggleZoneDetails, zoneDetails]);
 
   if (!zoneStat) {
     return <Loader />;
@@ -163,17 +218,19 @@ function Channel() {
           source={source}
           toggleZonesPicker={toggleZonesPicker}
           zoneStat={zoneStat}
+          isTestnetVisible={isTestnetVisible}
+          toggleShowTestnet={toggleShowTestnet}
         />
         <Leaderboard
-          filter={filterFn}
           data={zoneStat.selectedNodes}
-          onSortChange={setSort}
+          onSortChange={onSortChange}
           setFocusedZone={preSetFocusedZone}
           initialState={initialState}
         />
         <ZoneDetails
+          onAfterClose={removeZoneDetails}
           onRequestClose={toggleZoneDetails}
-          isOpen={showZoneDetails}
+          isOpen={!!showZoneDetails}
           zone={zoneDetails}
         />
         <ZonesPicker

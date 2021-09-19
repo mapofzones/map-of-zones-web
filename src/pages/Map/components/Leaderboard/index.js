@@ -2,17 +2,20 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
+import animate from 'animate.css';
 
 import { formatNumber, trackEvent } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 
 import Thead from './Thead';
 import SortModal from './SortModal';
+import Status from './Status';
+
 import columnsConfig from './config';
 
 import styles from './index.module.css';
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind({ ...animate, ...styles });
 
 function Leaderboard({
   data,
@@ -60,9 +63,11 @@ function Leaderboard({
   const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
   useEffect(() => {
-    onSortChange({ ...sortedColumn });
+    onSortChange({ id: sortBy.id, desc: sortBy.desc });
+  }, [sortBy.id, sortBy.desc, onSortChange]);
 
-    if (sortBy !== initialSortBy) {
+  useEffect(() => {
+    if (sortBy !== initialSortBy && sortedColumn) {
       trackEvent({
         category: 'Table',
         action: 'sort',
@@ -70,7 +75,7 @@ function Leaderboard({
         extra: { direction: sortBy?.desc ? 'desc' : 'asc' },
       });
     }
-  }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
+  }, [initialSortBy, sortBy, sortedColumn]);
 
   useEffect(() => {
     let table = document.documentElement.querySelector('table');
@@ -85,10 +90,26 @@ function Leaderboard({
         return <div>-</div>;
       case 'txsActivity':
         return cell.render('Cell');
+      case 'zoneLabelUrl': {
+        return (
+          <div className={cx('cell-container', 'cell-image-container')}>
+            {cell.row.original.zoneLabelUrl ? (
+              <img
+                className={cx('image-container')}
+                src={cell.row.original.zoneLabelUrl}
+                alt=""
+              />
+            ) : (
+              <div className={cx('image-empty')} />
+            )}
+          </div>
+        );
+      }
       case 'name': {
         return (
           <div className={cx('cell-container')}>
             <span className={cx('text-container')}>{cell.render('Cell')}</span>
+            <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
             {cell.row.original[sortedColumn.id + 'RatingDiff'] !== 0 && (
               <span
                 className={cx('position-shift', {
@@ -219,6 +240,12 @@ function Leaderboard({
       setHiddenColumns([], true);
     }
   }, [setHiddenColumns, hiddenColumns, isMobile, selectedColumnIndex]);
+
+  useEffect(() => {
+    if (isMobile && columns[selectedColumnIndex + 3]?.toggleSortBy) {
+      columns[selectedColumnIndex + 3].toggleSortBy(false, false);
+    }
+  }, [columns, selectedColumnIndex, isMobile]);
 
   return (
     <div

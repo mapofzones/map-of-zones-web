@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
@@ -20,6 +20,18 @@ function ZonesSorter({
   isSortedDesc,
   focusedZoneName,
 }) {
+  const [decs, setDecs] = useState(true);
+
+  useEffect(() => {
+    if (isSortedDesc.tableOrderBy) {
+      if (isSortedDesc.tableOrderSort === 'desc') {
+        setDecs(true);
+      }
+      if (isSortedDesc.tableOrderSort === 'asc') {
+        setDecs(false);
+      }
+    }
+  }, [isSortedDesc]);
   return (
     <div>
       <div className={cx('container', className)}>
@@ -30,10 +42,10 @@ function ZonesSorter({
               id="zones-sort-title"
               defaultMessage="{desc} Active Zones {sort}"
               values={{
-                desc: isSortedDesc ? (
-                  <FormattedMessage id="least" defaultMessage="Least" />
-                ) : (
+                desc: decs ? (
                   <FormattedMessage id="most" defaultMessage="Most" />
+                ) : (
+                  <FormattedMessage id="least" defaultMessage="Least" />
                 ),
                 sort: (
                   <span className={cx('sort')}>

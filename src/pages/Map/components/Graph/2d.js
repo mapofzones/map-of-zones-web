@@ -11,6 +11,7 @@ import ForceGraph2D from 'react-force-graph-2d';
 import { FormattedMessage } from 'react-intl';
 import { forceCollide } from 'd3-force-3d';
 import { parse } from 'querystringify';
+import { useLocation } from 'react-router-dom';
 
 import { trackEvent } from 'common/helper';
 
@@ -38,11 +39,22 @@ import ZonesFilter from '../ZonesFilter';
 // import NodeModal from './Modal/NodeModal';
 
 import styles from './index.module.css';
-import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const NODE_REL_SIZE = 4;
+
+const zoomValue = nodesCount => {
+  if (nodesCount < 5) {
+    return 2 - nodesCount * 0.1;
+  }
+
+  if (nodesCount < 15) {
+    return 2 - nodesCount * 0.05;
+  }
+
+  return nodesCount > 50 ? 0.8 : 1;
+};
 
 function Graph({
   data,
@@ -63,7 +75,16 @@ function Graph({
     location.search,
   ]);
 
+  const [graphData, setGraphData] = useState(data);
+  useEffect(() => {
+    setGraphData(data);
+    // TODO: it could bring extra rerenders, but need to test
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [data.graph._nodeCount, data.graph._edgeCount, period]);
+  }, [data.graph._nodeCount, data.graph._edgeCount, period, data]); //todo: need to fix! Can't work with websocket, reload bug
+
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [draggedNode, setDraggedNode] = useState(null);
   // const [clickedNode, setClickedNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [currentZoom, updateZoom] = useState(1);
@@ -72,6 +93,26 @@ function Graph({
   const [isFocused, setIsFocused] = useState(true);
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
+
+  const focusedNodeNeighbors = useFocusedNodeNeighbors(
+    focusedNode,
+    graphData.graph,
+  );
+
+  const [images, setImages] = useState({});
+
+  useEffect(() => {
+    if (graphData?.nodes) {
+      graphData.nodes.forEach(({ id, zoneLabelUrlBig }) => {
+        if (!images[id] && zoneLabelUrlBig) {
+          const image = new Image();
+          image.src = zoneLabelUrlBig;
+
+          setImages(prevState => ({ ...prevState, [id]: image }));
+        }
+      });
+    }
+  }, [graphData, images]);
 
   useEffect(() => {
     const fg = fgRef.current;
@@ -117,19 +158,33 @@ function Graph({
     }
 
     if (focusedNode) {
-      fgRef.current.centerAt(focusedNode.x, focusedNode.y, 500);
+      let { x, y } = focusedNode;
 
-      if (!isRendered) {
-        setTimeout(() => {
-          setIsRendered(true);
-          fgRef.current.centerAt(focusedNode.x, focusedNode.y, 2000);
-        }, 2000);
+      if (!x || !y) {
+        const nodeCoords = fgRef.current.getGraphBbox(
+          ({ id }) => id === focusedNode.id,
+        );
+
+        x = (nodeCoords.x[0] + nodeCoords.x[1]) / 2;
+        y = (nodeCoords.y[0] + nodeCoords.y[1]) / 2;
       }
-      zoom(2);
+
+      if (x && y) {
+        fgRef.current.centerAt(x, y, 500);
+
+        if (!isRendered) {
+          setTimeout(() => {
+            setIsRendered(true);
+            fgRef.current.centerAt(x, y, 2000);
+          }, 2000);
+        }
+      }
     } else {
-      zoom(1);
+      fgRef.current.centerAt(0, 0, 500);
     }
-  }, [data, focusedNode, isRendered, zoneFromSearch, zoom]);
+
+    zoom(zoomValue(graphData.nodes.length));
+  }, [graphData, focusedNode, isRendered, zoneFromSearch, zoom]);
 
   const zoomIn = useCallback(() => {
     zoom(currentZoom * 2);
@@ -139,16 +194,51 @@ function Graph({
     zoom(currentZoom / 2);
     trackEvent({ category: 'Map', action: 'zoom', label: 'out' });
   }, [currentZoom, zoom]);
-  const onNodeHover = useCallback(node => setHoveredNode(node), [
-    setHoveredNode,
-  ]);
-  const onLinkHover = useCallback(link => setHoveredLink(link), [
-    setHoveredLink,
-  ]);
-  const toggleFilter = useCallback(() => setShowFilter(!showFilter), [
-    setShowFilter,
-    showFilter,
-  ]);
+  const onNodeHover = useCallback(
+    node => {
+      if (
+        !node ||
+        !focusedNode ||
+        focusedNode === node ||
+        focusedNode?.id === node?.id ||
+        focusedNodeNeighbors.includes(node)
+      ) {
+        setHoveredNode(node);
+      }
+    },
+    [focusedNode, focusedNodeNeighbors],
+  );
+  const onNodeDrag = useCallback(
+    node => {
+      if (
+        !node ||
+        !focusedNode ||
+        focusedNode === node ||
+        focusedNode?.id === node?.id ||
+        focusedNodeNeighbors.includes(node)
+      ) {
+        setDraggedNode(node);
+      }
+    },
+    [focusedNode, focusedNodeNeighbors],
+  );
+  const onLinkHover = useCallback(
+    link => {
+      if (
+        !link ||
+        !focusedNode ||
+        link.source?.id === focusedNode?.id ||
+        link.target?.id === focusedNode?.id
+      ) {
+        setHoveredLink(link);
+      }
+    },
+    [focusedNode],
+  );
+  const toggleFilter = useCallback(
+    () => setShowFilter(prevState => !prevState),
+    [setShowFilter],
+  );
   const clearNodeFocus = useCallback(() => {
     if (focusedNode) {
       onNodeFocus(null);
@@ -162,8 +252,6 @@ function Graph({
   const onMouseLeave = useCallback(() => {
     setIsFocused(false);
   }, [setIsFocused]);
-
-  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
 
   const onNodeClick = useCallback(
     node => {
@@ -184,11 +272,20 @@ function Graph({
     [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
   );
 
+  const onNodeDragEnd = useCallback(() => {
+    setDraggedNode(null);
+    trackEvent({
+      category: 'Map',
+      action: 'drag zone',
+    });
+  }, [setDraggedNode]);
+
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
     focusedNode,
     focusedNodeNeighbors,
     NODE_REL_SIZE,
+    images,
   );
   const applyFilter = useCallback(
     filter => {
@@ -198,10 +295,12 @@ function Graph({
     },
     [setShowFilter, setFilter, clearNodeFocus],
   );
-  const linkCanvasObject = useLinkCanvasObject(focusedNode);
+  const linkCanvasObject = useLinkCanvasObject(
+    focusedNode,
+    hoveredNode || draggedNode,
+  );
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
-
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={cx('container', { blurred: isBlurred })}>
@@ -212,7 +311,7 @@ function Graph({
           nodeVal={zoneWeightAccessor}
           nodeColor="color"
           nodeLabel={null}
-          graphData={data}
+          graphData={graphData}
           onNodeHover={onNodeHover}
           nodeCanvasObject={nodeCanvasObject}
           linkCanvasObject={linkCanvasObject}
@@ -220,13 +319,9 @@ function Graph({
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
-          onNodeDragEnd={() =>
-            trackEvent({
-              category: 'Map',
-              action: 'drag zone',
-            })
-          }
+          onNodeDragEnd={onNodeDragEnd}
           onBackgroundClick={clearNodeFocus}
+          onNodeDrag={onNodeDrag}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
         <div className={cx('buttonsContainer', 'zoomButtonsContainer')}>

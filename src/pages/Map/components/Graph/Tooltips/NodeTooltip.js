@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import { parse, stringify } from 'querystringify';
 
 import { formatNumber, formatPercentage } from 'common/helper';
 
@@ -19,10 +20,25 @@ function NodeTooltip({ node, period }) {
   }, []);
 
   const onDetailsPress = useCallback(() => {
-    history.push(`/zone?period=${period.hours}&source=${node.id}`, {
-      navigateFrom: location.pathname + location.search,
+    const { testnet } = parse(location.search);
+
+    const search = {
+      period: period.hours,
+      source: node.id,
+      tableOrderBy: 'success',
+      tableOrderSort: 'desc',
+    };
+
+    if (testnet === 'true') {
+      search.testnet = true;
+    } else {
+      search.testnet = false;
+    }
+
+    history.push(`/zone?${stringify(search)}`, {
+      navigateFrom: location,
     });
-  }, [history, location.pathname, location.search, node.id, period]);
+  }, [history, location, node.id, period.hours]);
 
   let mapTooltip =
     document.querySelector('.graph-tooltip') ||
@@ -48,7 +64,16 @@ function NodeTooltip({ node, period }) {
       >
         <div className={cx('node-custom-tooltip-content')}>
           <div className={cx('header-row')}>
-            <div className={cx('item-text')}>{node.name}</div>
+            <div className={cx('item-text-and-image')}>
+              {!!node.zoneLabelUrl && (
+                <img
+                  className={cx('item-image')}
+                  src={node.zoneLabelUrl}
+                  alt={node.name}
+                />
+              )}
+              <div className={cx('item-text')}>{node.name}</div>
+            </div>
             <div className={cx('key-text', 'period-title')}>{period.name}</div>
           </div>
           <div className={cx('row-tooltip')}>

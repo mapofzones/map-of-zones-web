@@ -76,6 +76,14 @@
   border-bottom: 1px solid var(--footer-gray);
 }
 
+.contactUsLink {
+  border-width: 0;
+  border-left-width: 1px;
+  border-style: solid;
+  border-color: #4b4b4b;
+  padding-left: 16px;
+}
+
 @media (max-width: 800px) {
   .socialName {
     display: none;

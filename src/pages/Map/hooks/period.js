@@ -18,7 +18,9 @@ export const usePeriodSelector = () => {
         delete search.period;
       }
 
-      history.push(`?${stringify(search)}`);
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`?${stringify(search)}`);
+      }
     },
     [history, location.search],
   );

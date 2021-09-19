@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { Graph } from '@dagrejs/graphlib';
 
-import { getIsUptrend, getZoneColor } from 'common/helper';
+import { getIsUptrend, getNodeColor } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
 
 const ZONES_STAT_FRAGMENT = gql`
@@ -19,30 +19,50 @@ const ZONES_STAT_FRAGMENT = gql`
     channels_cnt_active_period
     channels_percent_active_period
     total_ibc_txs_weight
+    total_ibc_txs_mainnet_weight
     total_txs_weight
+    total_txs_mainnet_weight
     ibc_tx_in_weight
+    ibc_tx_in_mainnet_weight
     ibc_tx_out_weight
+    ibc_tx_out_mainnet_weight
     total_txs_diff
     total_ibc_txs_diff
     ibc_tx_out_diff
     ibc_tx_in_diff
     total_txs_rating
     total_txs_rating_diff
+    total_txs_mainnet_rating
+    total_txs_mainnet_rating_diff
     total_ibc_txs_rating
     total_ibc_txs_rating_diff
+    total_ibc_txs_mainnet_rating
+    total_ibc_txs_mainnet_rating_diff
     ibc_tx_out_rating
     ibc_tx_out_rating_diff
+    ibc_tx_out_mainnet_rating
+    ibc_tx_out_mainnet_rating_diff
     ibc_tx_in_rating
     ibc_tx_in_rating_diff
+    ibc_tx_in_mainnet_rating
+    ibc_tx_in_mainnet_rating_diff
     total_active_addresses
     total_active_addresses_diff
     total_active_addresses_weight
+    total_active_addresses_mainnet_weight
     ibc_tx_failed
     ibc_tx_out_failed
     ibc_tx_in_failed
     ibc_tx_failed_diff
     total_active_addresses_rating
     total_active_addresses_rating_diff
+    total_active_addresses_mainnet_rating
+    total_active_addresses_mainnet_rating_diff
+    is_zone_up_to_date
+    is_zone_mainnet
+    zone_readable_name
+    zone_label_url
+    zone_label_url2
   }
 `;
 
@@ -62,6 +82,30 @@ const ZONES_STAT_SUBSCRIPTION = gql`
   subscription ZonesStat($period: Int!) {
     zones_stats(
       where: { timeframe: { _eq: $period } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
+  }
+  ${ZONES_STAT_FRAGMENT}
+`;
+
+const ZONES_STAT_QUERY_ONLY_MAINNET = gql`
+  query ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
+  }
+  ${ZONES_STAT_FRAGMENT}
+`;
+
+const ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
       order_by: { ibc_tx_in: asc, zone: asc }
     ) {
       ...stat
@@ -98,6 +142,28 @@ const ZONES_GRAPH_SUBSCRIPTION = gql`
   ${ZONES_GRAPH_FRAGMENT}
 `;
 
+const ZONES_GRAPH_QUERY_ONLY_MAINNET = gql`
+  query ZonesGraph($period: Int!) {
+    zones_graphs(
+      where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
+    ) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
+const ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription ZonesGraph($period: Int!) {
+    zones_graphs(
+      where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
+    ) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
 const DEFAULT_COLOR = '#72727A';
 
 const createGraph = (nodes, links) => {
@@ -109,7 +175,7 @@ const createGraph = (nodes, links) => {
   return g;
 };
 
-const getScaleParams = (zones, key) => {
+const getScaleParams = (zones, key, isTestnetVisible) => {
   const weights = zones.map(({ [key]: weight }) => weight).filter(Boolean);
 
   if (!weights.length) {
@@ -120,31 +186,38 @@ const getScaleParams = (zones, key) => {
   const min = weights.length === zones.length ? minWeight : minWeight / 2;
   const scale = min < 1 ? 1 / min : min;
 
-  return [min, scale];
+  return [min, scale * (isTestnetVisible ? 1 : 3)];
 };
 
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
-const transform = (zones, graph) => {
+const transform = (zones, graph, isTestnetVisible) => {
   if (!zones || !graph) {
     return null;
   }
 
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
     zones,
-    'total_ibc_txs_weight',
+    isTestnetVisible ? 'total_ibc_txs_weight' : 'total_ibc_txs_mainnet_weight',
+    isTestnetVisible,
   );
-  const [minTxsWeight, txsScale] = getScaleParams(zones, 'total_txs_weight');
+  const [minTxsWeight, txsScale] = getScaleParams(
+    zones,
+    isTestnetVisible ? 'total_txs_weight' : 'total_txs_mainnet_weight',
+    isTestnetVisible,
+  );
   const [minIbcReceivedWeight, ibcReceivedScale] = getScaleParams(
     zones,
-    'ibc_tx_in_weight',
+    isTestnetVisible ? 'ibc_tx_in_weight' : 'ibc_tx_in_mainnet_weight',
+    isTestnetVisible,
   );
   const [minIbcSentWeight, ibcSentScale] = getScaleParams(
     zones,
-    'ibc_tx_out_weight',
+    isTestnetVisible ? 'ibc_tx_out_weight' : 'ibc_tx_out_mainnet_weight',
+    isTestnetVisible,
   );
 
-  const zonesFormatted = zones.map(
+  let zonesFormatted = zones.map(
     ({
       zone,
       chart,
@@ -158,38 +231,58 @@ const transform = (zones, graph) => {
       channels_cnt_active_period,
       channels_percent_active_period,
       total_ibc_txs_weight,
+      total_ibc_txs_mainnet_weight,
       total_txs_weight,
+      total_txs_mainnet_weight,
       ibc_tx_in_weight,
+      ibc_tx_in_mainnet_weight,
       ibc_tx_out_weight,
+      ibc_tx_out_mainnet_weight,
       total_txs_diff,
       total_ibc_txs_diff,
       ibc_tx_out_diff,
       ibc_tx_in_diff,
       total_txs_rating,
       total_txs_rating_diff,
+      total_txs_mainnet_rating,
+      total_txs_mainnet_rating_diff,
       total_ibc_txs_rating,
       total_ibc_txs_rating_diff,
+      total_ibc_txs_mainnet_rating,
+      total_ibc_txs_mainnet_rating_diff,
       ibc_tx_out_rating,
       ibc_tx_out_rating_diff,
+      ibc_tx_out_mainnet_rating,
+      ibc_tx_out_mainnet_rating_diff,
       ibc_tx_in_rating,
       ibc_tx_in_rating_diff,
+      ibc_tx_in_mainnet_rating,
+      ibc_tx_in_mainnet_rating_diff,
       total_active_addresses,
       total_active_addresses_diff,
       total_active_addresses_weight,
+      total_active_addresses_mainnet_weight,
       ibc_tx_failed,
       ibc_tx_out_failed,
       ibc_tx_in_failed,
       ibc_tx_failed_diff,
       total_active_addresses_rating,
       total_active_addresses_rating_diff,
+      total_active_addresses_mainnet_rating,
+      total_active_addresses_mainnet_rating_diff,
+      is_zone_up_to_date,
+      is_zone_mainnet,
+      zone_readable_name,
+      zone_label_url,
+      zone_label_url2,
     }) => {
       return {
         id: zone,
-        name: zone,
+        name: zone_readable_name,
         txsActivity: chart,
         totalTxs: total_txs,
         totalIbcTxs: total_ibc_txs,
-        ibcPercentage: ibc_percent / 100,
+        ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         ibcSent: ibc_tx_out,
         ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
         ibcReceived: ibc_tx_in,
@@ -202,47 +295,82 @@ const transform = (zones, graph) => {
         totalIbcTxsDiff: total_ibc_txs_diff,
         ibcSentDiff: ibc_tx_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
-        totalTxsRating: total_txs_rating,
-        totalTxsRatingDiff: total_txs_rating_diff,
-        totalIbcTxsRating: total_ibc_txs_rating,
-        totalIbcTxsRatingDiff: total_ibc_txs_rating_diff,
-        ibcSentRating: ibc_tx_out_rating,
-        ibcSentRatingDiff: ibc_tx_out_rating_diff,
-        ibcReceivedRating: ibc_tx_in_rating,
-        ibcReceivedRatingDiff: ibc_tx_in_rating_diff,
+        totalTxsRating: isTestnetVisible
+          ? total_txs_rating
+          : total_txs_mainnet_rating,
+        totalTxsRatingDiff: isTestnetVisible
+          ? total_txs_rating_diff
+          : total_txs_mainnet_rating_diff,
+        totalIbcTxsRating: isTestnetVisible
+          ? total_ibc_txs_rating
+          : total_ibc_txs_mainnet_rating,
+        totalIbcTxsRatingDiff: isTestnetVisible
+          ? total_ibc_txs_rating_diff
+          : total_ibc_txs_mainnet_rating_diff,
+        ibcSentRating: isTestnetVisible
+          ? ibc_tx_out_rating
+          : ibc_tx_out_mainnet_rating,
+        ibcSentRatingDiff: isTestnetVisible
+          ? ibc_tx_out_rating_diff
+          : ibc_tx_out_mainnet_rating_diff,
+        ibcReceivedRating: isTestnetVisible
+          ? ibc_tx_in_rating
+          : ibc_tx_in_mainnet_rating,
+        ibcReceivedRatingDiff: isTestnetVisible
+          ? ibc_tx_in_rating_diff
+          : ibc_tx_in_mainnet_rating_diff,
         totalActiveAddresses: total_active_addresses,
         totalActiveAddressesDiff: total_active_addresses_diff,
-        totalActiveAddressesWeight: total_active_addresses_weight * 10 + 1,
+        totalActiveAddressesWeight:
+          (isTestnetVisible
+            ? total_active_addresses_weight
+            : total_active_addresses_mainnet_weight || 0.15) *
+            10 +
+          1,
         ibcTxFailed: ibc_tx_failed,
         ibcTxOutFailed: ibc_tx_out_failed,
         ibcTxInFailed: ibc_tx_in_failed,
         ibcTxFailedDiff: ibc_tx_failed_diff,
-        totalActiveAddressesRating: total_active_addresses_rating,
-        totalActiveAddressesRatingDiff: total_active_addresses_rating_diff,
+        totalActiveAddressesRating: isTestnetVisible
+          ? total_active_addresses_rating
+          : total_active_addresses_mainnet_rating,
+        totalActiveAddressesRatingDiff: isTestnetVisible
+          ? total_active_addresses_rating_diff
+          : total_active_addresses_mainnet_rating_diff,
         color: total_ibc_txs
-          ? getZoneColor(ibc_tx_out / total_ibc_txs)
+          ? getNodeColor(ibc_tx_out / total_ibc_txs)
           : DEFAULT_COLOR,
         ibcTxsWeight: getNodeWeight(
-          total_ibc_txs_weight,
+          isTestnetVisible
+            ? total_ibc_txs_weight
+            : total_ibc_txs_mainnet_weight,
           minIbcTxsWeight,
           ibcTxsScale,
         ),
-        txsWeight: getNodeWeight(total_txs_weight, minTxsWeight, txsScale),
+        txsWeight: getNodeWeight(
+          isTestnetVisible ? total_txs_weight : total_txs_mainnet_weight,
+          minTxsWeight,
+          txsScale,
+        ),
         ibcReceivedWeight: getNodeWeight(
-          ibc_tx_in_weight,
+          isTestnetVisible ? ibc_tx_in_weight : ibc_tx_in_mainnet_weight,
           minIbcReceivedWeight,
           ibcReceivedScale,
         ),
         ibcSentWeight: getNodeWeight(
-          ibc_tx_out_weight,
+          isTestnetVisible ? ibc_tx_out_weight : ibc_tx_out_mainnet_weight,
           minIbcSentWeight,
           ibcSentScale,
         ),
+        isZoneUpToDate: is_zone_up_to_date,
+        isZoneMainnet: is_zone_mainnet,
+        zoneLabelUrl: zone_label_url,
+        zoneLabelUrlBig: zone_label_url2,
       };
     },
   );
 
-  const linksFormatted = graph.map(
+  let linksFormatted = graph.map(
     ({
       source,
       target,
@@ -265,22 +393,40 @@ const transform = (zones, graph) => {
   };
 };
 
-export const useZonesStat = options => {
+export const useZonesStat = (options, isTestnetVisible) => {
   const zones = useRealtimeQuery(
     ZONES_STAT_QUERY,
     ZONES_STAT_SUBSCRIPTION,
     options,
   );
+
   const graph = useRealtimeQuery(
     ZONES_GRAPH_QUERY,
     ZONES_GRAPH_SUBSCRIPTION,
     options,
   );
 
-  return useMemo(() => transform(zones?.zones_stats, graph?.zones_graphs), [
-    zones,
-    graph,
-  ]);
+  const mainnetZones = useRealtimeQuery(
+    ZONES_STAT_QUERY_ONLY_MAINNET,
+    ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET,
+    options,
+  );
+
+  const mainnetGraph = useRealtimeQuery(
+    ZONES_GRAPH_QUERY_ONLY_MAINNET,
+    ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET,
+    options,
+  );
+
+  return useMemo(
+    () =>
+      transform(
+        isTestnetVisible ? zones?.zones_stats : mainnetZones?.zones_stats,
+        isTestnetVisible ? graph?.zones_graphs : mainnetGraph?.zones_graphs,
+        isTestnetVisible,
+      ),
+    [isTestnetVisible, mainnetZones, zones, mainnetGraph, graph],
+  );
 };
 
 export const useZonesStatFiltered = (zonesStat, filter) => {
@@ -289,7 +435,8 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
       filter?.columnId &&
       ((filter?.sortOrder && filter?.filterAmount) || filter?.trendLine)
     ) {
-      let nodes = [...zonesStat.nodes];
+      let nodes = [...(zonesStat?.nodes || [])];
+      let links = [...(zonesStat?.links || [])];
 
       if (filter?.trendLine) {
         nodes = nodes.filter(node => {
@@ -310,9 +457,16 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
           .slice(0, filter.filterAmount);
       }
 
-      const links = zonesStat.links.filter(
+      links = links.map(({ source, target, ...restLinkData }) => ({
+        ...restLinkData,
+        source: source?.id || source,
+        target: target?.id || target,
+      }));
+
+      links = links.filter(
         ({ source, target }) =>
-          nodes.includes(source) && nodes.includes(target),
+          !!nodes.find(({ id }) => id === source) &&
+          !!nodes.find(({ id }) => id === target),
       );
 
       return {
@@ -323,5 +477,5 @@ export const useZonesStatFiltered = (zonesStat, filter) => {
     }
 
     return zonesStat;
-  }, [zonesStat, filter]);
+  }, [filter, zonesStat]);
 };
