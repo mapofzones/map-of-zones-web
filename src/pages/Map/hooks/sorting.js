@@ -26,7 +26,7 @@ export const useSorting = () => {
   );
 
   const sort = useMemo(() => {
-    const { tableOrderBy = 'totalIbcTxs', tableOrderSort = 'asc' } = parse(
+    const { tableOrderBy = 'totalIbcTxs', tableOrderSort = 'desc' } = parse(
       location.search,
     );
 
