@@ -80,7 +80,8 @@ function Graph({
     setGraphData(data);
     // TODO: it could bring extra rerenders, but need to test
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.graph._nodeCount, data.graph._edgeCount, period]);
+    // }, [data.graph._nodeCount, data.graph._edgeCount, period]);
+  }, [data.graph._nodeCount, data.graph._edgeCount, period, data]); //todo: need to fix! Can't work with websocket, reload bug
 
   const [hoveredNode, setHoveredNode] = useState(null);
   const [draggedNode, setDraggedNode] = useState(null);
