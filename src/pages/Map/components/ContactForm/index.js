@@ -28,6 +28,10 @@ const rowWrapperStyle = {
   width: '100%',
   marginBottom: '10px',
 };
+const rowWrapperRequiredStyle = {
+  display: 'table',
+  width: '100%',
+};
 const rowContainerStyle = {
   display: 'table-cell',
   verticalAlign: 'middle',
@@ -145,7 +149,7 @@ function ContactForm({
         </div>
         <form onSubmit={handleSubmit}>
           <div className={cx('mobile-wrapper')}>
-            <div style={rowWrapperStyle}>
+            <div style={rowWrapperRequiredStyle}>
               <div style={rowContainerStyle}>
                 <div style={rowStyle}>
                   <div
@@ -170,12 +174,11 @@ function ContactForm({
                       customStyleWrapper={{
                         width: '100%',
                         marginRight: state.hasWebSiteTouch ? '10px' : 0,
+                        height: state.hasWebSiteError ? '68px' : 'auto',
                       }}
                       classNameInput={cx('formInput', {
                         formInput_error:
                           state.hasWebSiteError && state.hasWebSiteTouch,
-                        formInput_clicked:
-                          state.hasWebSiteTouch && !state.hasWebSiteError,
                         formInput_success: !state.hasWebSiteError,
                       })}
                       attributesInput={{
@@ -187,7 +190,7 @@ function ContactForm({
                         setState({ hasWebSiteError: isNotValidate });
                       }}
                       onKeyUp={() => {}}
-                      onFocus={() => {
+                      onClick={() => {
                         setState({ hasWebSiteTouch: true });
                       }}
                       value={state.webSite}
@@ -244,7 +247,6 @@ function ContactForm({
                         backgroundColor: '#F4F4F5',
                       }}
                       classNameInput={cx('formInput', {
-                        formInput_clicked: state.hasZoneTouch,
                         formInput_success: state.hasZoneTouch && state.zoneRPC,
                       })}
                       customStyleWrapper={{
@@ -296,7 +298,6 @@ function ContactForm({
                         backgroundColor: '#F4F4F5',
                       }}
                       classNameInput={cx('formInput', {
-                        formInput_clicked: state.hasContactTouch,
                         formInput_success:
                           state.hasContactTouch && state.contacts,
                       })}
@@ -350,7 +351,6 @@ function ContactForm({
                       }}
                       classNameInput={cx('formInput', {
                         background: 'red',
-                        formInput_clicked: state.hasAuxiliaryInfoTouch,
                         formInput_success:
                           state.hasAuxiliaryInfoTouch && state.auxiliaryInfo,
                       })}

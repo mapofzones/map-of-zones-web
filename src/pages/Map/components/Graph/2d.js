@@ -300,7 +300,6 @@ function Graph({
   );
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
-
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={cx('container', { blurred: isBlurred })}>
