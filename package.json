@@ -87,7 +87,7 @@
     "react-transition-group": "^4.4.2",
     "recharts": "^1.8.5",
     "subscriptions-transport-ws": "^0.9.16",
-    "three": "^0.124.0",
+    "three": "^0.125.0",
     "three-spritetext": "^1.5.3",
     "tinycolor2": "^1.4.1",
     "tinygradient": "^1.1.1"
