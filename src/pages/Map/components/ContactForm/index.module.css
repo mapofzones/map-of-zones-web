@@ -232,8 +232,9 @@ body {
   .content {
     width: 100%;
     max-width: 100vw;
+    height: 100vh;
     max-height: 100vh;
-    overflow: scroll;
+    overflow: auto;
     position: relative;
     padding: 50px 24px 80px;
   }
@@ -266,7 +267,7 @@ body {
     display: flex;
     position: absolute;
     right: 10px;
-    top: 0;
+    top: 5px;
   }
 
   .titleContainer {

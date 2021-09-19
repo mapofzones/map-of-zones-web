@@ -22,7 +22,6 @@ function ZoneDetails({ isOpen, onAfterClose, onRequestClose, zone }) {
       animations={{
         afterOpen: 'animate__slideInRight',
         beforeClose: 'animate__slideOutRight',
-        overlayAfterOpen: 'overlayFadeIn',
         overlayBeforeClose: 'overlayFadeOut',
       }}
     >

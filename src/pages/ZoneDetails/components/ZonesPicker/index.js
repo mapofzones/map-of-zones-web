@@ -85,7 +85,6 @@ function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
       animations={{
         afterOpen: 'animate__slideInRight',
         beforeClose: 'animate__slideOutRight',
-        overlayAfterOpen: 'overlayFadeIn',
         overlayBeforeClose: 'overlayFadeOut',
       }}
     >
