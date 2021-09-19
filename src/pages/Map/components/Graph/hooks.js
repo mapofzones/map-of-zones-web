@@ -141,9 +141,13 @@ export const useNodeCanvasObject = (
   );
 
 export const useFocusedNodeNeighbors = (focusedNode, graph) =>
-  focusedNode
-    ? (graph.neighbors(focusedNode.id) || []).map(id => graph.node(id))
-    : null;
+  useMemo(
+    () =>
+      focusedNode
+        ? (graph.neighbors(focusedNode.id) || []).map(id => graph.node(id))
+        : null,
+    [focusedNode, graph],
+  );
 
 export const useLinkColor = focusedNode =>
   useCallback(
