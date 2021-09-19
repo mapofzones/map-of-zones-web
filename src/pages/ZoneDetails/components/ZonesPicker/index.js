@@ -20,7 +20,7 @@ function Zone({ item, onClick, isSelected }) {
       role="button"
       onClick={() => onClick(item)}
     >
-      {item}
+      {item.zone_counterparty_readable_name}
       {isSelected && <CheckIcon />}
     </div>
   );
@@ -28,20 +28,14 @@ function Zone({ item, onClick, isSelected }) {
 
 function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
   const targets = useMemo(
-    () =>
-      removeDuplicatedZoneCounerparties(zoneStat.selectedNodes).map(
-        ({ zone_counerparty }) => zone_counerparty,
-      ),
+    () => removeDuplicatedZoneCounerparties(zoneStat.selectedNodes),
     [zoneStat],
   );
 
   const [selectedItems, setSelectedItems] = useState(targets);
 
   const data = useMemo(
-    () =>
-      removeDuplicatedZoneCounerparties(zoneStat.nodes).map(
-        ({ zone_counerparty }) => zone_counerparty,
-      ),
+    () => removeDuplicatedZoneCounerparties(zoneStat.nodes),
     [zoneStat],
   );
 
@@ -91,7 +85,6 @@ function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
       animations={{
         afterOpen: 'animate__slideInRight',
         beforeClose: 'animate__slideOutRight',
-        overlayAfterOpen: 'overlayFadeIn',
         overlayBeforeClose: 'overlayFadeOut',
       }}
     >
@@ -117,7 +110,9 @@ function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
         <button type="button" className={cx('select-all')} onClick={selectAll}>
           <FormattedMessage
             id="select-all-button-title"
-            defaultMessage="Select all"
+            defaultMessage={
+              selectedItems.length === data.length ? 'Clear all' : 'Select all'
+            }
           />
         </button>
 
@@ -125,7 +120,7 @@ function ZonesPicker({ isOpen, onRequestClose, selectZones, zoneStat }) {
           {data.map(item => (
             <Zone
               item={item}
-              key={item}
+              key={item.zone_counterparty}
               isSelected={selectedItems.find(i => i === item)}
               onClick={onSelectZone}
             />

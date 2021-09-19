@@ -119,6 +119,20 @@ function Footer() {
           </span>
           <span className={cx('socialName')}>support@mapofzones.com</span>
         </a>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSczp-YbmECgX3_DsycgHVsZiJlQZLhB46jFfchQKPxiwFR4ig/viewform?usp=sf_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cx('link', 'socialLink', 'contactUsLink')}
+          onClick={() =>
+            trackEvent({
+              category: 'Footer',
+              action: 'contact us click',
+            })
+          }
+        >
+          <span className={cx('socialName')}>not listed?</span>
+        </a>
       </div>
       <div className={cx('socialMediaTitle')}>
         <FormattedMessage

@@ -18,7 +18,7 @@ const columns = [
   },
   {
     Header: 'Recipient Zone',
-    accessor: 'zone_counerparty',
+    accessor: 'zone_counterparty_readable_name',
     id: 'zone_counerparty',
     disableSortBy: true,
     alwaysVisible: true,

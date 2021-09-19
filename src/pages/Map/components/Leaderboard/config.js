@@ -13,6 +13,13 @@ const columns = [
     alwaysVisible: true,
   },
   {
+    Header: '',
+    accessor: 'zoneLabelUrl',
+    id: 'zoneLabelUrl',
+    disableSortBy: true,
+    alwaysVisible: true,
+  },
+  {
     Header: 'Zone',
     accessor: 'name',
     id: 'name',
@@ -35,7 +42,10 @@ const columns = [
     id: 'totalTxs',
     diffAccessor: 'totalTxsDiff',
     ratingAccessor: 'totalTxsRatingDiff',
-    Cell: ({ cell }) => formatNumber(cell.row.original.totalTxs),
+    Cell: ({ cell }) =>
+      cell.row.original.totalTxs === null
+        ? '-'
+        : formatNumber(cell.row.original.totalTxs),
     zoneWeightAccessor: 'txsWeight',
     tooltip: 'All transactions in a specified zone',
   },
@@ -43,7 +53,8 @@ const columns = [
     Header: 'IBC share %',
     accessor: 'ibcPercentage',
     id: 'ibcPercentage',
-    Cell: ({ cell }) => formatPercentage(cell.value),
+    Cell: ({ cell }) =>
+      cell.value === null ? '-' : formatPercentage(cell.value),
     disableSortBy: true,
     tooltip:
       'The proportion of the number of transactions having IBC ' +
@@ -76,7 +87,7 @@ const columns = [
     Header: 'Channels',
     accessor: 'channels',
     id: 'channels',
-    Cell: ({ cell }) => formatNumber(cell.value),
+    Cell: ({ cell }) => (cell.value === null ? '-' : formatNumber(cell.value)),
     tooltip: 'Channels',
     disableSortBy: true,
   },
@@ -86,7 +97,10 @@ const columns = [
     id: 'totalActiveAddresses',
     diffAccessor: 'totalActiveAddressesDiff',
     ratingAccessor: 'totalActiveAddressesRatingDiff',
-    Cell: ({ cell }) => formatNumber(cell.row.original.totalActiveAddresses),
+    Cell: ({ cell }) =>
+      cell.row.original.totalActiveAddresses === null
+        ? '-'
+        : formatNumber(cell.row.original.totalActiveAddresses),
     tooltip: 'Active addresses',
     dependOnPeriod: true,
     zoneWeightAccessor: 'totalActiveAddressesWeight',

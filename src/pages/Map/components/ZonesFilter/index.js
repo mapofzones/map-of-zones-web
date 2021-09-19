@@ -14,7 +14,7 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-export const SORT_ORDER = [
+export const ORDER_SORT = [
   {
     label: <FormattedMessage id="order-default" defaultMessage="All" />,
     value: null,
@@ -91,9 +91,9 @@ export const FILTER_AMOUNT = [
 ];
 
 const initialFilter = {
-  sortOrder: SORT_ORDER[0].value,
-  filterAmount: FILTER_AMOUNT[0].value,
-  trendLine: TREND_LINE[0].value,
+  sortOrder: null,
+  filterAmount: null,
+  trendLine: null,
 };
 
 function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
@@ -111,11 +111,12 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
     });
   }, [setSortOrder, seFilterAmount, setTrendLine, applyFilter]);
   const selectedSortOrder = useMemo(
-    () => SORT_ORDER.find(({ value }) => value === sortOrder),
+    () => ORDER_SORT.find(({ value }) => value === sortOrder),
     [sortOrder],
   );
   const selectedFilterAmount = useMemo(
-    () => FILTER_AMOUNT.find(({ value }) => value === filterAmount),
+    () =>
+      FILTER_AMOUNT.find(({ value }) => value === parseInt(filterAmount, 10)),
     [filterAmount],
   );
   const selectedTrendLine = useMemo(
@@ -172,7 +173,7 @@ function ZonesFilter({ currentFilter, applyFilter, isOpen, onRequestClose }) {
         <Select
           value={selectedSortOrder}
           onChange={({ value }) => setSortOrder(value)}
-          options={SORT_ORDER}
+          options={ORDER_SORT}
           className={cx('dropdown')}
         />
         {sortOrder && (

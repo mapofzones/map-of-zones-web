@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import Switch from 'react-switch';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
+
+import { useGraphType } from '../../hooks';
 
 import { Graph3D, Graph2D } from '../Graph';
 import ZonesSorter from '../ZonesSorter';
@@ -26,19 +29,23 @@ function GraphContainer({
   isTableOpened,
   setFilter,
   currentFilter,
+  isTestnetVisible,
+  toggleShowTestnet,
 }) {
-  const backToMap = () => {
+  const backToMap = useCallback(() => {
     if (isTableOpened) {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
     }
-  };
+  }, [isTableOpened]);
 
-  const [graphType, toggleGraphType] = useState('2D');
+  const [graphType, toggleGraphType] = useGraphType();
 
-  const Graph = graphType === '2D' ? Graph2D : Graph3D;
+  const Graph = useMemo(() => (graphType === '2D' ? Graph2D : Graph3D), [
+    graphType,
+  ]);
 
   return (
     <div
@@ -61,6 +68,19 @@ function GraphContainer({
 
       <Logo className={cx('logo')} />
       <LogoBeta className={cx('logo-beta')} />
+
+      <div className={cx('switch-container')}>
+        <Switch
+          checkedIcon={null}
+          uncheckedIcon={null}
+          onChange={toggleShowTestnet}
+          checked={isTestnetVisible}
+          height={15}
+          width={28}
+          onColor="#5FAA8C"
+        />
+        <span className={cx('switch-text')}>Show testnet</span>
+      </div>
 
       {!mapOpened && (
         <ZonesSorter

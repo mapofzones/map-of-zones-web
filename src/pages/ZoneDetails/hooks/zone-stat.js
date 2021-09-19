@@ -23,6 +23,11 @@ const SOURCE_STAT_FRAGMENT = gql`
     ibc_tx_30d_diff
     ibc_tx_30d_failed
     ibc_tx_30d_failed_diff
+    zone_readable_name
+    zone_counterparty_label_url
+    zone_label_url2
+    zone_counterparty_label_url2
+    zone_counterparty_readable_name
   }
 `;
 
@@ -44,6 +49,34 @@ const SOURCE_STAT_SUBSCRIPTION = gql`
   ${SOURCE_STAT_FRAGMENT}
 `;
 
+const SOURCE_STAT_QUERY_ONLY_MAINNET = gql`
+  query SourceStat($source: String!) {
+    channels_stats(
+      where: {
+        zone: { _eq: $source }
+        is_zone_counerparty_mainnet: { _eq: true }
+      }
+    ) {
+      ...stat
+    }
+  }
+  ${SOURCE_STAT_FRAGMENT}
+`;
+
+const SOURCE_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription SourceStat($source: String!) {
+    channels_stats(
+      where: {
+        zone: { _eq: $source }
+        is_zone_counerparty_mainnet: { _eq: true }
+      }
+    ) {
+      ...stat
+    }
+  }
+  ${SOURCE_STAT_FRAGMENT}
+`;
+
 const transform = (channels, options) => {
   if (!channels) {
     return null;
@@ -56,6 +89,7 @@ const transform = (channels, options) => {
       connection_id,
       channel_id,
       zone_counerparty,
+      zone_counterparty_readable_name,
       is_opened,
       ibc_tx_1d,
       ibc_tx_1d_diff,
@@ -69,14 +103,19 @@ const transform = (channels, options) => {
       ibc_tx_30d_diff,
       ibc_tx_30d_failed,
       ibc_tx_30d_failed_diff,
+      zone_readable_name,
+      zone_counterparty_label_url,
+      zone_label_url2,
+      zone_counterparty_label_url2,
     }) => {
       return {
         id: zone,
-        name: zone,
+        name: zone_readable_name,
         client_id,
         connection_id,
         channel_id,
         zone_counerparty,
+        zone_counterparty_readable_name,
         is_opened,
         ibc_tx_1d,
         ibc_tx_1d_diff,
@@ -90,6 +129,9 @@ const transform = (channels, options) => {
         ibc_tx_30d_diff,
         ibc_tx_30d_failed,
         ibc_tx_30d_failed_diff,
+        zone_counterparty_label_url,
+        zone_label_url2,
+        zone_counterparty_label_url2,
       };
     },
   );
@@ -110,15 +152,27 @@ const transform = (channels, options) => {
   };
 };
 
-export const useZoneStat = options => {
+export const useZoneStat = (options, isTestnetVisible) => {
   const channels = useRealtimeQuery(
     SOURCE_STAT_QUERY,
     SOURCE_STAT_SUBSCRIPTION,
     options,
   );
 
-  return useMemo(() => transform(channels?.channels_stats, options), [
-    channels,
+  const mainnetChannels = useRealtimeQuery(
+    SOURCE_STAT_QUERY_ONLY_MAINNET,
+    SOURCE_STAT_SUBSCRIPTION_ONLY_MAINNET,
     options,
-  ]);
+  );
+
+  return useMemo(
+    () =>
+      transform(
+        isTestnetVisible
+          ? channels?.channels_stats
+          : mainnetChannels?.channels_stats,
+        options,
+      ),
+    [channels, isTestnetVisible, mainnetChannels, options],
+  );
 };

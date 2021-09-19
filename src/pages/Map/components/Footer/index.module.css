@@ -76,9 +76,35 @@
   border-bottom: 1px solid var(--footer-gray);
 }
 
+.contactUsLink {
+  border-width: 0;
+  border-left-width: 1px;
+  border-style: solid;
+  border-color: #4b4b4b;
+  padding-left: 16px;
+}
+
+.socialWrapper {
+  display: flex;
+}
+
+.notListed {
+  white-space: nowrap;
+}
+
+.notListed:hover span {
+  cursor: pointer;
+}
+
 @media (max-width: 800px) {
   .socialName {
     display: none;
+  }
+
+  .socialWrapper {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 
   .socialIcon {
@@ -104,15 +130,20 @@
     margin: 0 6px;
   }
 
+  .socialWrapper {
+    margin-bottom: 15px;
+  }
+
   .contactUsLink {
     width: 100%;
     line-height: 12px;
     margin-top: 28px;
     margin-bottom: 6px;
+    display: none;
   }
 
   .contactUsTitle {
-    display: inline;
+    display: none;
   }
 
   .socialIcon {

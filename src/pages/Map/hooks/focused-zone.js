@@ -15,22 +15,40 @@ function usePrevious(value) {
 export const useFocusedZone = nodes => {
   const history = useHistory();
   const location = useLocation();
+
   const [focusedZone, setFocusedZone] = useState(undefined);
+
+  const zoneFromSearch = useMemo(() => parse(location.search).zone, [
+    location.search,
+  ]);
+
   const updateZone = useCallback(
     zone => {
+      if (zone && nodes) {
+        const matchedZone = nodes.find(({ id }) => zone?.id === id);
+
+        if (matchedZone) {
+          setFocusedZone(zone);
+        }
+      } else {
+        setFocusedZone(undefined);
+      }
+
       const search = parse(location.search);
 
-      if (zone && zone.id) {
+      if (zone?.id) {
         search.zone = zone.id;
       } else {
         delete search.zone;
       }
 
-      history.push(`?${stringify(search)}`);
+      if (location.search !== `?${stringify(search)}`) {
+        history.push(`?${stringify(search)}`);
+      }
     },
-    [history, location.search],
+    [history, location.search, nodes, setFocusedZone],
   );
-  const zone = useMemo(() => parse(location.search).zone, [location.search]);
+
   const period = useMemo(() => parseInt(parse(location.search).period, 10), [
     location.search,
   ]);
@@ -44,8 +62,8 @@ export const useFocusedZone = nodes => {
   }, [period, prevPeriod, updateZone]);
 
   useEffect(() => {
-    if (zone && nodes) {
-      const matchedZone = nodes.find(({ id }) => zone === id);
+    if (zoneFromSearch && nodes) {
+      const matchedZone = nodes.find(({ id }) => zoneFromSearch === id);
 
       if (matchedZone) {
         setFocusedZone(matchedZone);
@@ -53,7 +71,7 @@ export const useFocusedZone = nodes => {
     } else {
       setFocusedZone(undefined);
     }
-  }, [nodes, zone, setFocusedZone]);
+  }, [nodes, zoneFromSearch, setFocusedZone]);
 
   return [focusedZone, updateZone];
 };

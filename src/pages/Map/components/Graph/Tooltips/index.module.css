@@ -13,6 +13,16 @@
 .key-text-long {
   width: 70%;
 }
+.item-text-and-image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.item-image {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
 .item-text {
   font-weight: 600;
   font-size: 13px;

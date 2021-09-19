@@ -16,25 +16,44 @@ import {
 } from 'three';
 import SpriteText from 'three-spritetext';
 
+function roundRect(canvas, x, y, w, h, r) {
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  canvas.beginPath();
+  canvas.moveTo(x + r, y);
+  canvas.arcTo(x + w, y, x + w, y + h, r);
+  canvas.arcTo(x + w, y + h, x, y + h, r);
+  canvas.arcTo(x, y + h, x, y, r);
+  canvas.arcTo(x, y, x + w, y, r);
+  canvas.closePath();
+}
+
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
   focusedNode,
   focusedNodeNeighbors,
   nodeRelSize,
+  images,
 ) =>
   useCallback(
     (node, ctx, globalScale) => {
       const { x, y, name, color } = node;
-      const fontSize = 10 / globalScale;
-      const textWidth = ctx.measureText(name).width;
+      const fontSize = Math.max(4, 10 / globalScale);
+      const fontWeight = node.isZoneMainnet ? 600 : 500;
+      const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
+      const textWidth = ctx.measureText(nameInCamelCase).width;
       const backgroundDimensions = [textWidth, fontSize].map(
         n => n + fontSize * 0.5,
       );
       const r =
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
-      const deltaY = r + backgroundDimensions[1] / 2 + 2 / globalScale;
+      const paddingHorizontal = 2;
+      const paddingVertical = 1;
+      const deltaY =
+        r + backgroundDimensions[1] / 2 + 2 / globalScale + paddingVertical * 2;
       const isFocused =
         focusedNode === node ||
+        focusedNode?.id === node?.id ||
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
       if (focusedNode && !isFocused) {
@@ -45,48 +64,87 @@ export const useNodeCanvasObject = (
         ctx.fillStyle = color;
       }
 
-      if (focusedNode === node) {
+      if (focusedNode === node || focusedNode?.id === node?.id) {
         ctx.shadowColor = color;
         ctx.shadowBlur = 30;
       }
 
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-      ctx.fill();
+      if (images[node.id]) {
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.drawImage(
+          images[node.id],
+          x - r + 3,
+          y - r + 3,
+          r * 2 - 6,
+          r * 2 - 6,
+        );
+      } else {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+      }
+
       ctx.shadowColor = null;
       ctx.shadowBlur = null;
-      ctx.font = `${fontSize}px Poppins`;
+      ctx.font = `${fontWeight} ${fontSize}px Poppins`;
 
       if (focusedNode && !isFocused) {
         ctx.fillStyle = 'rgba(10, 11, 42, 0.1)';
       } else {
-        ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
+        if (node.isZoneMainnet) {
+          ctx.fillStyle = '#212737';
+        } else {
+          ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
+        }
       }
 
-      ctx.fillRect(
-        x - backgroundDimensions[0] / 2,
-        y - backgroundDimensions[1] / 2 + deltaY,
-        ...backgroundDimensions,
+      roundRect(
+        ctx,
+        x - backgroundDimensions[0] / 2 - paddingHorizontal,
+        y - backgroundDimensions[1] / 2 + deltaY - paddingVertical,
+        backgroundDimensions[0] + paddingHorizontal * 2,
+        backgroundDimensions[1] + paddingVertical * 2,
+        4,
       );
+
+      ctx.fill();
+
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
       if (focusedNode && !isFocused) {
         ctx.fillStyle = 'rgba(235, 235, 235, 0.1)';
       } else {
-        ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
+        if (node.isZoneMainnet) {
+          ctx.fillStyle = 'rgb(255, 255, 255)';
+        } else {
+          ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
+        }
       }
 
-      ctx.fillText(name, x, y + deltaY);
+      ctx.fillText(nameInCamelCase, x, y + deltaY);
     },
-    [zoneWeightAccessor, focusedNode, focusedNodeNeighbors, nodeRelSize],
+    [
+      zoneWeightAccessor,
+      nodeRelSize,
+      focusedNode,
+      focusedNodeNeighbors,
+      images,
+    ],
   );
 
 export const useFocusedNodeNeighbors = (focusedNode, graph) =>
   useMemo(
     () =>
       focusedNode
-        ? graph.neighbors(focusedNode.id).map(id => graph.node(id))
+        ? (graph.neighbors(focusedNode.id) || []).map(id => graph.node(id))
         : null,
     [focusedNode, graph],
   );
@@ -154,14 +212,28 @@ by @mapofzones`,
   )}&text=${encodeURIComponent(text)}`;
 };
 
-export const useLinkCanvasObject = focusedNode =>
+export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
   useCallback(
     ({ activeChannels, source, target }, ctx, globalScale) => {
       const width = 1;
       const lineWidth = width / globalScale;
 
-      if (focusedNode && focusedNode !== source && focusedNode !== target) {
+      if (
+        focusedNode &&
+        focusedNode?.id !== source?.id &&
+        focusedNode?.id !== target?.id
+      ) {
         return;
+      }
+
+      let alpha = 0.3;
+
+      if (hoveredNode) {
+        if (hoveredNode !== source && hoveredNode !== target) {
+          alpha = 0.1;
+        } else {
+          alpha = 0.5;
+        }
       }
 
       if (
@@ -183,13 +255,13 @@ export const useLinkCanvasObject = focusedNode =>
       gradient.addColorStop(
         0,
         tinycolor(source.color)
-          .setAlpha(0.4)
+          .setAlpha(alpha)
           .toString(),
       );
       gradient.addColorStop(
         1,
         tinycolor(target.color)
-          .setAlpha(0.4)
+          .setAlpha(alpha)
           .toString(),
       );
 
@@ -201,11 +273,14 @@ export const useLinkCanvasObject = focusedNode =>
       ctx.lineTo(target.x, target.y);
       ctx.stroke();
 
-      if (activeChannels) {
+      if (
+        activeChannels &&
+        (!hoveredNode || hoveredNode === source || hoveredNode === target)
+      ) {
         drawLinkComet(ctx, source, target, globalScale);
       }
     },
-    [focusedNode],
+    [focusedNode, hoveredNode],
   );
 
 let offset = 0;
@@ -356,6 +431,7 @@ export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
     node => {
       const isFocused =
         focusedNode === node ||
+        focusedNode?.id === node?.id ||
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
       if (focusedNode && !isFocused) {
@@ -374,6 +450,7 @@ export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
       const text = new SpriteText(node.name);
       const isFocused =
         focusedNode === node ||
+        focusedNode?.id === node?.id ||
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
       if (focusedNode && !isFocused) {

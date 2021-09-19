@@ -16,10 +16,28 @@
       "prettier --write"
     ]
   },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "globals": {
+      "window": {},
+      "navigator": {}
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "jest"
   },
   "browserslist": {
     "production": [
@@ -45,6 +63,7 @@
     "apollo-link-http": "^1.5.16",
     "apollo-link-ws": "^1.0.19",
     "apollo-utilities": "^1.3.3",
+    "axios": "^0.21.4",
     "classnames": "^2.2.6",
     "d3-force-3d": "^2.1.0",
     "graphql": "^15.0.0",
@@ -56,13 +75,16 @@
     "react-dom": "^16.13.1",
     "react-force-graph-2d": "^1.19.0",
     "react-force-graph-3d": "^1.18.8",
+    "react-inputs-validation": "^4.8.3",
     "react-intl": "^4.3.1",
     "react-media": "^2.0.0-rc.1",
     "react-modal": "^3.12.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-select": "^3.1.1",
-    "react-table": "^7.0.0",
+    "react-switch": "^6.0.0",
+    "react-table": "^7.7.0",
+    "react-transition-group": "^4.4.2",
     "recharts": "^1.8.5",
     "subscriptions-transport-ws": "^0.9.16",
     "three": "^0.124.0",
@@ -71,10 +93,16 @@
     "tinygradient": "^1.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.4",
+    "@babel/preset-react": "^7.14.5",
+    "babel-jest": "^24.9.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
     "husky": "^4.2.5",
+    "jest": "^24.9.0",
+    "jest-css-modules": "^2.1.0",
     "lint-staged": "^10.2.2",
     "prettier": "^1.19.1"
   }

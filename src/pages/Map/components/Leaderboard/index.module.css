@@ -71,6 +71,10 @@
   height: 2px;
 }
 
+.header-name {
+  min-width: 20px;
+}
+
 .cell {
   font-style: normal;
   font-weight: 500;
@@ -99,6 +103,23 @@
   display: flex;
   align-items: baseline;
   flex-wrap: nowrap;
+}
+
+.cell-image-container {
+  margin-right: -7px;
+  justify-content: center;
+}
+
+.cell .image-container {
+  width: 20px;
+  height: 20px;
+}
+
+.cell .image-empty {
+  background-color: #e9e9e9;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
 }
 
 .cell .text-container {
@@ -141,6 +162,10 @@
   visibility: visible;
 }
 
+.header.zoneLabelUrl {
+  width: 35px;
+}
+
 /*1-st col*/
 .header.position {
   color: rgba(128, 128, 128, 0.5);
@@ -148,6 +173,10 @@
 
 .header.position .header-container {
   justify-content: center;
+}
+
+.cell.zoneLabelUrl {
+  width: 35px;
 }
 
 .cell.position {
@@ -174,7 +203,8 @@
 
 .header.name,
 .cell.name {
-  width: 275px;
+  width: 350px;
+  max-width: 350px;
 }
 
 .cell.name .text-container {
@@ -205,15 +235,15 @@
   /*5 col*/
 .header.ibcPercentage,
 .cell.ibcPercentage {
-  width: 99px;
-  min-width: 99px;
-  max-width: 99px;
+  width: 104px;
+  min-width: 104px;
+  max-width: 104px;
 }
 .header.totalActiveAddresses,
 .cell.totalActiveAddresses {
-  width: 74px;
-  min-width: 74px;
-  max-width: 74px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
 }
 
 /*6 col*/
@@ -448,6 +478,73 @@ tbody.bodyWithFocus.focusFixed .row {
 
 .row.focusedRow:not(.fixed) {
   transform: translateX(0px) !important;
+}
+
+.zone-status-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.zone-status-container .zone-status-tooltip {
+  position: absolute;
+  top: -15px;
+  left: -25px;
+  width: max-content;
+  max-width: 260px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  padding: 4px 6px;
+
+  font-size: 12px;
+  line-height: 115%;
+  font-style: normal;
+  font-weight: normal;
+  color: var(--color-regular);
+  white-space: normal;
+  text-align: left;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s;
+  z-index: 1244;
+}
+
+.zone-status-container:hover .zone-status-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fixed-header-container {
+  height: 28px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
+
+.zone-status-icon {
+  margin-left: 4px;
+  margin-right: 4px;
+
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
 }
 
 /*

@@ -25,3 +25,25 @@
   bottom: 0;
   width: auto;
 }
+
+.switch-container {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  top: 16px;
+  right: 250px;
+}
+
+.switch-text {
+  font-weight: 600;
+  font-size: 12px;
+  color: #ffffff;
+  margin-left: 8px;
+}
+
+@media (max-width: 540px) {
+  .switch-container {
+    top: 48px;
+    right: 16px;
+  }
+}

@@ -27,13 +27,17 @@ const Thead = ({
       id={fixed ? 'fixed-header' : ''}
     >
       {headerGroups.map(headerGroup => (
-        <tr {...headerGroup.getHeaderGroupProps()}>
+        <tr
+          className={cx('fixed-header-container')}
+          {...headerGroup.getHeaderGroupProps()}
+        >
           {headerGroup.headers.map(column => (
             <th
               {...column.getHeaderProps(column.getSortByToggleProps())}
               className={cx('header', column.id, {
                 sortedColumn: column.isSorted,
               })}
+              title=""
             >
               <div
                 className={cx('header-container', {
@@ -48,7 +52,9 @@ const Thead = ({
                     {period === '30d' && <div onClick={onHeaderClick}>MAU</div>}
                   </div>
                 ) : (
-                  <div onClick={onHeaderClick}>{column.render('Header')}</div>
+                  <div className={cx('header-name')} onClick={onHeaderClick}>
+                    {column.render('Header')}
+                  </div>
                 )}
                 {!!column.tooltip && !isMobile && (
                   <div className={cx('explanation-icon')}>

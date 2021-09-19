@@ -24,6 +24,7 @@ const Thead = ({ headerGroups, onHeaderClick }) => {
                 ibcSent: column.Header === 'IBC Failed',
                 sortedColumn: column.isSorted,
               })}
+              title=""
             >
               <div className={cx('header-title')}>
                 {column.id === 'ibc_tx_1d_failed' && '24H'}
