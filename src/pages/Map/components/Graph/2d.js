@@ -76,11 +76,12 @@ function Graph({
   ]);
 
   const [graphData, setGraphData] = useState(data);
-
   useEffect(() => {
     setGraphData(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [period, data.graph._nodeCount, data.graph._edgeCount]);
+
+    // TODO: it could bring extra rerenders, but need to test
+  }, [data.graph._nodeCount, data.graph._edgeCount, period, data]);
 
   const [hoveredNode, setHoveredNode] = useState(null);
   const [draggedNode, setDraggedNode] = useState(null);
