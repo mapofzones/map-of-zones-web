@@ -5,7 +5,8 @@ import { parse, stringify } from 'querystringify';
 import { removeDuplicatedZoneCounerparties } from 'common/helper';
 
 import Leaderboard from './components/Leaderboard';
-import Footer from './components/Footer';
+// TODO: What is purpose to use two same footers and headers? I Just change this for remove code duplication, but could be return
+import Footer from 'pages/Map/components/Footer';
 import Header from './components/Header';
 import Loader from './components/Loader';
 import ZoneDetails from './components/ZoneDetails';
