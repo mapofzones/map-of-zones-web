@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { parse, stringify } from 'querystringify';
+import { FormattedNumber } from 'react-intl';
 
 import { formatNumber, formatPercentage } from 'common/helper';
 
@@ -9,7 +10,13 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function NodeTooltip({ node, period }) {
+function NodeTooltip({
+  node,
+  period,
+  showIbcTxsAmount,
+  showFailedIbcTxsAmount,
+  showChannels,
+}) {
   const history = useHistory();
   const location = useLocation();
 
@@ -63,7 +70,7 @@ function NodeTooltip({ node, period }) {
         }}
       >
         <div className={cx('node-custom-tooltip-content')}>
-          <div className={cx('header-row')}>
+          <div className={cx('header-row', 'with-line')}>
             <div className={cx('item-text-and-image')}>
               {!!node.zoneLabelUrl && (
                 <img
@@ -77,12 +84,21 @@ function NodeTooltip({ node, period }) {
             <div className={cx('key-text', 'period-title')}>{period.name}</div>
           </div>
           <div className={cx('row-tooltip')}>
-            <div className={cx('col')}>
-              <div className={cx('key-text')}>Channels</div>
-              <div className={cx('item-text')}>
-                {formatNumber(node.channels)}
+            {showChannels ? (
+              <div className={cx('col')}>
+                <div className={cx('key-text')}>Channels</div>
+                <div className={cx('item-text')}>
+                  {formatNumber(node.channels)}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={cx('col')}>
+                <div className={cx('key-text')}>Peers</div>
+                <div className={cx('item-text')}>
+                  {formatNumber(node.peers)}
+                </div>
+              </div>
+            )}
             <div className={cx('col')}>
               <div className={cx('key-text')}>Total TXs</div>
               <div className={cx('item-text')}>
@@ -106,46 +122,80 @@ function NodeTooltip({ node, period }) {
           </div>
           <div className={cx('row-tooltip')}>
             <div className={cx('col')}>
-              <div className={cx('key-text')}>IBC out</div>
+              <div className={cx('key-text')}>IBC out, $</div>
               <div className={cx('item-text')}>
-                {formatNumber(node.ibcSent)}
+                <FormattedNumber
+                  value={node.ibcVolumeSent}
+                  style="currency"
+                  currency="USD"
+                  maximumFractionDigits="0"
+                />
               </div>
               <div className={cx('item-text', 'sent-title')}>
-                {formatPercentage(node.ibcSentPercentage)}
+                {formatPercentage(node.ibcVolumeSentPercentage)}
               </div>
             </div>
             <div className={cx('col')}>
-              <div className={cx('key-text')}>IBC in</div>
+              <div className={cx('key-text')}>IBC in, $</div>
               <div className={cx('item-text')}>
-                {formatNumber(node.ibcReceived)}
+                <FormattedNumber
+                  value={node.ibcVolumeSent}
+                  style="currency"
+                  currency="USD"
+                  maximumFractionDigits="0"
+                />
               </div>
               <div className={cx('item-text', 'received-title')}>
-                {formatPercentage(node.ibcReceivedPercentage)}
+                {formatPercentage(node.ibcVolumeReceivedPercentage)}
               </div>
             </div>
           </div>
-          <div className={cx('row-tooltip')}>
-            <div className={cx('col')}>
-              <div className={cx('key-text')}>
-                IBC Out
-                <br />
-                Failed
+          {showIbcTxsAmount && (
+            <div className={cx('row-tooltip')}>
+              <div className={cx('col')}>
+                <div className={cx('key-text')}>IBC out, $</div>
+                <div className={cx('item-text')}>
+                  {formatNumber(node.ibcSent)}
+                </div>
+                <div className={cx('item-text', 'sent-title')}>
+                  {formatPercentage(node.ibcSentPercentage)}
+                </div>
               </div>
-              <div className={cx('item-text')}>
-                {formatNumber(node.ibcTxOutFailed)}
+              <div className={cx('col')}>
+                <div className={cx('key-text')}>IBC in</div>
+                <div className={cx('item-text')}>
+                  {formatNumber(node.ibcReceived)}
+                </div>
+                <div className={cx('item-text', 'received-title')}>
+                  {formatPercentage(node.ibcReceivedPercentage)}
+                </div>
               </div>
             </div>
-            <div className={cx('col')}>
-              <div className={cx('key-text')}>
-                IBC in
-                <br />
-                Failed
+          )}
+          {showFailedIbcTxsAmount && (
+            <div className={cx('row-tooltip')}>
+              <div className={cx('col')}>
+                <div className={cx('key-text')}>
+                  IBC Out
+                  <br />
+                  Failed
+                </div>
+                <div className={cx('item-text')}>
+                  {formatNumber(node.ibcTxOutFailed)}
+                </div>
               </div>
-              <div className={cx('item-text')}>
-                {formatNumber(node.ibcTxInFailed)}
+              <div className={cx('col')}>
+                <div className={cx('key-text')}>
+                  IBC in
+                  <br />
+                  Failed
+                </div>
+                <div className={cx('item-text')}>
+                  {formatNumber(node.ibcTxInFailed)}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         <button
@@ -159,5 +209,11 @@ function NodeTooltip({ node, period }) {
     </div>
   );
 }
+
+NodeTooltip.defaultProps = {
+  showChannels: false,
+  showIbcTxsAmount: false,
+  showFailedIbcTxsAmount: false,
+};
 
 export default NodeTooltip;
