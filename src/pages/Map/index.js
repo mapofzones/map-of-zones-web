@@ -110,8 +110,10 @@ function Map() {
             allChannels={totalStat.allChannels}
             allZones={totalStat.allZones}
             ibcTxs={totalStat.ibcTxs}
+            ibcVolume={totalStat.ibcVolume}
             ibcTxsActivity={totalStat.ibcTxsActivity}
             mostActiveZonesPair={totalStat.mostActiveZonesPair}
+            biggestVolumePair={totalStat.biggestVolumePair}
             period={period.name}
           />
         )}

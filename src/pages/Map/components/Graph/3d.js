@@ -342,10 +342,10 @@ function Graph({
         )}
       </div>
       {hoveredNode && isFocused && (
-        <NodeTooltip node={hoveredNode} period={period.name} />
+        <NodeTooltip node={hoveredNode} period={period} />
       )}
       {hoveredLink && isFocused && (
-        <LinkTooltip link={hoveredLink} period={period.name} />
+        <LinkTooltip link={hoveredLink} period={period} />
       )}
       <ZonesFilter
         onRequestClose={toggleFilter}
@@ -381,7 +381,7 @@ Graph.propTypes = {
 };
 
 Graph.defaultProps = {
-  zoneWeightAccessor: 'ibcTxsWeight',
+  zoneWeightAccessor: 'ibcVolumeWeight',
   onNodeFocus: () => {},
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { Area, AreaChart, ResponsiveContainer } from 'recharts';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { formatNumber } from 'common/helper';
 
@@ -17,9 +17,12 @@ function TotalStatTable({
   allZones,
   activeZones,
   allChannels,
+  showChannels,
   activeChannels,
   mostActiveZonesPair,
+  biggestVolumePair,
   isTableOpened,
+  ibcVolume,
 }) {
   return (
     <div className={cx('wrapper')}>
@@ -50,6 +53,27 @@ function TotalStatTable({
           </ResponsiveContainer>
         </div>
         <div className={cx('item')}>
+          <div className={cx('statContainer')}>
+            <div className={cx('statName')}>
+              <FormattedMessage
+                id="ibc-volume"
+                defaultMessage="IBC volume {period}"
+                values={{
+                  period: <span className={cx('period')}>{period}</span>,
+                }}
+              />
+            </div>
+            <div className={cx('statValue')}>
+              <FormattedNumber
+                value={ibcVolume}
+                style="currency"
+                currency="USD"
+                maximumFractionDigits="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div className={cx('item')}>
           <div className={cx('statContainerSmall')}>
             <div className={cx('statContainer', 'small')}>
               <div className={cx('statName')}>
@@ -74,33 +98,35 @@ function TotalStatTable({
             </div>
           </div>
         </div>
-        <div className={cx('item')}>
-          <div className={cx('statContainerSmall')}>
-            <div className={cx('statContainer', 'small')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="all-channels-stat"
-                  defaultMessage="All Channels"
-                />
+        {showChannels && (
+          <div className={cx('item')}>
+            <div className={cx('statContainerSmall')}>
+              <div className={cx('statContainer', 'small')}>
+                <div className={cx('statName')}>
+                  <FormattedMessage
+                    id="all-channels-stat"
+                    defaultMessage="All Channels"
+                  />
+                </div>
+                <div className={cx('statValue')}>{formatNumber(allChannels)}</div>
               </div>
-              <div className={cx('statValue')}>{formatNumber(allChannels)}</div>
-            </div>
-            <div className={cx('statContainer', 'small')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="active-channels-stat"
-                  defaultMessage="Active Channels {period}"
-                  values={{
-                    period: <span className={cx('period')}>{period}</span>,
-                  }}
-                />
-              </div>
-              <div className={cx('statValue')}>
-                {formatNumber(activeChannels)}
+              <div className={cx('statContainer', 'small')}>
+                <div className={cx('statName')}>
+                  <FormattedMessage
+                    id="active-channels-stat"
+                    defaultMessage="Active Channels {period}"
+                    values={{
+                      period: <span className={cx('period')}>{period}</span>,
+                    }}
+                  />
+                </div>
+                <div className={cx('statValue')}>
+                  {formatNumber(activeChannels)}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
         <div className={cx('item')}>
           <div className={cx('statContainer')}>
             <div className={cx('statNameContainer')}>
@@ -154,6 +180,58 @@ function TotalStatTable({
             )}
           </div>
         </div>
+        <div className={cx('item')}>
+          <div className={cx('statContainer')}>
+            <div className={cx('statNameContainer')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
+                  id="biggest-volume-pair-stat"
+                  defaultMessage="Biggest volume Pair {period}"
+                  values={{
+                    period: <span className={cx('period')}>{period}</span>,
+                  }}
+                />
+              </div>
+              {biggestVolumePair?.volume && (
+                <div className={cx('mostActiveZonesPairTxs')}>
+                  <FormattedNumber
+                    value={biggestVolumePair.volume}
+                    style="currency"
+                    currency="USD"
+                    maximumFractionDigits="0"
+                  />
+                </div>
+              )}
+            </div>
+            {biggestVolumePair && (
+              <div className={cx('mostActiveZonesPair')}>
+                <div className={cx('zoneNameContainer')}>
+                  <div
+                    className={cx('circle')}
+                    style={{
+                      backgroundColor: biggestVolumePair.sourceColor,
+                    }}
+                  />
+                  <div className={cx('zoneName')}>
+                    {biggestVolumePair.source}
+                  </div>
+                </div>
+                <div className={cx('zonesLink')} />
+                <div className={cx('zoneNameContainer')}>
+                  <div
+                    className={cx('circle')}
+                    style={{
+                      backgroundColor: biggestVolumePair.targetColor,
+                    }}
+                  />
+                  <div className={cx('zoneName')}>
+                    {biggestVolumePair.target}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -171,12 +249,25 @@ TotalStatTable.propTypes = {
   activeZones: PropTypes.number,
   allChannels: PropTypes.number,
   activeChannels: PropTypes.number,
+  ibcVolume: PropTypes.number,
   mostActiveZonesPair: PropTypes.shape({
     source: PropTypes.string,
     sourceColor: PropTypes.string,
     target: PropTypes.string,
     targetColor: PropTypes.string,
   }),
+  biggestVolumePair: PropTypes.shape({
+    source: PropTypes.string,
+    sourceColor: PropTypes.string,
+    target: PropTypes.string,
+    targetColor: PropTypes.string,
+  }),
+  showAllChannels: PropTypes.bool,
+  showActiveChannels: PropTypes.bool,
+};
+
+TotalStatTable.defaultProps = {
+  showChannels: false,
 };
 
 export default TotalStatTable;

@@ -12,6 +12,8 @@ const TOTAL_STAT_FRAGMENT = gql`
     channels_cnt_period
     channels_cnt_all
     chart
+    ibc_cashflow_period
+    top_ibc_cashflow_zone_pair
   }
 `;
 
@@ -70,11 +72,15 @@ const transform = data => {
     top_zone_pair,
     channels_cnt_period,
     channels_cnt_all,
+    ibc_cashflow_period,
+    top_ibc_cashflow_zone_pair,
     chart,
   } = data.headers[0];
 
   const ibcTxs = chart.reduce((acc, { txs }) => acc + txs, 0);
-  const topZonePair = top_zone_pair[0];
+  const topZonePair = top_zone_pair && top_zone_pair[0];
+  const topIbcCashflowZonePair =
+    top_ibc_cashflow_zone_pair && top_ibc_cashflow_zone_pair[0];
   const mostActiveZonesPair = topZonePair
     ? {
         source: topZonePair.source,
@@ -88,10 +94,27 @@ const transform = data => {
         ),
       }
     : null;
+  const biggestVolumePair = topIbcCashflowZonePair
+    ? {
+        source: topIbcCashflowZonePair.source,
+        target: topIbcCashflowZonePair.target,
+        volume: topIbcCashflowZonePair.cashflow,
+        sourceColor: getNodeColor(
+          topIbcCashflowZonePair.source_to_target_cashflow /
+            topIbcCashflowZonePair.cashflow,
+        ),
+        targetColor: getNodeColor(
+          topIbcCashflowZonePair.target_to_source_cashflow /
+            topIbcCashflowZonePair.cashflow,
+        ),
+      }
+    : null;
 
   return {
     ibcTxs,
     mostActiveZonesPair,
+    biggestVolumePair,
+    ibcVolume: ibc_cashflow_period,
     ibcTxsActivity: chart,
     allZones: zones_cnt_all,
     activeZones: zones_cnt_period,

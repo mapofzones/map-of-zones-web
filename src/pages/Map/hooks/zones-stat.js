@@ -63,6 +63,33 @@ const ZONES_STAT_FRAGMENT = gql`
     zone_readable_name
     zone_label_url
     zone_label_url2
+    ibc_cashflow
+    ibc_cashflow_out
+    ibc_cashflow_in
+    ibc_peers
+    ibc_cashflow_out_percent
+    ibc_cashflow_in_percent
+    ibc_cashflow_diff
+    ibc_cashflow_rating
+    ibc_cashflow_mainnet_rating
+    ibc_cashflow_rating_diff
+    ibc_cashflow_mainnet_rating_diff
+    ibc_cashflow_weight
+    ibc_cashflow_mainnet_weight
+    ibc_cashflow_in_weight
+    ibc_cashflow_in_mainnet_weight
+    ibc_cashflow_out_weight
+    ibc_cashflow_out_mainnet_weight
+    ibc_cashflow_out_diff
+    ibc_cashflow_in_diff
+    ibc_cashflow_out_rating
+    ibc_cashflow_out_mainnet_rating
+    ibc_cashflow_out_rating_diff
+    ibc_cashflow_out_mainnet_rating_diff
+    ibc_cashflow_in_rating
+    ibc_cashflow_in_mainnet_rating
+    ibc_cashflow_in_rating_diff
+    ibc_cashflow_in_mainnet_rating_diff
   }
 `;
 
@@ -201,6 +228,11 @@ const transform = (zones, graph, isTestnetVisible) => {
     isTestnetVisible ? 'total_ibc_txs_weight' : 'total_ibc_txs_mainnet_weight',
     isTestnetVisible,
   );
+  const [minIbcVolumeWeight, ibcVolumeScale] = getScaleParams(
+    zones,
+    isTestnetVisible ? 'ibc_cashflow_weight' : 'ibc_cashflow_mainnet_weight',
+    isTestnetVisible,
+  );
   const [minTxsWeight, txsScale] = getScaleParams(
     zones,
     isTestnetVisible ? 'total_txs_weight' : 'total_txs_mainnet_weight',
@@ -211,9 +243,23 @@ const transform = (zones, graph, isTestnetVisible) => {
     isTestnetVisible ? 'ibc_tx_in_weight' : 'ibc_tx_in_mainnet_weight',
     isTestnetVisible,
   );
+  const [minIbcVolumeReceivedWeight, ibcVolumeReceivedScale] = getScaleParams(
+    zones,
+    isTestnetVisible
+      ? 'ibc_cashflow_in_weight'
+      : 'ibc_cashflow_in_mainnet_weight',
+    isTestnetVisible,
+  );
   const [minIbcSentWeight, ibcSentScale] = getScaleParams(
     zones,
     isTestnetVisible ? 'ibc_tx_out_weight' : 'ibc_tx_out_mainnet_weight',
+    isTestnetVisible,
+  );
+  const [minIbcVolumeSentWeight, ibcVolumeSentScale] = getScaleParams(
+    zones,
+    isTestnetVisible
+      ? 'ibc_cashflow_out_weight'
+      : 'ibc_cashflow_out_mainnet_weight',
     isTestnetVisible,
   );
 
@@ -275,6 +321,33 @@ const transform = (zones, graph, isTestnetVisible) => {
       zone_readable_name,
       zone_label_url,
       zone_label_url2,
+      ibc_cashflow,
+      ibc_cashflow_out,
+      ibc_cashflow_in,
+      ibc_peers,
+      ibc_cashflow_out_percent,
+      ibc_cashflow_in_percent,
+      ibc_cashflow_diff,
+      ibc_cashflow_rating,
+      ibc_cashflow_mainnet_rating,
+      ibc_cashflow_rating_diff,
+      ibc_cashflow_mainnet_rating_diff,
+      ibc_cashflow_weight,
+      ibc_cashflow_mainnet_weight,
+      ibc_cashflow_in_weight,
+      ibc_cashflow_in_mainnet_weight,
+      ibc_cashflow_out_weight,
+      ibc_cashflow_out_mainnet_weight,
+      ibc_cashflow_out_diff,
+      ibc_cashflow_in_diff,
+      ibc_cashflow_out_rating,
+      ibc_cashflow_out_mainnet_rating,
+      ibc_cashflow_out_rating_diff,
+      ibc_cashflow_out_mainnet_rating_diff,
+      ibc_cashflow_in_rating,
+      ibc_cashflow_in_mainnet_rating,
+      ibc_cashflow_in_rating_diff,
+      ibc_cashflow_in_mainnet_rating_diff,
     }) => {
       return {
         id: zone,
@@ -284,6 +357,16 @@ const transform = (zones, graph, isTestnetVisible) => {
         totalIbcTxs: total_ibc_txs,
         ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         ibcSent: ibc_tx_out,
+        totalIbcVolume: ibc_cashflow,
+        ibcVolumeSent: ibc_cashflow_out,
+        ibcVolumeReceived: ibc_cashflow_in,
+        peers: ibc_peers,
+        ibcVolumeSentPercentage: ibc_cashflow_out_percent
+          ? ibc_cashflow_out_percent / 100
+          : ibc_cashflow_out_percent,
+        ibcVolumeReceivedPercentage: ibc_cashflow_in_percent
+          ? ibc_cashflow_in_percent / 100
+          : ibc_cashflow_in_percent,
         ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
         ibcReceived: ibc_tx_in,
         ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
@@ -293,8 +376,11 @@ const transform = (zones, graph, isTestnetVisible) => {
         activeChannelsPercent: channels_percent_active_period,
         totalTxsDiff: total_txs_diff,
         totalIbcTxsDiff: total_ibc_txs_diff,
+        totalIbcVolumeDiff: ibc_cashflow_diff,
         ibcSentDiff: ibc_tx_out_diff,
+        ibcVolumeSentDiff: ibc_cashflow_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
+        ibcVolumeReceivedDiff: ibc_cashflow_in_diff,
         totalTxsRating: isTestnetVisible
           ? total_txs_rating
           : total_txs_mainnet_rating,
@@ -304,21 +390,39 @@ const transform = (zones, graph, isTestnetVisible) => {
         totalIbcTxsRating: isTestnetVisible
           ? total_ibc_txs_rating
           : total_ibc_txs_mainnet_rating,
+        totalIbcVolumeRating: isTestnetVisible
+          ? ibc_cashflow_rating
+          : ibc_cashflow_mainnet_rating,
         totalIbcTxsRatingDiff: isTestnetVisible
           ? total_ibc_txs_rating_diff
           : total_ibc_txs_mainnet_rating_diff,
+        totalIbcVolumeRatingDiff: isTestnetVisible
+          ? ibc_cashflow_rating_diff
+          : ibc_cashflow_mainnet_rating_diff,
         ibcSentRating: isTestnetVisible
           ? ibc_tx_out_rating
           : ibc_tx_out_mainnet_rating,
+        ibcVolumeSentRating: isTestnetVisible
+          ? ibc_cashflow_out_rating
+          : ibc_cashflow_out_mainnet_rating,
         ibcSentRatingDiff: isTestnetVisible
           ? ibc_tx_out_rating_diff
           : ibc_tx_out_mainnet_rating_diff,
+        ibcVolumeSentRatingDiff: isTestnetVisible
+          ? ibc_cashflow_out_rating_diff
+          : ibc_cashflow_out_mainnet_rating_diff,
         ibcReceivedRating: isTestnetVisible
           ? ibc_tx_in_rating
           : ibc_tx_in_mainnet_rating,
+        ibcVolumeReceivedRating: isTestnetVisible
+          ? ibc_cashflow_in_rating
+          : ibc_cashflow_in_mainnet_rating,
         ibcReceivedRatingDiff: isTestnetVisible
           ? ibc_tx_in_rating_diff
           : ibc_tx_in_mainnet_rating_diff,
+        ibcVolumeReceivedRatingDiff: isTestnetVisible
+          ? ibc_cashflow_in_rating_diff
+          : ibc_cashflow_in_mainnet_rating_diff,
         totalActiveAddresses: total_active_addresses,
         totalActiveAddressesDiff: total_active_addresses_diff,
         totalActiveAddressesWeight:
@@ -347,6 +451,11 @@ const transform = (zones, graph, isTestnetVisible) => {
           minIbcTxsWeight,
           ibcTxsScale,
         ),
+        ibcVolumeWeight: getNodeWeight(
+          isTestnetVisible ? ibc_cashflow_weight : ibc_cashflow_mainnet_weight,
+          minIbcVolumeWeight,
+          ibcVolumeScale,
+        ),
         txsWeight: getNodeWeight(
           isTestnetVisible ? total_txs_weight : total_txs_mainnet_weight,
           minTxsWeight,
@@ -361,6 +470,20 @@ const transform = (zones, graph, isTestnetVisible) => {
           isTestnetVisible ? ibc_tx_out_weight : ibc_tx_out_mainnet_weight,
           minIbcSentWeight,
           ibcSentScale,
+        ),
+        ibcVolumeReceivedWeight: getNodeWeight(
+          isTestnetVisible
+            ? ibc_cashflow_in_weight
+            : ibc_cashflow_in_mainnet_weight,
+          minIbcVolumeReceivedWeight,
+          ibcVolumeReceivedScale,
+        ),
+        ibcVolumeSentWeight: getNodeWeight(
+          isTestnetVisible
+            ? ibc_cashflow_out_weight
+            : ibc_cashflow_out_mainnet_weight,
+          minIbcVolumeSentWeight,
+          ibcVolumeSentScale,
         ),
         isZoneUpToDate: is_zone_up_to_date,
         isZoneMainnet: is_zone_mainnet,
@@ -380,6 +503,13 @@ const transform = (zones, graph, isTestnetVisible) => {
     }) => ({
       source,
       target,
+      ibcTxs: channels_cnt_open, // ibc_txs,
+      volemeIn: channels_cnt_open, // volume_in,
+      volemeOut: channels_cnt_active, // volume_out,
+      volemeInPercentage:
+        channels_cnt_open / (channels_cnt_open + channels_cnt_active), // volume_in / (volume_in + volume_out)
+      volemeOutPercentage:
+        channels_cnt_active / (channels_cnt_open + channels_cnt_active), // volume_out / (volume_in + volume_out)
       openedChannels: channels_cnt_open,
       activeChannels: channels_cnt_active,
       activeChannelsPercent: channels_percent_active,

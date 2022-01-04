@@ -2,6 +2,8 @@ import { useCallback, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
+import tableColums from '../components/Leaderboard/config';
+
 const ORDER_SORT = {
   true: 'asc', // swap for querystring misleading
   false: 'desc', // swap for querystring misleading
@@ -25,14 +27,21 @@ export const useSorting = () => {
     [history, location.search],
   );
 
+  // TODO: order sort doesn't work
   const sort = useMemo(() => {
-    const { tableOrderBy = 'totalIbcTxs', tableOrderSort = 'asc' } = parse(
-      location.search,
+    const DEFAULT_TABLE_ORDER_BY = 'totalIbcVolume';
+    const DEFAULT_TABLE_ORDER_SORT = 'desc';
+    const { tableOrderBy, tableOrderSort } = parse(location.search);
+    const isOrderByValid = tableColums.some(
+      ({ id, disableSortBy }) => id === tableOrderBy && !disableSortBy,
     );
+    const isOrderSortValid = ['asc', 'desc'].includes(tableOrderSort);
 
     return {
-      tableOrderBy,
-      tableOrderSort,
+      tableOrderBy: isOrderByValid ? tableOrderBy : DEFAULT_TABLE_ORDER_BY,
+      tableOrderSort: isOrderSortValid
+        ? tableOrderSort
+        : DEFAULT_TABLE_ORDER_SORT,
     };
   }, [location.search]);
 

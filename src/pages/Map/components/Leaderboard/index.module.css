@@ -203,8 +203,9 @@
 
 .header.name,
 .cell.name {
-  width: 350px;
-  max-width: 350px;
+  width: 100%;
+  /* width: 350px; */
+  /* max-width: 350px; */
 }
 
 .cell.name .text-container {
@@ -220,6 +221,14 @@
   width: 123px;
   min-width: 123px;
   max-width: 123px;
+}
+
+/*3-d col*/
+.header.totalIbcVolume,
+.cell.totalIbcVolume {
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
 }
 
 .header.activeAddresses,
@@ -258,6 +267,22 @@
 /*7 col*/
 .header.ibcReceived,
 .cell.ibcReceived {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  border-right: 1px solid var(--table-borders-color);
+}
+
+.header.ibcVolumeSent,
+.cell.ibcVolumeSent {
+  border-left: 1px solid var(--table-borders-color);
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+}
+
+.header.ibcVolumeReceived,
+.cell.ibcVolumeReceived {
   width: 120px;
   min-width: 120px;
   max-width: 120px;
@@ -328,6 +353,16 @@
 }
 
 .IBC-circle.ibcReceived {
+  display: block;
+  background: var(--color-green);
+}
+
+.IBC-circle.ibcVolumeSent {
+  display: block;
+  background: var(--color-red);
+}
+
+.IBC-circle.ibcVolumeReceived {
   display: block;
   background: var(--color-green);
 }
