@@ -139,7 +139,7 @@ function NodeTooltip({
               <div className={cx('key-text')}>IBC in, $</div>
               <div className={cx('item-text')}>
                 <FormattedNumber
-                  value={node.ibcVolumeSent}
+                  value={node.ibcVolumeReceived}
                   style="currency"
                   currency="USD"
                   maximumFractionDigits="0"
