@@ -26,11 +26,6 @@ const Thead = ({ headerGroups, onHeaderClick }) => {
               })}
               title=""
             >
-              <div className={cx('header-title')}>
-                {column.id === 'ibc_tx_1d_failed' && '24H'}
-                {column.id === 'ibc_tx_7d_failed' && 'LAST 7D'}
-                {column.id === 'ibc_tx_30d_failed' && 'LAST 30D'}
-              </div>
               <div
                 className={cx('header-container', {
                   ableSortCol: !column.disableSortBy,

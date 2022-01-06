@@ -89,7 +89,7 @@ const CHANNEL_GROUP_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
 
 const transform = data => {
   const channels = data?.ft_channel_group_stats;
-  const sourceZone = data?.ft_channels_stats;
+  const sourceZone = data?.ft_channels_stats?.[0];
   const sourceZoneFormatted = sourceZone
     ? {
         website: sourceZone.zone_website,
@@ -119,9 +119,16 @@ const transform = data => {
         }) => {
           return {
             id: zone_counterparty,
-            name: zone_counterparty_readable_name,
-            // zoneLabelUrl: zone_label_url,
+            counterpartyName: zone_counterparty_readable_name,
             zoneCounterpartyLabelUrl: zone_counterparty_label_url,
+            volumeIn: ibc_cashflow_in,
+            volumeInDiff: ibc_cashflow_in_diff,
+            volumeOut: ibc_cashflow_out,
+            volumeOutDiff: ibc_cashflow_out_diff,
+            ibcTxSuccess: ibc_tx,
+            ibcTxSuccessDiff: ibc_tx_diff,
+            ibcTxFailed: ibc_tx_failed,
+            ibcTxFailedDiff: ibc_tx_failed_diff,
           };
         },
       )
