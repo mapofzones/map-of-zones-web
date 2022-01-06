@@ -1,73 +1,59 @@
+import React from 'react';
+import { FormattedNumber } from 'react-intl';
+
 import { formatNumber } from 'common/helper';
 
 const columns = [
   {
-    Header: '№',
-    id: 'position',
-    accessor: (originalRow, rowIndex) => rowIndex,
-    Cell: ({ row, rows }) => [...rows].indexOf(row) + 1,
-    disableSortBy: true,
-    alwaysVisible: true,
-  },
-  {
-    Header: 'Channel',
-    accessor: 'name',
-    id: 'name',
-    disableSortBy: true,
-    alwaysVisible: true,
-  },
-  {
-    Header: 'Recipient Zone',
-    accessor: 'zone_counterparty_readable_name',
+    Header: 'Zone',
+    accessor: 'counterpartyName',
     id: 'zone_counerparty',
     disableSortBy: true,
     alwaysVisible: true,
   },
   {
-    Header: 'IBC Failed',
-    accessor: 'ibc_tx_1d_failed',
-    id: 'ibc_tx_1d_failed',
-    diffAccessor: 'ibc_tx_1d_failed_diff',
-    Cell: ({ cell }) => formatNumber(cell.value),
+    Header: 'Volume In',
+    accessor: 'volumeIn',
+    id: 'volume_in',
+    diffAccessor: 'volumeInDiff',
+    Cell: ({ cell }) => (
+      <FormattedNumber
+        value={cell.value}
+        style="currency"
+        currency="USD"
+        maximumFractionDigits="0"
+      />
+    ),
+    sortDescFirst: true,
+  },
+  {
+    Header: 'Volume Out',
+    accessor: 'volumeOut',
+    id: 'volume_out',
+    diffAccessor: 'volumeOutDiff',
+    Cell: ({ cell }) => (
+      <FormattedNumber
+        value={cell.value}
+        style="currency"
+        currency="USD"
+        maximumFractionDigits="0"
+      />
+    ),
     sortDescFirst: true,
   },
   {
     Header: 'IBC Success',
-    accessor: 'ibc_tx_1d',
-    id: 'ibc_tx_1d',
-    diffAccessor: 'ibc_tx_1d_diff',
+    accessor: 'ibcTxSuccess',
+    id: 'ibc_tx_success',
+    diffAccessor: 'ibcTxSuccessDiff',
     Cell: ({ cell }) => formatNumber(cell.value),
     sortDescFirst: true,
   },
   {
     Header: 'IBC Failed',
-    accessor: 'ibc_tx_7d_failed',
-    id: 'ibc_tx_7d_failed',
-    diffAccessor: 'ibc_tx_7d_failed_diff',
-    Cell: ({ cell }) => formatNumber(cell.value),
-    sortDescFirst: true,
-  },
-  {
-    Header: 'IBC Success',
-    accessor: 'ibc_tx_7d',
-    id: 'ibc_tx_7d',
-    diffAccessor: 'ibc_tx_7d_diff',
-    Cell: ({ cell }) => formatNumber(cell.value),
-    sortDescFirst: true,
-  },
-  {
-    Header: 'IBC Failed',
-    accessor: 'ibc_tx_30d_failed',
-    id: 'ibc_tx_30d_failed',
-    diffAccessor: 'ibc_tx_30d_failed_diff',
-    Cell: ({ cell }) => formatNumber(cell.value),
-    sortDescFirst: true,
-  },
-  {
-    Header: 'IBC Success',
-    accessor: 'ibc_tx_30d',
-    id: 'ibc_tx_30d',
-    diffAccessor: 'ibc_tx_30d_diff',
+    accessor: 'ibcTxFailed',
+    id: 'ibc_tx_failed',
+    diffAccessor: 'ibcTxFailedDiff',
     Cell: ({ cell }) => formatNumber(cell.value),
     sortDescFirst: true,
   },

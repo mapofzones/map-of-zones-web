@@ -207,7 +207,7 @@
 .cell.name,
 .header.zone_counerparty,
 .cell.zone_counerparty {
-  width: 239px;
+  width: 100%;
 }
 
 .cell.name .cell-container {
@@ -257,15 +257,9 @@
 /*6 col*/
 .header.ibcSent,
 .cell.ibcSent {
-  border-left: 1px solid var(--table-borders-color);
   width: 100px;
   min-width: 100px;
   max-width: 100px;
-}
-
-.header.zone_counerparty,
-.cell.zone_counerparty {
-  border-left: 1px solid var(--table-borders-color);
 }
 
 /*7 col*/
@@ -274,7 +268,6 @@
   width: 120px;
   min-width: 120px;
   max-width: 120px;
-  border-right: 1px solid var(--table-borders-color);
 }
 
 /*8 col*/

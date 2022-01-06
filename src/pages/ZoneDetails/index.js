@@ -35,20 +35,6 @@ function Channel() {
     isTestnetVisible,
   );
 
-  const preSetFocusedZone = useCallback(
-    zone => {
-      if (zone) {
-        const search = parse(location.search);
-
-        search.zoneDetailsChanelId = zone.channel_id;
-        search.zoneDetailsChanelCounerparty = zone.zone_counerparty;
-
-        history.push(`/zone?${stringify(search)}`, location.state);
-      }
-    },
-    [history, location.search, location.state],
-  );
-
   const navigateToMainPage = useCallback(() => {
     history.push('/');
   }, [history]);
@@ -91,7 +77,7 @@ function Channel() {
           period={period}
           setPeriod={setPeriod}
         />
-        <Leaderboard data={channelGroup} setFocusedZone={preSetFocusedZone} />
+        <Leaderboard data={channelGroup} />
         <Footer />
       </div>
     );

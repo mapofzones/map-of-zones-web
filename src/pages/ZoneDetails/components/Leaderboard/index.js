@@ -117,10 +117,10 @@ function Leaderboard({
       case 'zone_counerparty':
         return (
           <div className={cx('cell-container')}>
-            {cell.row.original.zone_counterparty_label_url ? (
+            {cell.row.original.zoneCounterpartyLabelUrl ? (
               <img
                 className={cx('image-container')}
-                src={cell.row.original.zone_counterparty_label_url}
+                src={cell.row.original.zoneCounterpartyLabelUrl}
                 alt=""
               />
             ) : (
@@ -136,13 +136,13 @@ function Leaderboard({
             {!cell.column.disableSortBy && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.id + '_diff'] < 0,
+                  negative: cell.row.original[cell.column.diffAccessor] < 0,
                 })}
               >
-                {cell.row.original[cell.column.id + '_diff'] > 0
+                {cell.row.original[cell.column.diffAccessor] > 0
                   ? '+' +
-                    formatNumber(cell.row.original[cell.column.id + '_diff'])
-                  : formatNumber(cell.row.original[cell.column.id + '_diff'])}
+                    formatNumber(cell.row.original[cell.column.diffAccessor])
+                  : formatNumber(cell.row.original[cell.column.diffAccessor])}
               </div>
             )}
           </span>
