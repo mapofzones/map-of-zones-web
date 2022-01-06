@@ -132,6 +132,58 @@ function TotalStatTable({
             <div className={cx('statNameContainer')}>
               <div className={cx('statName')}>
                 <FormattedMessage
+                  id="biggest-volume-pair-stat"
+                  defaultMessage="Biggest volume Pair {period}"
+                  values={{
+                    period: <span className={cx('period')}>{period}</span>,
+                  }}
+                />
+              </div>
+              {biggestVolumePair?.volume && (
+                <div className={cx('mostActiveZonesPairTxs')}>
+                  <FormattedNumber
+                    value={biggestVolumePair.volume}
+                    style="currency"
+                    currency="USD"
+                    maximumFractionDigits="0"
+                  />
+                </div>
+              )}
+            </div>
+            {biggestVolumePair && (
+              <div className={cx('mostActiveZonesPair')}>
+                <div className={cx('zoneNameContainer')}>
+                  <div
+                    className={cx('circle')}
+                    style={{
+                      backgroundColor: biggestVolumePair.sourceColor,
+                    }}
+                  />
+                  <div className={cx('zoneName')}>
+                    {biggestVolumePair.source}
+                  </div>
+                </div>
+                <div className={cx('zonesLink')} />
+                <div className={cx('zoneNameContainer')}>
+                  <div
+                    className={cx('circle')}
+                    style={{
+                      backgroundColor: biggestVolumePair.targetColor,
+                    }}
+                  />
+                  <div className={cx('zoneName')}>
+                    {biggestVolumePair.target}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className={cx('item')}>
+          <div className={cx('statContainer')}>
+            <div className={cx('statNameContainer')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
                   id="most-active-zones-pair-stat"
                   defaultMessage="Most Active Pair of Zones {period}"
                   values={{
@@ -174,58 +226,6 @@ function TotalStatTable({
                   />
                   <div className={cx('zoneName')}>
                     {mostActiveZonesPair.target}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className={cx('item')}>
-          <div className={cx('statContainer')}>
-            <div className={cx('statNameContainer')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="biggest-volume-pair-stat"
-                  defaultMessage="Biggest volume Pair {period}"
-                  values={{
-                    period: <span className={cx('period')}>{period}</span>,
-                  }}
-                />
-              </div>
-              {biggestVolumePair?.volume && (
-                <div className={cx('mostActiveZonesPairTxs')}>
-                  <FormattedNumber
-                    value={biggestVolumePair.volume}
-                    style="currency"
-                    currency="USD"
-                    maximumFractionDigits="0"
-                  />
-                </div>
-              )}
-            </div>
-            {biggestVolumePair && (
-              <div className={cx('mostActiveZonesPair')}>
-                <div className={cx('zoneNameContainer')}>
-                  <div
-                    className={cx('circle')}
-                    style={{
-                      backgroundColor: biggestVolumePair.sourceColor,
-                    }}
-                  />
-                  <div className={cx('zoneName')}>
-                    {biggestVolumePair.source}
-                  </div>
-                </div>
-                <div className={cx('zonesLink')} />
-                <div className={cx('zoneNameContainer')}>
-                  <div
-                    className={cx('circle')}
-                    style={{
-                      backgroundColor: biggestVolumePair.targetColor,
-                    }}
-                  />
-                  <div className={cx('zoneName')}>
-                    {biggestVolumePair.target}
                   </div>
                 </div>
               </div>
