@@ -67,6 +67,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_cashflow_out
     ibc_cashflow_in
     ibc_peers
+    ibc_peers_mainnet
     ibc_cashflow_out_percent
     ibc_cashflow_in_percent
     ibc_cashflow_diff
@@ -325,6 +326,7 @@ const transform = (zones, graph, isTestnetVisible) => {
       ibc_cashflow_out,
       ibc_cashflow_in,
       ibc_peers,
+      ibc_peers_mainnet,
       ibc_cashflow_out_percent,
       ibc_cashflow_in_percent,
       ibc_cashflow_diff,
@@ -360,7 +362,7 @@ const transform = (zones, graph, isTestnetVisible) => {
         totalIbcVolume: ibc_cashflow,
         ibcVolumeSent: ibc_cashflow_out,
         ibcVolumeReceived: ibc_cashflow_in,
-        peers: ibc_peers,
+        peers: isTestnetVisible ? ibc_peers : ibc_peers_mainnet,
         ibcVolumeSentPercentage: ibc_cashflow_out_percent
           ? ibc_cashflow_out_percent / 100
           : ibc_cashflow_out_percent,
