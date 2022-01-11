@@ -34,6 +34,8 @@ export const formatPercentage = (percentage, decimalDigits = 2) =>
 export const formatNumber = number =>
   Intl ? new Intl.NumberFormat().format(number) : number;
 
+export const isNumber = number => typeof number === 'number';
+
 export function trackEvent({ category, action, label, extra = {} }) {
   if (process.env.NODE_ENV === 'production') {
     const instance = amplitude.getInstance();

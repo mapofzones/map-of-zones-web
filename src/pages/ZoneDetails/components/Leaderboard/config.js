@@ -6,8 +6,8 @@ import { formatNumber } from 'common/helper';
 const columns = [
   {
     Header: 'Zone',
-    accessor: 'counterpartyName',
-    id: 'zone_counerparty',
+    accessor: 'name',
+    id: 'name',
     disableSortBy: true,
     alwaysVisible: true,
   },

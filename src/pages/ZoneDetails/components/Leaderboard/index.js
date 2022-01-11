@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import { useTable, useSortBy, useGlobalFilter } from 'react-table';
+import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
 
-import { formatNumber, trackEvent } from 'common/helper';
+import { formatNumber, isNumber } from 'common/helper';
 
 import Thead from './Thead';
 import columnsConfig from './config';
@@ -47,6 +47,7 @@ function Leaderboard({
     },
     useGlobalFilter,
     useSortBy,
+    useExpanded,
   );
 
   const sortBy = state?.sortBy?.[0];
@@ -56,12 +57,6 @@ function Leaderboard({
   const focusZone = useCallback(
     zone => {
       setFocusedZone(zone);
-
-      trackEvent({
-        category: 'Table',
-        action: 'select zone',
-        label: zone.name,
-      });
     },
     [setFocusedZone],
   );
@@ -69,15 +64,6 @@ function Leaderboard({
   useEffect(() => {
     if (sortedColumn) {
       onSortChange({ ...sortedColumn });
-
-      if (sortBy !== initialSortBy) {
-        trackEvent({
-          category: 'Table',
-          action: 'sort',
-          label: sortedColumn.id,
-          extra: { direction: sortBy?.desc ? 'desc' : 'asc' },
-        });
-      }
     }
   }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
 
@@ -87,66 +73,71 @@ function Leaderboard({
 
   const renderCell = cell => {
     switch (cell.column.id) {
-      case 'blank':
-        return <div>-</div>;
-      case 'txsActivity':
-        return cell.render('Cell');
-      case 'name':
+      case 'name': {
+        if (cell.row.depth === 0) {
+          return (
+            <div className={cx('cell-container')}>
+              {cell.row.original.zoneCounterpartyLabelUrl ? (
+                <img
+                  className={cx('image-container')}
+                  src={cell.row.original.zoneCounterpartyLabelUrl}
+                  alt=""
+                />
+              ) : (
+                <div className={cx('image-empty')} />
+              )}
+              <span className={cx('text-container')}>
+                {cell.render('Cell')}
+              </span>
+            </div>
+          );
+        }
+
         return (
-          <div className={cx('cell-container')}>
-            <span className={cx('text-container')}>
+          <div className={cx('cell-container', 'channelIdContainer')}>
+            <div className={cx('channelIndex')}>{cell.row.index}</div>
+            <div>{cell.row.original.zoneCounterpartyChannelId || '--'}</div>
+            <div className={cx('channelLineContainer')}>
               <div
-                className={cx('IBC-circle', {
-                  ibcReceived: cell.row.original.is_opened,
-                  ibcSent: !cell.row.original.is_opened,
+                className={cx('dot', {
+                  opened: cell.row.original.isOpened,
                 })}
               />
-              {cell.row.original.channel_id}
-            </span>
-            <span className={cx('subtext-container')}>
               <div
-                className={cx('IBC-circle', 'hided', {
-                  ibcReceived: cell.row.original.is_opened,
-                  ibcSent: !cell.row.original.is_opened,
+                className={cx('line', {
+                  opened: cell.row.original.isOpened,
                 })}
               />
-              {cell.render('Cell')}
-            </span>
-          </div>
-        );
-      case 'zone_counerparty':
-        return (
-          <div className={cx('cell-container')}>
-            {cell.row.original.zoneCounterpartyLabelUrl ? (
-              <img
-                className={cx('image-container')}
-                src={cell.row.original.zoneCounterpartyLabelUrl}
-                alt=""
+              <div
+                className={cx('dot', {
+                  opened: cell.row.original.isOpened,
+                })}
               />
-            ) : (
-              <div className={cx('image-empty')} />
-            )}
-            <span className={cx('text-container')}>{cell.render('Cell')}</span>
+            </div>
+            <div className={cx('zoneCounterpartyChannelId')}>
+              {cell.row.original.channelId || '--'}
+            </div>
           </div>
         );
-      default:
+      }
+      default: {
+        const diff = cell.row.original[cell.column.diffAccessor];
+
         return (
           <span className={cx('text-container')}>
             {cell.render('Cell')}
-            {!cell.column.disableSortBy && (
+            {isNumber(diff) && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.diffAccessor] < 0,
+                  negative: diff < 0,
                 })}
               >
-                {cell.row.original[cell.column.diffAccessor] > 0
-                  ? '+' +
-                    formatNumber(cell.row.original[cell.column.diffAccessor])
-                  : formatNumber(cell.row.original[cell.column.diffAccessor])}
+                {diff > 0 ? '+' + formatNumber(diff) : formatNumber(diff)}
               </div>
             )}
           </span>
         );
+      }
     }
   };
 
@@ -158,31 +149,85 @@ function Leaderboard({
           {...getTableBodyProps()}
           className={cx({ bodyWithFocus: !!focusedZoneId })}
         >
-          {rows.map((row, i) => {
+          {rows.map(row => {
             prepareRow(row);
+
+            const { key, role, ...restProps } = row.getRowProps();
+
             return (
-              <tr
-                {...row.getRowProps()}
-                className={cx('row')}
-                onClick={() => {
-                  focusZone(row.original);
-                }}
-              >
-                {row.cells.map(cell => {
-                  return (
+              <Fragment key={key}>
+                <tr
+                  {...restProps}
+                  key={`${key}_regular_row`}
+                  role={role}
+                  className={cx('row')}
+                  onClick={() => {
+                    if (row.canExpand) {
+                      row.toggleRowExpanded();
+                    }
+
+                    focusZone(row.original);
+                  }}
+                >
+                  {row.cells.map(cell => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        className={cx('cell', cell.column.id, {
+                          ibcReceived: cell.column.id === 'ibc_tx_success',
+                          ibcSent: cell.column.id === 'ibc_tx_failed',
+                          sortedColumn: cell.column.isSorted,
+                        })}
+                      >
+                        {renderCell(cell)}
+                      </td>
+                    );
+                  })}
+                </tr>
+                {row.isExpanded && (
+                  <tr
+                    key={`${key}_expanded_row_header`}
+                    role={role}
+                    className={cx('row')}
+                  >
                     <td
-                      {...cell.getCellProps()}
-                      className={cx('cell', cell.column.id, {
-                        ibcReceived: cell.column.Header === 'IBC Success',
-                        ibcSent: cell.column.Header === 'IBC Failed',
-                        sortedColumn: cell.column.isSorted,
-                      })}
+                      role="cell"
+                      className={cx('cell')}
+                      colSpan={row.cells.length}
                     >
-                      {renderCell(cell)}
+                      <div className={cx('expandedRowHeader')}>
+                        <div className={cx('channelIndexHeader')}>#</div>
+                        <div className={cx('zonesPair')}>
+                          <div className={cx('zoneInfoHeader')}>
+                            {row.original.zoneCounterpartyLabelUrl ? (
+                              <img
+                                className={cx('image-container')}
+                                src={row.original.zoneCounterpartyLabelUrl}
+                                alt=""
+                              />
+                            ) : (
+                              <div className={cx('image-empty')} />
+                            )}
+                            <div>{row.original.name}</div>
+                          </div>
+                          <div className={cx('zoneInfoHeader')}>
+                            {row.original.sourceZoneLabelUrl ? (
+                              <img
+                                className={cx('image-container')}
+                                src={row.original.sourceZoneLabelUrl}
+                                alt=""
+                              />
+                            ) : (
+                              <div className={cx('image-empty')} />
+                            )}
+                            <div>{row.original.sourceZoneReadableName}</div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
-                  );
-                })}
-              </tr>
+                  </tr>
+                )}
+              </Fragment>
             );
           })}
         </tbody>

@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 import animate from 'animate.css';
 
-import { formatNumber, trackEvent } from 'common/helper';
+import { formatNumber, trackEvent, isNumber } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 
 import Thead from './Thead';
@@ -123,24 +123,24 @@ function Leaderboard({
           </div>
         );
       }
-      default:
+      default: {
+        const diff = cell.row.original[cell.column.diffAccessor];
+
         return (
           <span className={cx('text-container')}>
             {cell.render('Cell')}
-            {!cell.column.disableSortBy && (
+            {isNumber(diff) && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.diffAccessor] < 0,
+                  negative: diff < 0,
                 })}
               >
-                {cell.row.original[cell.column.diffAccessor] > 0
-                  ? '+' +
-                    formatNumber(cell.row.original[cell.column.diffAccessor])
-                  : formatNumber(cell.row.original[cell.column.diffAccessor])}
+                {diff > 0 ? '+' + formatNumber(diff) : formatNumber(diff)}
               </div>
             )}
           </span>
         );
+      }
     }
   };
 
