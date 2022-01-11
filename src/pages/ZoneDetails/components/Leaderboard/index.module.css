@@ -198,26 +198,13 @@
   padding: 0;
 }
 
-/*2-nd col*/
-.header.name {
-  color: rgba(114, 114, 114, 0.5);
-}
-
 .header.name,
-.cell.name,
-.header.zone_counerparty,
-.cell.zone_counerparty {
+.cell.name {
   width: 100%;
 }
 
-.cell.name .cell-container {
-  display: block;
-  padding: 4px 0;
-}
-
 .cell.name .text-container,
-.cell.name .subtext-container,
-.cell.zone_counerparty .text-container {
+.cell.name .subtext-container {
   padding: 0;
   max-width: calc(380px - 35px);
   text-overflow: ellipsis;
@@ -490,6 +477,71 @@ tbody.bodyWithFocus.focusFixed .row {
   transform: translateX(0px) !important;
 }
 
+.channelIdContainer {
+  max-width: 400px;
+}
+
+.channelLineContainer {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #D76969;
+  border-radius: 50%;
+}
+
+.dot.opened, .line.opened {
+  background-color: #5CA97B;
+}
+
+.line {
+  height: 1px;
+  flex-grow: 1;
+  background-color: #D76969;
+}
+
+.channelIndex {
+  width: 16px;
+  margin-right: 8px;
+  text-align: center;
+  color: #ccc;
+}
+
+.zoneCounterpartyChannelId {
+  min-width: 100px;
+  text-align: left;
+}
+
+.expandedRowHeader {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  /* border-bottom: 1px solid var(--table-borders-color); */
+}
+
+.channelIndexHeader {
+  width: 16px;
+  margin-right: 8px;
+  text-align: center;
+  color: #ccc;
+}
+
+.zonesPair {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.zoneInfoHeader {
+  display: flex;
+  min-width: 100px;
+}
+
 /*
 @media (max-width: 1320px) {
   .explanation-icon .explanation-tooltip.centerPos {
@@ -557,8 +609,8 @@ tbody.bodyWithFocus.focusFixed .row {
 
   .header.ibcSent,
   .cell.ibcSent,
-  .header.zone_counerparty,
-  .cell.zone_counerparty {
+  .header.name,
+  .cell.name {
     border-left: none;
   }
 
