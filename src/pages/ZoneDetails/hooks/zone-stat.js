@@ -181,6 +181,8 @@ const transform = data => {
               channelId: channel.channel_id,
               zoneCounterpartyChannelId: channel.zone_counterparty_channel_id,
               isOpened: channel.is_opened,
+              successRate: channel.ibc_tx_success_rate / 100,
+              successRateDiff: channel.ibc_tx_success_rate_diff / 100,
             }));
 
           return {
@@ -197,6 +199,8 @@ const transform = data => {
             ibcTxSuccessDiff: ibc_tx_diff,
             ibcTxFailed: ibc_tx_failed,
             ibcTxFailedDiff: ibc_tx_failed_diff,
+            successRate: ibc_tx_success_rate / 100,
+            successRateDiff: ibc_tx_success_rate_diff / 100,
             subRows: channelsFormatted,
           };
         },

@@ -122,6 +122,7 @@ function Leaderboard({
       }
       default: {
         const diff = cell.row.original[cell.column.diffAccessor];
+        const DiffCell = cell.column.Cell;
 
         return (
           <span className={cx('text-container')}>
@@ -132,7 +133,7 @@ function Leaderboard({
                   negative: diff < 0,
                 })}
               >
-                {diff > 0 ? '+' + formatNumber(diff) : formatNumber(diff)}
+                <DiffCell cell={cell} value={diff > 0 ? '+' + diff : diff} />
               </div>
             )}
           </span>
