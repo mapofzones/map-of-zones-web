@@ -47,7 +47,7 @@ const CHANNELS_STAT_FRAGMENT = gql`
     connection_id
     is_opened
   }
-`; // TODO: add is_zone_up_to_date
+`;
 
 const CHANNEL_GROUP_STAT_QUERY = gql`
   query ChannelGroupStat($source: String!, $period: Int!) {
@@ -148,7 +148,7 @@ const transform = data => {
   const channelsGroupFormatted = channelsGroup
     ? channelsGroup.map(
         ({
-          is_zone_up_to_date, // Do we really need it here?
+          is_zone_up_to_date,
           zone_counterparty,
           zone_counterparty_label_url,
           is_zone_counterparty_up_to_date,
@@ -199,6 +199,8 @@ const transform = data => {
             ibcTxSuccessDiff: ibc_tx_diff,
             ibcTxFailed: ibc_tx_failed,
             ibcTxFailedDiff: ibc_tx_failed_diff,
+            isZoneUpToDate: is_zone_up_to_date,
+            isZoneCounterpartyUpToDate: is_zone_counterparty_up_to_date,
             successRate: ibc_tx_success_rate / 100,
             successRateDiff: ibc_tx_success_rate_diff / 100,
             subRows: channelsFormatted,

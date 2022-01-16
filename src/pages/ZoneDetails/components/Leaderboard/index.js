@@ -4,6 +4,8 @@ import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
 
 import { isNumber } from 'common/helper';
+import Status from 'components/Status';
+
 import { ReactComponent as ArrowUp } from './assets/arrow-up.svg';
 import { ReactComponent as ArrowDown } from './assets/arrow-down.svg';
 
@@ -97,6 +99,7 @@ function Leaderboard({
                     <span className={cx('text-container')}>
                       {cell.row.original.sourceZoneReadableName}
                     </span>
+                    <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
                   </div>
                   <div className={cx('zoneInfoHeader')}>
                     {cell.row.original.zoneCounterpartyLabelUrl ? (
@@ -111,6 +114,11 @@ function Leaderboard({
                     <span className={cx('text-container')}>
                       {cell.row.original.name}
                     </span>
+                    <Status
+                      isZoneUpToDate={
+                        cell.row.original.isZoneCounterpartyUpToDate
+                      }
+                    />
                   </div>
                 </div>
               </div>
@@ -134,6 +142,9 @@ function Leaderboard({
               <span className={cx('text-container')}>
                 {cell.render('Cell')}
               </span>
+              <Status
+                isZoneUpToDate={cell.row.original.isZoneCounterpartyUpToDate}
+              />
             </div>
           );
         }

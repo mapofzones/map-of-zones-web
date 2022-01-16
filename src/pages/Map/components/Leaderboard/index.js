@@ -6,10 +6,10 @@ import animate from 'animate.css';
 
 import { formatNumber, trackEvent, isNumber } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
+import Status from 'components/Status';
 
 import Thead from './Thead';
 import SortModal from './SortModal';
-import Status from './Status';
 
 import columnsConfig from './config';
 
