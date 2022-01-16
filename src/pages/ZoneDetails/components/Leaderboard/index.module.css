@@ -130,11 +130,15 @@
   min-width: 100px;
 }
 
-.channelIndexHeader {
+.expandArrowContainer {
   width: 16px;
   margin-right: 8px;
   text-align: center;
   color: #ccc;
+}
+
+.expandArrow {
+  margin-bottom: 4px;
 }
 
 .cell .image-container {

@@ -4,6 +4,8 @@ import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
 
 import { isNumber } from 'common/helper';
+import { ReactComponent as ArrowUp } from './assets/arrow-up.svg';
+import { ReactComponent as ArrowDown } from './assets/arrow-down.svg';
 
 import Thead from './Thead';
 import columnsConfig from './config';
@@ -78,7 +80,9 @@ function Leaderboard({
           if (cell.row.isExpanded) {
             return (
               <div className={cx('zonesPairContainer')}>
-                <div className={cx('channelIndexHeader')}>#</div>
+                <div className={cx('expandArrowContainer')}>
+                  <ArrowUp className={cx('expandArrow')} />
+                </div>
                 <div className={cx('zonesPair')}>
                   <div className={cx('zoneInfoHeader')}>
                     {cell.row.original.sourceZoneLabelUrl ? (
@@ -115,6 +119,9 @@ function Leaderboard({
 
           return (
             <div className={cx('cell-container')}>
+              <div className={cx('expandArrowContainer')}>
+                <ArrowDown className={cx('expandArrow')} />
+              </div>
               {cell.row.original.zoneCounterpartyLabelUrl ? (
                 <img
                   className={cx('image-container')}
