@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo, Fragment } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
 
-import { formatNumber, isNumber } from 'common/helper';
+import { isNumber } from 'common/helper';
 
 import Thead from './Thead';
 import columnsConfig from './config';
@@ -75,6 +75,44 @@ function Leaderboard({
     switch (cell.column.id) {
       case 'name': {
         if (cell.row.depth === 0) {
+          if (cell.row.isExpanded) {
+            return (
+              <div className={cx('zonesPairContainer')}>
+                <div className={cx('channelIndexHeader')}>#</div>
+                <div className={cx('zonesPair')}>
+                  <div className={cx('zoneInfoHeader')}>
+                    {cell.row.original.sourceZoneLabelUrl ? (
+                      <img
+                        className={cx('image-container')}
+                        src={cell.row.original.sourceZoneLabelUrl}
+                        alt=""
+                      />
+                    ) : (
+                      <div className={cx('image-empty')} />
+                    )}
+                    <span className={cx('text-container')}>
+                      {cell.row.original.sourceZoneReadableName}
+                    </span>
+                  </div>
+                  <div className={cx('zoneInfoHeader')}>
+                    {cell.row.original.zoneCounterpartyLabelUrl ? (
+                      <img
+                        className={cx('image-container')}
+                        src={cell.row.original.zoneCounterpartyLabelUrl}
+                        alt=""
+                      />
+                    ) : (
+                      <div className={cx('image-empty')} />
+                    )}
+                    <span className={cx('text-container')}>
+                      {cell.row.original.name}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
           return (
             <div className={cx('cell-container')}>
               {cell.row.original.zoneCounterpartyLabelUrl ? (
@@ -95,8 +133,8 @@ function Leaderboard({
 
         return (
           <div className={cx('cell-container', 'channelIdContainer')}>
-            <div className={cx('channelIndex')}>{cell.row.index}</div>
-            <div>{cell.row.original.zoneCounterpartyChannelId || '--'}</div>
+            <div className={cx('channelIndex')}>{cell.row.index + 1}</div>
+            <div>{cell.row.original.channelId || '--'}</div>
             <div className={cx('channelLineContainer')}>
               <div
                 className={cx('dot', {
@@ -115,7 +153,7 @@ function Leaderboard({
               />
             </div>
             <div className={cx('zoneCounterpartyChannelId')}>
-              {cell.row.original.channelId || '--'}
+              {cell.row.original.zoneCounterpartyChannelId || '--'}
             </div>
           </div>
         );
@@ -153,82 +191,33 @@ function Leaderboard({
           {rows.map(row => {
             prepareRow(row);
 
-            const { key, role, ...restProps } = row.getRowProps();
-
             return (
-              <Fragment key={key}>
-                <tr
-                  {...restProps}
-                  key={`${key}_regular_row`}
-                  role={role}
-                  className={cx('row')}
-                  onClick={() => {
-                    if (row.canExpand) {
-                      row.toggleRowExpanded();
-                    }
+              <tr
+                {...row.getRowProps()}
+                className={cx('row')}
+                onClick={() => {
+                  if (row.canExpand) {
+                    row.toggleRowExpanded();
+                  }
 
-                    focusZone(row.original);
-                  }}
-                >
-                  {row.cells.map(cell => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        className={cx('cell', cell.column.id, {
-                          ibcReceived: cell.column.id === 'ibc_tx_success',
-                          ibcSent: cell.column.id === 'ibc_tx_failed',
-                          sortedColumn: cell.column.isSorted,
-                        })}
-                      >
-                        {renderCell(cell)}
-                      </td>
-                    );
-                  })}
-                </tr>
-                {row.isExpanded && (
-                  <tr
-                    key={`${key}_expanded_row_header`}
-                    role={role}
-                    className={cx('row')}
-                  >
+                  focusZone(row.original);
+                }}
+              >
+                {row.cells.map(cell => {
+                  return (
                     <td
-                      role="cell"
-                      className={cx('cell')}
-                      colSpan={row.cells.length}
+                      {...cell.getCellProps()}
+                      className={cx('cell', cell.column.id, {
+                        ibcReceived: cell.column.id === 'ibc_tx_success',
+                        ibcSent: cell.column.id === 'ibc_tx_failed',
+                        sortedColumn: cell.column.isSorted,
+                      })}
                     >
-                      <div className={cx('expandedRowHeader')}>
-                        <div className={cx('channelIndexHeader')}>#</div>
-                        <div className={cx('zonesPair')}>
-                          <div className={cx('zoneInfoHeader')}>
-                            {row.original.zoneCounterpartyLabelUrl ? (
-                              <img
-                                className={cx('image-container')}
-                                src={row.original.zoneCounterpartyLabelUrl}
-                                alt=""
-                              />
-                            ) : (
-                              <div className={cx('image-empty')} />
-                            )}
-                            <div>{row.original.name}</div>
-                          </div>
-                          <div className={cx('zoneInfoHeader')}>
-                            {row.original.sourceZoneLabelUrl ? (
-                              <img
-                                className={cx('image-container')}
-                                src={row.original.sourceZoneLabelUrl}
-                                alt=""
-                              />
-                            ) : (
-                              <div className={cx('image-empty')} />
-                            )}
-                            <div>{row.original.sourceZoneReadableName}</div>
-                          </div>
-                        </div>
-                      </div>
+                      {renderCell(cell)}
                     </td>
-                  </tr>
-                )}
-              </Fragment>
+                  );
+                })}
+              </tr>
             );
           })}
         </tbody>
