@@ -109,6 +109,34 @@
   flex-wrap: nowrap;
 }
 
+.zonesPairContainer {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+.zonesPair {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.zoneInfoHeader {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  min-width: 100px;
+}
+
+.channelIndexHeader {
+  width: 16px;
+  margin-right: 8px;
+  text-align: center;
+  color: #ccc;
+}
+
 .cell .image-container {
   width: 16px;
   height: 16px;
@@ -515,31 +543,6 @@ tbody.bodyWithFocus.focusFixed .row {
 .zoneCounterpartyChannelId {
   min-width: 100px;
   text-align: left;
-}
-
-.expandedRowHeader {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  /* border-bottom: 1px solid var(--table-borders-color); */
-}
-
-.channelIndexHeader {
-  width: 16px;
-  margin-right: 8px;
-  text-align: center;
-  color: #ccc;
-}
-
-.zonesPair {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.zoneInfoHeader {
-  display: flex;
-  min-width: 100px;
 }
 
 /*
