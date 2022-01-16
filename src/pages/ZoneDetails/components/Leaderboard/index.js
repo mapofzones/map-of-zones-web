@@ -22,7 +22,7 @@ function Leaderboard({
   initialState,
   disableMultiSort,
   disableSortRemove,
-  setFocusedZone,
+  onChannelClick,
   focusedZoneId,
   filter,
 }) {
@@ -58,11 +58,13 @@ function Leaderboard({
   const initialSortBy = initialState?.sortBy?.[0];
   const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
-  const focusZone = useCallback(
-    zone => {
-      setFocusedZone(zone);
+  const onRowClick = useCallback(
+    row => {
+      if (row.depth !== 0) {
+        onChannelClick(row.original);
+      }
     },
-    [setFocusedZone],
+    [onChannelClick],
   );
 
   useEffect(() => {
@@ -112,7 +114,7 @@ function Leaderboard({
                       <div className={cx('image-empty')} />
                     )}
                     <span className={cx('text-container')}>
-                      {cell.row.original.name}
+                      {cell.row.original.zoneCounterpartyReadableName}
                     </span>
                     <Status
                       isZoneUpToDate={
@@ -218,7 +220,7 @@ function Leaderboard({
                     row.toggleRowExpanded();
                   }
 
-                  focusZone(row.original);
+                  onRowClick(row);
                 }}
               >
                 {row.cells.map(cell => {
@@ -251,7 +253,7 @@ Leaderboard.propTypes = {
   disableMultiSort: PropTypes.bool,
   disableSortRemove: PropTypes.bool,
   focusedZoneId: PropTypes.string,
-  setFocusedZone: PropTypes.func,
+  onChannelClick: PropTypes.func,
   filter: PropTypes.func,
 };
 
@@ -260,7 +262,7 @@ Leaderboard.defaultProps = {
   initialState: {},
   disableMultiSort: true,
   disableSortRemove: true,
-  setFocusedZone: () => {},
+  onChannelClick: () => {},
   filter: rows => rows,
 };
 

@@ -12,7 +12,7 @@ import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
-function ZoneDetails({ isOpen, onAfterClose, onRequestClose, zone }) {
+function ChannelDetails({ isOpen, onAfterClose, onRequestClose, channel }) {
   return (
     <Modal
       isOpen={isOpen}
@@ -48,8 +48,12 @@ function ZoneDetails({ isOpen, onAfterClose, onRequestClose, zone }) {
           <div className={cx('zone-name-container')}>
             <CurvedLine className={cx('curved-line')} />
             <div>
-              <div className={cx('zone-name')}>{zone?.name}</div>
-              <div className={cx('zone-name')}>{zone?.zone_counerparty}</div>
+              <div className={cx('zone-name')}>
+                {channel?.sourceZoneReadableName}
+              </div>
+              <div className={cx('zone-name')}>
+                {channel?.zoneCounterpartyReadableName}
+              </div>
             </div>
           </div>
 
@@ -59,21 +63,21 @@ function ZoneDetails({ isOpen, onAfterClose, onRequestClose, zone }) {
 
           <div className={cx('item-container')}>
             <div className={cx('item')}>Client ID</div>
-            <div className={cx('item')}>{zone?.client_id}</div>
+            <div className={cx('item')}>{channel?.clientId}</div>
           </div>
           <div className={cx('item-container')}>
             <div className={cx('item')}>Connection ID</div>
-            <div className={cx('item')}>{zone?.connection_id}</div>
+            <div className={cx('item')}>{channel?.connectionId}</div>
           </div>
           <div className={cx('item-container')}>
             <div className={cx('item')}>State</div>
             <div className={cx('item')}>
-              {zone?.is_opened ? 'Opened' : 'Closed'}
+              {channel?.isOpened ? 'Opened' : 'Closed'}
             </div>
           </div>
           <div className={cx('item-container')}>
             <div className={cx('item')}>Channel ID</div>
-            <div className={cx('item')}>{zone?.channel_id}</div>
+            <div className={cx('item')}>{channel?.channelId}</div>
           </div>
         </div>
       </div>
@@ -81,9 +85,11 @@ function ZoneDetails({ isOpen, onAfterClose, onRequestClose, zone }) {
   );
 }
 
-ZoneDetails.propTypes = {
+ChannelDetails.propTypes = {
   isOpen: PropTypes.bool,
   onRequestClose: PropTypes.func,
+  onAfterClose: PropTypes.func,
+  channel: PropTypes.object,
 };
 
-export default ZoneDetails;
+export default ChannelDetails;
