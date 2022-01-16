@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
-import { PERIODS } from '../components/PeriodSwitcher';
+import { PERIODS } from 'components/PeriodSwitcher';
 
 export const usePeriodSelector = () => {
   const history = useHistory();

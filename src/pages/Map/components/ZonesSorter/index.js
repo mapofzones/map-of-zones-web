@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { ReactComponent as ArrowTop } from 'assets/images/arrow-top.svg';
 
-import PeriodSwitcher from '../PeriodSwitcher';
+import PeriodSwitcher from 'components/PeriodSwitcher';
 
 import styles from './index.module.css';
 

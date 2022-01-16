@@ -6,7 +6,7 @@ import { ReactComponent as BackIcon } from 'assets/images/arrow-back.svg';
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
 
-import PeriodSwitcher from '../../../Map/components/PeriodSwitcher';
+import PeriodSwitcher from 'components/PeriodSwitcher';
 
 import styles from './index.module.css';
 
