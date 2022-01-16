@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { parse, stringify } from 'querystringify';
 
@@ -7,6 +7,7 @@ import Leaderboard from './components/Leaderboard';
 import Footer from 'pages/Map/components/Footer';
 import Header from './components/Header';
 import Loader from './components/Loader';
+import ChannelDetails from './components/ChannelDetails';
 import { usePeriodSelector } from '../Map/hooks';
 
 import { useShowTestnet, useChannelGroupStat } from './hooks';
@@ -16,6 +17,7 @@ function Channel() {
   const history = useHistory();
   const [period, setPeriod] = usePeriodSelector();
   const [isTestnetVisible, toggleShowTestnet] = useShowTestnet();
+  const [selectedChannel, selectChannel] = useState(null);
 
   const source = useMemo(() => {
     return parse(location.search).source;
@@ -77,8 +79,13 @@ function Channel() {
           period={period}
           setPeriod={setPeriod}
         />
-        <Leaderboard data={channelGroup} />
+        <Leaderboard data={channelGroup} onChannelClick={selectChannel} />
         <Footer />
+        <ChannelDetails
+          onRequestClose={() => selectChannel(null)}
+          isOpen={!!selectedChannel}
+          channel={selectedChannel}
+        />
       </div>
     );
   }

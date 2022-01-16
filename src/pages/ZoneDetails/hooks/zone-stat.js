@@ -23,7 +23,6 @@ const CHANNEL_GROUP_STAT_FRAGMENT = gql`
   }
 `;
 
-// TODO: Do we really need client_id
 const CHANNELS_STAT_FRAGMENT = gql`
   fragment channels_stats on ft_channels_stats {
     zone_website
@@ -168,8 +167,12 @@ const transform = data => {
             .filter(channel => channel.zone_counterparty === zone_counterparty)
             .map(channel => ({
               id: channel.connection_id,
-              name: channel.connection_id,
+              name: channel.connection_id, // TODO
+              connectionId: channel.connection_id, // TODO
               zoneLabelUrl: channel.zone_label_url,
+              zoneCounterpartyReadableName: zone_counterparty_readable_name,
+              sourceZoneReadableName: sourceZone?.zone_readable_name,
+              clientId: channel.client_id,
               volumeIn: channel.ibc_cashflow_in,
               volumeInDiff: channel.ibc_cashflow_in_diff,
               volumeOut: channel.ibc_cashflow_out,
@@ -188,6 +191,7 @@ const transform = data => {
           return {
             id: zone_counterparty,
             name: zone_counterparty_readable_name,
+            zoneCounterpartyReadableName: zone_counterparty_readable_name,
             zoneCounterpartyLabelUrl: zone_counterparty_label_url,
             sourceZoneLabelUrl: sourceZone?.zone_label_url,
             sourceZoneReadableName: sourceZone?.zone_readable_name,
