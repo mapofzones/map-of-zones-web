@@ -478,7 +478,7 @@ function Graph({
               onClick={shareImage}
               className={cx('roundButton', 'downloadButton')}
             >
-              <div>↓</div>
+              <div className={cx('downloadArrowIcon')}>↓</div>
               <div className={cx('downloadIcon')} />
             </button>
           </div>
@@ -489,7 +489,7 @@ function Graph({
               onClick={shareImage}
               className={cx('roundButton', 'downloadButton')}
             >
-              <div>↓</div>
+              <div className={cx('downloadArrowIcon')}>↓</div>
               <div className={cx('downloadIcon')} />
             </button>
           </div>
