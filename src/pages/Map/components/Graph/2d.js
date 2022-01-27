@@ -23,6 +23,7 @@ import { ReactComponent as CollapseScreenIcon } from 'assets/images/collapse-scr
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
 import { ReactComponent as TgShareLogo } from 'assets/images/tg-share.svg';
 import { ReactComponent as TwitterShareLogo } from 'assets/images/twitter-share.svg';
+import logoUrl from 'assets/images/logo.svg';
 
 import {
   useNodeCanvasObject,
@@ -301,9 +302,70 @@ function Graph({
   );
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
+  const containerRef = useRef(null);
+  const shareImage = useCallback(() => {
+    if (containerRef?.current) {
+      const canvas = containerRef.current.querySelector('canvas');
+
+      if (canvas) {
+        const logoImage = new Image();
+
+        logoImage.addEventListener(
+          'load',
+          () => {
+            try {
+              const fg = fgRef.current;
+              const scale = fg.zoom();
+              const context = canvas.getContext('2d');
+              const { x, y } = fg.screen2GraphCoords(0, 0);
+              const logoPaddding = 13 / scale;
+              const logoWidth = 115.8 / scale;
+              const logoHeight = 54.3 / scale;
+
+              context.drawImage(
+                logoImage,
+                x + logoPaddding,
+                y + logoPaddding,
+                logoWidth,
+                logoHeight,
+              );
+              context.globalCompositeOperation = 'destination-over';
+              context.fillStyle = '#120e25'; // TODO: Use image instead
+              context.fillRect(
+                x,
+                y,
+                canvas.width / scale,
+                canvas.height / scale,
+              );
+
+              const canvasImage = canvas.toDataURL('image/png');
+              const link = document.createElement('a');
+
+              link.style.display = 'none';
+              link.href = canvasImage;
+              link.download = 'map.png'; // TODO: Change name
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              context.globalCompositeOperation = 'source-over';
+            } catch (e) {
+              console.log(e);
+            }
+          },
+          { once: true },
+        );
+
+        logoImage.src = logoUrl;
+      }
+    }
+  }, [containerRef, fgRef]);
+
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <div className={cx('container', { blurred: isBlurred })}>
+      <div
+        className={cx('container', { blurred: isBlurred })}
+        ref={containerRef}
+      >
         <ForceGraph2D
           ref={fgRef}
           height={mapOpened ? document.documentElement.clientHeight : 500}
@@ -371,7 +433,7 @@ function Graph({
             3D
           </button>
         </div>
-        {!!focusedNode && (
+        {!!focusedNode ? (
           <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
             <div className={cx('shareTitle')}>
               <FormattedMessage id="share" defaultMessage="Share" />
@@ -407,6 +469,25 @@ function Graph({
             >
               <TwitterShareLogo />
             </a>
+            <button
+              type="button"
+              onClick={shareImage}
+              className={cx('roundButton', 'downloadButton')}
+            >
+              <div>↓</div>
+              <div className={cx('downloadIcon')} />
+            </button>
+          </div>
+        ) : (
+          <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
+            <button
+              type="button"
+              onClick={shareImage}
+              className={cx('roundButton', 'downloadButton')}
+            >
+              <div>↓</div>
+              <div className={cx('downloadIcon')} />
+            </button>
           </div>
         )}
         {!!focusedNode && (
