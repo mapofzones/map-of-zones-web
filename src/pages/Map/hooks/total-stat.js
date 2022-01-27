@@ -11,8 +11,12 @@ const TOTAL_STAT_FRAGMENT = gql`
     top_zone_pair
     channels_cnt_period
     channels_cnt_all
-    chart
+    chart_cashflow
+    chart_transfers
     ibc_cashflow_period
+    ibc_cashflow_pending_period
+    ibc_transfers_period
+    ibc_transfers_pending_period
     top_ibc_cashflow_zone_pair
   }
 `;
@@ -73,11 +77,14 @@ const transform = data => {
     channels_cnt_period,
     channels_cnt_all,
     ibc_cashflow_period,
+    ibc_transfers_period,
+    ibc_cashflow_pending_period,
+    ibc_transfers_pending_period,
     top_ibc_cashflow_zone_pair,
-    chart,
+    chart_cashflow,
+    chart_transfers,
   } = data.headers[0];
 
-  const ibcTxs = chart.reduce((acc, { txs }) => acc + txs, 0);
   const topZonePair = top_zone_pair && top_zone_pair[0];
   const topIbcCashflowZonePair =
     top_ibc_cashflow_zone_pair && top_ibc_cashflow_zone_pair[0];
@@ -111,11 +118,14 @@ const transform = data => {
     : null;
 
   return {
-    ibcTxs,
     mostActiveZonesPair,
     biggestVolumePair,
     ibcVolume: ibc_cashflow_period,
-    ibcTxsActivity: chart,
+    ibcTxs: ibc_transfers_period,
+    ibcVolumePending: ibc_cashflow_pending_period,
+    ibcTxsPending: ibc_transfers_pending_period,
+    ibcTxsChart: chart_transfers,
+    ibcVolumeChart: chart_cashflow || [],
     allZones: zones_cnt_all,
     activeZones: zones_cnt_period,
     allChannels: channels_cnt_all,

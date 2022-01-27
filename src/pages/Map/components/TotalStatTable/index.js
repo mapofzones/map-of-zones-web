@@ -5,6 +5,7 @@ import { Area, AreaChart, ResponsiveContainer } from 'recharts';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { formatNumber } from 'common/helper';
+import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import styles from './index.module.css';
 
@@ -12,7 +13,10 @@ const cx = classNames.bind(styles);
 
 function TotalStatTable({
   period,
-  ibcTxsActivity,
+  ibcTxsChart,
+  ibcVolumeChart,
+  ibcVolumePending,
+  ibcTxsPending,
   ibcTxs,
   allZones,
   activeZones,
@@ -29,39 +33,27 @@ function TotalStatTable({
       <div className={cx('container', { tableOpened: isTableOpened })}>
         <div className={cx('item')}>
           <div className={cx('statContainer')}>
-            <div className={cx('statName')}>
-              <FormattedMessage
-                id="number-of-ibc-txs-stat"
-                defaultMessage="Number of IBC transfers {period}"
-                values={{
-                  period: <span className={cx('period')}>{period}</span>,
-                }}
-              />
-            </div>
-            <div className={cx('statValue')}>{formatNumber(ibcTxs)}</div>
-          </div>
-          <ResponsiveContainer className={cx('activityContainer')}>
-            <AreaChart data={ibcTxsActivity} margin={{ bottom: 0 }}>
-              <Area
-                strokeWidth={2}
-                type="linear"
-                dataKey="txs"
-                stroke="#6ea77f"
-                fill="#5CA97B"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-        <div className={cx('item')}>
-          <div className={cx('statContainer')}>
-            <div className={cx('statName')}>
-              <FormattedMessage
-                id="ibc-volume"
-                defaultMessage="IBC volume {period}"
-                values={{
-                  period: <span className={cx('period')}>{period}</span>,
-                }}
-              />
+            <div className={cx('statNameContainer')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
+                  id="ibc-volume"
+                  defaultMessage="IBC volume {period}"
+                  values={{
+                    period: <span className={cx('period')}>{period}</span>,
+                  }}
+                />
+              </div>
+              {!!ibcVolumePending && (
+                <div className={cx('pendingContainer')}>
+                  <PendingIcon className={cx('pendingIcon')} />
+                  <FormattedNumber
+                    value={ibcVolumePending}
+                    style="currency"
+                    currency="USD"
+                    maximumFractionDigits="0"
+                  />
+                </div>
+              )}
             </div>
             <div className={cx('statValue')}>
               <FormattedNumber
@@ -72,6 +64,50 @@ function TotalStatTable({
               />
             </div>
           </div>
+          <ResponsiveContainer className={cx('activityContainer')}>
+            <AreaChart data={ibcVolumeChart} margin={{ bottom: 0 }}>
+              <Area
+                strokeWidth={2}
+                type="linear"
+                dataKey="cashflow"
+                stroke="#6ea77f"
+                fill="#5CA97B"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+        <div className={cx('item')}>
+          <div className={cx('statContainer')}>
+            <div className={cx('statNameContainer')}>
+              <div className={cx('statName')}>
+                <FormattedMessage
+                  id="number-of-ibc-txs-stat"
+                  defaultMessage="Number of IBC transfers {period}"
+                  values={{
+                    period: <span className={cx('period')}>{period}</span>,
+                  }}
+                />
+              </div>
+              {!!ibcTxsPending && (
+                <div className={cx('pendingContainer')}>
+                  <PendingIcon className={cx('pendingIcon')} />
+                  {ibcTxsPending}
+                </div>
+              )}
+            </div>
+            <div className={cx('statValue')}>{formatNumber(ibcTxs)}</div>
+          </div>
+          <ResponsiveContainer className={cx('activityContainer')}>
+            <AreaChart data={ibcTxsChart} margin={{ bottom: 0 }}>
+              <Area
+                strokeWidth={2}
+                type="linear"
+                dataKey="txs"
+                stroke="#6ea77f"
+                fill="#5CA97B"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
         <div className={cx('item')}>
           <div className={cx('statContainerSmall')}>
@@ -108,7 +144,9 @@ function TotalStatTable({
                     defaultMessage="All Channels"
                   />
                 </div>
-                <div className={cx('statValue')}>{formatNumber(allChannels)}</div>
+                <div className={cx('statValue')}>
+                  {formatNumber(allChannels)}
+                </div>
               </div>
               <div className={cx('statContainer', 'small')}>
                 <div className={cx('statName')}>
@@ -239,11 +277,18 @@ function TotalStatTable({
 
 TotalStatTable.propTypes = {
   period: PropTypes.node,
-  ibcTxsActivity: PropTypes.arrayOf(
+  ibcTxsChart: PropTypes.arrayOf(
     PropTypes.shape({
       txs: PropTypes.number,
     }),
   ),
+  ibcVolumeChart: PropTypes.arrayOf(
+    PropTypes.shape({
+      cashflow: PropTypes.number,
+    }),
+  ),
+  ibcVolumePending: PropTypes.number,
+  ibcTxsPending: PropTypes.number,
   ibcTxs: PropTypes.number,
   allZones: PropTypes.number,
   activeZones: PropTypes.number,

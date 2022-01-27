@@ -8,6 +8,21 @@
   will-change: transform;
 }
 
+.pendingIcon {
+  margin-right: 3px;
+  width: 12px;
+  height: 10px;
+}
+
+.pendingContainer {
+  display: flex;
+  flex-direction: row;
+  color: #8c909f;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
 .activityContainer {
   position: absolute;
   top: 0;
