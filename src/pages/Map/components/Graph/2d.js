@@ -350,6 +350,10 @@ function Graph({
               context.globalCompositeOperation = 'source-over';
             } catch (e) {
               console.log(e);
+
+              const context = canvas.getContext('2d');
+
+              context.globalCompositeOperation = 'source-over';
             }
           },
           { once: true },
