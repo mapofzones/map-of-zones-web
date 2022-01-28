@@ -8,7 +8,7 @@ const TOTAL_STAT_FRAGMENT = gql`
   fragment header on headers {
     zones_cnt_period
     zones_cnt_all
-    top_zone_pair
+    top_transfer_zone_pair
     channels_cnt_period
     channels_cnt_all
     chart_cashflow
@@ -73,7 +73,7 @@ const transform = data => {
   const {
     zones_cnt_period,
     zones_cnt_all,
-    top_zone_pair,
+    top_transfer_zone_pair,
     channels_cnt_period,
     channels_cnt_all,
     ibc_cashflow_period,
@@ -85,27 +85,31 @@ const transform = data => {
     chart_transfers,
   } = data.headers[0];
 
-  const topZonePair = top_zone_pair && top_zone_pair[0];
+  // txs_diff
+  const topTransferZonePair =
+    top_transfer_zone_pair && top_transfer_zone_pair[0];
   const topIbcCashflowZonePair =
     top_ibc_cashflow_zone_pair && top_ibc_cashflow_zone_pair[0];
-  const mostActiveZonesPair = topZonePair
+  const mostActiveByTxsZonesPair = topTransferZonePair
     ? {
-        source: topZonePair.source,
-        target: topZonePair.target,
-        ibc: topZonePair.ibc,
+        txsPending: topTransferZonePair.txs_pending,
+        source: topTransferZonePair.source,
+        target: topTransferZonePair.target,
+        txs: topTransferZonePair.txs,
         sourceColor: getNodeColor(
-          topZonePair.source_to_target_txs / topZonePair.ibc,
+          topTransferZonePair.source_to_target_txs / topTransferZonePair.txs,
         ),
         targetColor: getNodeColor(
-          topZonePair.target_to_source_txs / topZonePair.ibc,
+          topTransferZonePair.target_to_source_txs / topTransferZonePair.txs,
         ),
       }
     : null;
-  const biggestVolumePair = topIbcCashflowZonePair
+  const mostActiveByVolumeZonesPair = topIbcCashflowZonePair
     ? {
         source: topIbcCashflowZonePair.source,
         target: topIbcCashflowZonePair.target,
         volume: topIbcCashflowZonePair.cashflow,
+        volumePending: topTransferZonePair.cashflow_pending,
         sourceColor: getNodeColor(
           topIbcCashflowZonePair.source_to_target_cashflow /
             topIbcCashflowZonePair.cashflow,
@@ -118,8 +122,8 @@ const transform = data => {
     : null;
 
   return {
-    mostActiveZonesPair,
-    biggestVolumePair,
+    mostActiveByTxsZonesPair,
+    mostActiveByVolumeZonesPair,
     ibcVolume: ibc_cashflow_period,
     ibcTxs: ibc_transfers_period,
     ibcVolumePending: ibc_cashflow_pending_period,
