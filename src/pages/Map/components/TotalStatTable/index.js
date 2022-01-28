@@ -23,8 +23,8 @@ function TotalStatTable({
   allChannels,
   showChannels,
   activeChannels,
-  mostActiveZonesPair,
-  biggestVolumePair,
+  mostActiveByTxsZonesPair,
+  mostActiveByVolumeZonesPair,
   isTableOpened,
   ibcVolume,
 }) {
@@ -166,106 +166,120 @@ function TotalStatTable({
           </div>
         )}
         <div className={cx('item')}>
-          <div className={cx('statContainer')}>
-            <div className={cx('statNameContainer')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="biggest-volume-pair-stat"
-                  defaultMessage="Biggest volume Pair {period}"
-                  values={{
-                    period: <span className={cx('period')}>{period}</span>,
-                  }}
-                />
+          <div className={cx('statContainer', 'mostActiveZonesPairContainer')}>
+            <div>
+              <div className={cx('statNameContainer')}>
+                <div className={cx('statName')}>
+                  <FormattedMessage
+                    id="biggest-volume-pair-stat"
+                    defaultMessage="Biggest volume Pair"
+                  />
+                </div>
               </div>
-              {biggestVolumePair?.volume && (
-                <div className={cx('mostActiveZonesPairTxs')}>
+              {mostActiveByVolumeZonesPair && (
+                <div className={cx('mostActiveZonesPair')}>
+                  <div className={cx('zoneNameContainer')}>
+                    <div
+                      className={cx('circle')}
+                      style={{
+                        backgroundColor:
+                          mostActiveByVolumeZonesPair.sourceColor,
+                      }}
+                    />
+                    <div className={cx('zoneName')}>
+                      {mostActiveByVolumeZonesPair.source}
+                    </div>
+                  </div>
+                  <div className={cx('zonesLink')} />
+                  <div className={cx('zoneNameContainer')}>
+                    <div
+                      className={cx('circle')}
+                      style={{
+                        backgroundColor:
+                          mostActiveByVolumeZonesPair.targetColor,
+                      }}
+                    />
+                    <div className={cx('zoneName')}>
+                      {mostActiveByVolumeZonesPair.target}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            {mostActiveByVolumeZonesPair && (
+              <div className={cx('mostActiveZonesPairValueContainer')}>
+                <div className={cx('mostActiveZonesPairValue')}>
                   <FormattedNumber
-                    value={biggestVolumePair.volume}
+                    value={mostActiveByVolumeZonesPair.volume}
                     style="currency"
                     currency="USD"
                     maximumFractionDigits="0"
                   />
                 </div>
-              )}
-            </div>
-            {biggestVolumePair && (
-              <div className={cx('mostActiveZonesPair')}>
-                <div className={cx('zoneNameContainer')}>
-                  <div
-                    className={cx('circle')}
-                    style={{
-                      backgroundColor: biggestVolumePair.sourceColor,
-                    }}
-                  />
-                  <div className={cx('zoneName')}>
-                    {biggestVolumePair.source}
-                  </div>
+                <div className={cx('pendingContainer')}>
+                  <PendingIcon className={cx('pendingIcon')} />
+                  {mostActiveByTxsZonesPair.txsPending}
                 </div>
-                <div className={cx('zonesLink')} />
-                <div className={cx('zoneNameContainer')}>
-                  <div
-                    className={cx('circle')}
-                    style={{
-                      backgroundColor: biggestVolumePair.targetColor,
-                    }}
-                  />
-                  <div className={cx('zoneName')}>
-                    {biggestVolumePair.target}
-                  </div>
-                </div>
+                <span className={cx('period')}>{period}</span>
               </div>
             )}
           </div>
         </div>
         <div className={cx('item')}>
-          <div className={cx('statContainer')}>
-            <div className={cx('statNameContainer')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="most-active-zones-pair-stat"
-                  defaultMessage="Most Active Pair of Zones {period}"
-                  values={{
-                    period: <span className={cx('period')}>{period}</span>,
-                  }}
-                />
+          <div className={cx('statContainer', 'mostActiveZonesPairContainer')}>
+            <div>
+              <div className={cx('statNameContainer')}>
+                <div className={cx('statName')}>
+                  <FormattedMessage
+                    id="most-active-zones-pair-stat"
+                    defaultMessage="Most Active Pair of Zones"
+                  />
+                </div>
               </div>
-              {mostActiveZonesPair?.ibc && (
-                <div className={cx('mostActiveZonesPairTxs')}>
+              {mostActiveByTxsZonesPair && (
+                <div className={cx('mostActiveZonesPair')}>
+                  <div className={cx('zoneNameContainer')}>
+                    <div
+                      className={cx('circle')}
+                      style={{
+                        backgroundColor: mostActiveByTxsZonesPair.sourceColor,
+                      }}
+                    />
+                    <div className={cx('zoneName')}>
+                      {mostActiveByTxsZonesPair.source}
+                    </div>
+                  </div>
+                  <div className={cx('zonesLink')} />
+                  <div className={cx('zoneNameContainer')}>
+                    <div
+                      className={cx('circle')}
+                      style={{
+                        backgroundColor: mostActiveByTxsZonesPair.targetColor,
+                      }}
+                    />
+                    <div className={cx('zoneName')}>
+                      {mostActiveByTxsZonesPair.target}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            {mostActiveByTxsZonesPair && (
+              <div className={cx('mostActiveZonesPairValueContainer')}>
+                <div className={cx('mostActiveZonesPairValue')}>
                   <FormattedMessage
                     id="most-active-zones-pair-ibc-txs"
                     defaultMessage="{txs} transfers"
                     values={{
-                      txs: formatNumber(mostActiveZonesPair.ibc),
+                      txs: formatNumber(mostActiveByTxsZonesPair.txs),
                     }}
                   />
                 </div>
-              )}
-            </div>
-            {mostActiveZonesPair && (
-              <div className={cx('mostActiveZonesPair')}>
-                <div className={cx('zoneNameContainer')}>
-                  <div
-                    className={cx('circle')}
-                    style={{
-                      backgroundColor: mostActiveZonesPair.sourceColor,
-                    }}
-                  />
-                  <div className={cx('zoneName')}>
-                    {mostActiveZonesPair.source}
-                  </div>
+                <div className={cx('pendingContainer')}>
+                  <PendingIcon className={cx('pendingIcon')} />
+                  {mostActiveByTxsZonesPair.txsPending}
                 </div>
-                <div className={cx('zonesLink')} />
-                <div className={cx('zoneNameContainer')}>
-                  <div
-                    className={cx('circle')}
-                    style={{
-                      backgroundColor: mostActiveZonesPair.targetColor,
-                    }}
-                  />
-                  <div className={cx('zoneName')}>
-                    {mostActiveZonesPair.target}
-                  </div>
-                </div>
+                <span className={cx('period')}>{period}</span>
               </div>
             )}
           </div>
@@ -295,17 +309,21 @@ TotalStatTable.propTypes = {
   allChannels: PropTypes.number,
   activeChannels: PropTypes.number,
   ibcVolume: PropTypes.number,
-  mostActiveZonesPair: PropTypes.shape({
+  mostActiveByTxsZonesPair: PropTypes.shape({
     source: PropTypes.string,
     sourceColor: PropTypes.string,
     target: PropTypes.string,
     targetColor: PropTypes.string,
+    txsPending: PropTypes.number,
+    txs: PropTypes.number,
   }),
-  biggestVolumePair: PropTypes.shape({
+  mostActiveByVolumeZonesPair: PropTypes.shape({
     source: PropTypes.string,
     sourceColor: PropTypes.string,
     target: PropTypes.string,
     targetColor: PropTypes.string,
+    volumePending: PropTypes.number,
+    volume: PropTypes.number,
   }),
   showAllChannels: PropTypes.bool,
   showActiveChannels: PropTypes.bool,

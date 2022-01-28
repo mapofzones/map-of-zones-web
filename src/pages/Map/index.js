@@ -115,8 +115,8 @@ function Map() {
             ibcVolumeChart={totalStat.ibcVolumeChart}
             ibcVolumePending={totalStat.ibcVolumePending}
             ibcTxsPending={totalStat.ibcTxsPending}
-            mostActiveZonesPair={totalStat.mostActiveZonesPair}
-            biggestVolumePair={totalStat.biggestVolumePair}
+            mostActiveByTxsZonesPair={totalStat.mostActiveByTxsZonesPair}
+            mostActiveByVolumeZonesPair={totalStat.mostActiveByVolumeZonesPair}
             period={period.name}
           />
         )}
