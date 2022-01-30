@@ -7,6 +7,7 @@ import animate from 'animate.css';
 import { formatNumber, trackEvent, isNumber } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 import Status from 'components/Status';
+import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import Thead from './Thead';
 import SortModal from './SortModal';
@@ -125,6 +126,7 @@ function Leaderboard({
       }
       default: {
         const diff = cell.row.original[cell.column.diffAccessor];
+        const pending = cell.row.original[cell.column.pendingAccessor];
 
         return (
           <span className={cx('text-container')}>
@@ -136,6 +138,12 @@ function Leaderboard({
                 })}
               >
                 {diff > 0 ? '+' + formatNumber(diff) : formatNumber(diff)}
+              </div>
+            )}
+            {isNumber(pending) && (
+              <div className={cx('pendingContainer')}>
+                <PendingIcon className={cx('pendingIcon')} />
+                {formatNumber(pending)}
               </div>
             )}
           </span>

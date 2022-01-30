@@ -123,7 +123,6 @@
 }
 
 .cell .text-container {
-  padding-right: 30px;
   display: inline-block;
   white-space: nowrap;
   width: 100%;
@@ -216,16 +215,16 @@
   width: unset;
 }
 /*3-d col*/
-.header.totalIbcTxs,
-.cell.totalIbcTxs {
+.header.ibcTransfers,
+.cell.ibcTransfers {
   width: 123px;
   min-width: 123px;
   max-width: 123px;
 }
 
 /*3-d col*/
-.header.totalIbcVolume,
-.cell.totalIbcVolume {
+.header.ibcVolume,
+.cell.ibcVolume {
   width: 130px;
   min-width: 130px;
   max-width: 130px;
@@ -552,6 +551,21 @@ tbody.bodyWithFocus.focusFixed .row {
 
 .fixed-header-container {
   height: 28px;
+}
+
+.pendingContainer {
+  line-height: 4px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: right;
+  color: #B8B8B8;
+}
+
+.pendingIcon {
+  margin-right: 3px;
+  width: 11px;
+  height: 9px;
 }
 
 @keyframes fadeIn {

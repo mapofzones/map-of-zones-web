@@ -18,8 +18,8 @@ const ZONES_STAT_FRAGMENT = gql`
     channels_cnt_open
     channels_cnt_active_period
     channels_percent_active_period
-    total_ibc_txs_weight
-    total_ibc_txs_mainnet_weight
+    ibc_transfers_weight
+    ibc_transfers_mainnet_weight
     total_txs_weight
     total_txs_mainnet_weight
     ibc_tx_in_weight
@@ -27,17 +27,13 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_out_weight
     ibc_tx_out_mainnet_weight
     total_txs_diff
-    total_ibc_txs_diff
+    ibc_transfers_pending
     ibc_tx_out_diff
     ibc_tx_in_diff
     total_txs_rating
     total_txs_rating_diff
     total_txs_mainnet_rating
     total_txs_mainnet_rating_diff
-    total_ibc_txs_rating
-    total_ibc_txs_rating_diff
-    total_ibc_txs_mainnet_rating
-    total_ibc_txs_mainnet_rating_diff
     ibc_tx_out_rating
     ibc_tx_out_rating_diff
     ibc_tx_out_mainnet_rating
@@ -71,6 +67,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_cashflow_out_percent
     ibc_cashflow_in_percent
     ibc_cashflow_diff
+    ibc_cashflow_pending
     ibc_cashflow_rating
     ibc_cashflow_mainnet_rating
     ibc_cashflow_rating_diff
@@ -91,6 +88,14 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_cashflow_in_mainnet_rating
     ibc_cashflow_in_rating_diff
     ibc_cashflow_in_mainnet_rating_diff
+    ibc_cashflow_in_pending
+    ibc_cashflow_out_pending
+    ibc_transfers
+    ibc_transfers_diff
+    ibc_transfers_rating
+    ibc_transfers_mainnet_rating
+    ibc_transfers_rating_diff
+    ibc_transfers_mainnet_rating_diff
   }
 `;
 
@@ -226,7 +231,7 @@ const transform = (zones, graph, isTestnetVisible) => {
 
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
     zones,
-    isTestnetVisible ? 'total_ibc_txs_weight' : 'total_ibc_txs_mainnet_weight',
+    isTestnetVisible ? 'ibc_transfers_weight' : 'ibc_transfers_mainnet_weight',
     isTestnetVisible,
   );
   const [minIbcVolumeWeight, ibcVolumeScale] = getScaleParams(
@@ -277,8 +282,8 @@ const transform = (zones, graph, isTestnetVisible) => {
       channels_cnt_open,
       channels_cnt_active_period,
       channels_percent_active_period,
-      total_ibc_txs_weight,
-      total_ibc_txs_mainnet_weight,
+      ibc_transfers_weight,
+      ibc_transfers_mainnet_weight,
       total_txs_weight,
       total_txs_mainnet_weight,
       ibc_tx_in_weight,
@@ -286,17 +291,12 @@ const transform = (zones, graph, isTestnetVisible) => {
       ibc_tx_out_weight,
       ibc_tx_out_mainnet_weight,
       total_txs_diff,
-      total_ibc_txs_diff,
       ibc_tx_out_diff,
       ibc_tx_in_diff,
       total_txs_rating,
       total_txs_rating_diff,
       total_txs_mainnet_rating,
       total_txs_mainnet_rating_diff,
-      total_ibc_txs_rating,
-      total_ibc_txs_rating_diff,
-      total_ibc_txs_mainnet_rating,
-      total_ibc_txs_mainnet_rating_diff,
       ibc_tx_out_rating,
       ibc_tx_out_rating_diff,
       ibc_tx_out_mainnet_rating,
@@ -330,6 +330,8 @@ const transform = (zones, graph, isTestnetVisible) => {
       ibc_cashflow_out_percent,
       ibc_cashflow_in_percent,
       ibc_cashflow_diff,
+      ibc_cashflow_pending,
+      ibc_transfers_pending,
       ibc_cashflow_rating,
       ibc_cashflow_mainnet_rating,
       ibc_cashflow_rating_diff,
@@ -350,16 +352,24 @@ const transform = (zones, graph, isTestnetVisible) => {
       ibc_cashflow_in_mainnet_rating,
       ibc_cashflow_in_rating_diff,
       ibc_cashflow_in_mainnet_rating_diff,
+      ibc_cashflow_in_pending,
+      ibc_cashflow_out_pending,
+      ibc_transfers,
+      ibc_transfers_diff,
+      ibc_transfers_rating,
+      ibc_transfers_mainnet_rating,
+      ibc_transfers_rating_diff,
+      ibc_transfers_mainnet_rating_diff,
     }) => {
       return {
         id: zone,
         name: zone_readable_name,
         txsActivity: chart_cashflow.map((txs, index) => ({ txs: txs[index] })), // TODO
         totalTxs: total_txs,
-        totalIbcTxs: total_ibc_txs,
+        ibcTransfers: ibc_transfers,
         ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         ibcSent: ibc_tx_out,
-        totalIbcVolume: ibc_cashflow,
+        ibcVolume: ibc_cashflow,
         ibcVolumeSent: ibc_cashflow_out,
         ibcVolumeReceived: ibc_cashflow_in,
         peers: isTestnetVisible ? ibc_peers : ibc_peers_mainnet,
@@ -377,8 +387,12 @@ const transform = (zones, graph, isTestnetVisible) => {
         activeChannels: channels_cnt_active_period,
         activeChannelsPercent: channels_percent_active_period,
         totalTxsDiff: total_txs_diff,
-        totalIbcTxsDiff: total_ibc_txs_diff,
-        totalIbcVolumeDiff: ibc_cashflow_diff,
+        ibcTransfersDiff: ibc_transfers_diff,
+        ibcVolumeDiff: ibc_cashflow_diff,
+        ibcVolumePending: ibc_cashflow_pending,
+        ibcVolumeReceivedPending: ibc_cashflow_in_pending,
+        ibcVolumeSentPending: ibc_cashflow_out_pending,
+        ibcTransfersPending: ibc_transfers_pending,
         ibcSentDiff: ibc_tx_out_diff,
         ibcVolumeSentDiff: ibc_cashflow_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
@@ -389,16 +403,16 @@ const transform = (zones, graph, isTestnetVisible) => {
         totalTxsRatingDiff: isTestnetVisible
           ? total_txs_rating_diff
           : total_txs_mainnet_rating_diff,
-        totalIbcTxsRating: isTestnetVisible
-          ? total_ibc_txs_rating
-          : total_ibc_txs_mainnet_rating,
-        totalIbcVolumeRating: isTestnetVisible
+        ibcTransfersRating: isTestnetVisible
+          ? ibc_transfers_rating
+          : ibc_transfers_mainnet_rating,
+        ibcVolumeRating: isTestnetVisible
           ? ibc_cashflow_rating
           : ibc_cashflow_mainnet_rating,
-        totalIbcTxsRatingDiff: isTestnetVisible
-          ? total_ibc_txs_rating_diff
-          : total_ibc_txs_mainnet_rating_diff,
-        totalIbcVolumeRatingDiff: isTestnetVisible
+        ibcTransfersRatingDiff: isTestnetVisible
+          ? ibc_transfers_rating_diff
+          : ibc_transfers_mainnet_rating_diff,
+        ibcVolumeRatingDiff: isTestnetVisible
           ? ibc_cashflow_rating_diff
           : ibc_cashflow_mainnet_rating_diff,
         ibcSentRating: isTestnetVisible
@@ -446,10 +460,10 @@ const transform = (zones, graph, isTestnetVisible) => {
         color: total_ibc_txs
           ? getNodeColor(ibc_tx_out / total_ibc_txs)
           : DEFAULT_COLOR,
-        ibcTxsWeight: getNodeWeight(
+        ibcTransfersWeight: getNodeWeight(
           isTestnetVisible
-            ? total_ibc_txs_weight
-            : total_ibc_txs_mainnet_weight,
+            ? ibc_transfers_weight
+            : ibc_transfers_mainnet_weight,
           minIbcTxsWeight,
           ibcTxsScale,
         ),

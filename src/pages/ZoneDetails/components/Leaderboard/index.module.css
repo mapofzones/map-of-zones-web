@@ -248,8 +248,8 @@
   line-height: initial;
 }
 /*3-d col*/
-.header.totalIbcTxs,
-.cell.totalIbcTxs {
+.header.ibcTransfers,
+.cell.ibcTransfers {
   width: 123px;
   min-width: 123px;
   max-width: 123px;

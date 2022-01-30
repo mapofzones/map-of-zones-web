@@ -29,7 +29,7 @@ export const useSorting = () => {
 
   // TODO: order sort doesn't work
   const sort = useMemo(() => {
-    const DEFAULT_TABLE_ORDER_BY = 'totalIbcVolume';
+    const DEFAULT_TABLE_ORDER_BY = 'ibcVolume';
     const DEFAULT_TABLE_ORDER_SORT = 'desc';
     const { tableOrderBy, tableOrderSort } = parse(location.search);
     const isOrderByValid = tableColums.some(
