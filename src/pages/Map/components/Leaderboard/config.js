@@ -162,9 +162,9 @@ const columns = [
     zoneWeightAccessor: 'totalActiveAddressesWeight',
   },
   {
-    Header: 'IBC transfers activity',
+    Header: 'IBC volume activity',
     Cell: TxsActivityCell,
-    accessor: 'txsActivity',
+    accessor: 'txsActivity', // TODO
     id: 'txsActivity',
     disableSortBy: true,
   },

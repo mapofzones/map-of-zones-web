@@ -8,7 +8,7 @@ import { useRealtimeQuery } from 'common/hooks';
 const ZONES_STAT_FRAGMENT = gql`
   fragment stat on zones_stats {
     zone
-    chart
+    chart_cashflow
     total_txs
     total_ibc_txs
     ibc_percent
@@ -267,7 +267,7 @@ const transform = (zones, graph, isTestnetVisible) => {
   let zonesFormatted = zones.map(
     ({
       zone,
-      chart,
+      chart_cashflow,
       total_txs,
       total_ibc_txs,
       ibc_percent,
@@ -354,7 +354,7 @@ const transform = (zones, graph, isTestnetVisible) => {
       return {
         id: zone,
         name: zone_readable_name,
-        txsActivity: chart,
+        txsActivity: chart_cashflow.map((txs, index) => ({ txs: txs[index] })), // TODO
         totalTxs: total_txs,
         totalIbcTxs: total_ibc_txs,
         ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
