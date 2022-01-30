@@ -110,7 +110,7 @@ function NodeTooltip({
             <div className={cx('col')}>
               <div className={cx('key-text')}>IBC transfers</div>
               <div className={cx('item-text')}>
-                {formatNumber(node.totalIbcTxs)}
+                {formatNumber(node.ibcTransfers)}
               </div>
             </div>
             <div className={cx('col')}>

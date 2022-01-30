@@ -30,13 +30,14 @@ const columns = [
   },
   {
     Header: 'IBC volume, $',
-    accessor: 'totalIbcVolumeRating',
-    id: 'totalIbcVolume',
-    diffAccessor: 'totalIbcVolumeDiff',
-    ratingAccessor: 'totalIbcVolumeRatingDiff',
+    accessor: 'ibcVolumeRating',
+    id: 'ibcVolume',
+    diffAccessor: 'ibcVolumeDiff',
+    pendingAccessor: 'ibcVolumePending',
+    ratingAccessor: 'ibcVolumeRatingDiff',
     Cell: ({ cell }) => (
       <FormattedNumber
-        value={cell.row.original.totalIbcVolume}
+        value={cell.row.original.ibcVolume}
         style="currency"
         currency="USD"
         maximumFractionDigits="0"
@@ -47,12 +48,13 @@ const columns = [
   },
   {
     Header: 'IBC transfers',
-    accessor: 'totalIbcTxsRating',
-    id: 'totalIbcTxs',
-    diffAccessor: 'totalIbcTxsDiff',
-    ratingAccessor: 'totalIbcTxsRatingDiff',
-    Cell: ({ cell }) => formatNumber(cell.row.original.totalIbcTxs),
-    zoneWeightAccessor: 'ibcTxsWeight',
+    accessor: 'ibcTransfersRating',
+    id: 'ibcTransfers',
+    diffAccessor: 'ibcTransfersDiff',
+    pendingAccessor: 'ibcTransfersPending',
+    ratingAccessor: 'ibcTransfersRatingDiff',
+    Cell: ({ cell }) => formatNumber(cell.row.original.ibcTransfers),
+    zoneWeightAccessor: 'ibcTransfersWeight',
     tooltip: 'Token transfers via IBC relayer',
   },
   // {
@@ -107,6 +109,7 @@ const columns = [
     accessor: 'ibcVolumeSentRating',
     id: 'ibcVolumeSent',
     diffAccessor: 'ibcVolumeSentDiff',
+    pendingAccessor: 'ibcVolumeSentPending',
     ratingAccessor: 'ibcVolumeSentRatingDiff',
     Cell: ({ cell }) => (
       <FormattedNumber
@@ -126,6 +129,7 @@ const columns = [
     accessor: 'ibcVolumeReceivedRating',
     id: 'ibcVolumeReceived',
     diffAccessor: 'ibcVolumeReceivedDiff',
+    pendingAccessor: 'ibcVolumeReceivedPending',
     ratingAccessor: 'ibcVolumeReceivedRatingDiff',
     Cell: ({ cell }) => (
       <FormattedNumber
