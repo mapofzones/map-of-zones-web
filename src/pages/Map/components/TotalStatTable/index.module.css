@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/constants.css';
+
 .container {
   display: flex;
   height: 65px;
@@ -128,6 +130,39 @@
   border-left: 1px solid #8c909f;
 }
 
+.diffTooltip {
+  position: absolute;
+  left: 20%;
+  background: var(--color-green);
+  border-radius: 2px;
+  padding: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 100%;
+  color: #ffffff;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s;
+  z-index: 999;
+}
+
+.diffTooltip.top {
+  top: -21px;
+}
+
+.diffTooltip.negative {
+  background: var(--color-red);
+}
+
+.diffContainer {
+  position: relative;
+}
+
+.diffContainer:hover .diffTooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
 @media (max-width: 1180px) {
   .item:last-child {
     display: none;
@@ -217,6 +252,14 @@
     right: unset;
   }
   .item:first-child:after {
+    display: none;
+  }
+
+  .mostActiveZonesPairContainer {
+    display: none;
+  }
+
+  .pendingContainer {
     display: none;
   }
 }

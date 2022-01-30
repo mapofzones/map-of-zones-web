@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { Area, AreaChart, ResponsiveContainer } from 'recharts';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
-import { formatNumber } from 'common/helper';
+import { formatNumber, isNumber } from 'common/helper';
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import styles from './index.module.css';
@@ -27,6 +27,8 @@ function TotalStatTable({
   mostActiveByVolumeZonesPair,
   isTableOpened,
   ibcVolume,
+  ibcVolumeDiff,
+  ibcTxsDiff,
 }) {
   return (
     <div className={cx('wrapper')}>
@@ -55,13 +57,28 @@ function TotalStatTable({
                 </div>
               )}
             </div>
-            <div className={cx('statValue')}>
+            <div className={cx('statValue', 'diffContainer')}>
               <FormattedNumber
                 value={ibcVolume}
                 style="currency"
                 currency="USD"
                 maximumFractionDigits="0"
               />
+              {isNumber(ibcVolumeDiff) && (
+                <div
+                  className={cx('diffTooltip', 'top', {
+                    negative: ibcVolumeDiff < 0,
+                  })}
+                >
+                  {ibcVolumeDiff > 0 ? '+' : ''}
+                  <FormattedNumber
+                    value={ibcVolumeDiff}
+                    style="currency"
+                    currency="USD"
+                    maximumFractionDigits="0"
+                  />
+                </div>
+              )}
             </div>
           </div>
           <ResponsiveContainer className={cx('activityContainer')}>
@@ -95,7 +112,18 @@ function TotalStatTable({
                 </div>
               )}
             </div>
-            <div className={cx('statValue')}>{formatNumber(ibcTxs)}</div>
+            <div className={cx('statValue', 'diffContainer')}>
+              {formatNumber(ibcTxs)}
+              {isNumber(ibcTxsDiff) && (
+                <div
+                  className={cx('diffTooltip', 'top', {
+                    negative: ibcTxsDiff < 0,
+                  })}
+                >
+                  {(ibcTxsDiff > 0 ? '+' : '') + formatNumber(ibcTxsDiff)}
+                </div>
+              )}
+            </div>
           </div>
           <ResponsiveContainer className={cx('activityContainer')}>
             <AreaChart data={ibcTxsChart} margin={{ bottom: 0 }}>
@@ -208,17 +236,34 @@ function TotalStatTable({
             </div>
             {mostActiveByVolumeZonesPair && (
               <div className={cx('mostActiveZonesPairValueContainer')}>
-                <div className={cx('mostActiveZonesPairValue')}>
+                <div
+                  className={cx('mostActiveZonesPairValue', 'diffContainer')}
+                >
                   <FormattedNumber
                     value={mostActiveByVolumeZonesPair.volume}
                     style="currency"
                     currency="USD"
                     maximumFractionDigits="0"
                   />
+                  {isNumber(mostActiveByVolumeZonesPair.volumeDiff) && (
+                    <div
+                      className={cx('diffTooltip', {
+                        negative: mostActiveByVolumeZonesPair.volumeDiff < 0,
+                      })}
+                    >
+                      {mostActiveByVolumeZonesPair.volumeDiff > 0 ? '+' : ''}
+                      <FormattedNumber
+                        value={mostActiveByVolumeZonesPair.volumeDiff}
+                        style="currency"
+                        currency="USD"
+                        maximumFractionDigits="0"
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
-                  {mostActiveByTxsZonesPair.txsPending}
+                  {mostActiveByVolumeZonesPair.volumePending}
                 </div>
                 <span className={cx('period')}>{period}</span>
               </div>
@@ -266,7 +311,9 @@ function TotalStatTable({
             </div>
             {mostActiveByTxsZonesPair && (
               <div className={cx('mostActiveZonesPairValueContainer')}>
-                <div className={cx('mostActiveZonesPairValue')}>
+                <div
+                  className={cx('mostActiveZonesPairValue', 'diffContainer')}
+                >
                   <FormattedMessage
                     id="most-active-zones-pair-ibc-txs"
                     defaultMessage="{txs} transfers"
@@ -274,6 +321,16 @@ function TotalStatTable({
                       txs: formatNumber(mostActiveByTxsZonesPair.txs),
                     }}
                   />
+                  {isNumber(mostActiveByTxsZonesPair.txsDiff) && (
+                    <div
+                      className={cx('diffTooltip', {
+                        negative: mostActiveByTxsZonesPair.txsDiff < 0,
+                      })}
+                    >
+                      {(mostActiveByTxsZonesPair.txsDiff > 0 ? '+' : '') +
+                        formatNumber(mostActiveByTxsZonesPair.txsDiff)}
+                    </div>
+                  )}
                 </div>
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
@@ -309,6 +366,8 @@ TotalStatTable.propTypes = {
   allChannels: PropTypes.number,
   activeChannels: PropTypes.number,
   ibcVolume: PropTypes.number,
+  ibcVolumeDiff: PropTypes.number,
+  ibcTxsDiff: PropTypes.number,
   mostActiveByTxsZonesPair: PropTypes.shape({
     source: PropTypes.string,
     sourceColor: PropTypes.string,
@@ -316,6 +375,7 @@ TotalStatTable.propTypes = {
     targetColor: PropTypes.string,
     txsPending: PropTypes.number,
     txs: PropTypes.number,
+    txsDiff: PropTypes.number,
   }),
   mostActiveByVolumeZonesPair: PropTypes.shape({
     source: PropTypes.string,
@@ -324,6 +384,7 @@ TotalStatTable.propTypes = {
     targetColor: PropTypes.string,
     volumePending: PropTypes.number,
     volume: PropTypes.number,
+    volumeDiff: PropTypes.number,
   }),
   showAllChannels: PropTypes.bool,
   showActiveChannels: PropTypes.bool,

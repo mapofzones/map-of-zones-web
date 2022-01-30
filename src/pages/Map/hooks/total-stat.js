@@ -18,6 +18,8 @@ const TOTAL_STAT_FRAGMENT = gql`
     ibc_transfers_period
     ibc_transfers_pending_period
     top_ibc_cashflow_zone_pair
+    ibc_cashflow_period_diff
+    ibc_transfers_period_diff
   }
 `;
 
@@ -83,9 +85,10 @@ const transform = data => {
     top_ibc_cashflow_zone_pair,
     chart_cashflow,
     chart_transfers,
+    ibc_cashflow_period_diff,
+    ibc_transfers_period_diff,
   } = data.headers[0];
 
-  // txs_diff
   const topTransferZonePair =
     top_transfer_zone_pair && top_transfer_zone_pair[0];
   const topIbcCashflowZonePair =
@@ -96,6 +99,7 @@ const transform = data => {
         source: topTransferZonePair.source,
         target: topTransferZonePair.target,
         txs: topTransferZonePair.txs,
+        txsDiff: topTransferZonePair.txs_diff,
         sourceColor: getNodeColor(
           topTransferZonePair.source_to_target_txs / topTransferZonePair.txs,
         ),
@@ -109,7 +113,8 @@ const transform = data => {
         source: topIbcCashflowZonePair.source,
         target: topIbcCashflowZonePair.target,
         volume: topIbcCashflowZonePair.cashflow,
-        volumePending: topTransferZonePair.cashflow_pending,
+        volumeDiff: topIbcCashflowZonePair.cashflow_diff,
+        volumePending: topIbcCashflowZonePair.cashflow_pending,
         sourceColor: getNodeColor(
           topIbcCashflowZonePair.source_to_target_cashflow /
             topIbcCashflowZonePair.cashflow,
@@ -125,7 +130,9 @@ const transform = data => {
     mostActiveByTxsZonesPair,
     mostActiveByVolumeZonesPair,
     ibcVolume: ibc_cashflow_period,
+    ibcVolumeDiff: ibc_cashflow_period_diff,
     ibcTxs: ibc_transfers_period,
+    ibcTxsDiff: ibc_transfers_period_diff,
     ibcVolumePending: ibc_cashflow_pending_period,
     ibcTxsPending: ibc_transfers_pending_period,
     ibcTxsChart: chart_transfers,
