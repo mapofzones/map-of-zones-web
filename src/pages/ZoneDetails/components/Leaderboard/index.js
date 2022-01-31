@@ -6,6 +6,7 @@ import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
 import { isNumber } from 'common/helper';
 import Status from 'components/Status';
 
+import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 import { ReactComponent as ArrowUp } from './assets/arrow-up.svg';
 import { ReactComponent as ArrowDown } from './assets/arrow-down.svg';
 
@@ -180,7 +181,8 @@ function Leaderboard({
       }
       default: {
         const diff = cell.row.original[cell.column.diffAccessor];
-        const DiffCell = cell.column.Cell;
+        const pending = cell.row.original[cell.column.pendingAccessor];
+        const Cell = cell.column.Cell;
 
         return (
           <span className={cx('text-container')}>
@@ -191,7 +193,13 @@ function Leaderboard({
                   negative: diff < 0,
                 })}
               >
-                <DiffCell cell={cell} value={diff > 0 ? '+' + diff : diff} />
+                <Cell cell={cell} value={diff > 0 ? '+' + diff : diff} />
+              </div>
+            )}
+            {isNumber(pending) && (
+              <div className={cx('pendingContainer')}>
+                <PendingIcon className={cx('pendingIcon')} />
+                <Cell cell={cell} value={pending} />
               </div>
             )}
           </span>

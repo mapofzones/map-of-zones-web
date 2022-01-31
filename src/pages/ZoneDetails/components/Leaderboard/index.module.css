@@ -549,6 +549,21 @@ tbody.bodyWithFocus.focusFixed .row {
   text-align: left;
 }
 
+.pendingContainer {
+  line-height: 4px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: right;
+  color: #B8B8B8;
+}
+
+.pendingIcon {
+  margin-right: 3px;
+  width: 11px;
+  height: 9px;
+}
+
 /*
 @media (max-width: 1320px) {
   .explanation-icon .explanation-tooltip.centerPos {

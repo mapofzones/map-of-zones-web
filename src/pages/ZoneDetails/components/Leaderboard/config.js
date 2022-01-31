@@ -16,6 +16,7 @@ const columns = [
     accessor: 'volumeIn',
     id: 'volume_in',
     diffAccessor: 'volumeInDiff',
+    pendingAccessor: 'volumeInPending',
     Cell: ({ value }) => (
       <FormattedNumber
         value={value}
@@ -31,6 +32,7 @@ const columns = [
     accessor: 'volumeOut',
     id: 'volume_out',
     diffAccessor: 'volumeOutDiff',
+    pendingAccessor: 'volumeOutPending',
     Cell: ({ value }) => (
       <FormattedNumber
         value={value}
