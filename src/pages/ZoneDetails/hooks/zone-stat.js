@@ -12,8 +12,10 @@ const CHANNEL_GROUP_STAT_FRAGMENT = gql`
     zone_counterparty_readable_name
     ibc_cashflow_in
     ibc_cashflow_in_diff
+    ibc_cashflow_in_pending
     ibc_cashflow_out
     ibc_cashflow_out_diff
+    ibc_cashflow_out_pending
     ibc_tx_success_rate
     ibc_tx_success_rate_diff
     ibc_tx
@@ -30,8 +32,10 @@ const CHANNELS_STAT_FRAGMENT = gql`
     zone_label_url
     ibc_cashflow_in
     ibc_cashflow_in_diff
+    ibc_cashflow_in_pending
     ibc_cashflow_out
     ibc_cashflow_out_diff
+    ibc_cashflow_out_pending
     ibc_tx
     ibc_tx_diff
     ibc_tx_failed
@@ -154,8 +158,10 @@ const transform = data => {
           zone_counterparty_readable_name,
           ibc_cashflow_in,
           ibc_cashflow_in_diff,
+          ibc_cashflow_in_pending,
           ibc_cashflow_out,
           ibc_cashflow_out_diff,
+          ibc_cashflow_out_pending,
           ibc_tx_success_rate,
           ibc_tx_success_rate_diff,
           ibc_tx,
@@ -175,8 +181,10 @@ const transform = data => {
               clientId: channel.client_id,
               volumeIn: channel.ibc_cashflow_in,
               volumeInDiff: channel.ibc_cashflow_in_diff,
+              volumeInPending: channel.ibc_cashflow_in_pending,
               volumeOut: channel.ibc_cashflow_out,
               volumeOutDiff: channel.ibc_cashflow_out_diff,
+              volumeOutPending: channel.ibc_cashflow_out_pending,
               ibcTxSuccess: channel.ibc_tx,
               ibcTxSuccessDiff: channel.ibc_tx_diff,
               ibcTxFailed: channel.ibc_tx_failed,
@@ -197,8 +205,10 @@ const transform = data => {
             sourceZoneReadableName: sourceZone?.zone_readable_name,
             volumeIn: ibc_cashflow_in,
             volumeInDiff: ibc_cashflow_in_diff,
+            volumeInPending: ibc_cashflow_in_pending,
             volumeOut: ibc_cashflow_out,
             volumeOutDiff: ibc_cashflow_out_diff,
+            volumeOutPending: ibc_cashflow_out_pending,
             ibcTxSuccess: ibc_tx,
             ibcTxSuccessDiff: ibc_tx_diff,
             ibcTxFailed: ibc_tx_failed,
