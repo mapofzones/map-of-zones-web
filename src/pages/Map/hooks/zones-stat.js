@@ -364,7 +364,7 @@ const transform = (zones, graph, isTestnetVisible) => {
       return {
         id: zone,
         name: zone_readable_name,
-        txsActivity: chart_cashflow.map((txs, index) => ({ txs: txs[index] })), // TODO
+        txsActivity: chart_cashflow.map((txs, index) => ({ txs: txs[index] })),
         totalTxs: total_txs,
         ibcTransfers: ibc_transfers,
         ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
