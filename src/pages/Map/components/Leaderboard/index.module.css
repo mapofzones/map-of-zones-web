@@ -483,7 +483,7 @@ thead.fixed.active {
 }
 
 tbody.bodyWithFocus .row {
-  transform: translateY(33px);
+  transform: translateY(53px);
 }
 
 tbody.bodyWithFocus .row.focusedRow {
