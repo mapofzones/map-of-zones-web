@@ -298,6 +298,7 @@
 .cell.txsActivity,
 .header.txsActivity {
   width: 146px;
+  min-width: 146px;
 }
 
 .header.txsActivity > div {
