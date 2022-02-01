@@ -108,6 +108,7 @@ function Graph({
         if (!images[id] && zoneLabelUrlBig) {
           const image = new Image();
           image.src = zoneLabelUrlBig;
+          image.crossOrigin = 'anonymous';
 
           setImages(prevState => ({ ...prevState, [id]: image }));
         }
