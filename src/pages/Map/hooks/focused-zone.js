@@ -1,16 +1,8 @@
-import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
-function usePrevious(value) {
-  const ref = useRef();
-
-  useEffect(() => {
-    ref.current = value;
-  });
-
-  return ref.current;
-}
+import { usePrevious } from 'common/hooks';
 
 export const useFocusedZone = nodes => {
   const history = useHistory();
