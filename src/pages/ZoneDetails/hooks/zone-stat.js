@@ -231,19 +231,14 @@ const transform = data => {
 
 export const useChannelGroupStat = (options, isTestnetVisible) => {
   const channelGroup = useRealtimeQuery(
-    CHANNEL_GROUP_STAT_QUERY,
-    CHANNEL_GROUP_STAT_SUBSCRIPTION,
+    isTestnetVisible
+      ? CHANNEL_GROUP_STAT_QUERY
+      : CHANNEL_GROUP_STAT_QUERY_ONLY_MAINNET,
+    isTestnetVisible
+      ? CHANNEL_GROUP_STAT_SUBSCRIPTION
+      : CHANNEL_GROUP_STAT_SUBSCRIPTION_ONLY_MAINNET,
     options,
   );
 
-  const channelGroupMainnet = useRealtimeQuery(
-    CHANNEL_GROUP_STAT_QUERY_ONLY_MAINNET,
-    CHANNEL_GROUP_STAT_SUBSCRIPTION_ONLY_MAINNET,
-    options,
-  );
-
-  return useMemo(
-    () => transform(isTestnetVisible ? channelGroup : channelGroupMainnet),
-    [isTestnetVisible, channelGroup, channelGroupMainnet],
-  );
+  return useMemo(() => transform(channelGroup), [channelGroup]);
 };

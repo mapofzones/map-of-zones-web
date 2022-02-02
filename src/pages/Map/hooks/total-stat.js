@@ -135,8 +135,12 @@ const transform = data => {
     ibcTxsDiff: ibc_transfers_period_diff,
     ibcVolumePending: ibc_cashflow_pending_period,
     ibcTxsPending: ibc_transfers_pending_period,
-    ibcTxsChart: (chart_transfers || []).map((txs, index) => ({ txs: txs[index] })),
-    ibcVolumeChart: (chart_cashflow || []).map((cashflow, index) => ({ cashflow: cashflow[index] })),
+    ibcTxsChart: (chart_transfers || []).map((txs, index) => ({
+      txs: txs[index],
+    })),
+    ibcVolumeChart: (chart_cashflow || []).map((cashflow, index) => ({
+      cashflow: cashflow[index],
+    })),
     allZones: zones_cnt_all,
     activeZones: zones_cnt_period,
     allChannels: channels_cnt_all,
@@ -145,21 +149,13 @@ const transform = data => {
 };
 
 export const useTotalStat = (options, isTestnetVisible) => {
-  let data = useRealtimeQuery(
-    TOTAL_STAT_QUERY,
-    TOTAL_STAT_SUBSCRIPTION,
+  const data = useRealtimeQuery(
+    isTestnetVisible ? TOTAL_STAT_QUERY : TOTAL_STAT_QUERY_ONLY_MAINNET,
+    isTestnetVisible
+      ? TOTAL_STAT_SUBSCRIPTION
+      : TOTAL_STAT_SUBSCRIPTION_ONLY_MAINNET,
     options,
   );
 
-  let mainnetData = useRealtimeQuery(
-    TOTAL_STAT_QUERY_ONLY_MAINNET,
-    TOTAL_STAT_SUBSCRIPTION_ONLY_MAINNET,
-    options,
-  );
-
-  return useMemo(() => transform(isTestnetVisible ? data : mainnetData), [
-    data,
-    isTestnetVisible,
-    mainnetData,
-  ]);
+  return useMemo(() => transform(data), [data]);
 };
