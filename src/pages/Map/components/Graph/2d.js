@@ -57,6 +57,30 @@ const zoomValue = nodesCount => {
   return nodesCount > 50 ? 0.8 : 1;
 };
 
+const loadImage = (src, forceCors = false) =>
+  new Promise((resolve, reject) => {
+    const image = new Image();
+
+    image.src = src;
+
+    if (forceCors) {
+      image.crossOrigin = 'anonymous';
+    }
+
+    function onError(e) {
+      image.removeEventListener('load', onLoad);
+      reject(e);
+    }
+
+    function onLoad() {
+      image.removeEventListener('error', onError);
+      resolve(image);
+    }
+
+    image.addEventListener('load', onLoad, { once: true });
+    image.addEventListener('error', onError, { once: true });
+  });
+
 function Graph({
   data,
   isBlurred,
@@ -103,18 +127,50 @@ function Graph({
   const [images, setImages] = useState({});
 
   useEffect(() => {
-    if (graphData?.nodes) {
-      graphData.nodes.forEach(({ id, zoneLabelUrlBig }) => {
-        if (!images[id] && zoneLabelUrlBig) {
-          const image = new Image();
-          image.src = zoneLabelUrlBig;
-          image.crossOrigin = 'anonymous';
+    const loadData = async () => {
+      const loadedImages = await Promise.all(
+        graphData.nodes.map(async ({ id, zoneLabelUrlBig }) => {
+          if (zoneLabelUrlBig) {
+            try {
+              const image = await loadImage(
+                zoneLabelUrlBig,
+                process.env.NODE_ENV === 'production',
+              );
 
-          setImages(prevState => ({ ...prevState, [id]: image }));
-        }
-      });
+              return {
+                id,
+                image,
+              };
+            } catch {
+              try {
+                const imageFallback = await loadImage(zoneLabelUrlBig);
+
+                return {
+                  id,
+                  image: imageFallback,
+                };
+              } catch {
+                return null;
+              }
+            }
+          }
+
+          return null;
+        }),
+      );
+
+      setImages(prevState => ({
+        ...prevState,
+        ...loadedImages
+          .filter(Boolean)
+          .reduce((acc, { id, image }) => ({ ...acc, [id]: image }), {}),
+      }));
+    };
+
+    if (graphData?.nodes) {
+      loadData();
     }
-  }, [graphData, images]);
+  }, [graphData]);
 
   useEffect(() => {
     const fg = fgRef.current;
@@ -304,63 +360,49 @@ function Graph({
   const twitterShareText = useTwitterShareText(focusedNode, period);
   const telegramShareText = useTelegramShareText(focusedNode, period);
   const containerRef = useRef(null);
-  const shareImage = useCallback(() => {
+  const shareImage = useCallback(async () => {
     if (containerRef?.current) {
       const canvas = containerRef.current.querySelector('canvas');
 
       if (canvas) {
-        const logoImage = new Image();
+        try {
+          const logoImage = await loadImage(logoUrl);
+          const fg = fgRef.current;
+          const scale = fg.zoom();
+          const context = canvas.getContext('2d');
+          const { x, y } = fg.screen2GraphCoords(0, 0);
+          const logoPaddding = 13 / scale;
+          const logoWidth = 115.8 / scale;
+          const logoHeight = 54.3 / scale;
 
-        logoImage.addEventListener(
-          'load',
-          () => {
-            try {
-              const fg = fgRef.current;
-              const scale = fg.zoom();
-              const context = canvas.getContext('2d');
-              const { x, y } = fg.screen2GraphCoords(0, 0);
-              const logoPaddding = 13 / scale;
-              const logoWidth = 115.8 / scale;
-              const logoHeight = 54.3 / scale;
+          context.drawImage(
+            logoImage,
+            x + logoPaddding,
+            y + logoPaddding,
+            logoWidth,
+            logoHeight,
+          );
+          context.globalCompositeOperation = 'destination-over';
+          context.fillStyle = '#120e25'; // TODO: Use image instead
+          context.fillRect(x, y, canvas.width / scale, canvas.height / scale);
 
-              context.drawImage(
-                logoImage,
-                x + logoPaddding,
-                y + logoPaddding,
-                logoWidth,
-                logoHeight,
-              );
-              context.globalCompositeOperation = 'destination-over';
-              context.fillStyle = '#120e25'; // TODO: Use image instead
-              context.fillRect(
-                x,
-                y,
-                canvas.width / scale,
-                canvas.height / scale,
-              );
+          const canvasImage = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
 
-              const canvasImage = canvas.toDataURL('image/png');
-              const link = document.createElement('a');
+          link.style.display = 'none';
+          link.href = canvasImage;
+          link.download = 'map.png'; // TODO: Change name
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          context.globalCompositeOperation = 'source-over';
+        } catch (e) {
+          console.log(e);
 
-              link.style.display = 'none';
-              link.href = canvasImage;
-              link.download = 'map.png'; // TODO: Change name
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              context.globalCompositeOperation = 'source-over';
-            } catch (e) {
-              console.log(e);
+          const context = canvas.getContext('2d');
 
-              const context = canvas.getContext('2d');
-
-              context.globalCompositeOperation = 'source-over';
-            }
-          },
-          { once: true },
-        );
-
-        logoImage.src = logoUrl;
+          context.globalCompositeOperation = 'source-over';
+        }
       }
     }
   }, [containerRef, fgRef]);
