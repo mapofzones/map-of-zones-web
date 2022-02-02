@@ -99,54 +99,6 @@ const ZONES_STAT_FRAGMENT = gql`
   }
 `;
 
-const ZONES_STAT_QUERY = gql`
-  query ZonesStat($period: Int!) {
-    zones_stats(
-      where: { timeframe: { _eq: $period } }
-      order_by: { ibc_tx_in: asc, zone: asc }
-    ) {
-      ...stat
-    }
-  }
-  ${ZONES_STAT_FRAGMENT}
-`;
-
-const ZONES_STAT_SUBSCRIPTION = gql`
-  subscription ZonesStat($period: Int!) {
-    zones_stats(
-      where: { timeframe: { _eq: $period } }
-      order_by: { ibc_tx_in: asc, zone: asc }
-    ) {
-      ...stat
-    }
-  }
-  ${ZONES_STAT_FRAGMENT}
-`;
-
-const ZONES_STAT_QUERY_ONLY_MAINNET = gql`
-  query ZonesStat($period: Int!) {
-    zones_stats(
-      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
-      order_by: { ibc_tx_in: asc, zone: asc }
-    ) {
-      ...stat
-    }
-  }
-  ${ZONES_STAT_FRAGMENT}
-`;
-
-const ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
-  subscription ZonesStat($period: Int!) {
-    zones_stats(
-      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
-      order_by: { ibc_tx_in: asc, zone: asc }
-    ) {
-      ...stat
-    }
-  }
-  ${ZONES_STAT_FRAGMENT}
-`;
-
 const ZONES_GRAPH_FRAGMENT = gql`
   fragment graph on zones_graphs {
     source
@@ -157,43 +109,71 @@ const ZONES_GRAPH_FRAGMENT = gql`
   }
 `;
 
-const ZONES_GRAPH_QUERY = gql`
-  query ZonesGraph($period: Int!) {
+const ZONES_STAT_QUERY = gql`
+  query ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
     zones_graphs(where: { timeframe: { _eq: $period } }) {
       ...graph
     }
   }
+  ${ZONES_STAT_FRAGMENT}
   ${ZONES_GRAPH_FRAGMENT}
 `;
 
-const ZONES_GRAPH_SUBSCRIPTION = gql`
-  subscription ZonesGraph($period: Int!) {
+const ZONES_STAT_SUBSCRIPTION = gql`
+  subscription ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
     zones_graphs(where: { timeframe: { _eq: $period } }) {
       ...graph
     }
   }
+  ${ZONES_STAT_FRAGMENT}
   ${ZONES_GRAPH_FRAGMENT}
 `;
 
-const ZONES_GRAPH_QUERY_ONLY_MAINNET = gql`
-  query ZonesGraph($period: Int!) {
+const ZONES_STAT_QUERY_ONLY_MAINNET = gql`
+  query ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
     zones_graphs(
       where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
     ) {
       ...graph
     }
   }
+  ${ZONES_STAT_FRAGMENT}
   ${ZONES_GRAPH_FRAGMENT}
 `;
 
-const ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET = gql`
-  subscription ZonesGraph($period: Int!) {
+const ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription ZonesStat($period: Int!) {
+    zones_stats(
+      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: true } }
+      order_by: { ibc_tx_in: asc, zone: asc }
+    ) {
+      ...stat
+    }
     zones_graphs(
       where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
     ) {
       ...graph
     }
   }
+  ${ZONES_STAT_FRAGMENT}
   ${ZONES_GRAPH_FRAGMENT}
 `;
 
@@ -224,7 +204,10 @@ const getScaleParams = (zones, key, isTestnetVisible) => {
 
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
-const transform = (zones, graph, isTestnetVisible) => {
+const transform = (data, isTestnetVisible) => {
+  const zones = data?.zones_stats;
+  const graph = data?.zones_graphs;
+
   if (!zones || !graph) {
     return null;
   }
@@ -541,38 +524,15 @@ const transform = (zones, graph, isTestnetVisible) => {
 
 export const useZonesStat = (options, isTestnetVisible) => {
   const zones = useRealtimeQuery(
-    ZONES_STAT_QUERY,
-    ZONES_STAT_SUBSCRIPTION,
+    isTestnetVisible ? ZONES_STAT_QUERY : ZONES_STAT_QUERY_ONLY_MAINNET,
+    isTestnetVisible
+      ? ZONES_STAT_SUBSCRIPTION
+      : ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET,
     options,
   );
 
-  const graph = useRealtimeQuery(
-    ZONES_GRAPH_QUERY,
-    ZONES_GRAPH_SUBSCRIPTION,
-    options,
-  );
-
-  const mainnetZones = useRealtimeQuery(
-    ZONES_STAT_QUERY_ONLY_MAINNET,
-    ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET,
-    options,
-  );
-
-  const mainnetGraph = useRealtimeQuery(
-    ZONES_GRAPH_QUERY_ONLY_MAINNET,
-    ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET,
-    options,
-  );
-
-  return useMemo(
-    () =>
-      transform(
-        isTestnetVisible ? zones?.zones_stats : mainnetZones?.zones_stats,
-        isTestnetVisible ? graph?.zones_graphs : mainnetGraph?.zones_graphs,
-        isTestnetVisible,
-      ),
-    [isTestnetVisible, mainnetZones, zones, mainnetGraph, graph],
-  );
+  // TODO: Try to avoid passing isTestnetVisible to transform function
+  return useMemo(() => transform(zones, isTestnetVisible), [zones]);
 };
 
 export const useZonesStatFiltered = (zonesStat, filter) => {
