@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { parse } from 'querystringify';
 import { useQuery } from '@apollo/react-hooks';
@@ -76,4 +76,14 @@ export const useMobileSize = () => {
   const { width } = useWindowSize();
 
   return !!width && width <= MOBILE_MAX_WIDTH;
+};
+
+export const usePrevious = value => {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
 };
