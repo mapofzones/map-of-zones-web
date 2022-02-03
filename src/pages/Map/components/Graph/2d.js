@@ -400,6 +400,20 @@ function Graph({
     }
   }, [containerRef, fgRef]);
 
+  useEffect(() => {
+    if (focusedNode && nodes) {
+      const node = nodes.find(({ id }) => focusedNode.id === id);
+
+      if (node) {
+        if (node !== focusedNode) {
+          onNodeFocus(node);
+        }
+      } else {
+        clearNodeFocus();
+      }
+    }
+  }, [focusedNode, nodes]);
+
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div
