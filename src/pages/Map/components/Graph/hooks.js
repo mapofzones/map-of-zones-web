@@ -1,7 +1,9 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import tinycolor from 'tinycolor2';
 import { parse, stringify } from 'querystringify';
+import SpriteText from 'three-spritetext';
+import equal from 'fast-deep-equal';
 import {
   BufferAttribute,
   BufferGeometry,
@@ -14,7 +16,8 @@ import {
   MeshBasicMaterial,
   Mesh,
 } from 'three';
-import SpriteText from 'three-spritetext';
+
+import { usePrevious } from 'common/hooks';
 
 function roundRect(canvas, x, y, w, h, r) {
   if (w < 2 * r) r = w / 2;
@@ -283,6 +286,7 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
     [focusedNode, hoveredNode],
   );
 
+// TODO: Move from here
 let offset = 0;
 setInterval(() => {
   if (offset >= 1) {
@@ -426,6 +430,12 @@ export const useLinkThreeObject = focusedNode => {
     [focusedNode],
   );
 };
+
+const hex2rgba = (hex, alpha = 1) => {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+  return `rgba(${r},${g},${b},${alpha})`;
+};
+
 export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
   useCallback(
     node => {
@@ -467,7 +477,198 @@ export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
     [focusedNode, focusedNodeNeighbors],
   );
 
-const hex2rgba = (hex, alpha = 1) => {
-  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
-  return `rgba(${r},${g},${b},${alpha})`;
-};
+const linkKeyAccessor = item =>
+  `${typeof item.source === 'string' ? item.source : item.source.id}-${
+    typeof item.target === 'string' ? item.target : item.target.id
+  }`;
+
+const nodeKeyAccessor = item => item.id;
+
+const addToCache = (items, keyAccessor) =>
+  items.reduce(
+    (acc, item) => ({
+      ...acc,
+      [keyAccessor(item)]: item,
+    }),
+    {},
+  );
+
+const getDiff = (source, target) =>
+  Object.entries(source).reduce(
+    (acc, [key, value]) =>
+      !target[key]
+        ? {
+            ...acc,
+            [key]: value,
+          }
+        : acc,
+    {},
+  );
+
+const getUpdated = (source, target) =>
+  Object.entries(source).reduce(
+    (acc, [key, value]) =>
+      target[key] && !equal(source[key], target[key])
+        ? {
+            ...acc,
+            [key]: value,
+          }
+        : acc,
+    {},
+  );
+
+function initData(data) {
+  if (!data) {
+    return null;
+  }
+
+  // TODO: Use deep copy
+  return {
+    links: data.links?.map(link => ({ ...link })),
+    nodes: data.nodes?.map(node => ({ ...node })),
+  };
+}
+
+function useCache(data) {
+  return useMemo(() => {
+    let links = null;
+    let nodes = null;
+
+    if (data?.links) {
+      links = addToCache(data.links, linkKeyAccessor);
+    }
+
+    if (data?.nodes) {
+      nodes = addToCache(data.nodes, nodeKeyAccessor);
+    }
+
+    if (!links && !nodes) {
+      return null;
+    }
+
+    return {
+      links,
+      nodes,
+    };
+  }, [data]);
+}
+
+function useDiff(nextData) {
+  const prevData = usePrevious(nextData);
+
+  return useMemo(() => {
+    let links = null;
+    let nodes = null;
+
+    if (nextData?.nodes && prevData?.nodes) {
+      const add = getDiff(nextData.nodes, prevData.nodes);
+      const remove = getDiff(prevData.nodes, nextData.nodes);
+      const update = getUpdated(nextData.nodes, prevData.nodes);
+
+      nodes = {
+        add,
+        remove,
+        update,
+      };
+    }
+
+    if (nextData?.links && prevData?.links) {
+      const add = getDiff(nextData.links, prevData.links);
+      const remove = getDiff(prevData.links, nextData.links);
+      const update = getUpdated(nextData.links, prevData.links);
+      const updateWithNodes = nodes?.update
+        ? Object.entries(nextData.links).reduce(
+            (acc, [key, link]) =>
+              nodes.update[link.source] || nodes.update[link.targe]
+                ? {
+                    ...acc,
+                    [key]: link,
+                  }
+                : acc,
+            {},
+          )
+        : {};
+
+      links = {
+        add,
+        remove,
+        update: {
+          ...update,
+          ...updateWithNodes,
+        },
+      };
+    }
+
+    if (!links && !nodes) {
+      return null;
+    }
+
+    return {
+      links,
+      nodes,
+    };
+  }, [nextData]); // prevData will be changed together with nextData
+}
+
+function useGraphDataCached(data, diff) {
+  const [graphData, setGraphData] = useState(initData(data));
+
+  useEffect(() => {
+    let links = [...(graphData?.links || [])];
+    let nodes = [...(graphData?.nodes || [])];
+
+    if (diff) {
+      if (diff.links) {
+        if (diff.links.add) {
+          links = [...links, ...Object.values(diff.links.add)];
+        }
+
+        if (diff.links.remove) {
+          links = links.filter(
+            item => !diff.links.remove[linkKeyAccessor(item)],
+          );
+        }
+
+        if (diff.links.update) {
+          links = [
+            ...links.filter(item => !diff.links.update[linkKeyAccessor(item)]),
+            ...Object.values(diff.links.update),
+          ];
+        }
+      }
+
+      if (diff.nodes) {
+        if (diff.nodes.add) {
+          nodes = [...nodes, ...Object.values(diff.nodes.add)];
+        }
+
+        if (diff.nodes.remove) {
+          nodes = nodes.filter(
+            item => !diff.nodes.remove[nodeKeyAccessor(item)],
+          );
+        }
+
+        if (diff.nodes.update) {
+          nodes = [
+            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
+            ...Object.values(diff.nodes.update),
+          ];
+        }
+      }
+    }
+
+    setGraphData({
+      links,
+      nodes,
+    });
+  }, [diff]); // TODO: Do we need to pass graphData?
+
+  return graphData;
+}
+
+export function useGraphData(data) {
+  const cachedData = useCache(data);
+  const diff = useDiff(cachedData);
+
+  return useGraphDataCached(data, diff);
+}
