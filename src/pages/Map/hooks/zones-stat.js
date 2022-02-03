@@ -117,12 +117,8 @@ const ZONES_STAT_QUERY = gql`
     ) {
       ...stat
     }
-    zones_graphs(where: { timeframe: { _eq: $period } }) {
-      ...graph
-    }
   }
   ${ZONES_STAT_FRAGMENT}
-  ${ZONES_GRAPH_FRAGMENT}
 `;
 
 const ZONES_STAT_SUBSCRIPTION = gql`
@@ -133,12 +129,8 @@ const ZONES_STAT_SUBSCRIPTION = gql`
     ) {
       ...stat
     }
-    zones_graphs(where: { timeframe: { _eq: $period } }) {
-      ...graph
-    }
   }
   ${ZONES_STAT_FRAGMENT}
-  ${ZONES_GRAPH_FRAGMENT}
 `;
 
 const ZONES_STAT_QUERY_ONLY_MAINNET = gql`
@@ -149,14 +141,8 @@ const ZONES_STAT_QUERY_ONLY_MAINNET = gql`
     ) {
       ...stat
     }
-    zones_graphs(
-      where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
-    ) {
-      ...graph
-    }
   }
   ${ZONES_STAT_FRAGMENT}
-  ${ZONES_GRAPH_FRAGMENT}
 `;
 
 const ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
@@ -167,13 +153,47 @@ const ZONES_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
     ) {
       ...stat
     }
+  }
+  ${ZONES_STAT_FRAGMENT}
+`;
+
+const ZONES_GRAPH_QUERY = gql`
+  query ZonesGraph($period: Int!) {
+    zones_graphs(where: { timeframe: { _eq: $period } }) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
+const ZONES_GRAPH_SUBSCRIPTION = gql`
+  subscription ZonesGraph($period: Int!) {
+    zones_graphs(where: { timeframe: { _eq: $period } }) {
+      ...graph
+    }
+  }
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
+const ZONES_GRAPH_QUERY_ONLY_MAINNET = gql`
+  query ZonesGraph($period: Int!) {
     zones_graphs(
       where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
     ) {
       ...graph
     }
   }
-  ${ZONES_STAT_FRAGMENT}
+  ${ZONES_GRAPH_FRAGMENT}
+`;
+
+const ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET = gql`
+  subscription ZonesGraph($period: Int!) {
+    zones_graphs(
+      where: { timeframe: { _eq: $period }, is_mainnet: { _eq: true } }
+    ) {
+      ...graph
+    }
+  }
   ${ZONES_GRAPH_FRAGMENT}
 `;
 
@@ -204,10 +224,7 @@ const getScaleParams = (zones, key, isTestnetVisible) => {
 
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
-const transform = (data, isTestnetVisible) => {
-  const zones = data?.zones_stats;
-  const graph = data?.zones_graphs;
-
+const transform = (graph, zones, isTestnetVisible) => {
   if (!zones || !graph) {
     return null;
   }
@@ -523,6 +540,14 @@ const transform = (data, isTestnetVisible) => {
 };
 
 export const useZonesStat = (options, isTestnetVisible) => {
+  const graph = useRealtimeQuery(
+    isTestnetVisible ? ZONES_GRAPH_QUERY : ZONES_GRAPH_QUERY_ONLY_MAINNET,
+    isTestnetVisible
+      ? ZONES_GRAPH_SUBSCRIPTION
+      : ZONES_GRAPH_SUBSCRIPTION_ONLY_MAINNET,
+    options,
+  );
+
   const zones = useRealtimeQuery(
     isTestnetVisible ? ZONES_STAT_QUERY : ZONES_STAT_QUERY_ONLY_MAINNET,
     isTestnetVisible
@@ -532,7 +557,10 @@ export const useZonesStat = (options, isTestnetVisible) => {
   );
 
   // TODO: Try to avoid passing isTestnetVisible to transform function
-  return useMemo(() => transform(zones, isTestnetVisible), [zones]);
+  return useMemo(
+    () => transform(graph?.zones_graphs, zones?.zones_stats, isTestnetVisible),
+    [graph, zones],
+  );
 };
 
 export const useZonesStatFiltered = (zonesStat, filter) => {
