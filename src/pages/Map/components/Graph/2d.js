@@ -31,6 +31,7 @@ import {
   useFocusedNodeNeighbors,
   useTwitterShareText,
   useTelegramShareText,
+  useGraphData,
 } from './hooks';
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
@@ -100,13 +101,7 @@ function Graph({
     location.search,
   ]);
 
-  const [graphData, setGraphData] = useState(data);
-  useEffect(() => {
-    setGraphData(data);
-    // TODO: it could bring extra rerenders, but need to test
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [data.graph._nodeCount, data.graph._edgeCount, period]);
-  }, [data.graph._nodeCount, data.graph._edgeCount, period, data]); //todo: need to fix! Can't work with websocket, reload bug
+  const graphData = useGraphData(data);
 
   const [hoveredNode, setHoveredNode] = useState(null);
   const [draggedNode, setDraggedNode] = useState(null);
@@ -119,17 +114,15 @@ function Graph({
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
-  const focusedNodeNeighbors = useFocusedNodeNeighbors(
-    focusedNode,
-    graphData.graph,
-  );
+  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
 
   const [images, setImages] = useState({});
+  const nodes = graphData?.nodes;
 
   useEffect(() => {
     const loadData = async () => {
       const loadedImages = await Promise.all(
-        graphData.nodes.map(async ({ id, zoneLabelUrlBig }) => {
+        nodes.map(async ({ id, zoneLabelUrlBig }) => {
           if (zoneLabelUrlBig) {
             try {
               const image = await loadImage(
@@ -167,10 +160,10 @@ function Graph({
       }));
     };
 
-    if (graphData?.nodes) {
+    if (nodes) {
       loadData();
     }
-  }, [graphData]);
+  }, [nodes]);
 
   useEffect(() => {
     const fg = fgRef.current;
@@ -241,8 +234,8 @@ function Graph({
       fgRef.current.centerAt(0, 0, 500);
     }
 
-    zoom(zoomValue(graphData.nodes.length));
-  }, [graphData, focusedNode, isRendered, zoneFromSearch, zoom]);
+    zoom(zoomValue(nodes.length));
+  }, [nodes, focusedNode, isRendered, zoneFromSearch, zoom]);
 
   const zoomIn = useCallback(() => {
     zoom(currentZoom * 2);
