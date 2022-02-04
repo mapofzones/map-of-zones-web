@@ -209,7 +209,7 @@ function Graph({
     }
 
     if (focusedNode) {
-      let { x, y } = focusedNode;
+      let { x, y } = nodes.find(({ id }) => focusedNode.id === id) || {};
 
       if (!x || !y) {
         const nodeCoords = fgRef.current.getGraphBbox(
@@ -252,7 +252,7 @@ function Graph({
         !focusedNode ||
         focusedNode === node ||
         focusedNode?.id === node?.id ||
-        focusedNodeNeighbors.includes(node)
+        focusedNodeNeighbors.includes(node?.id)
       ) {
         setHoveredNode(node);
       }
@@ -266,7 +266,7 @@ function Graph({
         !focusedNode ||
         focusedNode === node ||
         focusedNode?.id === node?.id ||
-        focusedNodeNeighbors.includes(node)
+        focusedNodeNeighbors.includes(node?.id)
       ) {
         setDraggedNode(node);
       }
@@ -306,7 +306,7 @@ function Graph({
 
   const onNodeClick = useCallback(
     node => {
-      if (!focusedNode || focusedNodeNeighbors.includes(node)) {
+      if (!focusedNode || focusedNodeNeighbors.includes(node.id)) {
         onNodeFocus(node);
         trackEvent({
           category: 'Map',
@@ -404,11 +404,7 @@ function Graph({
     if (focusedNode && nodes) {
       const node = nodes.find(({ id }) => focusedNode.id === id);
 
-      if (node) {
-        if (node !== focusedNode) {
-          onNodeFocus(node);
-        }
-      } else {
+      if (!node) {
         clearNodeFocus();
       }
     }

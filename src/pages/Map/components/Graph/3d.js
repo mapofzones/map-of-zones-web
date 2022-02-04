@@ -24,6 +24,7 @@ import {
   useLinkColor,
   useNodeColor,
   useNodeThreeObject,
+  useGraphData,
 } from './hooks';
 import NodeTooltip from './Tooltips/NodeTooltip';
 import LinkTooltip from './Tooltips/LinkTooltip';
@@ -49,6 +50,8 @@ function Graph({
   currentFilter,
   toggleGraphType,
 }) {
+  const graphData = useGraphData(data);
+  const nodes = graphData?.nodes;
   const [hoveredNode, setHoveredNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [showFilter, setShowFilter] = useState(false);
@@ -103,17 +106,16 @@ function Graph({
   useEffect(() => {
     if (initialCameraPosition) {
       if (focusedNode) {
+        const node = nodes.find(({ id }) => focusedNode.id === id);
         const distance = 100;
-        const distRatio =
-          1 +
-          distance / Math.hypot(focusedNode.x, focusedNode.y, focusedNode.z);
+        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
         fgRef.current.cameraPosition(
           {
-            x: focusedNode.x * distRatio,
-            y: focusedNode.y * distRatio,
-            z: focusedNode.z * distRatio,
+            x: node.x * distRatio,
+            y: node.y * distRatio,
+            z: node.z * distRatio,
           },
-          focusedNode,
+          node,
           2000,
         );
       } else {
@@ -132,7 +134,7 @@ function Graph({
         );
       }
     }
-  }, [focusedNode, initialCameraPosition]);
+  }, [focusedNode, nodes, initialCameraPosition]);
 
   useEffect(() => {
     if (initialCameraPosition && fgRef.current) {
@@ -166,7 +168,7 @@ function Graph({
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const onNodeClick = useCallback(
     node => {
-      if (!focusedNode || focusedNodeNeighbors.includes(node)) {
+      if (!focusedNode || focusedNodeNeighbors.includes(node?.id)) {
         onNodeFocus(node);
         trackEvent({
           category: 'Map',
@@ -215,6 +217,16 @@ function Graph({
     setIsFocused(false);
   }, [setIsFocused]);
 
+  useEffect(() => {
+    if (focusedNode && nodes) {
+      const node = nodes.find(({ id }) => focusedNode.id === id);
+
+      if (!node) {
+        clearNodeFocus();
+      }
+    }
+  }, [focusedNode, nodes]);
+
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={cx('container', { blurred: isBlurred })}>
@@ -225,7 +237,7 @@ function Graph({
           nodeVal={zoneWeightAccessor}
           nodeColor={nodeColor}
           nodeLabel={null}
-          graphData={data}
+          graphData={graphData}
           onNodeHover={onNodeHover}
           nodeThreeObject={nodeThreeObject}
           nodeThreeObjectExtend
