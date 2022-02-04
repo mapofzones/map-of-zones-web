@@ -55,9 +55,8 @@ export const useNodeCanvasObject = (
       const deltaY =
         r + backgroundDimensions[1] / 2 + 2 / globalScale + paddingVertical * 2;
       const isFocused =
-        focusedNode === node ||
         focusedNode?.id === node?.id ||
-        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
       if (focusedNode && !isFocused) {
         ctx.fillStyle = tinycolor(color)
@@ -67,7 +66,7 @@ export const useNodeCanvasObject = (
         ctx.fillStyle = color;
       }
 
-      if (focusedNode === node || focusedNode?.id === node?.id) {
+      if (focusedNode?.id === node?.id) {
         ctx.shadowColor = color;
         ctx.shadowBlur = 30;
       }
@@ -144,18 +143,19 @@ export const useNodeCanvasObject = (
   );
 
 export const useFocusedNodeNeighbors = (focusedNode, graph) =>
-  useMemo(
-    () =>
-      focusedNode
-        ? (graph.neighbors(focusedNode.id) || []).map(id => graph.node(id))
-        : null,
-    [focusedNode, graph],
-  );
+  useMemo(() => (focusedNode ? graph.neighbors(focusedNode.id) || [] : null), [
+    focusedNode,
+    graph,
+  ]);
 
 export const useLinkColor = focusedNode =>
   useCallback(
     ({ source, target }) => {
-      if (!focusedNode || focusedNode === source || focusedNode === target) {
+      if (
+        !focusedNode ||
+        focusedNode.id === source.id ||
+        focusedNode.id === target.id
+      ) {
         return 'rgb(255, 255, 255)';
       }
 
@@ -362,8 +362,8 @@ export const useLinkThreeObject = focusedNode => {
     link => {
       if (
         (focusedNode &&
-          focusedNode !== link.source &&
-          focusedNode !== link.target) ||
+          focusedNode.id !== link.source.id &&
+          focusedNode.id !== link.target.id) ||
         !link.activeChannels
       ) {
         return;
@@ -440,9 +440,8 @@ export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
   useCallback(
     node => {
       const isFocused =
-        focusedNode === node ||
         focusedNode?.id === node?.id ||
-        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
       if (focusedNode && !isFocused) {
         return hex2rgba(node.color, 0.2);
@@ -459,9 +458,8 @@ export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
       const scene = new Scene();
       const text = new SpriteText(node.name);
       const isFocused =
-        focusedNode === node ||
         focusedNode?.id === node?.id ||
-        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
       if (focusedNode && !isFocused) {
         text.color = hex2rgba(node.color, 0.2);
