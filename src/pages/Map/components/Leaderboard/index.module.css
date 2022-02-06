@@ -50,6 +50,7 @@
   transition: 0.1s;
   height: 26px;
   position: relative;
+  justify-content: flex-end;
 }
 
 .header.ibcReceived > .header-container {
@@ -127,6 +128,7 @@
   white-space: nowrap;
   width: 100%;
   position: relative;
+  line-height: 25px;
 }
 
 .cell .text-container .shift-tooltip {
@@ -167,6 +169,8 @@
 
 .header.zoneLabelUrl {
   width: 35px;
+  min-width: 35px;
+  max-width: 35px;
 }
 
 /*1-st col*/
@@ -178,8 +182,18 @@
   justify-content: center;
 }
 
+.header.name .header-container {
+  justify-content: flex-start;
+}
+
+.header.txsActivity .header-container {
+  justify-content: flex-start;
+}
+
 .cell.zoneLabelUrl {
   width: 35px;
+  min-width: 35px;
+  max-width: 35px;
 }
 
 .cell.position {
@@ -196,6 +210,8 @@
 .header.position,
 .cell.position {
   width: 32px;
+  min-width: 32px;
+  max-width: 32px;
   padding: 0;
 }
 
@@ -221,17 +237,17 @@
 /*3-d col*/
 .header.ibcTransfers,
 .cell.ibcTransfers {
-  width: 123px;
-  min-width: 123px;
-  max-width: 123px;
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
 }
 
 /*3-d col*/
 .header.ibcVolume,
 .cell.ibcVolume {
-  width: 130px;
-  min-width: 130px;
-  max-width: 130px;
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
 }
 
 .header.activeAddresses,
@@ -262,33 +278,33 @@
 .header.ibcSent,
 .cell.ibcSent {
   border-left: 1px solid var(--table-borders-color);
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
 }
 
 /*7 col*/
 .header.ibcReceived,
 .cell.ibcReceived {
-  width: 120px;
-  min-width: 120px;
-  max-width: 120px;
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
   border-right: 1px solid var(--table-borders-color);
 }
 
 .header.ibcVolumeSent,
 .cell.ibcVolumeSent {
   border-left: 1px solid var(--table-borders-color);
-  width: 120px;
-  min-width: 120px;
-  max-width: 120px;
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
 }
 
 .header.ibcVolumeReceived,
 .cell.ibcVolumeReceived {
-  width: 120px;
-  min-width: 120px;
-  max-width: 120px;
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
   border-right: 1px solid var(--table-borders-color);
 }
 
@@ -488,7 +504,7 @@ thead.fixed.active {
 }
 
 tbody.bodyWithFocus .row {
-  transform: translateY(53px);
+  transform: translateY(45px);
 }
 
 tbody.bodyWithFocus .row.focusedRow {

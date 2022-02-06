@@ -163,6 +163,7 @@
   white-space: nowrap;
   width: 100%;
   position: relative;
+  line-height: 25px;
 }
 
 .cell .subtext-container {
