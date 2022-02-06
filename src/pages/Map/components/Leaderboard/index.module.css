@@ -161,6 +161,10 @@
   visibility: visible;
 }
 
+.text-container.numeric {
+  font-family: monospace;
+}
+
 .header.zoneLabelUrl {
   width: 35px;
 }

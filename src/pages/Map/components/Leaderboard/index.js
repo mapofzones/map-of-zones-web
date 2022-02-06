@@ -129,7 +129,11 @@ function Leaderboard({
         const pending = cell.row.original[cell.column.pendingAccessor];
 
         return (
-          <span className={cx('text-container')}>
+          <span
+            className={cx('text-container', {
+              numeric: typeof cell.value === 'number',
+            })}
+          >
             {cell.render('Cell')}
             {isNumber(diff) && (
               <div

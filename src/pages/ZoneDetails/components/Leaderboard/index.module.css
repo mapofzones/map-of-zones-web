@@ -203,6 +203,10 @@
   visibility: visible;
 }
 
+.text-container.numeric {
+  font-family: monospace;
+}
+
 /*1-st col*/
 .header.position {
   color: rgba(128, 128, 128, 0.5);

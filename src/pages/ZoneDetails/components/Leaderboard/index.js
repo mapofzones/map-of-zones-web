@@ -185,7 +185,11 @@ function Leaderboard({
         const Cell = cell.column.Cell;
 
         return (
-          <span className={cx('text-container')}>
+          <span
+            className={cx('text-container', {
+              numeric: typeof cell.value === 'number',
+            })}
+          >
             {cell.render('Cell')}
             {isNumber(diff) && (
               <div
