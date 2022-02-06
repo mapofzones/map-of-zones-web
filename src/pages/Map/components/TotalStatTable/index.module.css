@@ -28,7 +28,8 @@
 
 .activityContainer {
   position: absolute;
-  top: 0;
+  bottom: 0;
+  max-height: 70%;
 }
 
 .statContainer {
