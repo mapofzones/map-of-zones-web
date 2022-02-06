@@ -29,6 +29,8 @@ function TotalStatTable({
   ibcVolume,
   ibcVolumeDiff,
   ibcTxsDiff,
+  showIbcVolumeChart,
+  showIbcTxsChart,
 }) {
   return (
     <div className={cx('wrapper')}>
@@ -81,17 +83,19 @@ function TotalStatTable({
               )}
             </div>
           </div>
-          <ResponsiveContainer className={cx('activityContainer')}>
-            <AreaChart data={ibcVolumeChart} margin={{ bottom: 0 }}>
-              <Area
-                strokeWidth={2}
-                type="linear"
-                dataKey="cashflow"
-                stroke="#6ea77f"
-                fill="#5CA97B"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+          {showIbcVolumeChart && ibcVolumeChart?.length && (
+            <ResponsiveContainer className={cx('activityContainer')}>
+              <AreaChart data={ibcVolumeChart} margin={{ bottom: 0 }}>
+                <Area
+                  strokeWidth={2}
+                  type="linear"
+                  dataKey="cashflow"
+                  stroke="#6ea77f"
+                  fill="#5CA97B"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          )}
         </div>
         <div className={cx('item')}>
           <div className={cx('statContainer')}>
@@ -125,17 +129,19 @@ function TotalStatTable({
               )}
             </div>
           </div>
-          <ResponsiveContainer className={cx('activityContainer')}>
-            <AreaChart data={ibcTxsChart} margin={{ bottom: 0 }}>
-              <Area
-                strokeWidth={2}
-                type="linear"
-                dataKey="txs"
-                stroke="#6ea77f"
-                fill="#5CA97B"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+          {showIbcTxsChart && ibcTxsChart?.length && (
+            <ResponsiveContainer className={cx('activityContainer')}>
+              <AreaChart data={ibcTxsChart} margin={{ bottom: 0 }}>
+                <Area
+                  strokeWidth={2}
+                  type="linear"
+                  dataKey="txs"
+                  stroke="#6ea77f"
+                  fill="#5CA97B"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          )}
         </div>
         <div className={cx('item')}>
           <div className={cx('statContainerSmall')}>
@@ -386,12 +392,15 @@ TotalStatTable.propTypes = {
     volume: PropTypes.number,
     volumeDiff: PropTypes.number,
   }),
-  showAllChannels: PropTypes.bool,
-  showActiveChannels: PropTypes.bool,
+  showChannels: PropTypes.bool,
+  showIbcVolumeChart: PropTypes.bool,
+  showIbcTxsChart: PropTypes.bool,
 };
 
 TotalStatTable.defaultProps = {
   showChannels: false,
+  showIbcVolumeChart: false,
+  showIbcTxsChart: false,
 };
 
 export default TotalStatTable;

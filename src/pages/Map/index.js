@@ -105,6 +105,7 @@ function Map() {
       <div>
         {!isMapFullscreen && (
           <TotalStatTable
+            showIbcVolumeChart
             activeChannels={totalStat.activeChannels}
             activeZones={totalStat.activeZones}
             allChannels={totalStat.allChannels}
