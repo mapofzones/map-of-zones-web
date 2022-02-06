@@ -226,7 +226,9 @@ function Leaderboard({
             return (
               <tr
                 {...row.getRowProps()}
-                className={cx('row')}
+                className={cx('row', {
+                  expanded: row.isExpanded,
+                })}
                 onClick={() => {
                   if (row.canExpand) {
                     row.toggleRowExpanded();
