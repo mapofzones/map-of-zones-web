@@ -8,8 +8,10 @@
 .table-container {
   overflow-x: auto;
   overflow-y: hidden;
-  background: #ffffff;
+  background: #E5E5E5;
   min-height: calc(100vh - 178px);
+  justify-content: center;
+  display: flex;
 }
 
 .table-container::-webkit-scrollbar {
@@ -26,6 +28,9 @@
 .table {
   border-spacing: 0;
   position: relative;
+  max-width: 1000px;
+  flex-grow: 1;
+  margin-top: 20px;
 }
 
 .header {
@@ -39,7 +44,7 @@
   white-space: nowrap;
   min-height: 26px;
 
-  background: #ffffff;
+  background: #E5E5E5;
   border-bottom: 1px solid var(--table-borders-color);
 
   vertical-align: bottom;
@@ -58,10 +63,11 @@
   transition: 0.1s;
   height: 26px;
   position: relative;
+  justify-content: flex-end;
 }
 
-.header.ibcReceived > .header-container {
-  justify-content: flex-end;
+.header.name .header-container {
+  justify-content: flex-start;
 }
 
 .ableSortCol.header-container:after {
@@ -158,7 +164,6 @@
 }
 
 .cell .text-container {
-  padding-right: 30px;
   display: inline-block;
   white-space: nowrap;
   width: 100%;
