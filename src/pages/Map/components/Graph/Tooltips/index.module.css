@@ -6,9 +6,10 @@
 
 .key-text {
   font-weight: 500;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 100%;
   color: var(--tooltip-gray);
+  margin-bottom: 4px;
 }
 .key-text-long {
   margin-right: 5px;
@@ -25,9 +26,10 @@
 }
 .item-text {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 100%;
   color: var(--color-regular);
+  margin-bottom: 4px;
 }
 .item-text.normal-weight {
   font-weight: normal;
@@ -83,17 +85,14 @@
 .header-row.with-line {
   border-bottom: 2px solid var(--color-regular);
 }
-.row-tooltip {
-  display: flex;
-  padding: 5px 0 2px 0;
+.stat {
+  min-width: 100px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.5);
   margin-bottom: 1px;
+  padding: 5px 5px 2px 0;
 }
-.row-tooltip:last-child {
+.stat:last-child {
   border: none;
-}
-.row-tooltip .key-text {
-  margin-bottom: 2px;
 }
 .col {
   min-width: 80px;
@@ -182,4 +181,30 @@
 .volumeIn {
   color: #60AB8B;
   margin-right: 4px;
+}
+
+.statContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  flex: 1;
+}
+
+.pendingContainer {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  color: #B8B8B8;
+}
+
+.pendingIcon {
+  margin-right: 3px;
+  width: 11px;
+  height: 9px;
+}
+
+.secondRow {
+  min-height: 60px;
 }

@@ -433,6 +433,7 @@ const transform = (data, isTestnetVisible) => {
         ibcTxFailed: ibc_tx_failed,
         ibcTxOutFailed: ibc_tx_out_failed,
         ibcTxInFailed: ibc_tx_in_failed,
+        successRate: 1 - ibc_tx_failed / total_txs, // TODO
         ibcTxFailedDiff: ibc_tx_failed_diff,
         totalActiveAddressesRating: isTestnetVisible
           ? total_active_addresses_rating
