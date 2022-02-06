@@ -618,7 +618,10 @@ function useGraphDataCached(data, diff) {
     if (diff) {
       if (diff.links) {
         if (diff.links.add) {
-          links = [...links, ...Object.values(diff.links.add)];
+          links = [
+            ...links,
+            ...Object.values(diff.links.add).map(link => ({ ...link })),
+          ];
         }
 
         if (diff.links.remove) {
@@ -630,14 +633,17 @@ function useGraphDataCached(data, diff) {
         if (diff.links.update) {
           links = [
             ...links.filter(item => !diff.links.update[linkKeyAccessor(item)]),
-            ...Object.values(diff.links.update),
+            ...Object.values(diff.links.update).map(link => ({ ...link })),
           ];
         }
       }
 
       if (diff.nodes) {
         if (diff.nodes.add) {
-          nodes = [...nodes, ...Object.values(diff.nodes.add)];
+          nodes = [
+            ...nodes,
+            ...Object.values(diff.nodes.add).map(node => ({ ...node })),
+          ];
         }
 
         if (diff.nodes.remove) {
@@ -649,7 +655,7 @@ function useGraphDataCached(data, diff) {
         if (diff.nodes.update) {
           nodes = [
             ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
-            ...Object.values(diff.nodes.update),
+            ...Object.values(diff.nodes.update).map(node => ({ ...node })),
           ];
         }
       }
