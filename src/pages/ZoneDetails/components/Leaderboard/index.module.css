@@ -212,7 +212,7 @@
 }
 
 .text-container.numeric {
-  font-family: monospace;
+  font-family: var(--font-monospace);
 }
 
 /*1-st col*/

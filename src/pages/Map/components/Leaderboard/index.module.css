@@ -164,7 +164,7 @@
 }
 
 .text-container.numeric {
-  font-family: monospace;
+  font-family: var(--font-monospace);
 }
 
 .header.zoneLabelUrl {
