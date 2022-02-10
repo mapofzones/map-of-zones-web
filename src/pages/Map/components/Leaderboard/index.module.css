@@ -164,7 +164,7 @@
 }
 
 .text-container.numeric {
-  font-family: var(--font-monospace);
+  font-family: var(--font-monospace), monospace;
 }
 
 .header.zoneLabelUrl {
@@ -587,6 +587,14 @@ tbody.bodyWithFocus.focusFixed .row {
   margin-right: 3px;
   width: 11px;
   height: 9px;
+}
+
+.cell.totalActiveAddresses .text-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: start;
+  height: 100%;
+  flex-direction: column;
 }
 
 @keyframes fadeIn {
