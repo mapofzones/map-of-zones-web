@@ -101,7 +101,7 @@ function LinkTooltip({
             )}
             <div className={cx('row')}>
               <div className={cx('key-text', 'key-text-long')}>
-                TXs per {period?.name}
+                IBC Transfers per {period?.name}
               </div>
               <div className={cx('item-text')}>{link.ibcTxs}</div>
             </div>
