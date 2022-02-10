@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FormattedNumber } from 'react-intl';
 
-import { formatPercentage } from 'common/helper';
+import { formatNumber } from 'common/helper';
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import styles from './index.module.css';
@@ -80,15 +80,10 @@ function LinkTooltip({ link, period }) {
             </div>
             <div>
               <div className={cx('cell')}>
-                <div className={cx('value')}>{link.ibcTxs}</div>
+                <div className={cx('value')}>{formatNumber(link.ibcTxs)}</div>
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
-                  <FormattedNumber
-                    value={link.ibcTxsPending}
-                    style="currency"
-                    currency="USD"
-                    maximumFractionDigits="0"
-                  />
+                  {formatNumber(link.ibcTxsPending)}
                 </div>
               </div>
               <div className={cx('cell')}>
