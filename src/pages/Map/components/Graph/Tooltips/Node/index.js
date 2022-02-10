@@ -52,43 +52,41 @@ function NodeTooltip({ node, period }) {
 
   return (
     <div
-      className={cx('custom-tooltip', { active: isActive })}
+      className={cx('container', { active: isActive })}
       style={{
         left: parseInt(mapTooltip.style.left) + 'px',
         top: parseInt(mapTooltip.style.top) + 'px',
       }}
     >
       <div
-        className={cx('node-custom-tooltip')}
+        className={cx('wrapper')}
         style={{
           borderTop: `4px solid ${node.color}`,
         }}
       >
-        <div className={cx('node-custom-tooltip-content')}>
-          <div className={cx('header-row', 'with-line')}>
-            <div className={cx('item-text-and-image')}>
+        <div className={cx('content')}>
+          <div className={cx('headerRow')}>
+            <div className={cx('labelContainer')}>
               {!!node.zoneLabelUrl && (
                 <img
-                  className={cx('item-image')}
+                  className={cx('labelImage')}
                   src={node.zoneLabelUrl}
                   alt={node.name}
                 />
               )}
-              <div className={cx('item-text')}>{node.name}</div>
+              <div className={cx('zoneName')}>{node.name}</div>
             </div>
-            <div className={cx('key-text', 'period-title')}>{period.name}</div>
+            <div className={cx('title', 'periodTitle')}>{period.name}</div>
           </div>
           <div className={cx('statContainer')}>
             <div className={cx('column')}>
               <div className={cx('stat')}>
-                <div className={cx('key-text')}>Peers</div>
-                <div className={cx('item-text')}>
-                  {formatNumber(node.peers)}
-                </div>
+                <div className={cx('title')}>Peers</div>
+                <div className={cx('value')}>{formatNumber(node.peers)}</div>
               </div>
               <div className={cx('stat', 'secondRow')}>
-                <div className={cx('key-text')}>IBC volume</div>
-                <div className={cx('item-text')}>
+                <div className={cx('title')}>IBC volume</div>
+                <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolume}
                     style="currency"
@@ -107,8 +105,8 @@ function NodeTooltip({ node, period }) {
                 </div>
               </div>
               <div className={cx('stat')}>
-                <div className={cx('key-text')}>IBC out, $</div>
-                <div className={cx('item-text')}>
+                <div className={cx('title')}>IBC out, $</div>
+                <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolumeSent}
                     style="currency"
@@ -116,7 +114,7 @@ function NodeTooltip({ node, period }) {
                     maximumFractionDigits="0"
                   />
                 </div>
-                <div className={cx('item-text', 'sent-title')}>
+                <div className={cx('value', 'sent')}>
                   {formatPercentage(node.ibcVolumeSentPercentage)}
                 </div>
                 <div className={cx('pendingContainer')}>
@@ -132,20 +130,20 @@ function NodeTooltip({ node, period }) {
             </div>
             <div className={cx('column')}>
               <div className={cx('stat')}>
-                <div className={cx('key-text')}>IBC transfers</div>
-                <div className={cx('item-text')}>
+                <div className={cx('title')}>IBC transfers</div>
+                <div className={cx('value')}>
                   {formatNumber(node.ibcTransfers)}
                 </div>
               </div>
               <div className={cx('stat', 'secondRow')}>
-                <div className={cx('key-text')}>Success rate</div>
-                <div className={cx('item-text')}>
+                <div className={cx('title')}>Success rate</div>
+                <div className={cx('value')}>
                   {formatPercentage(node.successRate)}
                 </div>
               </div>
               <div className={cx('stat')}>
-                <div className={cx('key-text')}>IBC in, $</div>
-                <div className={cx('item-text')}>
+                <div className={cx('title')}>IBC in, $</div>
+                <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolumeReceived}
                     style="currency"
@@ -153,7 +151,7 @@ function NodeTooltip({ node, period }) {
                     maximumFractionDigits="0"
                   />
                 </div>
-                <div className={cx('item-text', 'received-title')}>
+                <div className={cx('value', 'received')}>
                   {formatPercentage(node.ibcVolumeReceivedPercentage)}
                 </div>
                 <div className={cx('pendingContainer')}>
@@ -169,11 +167,10 @@ function NodeTooltip({ node, period }) {
             </div>
           </div>
         </div>
-
         <button
           type="button"
           onClick={onDetailsPress}
-          className={cx('details-button')}
+          className={cx('detailsButton')}
         >
           Details
         </button>
