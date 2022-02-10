@@ -189,7 +189,7 @@ export const useTwitterShareText = (focusedNode, period) => {
     () => `Check out the «${focusedNode?.name}» zone inter-connection activity for the last ${period?.rawText}:
 ${shareLink}
 by @mapofzones
-#CosmosNetwork #IBC #MapOfZones #gameofzones #GoZ`,
+#CosmosNetwork #IBC #MapOfZones #IBCGang #DeFi`,
     [shareLink, focusedNode, period],
   );
 
@@ -605,6 +605,7 @@ function useDiff(nextData) {
       links,
       nodes,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nextData]); // prevData will be changed together with nextData
 }
 
@@ -665,6 +666,7 @@ function useGraphDataCached(data, diff) {
       links,
       nodes,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diff]); // TODO: Do we need to pass graphData?
 
   return graphData;
