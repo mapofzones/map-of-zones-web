@@ -47,6 +47,7 @@ const ZONES_STAT_FRAGMENT = gql`
     total_active_addresses_weight
     total_active_addresses_mainnet_weight
     ibc_tx_failed
+    success_rate
     ibc_tx_out_failed
     ibc_tx_in_failed
     ibc_tx_failed_diff
@@ -297,6 +298,7 @@ const transform = (data, isTestnetVisible) => {
       total_active_addresses_weight,
       total_active_addresses_mainnet_weight,
       ibc_tx_failed,
+      success_rate,
       ibc_tx_out_failed,
       ibc_tx_in_failed,
       ibc_tx_failed_diff,
@@ -437,7 +439,7 @@ const transform = (data, isTestnetVisible) => {
         ibcTxFailed: ibc_tx_failed,
         ibcTxOutFailed: ibc_tx_out_failed,
         ibcTxInFailed: ibc_tx_in_failed,
-        successRate: 1 - ibc_tx_failed / total_txs, // TODO
+        successRate: success_rate / 100,
         ibcTxFailedDiff: ibc_tx_failed_diff,
         totalActiveAddressesRating: isTestnetVisible
           ? total_active_addresses_rating
