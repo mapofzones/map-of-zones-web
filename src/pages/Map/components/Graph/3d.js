@@ -26,8 +26,8 @@ import {
   useNodeThreeObject,
   useGraphData,
 } from './hooks';
-import NodeTooltip from './Tooltips/NodeTooltip';
-import LinkTooltip from './Tooltips/LinkTooltip';
+import NodeTooltip from './Tooltips/Node';
+import LinkTooltip from './Tooltips/Link';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 import ZonesFilter from '../ZonesFilter';
 

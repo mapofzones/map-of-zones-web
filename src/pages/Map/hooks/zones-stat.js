@@ -106,6 +106,10 @@ const ZONES_GRAPH_FRAGMENT = gql`
     channels_cnt_open
     channels_cnt_active
     channels_percent_active
+    ibc_transfers
+    ibc_transfers_pending
+    ibc_cashflow
+    ibc_cashflow_pending
   }
 `;
 
@@ -500,16 +504,17 @@ const transform = (data, isTestnetVisible) => {
       channels_cnt_open,
       channels_cnt_active,
       channels_percent_active,
+      ibc_transfers,
+      ibc_transfers_pending,
+      ibc_cashflow,
+      ibc_cashflow_pending,
     }) => ({
       source,
       target,
-      ibcTxs: channels_cnt_open, // ibc_txs,
-      volemeIn: channels_cnt_open, // volume_in,
-      volemeOut: channels_cnt_active, // volume_out,
-      volemeInPercentage:
-        channels_cnt_open / (channels_cnt_open + channels_cnt_active), // volume_in / (volume_in + volume_out)
-      volemeOutPercentage:
-        channels_cnt_active / (channels_cnt_open + channels_cnt_active), // volume_out / (volume_in + volume_out)
+      ibcTxs: ibc_transfers,
+      ibcTxsPending: ibc_transfers_pending,
+      ibcVolume: ibc_cashflow,
+      ibcVolumePending: ibc_cashflow_pending,
       openedChannels: channels_cnt_open,
       activeChannels: channels_cnt_active,
       activeChannelsPercent: channels_percent_active,
