@@ -205,6 +205,77 @@ function TotalStatTable({
               <div className={cx('statNameContainer')}>
                 <div className={cx('statName')}>
                   <FormattedMessage
+                    id="most-active-zones-pair-stat"
+                    defaultMessage="Most Active Pair of Zones"
+                  />
+                </div>
+              </div>
+              {mostActiveByTxsZonesPair && (
+                <div className={cx('mostActiveZonesPair')}>
+                  <div className={cx('zoneNameContainer')}>
+                    <div
+                      className={cx('circle')}
+                      style={{
+                        backgroundColor: mostActiveByTxsZonesPair.sourceColor,
+                      }}
+                    />
+                    <div className={cx('zoneName')}>
+                      {mostActiveByTxsZonesPair.source}
+                    </div>
+                  </div>
+                  <div className={cx('zonesLink')} />
+                  <div className={cx('zoneNameContainer')}>
+                    <div
+                      className={cx('circle')}
+                      style={{
+                        backgroundColor: mostActiveByTxsZonesPair.targetColor,
+                      }}
+                    />
+                    <div className={cx('zoneName')}>
+                      {mostActiveByTxsZonesPair.target}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            {mostActiveByTxsZonesPair && (
+              <div className={cx('mostActiveZonesPairValueContainer')}>
+                <div
+                  className={cx('mostActiveZonesPairValue', 'diffContainer')}
+                >
+                  <FormattedMessage
+                    id="most-active-zones-pair-ibc-txs"
+                    defaultMessage="{txs} transfers"
+                    values={{
+                      txs: formatNumber(mostActiveByTxsZonesPair.txs),
+                    }}
+                  />
+                  {isNumber(mostActiveByTxsZonesPair.txsDiff) && (
+                    <div
+                      className={cx('diffTooltip', {
+                        negative: mostActiveByTxsZonesPair.txsDiff < 0,
+                      })}
+                    >
+                      {(mostActiveByTxsZonesPair.txsDiff > 0 ? '+' : '') +
+                        formatNumber(mostActiveByTxsZonesPair.txsDiff)}
+                    </div>
+                  )}
+                </div>
+                <div className={cx('pendingContainer')}>
+                  <PendingIcon className={cx('pendingIcon')} />
+                  {mostActiveByTxsZonesPair.txsPending}
+                </div>
+                <span className={cx('period')}>{period}</span>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className={cx('item')}>
+          <div className={cx('statContainer', 'mostActiveZonesPairContainer')}>
+            <div>
+              <div className={cx('statNameContainer')}>
+                <div className={cx('statName')}>
+                  <FormattedMessage
                     id="biggest-volume-pair-stat"
                     defaultMessage="Biggest volume Pair"
                   />
@@ -270,77 +341,6 @@ function TotalStatTable({
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
                   {mostActiveByVolumeZonesPair.volumePending}
-                </div>
-                <span className={cx('period')}>{period}</span>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className={cx('item')}>
-          <div className={cx('statContainer', 'mostActiveZonesPairContainer')}>
-            <div>
-              <div className={cx('statNameContainer')}>
-                <div className={cx('statName')}>
-                  <FormattedMessage
-                    id="most-active-zones-pair-stat"
-                    defaultMessage="Most Active Pair of Zones"
-                  />
-                </div>
-              </div>
-              {mostActiveByTxsZonesPair && (
-                <div className={cx('mostActiveZonesPair')}>
-                  <div className={cx('zoneNameContainer')}>
-                    <div
-                      className={cx('circle')}
-                      style={{
-                        backgroundColor: mostActiveByTxsZonesPair.sourceColor,
-                      }}
-                    />
-                    <div className={cx('zoneName')}>
-                      {mostActiveByTxsZonesPair.source}
-                    </div>
-                  </div>
-                  <div className={cx('zonesLink')} />
-                  <div className={cx('zoneNameContainer')}>
-                    <div
-                      className={cx('circle')}
-                      style={{
-                        backgroundColor: mostActiveByTxsZonesPair.targetColor,
-                      }}
-                    />
-                    <div className={cx('zoneName')}>
-                      {mostActiveByTxsZonesPair.target}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            {mostActiveByTxsZonesPair && (
-              <div className={cx('mostActiveZonesPairValueContainer')}>
-                <div
-                  className={cx('mostActiveZonesPairValue', 'diffContainer')}
-                >
-                  <FormattedMessage
-                    id="most-active-zones-pair-ibc-txs"
-                    defaultMessage="{txs} transfers"
-                    values={{
-                      txs: formatNumber(mostActiveByTxsZonesPair.txs),
-                    }}
-                  />
-                  {isNumber(mostActiveByTxsZonesPair.txsDiff) && (
-                    <div
-                      className={cx('diffTooltip', {
-                        negative: mostActiveByTxsZonesPair.txsDiff < 0,
-                      })}
-                    >
-                      {(mostActiveByTxsZonesPair.txsDiff > 0 ? '+' : '') +
-                        formatNumber(mostActiveByTxsZonesPair.txsDiff)}
-                    </div>
-                  )}
-                </div>
-                <div className={cx('pendingContainer')}>
-                  <PendingIcon className={cx('pendingIcon')} />
-                  {mostActiveByTxsZonesPair.txsPending}
                 </div>
                 <span className={cx('period')}>{period}</span>
               </div>
