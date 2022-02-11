@@ -49,19 +49,41 @@ function LinkTooltip({ link, period }) {
           <div className={cx('headerRow')}>
             <div className={cx('header')}>
               <div className={cx('zoneImagesContainer')}>
-                {!!link.source.zoneLabelUrl && (
+                {link.source.zoneLabelUrl ? (
                   <img
                     className={cx('zoneImage')}
                     src={link.source.zoneLabelUrl}
                     alt={link.source.name}
                   />
+                ) : (
+                  <div
+                    className={cx('emptyImage')}
+                    style={
+                      link.source.color
+                        ? {
+                            backgroundColor: link.source.color,
+                          }
+                        : {}
+                    }
+                  />
                 )}
                 <div className={cx('channelGradient')} />
-                {!!link.target.zoneLabelUrl && (
+                {link.target.zoneLabelUrl ? (
                   <img
                     className={cx('zoneImage')}
                     src={link.target.zoneLabelUrl}
                     alt={link.target.name}
+                  />
+                ) : (
+                  <div
+                    className={cx('emptyImage')}
+                    style={
+                      link.target.color
+                        ? {
+                            backgroundColor: link.target.color,
+                          }
+                        : {}
+                    }
                   />
                 )}
               </div>
@@ -78,15 +100,15 @@ function LinkTooltip({ link, period }) {
               </div>
               <div className={cx('title', 'cell')}>Total IBC volume</div>
             </div>
-            <div>
-              <div className={cx('cell')}>
+            <div className={cx('valuesColumn')}>
+              <div className={cx('valueContainer', 'cell')}>
                 <div className={cx('value')}>{formatNumber(link.ibcTxs)}</div>
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
                   {formatNumber(link.ibcTxsPending)}
                 </div>
               </div>
-              <div className={cx('cell')}>
+              <div className={cx('valueContainer', 'cell')}>
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={link.ibcVolume}
@@ -106,8 +128,6 @@ function LinkTooltip({ link, period }) {
                 </div>
               </div>
             </div>
-            <div className={cx('row')}></div>
-            <div className={cx('row')}></div>
           </div>
         </div>
         {/* <button
