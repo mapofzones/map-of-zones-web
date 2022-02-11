@@ -519,25 +519,29 @@ function Graph({
             >
               <TwitterShareLogo />
             </a>
-            <button
-              type="button"
-              onClick={shareImage}
-              className={cx('roundButton', 'downloadButton')}
-            >
-              <div className={cx('downloadArrowIcon')}>↓</div>
-              <div className={cx('downloadIcon')} />
-            </button>
+            {false && (
+              <button
+                type="button"
+                onClick={shareImage}
+                className={cx('roundButton', 'downloadButton')}
+              >
+                <div className={cx('downloadArrowIcon')}>↓</div>
+                <div className={cx('downloadIcon')} />
+              </button>
+            )}
           </div>
         ) : (
           <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
-            <button
-              type="button"
-              onClick={shareImage}
-              className={cx('roundButton', 'downloadButton')}
-            >
-              <div className={cx('downloadArrowIcon')}>↓</div>
-              <div className={cx('downloadIcon')} />
-            </button>
+            {false && (
+              <button
+                type="button"
+                onClick={shareImage}
+                className={cx('roundButton', 'downloadButton')}
+              >
+                <div className={cx('downloadArrowIcon')}>↓</div>
+                <div className={cx('downloadIcon')} />
+              </button>
+            )}
           </div>
         )}
         {!!focusedNode && (
