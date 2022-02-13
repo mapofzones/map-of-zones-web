@@ -79,6 +79,12 @@ function ChannelDetails({ isOpen, onAfterClose, onRequestClose, channel }) {
             <div className={cx('item')}>Channel ID</div>
             <div className={cx('item')}>{channel?.channelId}</div>
           </div>
+          <div className={cx('item-container')}>
+            <div className={cx('item')}>Counterparty Channel ID</div>
+            <div className={cx('item')}>
+              {channel?.zoneCounterpartyChannelId || '--'}
+            </div>
+          </div>
         </div>
       </div>
     </Modal>
