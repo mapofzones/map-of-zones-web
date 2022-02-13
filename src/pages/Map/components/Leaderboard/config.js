@@ -30,14 +30,14 @@ const columns = [
   },
   {
     Header: 'IBC volume, $',
-    accessor: 'ibcVolumeRating',
+    accessor: 'ibcVolumeRating', // TODO: it seems it's better to use 'ibcVolume' here
     id: 'ibcVolume',
     diffAccessor: 'ibcVolumeDiff',
     pendingAccessor: 'ibcVolumePending',
     ratingAccessor: 'ibcVolumeRatingDiff',
-    Cell: ({ cell }) => (
+    Cell: ({ itemValue }) => (
       <FormattedNumber
-        value={cell.row.original.ibcVolume}
+        value={itemValue}
         style="currency"
         currency="USD"
         maximumFractionDigits="0"
@@ -53,7 +53,7 @@ const columns = [
     diffAccessor: 'ibcTransfersDiff',
     pendingAccessor: 'ibcTransfersPending',
     ratingAccessor: 'ibcTransfersRatingDiff',
-    Cell: ({ cell }) => formatNumber(cell.row.original.ibcTransfers),
+    Cell: ({ itemValue }) => formatNumber(itemValue),
     zoneWeightAccessor: 'ibcTransfersWeight',
     tooltip: 'Token transfers via IBC relayer',
   },
@@ -111,9 +111,9 @@ const columns = [
     diffAccessor: 'ibcVolumeSentDiff',
     pendingAccessor: 'ibcVolumeSentPending',
     ratingAccessor: 'ibcVolumeSentRatingDiff',
-    Cell: ({ cell }) => (
+    Cell: ({ itemValue }) => (
       <FormattedNumber
-        value={cell.row.original.ibcVolumeSent}
+        value={itemValue}
         style="currency"
         currency="USD"
         maximumFractionDigits="0"
@@ -131,9 +131,9 @@ const columns = [
     diffAccessor: 'ibcVolumeReceivedDiff',
     pendingAccessor: 'ibcVolumeReceivedPending',
     ratingAccessor: 'ibcVolumeReceivedRatingDiff',
-    Cell: ({ cell }) => (
+    Cell: ({ itemValue }) => (
       <FormattedNumber
-        value={cell.row.original.ibcVolumeReceived}
+        value={itemValue}
         style="currency"
         currency="USD"
         maximumFractionDigits="0"
@@ -157,10 +157,8 @@ const columns = [
     id: 'totalActiveAddresses',
     diffAccessor: 'totalActiveAddressesDiff',
     ratingAccessor: 'totalActiveAddressesRatingDiff',
-    Cell: ({ cell }) =>
-      cell.row.original.totalActiveAddresses === null
-        ? '-'
-        : formatNumber(cell.row.original.totalActiveAddresses),
+    Cell: ({ itemValue }) =>
+      itemValue === null ? '-' : formatNumber(itemValue),
     tooltip: 'Active addresses',
     dependOnPeriod: true,
     zoneWeightAccessor: 'totalActiveAddressesWeight',
