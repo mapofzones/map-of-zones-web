@@ -125,6 +125,7 @@ function Leaderboard({
         );
       }
       default: {
+        const value = cell.row.original[cell.column.id];
         const diff = cell.row.original[cell.column.diffAccessor];
         const pending = cell.row.original[cell.column.pendingAccessor];
 
@@ -134,20 +135,20 @@ function Leaderboard({
               numeric: typeof cell.value === 'number',
             })}
           >
-            {cell.render('Cell')}
+            {cell.render('Cell', { itemValue: value })}
             {isNumber(diff) && (
               <div
                 className={cx('shift-tooltip', {
                   negative: diff < 0,
                 })}
               >
-                {diff > 0 ? '+' + formatNumber(diff) : formatNumber(diff)}
+                {cell.render('Cell', { itemValue: diff })}
               </div>
             )}
             {isNumber(pending) && (
               <div className={cx('pendingContainer')}>
                 <PendingIcon className={cx('pendingIcon')} />
-                {formatNumber(pending)}
+                {cell.render('Cell', { itemValue: pending })}
               </div>
             )}
           </span>
