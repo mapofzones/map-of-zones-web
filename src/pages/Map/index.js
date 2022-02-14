@@ -116,6 +116,7 @@ function Map() {
             ibcVolumeChart={totalStat.ibcVolumeChart}
             ibcVolumePending={totalStat.ibcVolumePending}
             ibcTxsPending={totalStat.ibcTxsPending}
+            ibcTxsFailed={totalStat.ibcTxsFailed}
             mostActiveByTxsZonesPair={totalStat.mostActiveByTxsZonesPair}
             mostActiveByVolumeZonesPair={totalStat.mostActiveByVolumeZonesPair}
             ibcVolumeDiff={totalStat.ibcVolumeDiff}
