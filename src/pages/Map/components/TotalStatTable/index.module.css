@@ -39,6 +39,12 @@
   z-index: 1;
 }
 
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
 .statContainer.small {
   flex: 1;
 }
@@ -68,6 +74,10 @@
   font-size: 22px;
 }
 
+.statValue.small {
+  font-size: 12px;
+}
+
 .item {
   position: relative;
   flex: 1;
@@ -75,6 +85,12 @@
 
 .item:not(:last-child) {
   border-right: 2px solid #110a19;
+}
+
+.failedValue {
+  font-weight: normal;
+  color: #8c909f;
+  font-size: 12px;
 }
 
 .period {

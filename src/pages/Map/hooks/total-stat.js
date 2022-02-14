@@ -17,6 +17,7 @@ const TOTAL_STAT_FRAGMENT = gql`
     ibc_cashflow_pending_period
     ibc_transfers_period
     ibc_transfers_pending_period
+    ibc_transfers_failed_period
     top_ibc_cashflow_zone_pair
     ibc_cashflow_period_diff
     ibc_transfers_period_diff
@@ -82,6 +83,7 @@ const transform = data => {
     ibc_transfers_period,
     ibc_cashflow_pending_period,
     ibc_transfers_pending_period,
+    ibc_transfers_failed_period,
     top_ibc_cashflow_zone_pair,
     chart_cashflow,
     chart_transfers,
@@ -135,6 +137,7 @@ const transform = data => {
     ibcTxsDiff: ibc_transfers_period_diff,
     ibcVolumePending: ibc_cashflow_pending_period,
     ibcTxsPending: ibc_transfers_pending_period,
+    ibcTxsFailed: ibc_transfers_failed_period,
     ibcTxsChart: (chart_transfers || []).map((txs, index) => ({
       txs: txs[index],
     })),

@@ -17,6 +17,7 @@ function TotalStatTable({
   ibcVolumeChart,
   ibcVolumePending,
   ibcTxsPending,
+  ibcTxsFailed,
   ibcTxs,
   allZones,
   activeZones,
@@ -103,30 +104,36 @@ function TotalStatTable({
               <div className={cx('statName')}>
                 <FormattedMessage
                   id="number-of-ibc-txs-stat"
-                  defaultMessage="Number of IBC transfers {period}"
-                  values={{
-                    period: <span className={cx('period')}>{period}</span>,
-                  }}
+                  defaultMessage="IBC transfers"
                 />
               </div>
               {!!ibcTxsPending && (
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
-                  {ibcTxsPending}
+                  <FormattedNumber value={ibcTxsPending} />
                 </div>
               )}
             </div>
-            <div className={cx('statValue', 'diffContainer')}>
-              {formatNumber(ibcTxs)}
+            <div
+              className={cx('statRow', 'diffContainer', 'statValue', 'small')}
+            >
+              <FormattedNumber value={ibcTxs} />
               {isNumber(ibcTxsDiff) && (
                 <div
                   className={cx('diffTooltip', 'top', {
                     negative: ibcTxsDiff < 0,
                   })}
                 >
-                  {(ibcTxsDiff > 0 ? '+' : '') + formatNumber(ibcTxsDiff)}
+                  {ibcTxsDiff > 0 ? '+' : ''}
+                  <FormattedNumber value={ibcTxsDiff} />
                 </div>
               )}
+            </div>
+            <div className={cx('statFailedContainer', 'statRow')}>
+              <div className={cx('failedValue', 'statValue', 'small')}>
+                <FormattedNumber value={ibcTxsFailed} /> Failed
+              </div>
+              <span className={cx('period')}>{period}</span>
             </div>
           </div>
           {showIbcTxsChart && ibcTxsChart?.length && (
