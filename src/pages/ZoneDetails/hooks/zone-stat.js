@@ -22,6 +22,7 @@ const CHANNEL_GROUP_STAT_FRAGMENT = gql`
     ibc_tx_diff
     ibc_tx_failed
     ibc_tx_failed_diff
+    ibc_tx_pending
   }
 `;
 
@@ -42,6 +43,7 @@ const CHANNELS_STAT_FRAGMENT = gql`
     ibc_tx_failed_diff
     ibc_tx_success_rate
     ibc_tx_success_rate_diff
+    ibc_tx_pending
     channel_id
     zone_counterparty
     zone_counterparty_channel_id
@@ -168,6 +170,7 @@ const transform = data => {
           ibc_tx_diff,
           ibc_tx_failed,
           ibc_tx_failed_diff,
+          ibc_tx_pending,
         }) => {
           const channelsFormatted = (channels || [])
             .filter(channel => channel.zone_counterparty === zone_counterparty)
@@ -189,6 +192,7 @@ const transform = data => {
               ibcTxSuccessDiff: channel.ibc_tx_diff,
               ibcTxFailed: channel.ibc_tx_failed,
               ibcTxFailedDiff: channel.ibc_tx_failed_diff,
+              ibcTxPending: channel.ibc_tx_pending,
               channelId: channel.channel_id,
               zoneCounterpartyChannelId: channel.zone_counterparty_channel_id,
               isOpened: channel.is_opened,
@@ -213,6 +217,7 @@ const transform = data => {
             ibcTxSuccessDiff: ibc_tx_diff,
             ibcTxFailed: ibc_tx_failed,
             ibcTxFailedDiff: ibc_tx_failed_diff,
+            ibcTxPending: ibc_tx_pending,
             isZoneUpToDate: is_zone_up_to_date,
             isZoneCounterpartyUpToDate: is_zone_counterparty_up_to_date,
             successRate: ibc_tx_success_rate / 100,
