@@ -483,67 +483,52 @@ function Graph({
             3D
           </button>
         </div>
-        {!!focusedNode ? (
-          <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
-            <div className={cx('shareTitle')}>
-              <FormattedMessage id="share" defaultMessage="Share" />
-            </div>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'telegram share',
-                  label: focusedNode.name,
-                })
-              }
-              href={telegramShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TgShareLogo />
-            </a>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'twitter share',
-                  label: focusedNode.name,
-                  extra: { period: period?.rawText },
-                })
-              }
-              href={twitterShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TwitterShareLogo />
-            </a>
-            {false && (
-              <button
-                type="button"
-                onClick={shareImage}
-                className={cx('roundButton', 'downloadButton')}
-              >
-                <div className={cx('downloadArrowIcon')}>↓</div>
-                <div className={cx('downloadIcon')} />
-              </button>
-            )}
+        <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
+          <div className={cx('shareTitle')}>
+            <FormattedMessage id="share" defaultMessage="Share" />
           </div>
-        ) : (
-          <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
-            {false && (
-              <button
-                type="button"
-                onClick={shareImage}
-                className={cx('roundButton', 'downloadButton')}
-              >
-                <div className={cx('downloadArrowIcon')}>↓</div>
-                <div className={cx('downloadIcon')} />
-              </button>
-            )}
-          </div>
-        )}
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'telegram share',
+                label: focusedNode?.name,
+              })
+            }
+            href={telegramShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TgShareLogo />
+          </a>
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'twitter share',
+                label: focusedNode?.name,
+                extra: { period: period?.rawText },
+              })
+            }
+            href={twitterShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TwitterShareLogo />
+          </a>
+          {false && (
+            <button
+              type="button"
+              onClick={shareImage}
+              className={cx('roundButton', 'downloadButton')}
+            >
+              <div className={cx('downloadArrowIcon')}>↓</div>
+              <div className={cx('downloadIcon')} />
+            </button>
+          )}
+        </div>
         {!!focusedNode && (
           <button
             type="button"

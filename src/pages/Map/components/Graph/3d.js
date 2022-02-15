@@ -305,44 +305,42 @@ function Graph({
             2D
           </button>
         </div>
-        {!!focusedNode && (
-          <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
-            <div className={cx('shareTitle')}>
-              <FormattedMessage id="share" defaultMessage="Share" />
-            </div>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'telegram share',
-                  label: focusedNode.name,
-                })
-              }
-              href={telegramShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TgShareLogo />
-            </a>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'twitter share',
-                  label: focusedNode.name,
-                  extra: { period: period?.rawText },
-                })
-              }
-              href={twitterShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TwitterShareLogo />
-            </a>
+        <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
+          <div className={cx('shareTitle')}>
+            <FormattedMessage id="share" defaultMessage="Share" />
           </div>
-        )}
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'telegram share',
+                label: focusedNode?.name,
+              })
+            }
+            href={telegramShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TgShareLogo />
+          </a>
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'twitter share',
+                label: focusedNode?.name,
+                extra: { period: period?.rawText },
+              })
+            }
+            href={twitterShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TwitterShareLogo />
+          </a>
+        </div>
         {!!focusedNode && (
           <button
             type="button"
