@@ -570,6 +570,12 @@ tbody.bodyWithFocus.focusFixed .row {
   color: #B8B8B8;
 }
 
+.pendingCell {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
 .pendingIcon {
   margin-right: 3px;
   width: 11px;

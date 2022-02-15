@@ -1,7 +1,13 @@
 import React from 'react';
 import { FormattedNumber } from 'react-intl';
+import classNames from 'classnames/bind';
 
 import { formatNumber, formatPercentage } from 'common/helper';
+import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
+
+import styles from './index.module.css';
+
+const cx = classNames.bind(styles);
 
 const columns = [
   {
@@ -49,6 +55,18 @@ const columns = [
     id: 'ibc_tx_success',
     diffAccessor: 'ibcTxSuccessDiff',
     Cell: ({ value }) => formatNumber(value),
+    sortDescFirst: true,
+  },
+  {
+    Header: 'IBC Pending',
+    accessor: 'ibcTxPending',
+    id: 'ibc_tx_pending',
+    Cell: ({ value }) => (
+      <span className={cx('pendingCell')}>
+        <PendingIcon className={cx('pendingIcon')} />
+        {formatNumber(value)}
+      </span>
+    ),
     sortDescFirst: true,
   },
   {
