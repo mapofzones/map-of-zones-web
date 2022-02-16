@@ -582,6 +582,11 @@ tbody.bodyWithFocus.focusFixed .row {
   height: 9px;
 }
 
+.pendingCell .pendingIcon {
+  width: 13px;
+  height: 13px;
+}
+
 /*
 @media (max-width: 1320px) {
   .explanation-icon .explanation-tooltip.centerPos {
