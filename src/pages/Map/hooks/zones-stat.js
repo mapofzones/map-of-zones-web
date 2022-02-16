@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { Graph } from '@dagrejs/graphlib';
 
-import { getIsUptrend, getNodeColor } from 'common/helper';
+import { getIsUptrend, getNodeColor, transformChartData } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
 
 const ZONES_STAT_FRAGMENT = gql`
@@ -353,7 +353,7 @@ const transform = (data, isTestnetVisible) => {
       return {
         id: zone,
         name: zone_readable_name,
-        txsActivity: chart_cashflow.map((txs, index) => ({ txs: txs[index] })),
+        txsActivity: transformChartData(chart_cashflow, 'txs'),
         totalTxs: total_txs,
         ibcTransfers: ibc_transfers,
         ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
