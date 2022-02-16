@@ -68,3 +68,13 @@ export function removeDuplicatedZoneCounerparties(arr) {
 
 export const getIsUptrend = txsActivities =>
   txsActivities[0]?.txs < txsActivities[txsActivities.length - 1]?.txs;
+
+export const transformChartData = (chartData, keyName) => {
+  return (chartData || []).reduce((newArray, currValue) => {
+    const index = Object.keys(currValue)[0];
+    const value = {};
+    value[keyName] = currValue[index];
+    newArray[index] = value;
+    return newArray;
+  }, []);
+}

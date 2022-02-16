@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
 
-import { getNodeColor } from 'common/helper';
+import { getNodeColor, transformChartData } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
 
 const TOTAL_STAT_FRAGMENT = gql`
@@ -138,12 +138,8 @@ const transform = data => {
     ibcVolumePending: ibc_cashflow_pending_period,
     ibcTxsPending: ibc_transfers_pending_period,
     ibcTxsFailed: ibc_transfers_failed_period,
-    ibcTxsChart: (chart_transfers || []).map((txs, index) => ({
-      txs: txs[index],
-    })),
-    ibcVolumeChart: (chart_cashflow || []).map((cashflow, index) => ({
-      cashflow: cashflow[index],
-    })),
+    ibcTxsChart: transformChartData(chart_transfers, 'txs'),
+    ibcVolumeChart: transformChartData(chart_cashflow, 'cashflow'),
     allZones: zones_cnt_all,
     activeZones: zones_cnt_period,
     allChannels: channels_cnt_all,
