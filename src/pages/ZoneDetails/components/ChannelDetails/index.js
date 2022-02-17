@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 
+import { DefaultUndefinedValue } from 'common/constants';
 import Modal from 'components/Modal';
 
 import { ReactComponent as CloseIcon } from 'assets/images/close-btn.svg';
@@ -82,7 +83,9 @@ function ChannelDetails({ isOpen, onAfterClose, onRequestClose, channel }) {
           <div className={cx('item-container')}>
             <div className={cx('item')}>Counterparty Channel ID</div>
             <div className={cx('item')}>
-              {channel?.zoneCounterpartyChannelId || '--'}
+              {channel?.zoneCounterpartyChannelId || (
+                <i>{DefaultUndefinedValue}</i>
+              )}
             </div>
           </div>
         </div>
