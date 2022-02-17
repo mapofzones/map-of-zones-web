@@ -260,62 +260,75 @@
   line-height: initial;
 }
 /*3-d col*/
-.header.ibcTransfers,
+/* .header.ibcTransfers,
 .cell.ibcTransfers {
   width: 123px;
   min-width: 123px;
   max-width: 123px;
-}
-
+} */
+/* 
 .header.activeAddresses,
 .cell.activeAddresses {
   width: 80px;
   min-width: 80px;
   max-width: 80px;
-}
+} */
 
 /*4-th col*/
-.header.totalTxs,
-.cell.totalTxs,
+/* .header.totalTxs,
+.cell.totalTxs, */
   /*5 col*/
-.header.ibcPercentage,
+/* .header.ibcPercentage,
 .cell.ibcPercentage {
   width: 99px;
   min-width: 99px;
   max-width: 99px;
-}
+} */
 
-/*6 col*/
-.header.ibcSent,
-.cell.ibcSent {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-}
-
-/*7 col*/
-.header.ibcReceived,
-.cell.ibcReceived {
+/*IBC Success col*/
+.header.ibcTxSuccess,
+.cell.ibcTxSuccess {
   width: 120px;
   min-width: 120px;
   max-width: 120px;
+  border-left: 1px solid var(--table-borders-color);
+}
+
+.cell.ibcTxPending .text-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ibcTxPending .pendingIcon {
+  width: 13px;
+  height: 13px;
+}
+
+/*IBC Failed col*/
+.header.ibcTxFailed,
+.cell.ibcTxFailed {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  border-right: 1px solid var(--table-borders-color);
 }
 
 /*8 col*/
-.header.channels,
+/* .header.channels,
 .cell.channels {
   min-width: 100px;
-}
+} */
 
 /*9 col*/
-.cell.txsActivity,
+/* .cell.txsActivity,
 .header.txsActivity {
   width: 146px;
-}
+} */
 
-.header.txsActivity > div {
+/* .header.txsActivity > div {
   width: 131px;
-}
+} */
 
 /*sort styles*/
 .header.sortedColumn,
@@ -359,17 +372,17 @@
   margin-right: 4px;
 }
 
-.IBC-circle.ibcSent {
+.ibcTxFailed .IBC-circle {
   display: block;
   background: var(--color-red);
 }
 
-.IBC-circle.ibcReceived {
+.ibcTxSuccess .IBC-circle {
   display: block;
   background: var(--color-green);
 }
 
-.IBC-circle.hided {
+.IBC-circle.hidden {
   opacity: 0;
 }
 
@@ -570,21 +583,10 @@ tbody.bodyWithFocus.focusFixed .row {
   color: #B8B8B8;
 }
 
-.pendingCell {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
 .pendingIcon {
   margin-right: 3px;
   width: 11px;
   height: 9px;
-}
-
-.pendingCell .pendingIcon {
-  width: 13px;
-  height: 13px;
 }
 
 /*
@@ -650,17 +652,5 @@ tbody.bodyWithFocus.focusFixed .row {
 
   .table-container {
     min-height: 50vh;
-  }
-
-  .header.ibcSent,
-  .cell.ibcSent,
-  .header.name,
-  .cell.name {
-    border-left: none;
-  }
-
-  .header.ibcReceived,
-  .cell.ibcReceived {
-    border-right: none;
   }
 }

@@ -13,6 +13,7 @@ const columns = [
   {
     Header: 'Zone',
     accessor: 'name',
+    className: 'name',
     id: 'name',
     disableSortBy: true,
     alwaysVisible: true,
@@ -21,6 +22,7 @@ const columns = [
     Header: 'Volume In',
     accessor: 'volumeIn',
     id: 'volume_in',
+    className: 'volumeIn',
     diffAccessor: 'volumeInDiff',
     pendingAccessor: 'volumeInPending',
     Cell: ({ value }) => (
@@ -36,6 +38,7 @@ const columns = [
   {
     Header: 'Volume Out',
     accessor: 'volumeOut',
+    className: 'volumeOut',
     id: 'volume_out',
     diffAccessor: 'volumeOutDiff',
     pendingAccessor: 'volumeOutPending',
@@ -52,6 +55,7 @@ const columns = [
   {
     Header: 'IBC Success',
     accessor: 'ibcTxSuccess',
+    className: 'ibcTxSuccess',
     id: 'ibc_tx_success',
     diffAccessor: 'ibcTxSuccessDiff',
     Cell: ({ value }) => formatNumber(value),
@@ -60,18 +64,20 @@ const columns = [
   {
     Header: 'IBC Pending',
     accessor: 'ibcTxPending',
+    className: 'ibcTxPending',
     id: 'ibc_tx_pending',
     Cell: ({ value }) => (
-      <span className={cx('pendingCell')}>
+      <>
         <PendingIcon className={cx('pendingIcon')} />
         {formatNumber(value)}
-      </span>
+      </>
     ),
     sortDescFirst: true,
   },
   {
     Header: 'IBC Failed',
     accessor: 'ibcTxFailed',
+    className: 'ibcTxFailed',
     id: 'ibc_tx_failed',
     diffAccessor: 'ibcTxFailedDiff',
     Cell: ({ value }) => formatNumber(value),
@@ -80,6 +86,7 @@ const columns = [
   {
     Header: 'Success rate',
     accessor: 'successRate',
+    className: 'successRate',
     id: 'success_rate',
     diffAccessor: 'successRateDiff',
     Cell: ({ value }) => formatPercentage(value),

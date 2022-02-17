@@ -19,9 +19,7 @@ const Thead = ({ headerGroups, onHeaderClick }) => {
           {headerGroup.headers.map(column => (
             <th
               {...column.getHeaderProps(column.getSortByToggleProps())}
-              className={cx('header', column.id, {
-                ibcReceived: column.Header === 'IBC Success',
-                ibcSent: column.Header === 'IBC Failed',
+              className={cx('header', column.className, {
                 sortedColumn: column.isSorted,
               })}
               title=""
@@ -31,12 +29,7 @@ const Thead = ({ headerGroups, onHeaderClick }) => {
                   ableSortCol: !column.disableSortBy,
                 })}
               >
-                <div
-                  className={cx('IBC-circle', {
-                    ibcReceived: column.Header === 'IBC Success',
-                    ibcSent: column.Header === 'IBC Failed',
-                  })}
-                />
+                <div className={cx('IBC-circle')} />
                 <div onClick={onHeaderClick}>{column.render('Header')}</div>
                 {!!column.tooltip && !isMobile && (
                   <div className={cx('explanation-icon')}>
@@ -45,7 +38,7 @@ const Thead = ({ headerGroups, onHeaderClick }) => {
                       className={cx('explanation-tooltip', {
                         centerPos:
                           column.id === 'channels' ||
-                          column.id === 'ibcReceived',
+                          column.id === 'ibc_tx_success',
                       })}
                     >
                       {column.tooltip}
