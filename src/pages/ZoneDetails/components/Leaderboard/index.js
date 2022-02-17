@@ -246,9 +246,7 @@ function Leaderboard({
                   return (
                     <td
                       {...cell.getCellProps()}
-                      className={cx('cell', cell.column.id, {
-                        ibcReceived: cell.column.id === 'ibc_tx_success',
-                        ibcSent: cell.column.id === 'ibc_tx_failed',
+                      className={cx('cell', cell.column.className, {
                         sortedColumn: cell.column.isSorted,
                       })}
                     >
