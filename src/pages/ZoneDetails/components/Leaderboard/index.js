@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
 
+import { DefaultUndefinedValue } from 'common/constants';
 import { isNumber } from 'common/helper';
 import Status from 'components/Status';
 
@@ -155,7 +156,9 @@ function Leaderboard({
         return (
           <div className={cx('cell-container', 'channelIdContainer')}>
             <div className={cx('channelIndex')}>{cell.row.index + 1}</div>
-            <div>{cell.row.original.channelId || '--'}</div>
+            <div>
+              {cell.row.original.channelId || <i>{DefaultUndefinedValue}</i>}
+            </div>
             <div className={cx('channelLineContainer')}>
               <div
                 className={cx('dot', {
@@ -174,7 +177,9 @@ function Leaderboard({
               />
             </div>
             <div className={cx('zoneCounterpartyChannelId')}>
-              {cell.row.original.zoneCounterpartyChannelId || '--'}
+              {cell.row.original.zoneCounterpartyChannelId || (
+                <i>{DefaultUndefinedValue}</i>
+              )}
             </div>
           </div>
         );
