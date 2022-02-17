@@ -18,7 +18,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 12px;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .sourceInfo {

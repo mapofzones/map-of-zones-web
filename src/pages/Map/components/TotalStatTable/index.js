@@ -39,15 +39,7 @@ function TotalStatTable({
         <div className={cx('item')}>
           <div className={cx('statContainer')}>
             <div className={cx('statNameContainer')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="ibc-volume"
-                  defaultMessage="IBC volume {period}"
-                  values={{
-                    period: <span className={cx('period')}>{period}</span>,
-                  }}
-                />
-              </div>
+              <div className={cx('statName')}>IBC volume</div>
               {!!ibcVolumePending && (
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
@@ -60,13 +52,16 @@ function TotalStatTable({
                 </div>
               )}
             </div>
-            <div className={cx('statValue', 'diffContainer')}>
-              <FormattedNumber
-                value={ibcVolume}
-                style="currency"
-                currency="USD"
-                maximumFractionDigits="0"
-              />
+            <div className={cx('statRow', 'diffContainer')}>
+              <span className={cx('statValue')}>
+                <FormattedNumber
+                  value={ibcVolume}
+                  style="currency"
+                  currency="USD"
+                  maximumFractionDigits="0"
+                />
+              </span>
+              <span className={cx('period')}>{period}</span>
               {isNumber(ibcVolumeDiff) && (
                 <div
                   className={cx('diffTooltip', 'top', {
@@ -101,12 +96,7 @@ function TotalStatTable({
         <div className={cx('item')}>
           <div className={cx('statContainer')}>
             <div className={cx('statNameContainer')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="number-of-ibc-txs-stat"
-                  defaultMessage="IBC transfers"
-                />
-              </div>
+              <div className={cx('statName')}>IBC transfers</div>
               {!!ibcTxsPending && (
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
@@ -151,40 +141,23 @@ function TotalStatTable({
           )}
         </div>
         <div className={cx('item')}>
-          <div className={cx('statContainerSmall')}>
-            <div className={cx('statContainer', 'small')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="all-zones-stat"
-                  defaultMessage="All Zones"
-                />
-              </div>
+          <div className={cx('statContainer', 'row')}>
+            <div className={cx('statContainer', 'small', 'nested')}>
+              <div className={cx('statName')}>All Zones</div>
               <div className={cx('statValue')}>{formatNumber(allZones)}</div>
             </div>
-            <div className={cx('statContainer', 'small')}>
-              <div className={cx('statName')}>
-                <FormattedMessage
-                  id="active-zones-stat"
-                  defaultMessage="Active Zones {period}"
-                  values={{
-                    period: <span className={cx('period')}>{period}</span>,
-                  }}
-                />
-              </div>
+            <div className={cx('statContainer', 'small', 'nested')}>
+              <div className={cx('statName')}>Active Zones</div>
               <div className={cx('statValue')}>{formatNumber(activeZones)}</div>
             </div>
+            <span className={cx('period')}>{period}</span>
           </div>
         </div>
         {showChannels && (
           <div className={cx('item')}>
-            <div className={cx('statContainerSmall')}>
+            <div className={cx('statContainer', 'row')}>
               <div className={cx('statContainer', 'small')}>
-                <div className={cx('statName')}>
-                  <FormattedMessage
-                    id="all-channels-stat"
-                    defaultMessage="All Channels"
-                  />
-                </div>
+                <div className={cx('statName')}>All Channels</div>
                 <div className={cx('statValue')}>
                   {formatNumber(allChannels)}
                 </div>
@@ -207,15 +180,16 @@ function TotalStatTable({
           </div>
         )}
         <div className={cx('item')}>
-          <div className={cx('statContainer', 'mostActiveZonesPairContainer')}>
-            <div>
+          <div
+            className={cx(
+              'statContainer',
+              'row',
+              'mostActiveZonesPairContainer',
+            )}
+          >
+            <div className={cx('statContainer', 'nested')}>
               <div className={cx('statNameContainer')}>
-                <div className={cx('statName')}>
-                  <FormattedMessage
-                    id="most-active-zones-pair-stat"
-                    defaultMessage="Most Active Pair of Zones"
-                  />
-                </div>
+                <div className={cx('statName')}>Most Active Pair of Zones</div>
               </div>
               {mostActiveByTxsZonesPair && (
                 <div className={cx('mostActiveZonesPair')}>
@@ -278,15 +252,16 @@ function TotalStatTable({
           </div>
         </div>
         <div className={cx('item')}>
-          <div className={cx('statContainer', 'mostActiveZonesPairContainer')}>
-            <div>
+          <div
+            className={cx(
+              'statContainer',
+              'row',
+              'mostActiveZonesPairContainer',
+            )}
+          >
+            <div className={cx('statContainer', 'nested')}>
               <div className={cx('statNameContainer')}>
-                <div className={cx('statName')}>
-                  <FormattedMessage
-                    id="biggest-volume-pair-stat"
-                    defaultMessage="Biggest volume Pair"
-                  />
-                </div>
+                <div className={cx('statName')}>Biggest volume Pair</div>
               </div>
               {mostActiveByVolumeZonesPair && (
                 <div className={cx('mostActiveZonesPair')}>
