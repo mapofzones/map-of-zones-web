@@ -267,8 +267,8 @@
   min-width: 104px;
   max-width: 104px;
 }
-.header.totalActiveAddresses,
-.cell.totalActiveAddresses {
+.header.ibcActiveAddresses,
+.cell.ibcActiveAddresses {
   width: 100px;
   min-width: 100px;
   max-width: 100px;
@@ -589,7 +589,7 @@ tbody.bodyWithFocus.focusFixed .row {
   height: 9px;
 }
 
-.cell.totalActiveAddresses .text-container {
+.cell.ibcActiveAddresses .text-container {
   display: flex;
   align-items: flex-end;
   justify-content: start;

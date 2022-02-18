@@ -46,10 +46,10 @@ const Thead = ({
               >
                 <div className={cx('IBC-circle', column.id)} />
                 {column.dependOnPeriod ? (
-                  <div>
-                    {period === '24h' && <div onClick={onHeaderClick}>DAU</div>}
-                    {period === '7d' && <div onClick={onHeaderClick}>WAU</div>}
-                    {period === '30d' && <div onClick={onHeaderClick}>MAU</div>}
+                  <div onClick={onHeaderClick}>
+                    {period === '24h' && 'IBC DAU'}
+                    {period === '7d' && 'IBC WAU'}
+                    {period === '30d' && 'IBC MAU'}
                   </div>
                 ) : (
                   <div className={cx('header-name')} onClick={onHeaderClick}>

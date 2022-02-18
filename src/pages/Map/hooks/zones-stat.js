@@ -42,19 +42,19 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_in_rating_diff
     ibc_tx_in_mainnet_rating
     ibc_tx_in_mainnet_rating_diff
-    total_active_addresses
-    total_active_addresses_diff
-    total_active_addresses_weight
-    total_active_addresses_mainnet_weight
+    ibc_active_addresses
+    ibc_active_addresses_diff
+    ibc_active_addresses_weight
+    ibc_active_addresses_mainnet_weight
     ibc_tx_failed
     success_rate
     ibc_tx_out_failed
     ibc_tx_in_failed
     ibc_tx_failed_diff
-    total_active_addresses_rating
-    total_active_addresses_rating_diff
-    total_active_addresses_mainnet_rating
-    total_active_addresses_mainnet_rating_diff
+    ibc_active_addresses_rating
+    ibc_active_addresses_rating_diff
+    ibc_active_addresses_mainnet_rating
+    ibc_active_addresses_mainnet_rating_diff
     is_zone_up_to_date
     is_zone_mainnet
     zone_readable_name
@@ -293,19 +293,19 @@ const transform = (data, isTestnetVisible) => {
       ibc_tx_in_rating_diff,
       ibc_tx_in_mainnet_rating,
       ibc_tx_in_mainnet_rating_diff,
-      total_active_addresses,
-      total_active_addresses_diff,
-      total_active_addresses_weight,
-      total_active_addresses_mainnet_weight,
+      ibc_active_addresses,
+      ibc_active_addresses_diff,
+      ibc_active_addresses_weight,
+      ibc_active_addresses_mainnet_weight,
       ibc_tx_failed,
       success_rate,
       ibc_tx_out_failed,
       ibc_tx_in_failed,
       ibc_tx_failed_diff,
-      total_active_addresses_rating,
-      total_active_addresses_rating_diff,
-      total_active_addresses_mainnet_rating,
-      total_active_addresses_mainnet_rating_diff,
+      ibc_active_addresses_rating,
+      ibc_active_addresses_rating_diff,
+      ibc_active_addresses_mainnet_rating,
+      ibc_active_addresses_mainnet_rating_diff,
       is_zone_up_to_date,
       is_zone_mainnet,
       zone_readable_name,
@@ -428,12 +428,12 @@ const transform = (data, isTestnetVisible) => {
         ibcVolumeReceivedRatingDiff: isTestnetVisible
           ? ibc_cashflow_in_rating_diff
           : ibc_cashflow_in_mainnet_rating_diff,
-        totalActiveAddresses: total_active_addresses,
-        totalActiveAddressesDiff: total_active_addresses_diff,
-        totalActiveAddressesWeight:
+        ibcActiveAddresses: ibc_active_addresses,
+        ibcActiveAddressesDiff: ibc_active_addresses_diff,
+        ibcActiveAddressesWeight:
           (isTestnetVisible
-            ? total_active_addresses_weight
-            : total_active_addresses_mainnet_weight || 0.15) *
+            ? ibc_active_addresses_weight
+            : ibc_active_addresses_mainnet_weight || 0.15) *
             10 +
           1,
         ibcTxFailed: ibc_tx_failed,
@@ -441,12 +441,12 @@ const transform = (data, isTestnetVisible) => {
         ibcTxInFailed: ibc_tx_in_failed,
         successRate: success_rate / 100,
         ibcTxFailedDiff: ibc_tx_failed_diff,
-        totalActiveAddressesRating: isTestnetVisible
-          ? total_active_addresses_rating
-          : total_active_addresses_mainnet_rating,
-        totalActiveAddressesRatingDiff: isTestnetVisible
-          ? total_active_addresses_rating_diff
-          : total_active_addresses_mainnet_rating_diff,
+        ibcActiveAddressesRating: isTestnetVisible
+          ? ibc_active_addresses_rating
+          : ibc_active_addresses_mainnet_rating,
+        ibcActiveAddressesRatingDiff: isTestnetVisible
+          ? ibc_active_addresses_rating_diff
+          : ibc_active_addresses_mainnet_rating_diff,
         color: total_ibc_txs
           ? getNodeColor(ibc_tx_out / total_ibc_txs)
           : DEFAULT_COLOR,
