@@ -4,12 +4,28 @@ import classNames from 'classnames/bind';
 
 import { formatNumber, formatPercentage } from 'common/helper';
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
+import { ReactComponent as ArrowUp } from './assets/arrow-up.svg';
+import { ReactComponent as ArrowDown } from './assets/arrow-down.svg';
 
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
 
 const columns = [
+  {
+    Header: '',
+    id: 'position',
+    className: 'position',
+    Cell: ({ row, state, rowsById }) => {
+      if (row.depth === 0) {
+        const Arrow = row.isExpanded ? ArrowUp : ArrowDown;
+        return <Arrow className={cx('expandArrow')} />;
+      }
+      return getRowIndex(row, rowsById, state);
+    },
+    disableSortBy: true,
+    alwaysVisible: true,
+  },
   {
     Header: 'Zone',
     accessor: 'name',
@@ -93,5 +109,13 @@ const columns = [
     sortDescFirst: true,
   },
 ];
+
+function getRowIndex(row, rowsById, state) {
+  const parentIndex = row.id.split('.')[0];
+  const parentRow = rowsById[parentIndex];
+  const index = parentRow.subRows.indexOf(row);
+  const sortBy = state?.sortBy?.[0];
+  return !sortBy || sortBy.desc ? index + 1 : parentRow.subRows.length - index;
+}
 
 export default columns;
