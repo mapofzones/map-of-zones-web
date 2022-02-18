@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedNumber } from 'react-intl';
-import { formatPercentage, formatNumber } from 'common/helper';
+import { formatNumber } from 'common/helper';
 
 import TxsActivityCell from './cells/TxsActivity';
 
@@ -153,15 +153,15 @@ const columns = [
   // },
   {
     Header: 'Active Addresses',
-    accessor: 'totalActiveAddressesRating',
-    id: 'totalActiveAddresses',
-    diffAccessor: 'totalActiveAddressesDiff',
-    ratingAccessor: 'totalActiveAddressesRatingDiff',
+    accessor: 'ibcActiveAddressesRating',
+    id: 'ibcActiveAddresses',
+    diffAccessor: 'ibcActiveAddressesDiff',
+    ratingAccessor: 'ibcActiveAddressesRatingDiff',
     Cell: ({ itemValue }) =>
       itemValue === null ? '-' : formatNumber(itemValue),
     tooltip: 'Active addresses',
     dependOnPeriod: true,
-    zoneWeightAccessor: 'totalActiveAddressesWeight',
+    zoneWeightAccessor: 'ibcActiveAddressesWeight',
   },
   {
     Header: 'IBC volume activity',
