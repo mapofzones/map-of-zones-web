@@ -8,8 +8,6 @@ import { isNumber } from 'common/helper';
 import Status from 'components/Status';
 
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
-import { ReactComponent as ArrowUp } from './assets/arrow-up.svg';
-import { ReactComponent as ArrowDown } from './assets/arrow-down.svg';
 
 import Thead from './Thead';
 import columnsConfig from './config';
@@ -81,14 +79,14 @@ function Leaderboard({
 
   const renderCell = cell => {
     switch (cell.column.id) {
+      case 'position': {
+        return cell.render('Cell');
+      }
       case 'name': {
         if (cell.row.depth === 0) {
           if (cell.row.isExpanded) {
             return (
               <div className={cx('zonesPairContainer')}>
-                <div className={cx('expandArrowContainer')}>
-                  <ArrowUp className={cx('expandArrow')} />
-                </div>
                 <div className={cx('zonesPair')}>
                   <div className={cx('zoneInfoHeader')}>
                     {cell.row.original.sourceZoneLabelUrl ? (
@@ -131,9 +129,6 @@ function Leaderboard({
 
           return (
             <div className={cx('cell-container')}>
-              <div className={cx('expandArrowContainer')}>
-                <ArrowDown className={cx('expandArrow')} />
-              </div>
               {cell.row.original.zoneCounterpartyLabelUrl ? (
                 <img
                   className={cx('image-container')}
@@ -155,7 +150,6 @@ function Leaderboard({
 
         return (
           <div className={cx('cell-container', 'channelIdContainer')}>
-            <div className={cx('channelIndex')}>{cell.row.index + 1}</div>
             <div>
               {cell.row.original.channelId || <i>{DefaultUndefinedValue}</i>}
             </div>

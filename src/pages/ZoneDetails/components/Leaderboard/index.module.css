@@ -138,13 +138,6 @@
   min-width: 140px;
 }
 
-.expandArrowContainer {
-  width: 16px;
-  margin-right: 8px;
-  text-align: center;
-  color: #ccc;
-}
-
 .expandArrow {
   margin-bottom: 4px;
 }
@@ -216,30 +209,10 @@
 }
 
 /*1-st col*/
-.header.position {
-  color: rgba(128, 128, 128, 0.5);
-}
-
-.header.position .header-container {
-  justify-content: center;
-}
-
 .cell.position {
+  width: 16px;
   text-align: center;
-  color: rgba(0, 0, 0, 0.2);
-  vertical-align: initial;
-}
-
-.cell.position .text-container {
-  color: rgba(114, 114, 114, 0.5);
-  padding: 0;
-}
-
-.header.position > div,
-.header.position,
-.cell.position {
-  width: 32px;
-  padding: 0;
+  color: #ccc;
 }
 
 .header.name,
@@ -560,13 +533,6 @@ tbody.bodyWithFocus.focusFixed .row {
   height: 1px;
   flex-grow: 1;
   background-color: #D76969;
-}
-
-.channelIndex {
-  width: 16px;
-  margin-right: 8px;
-  text-align: center;
-  color: #ccc;
 }
 
 .zoneCounterpartyChannelId {
