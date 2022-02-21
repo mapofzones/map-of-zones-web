@@ -54,8 +54,10 @@ function Leaderboard({
     useExpanded,
   );
 
-  const sortBy = state?.sortBy?.[0];
-  const initialSortBy = initialState?.sortBy?.[0];
+  const sortBy = useMemo(() => state?.sortBy?.[0], [state]);
+  const initialSortBy = useMemo(() => initialState?.sortBy?.[0], [
+    initialState,
+  ]);
   const sortedColumn = columns.find(({ isSorted }) => isSorted);
 
   const onRowClick = useCallback(
@@ -69,7 +71,7 @@ function Leaderboard({
 
   useEffect(() => {
     if (sortedColumn) {
-      onSortChange({ ...sortedColumn });
+      onSortChange({ id: sortBy.id, desc: sortBy.desc });
     }
   }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
 
