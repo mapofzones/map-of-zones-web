@@ -322,7 +322,12 @@ function TotalStatTable({
                 </div>
                 <div className={cx('pendingContainer')}>
                   <PendingIcon className={cx('pendingIcon')} />
-                  {mostActiveByVolumeZonesPair.volumePending}
+                  <FormattedNumber
+                    value={mostActiveByVolumeZonesPair.volumePending}
+                    style="currency"
+                    currency="USD"
+                    maximumFractionDigits="0"
+                  />
                 </div>
                 <span className={cx('period')}>{period}</span>
               </div>
