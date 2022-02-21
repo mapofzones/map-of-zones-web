@@ -13,6 +13,7 @@ import PeriodSwitcher from 'components/PeriodSwitcher';
 import styles from './index.module.css';
 import { useTwitterShareText } from 'pages/Map/components/Graph/hooks';
 import { useTelegramShareText } from './../../../Map/components/Graph/hooks';
+import { ExternalLink } from 'components/ExternalLink';
 
 const cx = classNames.bind(styles);
 
@@ -64,33 +65,16 @@ function Header({
             {source?.name || ''}
           </div>
           {!!source?.website && (
-            <a
-              href={source.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('externalLink')}
-            >
-              Visit website
-            </a>
+            <ExternalLink href={source.website}>Visit Website</ExternalLink>
           )}
-          <a
-            href={twitterShareText}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cx('externalLink')}
-          >
+          <ExternalLink href={twitterShareText}>
             <TwitterShareLogo />
             Tweet
-          </a>
-          <a
-            href={telegramShareText}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cx('externalLink')}
-          >
+          </ExternalLink>
+          <ExternalLink href={telegramShareText}>
             <TgShareLogo />
             Send
-          </a>
+          </ExternalLink>
         </div>
         <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
       </div>
