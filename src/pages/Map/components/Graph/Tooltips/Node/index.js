@@ -27,7 +27,7 @@ function NodeTooltip({ node, period }) {
     const search = {
       period: period.hours,
       source: node.id,
-      tableOrderBy: 'success',
+      tableOrderBy: 'volume_in',
       tableOrderSort: 'desc',
     };
 

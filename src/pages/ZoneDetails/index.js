@@ -10,7 +10,7 @@ import Loader from './components/Loader';
 import ChannelDetails from './components/ChannelDetails';
 import { usePeriodSelector } from '../Map/hooks';
 
-import { useShowTestnet, useChannelGroupStat } from './hooks';
+import { useShowTestnet, useChannelGroupStat, useSorting } from './hooks';
 
 function Channel() {
   const location = useLocation();
@@ -31,6 +31,19 @@ function Channel() {
       },
     };
   }, [source, period.hours]);
+
+  const [sort, setSort] = useSorting();
+  const initialState = useMemo(
+    () => ({
+      sortBy: [
+        {
+          id: sort.tableOrderBy,
+          desc: true,
+        },
+      ],
+    }),
+    [sort.tableOrderBy],
+  );
 
   const { channelGroup, sourceZone } = useChannelGroupStat(
     options,
@@ -79,7 +92,12 @@ function Channel() {
           period={period}
           setPeriod={setPeriod}
         />
-        <Leaderboard data={channelGroup} onChannelClick={selectChannel} />
+        <Leaderboard
+          data={channelGroup}
+          onChannelClick={selectChannel}
+          initialState={initialState}
+          onSortChange={setSort}
+        />
         <Footer />
         <ChannelDetails
           onRequestClose={() => selectChannel(null)}
