@@ -38,7 +38,6 @@ function Leaderboard({
     rows,
     prepareRow,
     state,
-    columns,
     setGlobalFilter,
   } = useTable(
     {
@@ -55,11 +54,6 @@ function Leaderboard({
   );
 
   const sortBy = useMemo(() => state?.sortBy?.[0], [state]);
-  const initialSortBy = useMemo(() => initialState?.sortBy?.[0], [
-    initialState,
-  ]);
-  const sortedColumn = columns.find(({ isSorted }) => isSorted);
-
   const onRowClick = useCallback(
     row => {
       if (row.depth !== 0) {
@@ -70,10 +64,10 @@ function Leaderboard({
   );
 
   useEffect(() => {
-    if (sortedColumn) {
-      onSortChange({ id: sortBy.id, desc: sortBy.desc });
+    if (sortBy) {
+      onSortChange(sortBy);
     }
-  }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
+  }, [sortBy, onSortChange]);
 
   useEffect(() => {
     setGlobalFilter(() => rowsToSort => filter(rowsToSort, sortBy));

@@ -38,11 +38,11 @@ function Channel() {
       sortBy: [
         {
           id: sort.tableOrderBy,
-          desc: true,
+          desc: sort.tableOrderSort !== 'asc',
         },
       ],
     }),
-    [sort.tableOrderBy],
+    [sort.tableOrderBy, sort.tableOrderSort],
   );
 
   const { channelGroup, sourceZone } = useChannelGroupStat(
