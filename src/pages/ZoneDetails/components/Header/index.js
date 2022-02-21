@@ -5,10 +5,14 @@ import classNames from 'classnames/bind';
 import { ReactComponent as BackIcon } from 'assets/images/arrow-back.svg';
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { ReactComponent as LogoBeta } from 'assets/images/logo-beta.svg';
+import { ReactComponent as TgShareLogo } from 'assets/images/tg-share.svg';
+import { ReactComponent as TwitterShareLogo } from 'assets/images/twitter-share.svg';
 
 import PeriodSwitcher from 'components/PeriodSwitcher';
 
 import styles from './index.module.css';
+import { useTwitterShareText } from 'pages/Map/components/Graph/hooks';
+import { useTelegramShareText } from './../../../Map/components/Graph/hooks';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +25,9 @@ function Header({
   period,
   setPeriod,
 }) {
+  const twitterShareText = useTwitterShareText(source?.name, period);
+  const telegramShareText = useTelegramShareText(source?.name, period);
+
   return (
     <div className={cx('container')}>
       <Logo onClick={navigateToMainPage} className={cx('logo')} />
@@ -52,7 +59,7 @@ function Header({
                 className={cx('header-title-image')}
                 src={source.labelUrl}
                 alt=""
-              />
+            />
             )}
             {source?.name || ''}
           </div>
@@ -61,11 +68,29 @@ function Header({
               href={source.website}
               target="_blank"
               rel="noopener noreferrer"
-              className={cx('zoneWebsite')}
+              className={cx('externalLink')}
             >
               Visit website
             </a>
           )}
+          <a
+            href={twitterShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('externalLink')}
+          >
+            <TwitterShareLogo />
+            Tweet
+          </a>
+          <a
+            href={telegramShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('externalLink')}
+          >
+            <TgShareLogo />
+            Send
+          </a>
         </div>
         <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
       </div>

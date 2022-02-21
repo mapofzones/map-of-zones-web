@@ -190,8 +190,8 @@ function Graph({
     },
     [setShowFilter, setFilter, clearNodeFocus],
   );
-  const twitterShareText = useTwitterShareText(focusedNode, period);
-  const telegramShareText = useTelegramShareText(focusedNode, period);
+  const twitterShareText = useTwitterShareText(focusedNode?.name, period);
+  const telegramShareText = useTelegramShareText(focusedNode?.name, period);
   const nodeColor = useNodeColor(focusedNode, focusedNodeNeighbors);
   const nodeThreeObject = useNodeThreeObject(focusedNode, focusedNodeNeighbors);
   const linkThreeObject = useLinkThreeObject(focusedNode);

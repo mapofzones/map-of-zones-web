@@ -177,25 +177,25 @@ export const useShareLink = queryParams => {
   );
 };
 
-export const getZoneName = focusedNode => {
-  return !!focusedNode ? `«${focusedNode.name}» zone` : 'Cosmos Network';
+export const getZoneName = zoneName => {
+  return !!zoneName ? `«${zoneName}» zone` : 'Cosmos Network';
 };
 
-export const useTwitterShareText = (focusedNode, period) => {
+export const useTwitterShareText = (activeZoneName, period) => {
   const queryParams = useMemo(() => ({ utm_source: 'twitter.com' }), []);
   const shareLink = useShareLink(queryParams);
   const text = useMemo(() => {
-    const zoneName = getZoneName(focusedNode);
+    const zoneName = getZoneName(activeZoneName);
     return `Check out the ${zoneName} inter-connection activity for the last ${period?.rawText}:
 ${shareLink}
 by @mapofzones
 #CosmosNetwork #IBC #MapOfZones #IBCGang #DeFi #Cosmos #Blockchain`;
-  }, [shareLink, focusedNode, period]);
+  }, [shareLink, activeZoneName, period]);
 
   return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 };
 
-export const useTelegramShareText = (focusedNode, period) => {
+export const useTelegramShareText = (activeZoneName, period) => {
   const queryParams = useMemo(
     () => ({
       utm_source: 'telegram.org',
@@ -204,10 +204,10 @@ export const useTelegramShareText = (focusedNode, period) => {
   );
   const shareLink = useShareLink(queryParams);
   const text = useMemo(() => {
-    const zoneName = getZoneName(focusedNode);
+    const zoneName = getZoneName(activeZoneName);
     return `Check out the ${zoneName} inter-connection activity for the last ${period?.rawText}
 by @mapofzones`;
-  }, [focusedNode, period]);
+  }, [activeZoneName, period]);
 
   return `https://t.me/share/url?url=${encodeURIComponent(
     shareLink,

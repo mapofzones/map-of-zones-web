@@ -350,8 +350,8 @@ function Graph({
     focusedNode,
     hoveredNode || draggedNode,
   );
-  const twitterShareText = useTwitterShareText(focusedNode, period);
-  const telegramShareText = useTelegramShareText(focusedNode, period);
+  const twitterShareText = useTwitterShareText(focusedNode?.name, period);
+  const telegramShareText = useTelegramShareText(focusedNode?.name, period);
   const containerRef = useRef(null);
   const shareImage = useCallback(async () => {
     if (containerRef?.current) {
