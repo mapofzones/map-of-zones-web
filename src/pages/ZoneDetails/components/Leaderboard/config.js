@@ -50,6 +50,8 @@ const columns = [
       />
     ),
     sortDescFirst: true,
+    tooltip:
+      'USD value of tokens successfully received from a particular peer with pertinent volume in progress',
   },
   {
     Header: 'Volume Out',
@@ -67,6 +69,8 @@ const columns = [
       />
     ),
     sortDescFirst: true,
+    tooltip:
+      'USD value of tokens transferred outwards to a particular peer with pertinent volume in progress',
   },
   {
     Header: 'IBC Success',
@@ -76,6 +80,7 @@ const columns = [
     diffAccessor: 'ibcTxSuccessDiff',
     Cell: ({ value }) => formatNumber(value),
     sortDescFirst: true,
+    tooltip: `Number of transfers successfully 'transferred to' and 'received from' a particular peer`,
   },
   {
     Header: 'IBC Pending',
@@ -89,6 +94,7 @@ const columns = [
       </>
     ),
     sortDescFirst: true,
+    tooltip: 'Balancing figure between inbound and outbound IBC transfers',
   },
   {
     Header: 'IBC Failed',
@@ -98,6 +104,8 @@ const columns = [
     diffAccessor: 'ibcTxFailedDiff',
     Cell: ({ value }) => formatNumber(value),
     sortDescFirst: true,
+    tooltip:
+      'Number of IBC transfers failed attributed to a particular pair of channels between Zones',
   },
   {
     Header: 'Success rate',
