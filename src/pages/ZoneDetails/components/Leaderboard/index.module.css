@@ -261,9 +261,9 @@
 /*IBC Success col*/
 .header.ibcTxSuccess,
 .cell.ibcTxSuccess {
-  width: 120px;
-  min-width: 120px;
-  max-width: 120px;
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
   border-left: 1px solid var(--table-borders-color);
 }
 
@@ -281,9 +281,9 @@
 /*IBC Failed col*/
 .header.ibcTxFailed,
 .cell.ibcTxFailed {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
+  width: 115px;
+  min-width: 115px;
+  max-width: 115px;
   border-right: 1px solid var(--table-borders-color);
 }
 
