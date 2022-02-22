@@ -33,6 +33,7 @@ export const useShowTestnet = () => {
     [location.search],
   );
 
+  // TODO: there is similar hook in ZoneDetails, but without this useEffect
   useEffect(() => {
     const search = parse(location.search);
 
