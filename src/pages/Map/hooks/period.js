@@ -19,10 +19,10 @@ export const usePeriodSelector = () => {
       }
 
       if (location.search !== `?${stringify(search)}`) {
-        history.push(`?${stringify(search)}`);
+        history.push(`?${stringify(search)}`, location.state);
       }
     },
-    [history, location.search],
+    [history, location.search, location.state],
   );
   const period = useMemo(() => parseInt(parse(location.search).period, 10), [
     location.search,

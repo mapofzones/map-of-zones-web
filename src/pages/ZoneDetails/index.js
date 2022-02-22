@@ -58,11 +58,8 @@ function Channel() {
     if (location.state?.navigateFrom) {
       const search = parse(location.state.navigateFrom.search);
 
-      if (isTestnetVisible) {
-        search.testnet = true;
-      } else {
-        search.testnet = false;
-      }
+      search.testnet = !!isTestnetVisible;
+      search.period = period.hours;
 
       history.push(
         `${location.state.navigateFrom.pathname}?${stringify(search)}`,
@@ -76,7 +73,7 @@ function Channel() {
 
       history.replace(`/?${stringify(search)}`);
     }
-  }, [history, isTestnetVisible, location.state]);
+  }, [history, isTestnetVisible, location.state, period.hours]);
 
   if (!sourceZone) {
     return <Loader />;
