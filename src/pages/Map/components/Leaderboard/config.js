@@ -101,7 +101,8 @@ const columns = [
       cell.row.original.totalActiveAddresses === null
         ? '-'
         : formatNumber(cell.row.original.totalActiveAddresses),
-    tooltip: 'Active addresses',
+    tooltip:
+      'Zone-related active addresses and Cosmos Network active addresses that initiate IBC transfers from/to this Zone',
     dependOnPeriod: true,
     zoneWeightAccessor: 'totalActiveAddressesWeight',
   },
