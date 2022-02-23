@@ -80,6 +80,8 @@ const columns = [
     diffAccessor: 'ibcTxSuccessDiff',
     Cell: ({ value }) => formatNumber(value),
     sortDescFirst: true,
+    sortType: (rowA, rowB, id, desc) =>
+      multipleSorting(rowA, rowB, [id, 'ibc_tx_pending']),
     tooltip: `Number of transfers successfully 'transferred to' and 'received from' a particular peer`,
   },
   {
@@ -104,6 +106,8 @@ const columns = [
     diffAccessor: 'ibcTxFailedDiff',
     Cell: ({ value }) => formatNumber(value),
     sortDescFirst: true,
+    sortType: (rowA, rowB, id, desc) =>
+      multipleSorting(rowA, rowB, [id, 'ibc_tx_pending']),
     tooltip:
       'Number of IBC transfers failed attributed to a particular pair of channels between Zones',
   },
@@ -124,6 +128,15 @@ function getRowIndex(row, rowsById, state) {
   const index = parentRow.subRows.indexOf(row);
   const sortBy = state?.sortBy?.[0];
   return !sortBy || sortBy.desc ? index + 1 : parentRow.subRows.length - index;
+}
+
+function multipleSorting(row1, row2, sortedColumnIds) {
+  for (let i = 0; i < sortedColumnIds.length; i++) {
+    const columnId = sortedColumnIds[i];
+    if (row1.values[columnId] > row2.values[columnId]) return 1;
+    if (row2.values[columnId] > row1.values[columnId]) return -1;
+  }
+  return 0;
 }
 
 export default columns;
