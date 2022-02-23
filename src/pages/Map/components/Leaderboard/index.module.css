@@ -295,16 +295,16 @@
 .header.ibcVolumeSent,
 .cell.ibcVolumeSent {
   border-left: 1px solid var(--table-borders-color);
-  width: 140px;
-  min-width: 140px;
-  max-width: 140px;
+  width: 165px;
+  min-width: 165px;
+  max-width: 165px;
 }
 
 .header.ibcVolumeReceived,
 .cell.ibcVolumeReceived {
-  width: 140px;
-  min-width: 140px;
-  max-width: 140px;
+  width: 160px;
+  min-width: 160px;
+  max-width: 160px;
   border-right: 1px solid var(--table-borders-color);
 }
 
