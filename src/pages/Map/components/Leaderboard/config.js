@@ -44,7 +44,8 @@ const columns = [
       />
     ),
     zoneWeightAccessor: 'ibcVolumeWeight',
-    tooltip: 'Volume transferred via IBC relayer',
+    tooltip:
+      'USD value of tokens relayed via IBC with pertinent volume pending for processing',
   },
   {
     Header: 'IBC transfers',
@@ -105,7 +106,7 @@ const columns = [
   //     'Successfully received token by a zone from another zone (completed token transfer)',
   // },
   {
-    Header: 'IBC out, $',
+    Header: 'IBC volume out, $',
     accessor: 'ibcVolumeSentRating',
     id: 'ibcVolumeSent',
     diffAccessor: 'ibcVolumeSentDiff',
@@ -121,11 +122,11 @@ const columns = [
     ),
     zoneWeightAccessor: 'ibcVolumeSentWeight',
     tooltip:
-      'Transfers sent successfully from one zone to another zone (note: ' +
-      'in order to be considered successful it has NOT to be received by the other zone)',
+      'USD value of tokens transferred from one zone to other zone(s) ' +
+      'with pertinent volume pending for processing',
   },
   {
-    Header: 'IBC in, $',
+    Header: 'IBC volume in, $',
     accessor: 'ibcVolumeReceivedRating',
     id: 'ibcVolumeReceived',
     diffAccessor: 'ibcVolumeReceivedDiff',
@@ -141,7 +142,8 @@ const columns = [
     ),
     zoneWeightAccessor: 'ibcVolumeReceivedWeight',
     tooltip:
-      'Successfully received token by a zone from another zone (completed token transfer)',
+      'USD value of tokens successfully received by one zone from other zone(s) ' +
+      'with pertinent volume pending for processing',
   },
   // {
   //   Header: 'Channels',
@@ -159,7 +161,8 @@ const columns = [
     ratingAccessor: 'ibcActiveAddressesRatingDiff',
     Cell: ({ itemValue }) =>
       itemValue === null ? '-' : formatNumber(itemValue),
-    tooltip: 'Active addresses',
+    tooltip:
+      'Number of Zone’s unique addresses initiated outward IBC transfer(s)',
     dependOnPeriod: true,
     zoneWeightAccessor: 'ibcActiveAddressesWeight',
   },
