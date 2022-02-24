@@ -1,7 +1,17 @@
 # map-of-zones-web
 
-Status of Last Deployment:<br>
-<img src="https://github.com/mapofzones/map-of-zones-web/workflows/Build%20and%20Deploy/badge.svg"><br>
+Map of Zones is a Cosmos network explorer that visualizes the internet of blockchains. The map shows how blockchains (called zones in the Cosmos ecosystem) are interconnected to each other. Use Map of Zones web to view Inter-Blockchain Communication ([IBC](https://docs.cosmos.network/master/ibc/overview.html)) transfer activity.
+
+The map traces IBC transactions between different zones to display accurate aggregate information about the pulse of the entire Cosmos ecosystem.
+
+- Select a zone on the map to view its transaction data.
+- Select the time frame in the lower right of the web browser window to filter activity.
+- Use the **Use testnet** slider to include or exclude testnets.
+- Select a column in the list of zones to filter the most active zones by IBC transfers, total transfers, and other transfer criteria.
+
+## Status of Last Deployment
+
+<img src="https://github.com/mapofzones/map-of-zones-web/workflows/Build%20and%20Deploy/badge.svg">
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -42,7 +52,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Learn More About React
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
