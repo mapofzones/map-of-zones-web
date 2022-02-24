@@ -9,6 +9,9 @@ The map traces IBC transactions between different zones to display accurate aggr
 - Use the **Use testnet** slider to include or exclude testnets.
 - Select a column in the list of zones to filter the most active zones by IBC transfers, total transfers, and other transfer criteria.
 
+The rating list below the map rates the zones that are the most active in the selected time frame. 
+
+The aggregate dashboard above the map displays global data. 
 ## Status of Last Deployment
 
 <img src="https://github.com/mapofzones/map-of-zones-web/workflows/Build%20and%20Deploy/badge.svg">
