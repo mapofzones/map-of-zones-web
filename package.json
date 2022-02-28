@@ -2,11 +2,6 @@
   "name": "map-of-zones-web",
   "version": "0.1.0",
   "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
       "prettier --write",
