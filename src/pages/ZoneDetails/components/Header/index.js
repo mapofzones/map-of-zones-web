@@ -60,7 +60,7 @@ function Header({
                 className={cx('header-title-image')}
                 src={source.labelUrl}
                 alt=""
-            />
+              />
             )}
             {source?.name || ''}
           </div>

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import gql from 'graphql-tag';
 
 import { useRealtimeQuery } from 'common/hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 const CHANNEL_GROUP_STAT_FRAGMENT = gql`
   fragment group_stats on ft_channel_group_stats {
@@ -141,14 +142,7 @@ const CHANNEL_GROUP_STAT_SUBSCRIPTION_ONLY_MAINNET = gql`
 const transform = data => {
   const channelsGroup = data?.ft_channel_group_stats;
   const channels = data?.ft_channels_stats;
-  const sourceZone = channels?.[0]; // TODO: Use a separate query for the source zone
-  const sourceZoneFormatted = sourceZone
-    ? {
-        website: sourceZone.zone_website,
-        name: sourceZone.zone_readable_name,
-        labelUrl: sourceZone.zone_label_url,
-      }
-    : null;
+  const sourceZone = channels?.[0];
 
   const channelsGroupFormatted = channelsGroup
     ? channelsGroup.map(
@@ -228,10 +222,7 @@ const transform = data => {
       )
     : null;
 
-  return {
-    channelGroup: channelsGroupFormatted,
-    sourceZone: sourceZoneFormatted,
-  };
+  return channelsGroupFormatted;
 };
 
 export const useChannelGroupStat = (options, isTestnetVisible) => {
