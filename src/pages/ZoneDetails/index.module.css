@@ -1,0 +1,13 @@
+.table-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: #E5E5E5;
+  min-height: calc(100vh - 178px);
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+
+.empty {
+  align-self: center;
+}

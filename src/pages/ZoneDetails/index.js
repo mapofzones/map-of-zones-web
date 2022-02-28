@@ -10,7 +10,17 @@ import Loader from './components/Loader';
 import ChannelDetails from './components/ChannelDetails';
 import { usePeriodSelector } from '../Map/hooks';
 
-import { useShowTestnet, useChannelGroupStat, useSorting } from './hooks';
+import {
+  useShowTestnet,
+  useChannelGroupStat,
+  useSorting,
+  useZoneDetails,
+} from './hooks';
+
+import classNames from 'classnames/bind';
+import styles from './index.module.css';
+
+const cx = classNames.bind(styles);
 
 function Channel() {
   const location = useLocation();
@@ -23,14 +33,7 @@ function Channel() {
     return parse(location.search).source;
   }, [location.search]);
 
-  const options = useMemo(() => {
-    return {
-      variables: {
-        source,
-        period: period.hours,
-      },
-    };
-  }, [source, period.hours]);
+  const zoneDetails = useZoneDetails(source);
 
   const [sort, setSort] = useSorting();
   const initialState = useMemo(
@@ -45,10 +48,15 @@ function Channel() {
     [sort.tableOrderBy, sort.tableOrderSort],
   );
 
-  const { channelGroup, sourceZone } = useChannelGroupStat(
-    options,
-    isTestnetVisible,
-  );
+  const options = useMemo(() => {
+    return {
+      variables: {
+        source,
+        period: period.hours,
+      },
+    };
+  }, [source, period.hours]);
+  const channelGroup = useChannelGroupStat(options, isTestnetVisible);
 
   const navigateToMainPage = useCallback(() => {
     history.push('/');
@@ -75,35 +83,39 @@ function Channel() {
     }
   }, [history, isTestnetVisible, location.state, period.hours]);
 
-  if (!sourceZone) {
-    return <Loader />;
-  } else {
-    return (
-      <div>
-        <Header
-          navigateToMainPage={navigateToMainPage}
-          onCloseClick={onCloseClick}
-          source={sourceZone}
-          isTestnetVisible={isTestnetVisible}
-          toggleShowTestnet={toggleShowTestnet}
-          period={period}
-          setPeriod={setPeriod}
-        />
-        <Leaderboard
-          data={channelGroup}
-          onChannelClick={selectChannel}
-          initialState={initialState}
-          onSortChange={setSort}
-        />
-        <Footer />
-        <ChannelDetails
-          onRequestClose={() => selectChannel(null)}
-          isOpen={!!selectedChannel}
-          channel={selectedChannel}
-        />
+  return (
+    <div>
+      <Header
+        navigateToMainPage={navigateToMainPage}
+        onCloseClick={onCloseClick}
+        source={zoneDetails}
+        isTestnetVisible={isTestnetVisible}
+        toggleShowTestnet={toggleShowTestnet}
+        period={period}
+        setPeriod={setPeriod}
+      />
+      <div className={cx('table-container')}>
+        {!channelGroup && <Loader />}
+        {!!channelGroup && !channelGroup.length && (
+          <span className={cx('empty')}>There are no channels.</span>
+        )}
+        {!!channelGroup && !!channelGroup.length && (
+          <Leaderboard
+            data={channelGroup}
+            onChannelClick={selectChannel}
+            initialState={initialState}
+            onSortChange={setSort}
+          />
+        )}
       </div>
-    );
-  }
+      <Footer />
+      <ChannelDetails
+        onRequestClose={() => selectChannel(null)}
+        isOpen={!!selectedChannel}
+        channel={selectedChannel}
+      />
+    </div>
+  );
 }
 
 export default Channel;

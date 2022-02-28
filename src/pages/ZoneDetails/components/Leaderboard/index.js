@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
 
 import { DefaultUndefinedValue } from 'common/constants';
@@ -12,6 +11,7 @@ import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 import Thead from './Thead';
 import columnsConfig from './config';
 
+import classNames from 'classnames/bind';
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
