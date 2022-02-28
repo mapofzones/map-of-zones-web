@@ -35,7 +35,7 @@ const columns = [
     alwaysVisible: true,
   },
   {
-    Header: 'Volume In',
+    Header: 'IBC volume in, $',
     accessor: 'volumeIn',
     id: 'volume_in',
     className: 'volumeIn',
@@ -54,7 +54,7 @@ const columns = [
       'USD value of tokens successfully received from a particular peer with pertinent volume in progress',
   },
   {
-    Header: 'Volume Out',
+    Header: 'IBC volume out, $',
     accessor: 'volumeOut',
     className: 'volumeOut',
     id: 'volume_out',
@@ -73,7 +73,7 @@ const columns = [
       'USD value of tokens transferred outwards to a particular peer with pertinent volume in progress',
   },
   {
-    Header: 'IBC Success',
+    Header: 'IBC success',
     accessor: 'ibcTxSuccess',
     className: 'ibcTxSuccess',
     id: 'ibc_tx_success',
@@ -85,7 +85,7 @@ const columns = [
     tooltip: `Number of transfers successfully 'transferred to' and 'received from' a particular peer`,
   },
   {
-    Header: 'IBC Pending',
+    Header: 'IBC pending',
     accessor: 'ibcTxPending',
     className: 'ibcTxPending',
     id: 'ibc_tx_pending',
@@ -99,7 +99,7 @@ const columns = [
     tooltip: 'Balancing figure between inbound and outbound IBC transfers',
   },
   {
-    Header: 'IBC Failed',
+    Header: 'IBC failed',
     accessor: 'ibcTxFailed',
     className: 'ibcTxFailed',
     id: 'ibc_tx_failed',
@@ -112,13 +112,15 @@ const columns = [
       'Number of IBC transfers failed attributed to a particular pair of channels between Zones',
   },
   {
-    Header: 'Success rate',
+    Header: 'Success rate, %',
     accessor: 'successRate',
     className: 'successRate',
     id: 'success_rate',
     diffAccessor: 'successRateDiff',
     Cell: ({ value }) => formatPercentage(value),
     sortDescFirst: true,
+    tooltip:
+      'Ratio of successfully completed transfers to all transfers with the final status (i.e. success and failed)',
   },
 ];
 
