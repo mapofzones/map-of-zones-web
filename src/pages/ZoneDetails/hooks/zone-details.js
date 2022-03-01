@@ -7,6 +7,7 @@ const ZONE_DETAILS = gql`
   query ZoneDetails($source: String!) {
     zones_stats(limit: 1, where: { zone: { _eq: $source } }) {
       zone
+      website
       zone_readable_name
       zone_label_url
     }
@@ -21,7 +22,7 @@ export const useZoneDetails = source => {
     const zoneDetails = data?.zones_stats[0];
     return zoneDetails
       ? {
-          website: zoneDetails.zone_website,
+          website: zoneDetails.website,
           name: zoneDetails.zone_readable_name,
           labelUrl: zoneDetails.zone_label_url,
         }
