@@ -38,7 +38,8 @@ const Thead = ({ headerGroups, onHeaderClick }) => {
                       className={cx('explanation-tooltip', {
                         centerPos:
                           column.id === 'channels' ||
-                          column.id === 'ibc_tx_success',
+                          column.id === 'ibc_tx_success' ||
+                          column.id === 'success_rate'
                       })}
                     >
                       {column.tooltip}

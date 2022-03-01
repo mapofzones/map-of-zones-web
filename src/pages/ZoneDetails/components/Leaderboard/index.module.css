@@ -545,14 +545,14 @@ tbody.bodyWithFocus.focusFixed .row {
   height: 9px;
 }
 
-/*
-@media (max-width: 1320px) {
+@media (max-width: 1380px) {
   .explanation-icon .explanation-tooltip.centerPos {
     left: 0;
     transform: translateX(-50%);
   }
 }
 
+/*
 @media (max-width: 1200px) {
   .header.position,
   .cell.position {

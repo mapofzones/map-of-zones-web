@@ -45,7 +45,7 @@ const columns = [
     ),
     zoneWeightAccessor: 'ibcVolumeWeight',
     tooltip:
-      'USD value of tokens relayed via IBC with pertinent volume pending for processing',
+      'USD value of tokens successfully relayed via IBC transfer with pertinent volume in progress',
   },
   {
     Header: 'IBC transfers',
@@ -56,7 +56,8 @@ const columns = [
     ratingAccessor: 'ibcTransfersRatingDiff',
     Cell: ({ itemValue }) => formatNumber(itemValue),
     zoneWeightAccessor: 'ibcTransfersWeight',
-    tooltip: 'Token transfers via IBC relayer',
+    tooltip:
+      'Number of successfully relayed IBC transfers with pertinent quantity in progress',
   },
   // {
   //   Header: 'Total Txs',
@@ -122,8 +123,7 @@ const columns = [
     ),
     zoneWeightAccessor: 'ibcVolumeSentWeight',
     tooltip:
-      'USD value of tokens transferred from one zone to other zone(s) ' +
-      'with pertinent volume pending for processing',
+      'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
   },
   {
     Header: 'IBC volume in, $',
@@ -142,8 +142,7 @@ const columns = [
     ),
     zoneWeightAccessor: 'ibcVolumeReceivedWeight',
     tooltip:
-      'USD value of tokens successfully received by one zone from other zone(s) ' +
-      'with pertinent volume pending for processing',
+      'USD value of tokens successfully received from other Zones with pertinent volume in progress',
   },
   // {
   //   Header: 'Channels',
