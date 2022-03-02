@@ -28,6 +28,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_out_mainnet_weight
     total_txs_diff
     ibc_transfers_pending
+    ibc_transfers_pending_mainnet
     ibc_tx_out_diff
     ibc_tx_in_diff
     total_txs_rating
@@ -48,6 +49,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_active_addresses_mainnet_weight
     ibc_tx_failed
     success_rate
+    success_rate_mainnet
     ibc_tx_out_failed
     ibc_tx_in_failed
     ibc_tx_failed_diff
@@ -62,11 +64,15 @@ const ZONES_STAT_FRAGMENT = gql`
     zone_label_url2
     ibc_cashflow
     ibc_cashflow_out
+    ibc_cashflow_out_mainnet
     ibc_cashflow_in
+    ibc_cashflow_in_mainnet
     ibc_peers
     ibc_peers_mainnet
     ibc_cashflow_out_percent
+    ibc_cashflow_out_percent_mainnet
     ibc_cashflow_in_percent
+    ibc_cashflow_in_percent_mainnet
     ibc_cashflow_diff
     ibc_cashflow_pending
     ibc_cashflow_rating
@@ -90,8 +96,11 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_cashflow_in_rating_diff
     ibc_cashflow_in_mainnet_rating_diff
     ibc_cashflow_in_pending
+    ibc_cashflow_in_pending_mainnet
     ibc_cashflow_out_pending
+    ibc_cashflow_out_pending_mainnet
     ibc_transfers
+    ibc_transfers_mainnet
     ibc_transfers_diff
     ibc_transfers_rating
     ibc_transfers_mainnet_rating
@@ -210,54 +219,54 @@ const getScaleParams = (zones, key, isTestnetVisible) => {
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
 const transform = (data, isTestnetVisible) => {
-  const zones = data?.zones_stats;
-  const graph = data?.zones_graphs;
+  const zonesStats = data?.zones_stats;
+  const zonesGraphs = data?.zones_graphs;
 
-  if (!zones || !graph) {
+  if (!zonesStats || !zonesGraphs) {
     return null;
   }
 
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
-    zones,
+    zonesStats,
     isTestnetVisible ? 'ibc_transfers_weight' : 'ibc_transfers_mainnet_weight',
     isTestnetVisible,
   );
   const [minIbcVolumeWeight, ibcVolumeScale] = getScaleParams(
-    zones,
+    zonesStats,
     isTestnetVisible ? 'ibc_cashflow_weight' : 'ibc_cashflow_mainnet_weight',
     isTestnetVisible,
   );
   const [minTxsWeight, txsScale] = getScaleParams(
-    zones,
+    zonesStats,
     isTestnetVisible ? 'total_txs_weight' : 'total_txs_mainnet_weight',
     isTestnetVisible,
   );
   const [minIbcReceivedWeight, ibcReceivedScale] = getScaleParams(
-    zones,
+    zonesStats,
     isTestnetVisible ? 'ibc_tx_in_weight' : 'ibc_tx_in_mainnet_weight',
     isTestnetVisible,
   );
   const [minIbcVolumeReceivedWeight, ibcVolumeReceivedScale] = getScaleParams(
-    zones,
+    zonesStats,
     isTestnetVisible
       ? 'ibc_cashflow_in_weight'
       : 'ibc_cashflow_in_mainnet_weight',
     isTestnetVisible,
   );
   const [minIbcSentWeight, ibcSentScale] = getScaleParams(
-    zones,
+    zonesStats,
     isTestnetVisible ? 'ibc_tx_out_weight' : 'ibc_tx_out_mainnet_weight',
     isTestnetVisible,
   );
   const [minIbcVolumeSentWeight, ibcVolumeSentScale] = getScaleParams(
-    zones,
+    zonesStats,
     isTestnetVisible
       ? 'ibc_cashflow_out_weight'
       : 'ibc_cashflow_out_mainnet_weight',
     isTestnetVisible,
   );
 
-  let zonesFormatted = zones.map(
+  let zonesFormatted = zonesStats.map(
     ({
       zone,
       chart_cashflow,
@@ -299,6 +308,7 @@ const transform = (data, isTestnetVisible) => {
       ibc_active_addresses_mainnet_weight,
       ibc_tx_failed,
       success_rate,
+      success_rate_mainnet,
       ibc_tx_out_failed,
       ibc_tx_in_failed,
       ibc_tx_failed_diff,
@@ -313,14 +323,19 @@ const transform = (data, isTestnetVisible) => {
       zone_label_url2,
       ibc_cashflow,
       ibc_cashflow_out,
+      ibc_cashflow_out_mainnet,
       ibc_cashflow_in,
+      ibc_cashflow_in_mainnet,
       ibc_peers,
       ibc_peers_mainnet,
       ibc_cashflow_out_percent,
+      ibc_cashflow_out_percent_mainnet,
       ibc_cashflow_in_percent,
+      ibc_cashflow_in_percent_mainnet,
       ibc_cashflow_diff,
       ibc_cashflow_pending,
       ibc_transfers_pending,
+      ibc_transfers_pending_mainnet,
       ibc_cashflow_rating,
       ibc_cashflow_mainnet_rating,
       ibc_cashflow_rating_diff,
@@ -342,8 +357,11 @@ const transform = (data, isTestnetVisible) => {
       ibc_cashflow_in_rating_diff,
       ibc_cashflow_in_mainnet_rating_diff,
       ibc_cashflow_in_pending,
+      ibc_cashflow_in_pending_mainnet,
       ibc_cashflow_out_pending,
+      ibc_cashflow_out_pending_mainnet,
       ibc_transfers,
+      ibc_transfers_mainnet,
       ibc_transfers_diff,
       ibc_transfers_rating,
       ibc_transfers_mainnet_rating,
@@ -355,19 +373,23 @@ const transform = (data, isTestnetVisible) => {
         name: zone_readable_name,
         txsActivity: transformChartData(chart_cashflow, 'txs'),
         totalTxs: total_txs,
-        ibcTransfers: ibc_transfers,
+        ibcTransfers: isTestnetVisible ? ibc_transfers : ibc_transfers_mainnet,
         ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         ibcSent: ibc_tx_out,
         ibcVolume: ibc_cashflow,
-        ibcVolumeSent: ibc_cashflow_out,
-        ibcVolumeReceived: ibc_cashflow_in,
+        ibcVolumeSent: isTestnetVisible
+          ? ibc_cashflow_out
+          : ibc_cashflow_out_mainnet,
+        ibcVolumeReceived: isTestnetVisible
+          ? ibc_cashflow_in
+          : ibc_cashflow_in_mainnet,
         peers: isTestnetVisible ? ibc_peers : ibc_peers_mainnet,
-        ibcVolumeSentPercentage: ibc_cashflow_out_percent
-          ? ibc_cashflow_out_percent / 100
-          : ibc_cashflow_out_percent,
-        ibcVolumeReceivedPercentage: ibc_cashflow_in_percent
-          ? ibc_cashflow_in_percent / 100
-          : ibc_cashflow_in_percent,
+        ibcVolumeSentPercentage: isTestnetVisible
+          ? ibc_cashflow_out_percent / 100 || ibc_cashflow_out_percent
+          : ibc_cashflow_out_percent_mainnet / 100 || ibc_cashflow_out_percent_mainnet,
+        ibcVolumeReceivedPercentage: isTestnetVisible
+          ? ibc_cashflow_in_percent / 100 || ibc_cashflow_in_percent
+          : ibc_cashflow_in_percent_mainnet / 100 || ibc_cashflow_in_percent_mainnet,
         ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
         ibcReceived: ibc_tx_in,
         ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
@@ -379,9 +401,13 @@ const transform = (data, isTestnetVisible) => {
         ibcTransfersDiff: ibc_transfers_diff,
         ibcVolumeDiff: ibc_cashflow_diff,
         ibcVolumePending: ibc_cashflow_pending,
-        ibcVolumeReceivedPending: ibc_cashflow_in_pending,
-        ibcVolumeSentPending: ibc_cashflow_out_pending,
-        ibcTransfersPending: ibc_transfers_pending,
+        ibcVolumeReceivedPending: isTestnetVisible
+          ? ibc_cashflow_in_pending
+          : ibc_cashflow_in_pending_mainnet,
+        ibcVolumeSentPending: isTestnetVisible
+          ? ibc_cashflow_out_pending
+          : ibc_cashflow_out_pending_mainnet,
+        ibcTransfersPending: isTestnetVisible ? ibc_transfers_pending : ibc_transfers_pending_mainnet,
         ibcSentDiff: ibc_tx_out_diff,
         ibcVolumeSentDiff: ibc_cashflow_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
@@ -439,7 +465,9 @@ const transform = (data, isTestnetVisible) => {
         ibcTxFailed: ibc_tx_failed,
         ibcTxOutFailed: ibc_tx_out_failed,
         ibcTxInFailed: ibc_tx_in_failed,
-        successRate: success_rate / 100,
+        successRate: isTestnetVisible
+          ? success_rate / 100
+          : success_rate_mainnet / 100,
         ibcTxFailedDiff: ibc_tx_failed_diff,
         ibcActiveAddressesRating: isTestnetVisible
           ? ibc_active_addresses_rating
@@ -499,7 +527,7 @@ const transform = (data, isTestnetVisible) => {
     },
   );
 
-  let linksFormatted = graph.map(
+  let linksFormatted = zonesGraphs.map(
     ({
       source,
       target,
