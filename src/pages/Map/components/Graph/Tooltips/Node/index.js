@@ -85,7 +85,7 @@ function NodeTooltip({ node, period }) {
                 <div className={cx('value')}>{formatNumber(node.peers)}</div>
               </div>
               <div className={cx('stat', 'secondRow')}>
-                <div className={cx('title')}>IBC volume</div>
+                <div className={cx('title')}>IBC volume, $</div>
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolume}
@@ -105,7 +105,7 @@ function NodeTooltip({ node, period }) {
                 </div>
               </div>
               <div className={cx('stat')}>
-                <div className={cx('title')}>IBC out, $</div>
+                <div className={cx('title')}>IBC volume out, $</div>
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolumeSent}
@@ -136,13 +136,13 @@ function NodeTooltip({ node, period }) {
                 </div>
               </div>
               <div className={cx('stat', 'secondRow')}>
-                <div className={cx('title')}>Success rate</div>
+                <div className={cx('title')}>Success rate, %</div>
                 <div className={cx('value')}>
                   {formatPercentage(node.successRate)}
                 </div>
               </div>
               <div className={cx('stat')}>
-                <div className={cx('title')}>IBC in, $</div>
+                <div className={cx('title')}>IBC volume in, $</div>
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolumeReceived}
