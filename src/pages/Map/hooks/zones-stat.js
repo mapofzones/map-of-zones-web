@@ -63,6 +63,7 @@ const ZONES_STAT_FRAGMENT = gql`
     zone_label_url
     zone_label_url2
     ibc_cashflow
+    ibc_cashflow_mainnet
     ibc_cashflow_out
     ibc_cashflow_out_mainnet
     ibc_cashflow_in
@@ -74,6 +75,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_cashflow_in_percent
     ibc_cashflow_in_percent_mainnet
     ibc_cashflow_diff
+    ibc_cashflow_mainnet_diff
     ibc_cashflow_pending
     ibc_cashflow_rating
     ibc_cashflow_mainnet_rating
@@ -102,6 +104,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_transfers
     ibc_transfers_mainnet
     ibc_transfers_diff
+    ibc_transfers_mainnet_diff
     ibc_transfers_rating
     ibc_transfers_mainnet_rating
     ibc_transfers_rating_diff
@@ -322,6 +325,7 @@ const transform = (data, isTestnetVisible) => {
       zone_label_url,
       zone_label_url2,
       ibc_cashflow,
+      ibc_cashflow_mainnet,
       ibc_cashflow_out,
       ibc_cashflow_out_mainnet,
       ibc_cashflow_in,
@@ -333,6 +337,7 @@ const transform = (data, isTestnetVisible) => {
       ibc_cashflow_in_percent,
       ibc_cashflow_in_percent_mainnet,
       ibc_cashflow_diff,
+      ibc_cashflow_mainnet_diff,
       ibc_cashflow_pending,
       ibc_transfers_pending,
       ibc_transfers_pending_mainnet,
@@ -363,6 +368,7 @@ const transform = (data, isTestnetVisible) => {
       ibc_transfers,
       ibc_transfers_mainnet,
       ibc_transfers_diff,
+      ibc_transfers_mainnet_diff,
       ibc_transfers_rating,
       ibc_transfers_mainnet_rating,
       ibc_transfers_rating_diff,
@@ -376,7 +382,7 @@ const transform = (data, isTestnetVisible) => {
         ibcTransfers: isTestnetVisible ? ibc_transfers : ibc_transfers_mainnet,
         ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         ibcSent: ibc_tx_out,
-        ibcVolume: ibc_cashflow,
+        ibcVolume: isTestnetVisible ? ibc_cashflow : ibc_cashflow_mainnet,
         ibcVolumeSent: isTestnetVisible
           ? ibc_cashflow_out
           : ibc_cashflow_out_mainnet,
@@ -398,8 +404,12 @@ const transform = (data, isTestnetVisible) => {
         activeChannels: channels_cnt_active_period,
         activeChannelsPercent: channels_percent_active_period,
         totalTxsDiff: total_txs_diff,
-        ibcTransfersDiff: ibc_transfers_diff,
-        ibcVolumeDiff: ibc_cashflow_diff,
+        ibcTransfersDiff: isTestnetVisible
+          ? ibc_transfers_diff
+          : ibc_transfers_mainnet_diff,
+        ibcVolumeDiff: isTestnetVisible
+          ? ibc_cashflow_diff
+          : ibc_cashflow_mainnet_diff,
         ibcVolumePending: ibc_cashflow_pending,
         ibcVolumeReceivedPending: isTestnetVisible
           ? ibc_cashflow_in_pending
@@ -407,7 +417,9 @@ const transform = (data, isTestnetVisible) => {
         ibcVolumeSentPending: isTestnetVisible
           ? ibc_cashflow_out_pending
           : ibc_cashflow_out_pending_mainnet,
-        ibcTransfersPending: isTestnetVisible ? ibc_transfers_pending : ibc_transfers_pending_mainnet,
+        ibcTransfersPending: isTestnetVisible
+          ? ibc_transfers_pending
+          : ibc_transfers_pending_mainnet,
         ibcSentDiff: ibc_tx_out_diff,
         ibcVolumeSentDiff: ibc_cashflow_out_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
