@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
-
 import { DefaultUndefinedValue } from 'common/constants';
 import { isNumber } from 'common/helper';
 import Status from 'components/Status';
+import { motion } from 'framer-motion/dist/es/index';
 
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
@@ -53,6 +53,18 @@ function Leaderboard({
     useExpanded,
   );
 
+  const transition = useMemo(
+    () => ({
+      duration: 0.1,
+      ease: 'easeIn',
+      type: 'spring',
+      damping: 50,
+      stiffness: 100,
+      mass: 1,
+    }),
+    [],
+  );
+
   const sortBy = useMemo(() => state?.sortBy?.[0], [state]);
   const onRowClick = useCallback(
     row => {
@@ -80,66 +92,48 @@ function Leaderboard({
       }
       case 'name': {
         if (cell.row.depth === 0) {
-          if (cell.row.isExpanded) {
-            return (
-              <div className={cx('zonesPairContainer')}>
-                <div className={cx('zonesPair')}>
-                  <div className={cx('zoneInfoHeader')}>
-                    {cell.row.original.sourceZoneLabelUrl ? (
-                      <img
-                        className={cx('image-container')}
-                        src={cell.row.original.sourceZoneLabelUrl}
-                        alt=""
-                      />
-                    ) : (
-                      <div className={cx('image-empty')} />
-                    )}
-                    <span className={cx('text-container')}>
-                      {cell.row.original.sourceZoneReadableName}
-                    </span>
-                    <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
-                  </div>
-                  <div className={cx('zoneInfoHeader')}>
-                    {cell.row.original.zoneCounterpartyLabelUrl ? (
-                      <img
-                        className={cx('image-container')}
-                        src={cell.row.original.zoneCounterpartyLabelUrl}
-                        alt=""
-                      />
-                    ) : (
-                      <div className={cx('image-empty')} />
-                    )}
-                    <span className={cx('text-container')}>
-                      {cell.row.original.zoneCounterpartyReadableName}
-                    </span>
-                    <Status
-                      isZoneUpToDate={
-                        cell.row.original.isZoneCounterpartyUpToDate
-                      }
+          return (
+            <div className={cx('zonesPairContainer')}>
+              <div
+                className={cx('zonesPair', {
+                  collapsed: !cell.row.isExpanded,
+                })}
+              >
+                <div className={cx('zoneInfoHeader', 'sourceZoneHeader')}>
+                  {cell.row.original.sourceZoneLabelUrl ? (
+                    <img
+                      className={cx('image-container')}
+                      src={cell.row.original.sourceZoneLabelUrl}
+                      alt=""
                     />
-                  </div>
+                  ) : (
+                    <div className={cx('image-empty')} />
+                  )}
+                  <span className={cx('text-container')}>
+                    {cell.row.original.sourceZoneReadableName}
+                  </span>
+                  <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
+                </div>
+                <div className={cx('zoneInfoHeader', 'zoneCounterparty')}>
+                  {cell.row.original.zoneCounterpartyLabelUrl ? (
+                    <img
+                      className={cx('image-container')}
+                      src={cell.row.original.zoneCounterpartyLabelUrl}
+                      alt=""
+                    />
+                  ) : (
+                    <div className={cx('image-empty')} />
+                  )}
+                  <span className={cx('text-container')}>
+                    {cell.row.original.zoneCounterpartyReadableName}
+                  </span>
+                  <Status
+                    isZoneUpToDate={
+                      cell.row.original.isZoneCounterpartyUpToDate
+                    }
+                  />
                 </div>
               </div>
-            );
-          }
-
-          return (
-            <div className={cx('cell-container')}>
-              {cell.row.original.zoneCounterpartyLabelUrl ? (
-                <img
-                  className={cx('image-container')}
-                  src={cell.row.original.zoneCounterpartyLabelUrl}
-                  alt=""
-                />
-              ) : (
-                <div className={cx('image-empty')} />
-              )}
-              <span className={cx('text-container')}>
-                {cell.render('Cell')}
-              </span>
-              <Status
-                isZoneUpToDate={cell.row.original.isZoneCounterpartyUpToDate}
-              />
             </div>
           );
         }
@@ -219,10 +213,17 @@ function Leaderboard({
             prepareRow(row);
 
             return (
-              <tr
-                {...row.getRowProps()}
+              <motion.tr
+                layout
+                {...row.getRowProps({
+                  transition: transition,
+                  initial: { x: -300, opacity: 0 },
+                  animate: { x: 0, opacity: 1 },
+                  exit: { x: -300, opacity: 0 },
+                })}
                 className={cx('row', {
                   expanded: row.isExpanded,
+                  subrow: row.depth > 0,
                 })}
                 onClick={() => {
                   if (row.canExpand) {
@@ -244,7 +245,7 @@ function Leaderboard({
                     </td>
                   );
                 })}
-              </tr>
+              </motion.tr>
             );
           })}
         </tbody>

@@ -35,7 +35,7 @@
   white-space: nowrap;
   min-height: 26px;
 
-  background: #E5E5E5;
+  background: #e5e5e5;
   border-bottom: 1px solid var(--table-borders-color);
 
   vertical-align: bottom;
@@ -95,12 +95,29 @@
   cursor: pointer;
 }
 
+.row:not(.subrow) .cell {
+  border-top: 1px solid #e5e5e5;
+}
+
 .row.expanded .cell,
 .row.focusedRow .cell,
 .row:hover .cell {
   background: #f4f4f5;
 }
 
+.row.subrow:hover .cell {
+  background: #f4f4f5;
+}
+
+.row.subrow .cell {
+  background: #fafafa;
+  font-size: 13px;
+  line-height: 100%;
+}
+
+.row.subrow .cell.position {
+  background: #fafafa;
+}
 .cell .cell-container {
   display: flex;
   align-items: baseline;
@@ -119,6 +136,17 @@
   display: flex;
   justify-content: space-between;
   flex: 1;
+  transition: all 0.5s ease-out;
+  transform: translateX(0%);
+}
+
+.zonesPair.collapsed {
+  transform: translateX(-50%);
+}
+
+.zonesPair.collapsed .sourceZoneHeader {
+  opacity: 0;
+  transform: translateY(-100%);
 }
 
 .zoneInfoHeader {
@@ -240,7 +268,7 @@
 /*4-th col*/
 /* .header.totalTxs,
 .cell.totalTxs, */
-  /*5 col*/
+/*5 col*/
 /* .header.ibcPercentage,
 .cell.ibcPercentage {
   width: 99px;
@@ -511,18 +539,19 @@ tbody.bodyWithFocus.focusFixed .row {
 .dot {
   width: 8px;
   height: 8px;
-  background-color: #D76969;
+  background-color: #d76969;
   border-radius: 50%;
 }
 
-.dot.opened, .line.opened {
-  background-color: #5CA97B;
+.dot.opened,
+.line.opened {
+  background-color: #5ca97b;
 }
 
 .line {
   height: 1px;
   flex-grow: 1;
-  background-color: #D76969;
+  background-color: #d76969;
 }
 
 .zoneCounterpartyChannelId {
@@ -536,7 +565,7 @@ tbody.bodyWithFocus.focusFixed .row {
   font-weight: 500;
   font-size: 12px;
   text-align: right;
-  color: #B8B8B8;
+  color: #b8b8b8;
 }
 
 .pendingIcon {
