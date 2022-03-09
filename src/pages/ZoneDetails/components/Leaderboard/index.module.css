@@ -101,10 +101,7 @@
 
 .row.expanded .cell,
 .row.focusedRow .cell,
-.row:hover .cell {
-  background: #f4f4f5;
-}
-
+.row:hover .cell,
 .row.subrow:hover .cell {
   background: #f4f4f5;
 }
@@ -115,9 +112,6 @@
   line-height: 100%;
 }
 
-.row.subrow .cell.position {
-  background: #fafafa;
-}
 .cell .cell-container {
   display: flex;
   align-items: baseline;
@@ -153,7 +147,7 @@
   display: flex;
   align-items: baseline;
   flex-wrap: nowrap;
-  min-width: 140px;
+  min-width: 150px;
 }
 
 .expandArrow {
