@@ -56,7 +56,7 @@ function Leaderboard({
   const transition = useMemo(
     () => ({
       duration: 0.1,
-      ease: 'easeIn',
+      ease: 'easeInOut',
       type: 'spring',
       damping: 50,
       stiffness: 100,
@@ -217,9 +217,9 @@ function Leaderboard({
                 layout
                 {...row.getRowProps({
                   transition: transition,
-                  initial: { y: -33, opacity: 1 },
+                  initial: { y: -33, opacity: 0 },
                   animate: { y: 0, opacity: 1 },
-                  exit: { y: -33, opacity: 1 },
+                  exit: { y: -33, opacity: 0 },
                 })}
                 className={cx('row', {
                   expanded: row.isExpanded,
