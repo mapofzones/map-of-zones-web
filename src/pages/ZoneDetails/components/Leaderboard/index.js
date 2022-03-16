@@ -217,9 +217,9 @@ function Leaderboard({
                 layout
                 {...row.getRowProps({
                   transition: transition,
-                  initial: { x: -300, opacity: 0 },
-                  animate: { x: 0, opacity: 1 },
-                  exit: { x: -300, opacity: 0 },
+                  initial: { y: -33, opacity: 1 },
+                  animate: { y: 0, opacity: 1 },
+                  exit: { y: -33, opacity: 1 },
                 })}
                 className={cx('row', {
                   expanded: row.isExpanded,
