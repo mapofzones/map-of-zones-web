@@ -130,16 +130,6 @@
   display: flex;
   justify-content: space-between;
   flex: 1;
-  transition: transform 1s ease-in-out;
-  transform: translateX(0%);
-}
-
-.zonesPair.collapsed {
-  transform: translateX(-50%);
-}
-
-.zonesPair.collapsed .sourceZoneHeader {
-  opacity: 0;
 }
 
 .zonesPair .zoneInfoHeader {
@@ -147,8 +137,6 @@
   align-items: baseline;
   flex-wrap: nowrap;
   min-width: 150px;
-  opacity: 1;
-  transition: opacity 1.5s ease;
 }
 
 .expandArrow {
