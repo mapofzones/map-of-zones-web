@@ -51,7 +51,7 @@ const columns = [
     ),
     sortDescFirst: true,
     tooltip:
-      'USD value of tokens successfully received from a particular peer with pertinent volume in progress',
+      'USD value of tokens successfully received from a particular Zone with pertinent volume in progress',
   },
   {
     Header: 'IBC volume out, $',
@@ -70,7 +70,7 @@ const columns = [
     ),
     sortDescFirst: true,
     tooltip:
-      'USD value of tokens transferred outwards to a particular peer with pertinent volume in progress',
+      'USD value of tokens successfully transferred outwards to a particular Zone with pertinent volume in progress',
   },
   {
     Header: 'IBC success',
@@ -82,7 +82,7 @@ const columns = [
     sortDescFirst: true,
     sortType: (rowA, rowB, id, desc) =>
       multipleSorting(rowA, rowB, [id, 'ibc_tx_pending']),
-    tooltip: `Number of transfers successfully 'transferred to' and 'received from' a particular peer`,
+    tooltip: `Number of transfers successfully 'transferred to' and 'received from' a particular Zone`,
   },
   {
     Header: 'IBC pending',
