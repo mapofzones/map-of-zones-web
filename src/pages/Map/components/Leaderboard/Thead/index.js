@@ -62,8 +62,8 @@ const Thead = ({
                     <div
                       className={cx('explanation-tooltip', {
                         centerPos:
-                          column.id === 'channels' ||
-                          column.id === 'ibcReceived' ||
+                          column.id === 'ibcVolumeSent' ||
+                          column.id === 'ibcVolumeReceived' ||
                           column.id === 'ibcActiveAddresses'
                       })}
                     >
