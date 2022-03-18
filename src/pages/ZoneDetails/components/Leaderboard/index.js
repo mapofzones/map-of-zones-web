@@ -92,28 +92,63 @@ function Leaderboard({
       }
       case 'name': {
         if (cell.row.depth === 0) {
-          return (
-            <div className={cx('zonesPairContainer')}>
-              <div
-                className={cx('zonesPair', {
-                  collapsed: !cell.row.isExpanded,
-                })}
+          if (cell.row.isExpanded) {
+            return (
+              <motion.div
+                className={cx('zonesPairContainer')}
+                key="zoneExpanded"
+                transition={transition}
+                initial={{ x: '-50%', opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
               >
-                <div className={cx('zoneInfoHeader', 'sourceZoneHeader')}>
-                  {cell.row.original.sourceZoneLabelUrl ? (
-                    <img
-                      className={cx('image-container')}
-                      src={cell.row.original.sourceZoneLabelUrl}
-                      alt=""
+                <div className={cx('zonesPair')}>
+                  <div className={cx('zoneInfoHeader', 'sourceZoneHeader')}>
+                    {cell.row.original.sourceZoneLabelUrl ? (
+                      <img
+                        className={cx('image-container')}
+                        src={cell.row.original.sourceZoneLabelUrl}
+                        alt=""
+                      />
+                    ) : (
+                      <div className={cx('image-empty')} />
+                    )}
+                    <span className={cx('text-container')}>
+                      {cell.row.original.sourceZoneReadableName}
+                    </span>
+                    <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
+                  </div>
+                  <div className={cx('zoneInfoHeader', 'zoneCounterparty')}>
+                    {cell.row.original.zoneCounterpartyLabelUrl ? (
+                      <img
+                        className={cx('image-container')}
+                        src={cell.row.original.zoneCounterpartyLabelUrl}
+                        alt=""
+                      />
+                    ) : (
+                      <div className={cx('image-empty')} />
+                    )}
+                    <span className={cx('text-container')}>
+                      {cell.row.original.zoneCounterpartyReadableName}
+                    </span>
+                    <Status
+                      isZoneUpToDate={
+                        cell.row.original.isZoneCounterpartyUpToDate
+                      }
                     />
-                  ) : (
-                    <div className={cx('image-empty')} />
-                  )}
-                  <span className={cx('text-container')}>
-                    {cell.row.original.sourceZoneReadableName}
-                  </span>
-                  <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
+                  </div>
                 </div>
+              </motion.div>
+            );
+          }
+          return (
+            <motion.div
+              className={cx('zonesPairContainer')}
+              key="zoneCollapsed"
+              transition={transition}
+              initial={{ x: '50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+            >
+              <div className={cx('zonesPair')}>
                 <div className={cx('zoneInfoHeader', 'zoneCounterparty')}>
                   {cell.row.original.zoneCounterpartyLabelUrl ? (
                     <img
@@ -134,10 +169,9 @@ function Leaderboard({
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         }
-
         return (
           <div className={cx('cell-container', 'channelIdContainer')}>
             <div>
