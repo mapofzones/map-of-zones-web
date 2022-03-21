@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import gql from 'graphql-tag';
 
 import { useRealtimeQuery } from 'common/hooks';
-import { useQuery } from '@apollo/react-hooks';
 
 const CHANNEL_GROUP_STAT_FRAGMENT = gql`
   fragment group_stats on ft_channel_group_stats {

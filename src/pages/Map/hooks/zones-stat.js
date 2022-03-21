@@ -44,6 +44,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_in_mainnet_rating
     ibc_tx_in_mainnet_rating_diff
     ibc_active_addresses
+    ibc_active_addresses_mainnet
     ibc_active_addresses_diff
     ibc_active_addresses_weight
     ibc_active_addresses_mainnet_weight
@@ -77,6 +78,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_cashflow_diff
     ibc_cashflow_mainnet_diff
     ibc_cashflow_pending
+    ibc_cashflow_pending_mainnet
     ibc_cashflow_rating
     ibc_cashflow_mainnet_rating
     ibc_cashflow_rating_diff
@@ -88,7 +90,9 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_cashflow_out_weight
     ibc_cashflow_out_mainnet_weight
     ibc_cashflow_out_diff
+    ibc_cashflow_out_mainnet_diff
     ibc_cashflow_in_diff
+    ibc_cashflow_in_mainnet_diff
     ibc_cashflow_out_rating
     ibc_cashflow_out_mainnet_rating
     ibc_cashflow_out_rating_diff
@@ -306,6 +310,7 @@ const transform = (data, isTestnetVisible) => {
       ibc_tx_in_mainnet_rating,
       ibc_tx_in_mainnet_rating_diff,
       ibc_active_addresses,
+      ibc_active_addresses_mainnet,
       ibc_active_addresses_diff,
       ibc_active_addresses_weight,
       ibc_active_addresses_mainnet_weight,
@@ -339,6 +344,7 @@ const transform = (data, isTestnetVisible) => {
       ibc_cashflow_diff,
       ibc_cashflow_mainnet_diff,
       ibc_cashflow_pending,
+      ibc_cashflow_pending_mainnet,
       ibc_transfers_pending,
       ibc_transfers_pending_mainnet,
       ibc_cashflow_rating,
@@ -352,7 +358,9 @@ const transform = (data, isTestnetVisible) => {
       ibc_cashflow_out_weight,
       ibc_cashflow_out_mainnet_weight,
       ibc_cashflow_out_diff,
+      ibc_cashflow_out_mainnet_diff,
       ibc_cashflow_in_diff,
+      ibc_cashflow_in_mainnet_diff,
       ibc_cashflow_out_rating,
       ibc_cashflow_out_mainnet_rating,
       ibc_cashflow_out_rating_diff,
@@ -410,7 +418,9 @@ const transform = (data, isTestnetVisible) => {
         ibcVolumeDiff: isTestnetVisible
           ? ibc_cashflow_diff
           : ibc_cashflow_mainnet_diff,
-        ibcVolumePending: ibc_cashflow_pending,
+        ibcVolumePending: isTestnetVisible
+          ? ibc_cashflow_pending
+          : ibc_cashflow_pending_mainnet,
         ibcVolumeReceivedPending: isTestnetVisible
           ? ibc_cashflow_in_pending
           : ibc_cashflow_in_pending_mainnet,
@@ -421,9 +431,13 @@ const transform = (data, isTestnetVisible) => {
           ? ibc_transfers_pending
           : ibc_transfers_pending_mainnet,
         ibcSentDiff: ibc_tx_out_diff,
-        ibcVolumeSentDiff: ibc_cashflow_out_diff,
+        ibcVolumeSentDiff: isTestnetVisible
+          ? ibc_cashflow_out_diff
+          : ibc_cashflow_out_mainnet_diff,
         ibcReceivedDiff: ibc_tx_in_diff,
-        ibcVolumeReceivedDiff: ibc_cashflow_in_diff,
+        ibcVolumeReceivedDiff: isTestnetVisible
+          ? ibc_cashflow_in_diff
+          : ibc_cashflow_in_mainnet_diff,
         totalTxsRating: isTestnetVisible
           ? total_txs_rating
           : total_txs_mainnet_rating,
@@ -466,7 +480,9 @@ const transform = (data, isTestnetVisible) => {
         ibcVolumeReceivedRatingDiff: isTestnetVisible
           ? ibc_cashflow_in_rating_diff
           : ibc_cashflow_in_mainnet_rating_diff,
-        ibcActiveAddresses: ibc_active_addresses,
+        ibcActiveAddresses: isTestnetVisible
+          ? ibc_active_addresses
+          : ibc_active_addresses_mainnet,
         ibcActiveAddressesDiff: ibc_active_addresses_diff,
         ibcActiveAddressesWeight:
           (isTestnetVisible
