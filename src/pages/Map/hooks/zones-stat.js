@@ -46,6 +46,7 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_active_addresses
     ibc_active_addresses_mainnet
     ibc_active_addresses_diff
+    ibc_active_addresses_mainnet_diff
     ibc_active_addresses_weight
     ibc_active_addresses_mainnet_weight
     ibc_tx_failed
@@ -312,6 +313,7 @@ const transform = (data, isTestnetVisible) => {
       ibc_active_addresses,
       ibc_active_addresses_mainnet,
       ibc_active_addresses_diff,
+      ibc_active_addresses_mainnet_diff,
       ibc_active_addresses_weight,
       ibc_active_addresses_mainnet_weight,
       ibc_tx_failed,
@@ -483,7 +485,9 @@ const transform = (data, isTestnetVisible) => {
         ibcActiveAddresses: isTestnetVisible
           ? ibc_active_addresses
           : ibc_active_addresses_mainnet,
-        ibcActiveAddressesDiff: ibc_active_addresses_diff,
+        ibcActiveAddressesDiff: isTestnetVisible
+          ? ibc_active_addresses_diff
+          : ibc_active_addresses_mainnet_diff,
         ibcActiveAddressesWeight:
           (isTestnetVisible
             ? ibc_active_addresses_weight
