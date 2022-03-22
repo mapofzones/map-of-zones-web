@@ -19,134 +19,53 @@ import {
 
 import { usePrevious } from 'common/hooks';
 
-function roundRect(canvas, x, y, w, h, r) {
-  if (w < 2 * r) r = w / 2;
-  if (h < 2 * r) r = h / 2;
-  canvas.beginPath();
-  canvas.moveTo(x + r, y);
-  canvas.arcTo(x + w, y, x + w, y + h, r);
-  canvas.arcTo(x + w, y + h, x, y + h, r);
-  canvas.arcTo(x, y + h, x, y, r);
-  canvas.arcTo(x, y, x + w, y, r);
-  canvas.closePath();
-}
-
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
+  hoveredNode,
   focusedNode,
-  focusedNodeNeighbors,
+  getNodeNeighbors,
   nodeRelSize,
   images,
 ) =>
   useCallback(
     (node, ctx, globalScale) => {
-      const { x, y, name, color } = node;
-      const fontSize = Math.max(4, 10 / globalScale);
-      const fontWeight = node.isZoneMainnet ? 600 : 500;
-      const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
-      const textWidth = ctx.measureText(nameInCamelCase).width;
-      const backgroundDimensions = [textWidth, fontSize].map(
-        n => n + fontSize * 0.5,
-      );
       const r =
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
-      const paddingHorizontal = 2;
-      const paddingVertical = 1;
-      const deltaY =
-        r + backgroundDimensions[1] / 2 + 2 / globalScale + paddingVertical * 2;
-      const isFocused =
-        focusedNode?.id === node?.id ||
-        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
-      if (focusedNode && !isFocused) {
-        ctx.fillStyle = tinycolor(color)
-          .setAlpha(0.1)
-          .toString();
-      } else {
-        ctx.fillStyle = color;
-      }
+      const isActiveMode = !!focusedNode || !!hoveredNode;
+      const isActiveZone = focusedNode
+        ? isActiveNode(focusedNode, node, getNodeNeighbors)
+        : hoveredNode
+          ? isActiveNode(hoveredNode, node, getNodeNeighbors)
+          : false;
 
-      if (focusedNode?.id === node?.id) {
-        ctx.shadowColor = color;
-        ctx.shadowBlur = 30;
-      }
+      drawZone(ctx, node, r, isActiveMode, isActiveZone, images);
 
-      if (images[node.id]) {
-        ctx.strokeStyle = color;
-        ctx.beginPath();
-        ctx.lineWidth = 2;
-        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-        ctx.closePath();
-        ctx.stroke();
-
-        ctx.drawImage(
-          images[node.id],
-          x - r + 3,
-          y - r + 3,
-          r * 2 - 6,
-          r * 2 - 6,
-        );
-      } else {
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-        ctx.closePath();
-        ctx.fill();
-      }
-
-      ctx.shadowColor = null;
-      ctx.shadowBlur = null;
-      ctx.font = `${fontWeight} ${fontSize}px Poppins`;
-
-      if (focusedNode && !isFocused) {
-        ctx.fillStyle = 'rgba(10, 11, 42, 0.1)';
-      } else {
-        if (node.isZoneMainnet) {
-          ctx.fillStyle = '#212737';
-        } else {
-          ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
-        }
-      }
-
-      roundRect(
-        ctx,
-        x - backgroundDimensions[0] / 2 - paddingHorizontal,
-        y - backgroundDimensions[1] / 2 + deltaY - paddingVertical,
-        backgroundDimensions[0] + paddingHorizontal * 2,
-        backgroundDimensions[1] + paddingVertical * 2,
-        4,
-      );
-
-      ctx.fill();
-
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-
-      if (focusedNode && !isFocused) {
-        ctx.fillStyle = 'rgba(235, 235, 235, 0.1)';
-      } else {
-        if (node.isZoneMainnet) {
-          ctx.fillStyle = 'rgb(255, 255, 255)';
-        } else {
-          ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
-        }
-      }
-
-      ctx.fillText(nameInCamelCase, x, y + deltaY);
+      drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale);
     },
     [
       zoneWeightAccessor,
       nodeRelSize,
+      hoveredNode,
       focusedNode,
-      focusedNodeNeighbors,
+      getNodeNeighbors,
       images,
     ],
   );
 
-export const useFocusedNodeNeighbors = (focusedNode, graph) =>
-  useMemo(() => (focusedNode ? graph.neighbors(focusedNode.id) || [] : null), [
-    focusedNode,
-    graph,
-  ]);
+function isActiveNode(mainNode, currentNode, getNodeNeighbors) {
+  return (mainNode.id === currentNode.id ||
+    getNodeNeighbors(mainNode).includes(currentNode?.id)
+  );
+}
+
+export const useGraphNeighbors = graph =>
+  useCallback(node => (node ? graph.neighbors(node.id) || [] : null), [graph]);
+
+export const useFocusedNodeNeighbors = (node, graph) => {
+  const getNodeNeighbors = useGraphNeighbors(graph);
+  return useMemo(() => getNodeNeighbors(node), [getNodeNeighbors, node]);
+};
 
 export const useLinkColor = focusedNode =>
   useCallback(
@@ -514,6 +433,87 @@ const getUpdated = (source, target) =>
     {},
   );
 
+function drawZone(ctx, node, r, isActiveMode, isActiveZone, images) {
+  const { x, y, color } = node;
+
+  if (isActiveMode) {
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 30;
+  }
+
+  const alpha = isActiveMode && !isActiveZone ? 0.2 : 1;
+  const zoneColor = hex2rgba(color, alpha);
+
+  if (images[node.id]) {
+    ctx.strokeStyle = zoneColor;
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(images[node.id], x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
+    ctx.globalAlpha = 1;
+  } else {
+    ctx.fillStyle = zoneColor;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
+  ctx.shadowColor = null;
+  ctx.shadowBlur = null;
+  const { x, y, name, isZoneMainnet } = node;
+
+  const fontSize = Math.max(4, 10 / globalScale);
+  const fontWeight = isZoneMainnet ? 600 : 500;
+  const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
+  const textWidth = ctx.measureText(nameInCamelCase).width;
+  const textBgWidth = calculateBgDimension(textWidth);
+  const textBgHeight = calculateBgDimension(fontSize);
+
+  const paddingHorizontal = 2;
+  const paddingVertical = 1;
+  const deltaY = r + textBgHeight / 2 + 2 / globalScale + paddingVertical * 2;
+
+  ctx.fillStyle = getTitleBgColor(isActiveMode, isActiveZone, isZoneMainnet);
+  roundRect(
+    ctx,
+    x - textBgWidth / 2 - paddingHorizontal,
+    y - textBgHeight / 2 + deltaY - paddingVertical,
+    textBgWidth + paddingHorizontal * 2,
+    textBgHeight + paddingVertical * 2,
+    4,
+  );
+  ctx.fill();
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = `${fontWeight} ${fontSize}px Poppins`;
+  ctx.fillStyle = getTitleColor(isActiveMode, isActiveZone, isZoneMainnet);
+  ctx.fillText(nameInCamelCase, x, y + deltaY);
+
+  function calculateBgDimension(size) {
+    return size + fontSize * 0.5;
+  }
+}
+
+function roundRect(canvas, x, y, w, h, r) {
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  canvas.beginPath();
+  canvas.moveTo(x + r, y);
+  canvas.arcTo(x + w, y, x + w, y + h, r);
+  canvas.arcTo(x + w, y + h, x, y + h, r);
+  canvas.arcTo(x, y + h, x, y, r);
+  canvas.arcTo(x, y, x + w, y, r);
+  canvas.closePath();
+}
+
 function initData(data) {
   if (!data) {
     return null;
@@ -676,4 +676,28 @@ export function useGraphData(data) {
   const diff = useDiff(cachedData);
 
   return useGraphDataCached(data, diff);
+}
+
+function getTitleBgColor(focusedNode, isActiveZone, isZoneMainnet) {
+  if (focusedNode && !isActiveZone) {
+    return 'rgba(10, 11, 42, 0.1)';
+  }
+
+  if (isZoneMainnet) {
+    return '#212737';
+  } else {
+    return 'rgba(10, 11, 42, 0.5)';
+  }
+}
+
+function getTitleColor(focusedNode, isActiveZone, isZoneMainnet) {
+  if (focusedNode && !isActiveZone) {
+    return 'rgba(235, 235, 235, 0.1)';
+  }
+
+  if (isZoneMainnet) {
+    return 'rgb(255, 255, 255)';
+  } else {
+    return 'rgba(235, 235, 235, 0.6)';
+  }
 }

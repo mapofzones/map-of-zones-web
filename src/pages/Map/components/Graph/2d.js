@@ -28,6 +28,7 @@ import logoUrl from 'assets/images/logo.svg';
 import {
   useNodeCanvasObject,
   useLinkCanvasObject,
+  useGraphNeighbors,
   useFocusedNodeNeighbors,
   useTwitterShareText,
   useTelegramShareText,
@@ -114,7 +115,7 @@ function Graph({
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
-  const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
+  const getNodeNeighbors = useGraphNeighbors(data.graph);
 
   const [images, setImages] = useState({});
   const nodes = graphData?.nodes;
@@ -252,12 +253,12 @@ function Graph({
         !focusedNode ||
         focusedNode === node ||
         focusedNode?.id === node?.id ||
-        focusedNodeNeighbors.includes(node?.id)
+        getNodeNeighbors(focusedNode).includes(node?.id)
       ) {
         setHoveredNode(node);
       }
     },
-    [focusedNode, focusedNodeNeighbors],
+    [focusedNode, getNodeNeighbors],
   );
   const onNodeDrag = useCallback(
     node => {
@@ -266,12 +267,12 @@ function Graph({
         !focusedNode ||
         focusedNode === node ||
         focusedNode?.id === node?.id ||
-        focusedNodeNeighbors.includes(node?.id)
+        getNodeNeighbors(focusedNode).includes(node?.id)
       ) {
         setDraggedNode(node);
       }
     },
-    [focusedNode, focusedNodeNeighbors],
+    [focusedNode, getNodeNeighbors],
   );
   const onLinkHover = useCallback(
     link => {
@@ -306,7 +307,7 @@ function Graph({
 
   const onNodeClick = useCallback(
     node => {
-      if (!focusedNode || focusedNodeNeighbors.includes(node.id)) {
+      if (!focusedNode || getNodeNeighbors(focusedNode).includes(node.id)) {
         onNodeFocus(node);
         trackEvent({
           category: 'Map',
@@ -320,7 +321,7 @@ function Graph({
         clearNodeFocus();
       }
     },
-    [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
+    [focusedNode, onNodeFocus, getNodeNeighbors, clearNodeFocus, period],
   );
 
   const onNodeDragEnd = useCallback(() => {
@@ -333,8 +334,9 @@ function Graph({
 
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
+    hoveredNode,
     focusedNode,
-    focusedNodeNeighbors,
+    getNodeNeighbors,
     NODE_REL_SIZE,
     images,
   );
