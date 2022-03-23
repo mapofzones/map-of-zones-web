@@ -53,10 +53,6 @@
   justify-content: flex-end;
 }
 
-.header.ibcReceived > .header-container {
-  justify-content: flex-end;
-}
-
 .ableSortCol.header-container:after {
   content: '';
   position: absolute;
@@ -257,39 +253,11 @@
   max-width: 80px;
 }
 
-/*4-th col*/
-.header.totalTxs,
-.cell.totalTxs,
-  /*5 col*/
-.header.ibcPercentage,
-.cell.ibcPercentage {
-  width: 104px;
-  min-width: 104px;
-  max-width: 104px;
-}
 .header.ibcActiveAddresses,
 .cell.ibcActiveAddresses {
   width: 100px;
   min-width: 100px;
   max-width: 100px;
-}
-
-/*6 col*/
-.header.ibcSent,
-.cell.ibcSent {
-  border-left: 1px solid var(--table-borders-color);
-  width: 130px;
-  min-width: 130px;
-  max-width: 130px;
-}
-
-/*7 col*/
-.header.ibcReceived,
-.cell.ibcReceived {
-  width: 130px;
-  min-width: 130px;
-  max-width: 130px;
-  border-right: 1px solid var(--table-borders-color);
 }
 
 .header.ibcVolumeSent,
@@ -306,12 +274,6 @@
   min-width: 160px;
   max-width: 160px;
   border-right: 1px solid var(--table-borders-color);
-}
-
-/*8 col*/
-.header.channels,
-.cell.channels {
-  min-width: 100px;
 }
 
 /*9 col*/
@@ -365,16 +327,6 @@
   line-height: 17px;
   border-radius: 100%;
   margin-right: 4px;
-}
-
-.IBC-circle.ibcSent {
-  display: block;
-  background: var(--color-red);
-}
-
-.IBC-circle.ibcReceived {
-  display: block;
-  background: var(--color-green);
 }
 
 .IBC-circle.ibcVolumeSent {

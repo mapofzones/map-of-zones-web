@@ -248,17 +248,6 @@
   max-width: 80px;
 } */
 
-/*4-th col*/
-/* .header.totalTxs,
-.cell.totalTxs, */
-/*5 col*/
-/* .header.ibcPercentage,
-.cell.ibcPercentage {
-  width: 99px;
-  min-width: 99px;
-  max-width: 99px;
-} */
-
 /*IBC Success col*/
 .header.ibcTxSuccess,
 .cell.ibcTxSuccess {
@@ -287,12 +276,6 @@
   max-width: 115px;
   border-right: 1px solid var(--table-borders-color);
 }
-
-/*8 col*/
-/* .header.channels,
-.cell.channels {
-  min-width: 100px;
-} */
 
 /*9 col*/
 /* .cell.txsActivity,

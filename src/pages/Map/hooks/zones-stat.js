@@ -9,15 +9,9 @@ const ZONES_STAT_FRAGMENT = gql`
   fragment stat on zones_stats {
     zone
     chart_cashflow
-    total_txs
     total_ibc_txs
-    ibc_percent
-    ibc_tx_in
     ibc_tx_out
-    channels_num
-    channels_cnt_open
     channels_cnt_active_period
-    channels_percent_active_period
     ibc_transfers_weight
     ibc_transfers_mainnet_weight
     total_txs_weight
@@ -49,8 +43,6 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_failed
     success_rate
     success_rate_mainnet
-    ibc_tx_out_failed
-    ibc_tx_in_failed
     ibc_tx_failed_diff
     ibc_active_addresses_rating
     ibc_active_addresses_rating_diff
@@ -275,15 +267,9 @@ const transform = (data, isTestnetVisible) => {
     ({
       zone,
       chart_cashflow,
-      total_txs,
       total_ibc_txs,
-      ibc_percent,
-      ibc_tx_in,
       ibc_tx_out,
-      channels_num,
-      channels_cnt_open,
       channels_cnt_active_period,
-      channels_percent_active_period,
       ibc_transfers_weight,
       ibc_transfers_mainnet_weight,
       total_txs_weight,
@@ -313,8 +299,6 @@ const transform = (data, isTestnetVisible) => {
       ibc_tx_failed,
       success_rate,
       success_rate_mainnet,
-      ibc_tx_out_failed,
-      ibc_tx_in_failed,
       ibc_tx_failed_diff,
       ibc_active_addresses_rating,
       ibc_active_addresses_rating_diff,
@@ -382,10 +366,10 @@ const transform = (data, isTestnetVisible) => {
         id: zone,
         name: zone_readable_name,
         txsActivity: transformChartData(chart_cashflow, 'txs'),
-        totalTxs: total_txs,
+        // totalTxs: total_txs,
         ibcTransfers: isTestnetVisible ? ibc_transfers : ibc_transfers_mainnet,
-        ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
-        ibcSent: ibc_tx_out,
+        // ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
+        // ibcSent: ibc_tx_out,
         ibcVolume: isTestnetVisible ? ibc_cashflow : ibc_cashflow_mainnet,
         ibcVolumeSent: isTestnetVisible
           ? ibc_cashflow_out
@@ -400,13 +384,13 @@ const transform = (data, isTestnetVisible) => {
         ibcVolumeReceivedPercentage: isTestnetVisible
           ? ibc_cashflow_in_percent / 100 || ibc_cashflow_in_percent
           : ibc_cashflow_in_percent_mainnet / 100 || ibc_cashflow_in_percent_mainnet,
-        ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
-        ibcReceived: ibc_tx_in,
-        ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
-        channels: channels_num,
-        openChannels: channels_cnt_open,
+        // ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
+        // ibcReceived: ibc_tx_in,
+        // ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
+        // channels: channels_num,
+        // openChannels: channels_cnt_open,
         activeChannels: channels_cnt_active_period,
-        activeChannelsPercent: channels_percent_active_period,
+        // activeChannelsPercent: channels_percent_active_period,
         ibcTransfersDiff: isTestnetVisible
           ? ibc_transfers_diff
           : ibc_transfers_mainnet_diff,
@@ -486,8 +470,8 @@ const transform = (data, isTestnetVisible) => {
             10 +
           1,
         ibcTxFailed: ibc_tx_failed,
-        ibcTxOutFailed: ibc_tx_out_failed,
-        ibcTxInFailed: ibc_tx_in_failed,
+        // ibcTxOutFailed: ibc_tx_out_failed,
+        // ibcTxInFailed: ibc_tx_in_failed,
         successRate: isTestnetVisible
           ? success_rate / 100
           : success_rate_mainnet / 100,
