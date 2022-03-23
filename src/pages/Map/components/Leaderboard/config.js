@@ -59,17 +59,6 @@ const columns = [
     tooltip:
       'Number of successfully relayed IBC transfers with pertinent quantity in progress',
   },
-  // {
-  //   Header: 'IBC share %',
-  //   accessor: 'ibcPercentage',
-  //   id: 'ibcPercentage',
-  //   Cell: ({ cell }) =>
-  //     cell.value === null ? '-' : formatPercentage(cell.value),
-  //   disableSortBy: true,
-  //   tooltip:
-  //     'The proportion of the number of transactions having IBC ' +
-  //     'messages to the total number of transactions in a certain zone',
-  // },
   {
     Header: 'IBC volume out, $',
     accessor: 'ibcVolumeSentRating',
@@ -108,14 +97,6 @@ const columns = [
     tooltip:
       'USD value of tokens successfully received from other Zones with pertinent volume in progress',
   },
-  // {
-  //   Header: 'Channels',
-  //   accessor: 'channels',
-  //   id: 'channels',
-  //   Cell: ({ cell }) => (cell.value === null ? '-' : formatNumber(cell.value)),
-  //   tooltip: 'Channels',
-  //   disableSortBy: true,
-  // },
   {
     Header: 'Active Addresses',
     accessor: 'ibcActiveAddressesRating',
