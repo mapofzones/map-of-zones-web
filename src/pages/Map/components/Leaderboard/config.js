@@ -60,19 +60,6 @@ const columns = [
       'Number of successfully relayed IBC transfers with pertinent quantity in progress',
   },
   // {
-  //   Header: 'Total Txs',
-  //   accessor: 'totalTxsRating',
-  //   id: 'totalTxs',
-  //   diffAccessor: 'totalTxsDiff',
-  //   ratingAccessor: 'totalTxsRatingDiff',
-  //   Cell: ({ cell }) =>
-  //     cell.row.original.totalTxs === null
-  //       ? '-'
-  //       : formatNumber(cell.row.original.totalTxs),
-  //   zoneWeightAccessor: 'txsWeight',
-  //   tooltip: 'All transactions in a specified zone',
-  // },
-  // {
   //   Header: 'IBC share %',
   //   accessor: 'ibcPercentage',
   //   id: 'ibcPercentage',
@@ -82,29 +69,6 @@ const columns = [
   //   tooltip:
   //     'The proportion of the number of transactions having IBC ' +
   //     'messages to the total number of transactions in a certain zone',
-  // },
-  // {
-  //   Header: 'IBC out',
-  //   accessor: 'ibcSentRating',
-  //   id: 'ibcSent',
-  //   diffAccessor: 'ibcSentDiff',
-  //   ratingAccessor: 'ibcSentRatingDiff',
-  //   Cell: ({ cell }) => formatNumber(cell.row.original.ibcSent),
-  //   zoneWeightAccessor: 'ibcSentWeight',
-  //   tooltip:
-  //     'Transfers sent successfully from one zone to another zone (note: ' +
-  //     'in order to be considered successful it has NOT to be received by the other zone)',
-  // },
-  // {
-  //   Header: 'IBC in',
-  //   accessor: 'ibcReceivedRating',
-  //   id: 'ibcReceived',
-  //   diffAccessor: 'ibcReceivedDiff',
-  //   ratingAccessor: 'ibcReceivedRatingDiff',
-  //   Cell: ({ cell }) => formatNumber(cell.row.original.ibcReceived),
-  //   zoneWeightAccessor: 'ibcReceivedWeight',
-  //   tooltip:
-  //     'Successfully received token by a zone from another zone (completed token transfer)',
   // },
   {
     Header: 'IBC volume out, $',
