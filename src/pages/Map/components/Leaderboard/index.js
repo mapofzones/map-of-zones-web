@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 import animate from 'animate.css';
-import { motion } from 'framer-motion/dist/es/index';
 
 import { formatNumber, trackEvent, isNumber } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
@@ -85,18 +84,6 @@ function Leaderboard({
 
     return window.removeEventListener('scroll', () => handleScroll(table));
   }, [handleScroll]);
-
-  const transition = useMemo(
-    () => ({
-      duration: 0.1,
-      ease: 'easeIn',
-      type: 'spring',
-      damping: 50,
-      stiffness: 100,
-      mass: 1,
-    }),
-    [],
-  );
 
   const renderCell = cell => {
     switch (cell.column.id) {
@@ -301,18 +288,8 @@ function Leaderboard({
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <motion.tr
-                layout
-                {...row.getRowProps({
-                  transition: transition,
-                  initial: { opacity: 0, y: 0 },
-                  animate: {
-                    opacity: 1,
-                    y:
-                      focusedZoneId && isTableOpened !== 'fixed-thead' ? 45 : 0,
-                  },
-                  exit: { opacity: 0, y: 0 },
-                })}
+              <tr
+                {...row.getRowProps()}
                 className={cx(
                   'row',
                   { focusedRow: row.original.id === focusedZoneId },
@@ -344,7 +321,7 @@ function Leaderboard({
                     </td>
                   );
                 })}
-              </motion.tr>
+              </tr>
             );
           })}
         </tbody>
