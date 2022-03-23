@@ -29,7 +29,6 @@ import {
   useNodeCanvasObject,
   useLinkCanvasObject,
   useGraphNeighbors,
-  useFocusedNodeNeighbors,
   useTwitterShareText,
   useTelegramShareText,
   useGraphData,

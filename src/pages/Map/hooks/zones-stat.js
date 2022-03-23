@@ -26,11 +26,8 @@ const ZONES_STAT_FRAGMENT = gql`
     ibc_tx_in_mainnet_weight
     ibc_tx_out_weight
     ibc_tx_out_mainnet_weight
-    total_txs_diff
     ibc_transfers_pending
     ibc_transfers_pending_mainnet
-    ibc_tx_out_diff
-    ibc_tx_in_diff
     total_txs_rating
     total_txs_rating_diff
     total_txs_mainnet_rating
@@ -295,9 +292,6 @@ const transform = (data, isTestnetVisible) => {
       ibc_tx_in_mainnet_weight,
       ibc_tx_out_weight,
       ibc_tx_out_mainnet_weight,
-      total_txs_diff,
-      ibc_tx_out_diff,
-      ibc_tx_in_diff,
       total_txs_rating,
       total_txs_rating_diff,
       total_txs_mainnet_rating,
@@ -413,7 +407,6 @@ const transform = (data, isTestnetVisible) => {
         openChannels: channels_cnt_open,
         activeChannels: channels_cnt_active_period,
         activeChannelsPercent: channels_percent_active_period,
-        totalTxsDiff: total_txs_diff,
         ibcTransfersDiff: isTestnetVisible
           ? ibc_transfers_diff
           : ibc_transfers_mainnet_diff,
@@ -432,11 +425,9 @@ const transform = (data, isTestnetVisible) => {
         ibcTransfersPending: isTestnetVisible
           ? ibc_transfers_pending
           : ibc_transfers_pending_mainnet,
-        ibcSentDiff: ibc_tx_out_diff,
         ibcVolumeSentDiff: isTestnetVisible
           ? ibc_cashflow_out_diff
           : ibc_cashflow_out_mainnet_diff,
-        ibcReceivedDiff: ibc_tx_in_diff,
         ibcVolumeReceivedDiff: isTestnetVisible
           ? ibc_cashflow_in_diff
           : ibc_cashflow_in_mainnet_diff,
