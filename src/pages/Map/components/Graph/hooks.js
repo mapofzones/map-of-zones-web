@@ -36,10 +36,21 @@ export const useNodeCanvasObject = (
       const isActiveZone = focusedNode
         ? isActiveNode(focusedNode, node, getNodeNeighbors)
         : hoveredNode
-          ? isActiveNode(hoveredNode, node, getNodeNeighbors)
-          : false;
+        ? isActiveNode(hoveredNode, node, getNodeNeighbors)
+        : false;
 
-      drawZone(ctx, node, r, isActiveMode, isActiveZone, images);
+      const isFocusedOrHovered =
+        node?.id === focusedNode?.id || node?.id === hoveredNode?.id;
+
+      drawZone(
+        ctx,
+        node,
+        r,
+        isActiveMode,
+        isActiveZone,
+        isFocusedOrHovered,
+        images,
+      );
 
       drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale);
     },
@@ -54,7 +65,8 @@ export const useNodeCanvasObject = (
   );
 
 function isActiveNode(mainNode, currentNode, getNodeNeighbors) {
-  return (mainNode.id === currentNode.id ||
+  return (
+    mainNode.id === currentNode.id ||
     getNodeNeighbors(mainNode).includes(currentNode?.id)
   );
 }
@@ -433,10 +445,18 @@ const getUpdated = (source, target) =>
     {},
   );
 
-function drawZone(ctx, node, r, isActiveMode, isActiveZone, images) {
+function drawZone(
+  ctx,
+  node,
+  r,
+  isActiveMode,
+  isActiveZone,
+  isFocusedOrSelected,
+  images,
+) {
   const { x, y, color } = node;
 
-  if (isActiveMode) {
+  if (isFocusedOrSelected) {
     ctx.shadowColor = color;
     ctx.shadowBlur = 30;
   }
