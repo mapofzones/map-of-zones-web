@@ -76,7 +76,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  line-height: 220%;
+  line-height: 120%;
   text-transform: capitalize;
   color: var(--color-regular);
 
@@ -456,7 +456,7 @@ thead.fixed.active {
 }
 
 tbody.bodyWithFocus .row {
-  transform: translateY(45px);
+  transform: translateY(40px);
 }
 
 tbody.bodyWithFocus .row.focusedRow {
@@ -532,7 +532,7 @@ tbody.bodyWithFocus.focusFixed .row {
   font-weight: 500;
   font-size: 12px;
   text-align: right;
-  color: #B8B8B8;
+  color: #b8b8b8;
 }
 
 .pendingIcon {
