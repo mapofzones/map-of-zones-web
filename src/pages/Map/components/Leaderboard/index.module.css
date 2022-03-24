@@ -6,8 +6,6 @@
 }
 
 .table-container {
-  overflow-x: auto;
-  overflow-y: hidden;
   background: #ffffff;
   min-height: calc(100vh - 598px);
 }
@@ -41,6 +39,10 @@
 
   background: #ffffff;
   border-bottom: 1px solid var(--table-borders-color);
+
+  position: sticky;
+  top: 50px;
+  z-index: 5;
 }
 
 .header-container {
@@ -443,16 +445,6 @@
 
 .position-shift.new:after {
   content: none;
-}
-
-thead.fixed {
-  position: fixed;
-  top: 49px;
-  z-index: -1;
-}
-
-thead.fixed.active {
-  z-index: 3;
 }
 
 tbody.bodyWithFocus .row {

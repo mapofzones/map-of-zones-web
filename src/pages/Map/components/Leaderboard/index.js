@@ -178,37 +178,6 @@ function Leaderboard({
     [setFocusedZone, isTableOpened, period],
   );
 
-  useEffect(() => {
-    let table = document.getElementById('table-container');
-    let fixedHeader = document.getElementById('fixed-header');
-    let fixedRow = document.getElementById('fixed-row');
-
-    const onTableScroll = event => {
-      [fixedHeader, fixedRow].forEach(item => {
-        if (item) {
-          item.style.transform = `translateX(-${event.target.scrollLeft}px)`;
-        }
-      });
-    };
-
-    if (
-      isTableOpened === 'fixed-thead' &&
-      document.documentElement.clientWidth < 1120
-    ) {
-      [fixedHeader, fixedRow].forEach(item => {
-        if (item) {
-          item.style.transform = `translateX(-${table.scrollLeft}px)`;
-        }
-      });
-
-      table.addEventListener('scroll', onTableScroll);
-    }
-
-    return () => {
-      table.removeEventListener('scroll', onTableScroll);
-    };
-  }, [isTableOpened, focusedZoneId]);
-
   const isMobile = useMobileSize();
 
   const [selectedColumnIndex, updateSelectedColumnIndex] = useState(0);
@@ -267,13 +236,6 @@ function Leaderboard({
     >
       <table {...getTableProps()} className={cx('table')}>
         <Thead
-          headerGroups={headerGroups}
-          onHeaderClick={onHeaderClick}
-          period={period.rawText}
-        />
-        <Thead
-          fixed
-          isTableOpened={isTableOpened}
           headerGroups={headerGroups}
           onHeaderClick={onHeaderClick}
           period={period.rawText}
