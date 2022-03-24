@@ -9,23 +9,11 @@ import styles from '../index.module.css';
 
 const cx = classNames.bind(styles);
 
-const Thead = ({
-  fixed,
-  period,
-  isTableOpened,
-  headerGroups,
-  onHeaderClick,
-}) => {
+const Thead = ({ period, headerGroups, onHeaderClick }) => {
   const isMobile = useMobileSize();
 
   return (
-    <thead
-      className={cx(
-        { fixed: fixed },
-        { active: isTableOpened === 'fixed-thead' },
-      )}
-      id={fixed ? 'fixed-header' : ''}
-    >
+    <thead>
       {headerGroups.map(headerGroup => (
         <tr
           className={cx('fixed-header-container')}
