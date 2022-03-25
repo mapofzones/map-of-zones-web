@@ -1,4 +1,6 @@
-import { formatPercentage, formatNumber } from 'common/helper';
+import React from 'react';
+import { FormattedNumber } from 'react-intl';
+import { formatNumber } from 'common/helper';
 
 import TxsActivityCell from './cells/TxsActivity';
 
@@ -27,89 +29,91 @@ const columns = [
     alwaysVisible: true,
   },
   {
+    Header: 'IBC volume, $',
+    accessor: 'ibcVolumeRating', // TODO: it seems it's better to use 'ibcVolume' here
+    id: 'ibcVolume',
+    diffAccessor: 'ibcVolumeDiff',
+    pendingAccessor: 'ibcVolumePending',
+    ratingAccessor: 'ibcVolumeRatingDiff',
+    Cell: ({ itemValue }) => (
+      <FormattedNumber
+        value={itemValue}
+        style="currency"
+        currency="USD"
+        maximumFractionDigits="0"
+      />
+    ),
+    zoneWeightAccessor: 'ibcVolumeWeight',
+    tooltip:
+      'USD value of tokens successfully relayed via IBC transfer with pertinent volume in progress',
+  },
+  {
     Header: 'IBC transfers',
-    accessor: 'totalIbcTxsRating',
-    id: 'totalIbcTxs',
-    diffAccessor: 'totalIbcTxsDiff',
-    ratingAccessor: 'totalIbcTxsRatingDiff',
-    Cell: ({ cell }) => formatNumber(cell.row.original.totalIbcTxs),
-    zoneWeightAccessor: 'ibcTxsWeight',
-    tooltip: 'Token transfers via IBC relayer',
-  },
-  {
-    Header: 'Total Txs',
-    accessor: 'totalTxsRating',
-    id: 'totalTxs',
-    diffAccessor: 'totalTxsDiff',
-    ratingAccessor: 'totalTxsRatingDiff',
-    Cell: ({ cell }) =>
-      cell.row.original.totalTxs === null
-        ? '-'
-        : formatNumber(cell.row.original.totalTxs),
-    zoneWeightAccessor: 'txsWeight',
-    tooltip: 'All transactions in a specified zone',
-  },
-  {
-    Header: 'IBC share %',
-    accessor: 'ibcPercentage',
-    id: 'ibcPercentage',
-    Cell: ({ cell }) =>
-      cell.value === null ? '-' : formatPercentage(cell.value),
-    disableSortBy: true,
+    accessor: 'ibcTransfersRating',
+    id: 'ibcTransfers',
+    diffAccessor: 'ibcTransfersDiff',
+    pendingAccessor: 'ibcTransfersPending',
+    ratingAccessor: 'ibcTransfersRatingDiff',
+    Cell: ({ itemValue }) => formatNumber(itemValue),
+    zoneWeightAccessor: 'ibcTransfersWeight',
     tooltip:
-      'The proportion of the number of transactions having IBC ' +
-      'messages to the total number of transactions in a certain zone',
+      'Number of successfully relayed IBC transfers with pertinent quantity in progress',
   },
   {
-    Header: 'IBC out',
-    accessor: 'ibcSentRating',
-    id: 'ibcSent',
-    diffAccessor: 'ibcSentDiff',
-    ratingAccessor: 'ibcSentRatingDiff',
-    Cell: ({ cell }) => formatNumber(cell.row.original.ibcSent),
-    zoneWeightAccessor: 'ibcSentWeight',
+    Header: 'IBC volume out, $',
+    accessor: 'ibcVolumeSentRating',
+    id: 'ibcVolumeSent',
+    diffAccessor: 'ibcVolumeSentDiff',
+    pendingAccessor: 'ibcVolumeSentPending',
+    ratingAccessor: 'ibcVolumeSentRatingDiff',
+    Cell: ({ itemValue }) => (
+      <FormattedNumber
+        value={itemValue}
+        style="currency"
+        currency="USD"
+        maximumFractionDigits="0"
+      />
+    ),
+    zoneWeightAccessor: 'ibcVolumeSentWeight',
     tooltip:
-      'Transfers sent successfully from one zone to another zone (note: ' +
-      'in order to be considered successful it has NOT to be received by the other zone)',
+      'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
   },
   {
-    Header: 'IBC in',
-    accessor: 'ibcReceivedRating',
-    id: 'ibcReceived',
-    diffAccessor: 'ibcReceivedDiff',
-    ratingAccessor: 'ibcReceivedRatingDiff',
-    Cell: ({ cell }) => formatNumber(cell.row.original.ibcReceived),
-    zoneWeightAccessor: 'ibcReceivedWeight',
+    Header: 'IBC volume in, $',
+    accessor: 'ibcVolumeReceivedRating',
+    id: 'ibcVolumeReceived',
+    diffAccessor: 'ibcVolumeReceivedDiff',
+    pendingAccessor: 'ibcVolumeReceivedPending',
+    ratingAccessor: 'ibcVolumeReceivedRatingDiff',
+    Cell: ({ itemValue }) => (
+      <FormattedNumber
+        value={itemValue}
+        style="currency"
+        currency="USD"
+        maximumFractionDigits="0"
+      />
+    ),
+    zoneWeightAccessor: 'ibcVolumeReceivedWeight',
     tooltip:
-      'Successfully received token by a zone from another zone (completed token transfer)',
-  },
-  {
-    Header: 'Channels',
-    accessor: 'channels',
-    id: 'channels',
-    Cell: ({ cell }) => (cell.value === null ? '-' : formatNumber(cell.value)),
-    tooltip: 'Channels',
-    disableSortBy: true,
+      'USD value of tokens successfully received from other Zones with pertinent volume in progress',
   },
   {
     Header: 'Active Addresses',
-    accessor: 'totalActiveAddressesRating',
-    id: 'totalActiveAddresses',
-    diffAccessor: 'totalActiveAddressesDiff',
-    ratingAccessor: 'totalActiveAddressesRatingDiff',
-    Cell: ({ cell }) =>
-      cell.row.original.totalActiveAddresses === null
-        ? '-'
-        : formatNumber(cell.row.original.totalActiveAddresses),
+    accessor: 'ibcActiveAddressesRating',
+    id: 'ibcActiveAddresses',
+    diffAccessor: 'ibcActiveAddressesDiff',
+    ratingAccessor: 'ibcActiveAddressesRatingDiff',
+    Cell: ({ itemValue }) =>
+      itemValue === null ? '-' : formatNumber(itemValue),
     tooltip:
-      'Zone-related active addresses and Cosmos Network active addresses that initiate IBC transfers from/to this Zone',
+      'Number of Zone’s unique addresses initiated outward IBC transfer(s)',
     dependOnPeriod: true,
-    zoneWeightAccessor: 'totalActiveAddressesWeight',
+    zoneWeightAccessor: 'ibcActiveAddressesWeight',
   },
   {
-    Header: 'IBC transfers activity',
+    Header: 'IBC volume activity',
     Cell: TxsActivityCell,
-    accessor: 'txsActivity',
+    accessor: 'txsActivity', // TODO
     id: 'txsActivity',
     disableSortBy: true,
   },

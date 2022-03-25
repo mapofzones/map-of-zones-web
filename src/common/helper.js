@@ -34,6 +34,8 @@ export const formatPercentage = (percentage, decimalDigits = 2) =>
 export const formatNumber = number =>
   Intl ? new Intl.NumberFormat().format(number) : number;
 
+export const isNumber = number => typeof number === 'number';
+
 export function trackEvent({ category, action, label, extra = {} }) {
   if (process.env.NODE_ENV === 'production') {
     const instance = amplitude.getInstance();
@@ -65,4 +67,14 @@ export function removeDuplicatedZoneCounerparties(arr) {
 }
 
 export const getIsUptrend = txsActivities =>
-  txsActivities[0].txs < txsActivities[txsActivities.length - 1].txs;
+  txsActivities[0]?.txs < txsActivities[txsActivities.length - 1]?.txs;
+
+export const transformChartData = (chartData, keyName) => {
+  return (chartData || []).reduce((newArray, currValue) => {
+    const index = Object.keys(currValue)[0];
+    const value = {};
+    value[keyName] = currValue[index];
+    newArray[index] = value;
+    return newArray;
+  }, []);
+}

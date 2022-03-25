@@ -1,7 +1,9 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import tinycolor from 'tinycolor2';
 import { parse, stringify } from 'querystringify';
+import SpriteText from 'three-spritetext';
+import equal from 'fast-deep-equal';
 import {
   BufferAttribute,
   BufferGeometry,
@@ -14,145 +16,77 @@ import {
   MeshBasicMaterial,
   Mesh,
 } from 'three';
-import SpriteText from 'three-spritetext';
 
-function roundRect(canvas, x, y, w, h, r) {
-  if (w < 2 * r) r = w / 2;
-  if (h < 2 * r) r = h / 2;
-  canvas.beginPath();
-  canvas.moveTo(x + r, y);
-  canvas.arcTo(x + w, y, x + w, y + h, r);
-  canvas.arcTo(x + w, y + h, x, y + h, r);
-  canvas.arcTo(x, y + h, x, y, r);
-  canvas.arcTo(x, y, x + w, y, r);
-  canvas.closePath();
-}
+import { usePrevious } from 'common/hooks';
 
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
+  hoveredNode,
   focusedNode,
-  focusedNodeNeighbors,
+  getNodeNeighbors,
   nodeRelSize,
   images,
 ) =>
   useCallback(
     (node, ctx, globalScale) => {
-      const { x, y, name, color } = node;
-      const fontSize = Math.max(4, 10 / globalScale);
-      const fontWeight = node.isZoneMainnet ? 600 : 500;
-      const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
-      const textWidth = ctx.measureText(nameInCamelCase).width;
-      const backgroundDimensions = [textWidth, fontSize].map(
-        n => n + fontSize * 0.5,
-      );
       const r =
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
-      const paddingHorizontal = 2;
-      const paddingVertical = 1;
-      const deltaY =
-        r + backgroundDimensions[1] / 2 + 2 / globalScale + paddingVertical * 2;
-      const isFocused =
-        focusedNode === node ||
-        focusedNode?.id === node?.id ||
-        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
 
-      if (focusedNode && !isFocused) {
-        ctx.fillStyle = tinycolor(color)
-          .setAlpha(0.1)
-          .toString();
-      } else {
-        ctx.fillStyle = color;
-      }
+      const isActiveMode = !!focusedNode || !!hoveredNode;
+      const isActiveZone = focusedNode
+        ? isActiveNode(focusedNode, node, getNodeNeighbors)
+        : hoveredNode
+        ? isActiveNode(hoveredNode, node, getNodeNeighbors)
+        : false;
 
-      if (focusedNode === node || focusedNode?.id === node?.id) {
-        ctx.shadowColor = color;
-        ctx.shadowBlur = 30;
-      }
+      const isFocusedOrHovered =
+        node?.id === focusedNode?.id || node?.id === hoveredNode?.id;
 
-      if (images[node.id]) {
-        ctx.strokeStyle = color;
-        ctx.beginPath();
-        ctx.lineWidth = 2;
-        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-        ctx.closePath();
-        ctx.stroke();
-
-        ctx.drawImage(
-          images[node.id],
-          x - r + 3,
-          y - r + 3,
-          r * 2 - 6,
-          r * 2 - 6,
-        );
-      } else {
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-        ctx.closePath();
-        ctx.fill();
-      }
-
-      ctx.shadowColor = null;
-      ctx.shadowBlur = null;
-      ctx.font = `${fontWeight} ${fontSize}px Poppins`;
-
-      if (focusedNode && !isFocused) {
-        ctx.fillStyle = 'rgba(10, 11, 42, 0.1)';
-      } else {
-        if (node.isZoneMainnet) {
-          ctx.fillStyle = '#212737';
-        } else {
-          ctx.fillStyle = 'rgba(10, 11, 42, 0.5)';
-        }
-      }
-
-      roundRect(
+      drawZone(
         ctx,
-        x - backgroundDimensions[0] / 2 - paddingHorizontal,
-        y - backgroundDimensions[1] / 2 + deltaY - paddingVertical,
-        backgroundDimensions[0] + paddingHorizontal * 2,
-        backgroundDimensions[1] + paddingVertical * 2,
-        4,
+        node,
+        r,
+        isActiveMode,
+        isActiveZone,
+        isFocusedOrHovered,
+        images,
       );
 
-      ctx.fill();
-
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-
-      if (focusedNode && !isFocused) {
-        ctx.fillStyle = 'rgba(235, 235, 235, 0.1)';
-      } else {
-        if (node.isZoneMainnet) {
-          ctx.fillStyle = 'rgb(255, 255, 255)';
-        } else {
-          ctx.fillStyle = 'rgba(235, 235, 235, 0.6)';
-        }
-      }
-
-      ctx.fillText(nameInCamelCase, x, y + deltaY);
+      drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale);
     },
     [
       zoneWeightAccessor,
       nodeRelSize,
+      hoveredNode,
       focusedNode,
-      focusedNodeNeighbors,
+      getNodeNeighbors,
       images,
     ],
   );
 
-export const useFocusedNodeNeighbors = (focusedNode, graph) =>
-  useMemo(
-    () =>
-      focusedNode
-        ? (graph.neighbors(focusedNode.id) || []).map(id => graph.node(id))
-        : null,
-    [focusedNode, graph],
+function isActiveNode(mainNode, currentNode, getNodeNeighbors) {
+  return (
+    mainNode.id === currentNode.id ||
+    getNodeNeighbors(mainNode).includes(currentNode?.id)
   );
+}
+
+export const useGraphNeighbors = graph =>
+  useCallback(node => (node ? graph.neighbors(node.id) || [] : null), [graph]);
+
+export const useFocusedNodeNeighbors = (node, graph) => {
+  const getNodeNeighbors = useGraphNeighbors(graph);
+  return useMemo(() => getNodeNeighbors(node), [getNodeNeighbors, node]);
+};
 
 export const useLinkColor = focusedNode =>
   useCallback(
     ({ source, target }) => {
-      if (!focusedNode || focusedNode === source || focusedNode === target) {
+      if (
+        !focusedNode ||
+        focusedNode.id === source.id ||
+        focusedNode.id === target.id
+      ) {
         return 'rgb(255, 255, 255)';
       }
 
@@ -174,26 +108,25 @@ export const useShareLink = queryParams => {
   );
 };
 
-export const useTwitterShareText = (focusedNode, period) => {
-  const queryParams = useMemo(
-    () => ({
-      utm_source: 'twitter.com',
-    }),
-    [],
-  );
+export const getZoneName = zoneName => {
+  return !!zoneName ? `«${zoneName}» zone` : 'Cosmos Network';
+};
+
+export const useTwitterShareText = (activeZoneName, period) => {
+  const queryParams = useMemo(() => ({ utm_source: 'twitter.com' }), []);
   const shareLink = useShareLink(queryParams);
-  const text = useMemo(
-    () => `Check out the «${focusedNode?.name}» zone inter-connection activity for the last ${period?.rawText}:
+  const text = useMemo(() => {
+    const zoneName = getZoneName(activeZoneName);
+    return `Check out the ${zoneName} inter-connection activity for the last ${period?.rawText}:
 ${shareLink}
 by @mapofzones
-#CosmosNetwork #IBC #MapOfZones #gameofzones #GoZ`,
-    [shareLink, focusedNode, period],
-  );
+#CosmosNetwork #IBC #MapOfZones #IBCGang #DeFi #Cosmos #Blockchain`;
+  }, [shareLink, activeZoneName, period]);
 
   return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 };
 
-export const useTelegramShareText = (focusedNode, period) => {
+export const useTelegramShareText = (activeZoneName, period) => {
   const queryParams = useMemo(
     () => ({
       utm_source: 'telegram.org',
@@ -201,11 +134,11 @@ export const useTelegramShareText = (focusedNode, period) => {
     [],
   );
   const shareLink = useShareLink(queryParams);
-  const text = useMemo(
-    () => `Check out the «${focusedNode?.name}» zone inter-connection activity for the last ${period?.rawText}
-by @mapofzones`,
-    [focusedNode, period],
-  );
+  const text = useMemo(() => {
+    const zoneName = getZoneName(activeZoneName);
+    return `Check out the ${zoneName} inter-connection activity for the last ${period?.rawText}
+by @mapofzones`;
+  }, [activeZoneName, period]);
 
   return `https://t.me/share/url?url=${encodeURIComponent(
     shareLink,
@@ -283,6 +216,7 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
     [focusedNode, hoveredNode],
   );
 
+// TODO: Move from here
 let offset = 0;
 setInterval(() => {
   if (offset >= 1) {
@@ -358,8 +292,8 @@ export const useLinkThreeObject = focusedNode => {
     link => {
       if (
         (focusedNode &&
-          focusedNode !== link.source &&
-          focusedNode !== link.target) ||
+          focusedNode.id !== link.source.id &&
+          focusedNode.id !== link.target.id) ||
         !link.activeChannels
       ) {
         return;
@@ -426,13 +360,18 @@ export const useLinkThreeObject = focusedNode => {
     [focusedNode],
   );
 };
+
+const hex2rgba = (hex, alpha = 1) => {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+  return `rgba(${r},${g},${b},${alpha})`;
+};
+
 export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
   useCallback(
     node => {
       const isFocused =
-        focusedNode === node ||
         focusedNode?.id === node?.id ||
-        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
       if (focusedNode && !isFocused) {
         return hex2rgba(node.color, 0.2);
@@ -449,9 +388,8 @@ export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
       const scene = new Scene();
       const text = new SpriteText(node.name);
       const isFocused =
-        focusedNode === node ||
         focusedNode?.id === node?.id ||
-        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node));
+        (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
       if (focusedNode && !isFocused) {
         text.color = hex2rgba(node.color, 0.2);
@@ -467,7 +405,319 @@ export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
     [focusedNode, focusedNodeNeighbors],
   );
 
-const hex2rgba = (hex, alpha = 1) => {
-  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
-  return `rgba(${r},${g},${b},${alpha})`;
-};
+const linkKeyAccessor = item =>
+  `${typeof item.source === 'string' ? item.source : item.source.id}-${
+    typeof item.target === 'string' ? item.target : item.target.id
+  }`;
+
+const nodeKeyAccessor = item => item.id;
+
+const addToCache = (items, keyAccessor) =>
+  items.reduce(
+    (acc, item) => ({
+      ...acc,
+      [keyAccessor(item)]: item,
+    }),
+    {},
+  );
+
+const getDiff = (source, target) =>
+  Object.entries(source).reduce(
+    (acc, [key, value]) =>
+      !target[key]
+        ? {
+            ...acc,
+            [key]: value,
+          }
+        : acc,
+    {},
+  );
+
+const getUpdated = (source, target) =>
+  Object.entries(source).reduce(
+    (acc, [key, value]) =>
+      target[key] && !equal(source[key], target[key])
+        ? {
+            ...acc,
+            [key]: value,
+          }
+        : acc,
+    {},
+  );
+
+function drawZone(
+  ctx,
+  node,
+  r,
+  isActiveMode,
+  isActiveZone,
+  isFocusedOrSelected,
+  images,
+) {
+  const { x, y, color } = node;
+
+  if (isFocusedOrSelected) {
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 30;
+  }
+
+  const alpha = isActiveMode && !isActiveZone ? 0.2 : 1;
+  const zoneColor = hex2rgba(color, alpha);
+
+  if (images[node.id]) {
+    ctx.strokeStyle = zoneColor;
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(images[node.id], x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
+    ctx.globalAlpha = 1;
+  } else {
+    ctx.fillStyle = zoneColor;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
+  ctx.shadowColor = null;
+  ctx.shadowBlur = null;
+  const { x, y, name, isZoneMainnet } = node;
+
+  const fontSize = Math.max(4, 10 / globalScale);
+  const fontWeight = isZoneMainnet ? 600 : 500;
+  const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
+  const textWidth = ctx.measureText(nameInCamelCase).width;
+  const textBgWidth = calculateBgDimension(textWidth);
+  const textBgHeight = calculateBgDimension(fontSize);
+
+  const paddingHorizontal = 2;
+  const paddingVertical = 1;
+  const deltaY = r + textBgHeight / 2 + 2 / globalScale + paddingVertical * 2;
+
+  ctx.fillStyle = getTitleBgColor(isActiveMode, isActiveZone, isZoneMainnet);
+  roundRect(
+    ctx,
+    x - textBgWidth / 2 - paddingHorizontal,
+    y - textBgHeight / 2 + deltaY - paddingVertical,
+    textBgWidth + paddingHorizontal * 2,
+    textBgHeight + paddingVertical * 2,
+    4,
+  );
+  ctx.fill();
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = `${fontWeight} ${fontSize}px Poppins`;
+  ctx.fillStyle = getTitleColor(isActiveMode, isActiveZone, isZoneMainnet);
+  ctx.fillText(nameInCamelCase, x, y + deltaY);
+
+  function calculateBgDimension(size) {
+    return size + fontSize * 0.5;
+  }
+}
+
+function roundRect(canvas, x, y, w, h, r) {
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  canvas.beginPath();
+  canvas.moveTo(x + r, y);
+  canvas.arcTo(x + w, y, x + w, y + h, r);
+  canvas.arcTo(x + w, y + h, x, y + h, r);
+  canvas.arcTo(x, y + h, x, y, r);
+  canvas.arcTo(x, y, x + w, y, r);
+  canvas.closePath();
+}
+
+function initData(data) {
+  if (!data) {
+    return null;
+  }
+
+  // TODO: Use deep copy
+  return {
+    links: data.links?.map(link => ({ ...link })),
+    nodes: data.nodes?.map(node => ({ ...node })),
+  };
+}
+
+function useCache(data) {
+  return useMemo(() => {
+    let links = null;
+    let nodes = null;
+
+    if (data?.links) {
+      links = addToCache(data.links, linkKeyAccessor);
+    }
+
+    if (data?.nodes) {
+      nodes = addToCache(data.nodes, nodeKeyAccessor);
+    }
+
+    if (!links && !nodes) {
+      return null;
+    }
+
+    return {
+      links,
+      nodes,
+    };
+  }, [data]);
+}
+
+function useDiff(nextData) {
+  const prevData = usePrevious(nextData);
+
+  return useMemo(() => {
+    let links = null;
+    let nodes = null;
+
+    if (nextData?.nodes && prevData?.nodes) {
+      const add = getDiff(nextData.nodes, prevData.nodes);
+      const remove = getDiff(prevData.nodes, nextData.nodes);
+      const update = getUpdated(nextData.nodes, prevData.nodes);
+
+      nodes = {
+        add,
+        remove,
+        update,
+      };
+    }
+
+    if (nextData?.links && prevData?.links) {
+      const add = getDiff(nextData.links, prevData.links);
+      const remove = getDiff(prevData.links, nextData.links);
+      const update = getUpdated(nextData.links, prevData.links);
+      const updateWithNodes = nodes?.update
+        ? Object.entries(nextData.links).reduce(
+            (acc, [key, link]) =>
+              nodes.update[link.source] || nodes.update[link.targe]
+                ? {
+                    ...acc,
+                    [key]: link,
+                  }
+                : acc,
+            {},
+          )
+        : {};
+
+      links = {
+        add,
+        remove,
+        update: {
+          ...update,
+          ...updateWithNodes,
+        },
+      };
+    }
+
+    if (!links && !nodes) {
+      return null;
+    }
+
+    return {
+      links,
+      nodes,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nextData]); // prevData will be changed together with nextData
+}
+
+function useGraphDataCached(data, diff) {
+  const [graphData, setGraphData] = useState(initData(data));
+
+  useEffect(() => {
+    let links = [...(graphData?.links || [])];
+    let nodes = [...(graphData?.nodes || [])];
+
+    if (diff) {
+      if (diff.links) {
+        if (diff.links.add) {
+          links = [
+            ...links,
+            ...Object.values(diff.links.add).map(link => ({ ...link })),
+          ];
+        }
+
+        if (diff.links.remove) {
+          links = links.filter(
+            item => !diff.links.remove[linkKeyAccessor(item)],
+          );
+        }
+
+        if (diff.links.update) {
+          links = [
+            ...links.filter(item => !diff.links.update[linkKeyAccessor(item)]),
+            ...Object.values(diff.links.update).map(link => ({ ...link })),
+          ];
+        }
+      }
+
+      if (diff.nodes) {
+        if (diff.nodes.add) {
+          nodes = [
+            ...nodes,
+            ...Object.values(diff.nodes.add).map(node => ({ ...node })),
+          ];
+        }
+
+        if (diff.nodes.remove) {
+          nodes = nodes.filter(
+            item => !diff.nodes.remove[nodeKeyAccessor(item)],
+          );
+        }
+
+        if (diff.nodes.update) {
+          nodes = [
+            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
+            ...Object.values(diff.nodes.update).map(node => ({ ...node })),
+          ];
+        }
+      }
+    }
+
+    setGraphData({
+      links,
+      nodes,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [diff]); // TODO: Do we need to pass graphData?
+
+  return graphData;
+}
+
+export function useGraphData(data) {
+  const cachedData = useCache(data);
+  const diff = useDiff(cachedData);
+
+  return useGraphDataCached(data, diff);
+}
+
+function getTitleBgColor(focusedNode, isActiveZone, isZoneMainnet) {
+  if (focusedNode && !isActiveZone) {
+    return 'rgba(10, 11, 42, 0.1)';
+  }
+
+  if (isZoneMainnet) {
+    return '#212737';
+  } else {
+    return 'rgba(10, 11, 42, 0.5)';
+  }
+}
+
+function getTitleColor(focusedNode, isActiveZone, isZoneMainnet) {
+  if (focusedNode && !isActiveZone) {
+    return 'rgba(235, 235, 235, 0.1)';
+  }
+
+  if (isZoneMainnet) {
+    return 'rgb(255, 255, 255)';
+  } else {
+    return 'rgba(235, 235, 235, 0.6)';
+  }
+}

@@ -1,13 +1,17 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
-import { useTable, useSortBy, useGlobalFilter } from 'react-table';
+import { useTable, useSortBy, useGlobalFilter, useExpanded } from 'react-table';
+import { DefaultUndefinedValue } from 'common/constants';
+import { isNumber } from 'common/helper';
+import Status from 'components/Status';
+import { motion } from 'framer-motion/dist/es/index';
 
-import { formatNumber, trackEvent } from 'common/helper';
+import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import Thead from './Thead';
 import columnsConfig from './config';
 
+import classNames from 'classnames/bind';
 import styles from './index.module.css';
 
 const cx = classNames.bind(styles);
@@ -18,7 +22,7 @@ function Leaderboard({
   initialState,
   disableMultiSort,
   disableSortRemove,
-  setFocusedZone,
+  onChannelClick,
   focusedZoneId,
   filter,
 }) {
@@ -34,7 +38,6 @@ function Leaderboard({
     rows,
     prepareRow,
     state,
-    columns,
     setGlobalFilter,
   } = useTable(
     {
@@ -47,39 +50,36 @@ function Leaderboard({
     },
     useGlobalFilter,
     useSortBy,
+    useExpanded,
   );
 
-  const sortBy = state?.sortBy?.[0];
-  const initialSortBy = initialState?.sortBy?.[0];
-  const sortedColumn = columns.find(({ isSorted }) => isSorted);
+  const transition = useMemo(
+    () => ({
+      duration: 0.1,
+      ease: 'easeInOut',
+      type: 'spring',
+      damping: 50,
+      stiffness: 100,
+      mass: 1,
+    }),
+    [],
+  );
 
-  const focusZone = useCallback(
-    zone => {
-      setFocusedZone(zone);
-
-      trackEvent({
-        category: 'Table',
-        action: 'select zone',
-        label: zone.name,
-      });
+  const sortBy = useMemo(() => state?.sortBy?.[0], [state]);
+  const onRowClick = useCallback(
+    row => {
+      if (row.depth !== 0) {
+        onChannelClick(row.original);
+      }
     },
-    [setFocusedZone],
+    [onChannelClick],
   );
 
   useEffect(() => {
-    if (sortedColumn) {
-      onSortChange({ ...sortedColumn });
-
-      if (sortBy !== initialSortBy) {
-        trackEvent({
-          category: 'Table',
-          action: 'sort',
-          label: sortedColumn.id,
-          extra: { direction: sortBy?.desc ? 'desc' : 'asc' },
-        });
-      }
+    if (sortBy) {
+      onSortChange(sortBy);
     }
-  }, [sortBy, initialSortBy, sortedColumn, onSortChange]);
+  }, [sortBy, onSortChange]);
 
   useEffect(() => {
     setGlobalFilter(() => rowsToSort => filter(rowsToSort, sortBy));
@@ -87,66 +87,151 @@ function Leaderboard({
 
   const renderCell = cell => {
     switch (cell.column.id) {
-      case 'blank':
-        return <div>-</div>;
-      case 'txsActivity':
+      case 'position': {
         return cell.render('Cell');
-      case 'name':
+      }
+      case 'name': {
+        if (cell.row.depth === 0) {
+          if (cell.row.isExpanded) {
+            return (
+              <motion.div
+                className={cx('zonesPairContainer')}
+                key="zoneExpanded"
+                transition={transition}
+                initial={{ x: '-50%', opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+              >
+                <div className={cx('zonesPair')}>
+                  <div className={cx('zoneInfoHeader', 'sourceZoneHeader')}>
+                    {cell.row.original.sourceZoneLabelUrl ? (
+                      <img
+                        className={cx('image-container')}
+                        src={cell.row.original.sourceZoneLabelUrl}
+                        alt=""
+                      />
+                    ) : (
+                      <div className={cx('image-empty')} />
+                    )}
+                    <span className={cx('text-container')}>
+                      {cell.row.original.sourceZoneReadableName}
+                    </span>
+                    <Status isZoneUpToDate={cell.row.original.isZoneUpToDate} />
+                  </div>
+                  <div className={cx('zoneInfoHeader', 'zoneCounterparty')}>
+                    {cell.row.original.zoneCounterpartyLabelUrl ? (
+                      <img
+                        className={cx('image-container')}
+                        src={cell.row.original.zoneCounterpartyLabelUrl}
+                        alt=""
+                      />
+                    ) : (
+                      <div className={cx('image-empty')} />
+                    )}
+                    <span className={cx('text-container')}>
+                      {cell.row.original.zoneCounterpartyReadableName}
+                    </span>
+                    <Status
+                      isZoneUpToDate={
+                        cell.row.original.isZoneCounterpartyUpToDate
+                      }
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          }
+          return (
+            <motion.div
+              className={cx('zonesPairContainer')}
+              key="zoneCollapsed"
+              transition={transition}
+              initial={{ x: '50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+            >
+              <div className={cx('zonesPair')}>
+                <div className={cx('zoneInfoHeader', 'zoneCounterparty')}>
+                  {cell.row.original.zoneCounterpartyLabelUrl ? (
+                    <img
+                      className={cx('image-container')}
+                      src={cell.row.original.zoneCounterpartyLabelUrl}
+                      alt=""
+                    />
+                  ) : (
+                    <div className={cx('image-empty')} />
+                  )}
+                  <span className={cx('text-container')}>
+                    {cell.row.original.zoneCounterpartyReadableName}
+                  </span>
+                  <Status
+                    isZoneUpToDate={
+                      cell.row.original.isZoneCounterpartyUpToDate
+                    }
+                  />
+                </div>
+              </div>
+            </motion.div>
+          );
+        }
         return (
-          <div className={cx('cell-container')}>
-            <span className={cx('text-container')}>
+          <div className={cx('cell-container', 'channelIdContainer')}>
+            <div>
+              {cell.row.original.channelId || <i>{DefaultUndefinedValue}</i>}
+            </div>
+            <div className={cx('channelLineContainer')}>
               <div
-                className={cx('IBC-circle', {
-                  ibcReceived: cell.row.original.is_opened,
-                  ibcSent: !cell.row.original.is_opened,
+                className={cx('dot', {
+                  opened: cell.row.original.isOpened,
                 })}
               />
-              {cell.row.original.channel_id}
-            </span>
-            <span className={cx('subtext-container')}>
               <div
-                className={cx('IBC-circle', 'hided', {
-                  ibcReceived: cell.row.original.is_opened,
-                  ibcSent: !cell.row.original.is_opened,
+                className={cx('line', {
+                  opened: cell.row.original.isOpened,
                 })}
               />
-              {cell.render('Cell')}
-            </span>
-          </div>
-        );
-      case 'zone_counerparty':
-        return (
-          <div className={cx('cell-container')}>
-            {cell.row.original.zone_counterparty_label_url ? (
-              <img
-                className={cx('image-container')}
-                src={cell.row.original.zone_counterparty_label_url}
-                alt=""
+              <div
+                className={cx('dot', {
+                  opened: cell.row.original.isOpened,
+                })}
               />
-            ) : (
-              <div className={cx('image-empty')} />
-            )}
-            <span className={cx('text-container')}>{cell.render('Cell')}</span>
+            </div>
+            <div className={cx('zoneCounterpartyChannelId')}>
+              {cell.row.original.zoneCounterpartyChannelId || (
+                <i>{DefaultUndefinedValue}</i>
+              )}
+            </div>
           </div>
         );
-      default:
+      }
+      default: {
+        const diff = cell.row.original[cell.column.diffAccessor];
+        const pending = cell.row.original[cell.column.pendingAccessor];
+        const Cell = cell.column.Cell;
+
         return (
-          <span className={cx('text-container')}>
+          <span
+            className={cx('text-container', {
+              numeric: typeof cell.value === 'number',
+            })}
+          >
             {cell.render('Cell')}
-            {!cell.column.disableSortBy && (
+            {isNumber(diff) && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.id + '_diff'] < 0,
+                  negative: diff < 0,
                 })}
               >
-                {cell.row.original[cell.column.id + '_diff'] > 0
-                  ? '+' +
-                    formatNumber(cell.row.original[cell.column.id + '_diff'])
-                  : formatNumber(cell.row.original[cell.column.id + '_diff'])}
+                <Cell cell={cell} value={diff > 0 ? '+' + diff : diff} />
+              </div>
+            )}
+            {isNumber(pending) && (
+              <div className={cx('pendingContainer')}>
+                <PendingIcon className={cx('pendingIcon')} />
+                <Cell cell={cell} value={pending} />
               </div>
             )}
           </span>
         );
+      }
     }
   };
 
@@ -158,23 +243,35 @@ function Leaderboard({
           {...getTableBodyProps()}
           className={cx({ bodyWithFocus: !!focusedZoneId })}
         >
-          {rows.map((row, i) => {
+          {rows.map(row => {
             prepareRow(row);
+
             return (
-              <tr
-                {...row.getRowProps()}
-                className={cx('row')}
+              <motion.tr
+                layout
+                {...row.getRowProps({
+                  transition: transition,
+                  initial: { y: -33, opacity: 0 },
+                  animate: { y: 0, opacity: 1 },
+                  exit: { y: -33, opacity: 0 },
+                })}
+                className={cx('row', {
+                  expanded: row.isExpanded,
+                  subrow: row.depth > 0,
+                })}
                 onClick={() => {
-                  focusZone(row.original);
+                  if (row.canExpand) {
+                    row.toggleRowExpanded();
+                  }
+
+                  onRowClick(row);
                 }}
               >
                 {row.cells.map(cell => {
                   return (
                     <td
                       {...cell.getCellProps()}
-                      className={cx('cell', cell.column.id, {
-                        ibcReceived: cell.column.Header === 'IBC Success',
-                        ibcSent: cell.column.Header === 'IBC Failed',
+                      className={cx('cell', cell.column.className, {
                         sortedColumn: cell.column.isSorted,
                       })}
                     >
@@ -182,7 +279,7 @@ function Leaderboard({
                     </td>
                   );
                 })}
-              </tr>
+              </motion.tr>
             );
           })}
         </tbody>
@@ -198,7 +295,7 @@ Leaderboard.propTypes = {
   disableMultiSort: PropTypes.bool,
   disableSortRemove: PropTypes.bool,
   focusedZoneId: PropTypes.string,
-  setFocusedZone: PropTypes.func,
+  onChannelClick: PropTypes.func,
   filter: PropTypes.func,
 };
 
@@ -207,7 +304,7 @@ Leaderboard.defaultProps = {
   initialState: {},
   disableMultiSort: true,
   disableSortRemove: true,
-  setFocusedZone: () => {},
+  onChannelClick: () => {},
   filter: rows => rows,
 };
 

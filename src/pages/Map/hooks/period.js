@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
-import { PERIODS } from '../components/PeriodSwitcher';
+import { PERIODS } from 'components/PeriodSwitcher';
 
 export const usePeriodSelector = () => {
   const history = useHistory();
@@ -19,10 +19,10 @@ export const usePeriodSelector = () => {
       }
 
       if (location.search !== `?${stringify(search)}`) {
-        history.push(`?${stringify(search)}`);
+        history.push(`?${stringify(search)}`, location.state);
       }
     },
-    [history, location.search],
+    [history, location.search, location.state],
   );
   const period = useMemo(() => parseInt(parse(location.search).period, 10), [
     location.search,

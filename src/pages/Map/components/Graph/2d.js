@@ -23,16 +23,18 @@ import { ReactComponent as CollapseScreenIcon } from 'assets/images/collapse-scr
 import { ReactComponent as CloseIcon } from 'assets/images/close-icon.svg';
 import { ReactComponent as TgShareLogo } from 'assets/images/tg-share.svg';
 import { ReactComponent as TwitterShareLogo } from 'assets/images/twitter-share.svg';
+import logoUrl from 'assets/images/logo.svg';
 
 import {
   useNodeCanvasObject,
   useLinkCanvasObject,
-  useFocusedNodeNeighbors,
+  useGraphNeighbors,
   useTwitterShareText,
   useTelegramShareText,
+  useGraphData,
 } from './hooks';
-import NodeTooltip from './Tooltips/NodeTooltip';
-import LinkTooltip from './Tooltips/LinkTooltip';
+import NodeTooltip from './Tooltips/Node';
+import LinkTooltip from './Tooltips/Link';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 import ZonesFilter from '../ZonesFilter';
 
@@ -56,6 +58,30 @@ const zoomValue = nodesCount => {
   return nodesCount > 50 ? 0.8 : 1;
 };
 
+const loadImage = (src, forceCors = false) =>
+  new Promise((resolve, reject) => {
+    const image = new Image();
+
+    image.src = src;
+
+    if (forceCors) {
+      image.crossOrigin = 'anonymous';
+    }
+
+    function onError(e) {
+      image.removeEventListener('load', onLoad);
+      reject(e);
+    }
+
+    function onLoad() {
+      image.removeEventListener('error', onError);
+      resolve(image);
+    }
+
+    image.addEventListener('load', onLoad, { once: true });
+    image.addEventListener('error', onError, { once: true });
+  });
+
 function Graph({
   data,
   isBlurred,
@@ -75,13 +101,7 @@ function Graph({
     location.search,
   ]);
 
-  const [graphData, setGraphData] = useState(data);
-  useEffect(() => {
-    setGraphData(data);
-    // TODO: it could bring extra rerenders, but need to test
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [data.graph._nodeCount, data.graph._edgeCount, period]);
-  }, [data.graph._nodeCount, data.graph._edgeCount, period, data]); //todo: need to fix! Can't work with websocket, reload bug
+  const graphData = useGraphData(data);
 
   const [hoveredNode, setHoveredNode] = useState(null);
   const [draggedNode, setDraggedNode] = useState(null);
@@ -94,25 +114,56 @@ function Graph({
   // const [isModalOpened, setModalOpened] = useState(false);
   const fgRef = useRef();
 
-  const focusedNodeNeighbors = useFocusedNodeNeighbors(
-    focusedNode,
-    graphData.graph,
-  );
+  const getNodeNeighbors = useGraphNeighbors(data.graph);
 
   const [images, setImages] = useState({});
+  const nodes = graphData?.nodes;
 
   useEffect(() => {
-    if (graphData?.nodes) {
-      graphData.nodes.forEach(({ id, zoneLabelUrlBig }) => {
-        if (!images[id] && zoneLabelUrlBig) {
-          const image = new Image();
-          image.src = zoneLabelUrlBig;
+    const loadData = async () => {
+      const loadedImages = await Promise.all(
+        nodes.map(async ({ id, zoneLabelUrlBig }) => {
+          if (zoneLabelUrlBig) {
+            try {
+              const image = await loadImage(
+                zoneLabelUrlBig,
+                process.env.NODE_ENV === 'production',
+              );
 
-          setImages(prevState => ({ ...prevState, [id]: image }));
-        }
-      });
+              return {
+                id,
+                image,
+              };
+            } catch {
+              try {
+                const imageFallback = await loadImage(zoneLabelUrlBig);
+
+                return {
+                  id,
+                  image: imageFallback,
+                };
+              } catch {
+                return null;
+              }
+            }
+          }
+
+          return null;
+        }),
+      );
+
+      setImages(prevState => ({
+        ...prevState,
+        ...loadedImages
+          .filter(Boolean)
+          .reduce((acc, { id, image }) => ({ ...acc, [id]: image }), {}),
+      }));
+    };
+
+    if (nodes) {
+      loadData();
     }
-  }, [graphData, images]);
+  }, [nodes]);
 
   useEffect(() => {
     const fg = fgRef.current;
@@ -158,7 +209,7 @@ function Graph({
     }
 
     if (focusedNode) {
-      let { x, y } = focusedNode;
+      let { x, y } = nodes.find(({ id }) => focusedNode.id === id) || {};
 
       if (!x || !y) {
         const nodeCoords = fgRef.current.getGraphBbox(
@@ -183,8 +234,8 @@ function Graph({
       fgRef.current.centerAt(0, 0, 500);
     }
 
-    zoom(zoomValue(graphData.nodes.length));
-  }, [graphData, focusedNode, isRendered, zoneFromSearch, zoom]);
+    zoom(zoomValue(nodes.length));
+  }, [nodes, focusedNode, isRendered, zoneFromSearch, zoom]);
 
   const zoomIn = useCallback(() => {
     zoom(currentZoom * 2);
@@ -201,12 +252,12 @@ function Graph({
         !focusedNode ||
         focusedNode === node ||
         focusedNode?.id === node?.id ||
-        focusedNodeNeighbors.includes(node)
+        getNodeNeighbors(focusedNode).includes(node?.id)
       ) {
         setHoveredNode(node);
       }
     },
-    [focusedNode, focusedNodeNeighbors],
+    [focusedNode, getNodeNeighbors],
   );
   const onNodeDrag = useCallback(
     node => {
@@ -215,12 +266,12 @@ function Graph({
         !focusedNode ||
         focusedNode === node ||
         focusedNode?.id === node?.id ||
-        focusedNodeNeighbors.includes(node)
+        getNodeNeighbors(focusedNode).includes(node?.id)
       ) {
         setDraggedNode(node);
       }
     },
-    [focusedNode, focusedNodeNeighbors],
+    [focusedNode, getNodeNeighbors],
   );
   const onLinkHover = useCallback(
     link => {
@@ -255,7 +306,7 @@ function Graph({
 
   const onNodeClick = useCallback(
     node => {
-      if (!focusedNode || focusedNodeNeighbors.includes(node)) {
+      if (!focusedNode || getNodeNeighbors(focusedNode).includes(node.id)) {
         onNodeFocus(node);
         trackEvent({
           category: 'Map',
@@ -269,7 +320,7 @@ function Graph({
         clearNodeFocus();
       }
     },
-    [focusedNode, onNodeFocus, focusedNodeNeighbors, clearNodeFocus, period],
+    [focusedNode, onNodeFocus, getNodeNeighbors, clearNodeFocus, period],
   );
 
   const onNodeDragEnd = useCallback(() => {
@@ -282,8 +333,9 @@ function Graph({
 
   const nodeCanvasObject = useNodeCanvasObject(
     zoneWeightAccessor,
+    hoveredNode,
     focusedNode,
-    focusedNodeNeighbors,
+    getNodeNeighbors,
     NODE_REL_SIZE,
     images,
   );
@@ -299,11 +351,72 @@ function Graph({
     focusedNode,
     hoveredNode || draggedNode,
   );
-  const twitterShareText = useTwitterShareText(focusedNode, period);
-  const telegramShareText = useTelegramShareText(focusedNode, period);
+  const twitterShareText = useTwitterShareText(focusedNode?.name, period);
+  const telegramShareText = useTelegramShareText(focusedNode?.name, period);
+  const containerRef = useRef(null);
+  const shareImage = useCallback(async () => {
+    if (containerRef?.current) {
+      const canvas = containerRef.current.querySelector('canvas');
+
+      if (canvas) {
+        try {
+          const logoImage = await loadImage(logoUrl);
+          const fg = fgRef.current;
+          const scale = fg.zoom();
+          const context = canvas.getContext('2d');
+          const { x, y } = fg.screen2GraphCoords(0, 0);
+          const logoPaddding = 13 / scale;
+          const logoWidth = 115.8 / scale;
+          const logoHeight = 54.3 / scale;
+
+          context.drawImage(
+            logoImage,
+            x + logoPaddding,
+            y + logoPaddding,
+            logoWidth,
+            logoHeight,
+          );
+          context.globalCompositeOperation = 'destination-over';
+          context.fillStyle = '#120e25'; // TODO: Use image instead
+          context.fillRect(x, y, canvas.width / scale, canvas.height / scale);
+
+          const canvasImage = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
+
+          link.style.display = 'none';
+          link.href = canvasImage;
+          link.download = 'map.png'; // TODO: Change name
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          context.globalCompositeOperation = 'source-over';
+        } catch (e) {
+          console.log(e);
+
+          const context = canvas.getContext('2d');
+
+          context.globalCompositeOperation = 'source-over';
+        }
+      }
+    }
+  }, [containerRef, fgRef]);
+
+  useEffect(() => {
+    if (focusedNode && nodes) {
+      const node = nodes.find(({ id }) => focusedNode.id === id);
+
+      if (!node) {
+        clearNodeFocus();
+      }
+    }
+  }, [focusedNode, nodes]);
+
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <div className={cx('container', { blurred: isBlurred })}>
+      <div
+        className={cx('container', { blurred: isBlurred })}
+        ref={containerRef}
+      >
         <ForceGraph2D
           ref={fgRef}
           height={mapOpened ? document.documentElement.clientHeight : 500}
@@ -371,44 +484,52 @@ function Graph({
             3D
           </button>
         </div>
-        {!!focusedNode && (
-          <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
-            <div className={cx('shareTitle')}>
-              <FormattedMessage id="share" defaultMessage="Share" />
-            </div>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'telegram share',
-                  label: focusedNode.name,
-                })
-              }
-              href={telegramShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TgShareLogo />
-            </a>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'twitter share',
-                  label: focusedNode.name,
-                  extra: { period: period?.rawText },
-                })
-              }
-              href={twitterShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TwitterShareLogo />
-            </a>
+        <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
+          <div className={cx('shareTitle')}>
+            <FormattedMessage id="share" defaultMessage="Share" />
           </div>
-        )}
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'telegram share',
+                label: focusedNode?.name,
+              })
+            }
+            href={telegramShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TgShareLogo />
+          </a>
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'twitter share',
+                label: focusedNode?.name,
+                extra: { period: period?.rawText },
+              })
+            }
+            href={twitterShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TwitterShareLogo />
+          </a>
+          {false && (
+            <button
+              type="button"
+              onClick={shareImage}
+              className={cx('roundButton', 'downloadButton')}
+            >
+              <div className={cx('downloadArrowIcon')}>↓</div>
+              <div className={cx('downloadIcon')} />
+            </button>
+          )}
+        </div>
         {!!focusedNode && (
           <button
             type="button"
@@ -422,7 +543,9 @@ function Graph({
       {hoveredNode && isFocused && (
         <NodeTooltip node={hoveredNode} period={period} />
       )}
-      {hoveredLink && isFocused && <LinkTooltip link={hoveredLink} />}
+      {hoveredLink && isFocused && (
+        <LinkTooltip link={hoveredLink} period={period} />
+      )}
       <ZonesFilter
         onRequestClose={toggleFilter}
         isOpen={showFilter}
@@ -465,7 +588,7 @@ Graph.propTypes = {
 };
 
 Graph.defaultProps = {
-  zoneWeightAccessor: 'ibcTxsWeight',
+  zoneWeightAccessor: 'ibcVolumeWeight',
   onNodeFocus: () => {},
 };
 

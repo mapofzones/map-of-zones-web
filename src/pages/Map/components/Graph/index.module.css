@@ -77,6 +77,24 @@
   margin-top: 16px;
 }
 
+.downloadButton {
+  font-size: 20px;
+  flex-direction: column;
+}
+
+.downloadIcon {
+  margin-top: -3px;
+  width: 24px;
+  height: 6px;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+
+.downloadArrowIcon {
+  margin-top: -3px;
+}
+
 .zonesFilterContainer {
   position: relative;
 }

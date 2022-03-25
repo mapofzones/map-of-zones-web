@@ -5,13 +5,6 @@
   --table-gray: #b8b8b8;
 }
 
-.table-container {
-  overflow-x: auto;
-  overflow-y: hidden;
-  background: #ffffff;
-  min-height: calc(100vh - 178px);
-}
-
 .table-container::-webkit-scrollbar {
   background: transparent;
   height: 6px;
@@ -26,6 +19,9 @@
 .table {
   border-spacing: 0;
   position: relative;
+  max-width: 1000px;
+  flex-grow: 1;
+  margin-top: 20px;
 }
 
 .header {
@@ -39,7 +35,7 @@
   white-space: nowrap;
   min-height: 26px;
 
-  background: #ffffff;
+  background: #e5e5e5;
   border-bottom: 1px solid var(--table-borders-color);
 
   vertical-align: bottom;
@@ -58,10 +54,11 @@
   transition: 0.1s;
   height: 26px;
   position: relative;
+  justify-content: flex-end;
 }
 
-.header.ibcReceived > .header-container {
-  justify-content: flex-end;
+.header.name .header-container {
+  justify-content: flex-start;
 }
 
 .ableSortCol.header-container:after {
@@ -98,15 +95,52 @@
   cursor: pointer;
 }
 
+.row:not(.subrow) .cell {
+  border-top: 1px solid #e5e5e5;
+}
+
+.row.expanded .cell,
 .row.focusedRow .cell,
-.row:hover .cell {
+.row:hover .cell,
+.row.subrow:hover .cell {
   background: #f4f4f5;
+}
+
+.row.subrow .cell {
+  background: #fafafa;
+  font-size: 13px;
+  line-height: 100%;
 }
 
 .cell .cell-container {
   display: flex;
   align-items: baseline;
   flex-wrap: nowrap;
+}
+
+.zonesPairContainer {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+.zonesPair {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.zonesPair .zoneInfoHeader {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  min-width: 150px;
+}
+
+.expandArrow {
+  margin-bottom: 4px;
 }
 
 .cell .image-container {
@@ -126,11 +160,11 @@
 }
 
 .cell .text-container {
-  padding-right: 30px;
   display: inline-block;
   white-space: nowrap;
   width: 100%;
   position: relative;
+  line-height: 25px;
 }
 
 .cell .subtext-container {
@@ -171,53 +205,24 @@
   visibility: visible;
 }
 
+.text-container.numeric {
+  font-family: var(--font-monospace), monospace;
+}
+
 /*1-st col*/
-.header.position {
-  color: rgba(128, 128, 128, 0.5);
-}
-
-.header.position .header-container {
-  justify-content: center;
-}
-
 .cell.position {
+  width: 16px;
   text-align: center;
-  color: rgba(0, 0, 0, 0.2);
-  vertical-align: initial;
-}
-
-.cell.position .text-container {
-  color: rgba(114, 114, 114, 0.5);
-  padding: 0;
-}
-
-.header.position > div,
-.header.position,
-.cell.position {
-  width: 32px;
-  padding: 0;
-}
-
-/*2-nd col*/
-.header.name {
-  color: rgba(114, 114, 114, 0.5);
+  color: #ccc;
 }
 
 .header.name,
-.cell.name,
-.header.zone_counerparty,
-.cell.zone_counerparty {
-  width: 239px;
-}
-
-.cell.name .cell-container {
-  display: block;
-  padding: 4px 0;
+.cell.name {
+  width: 100%;
 }
 
 .cell.name .text-container,
-.cell.name .subtext-container,
-.cell.zone_counerparty .text-container {
+.cell.name .subtext-container {
   padding: 0;
   max-width: calc(380px - 35px);
   text-overflow: ellipsis;
@@ -229,69 +234,58 @@
   line-height: initial;
 }
 /*3-d col*/
-.header.totalIbcTxs,
-.cell.totalIbcTxs {
+/* .header.ibcTransfers,
+.cell.ibcTransfers {
   width: 123px;
   min-width: 123px;
   max-width: 123px;
-}
-
+} */
+/* 
 .header.activeAddresses,
 .cell.activeAddresses {
   width: 80px;
   min-width: 80px;
   max-width: 80px;
-}
+} */
 
-/*4-th col*/
-.header.totalTxs,
-.cell.totalTxs,
-  /*5 col*/
-.header.ibcPercentage,
-.cell.ibcPercentage {
-  width: 99px;
-  min-width: 99px;
-  max-width: 99px;
-}
-
-/*6 col*/
-.header.ibcSent,
-.cell.ibcSent {
-  border-left: 1px solid var(--table-borders-color);
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-}
-
-.header.zone_counerparty,
-.cell.zone_counerparty {
+/*IBC Success col*/
+.header.ibcTxSuccess,
+.cell.ibcTxSuccess {
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
   border-left: 1px solid var(--table-borders-color);
 }
 
-/*7 col*/
-.header.ibcReceived,
-.cell.ibcReceived {
-  width: 120px;
-  min-width: 120px;
-  max-width: 120px;
+.cell.ibcTxPending .text-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ibcTxPending .pendingIcon {
+  width: 13px;
+  height: 13px;
+}
+
+/*IBC Failed col*/
+.header.ibcTxFailed,
+.cell.ibcTxFailed {
+  width: 115px;
+  min-width: 115px;
+  max-width: 115px;
   border-right: 1px solid var(--table-borders-color);
 }
 
-/*8 col*/
-.header.channels,
-.cell.channels {
-  min-width: 100px;
-}
-
 /*9 col*/
-.cell.txsActivity,
+/* .cell.txsActivity,
 .header.txsActivity {
   width: 146px;
-}
+} */
 
-.header.txsActivity > div {
+/* .header.txsActivity > div {
   width: 131px;
-}
+} */
 
 /*sort styles*/
 .header.sortedColumn,
@@ -335,17 +329,17 @@
   margin-right: 4px;
 }
 
-.IBC-circle.ibcSent {
+.ibcTxFailed .IBC-circle {
   display: block;
   background: var(--color-red);
 }
 
-.IBC-circle.ibcReceived {
+.ibcTxSuccess .IBC-circle {
   display: block;
   background: var(--color-green);
 }
 
-.IBC-circle.hided {
+.IBC-circle.hidden {
   opacity: 0;
 }
 
@@ -497,14 +491,63 @@ tbody.bodyWithFocus.focusFixed .row {
   transform: translateX(0px) !important;
 }
 
-/*
-@media (max-width: 1320px) {
+.channelIdContainer {
+  max-width: 400px;
+}
+
+.channelLineContainer {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #d76969;
+  border-radius: 50%;
+}
+
+.dot.opened,
+.line.opened {
+  background-color: #5ca97b;
+}
+
+.line {
+  height: 1px;
+  flex-grow: 1;
+  background-color: #d76969;
+}
+
+.zoneCounterpartyChannelId {
+  min-width: 140px;
+  text-align: left;
+}
+
+.pendingContainer {
+  line-height: 4px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: right;
+  color: #b8b8b8;
+}
+
+.pendingIcon {
+  margin-right: 3px;
+  width: 11px;
+  height: 9px;
+}
+
+@media (max-width: 1380px) {
   .explanation-icon .explanation-tooltip.centerPos {
     left: 0;
     transform: translateX(-50%);
   }
 }
 
+/*
 @media (max-width: 1200px) {
   .header.position,
   .cell.position {
@@ -560,17 +603,5 @@ tbody.bodyWithFocus.focusFixed .row {
 
   .table-container {
     min-height: 50vh;
-  }
-
-  .header.ibcSent,
-  .cell.ibcSent,
-  .header.zone_counerparty,
-  .cell.zone_counerparty {
-    border-left: none;
-  }
-
-  .header.ibcReceived,
-  .cell.ibcReceived {
-    border-right: none;
   }
 }

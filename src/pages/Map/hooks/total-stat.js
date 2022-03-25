@@ -1,17 +1,26 @@
 import { useMemo } from 'react';
 import gql from 'graphql-tag';
 
-import { getNodeColor } from 'common/helper';
+import { getNodeColor, transformChartData } from 'common/helper';
 import { useRealtimeQuery } from 'common/hooks';
 
 const TOTAL_STAT_FRAGMENT = gql`
   fragment header on headers {
     zones_cnt_period
     zones_cnt_all
-    top_zone_pair
+    top_transfer_zone_pair
     channels_cnt_period
     channels_cnt_all
-    chart
+    chart_cashflow
+    chart_transfers
+    ibc_cashflow_period
+    ibc_cashflow_pending_period
+    ibc_transfers_period
+    ibc_transfers_pending_period
+    ibc_transfers_failed_period
+    top_ibc_cashflow_zone_pair
+    ibc_cashflow_period_diff
+    ibc_transfers_period_diff
   }
 `;
 
@@ -67,32 +76,70 @@ const transform = data => {
   const {
     zones_cnt_period,
     zones_cnt_all,
-    top_zone_pair,
+    top_transfer_zone_pair,
     channels_cnt_period,
     channels_cnt_all,
-    chart,
+    ibc_cashflow_period,
+    ibc_transfers_period,
+    ibc_cashflow_pending_period,
+    ibc_transfers_pending_period,
+    ibc_transfers_failed_period,
+    top_ibc_cashflow_zone_pair,
+    chart_cashflow,
+    chart_transfers,
+    ibc_cashflow_period_diff,
+    ibc_transfers_period_diff,
   } = data.headers[0];
 
-  const ibcTxs = chart.reduce((acc, { txs }) => acc + txs, 0);
-  const topZonePair = top_zone_pair[0];
-  const mostActiveZonesPair = topZonePair
+  const topTransferZonePair =
+    top_transfer_zone_pair && top_transfer_zone_pair[0];
+  const topIbcCashflowZonePair =
+    top_ibc_cashflow_zone_pair && top_ibc_cashflow_zone_pair[0];
+  const mostActiveByTxsZonesPair = topTransferZonePair
     ? {
-        source: topZonePair.source,
-        target: topZonePair.target,
-        ibc: topZonePair.ibc,
+        txsPending: topTransferZonePair.txs_pending,
+        source: topTransferZonePair.source,
+        target: topTransferZonePair.target,
+        txs: topTransferZonePair.txs,
+        txsDiff: topTransferZonePair.txs_diff,
         sourceColor: getNodeColor(
-          topZonePair.source_to_target_txs / topZonePair.ibc,
+          topTransferZonePair.source_to_target_txs / topTransferZonePair.txs,
         ),
         targetColor: getNodeColor(
-          topZonePair.target_to_source_txs / topZonePair.ibc,
+          topTransferZonePair.target_to_source_txs / topTransferZonePair.txs,
+        ),
+      }
+    : null;
+  const mostActiveByVolumeZonesPair = topIbcCashflowZonePair
+    ? {
+        source: topIbcCashflowZonePair.source,
+        target: topIbcCashflowZonePair.target,
+        volume: topIbcCashflowZonePair.cashflow,
+        volumeDiff: topIbcCashflowZonePair.cashflow_diff,
+        volumePending: topIbcCashflowZonePair.cashflow_pending,
+        sourceColor: getNodeColor(
+          topIbcCashflowZonePair.source_to_target_cashflow /
+            topIbcCashflowZonePair.cashflow,
+        ),
+        targetColor: getNodeColor(
+          topIbcCashflowZonePair.target_to_source_cashflow /
+            topIbcCashflowZonePair.cashflow,
         ),
       }
     : null;
 
   return {
-    ibcTxs,
-    mostActiveZonesPair,
-    ibcTxsActivity: chart,
+    mostActiveByTxsZonesPair,
+    mostActiveByVolumeZonesPair,
+    ibcVolume: ibc_cashflow_period,
+    ibcVolumeDiff: ibc_cashflow_period_diff,
+    ibcTxs: ibc_transfers_period,
+    ibcTxsDiff: ibc_transfers_period_diff,
+    ibcVolumePending: ibc_cashflow_pending_period,
+    ibcTxsPending: ibc_transfers_pending_period,
+    ibcTxsFailed: ibc_transfers_failed_period,
+    ibcTxsChart: transformChartData(chart_transfers, 'txs'),
+    ibcVolumeChart: transformChartData(chart_cashflow, 'cashflow'),
     allZones: zones_cnt_all,
     activeZones: zones_cnt_period,
     allChannels: channels_cnt_all,
@@ -101,21 +148,13 @@ const transform = data => {
 };
 
 export const useTotalStat = (options, isTestnetVisible) => {
-  let data = useRealtimeQuery(
-    TOTAL_STAT_QUERY,
-    TOTAL_STAT_SUBSCRIPTION,
+  const data = useRealtimeQuery(
+    isTestnetVisible ? TOTAL_STAT_QUERY : TOTAL_STAT_QUERY_ONLY_MAINNET,
+    isTestnetVisible
+      ? TOTAL_STAT_SUBSCRIPTION
+      : TOTAL_STAT_SUBSCRIPTION_ONLY_MAINNET,
     options,
   );
 
-  let mainnetData = useRealtimeQuery(
-    TOTAL_STAT_QUERY_ONLY_MAINNET,
-    TOTAL_STAT_SUBSCRIPTION_ONLY_MAINNET,
-    options,
-  );
-
-  return useMemo(() => transform(isTestnetVisible ? data : mainnetData), [
-    data,
-    isTestnetVisible,
-    mainnetData,
-  ]);
+  return useMemo(() => transform(data), [data]);
 };
