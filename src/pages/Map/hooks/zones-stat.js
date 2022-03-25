@@ -262,6 +262,13 @@ const transform = (data, isTestnetVisible) => {
       : 'ibc_cashflow_out_mainnet_weight',
     isTestnetVisible,
   );
+  const [minIbcActiveAddressesWeight, ibcActiveAddressesScale] = getScaleParams(
+    zonesStats,
+    isTestnetVisible
+      ? 'ibc_active_addresses_weight'
+      : 'ibc_active_addresses_mainnet_weight',
+    isTestnetVisible,
+  );
 
   let zonesFormatted = zonesStats.map(
     ({
@@ -463,12 +470,13 @@ const transform = (data, isTestnetVisible) => {
         ibcActiveAddressesDiff: isTestnetVisible
           ? ibc_active_addresses_diff
           : ibc_active_addresses_mainnet_diff,
-        ibcActiveAddressesWeight:
-          (isTestnetVisible
+        ibcActiveAddressesWeight: getNodeWeight(
+          isTestnetVisible
             ? ibc_active_addresses_weight
-            : ibc_active_addresses_mainnet_weight || 0.15) *
-            10 +
-          1,
+            : ibc_active_addresses_mainnet_weight,
+          minIbcActiveAddressesWeight,
+          ibcActiveAddressesScale,
+        ),
         ibcTxFailed: ibc_tx_failed,
         // ibcTxOutFailed: ibc_tx_out_failed,
         // ibcTxInFailed: ibc_tx_in_failed,
