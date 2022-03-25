@@ -24,9 +24,10 @@ import {
   useLinkColor,
   useNodeColor,
   useNodeThreeObject,
+  useGraphData,
 } from './hooks';
-import NodeTooltip from './Tooltips/NodeTooltip';
-import LinkTooltip from './Tooltips/LinkTooltip';
+import NodeTooltip from './Tooltips/Node';
+import LinkTooltip from './Tooltips/Link';
 import ZonesColorDescriptor from './ZonesColorDescriptor';
 import ZonesFilter from '../ZonesFilter';
 
@@ -49,6 +50,8 @@ function Graph({
   currentFilter,
   toggleGraphType,
 }) {
+  const graphData = useGraphData(data);
+  const nodes = graphData?.nodes;
   const [hoveredNode, setHoveredNode] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [showFilter, setShowFilter] = useState(false);
@@ -103,17 +106,16 @@ function Graph({
   useEffect(() => {
     if (initialCameraPosition) {
       if (focusedNode) {
+        const node = nodes.find(({ id }) => focusedNode.id === id);
         const distance = 100;
-        const distRatio =
-          1 +
-          distance / Math.hypot(focusedNode.x, focusedNode.y, focusedNode.z);
+        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
         fgRef.current.cameraPosition(
           {
-            x: focusedNode.x * distRatio,
-            y: focusedNode.y * distRatio,
-            z: focusedNode.z * distRatio,
+            x: node.x * distRatio,
+            y: node.y * distRatio,
+            z: node.z * distRatio,
           },
-          focusedNode,
+          node,
           2000,
         );
       } else {
@@ -132,7 +134,7 @@ function Graph({
         );
       }
     }
-  }, [focusedNode, initialCameraPosition]);
+  }, [focusedNode, nodes, initialCameraPosition]);
 
   useEffect(() => {
     if (initialCameraPosition && fgRef.current) {
@@ -166,7 +168,7 @@ function Graph({
   const focusedNodeNeighbors = useFocusedNodeNeighbors(focusedNode, data.graph);
   const onNodeClick = useCallback(
     node => {
-      if (!focusedNode || focusedNodeNeighbors.includes(node)) {
+      if (!focusedNode || focusedNodeNeighbors.includes(node?.id)) {
         onNodeFocus(node);
         trackEvent({
           category: 'Map',
@@ -188,8 +190,8 @@ function Graph({
     },
     [setShowFilter, setFilter, clearNodeFocus],
   );
-  const twitterShareText = useTwitterShareText(focusedNode, period);
-  const telegramShareText = useTelegramShareText(focusedNode, period);
+  const twitterShareText = useTwitterShareText(focusedNode?.name, period);
+  const telegramShareText = useTelegramShareText(focusedNode?.name, period);
   const nodeColor = useNodeColor(focusedNode, focusedNodeNeighbors);
   const nodeThreeObject = useNodeThreeObject(focusedNode, focusedNodeNeighbors);
   const linkThreeObject = useLinkThreeObject(focusedNode);
@@ -215,6 +217,16 @@ function Graph({
     setIsFocused(false);
   }, [setIsFocused]);
 
+  useEffect(() => {
+    if (focusedNode && nodes) {
+      const node = nodes.find(({ id }) => focusedNode.id === id);
+
+      if (!node) {
+        clearNodeFocus();
+      }
+    }
+  }, [focusedNode, nodes]);
+
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={cx('container', { blurred: isBlurred })}>
@@ -225,7 +237,7 @@ function Graph({
           nodeVal={zoneWeightAccessor}
           nodeColor={nodeColor}
           nodeLabel={null}
-          graphData={data}
+          graphData={graphData}
           onNodeHover={onNodeHover}
           nodeThreeObject={nodeThreeObject}
           nodeThreeObjectExtend
@@ -293,44 +305,42 @@ function Graph({
             2D
           </button>
         </div>
-        {!!focusedNode && (
-          <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
-            <div className={cx('shareTitle')}>
-              <FormattedMessage id="share" defaultMessage="Share" />
-            </div>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'telegram share',
-                  label: focusedNode.name,
-                })
-              }
-              href={telegramShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TgShareLogo />
-            </a>
-            <a
-              onClick={() =>
-                trackEvent({
-                  category: 'Map',
-                  action: 'twitter share',
-                  label: focusedNode.name,
-                  extra: { period: period?.rawText },
-                })
-              }
-              href={twitterShareText}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cx('roundButton')}
-            >
-              <TwitterShareLogo />
-            </a>
+        <div className={cx('buttonsContainer', 'shareButtonsContainer')}>
+          <div className={cx('shareTitle')}>
+            <FormattedMessage id="share" defaultMessage="Share" />
           </div>
-        )}
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'telegram share',
+                label: focusedNode?.name,
+              })
+            }
+            href={telegramShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TgShareLogo />
+          </a>
+          <a
+            onClick={() =>
+              trackEvent({
+                category: 'Map',
+                action: 'twitter share',
+                label: focusedNode?.name,
+                extra: { period: period?.rawText },
+              })
+            }
+            href={twitterShareText}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cx('roundButton')}
+          >
+            <TwitterShareLogo />
+          </a>
+        </div>
         {!!focusedNode && (
           <button
             type="button"
@@ -342,10 +352,10 @@ function Graph({
         )}
       </div>
       {hoveredNode && isFocused && (
-        <NodeTooltip node={hoveredNode} period={period.name} />
+        <NodeTooltip node={hoveredNode} period={period} />
       )}
       {hoveredLink && isFocused && (
-        <LinkTooltip link={hoveredLink} period={period.name} />
+        <LinkTooltip link={hoveredLink} period={period} />
       )}
       <ZonesFilter
         onRequestClose={toggleFilter}
@@ -381,7 +391,7 @@ Graph.propTypes = {
 };
 
 Graph.defaultProps = {
-  zoneWeightAccessor: 'ibcTxsWeight',
+  zoneWeightAccessor: 'ibcVolumeWeight',
   onNodeFocus: () => {},
 };
 

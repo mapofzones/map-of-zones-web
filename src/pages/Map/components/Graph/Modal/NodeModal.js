@@ -49,7 +49,7 @@ function NodeModal({ isOpen, onRequestClose, node, period }) {
             <div className={cx('row')}>
               <div className={cx('key-text')}>IBC transfers</div>
               <div className={cx('item-text')}>
-                {formatNumber(node.totalIbcTxs)}
+                {formatNumber(node.ibcTransfers)}
               </div>
             </div>
             <div className={cx('row')}>

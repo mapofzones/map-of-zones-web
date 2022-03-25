@@ -6,8 +6,6 @@
 }
 
 .table-container {
-  overflow-x: auto;
-  overflow-y: hidden;
   background: #ffffff;
   min-height: calc(100vh - 598px);
 }
@@ -41,6 +39,10 @@
 
   background: #ffffff;
   border-bottom: 1px solid var(--table-borders-color);
+
+  position: sticky;
+  top: 50px;
+  z-index: 5;
 }
 
 .header-container {
@@ -50,9 +52,6 @@
   transition: 0.1s;
   height: 26px;
   position: relative;
-}
-
-.header.ibcReceived > .header-container {
   justify-content: flex-end;
 }
 
@@ -79,7 +78,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  line-height: 220%;
+  line-height: 120%;
   text-transform: capitalize;
   color: var(--color-regular);
 
@@ -123,11 +122,11 @@
 }
 
 .cell .text-container {
-  padding-right: 30px;
   display: inline-block;
   white-space: nowrap;
   width: 100%;
   position: relative;
+  line-height: 25px;
 }
 
 .cell .text-container .shift-tooltip {
@@ -162,8 +161,14 @@
   visibility: visible;
 }
 
+.text-container.numeric {
+  font-family: var(--font-monospace), monospace;
+}
+
 .header.zoneLabelUrl {
   width: 35px;
+  min-width: 35px;
+  max-width: 35px;
 }
 
 /*1-st col*/
@@ -175,8 +180,18 @@
   justify-content: center;
 }
 
+.header.name .header-container {
+  justify-content: flex-start;
+}
+
+.header.txsActivity .header-container {
+  justify-content: flex-start;
+}
+
 .cell.zoneLabelUrl {
   width: 35px;
+  min-width: 35px;
+  max-width: 35px;
 }
 
 .cell.position {
@@ -193,6 +208,8 @@
 .header.position,
 .cell.position {
   width: 32px;
+  min-width: 32px;
+  max-width: 32px;
   padding: 0;
 }
 
@@ -203,8 +220,9 @@
 
 .header.name,
 .cell.name {
-  width: 350px;
-  max-width: 350px;
+  width: 100%;
+  /* width: 350px; */
+  /* max-width: 350px; */
 }
 
 .cell.name .text-container {
@@ -215,11 +233,19 @@
   width: unset;
 }
 /*3-d col*/
-.header.totalIbcTxs,
-.cell.totalIbcTxs {
-  width: 123px;
-  min-width: 123px;
-  max-width: 123px;
+.header.ibcTransfers,
+.cell.ibcTransfers {
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
+}
+
+/*3-d col*/
+.header.ibcVolume,
+.cell.ibcVolume {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
 }
 
 .header.activeAddresses,
@@ -229,51 +255,34 @@
   max-width: 80px;
 }
 
-/*4-th col*/
-.header.totalTxs,
-.cell.totalTxs,
-  /*5 col*/
-.header.ibcPercentage,
-.cell.ibcPercentage {
-  width: 104px;
-  min-width: 104px;
-  max-width: 104px;
-}
-.header.totalActiveAddresses,
-.cell.totalActiveAddresses {
+.header.ibcActiveAddresses,
+.cell.ibcActiveAddresses {
   width: 100px;
   min-width: 100px;
   max-width: 100px;
 }
 
-/*6 col*/
-.header.ibcSent,
-.cell.ibcSent {
+.header.ibcVolumeSent,
+.cell.ibcVolumeSent {
   border-left: 1px solid var(--table-borders-color);
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
+  width: 165px;
+  min-width: 165px;
+  max-width: 165px;
 }
 
-/*7 col*/
-.header.ibcReceived,
-.cell.ibcReceived {
-  width: 120px;
-  min-width: 120px;
-  max-width: 120px;
+.header.ibcVolumeReceived,
+.cell.ibcVolumeReceived {
+  width: 160px;
+  min-width: 160px;
+  max-width: 160px;
   border-right: 1px solid var(--table-borders-color);
-}
-
-/*8 col*/
-.header.channels,
-.cell.channels {
-  min-width: 100px;
 }
 
 /*9 col*/
 .cell.txsActivity,
 .header.txsActivity {
   width: 146px;
+  min-width: 146px;
 }
 
 .header.txsActivity > div {
@@ -322,12 +331,12 @@
   margin-right: 4px;
 }
 
-.IBC-circle.ibcSent {
+.IBC-circle.ibcVolumeSent {
   display: block;
   background: var(--color-red);
 }
 
-.IBC-circle.ibcReceived {
+.IBC-circle.ibcVolumeReceived {
   display: block;
   background: var(--color-green);
 }
@@ -438,18 +447,8 @@
   content: none;
 }
 
-thead.fixed {
-  position: fixed;
-  top: 49px;
-  z-index: -1;
-}
-
-thead.fixed.active {
-  z-index: 3;
-}
-
 tbody.bodyWithFocus .row {
-  transform: translateY(33px);
+  transform: translateY(40px);
 }
 
 tbody.bodyWithFocus .row.focusedRow {
@@ -461,6 +460,7 @@ tbody.bodyWithFocus .row.focusedRow {
   top: 27px;
   box-shadow: 0 1px 2px #c7c7c7;
   z-index: 2;
+  width: -moz-available;
 }
 
 .row.focusedRow > .cell {
@@ -519,6 +519,29 @@ tbody.bodyWithFocus.focusFixed .row {
   height: 28px;
 }
 
+.pendingContainer {
+  line-height: 4px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: right;
+  color: #b8b8b8;
+}
+
+.pendingIcon {
+  margin-right: 3px;
+  width: 11px;
+  height: 9px;
+}
+
+.cell.ibcActiveAddresses .text-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: start;
+  height: 100%;
+  flex-direction: column;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -547,11 +570,9 @@ tbody.bodyWithFocus.focusFixed .row {
   animation-duration: 0.5s;
 }
 
-@media (max-width: 1380px) {
-  .explanation-icon .explanation-tooltip.centerPos {
-    left: 0;
-    transform: translateX(-50%);
-  }
+.explanation-icon .explanation-tooltip.centerPos {
+  left: 0;
+  transform: translateX(-50%);
 }
 
 /*

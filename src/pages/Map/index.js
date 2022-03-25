@@ -105,13 +105,22 @@ function Map() {
       <div>
         {!isMapFullscreen && (
           <TotalStatTable
+            showIbcVolumeChart
             activeChannels={totalStat.activeChannels}
             activeZones={totalStat.activeZones}
             allChannels={totalStat.allChannels}
             allZones={totalStat.allZones}
             ibcTxs={totalStat.ibcTxs}
-            ibcTxsActivity={totalStat.ibcTxsActivity}
-            mostActiveZonesPair={totalStat.mostActiveZonesPair}
+            ibcVolume={totalStat.ibcVolume}
+            ibcTxsChart={totalStat.ibcTxsChart}
+            ibcVolumeChart={totalStat.ibcVolumeChart}
+            ibcVolumePending={totalStat.ibcVolumePending}
+            ibcTxsPending={totalStat.ibcTxsPending}
+            ibcTxsFailed={totalStat.ibcTxsFailed}
+            mostActiveByTxsZonesPair={totalStat.mostActiveByTxsZonesPair}
+            mostActiveByVolumeZonesPair={totalStat.mostActiveByVolumeZonesPair}
+            ibcVolumeDiff={totalStat.ibcVolumeDiff}
+            ibcTxsDiff={totalStat.ibcTxsDiff}
             period={period.name}
           />
         )}

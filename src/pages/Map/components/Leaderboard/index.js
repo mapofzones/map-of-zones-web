@@ -4,12 +4,13 @@ import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 import animate from 'animate.css';
 
-import { formatNumber, trackEvent } from 'common/helper';
+import { formatNumber, trackEvent, isNumber } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
+import Status from 'components/Status';
+import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import Thead from './Thead';
 import SortModal from './SortModal';
-import Status from './Status';
 
 import columnsConfig from './config';
 
@@ -123,24 +124,36 @@ function Leaderboard({
           </div>
         );
       }
-      default:
+      default: {
+        const value = cell.row.original[cell.column.id];
+        const diff = cell.row.original[cell.column.diffAccessor];
+        const pending = cell.row.original[cell.column.pendingAccessor];
+
         return (
-          <span className={cx('text-container')}>
-            {cell.render('Cell')}
-            {!cell.column.disableSortBy && (
+          <span
+            className={cx('text-container', {
+              numeric: typeof cell.value === 'number',
+            })}
+          >
+            {cell.render('Cell', { itemValue: value })}
+            {isNumber(diff) && (
               <div
                 className={cx('shift-tooltip', {
-                  negative: cell.row.original[cell.column.diffAccessor] < 0,
+                  negative: diff < 0,
                 })}
               >
-                {cell.row.original[cell.column.diffAccessor] > 0
-                  ? '+' +
-                    formatNumber(cell.row.original[cell.column.diffAccessor])
-                  : formatNumber(cell.row.original[cell.column.diffAccessor])}
+                {cell.render('Cell', { itemValue: diff })}
+              </div>
+            )}
+            {isNumber(pending) && (
+              <div className={cx('pendingContainer')}>
+                <PendingIcon className={cx('pendingIcon')} />
+                {cell.render('Cell', { itemValue: pending })}
               </div>
             )}
           </span>
         );
+      }
     }
   };
 
@@ -164,37 +177,6 @@ function Leaderboard({
     },
     [setFocusedZone, isTableOpened, period],
   );
-
-  useEffect(() => {
-    let table = document.getElementById('table-container');
-    let fixedHeader = document.getElementById('fixed-header');
-    let fixedRow = document.getElementById('fixed-row');
-
-    const onTableScroll = event => {
-      [fixedHeader, fixedRow].forEach(item => {
-        if (item) {
-          item.style.transform = `translateX(-${event.target.scrollLeft}px)`;
-        }
-      });
-    };
-
-    if (
-      isTableOpened === 'fixed-thead' &&
-      document.documentElement.clientWidth < 1120
-    ) {
-      [fixedHeader, fixedRow].forEach(item => {
-        if (item) {
-          item.style.transform = `translateX(-${table.scrollLeft}px)`;
-        }
-      });
-
-      table.addEventListener('scroll', onTableScroll);
-    }
-
-    return () => {
-      table.removeEventListener('scroll', onTableScroll);
-    };
-  }, [isTableOpened, focusedZoneId]);
 
   const isMobile = useMobileSize();
 
@@ -254,13 +236,6 @@ function Leaderboard({
     >
       <table {...getTableProps()} className={cx('table')}>
         <Thead
-          headerGroups={headerGroups}
-          onHeaderClick={onHeaderClick}
-          period={period.rawText}
-        />
-        <Thead
-          fixed
-          isTableOpened={isTableOpened}
           headerGroups={headerGroups}
           onHeaderClick={onHeaderClick}
           period={period.rawText}
