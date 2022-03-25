@@ -52,7 +52,7 @@ const Thead = ({ period, headerGroups, onHeaderClick }) => {
                         centerPos:
                           column.id === 'ibcVolumeSent' ||
                           column.id === 'ibcVolumeReceived' ||
-                          column.id === 'ibcActiveAddresses'
+                          column.id === 'ibcActiveAddresses',
                       })}
                     >
                       {column.tooltip}
