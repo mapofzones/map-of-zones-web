@@ -221,8 +221,8 @@
 .header.name,
 .cell.name {
   width: 100%;
-  /* width: 350px; */
-  /* max-width: 350px; */
+  min-width: 180px;
+  max-width: 180px;
 }
 
 .cell.name .text-container {
