@@ -12,6 +12,7 @@
   color: #fff;
   padding: 0 12px;
   margin: 0 4px;
+  white-space: nowrap;
 }
 
 .externalLink svg {
