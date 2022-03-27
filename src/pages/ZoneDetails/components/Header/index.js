@@ -64,19 +64,23 @@ function Header({
             )}
             {source?.name || ''}
           </div>
-          {!!source?.website && (
-            <ExternalLink href={source.website}>Visit Website</ExternalLink>
-          )}
-          <ExternalLink href={twitterShareText}>
-            <TwitterShareLogo />
-            Tweet
-          </ExternalLink>
-          <ExternalLink href={telegramShareText}>
-            <TgShareLogo />
-            Send
-          </ExternalLink>
         </div>
-        <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
+        <div className={cx('headerRightContainer')}>
+          <div className={cx('headerButtons')}>
+            {!!source?.website && (
+              <ExternalLink href={source.website}>Visit Website</ExternalLink>
+            )}
+            <ExternalLink href={twitterShareText}>
+              <TwitterShareLogo />
+              Tweet
+            </ExternalLink>
+            <ExternalLink href={telegramShareText}>
+              <TgShareLogo />
+              Send
+            </ExternalLink>
+          </div>
+          <PeriodSwitcher hours={period.hours} onChange={setPeriod} />
+        </div>
       </div>
     </div>
   );
