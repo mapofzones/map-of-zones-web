@@ -93,7 +93,7 @@ function TotalStatTable({
             </ResponsiveContainer>
           )}
         </div>
-        <div className={cx('item')}>
+        <div className={cx('item', 'ibcTransfersContainer')}>
           <div className={cx('statContainer')}>
             <div className={cx('statNameContainer')}>
               <div className={cx('statName')}>IBC transfers</div>

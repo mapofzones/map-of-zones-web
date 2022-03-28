@@ -206,8 +206,14 @@
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   .statContainer.small:last-of-type {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .ibcTransfersContainer {
     display: none;
   }
 }
