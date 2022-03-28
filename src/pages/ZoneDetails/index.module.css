@@ -1,7 +1,6 @@
 .table-container {
-  overflow-x: auto;
   overflow-y: hidden;
-  background: #E5E5E5;
+  background: #e5e5e5;
   min-height: calc(100vh - 178px);
   justify-content: center;
   align-items: flex-start;
