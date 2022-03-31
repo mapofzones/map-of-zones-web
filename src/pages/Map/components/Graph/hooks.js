@@ -168,7 +168,7 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
 
       if (hoveredNode) {
         if (hoveredNode !== source && hoveredNode !== target) {
-          alpha = 0.1;
+          return;
         } else {
           alpha = 0.5;
         }
@@ -183,17 +183,7 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
         return;
       }
 
-      const gradient = ctx.createLinearGradient(
-        source.x,
-        source.y,
-        target.x,
-        target.y,
-      );
-
-      gradient.addColorStop(0, setOpacity(source.color, alpha));
-      gradient.addColorStop(1, setOpacity(target.color, alpha));
-
-      ctx.strokeStyle = gradient;
+      ctx.strokeStyle = setOpacity(target.color, alpha);
       ctx.lineWidth = lineWidth;
 
       ctx.beginPath();
