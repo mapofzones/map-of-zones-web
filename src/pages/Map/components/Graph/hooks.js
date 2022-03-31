@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import tinycolor from 'tinycolor2';
 import { parse, stringify } from 'querystringify';
 import SpriteText from 'three-spritetext';
 import equal from 'fast-deep-equal';
@@ -18,6 +17,12 @@ import {
 } from 'three';
 
 import { usePrevious } from 'common/hooks';
+
+function setOpacity(hex, alpha) {
+  return `${hex}${Math.floor(alpha * 255)
+    .toString(16)
+    .padStart(2, 0)}`;
+}
 
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
@@ -185,18 +190,8 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
         target.y,
       );
 
-      gradient.addColorStop(
-        0,
-        tinycolor(source.color)
-          .setAlpha(alpha)
-          .toString(),
-      );
-      gradient.addColorStop(
-        1,
-        tinycolor(target.color)
-          .setAlpha(alpha)
-          .toString(),
-      );
+      gradient.addColorStop(0, setOpacity(source.color, alpha));
+      gradient.addColorStop(1, setOpacity(target.color, alpha));
 
       ctx.strokeStyle = gradient;
       ctx.lineWidth = lineWidth;
@@ -248,36 +243,11 @@ const drawLinkComet = (ctx, source, target) => {
     tailPosY,
   );
 
-  gradient.addColorStop(
-    0,
-    tinycolor('#60AB8B')
-      .setAlpha(1)
-      .toString(),
-  );
-  gradient.addColorStop(
-    0.3,
-    tinycolor('#D2D65A')
-      .setAlpha(0.7)
-      .toString(),
-  );
-  gradient.addColorStop(
-    0.5,
-    tinycolor('#E9B880')
-      .setAlpha(0.5)
-      .toString(),
-  );
-  gradient.addColorStop(
-    0.65,
-    tinycolor('#D76969')
-      .setAlpha(0.35)
-      .toString(),
-  );
-  gradient.addColorStop(
-    1,
-    tinycolor('#D76969')
-      .setAlpha(0)
-      .toString(),
-  );
+  gradient.addColorStop(0, setOpacity('#60AB8B', 1));
+  gradient.addColorStop(0.3, setOpacity('#D2D65A', 0.7));
+  gradient.addColorStop(0.5, setOpacity('#E9B880', 0.5));
+  gradient.addColorStop(0.65, setOpacity('#D76969', 0.35));
+  gradient.addColorStop(1, setOpacity('#D76969', 0));
 
   ctx.strokeStyle = gradient;
   ctx.beginPath();
@@ -361,11 +331,6 @@ export const useLinkThreeObject = focusedNode => {
   );
 };
 
-const hex2rgba = (hex, alpha = 1) => {
-  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
-  return `rgba(${r},${g},${b},${alpha})`;
-};
-
 export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
   useCallback(
     node => {
@@ -374,7 +339,7 @@ export const useNodeColor = (focusedNode, focusedNodeNeighbors) =>
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
       if (focusedNode && !isFocused) {
-        return hex2rgba(node.color, 0.2);
+        return setOpacity(node.color, 0.2);
       }
 
       return node.color;
@@ -392,7 +357,7 @@ export const useNodeThreeObject = (focusedNode, focusedNodeNeighbors) =>
         (focusedNodeNeighbors && focusedNodeNeighbors.includes(node?.id));
 
       if (focusedNode && !isFocused) {
-        text.color = hex2rgba(node.color, 0.2);
+        text.color = setOpacity(node.color, 0.2);
       } else {
         text.color = node.color;
       }
@@ -462,7 +427,7 @@ function drawZone(
   }
 
   const alpha = isActiveMode && !isActiveZone ? 0.2 : 1;
-  const zoneColor = hex2rgba(color, alpha);
+  const zoneColor = setOpacity(color, alpha);
 
   if (images[node.id]) {
     ctx.strokeStyle = zoneColor;
