@@ -41,6 +41,7 @@ import ZonesFilter from '../ZonesFilter';
 // import NodeModal from './Modal/NodeModal';
 
 import styles from './index.module.css';
+import { setOpacity } from 'common/canvas-helper';
 
 const cx = classNames.bind(styles);
 
@@ -164,6 +165,47 @@ function Graph({
       loadData();
     }
   }, [nodes]);
+
+  useEffect(() => {
+    const canvas = containerRef.current.querySelector('canvas');
+    const r = 1;
+
+    canvas.offscreenCanvas = document.createElement('canvas');
+    canvas.offscreenCanvas.width = 20;
+    canvas.offscreenCanvas.height = r * 2;
+    var ctx = canvas.offscreenCanvas.getContext('2d');
+    const cometPosX = r;
+    const cometPosY = r;
+    const tailPosX = 20;
+    const tailPosY = r;
+
+    //draw comet
+    ctx.beginPath();
+    ctx.arc(cometPosX, cometPosY, r, 0, 2 * Math.PI, true);
+    ctx.fillStyle = '#78B481';
+    ctx.fill();
+
+    //draw comet tail
+    const gradient = ctx.createLinearGradient(
+      cometPosX + 1,
+      cometPosY,
+      tailPosX,
+      tailPosY,
+    );
+
+    gradient.addColorStop(0, setOpacity('#60AB8B', 1));
+    gradient.addColorStop(0.3, setOpacity('#D2D65A', 0.7));
+    gradient.addColorStop(0.5, setOpacity('#E9B880', 0.5));
+    gradient.addColorStop(0.65, setOpacity('#D76969', 0.35));
+    gradient.addColorStop(1, setOpacity('#D76969', 0));
+
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cometPosX + 1, cometPosY);
+    ctx.lineTo(tailPosX, tailPosY);
+    ctx.stroke();
+  }, []);
 
   useEffect(() => {
     const fg = fgRef.current;

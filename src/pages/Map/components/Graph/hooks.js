@@ -17,12 +17,7 @@ import {
 } from 'three';
 
 import { usePrevious } from 'common/hooks';
-
-function setOpacity(hex, alpha) {
-  return `${hex}${Math.floor(alpha * 255)
-    .toString(16)
-    .padStart(2, 0)}`;
-}
+import { rotateCanvas, setOpacity } from 'common/canvas-helper';
 
 export const useNodeCanvasObject = (
   zoneWeightAccessor,
@@ -215,36 +210,18 @@ const drawLinkComet = (ctx, source, target) => {
   const yLength = target.y - source.y;
   const cometPosX = source.x + offset * xLength;
   const cometPosY = source.y + offset * yLength;
-  const tailOffset = offset - 0.1 > 0 ? offset - 0.1 : 0;
-  const tailPosX = source.x + tailOffset * xLength;
-  const tailPosY = source.y + tailOffset * yLength;
+  const radians = Math.atan2(-yLength, -xLength);
 
-  //draw comet
-  ctx.beginPath();
-  ctx.arc(cometPosX, cometPosY, 0.5, 0, 2 * Math.PI, true);
-  ctx.fillStyle = '#78B481';
-  ctx.fill();
-
-  //draw comet tail
-  const gradient = ctx.createLinearGradient(
-    cometPosX,
-    cometPosY,
-    tailPosX,
-    tailPosY,
-  );
-
-  gradient.addColorStop(0, setOpacity('#60AB8B', 1));
-  gradient.addColorStop(0.3, setOpacity('#D2D65A', 0.7));
-  gradient.addColorStop(0.5, setOpacity('#E9B880', 0.5));
-  gradient.addColorStop(0.65, setOpacity('#D76969', 0.35));
-  gradient.addColorStop(1, setOpacity('#D76969', 0));
-
-  ctx.strokeStyle = gradient;
-  ctx.beginPath();
-  ctx.moveTo(cometPosX, cometPosY);
-  ctx.lineTo(tailPosX, tailPosY);
-  ctx.stroke();
+  drawCometAndRotate(ctx, cometPosX, cometPosY, radians);
 };
+
+function drawCometAndRotate(ctx, x, y, radians) {
+  rotateCanvas(ctx, x, y, radians);
+
+  ctx.drawImage(ctx.canvas.offscreenCanvas, 0, 0, 20, 2, x - 1, y - 1, 20, 2);
+
+  rotateCanvas(ctx, x, y, -radians);
+}
 
 //for 3d
 export const useLinkThreeObject = focusedNode => {
