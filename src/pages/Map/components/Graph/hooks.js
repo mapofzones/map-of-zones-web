@@ -198,12 +198,14 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
 
 // TODO: Move from here
 let offset = 0;
-setInterval(() => {
+function render() {
   if (offset >= 1) {
     offset = 0;
   }
-  offset += 0.00825;
-}, 33);
+  offset += 0.005;
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
 
 const drawLinkComet = (ctx, source, target) => {
   const xLength = target.x - source.x;
