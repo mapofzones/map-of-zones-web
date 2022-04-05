@@ -35,26 +35,6 @@
   visibility: visible;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 0.2;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 0.2;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
 .zone-status {
   margin-left: 4px;
   margin-right: 4px;
@@ -74,16 +54,6 @@
   border-radius: 50%;
   opacity: 0.2;
   position: absolute;
-}
-
-.zone-status-icon-faded {
-  animation-name: fadeIn;
-  animation-duration: 0.5s;
-}
-
-.zone-status-icon-fading {
-  animation-name: fadeOut;
-  animation-duration: 0.5s;
 }
 
 .zone-status-icon {
