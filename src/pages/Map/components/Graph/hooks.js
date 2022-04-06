@@ -198,11 +198,16 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
 
 // TODO: Move from here
 let offset = 0;
+let prevTime = Date.now();
 function render() {
-  if (offset >= 1) {
-    offset = 0;
+  const now = Date.now();
+  if (now - prevTime > 33) {
+    if (offset >= 1) {
+      offset = 0;
+    }
+    offset += 0.01;
+    prevTime = now;
   }
-  offset += 0.005;
   requestAnimationFrame(render);
 }
 requestAnimationFrame(render);
@@ -416,33 +421,70 @@ function drawZone(
     ctx.closePath();
     ctx.fill();
   }
+
+  if (isFocusedOrSelected) {
+    ctx.shadowColor = null;
+    ctx.shadowBlur = null;
+  }
 }
 
-function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
-  ctx.shadowColor = null;
-  ctx.shadowBlur = null;
-  const { x, y, name, isZoneMainnet } = node;
+const cachedNodeTitleData = {};
+const paddingHorizontal = 2;
+const paddingVertical = 1;
 
+function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
+  const { name, isZoneMainnet } = node;
+
+  let data = cachedNodeTitleData[node.id];
+  if (!data || data.globalScale !== globalScale || data.r !== r) {
+    data = getNewTitleData(ctx, globalScale, name, r, isZoneMainnet);
+    cachedNodeTitleData[node.id] = data;
+  }
+
+  drawTitle(ctx, node, data, isActiveMode, isActiveZone, isZoneMainnet);
+}
+
+function calculateBgDimension(size, fontSize) {
+  return size + fontSize * 0.5;
+}
+
+function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet) {
   const fontSize = Math.max(4, 10 / globalScale);
   const fontWeight = isZoneMainnet ? 600 : 500;
   const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
   const textWidth = ctx.measureText(nameInCamelCase).width;
-  const textBgWidth = calculateBgDimension(textWidth);
-  const textBgHeight = calculateBgDimension(fontSize);
+  const textBgWidth = calculateBgDimension(textWidth, fontSize);
+  const textBgHeight = calculateBgDimension(fontSize, fontSize);
 
-  const paddingHorizontal = 2;
-  const paddingVertical = 1;
+  const rectWidth = textBgWidth + paddingHorizontal * 2;
+  const rectHeight = textBgHeight + paddingVertical * 2;
+
   const deltaY = r + textBgHeight / 2 + 2 / globalScale + paddingVertical * 2;
 
+  return {
+    globalScale,
+    fontSize,
+    fontWeight,
+    nameInCamelCase,
+    textWidth,
+    textBgWidth,
+    textBgHeight,
+    deltaY,
+    rectWidth,
+    rectHeight,
+    r,
+  };
+}
+
+function drawTitle(ctx, node, data, isActiveMode, isActiveZone, isZoneMainnet) {
+  const { x, y } = node;
+  const { fontSize, fontWeight, nameInCamelCase, deltaY } = data;
+  const { textBgWidth, textBgHeight, rectWidth, rectHeight } = data;
+  const rectX = x - textBgWidth / 2 - paddingHorizontal;
+  const rectY = y - textBgHeight / 2 + deltaY - paddingVertical;
+
   ctx.fillStyle = getTitleBgColor(isActiveMode, isActiveZone, isZoneMainnet);
-  roundRect(
-    ctx,
-    x - textBgWidth / 2 - paddingHorizontal,
-    y - textBgHeight / 2 + deltaY - paddingVertical,
-    textBgWidth + paddingHorizontal * 2,
-    textBgHeight + paddingVertical * 2,
-    4,
-  );
+  roundRect(ctx, rectX, rectY, rectWidth, rectHeight, 4);
   ctx.fill();
 
   ctx.textAlign = 'center';
@@ -450,10 +492,6 @@ function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
   ctx.font = `${fontWeight} ${fontSize}px Poppins`;
   ctx.fillStyle = getTitleColor(isActiveMode, isActiveZone, isZoneMainnet);
   ctx.fillText(nameInCamelCase, x, y + deltaY);
-
-  function calculateBgDimension(size) {
-    return size + fontSize * 0.5;
-  }
 }
 
 function roundRect(canvas, x, y, w, h, r) {
