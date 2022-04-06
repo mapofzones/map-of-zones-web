@@ -52,6 +52,10 @@ export const useNodeCanvasObject = (
         images,
       );
 
+      if (isActiveMode && !isActiveZone) {
+        return;
+      }
+
       drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale);
     },
     [
@@ -148,25 +152,12 @@ by @mapofzones`;
 export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
   useCallback(
     ({ activeChannels, source, target }, ctx, globalScale) => {
-      const width = 1;
-      const lineWidth = width / globalScale;
-
       if (
         focusedNode &&
         focusedNode?.id !== source?.id &&
         focusedNode?.id !== target?.id
       ) {
         return;
-      }
-
-      let alpha = 0.3;
-
-      if (hoveredNode) {
-        if (hoveredNode !== source && hoveredNode !== target) {
-          return;
-        } else {
-          alpha = 0.5;
-        }
       }
 
       if (
@@ -177,6 +168,18 @@ export const useLinkCanvasObject = (focusedNode, hoveredNode) =>
       ) {
         return;
       }
+
+      let alpha = 0.3;
+      if (hoveredNode) {
+        if (hoveredNode !== source && hoveredNode !== target) {
+          return;
+        } else {
+          alpha = 0.5;
+        }
+      }
+
+      const width = 1;
+      const lineWidth = width / globalScale;
 
       ctx.strokeStyle = setOpacity(target.color, alpha);
       ctx.lineWidth = lineWidth;
@@ -670,26 +673,16 @@ export function useGraphData(data) {
   return useGraphDataCached(data, diff);
 }
 
-function getTitleBgColor(focusedNode, isActiveZone, isZoneMainnet) {
-  if (focusedNode && !isActiveZone) {
-    return 'rgba(10, 11, 42, 0.1)';
-  }
-
+function getTitleBgColor(isZoneMainnet) {
   if (isZoneMainnet) {
     return '#212737';
-  } else {
-    return 'rgba(10, 11, 42, 0.5)';
   }
+  return 'rgba(10, 11, 42, 0.5)';
 }
 
-function getTitleColor(focusedNode, isActiveZone, isZoneMainnet) {
-  if (focusedNode && !isActiveZone) {
-    return 'rgba(235, 235, 235, 0.1)';
-  }
-
+function getTitleColor(isZoneMainnet) {
   if (isZoneMainnet) {
     return 'rgb(255, 255, 255)';
-  } else {
-    return 'rgba(235, 235, 235, 0.6)';
   }
+  return 'rgba(235, 235, 235, 0.6)';
 }
