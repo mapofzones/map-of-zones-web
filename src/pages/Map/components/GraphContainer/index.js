@@ -55,7 +55,7 @@ function GraphContainer({
       <Graph
         period={period}
         data={zonesStat}
-        isBlurred={isTableOpened}
+        isChartVisible={!isTableOpened}
         zoneWeightAccessor={zoneWeightAccessor}
         mapOpened={mapOpened}
         toggleMapOpen={toggleMapOpen}

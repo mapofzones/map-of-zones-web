@@ -85,7 +85,7 @@ const loadImage = (src, forceCors = false) =>
 
 function Graph({
   data,
-  isBlurred,
+  isChartVisible,
   period,
   zoneWeightAccessor,
   mapOpened,
@@ -119,6 +119,14 @@ function Graph({
 
   const [images, setImages] = useState({});
   const nodes = graphData?.nodes;
+
+  useEffect(() => {
+    if (!isChartVisible) {
+      fgRef.current.pauseAnimation();
+    } else {
+      fgRef.current.resumeAnimation();
+    }
+  }, [isChartVisible]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -456,7 +464,7 @@ function Graph({
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div
-        className={cx('container', { blurred: isBlurred })}
+        className={cx('container', { blurred: !isChartVisible })}
         ref={containerRef}
       >
         <ForceGraph2D
@@ -612,7 +620,7 @@ Graph.propTypes = {
     links: PropTypes.array,
     graph: PropTypes.object,
   }),
-  isBlurred: PropTypes.string,
+  isChartVisible: PropTypes.string,
   period: PropTypes.shape({
     hours: PropTypes.number,
     step: PropTypes.number,

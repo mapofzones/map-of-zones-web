@@ -39,7 +39,7 @@ const NODE_REL_SIZE = 4;
 
 function Graph({
   data,
-  isBlurred,
+  isChartVisible,
   period,
   zoneWeightAccessor,
   mapOpened,
@@ -229,7 +229,7 @@ function Graph({
 
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <div className={cx('container', { blurred: isBlurred })}>
+      <div className={cx('container', { blurred: !isChartVisible })}>
         <ForceGraph3D
           ref={fgRef}
           height={mapOpened ? document.documentElement.clientHeight : 500}
@@ -373,7 +373,7 @@ Graph.propTypes = {
     links: PropTypes.array,
     graph: PropTypes.object,
   }),
-  isBlurred: PropTypes.string,
+  isChartVisible: PropTypes.string,
   period: PropTypes.shape({
     hours: PropTypes.number,
     step: PropTypes.number,
