@@ -5,10 +5,6 @@
   --table-gray: #b8b8b8;
 }
 
-.table-container {
-  overflow-x: auto;
-}
-
 .table-container::-webkit-scrollbar {
   background: transparent;
   height: 6px;
@@ -23,6 +19,8 @@
 .table {
   border-spacing: 0;
   position: relative;
+  max-width: 1000px;
+  flex-grow: 1;
   margin-top: 20px;
 }
 
