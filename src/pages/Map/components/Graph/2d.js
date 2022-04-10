@@ -297,6 +297,7 @@ function Graph({
   }, [currentZoom, zoom]);
   const onNodeHover = useCallback(
     node => {
+      console.log('onNodeHover', node, focusedNode);
       if (
         !node ||
         !focusedNode ||
