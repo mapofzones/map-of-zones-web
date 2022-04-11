@@ -37,25 +37,25 @@ export const formatNumber = number =>
 export const isNumber = number => typeof number === 'number';
 
 export function trackEvent({ category, action, label, extra = {} }) {
-  if (process.env.NODE_ENV === 'production') {
-    const instance = amplitude.getInstance();
+  // if (process.env.NODE_ENV === 'production') {
+  //   const instance = amplitude.getInstance();
 
-    instance.init(process.env.REACT_APP_AMPLITUDE_KEY);
-    instance.logEvent(
-      `${category}:${action}`.toUpperCase().replace(/\s/g, '_'),
-      {
-        ...extra,
-        value: label,
-      },
-    );
+  //   instance.init(process.env.REACT_APP_AMPLITUDE_KEY);
+  //   instance.logEvent(
+  //     `${category}:${action}`.toUpperCase().replace(/\s/g, '_'),
+  //     {
+  //       ...extra,
+  //       value: label,
+  //     },
+  //   );
 
-    if (window.gtag) {
-      window.gtag('event', action, {
-        event_category: category,
-        event_label: label,
-      });
-    }
-  }
+  //   if (window.gtag) {
+  //     window.gtag('event', action, {
+  //       event_category: category,
+  //       event_label: label,
+  //     });
+  //   }
+  // }
 }
 
 export function removeDuplicatedZoneCounerparties(arr) {
