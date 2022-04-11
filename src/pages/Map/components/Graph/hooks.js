@@ -414,9 +414,9 @@ function drawZone(
     ctx.closePath();
     ctx.stroke();
 
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(images[node.id], x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
-    ctx.globalAlpha = 1;
+    // ctx.globalAlpha = alpha;
+    // ctx.drawImage(images[node.id], x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
+    // ctx.globalAlpha = 1;
   } else {
     ctx.fillStyle = zoneColor;
     ctx.beginPath();
