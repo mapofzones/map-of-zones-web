@@ -160,6 +160,7 @@ function Leaderboard({
   const focusZone = useCallback(
     zone => {
       setFocusedZone(zone);
+      console.log(zone);
 
       if (isTableOpened) {
         window.scrollTo({

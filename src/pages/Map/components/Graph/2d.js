@@ -357,6 +357,7 @@ function Graph({
 
   const onNodeClick = useCallback(
     node => {
+      console.log(node);
       if (!focusedNode || getNodeNeighbors(focusedNode).includes(node.id)) {
         onNodeFocus(node);
         trackEvent({
@@ -405,52 +406,52 @@ function Graph({
   const twitterShareText = useTwitterShareText(focusedNode?.name, period);
   const telegramShareText = useTelegramShareText(focusedNode?.name, period);
   const containerRef = useRef(null);
-  const shareImage = useCallback(async () => {
-    if (containerRef?.current) {
-      const canvas = containerRef.current.querySelector('canvas');
+  // const shareImage = useCallback(async () => {
+  //   if (containerRef?.current) {
+  //     const canvas = containerRef.current.querySelector('canvas');
 
-      if (canvas) {
-        try {
-          const logoImage = await loadImage(logoUrl);
-          const fg = fgRef.current;
-          const scale = fg.zoom();
-          const context = canvas.getContext('2d');
-          const { x, y } = fg.screen2GraphCoords(0, 0);
-          const logoPaddding = 13 / scale;
-          const logoWidth = 115.8 / scale;
-          const logoHeight = 54.3 / scale;
+  //     if (canvas) {
+  //       try {
+  //         const logoImage = await loadImage(logoUrl);
+  //         const fg = fgRef.current;
+  //         const scale = fg.zoom();
+  //         const context = canvas.getContext('2d');
+  //         const { x, y } = fg.screen2GraphCoords(0, 0);
+  //         const logoPaddding = 13 / scale;
+  //         const logoWidth = 115.8 / scale;
+  //         const logoHeight = 54.3 / scale;
 
-          context.drawImage(
-            logoImage,
-            x + logoPaddding,
-            y + logoPaddding,
-            logoWidth,
-            logoHeight,
-          );
-          context.globalCompositeOperation = 'destination-over';
-          context.fillStyle = '#120e25'; // TODO: Use image instead
-          context.fillRect(x, y, canvas.width / scale, canvas.height / scale);
+  //         context.drawImage(
+  //           logoImage,
+  //           x + logoPaddding,
+  //           y + logoPaddding,
+  //           logoWidth,
+  //           logoHeight,
+  //         );
+  //         context.globalCompositeOperation = 'destination-over';
+  //         context.fillStyle = '#120e25'; // TODO: Use image instead
+  //         context.fillRect(x, y, canvas.width / scale, canvas.height / scale);
 
-          const canvasImage = canvas.toDataURL('image/png');
-          const link = document.createElement('a');
+  //         const canvasImage = canvas.toDataURL('image/png');
+  //         const link = document.createElement('a');
 
-          link.style.display = 'none';
-          link.href = canvasImage;
-          link.download = 'map.png'; // TODO: Change name
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          context.globalCompositeOperation = 'source-over';
-        } catch (e) {
-          console.log(e);
+  //         link.style.display = 'none';
+  //         link.href = canvasImage;
+  //         link.download = 'map.png'; // TODO: Change name
+  //         document.body.appendChild(link);
+  //         link.click();
+  //         document.body.removeChild(link);
+  //         context.globalCompositeOperation = 'source-over';
+  //       } catch (e) {
+  //         console.log(e);
 
-          const context = canvas.getContext('2d');
+  //         const context = canvas.getContext('2d');
 
-          context.globalCompositeOperation = 'source-over';
-        }
-      }
-    }
-  }, [containerRef, fgRef]);
+  //         context.globalCompositeOperation = 'source-over';
+  //       }
+  //     }
+  //   }
+  // }, [containerRef, fgRef]);
 
   useEffect(() => {
     if (focusedNode && nodes) {
@@ -480,7 +481,7 @@ function Graph({
           nodeCanvasObject={nodeCanvasObject}
           linkCanvasObject={linkCanvasObject}
           onNodeClick={onNodeClick}
-          onLinkHover={onLinkHover}
+          // onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
           onNodeDragEnd={onNodeDragEnd}
@@ -573,7 +574,7 @@ function Graph({
           {false && (
             <button
               type="button"
-              onClick={shareImage}
+              // onClick={shareImage}
               className={cx('roundButton', 'downloadButton')}
             >
               <div className={cx('downloadArrowIcon')}>↓</div>
