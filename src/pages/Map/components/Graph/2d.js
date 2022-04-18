@@ -215,14 +215,39 @@ function Graph({
     ctx.stroke();
   }, []);
 
+  function calculateLinkLengthByRating(langthParameter) {
+    return langthParameter * 4 + 100;
+  }
+
+  function calculateLengthParameter(link) {
+    return Math.max(link.source.ibcVolumeRating, link.target.ibcVolumeRating);
+  }
+
+  function getChargeStrengthByNode(node) {
+    return -30; // by default
+  }
+
+  function getChargeMinDistanceByNode(node) {
+    return 1;
+  }
+
+  function getChargeMaxDistanceByNode(node) {
+    return 200;
+  }
+
   useEffect(() => {
     const fg = fgRef.current;
 
     // links
-    fg.d3Force('link').distance(() => Math.random() * 100 + 150);
+    fg.d3Force('link').distance(link =>
+      calculateLinkLengthByRating(calculateLengthParameter(link)),
+    );
 
     // charge
-    fg.d3Force('charge').distanceMax(200);
+    fg.d3Force('charge')
+      .strength(getChargeStrengthByNode)
+      .distanceMin(getChargeMinDistanceByNode)
+      .distanceMax(getChargeMaxDistanceByNode);
   }, []);
 
   useEffect(() => {
