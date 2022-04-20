@@ -215,20 +215,21 @@ function Graph({
     ctx.stroke();
   }, []);
 
-  function calculateLinkLengthByRating(langthParameter) {
-    return langthParameter * 4 + 100;
+  function calculateLinkLengthByRating(link) {
+    const param = calculateLengthParameter(link);
+    const isTestnetLink =
+      !link.source.isZoneMainnet || !link.target.isZoneMainnet;
+    const factor = isTestnetLink ? 7 : 5;
+    const maxDistance = isTestnetLink ? 350 : 230;
+    return Math.min(param * factor + 150, maxDistance);
   }
 
   function calculateLengthParameter(link) {
-    return Math.max(link.source.ibcVolumeRating, link.target.ibcVolumeRating);
+    return Math.max(link.source.peersRating, link.target.peersRating);
   }
 
   function getChargeStrengthByNode(node) {
-    return -30; // by default
-  }
-
-  function getChargeMinDistanceByNode(node) {
-    return 1;
+    return -200;
   }
 
   function getChargeMaxDistanceByNode(node) {
@@ -239,14 +240,11 @@ function Graph({
     const fg = fgRef.current;
 
     // links
-    fg.d3Force('link').distance(link =>
-      calculateLinkLengthByRating(calculateLengthParameter(link)),
-    );
+    fg.d3Force('link').distance(link => calculateLinkLengthByRating(link));
 
     // charge
     fg.d3Force('charge')
       .strength(getChargeStrengthByNode)
-      .distanceMin(getChargeMinDistanceByNode)
       .distanceMax(getChargeMaxDistanceByNode);
   }, []);
 
