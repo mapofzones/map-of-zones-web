@@ -215,37 +215,18 @@ function Graph({
     ctx.stroke();
   }, []);
 
-  function calculateLinkLengthByRating(link) {
-    const param = calculateLengthParameter(link);
-    const isTestnetLink =
-      !link.source.isZoneMainnet || !link.target.isZoneMainnet;
-    const factor = isTestnetLink ? 7 : 5;
-    const maxDistance = isTestnetLink ? 350 : 230;
-    return Math.min(param * factor + 150, maxDistance);
-  }
-
-  function calculateLengthParameter(link) {
-    return Math.max(link.source.peersRating, link.target.peersRating);
-  }
-
-  function getChargeStrengthByNode(node) {
-    return -200;
-  }
-
-  function getChargeMaxDistanceByNode(node) {
-    return 200;
+  function getChargeStrengthByNode() {
+    return -10;
   }
 
   useEffect(() => {
     const fg = fgRef.current;
 
     // links
-    fg.d3Force('link').distance(link => calculateLinkLengthByRating(link));
+    fg.d3Force('link', null);
 
     // charge
-    fg.d3Force('charge')
-      .strength(getChargeStrengthByNode)
-      .distanceMax(getChargeMaxDistanceByNode);
+    fg.d3Force('charge').strength(getChargeStrengthByNode);
   }, []);
 
   useEffect(() => {
