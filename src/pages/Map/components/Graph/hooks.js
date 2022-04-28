@@ -649,8 +649,8 @@ function useGraphDataCached(data, diff) {
 
         if (diff.nodes.update) {
           nodes = [
-            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
             ...Object.values(diff.nodes.update).map(node => ({ ...node })),
+            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
           ];
         }
       }
@@ -658,7 +658,7 @@ function useGraphDataCached(data, diff) {
 
     setGraphData({
       links,
-      nodes,
+      nodes: nodes.sort((a, b) => a.peersRating - b.peersRating),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diff]); // TODO: Do we need to pass graphData?
