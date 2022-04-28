@@ -215,10 +215,6 @@ function Graph({
     ctx.stroke();
   }, []);
 
-  function getChargeStrengthByNode() {
-    return -10;
-  }
-
   useEffect(() => {
     const fg = fgRef.current;
 
@@ -226,7 +222,7 @@ function Graph({
     fg.d3Force('link', null);
 
     // charge
-    fg.d3Force('charge').strength(getChargeStrengthByNode);
+    fg.d3Force('charge').strength(-10);
   }, []);
 
   useEffect(() => {
