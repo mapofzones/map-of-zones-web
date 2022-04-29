@@ -219,10 +219,10 @@ function Graph({
     const fg = fgRef.current;
 
     // links
-    fg.d3Force('link').distance(() => Math.random() * 100 + 150);
+    fg.d3Force('link', null);
 
     // charge
-    fg.d3Force('charge').distanceMax(200);
+    fg.d3Force('charge').strength(-10);
   }, []);
 
   useEffect(() => {
