@@ -439,8 +439,9 @@ function tryDrawNodeWithLogo(ctx, x, y, r, zoneColor, alpha, image) {
     ctx.drawImage(image, x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
   } catch (e) {
     return false;
+  } finally {
+    ctx.globalAlpha = 1;
   }
-  ctx.globalAlpha = 1;
 
   ctx.strokeStyle = zoneColor;
   ctx.beginPath();
