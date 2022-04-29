@@ -270,14 +270,11 @@ const transform = (data, isTestnetVisible) => {
     isTestnetVisible,
   );
 
-  function sortFunc(a, b) {
-    return a > b ? 1 : b > a ? -1 : 0;
-  }
   let sortedZoneStat = [...zonesStats];
   sortedZoneStat.sort((a, b) =>
     isTestnetVisible
-      ? sortFunc(b.ibc_peers, a.ibc_peers)
-      : sortFunc(b.ibc_peers_mainnet, a.ibc_peers_mainnet),
+      ? b.ibc_peers - a.ibc_peers
+      : b.ibc_peers_mainnet - a.ibc_peers_mainnet,
   );
   const sortedZonesMapByPeersCount = sortedZoneStat.reduce(
     (dict, curr, index) => Object.assign(dict, { [curr.zone]: index }),
