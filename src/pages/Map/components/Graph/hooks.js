@@ -406,18 +406,20 @@ function drawZone(
   const alpha = isActiveMode && !isActiveZone ? 0.2 : 1;
   const zoneColor = setOpacity(color, alpha);
 
+  let needToDrawSimpleNode = true;
   if (images[node.id]) {
-    ctx.strokeStyle = zoneColor;
-    ctx.beginPath();
-    ctx.lineWidth = 2;
-    ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-    ctx.closePath();
-    ctx.stroke();
+    needToDrawSimpleNode = !tryDrawNodeWithLogo(
+      ctx,
+      x,
+      y,
+      r,
+      zoneColor,
+      alpha,
+      images[node.id],
+    );
+  }
 
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(images[node.id], x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
-    ctx.globalAlpha = 1;
-  } else {
+  if (needToDrawSimpleNode) {
     ctx.fillStyle = zoneColor;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, 2 * Math.PI, false);
@@ -429,6 +431,26 @@ function drawZone(
     ctx.shadowColor = null;
     ctx.shadowBlur = null;
   }
+}
+
+function tryDrawNodeWithLogo(ctx, x, y, r, zoneColor, alpha, image) {
+  ctx.globalAlpha = alpha;
+  try {
+    ctx.drawImage(image, x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
+  } catch (e) {
+    return false;
+  } finally {
+    ctx.globalAlpha = 1;
+  }
+
+  ctx.strokeStyle = zoneColor;
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+  ctx.closePath();
+  ctx.stroke();
+
+  return true;
 }
 
 const cachedNodeTitleData = {};
@@ -649,8 +671,8 @@ function useGraphDataCached(data, diff) {
 
         if (diff.nodes.update) {
           nodes = [
-            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
             ...Object.values(diff.nodes.update).map(node => ({ ...node })),
+            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
           ];
         }
       }
@@ -658,7 +680,7 @@ function useGraphDataCached(data, diff) {
 
     setGraphData({
       links,
-      nodes,
+      nodes: nodes.sort((a, b) => a.peersRating - b.peersRating),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diff]); // TODO: Do we need to pass graphData?
