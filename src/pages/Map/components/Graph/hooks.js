@@ -415,7 +415,18 @@ function drawZone(
     ctx.stroke();
 
     ctx.globalAlpha = alpha;
-    ctx.drawImage(images[node.id], x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
+    try {
+      ctx.drawImage(
+        images[node.id],
+        x - r + 3,
+        y - r + 3,
+        r * 2 - 6,
+        r * 2 - 6,
+      );
+    } catch (e) {
+      console.log(node?.id, images[node.id]);
+      console.log(e);
+    }
     ctx.globalAlpha = 1;
   } else {
     ctx.fillStyle = zoneColor;
