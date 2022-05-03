@@ -228,7 +228,7 @@ const drawLinkComet = (ctx, source, target) => {
 function drawCometAndRotate(ctx, x, y, radians) {
   rotateCanvas(ctx, x, y, radians);
 
-  ctx.drawImage(ctx.canvas.offscreenCanvas, 0, 0, 20, 2, x - 1, y - 1, 20, 2);
+  ctx.drawImage(ctx.canvas.offscreenCanvas, 0, 0, 60, 6, x - 1, y - 1, 20, 2);
 
   rotateCanvas(ctx, x, y, -radians);
 }

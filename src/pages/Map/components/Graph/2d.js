@@ -176,15 +176,15 @@ function Graph({
 
   useEffect(() => {
     const canvas = containerRef.current.querySelector('canvas');
-    const r = 1;
+    const r = 3;
 
     canvas.offscreenCanvas = document.createElement('canvas');
-    canvas.offscreenCanvas.width = 20;
+    canvas.offscreenCanvas.width = 60;
     canvas.offscreenCanvas.height = r * 2;
     var ctx = canvas.offscreenCanvas.getContext('2d');
     const cometPosX = r;
     const cometPosY = r;
-    const tailPosX = 20;
+    const tailPosX = 60;
     const tailPosY = r;
 
     //draw comet
@@ -195,7 +195,7 @@ function Graph({
 
     //draw comet tail
     const gradient = ctx.createLinearGradient(
-      cometPosX + 1,
+      cometPosX + r,
       cometPosY,
       tailPosX,
       tailPosY,
@@ -208,9 +208,9 @@ function Graph({
     gradient.addColorStop(1, setOpacity('#D76969', 0));
 
     ctx.strokeStyle = gradient;
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(cometPosX + 1, cometPosY);
+    ctx.moveTo(cometPosX + r, cometPosY);
     ctx.lineTo(tailPosX, tailPosY);
     ctx.stroke();
   }, []);
