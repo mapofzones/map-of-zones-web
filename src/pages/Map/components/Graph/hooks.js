@@ -456,7 +456,7 @@ function tryDrawNodeWithLogo(ctx, x, y, baseRadius, zoneColor, alpha, image) {
 
 const cachedNodeTitleData = {};
 const paddingHorizontal = 2;
-const paddingVertical = 1;
+const paddingVertical = 3;
 
 function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
   const { name, isZoneMainnet } = node;
