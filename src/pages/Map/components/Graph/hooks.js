@@ -433,10 +433,11 @@ function drawZone(
   }
 }
 
-function tryDrawNodeWithLogo(ctx, x, y, r, zoneColor, alpha, image) {
+function tryDrawNodeWithLogo(ctx, x, y, baseRadius, zoneColor, alpha, image) {
+  const r = baseRadius + 2;
   ctx.globalAlpha = alpha;
   try {
-    ctx.drawImage(image, x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
+    ctx.drawImage(image, x - r, y - r, r * 2, r * 2);
   } catch (e) {
     return false;
   } finally {
@@ -446,7 +447,7 @@ function tryDrawNodeWithLogo(ctx, x, y, r, zoneColor, alpha, image) {
   ctx.strokeStyle = zoneColor;
   ctx.beginPath();
   ctx.lineWidth = 2;
-  ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+  ctx.arc(x, y, r + 3, 0, 2 * Math.PI, false);
   ctx.closePath();
   ctx.stroke();
 
