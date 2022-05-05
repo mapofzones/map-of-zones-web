@@ -459,7 +459,7 @@ function Graph({
         clearNodeFocus();
       }
     }
-  }, [focusedNode, nodes]);
+  }, [clearNodeFocus, focusedNode, nodes]);
 
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
@@ -479,11 +479,12 @@ function Graph({
           nodeCanvasObject={nodeCanvasObject}
           linkCanvasObject={linkCanvasObject}
           onNodeClick={onNodeClick}
+          onLinkClick={clearNodeFocus}
+          onBackgroundClick={clearNodeFocus}
           onLinkHover={onLinkHover}
           d3AlphaDecay={0.02}
           d3VelocityDecay={0.3}
           onNodeDragEnd={onNodeDragEnd}
-          onBackgroundClick={clearNodeFocus}
           onNodeDrag={onNodeDrag}
         />
         <ZonesColorDescriptor className={cx('zonesColorDescriptor')} />
