@@ -29,7 +29,9 @@ export const useNodeCanvasObject = (
 ) =>
   useCallback(
     (node, ctx, globalScale) => {
+      const deltaRadius = images[node.id] ? 3 : 0;
       const r =
+        deltaRadius +
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
 
       const isActiveMode = !!focusedNode || !!hoveredNode;
@@ -56,7 +58,15 @@ export const useNodeCanvasObject = (
         return;
       }
 
-      drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale);
+      drawNodeTitle(
+        ctx,
+        node,
+        r,
+        isActiveMode,
+        isActiveZone,
+        globalScale,
+        deltaRadius,
+      );
     },
     [
       zoneWeightAccessor,
@@ -433,8 +443,7 @@ function drawZone(
   }
 }
 
-function tryDrawNodeWithLogo(ctx, x, y, baseRadius, zoneColor, alpha, image) {
-  const r = baseRadius + 2;
+function tryDrawNodeWithLogo(ctx, x, y, r, zoneColor, alpha, image) {
   ctx.globalAlpha = alpha;
   try {
     ctx.drawImage(image, x - r, y - r, r * 2, r * 2);
@@ -456,14 +465,27 @@ function tryDrawNodeWithLogo(ctx, x, y, baseRadius, zoneColor, alpha, image) {
 
 const cachedNodeTitleData = {};
 const paddingHorizontal = 2;
-const paddingVertical = 3;
+const paddingVertical = 1;
 
-function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
+function drawNodeTitle(
+  ctx,
+  node,
+  r,
+  isActiveMode,
+  isActiveZone,
+  globalScale,
+  deltaR,
+) {
   const { name, isZoneMainnet } = node;
 
   let data = cachedNodeTitleData[node.id];
-  if (!data || data.globalScale !== globalScale || data.r !== r) {
-    data = getNewTitleData(ctx, globalScale, name, r, isZoneMainnet);
+  if (
+    !data ||
+    data.globalScale !== globalScale ||
+    data.r !== r ||
+    data.deltaR !== deltaR
+  ) {
+    data = getNewTitleData(ctx, globalScale, name, r, isZoneMainnet, deltaR);
     cachedNodeTitleData[node.id] = data;
   }
 
@@ -474,7 +496,7 @@ function calculateBgDimension(size, fontSize) {
   return size + fontSize * 0.5;
 }
 
-function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet) {
+function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet, deltaR) {
   const fontSize = Math.max(4, 10 / globalScale);
   const fontWeight = isZoneMainnet ? 600 : 500;
   const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
@@ -485,7 +507,8 @@ function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet) {
   const rectWidth = textBgWidth + paddingHorizontal * 2;
   const rectHeight = textBgHeight + paddingVertical * 2;
 
-  const deltaY = r + textBgHeight / 2 + 2 / globalScale + paddingVertical * 2;
+  const deltaY =
+    r + textBgHeight / 2 + 2 / globalScale + paddingVertical * 2 + deltaR;
 
   return {
     globalScale,
@@ -499,6 +522,7 @@ function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet) {
     rectWidth,
     rectHeight,
     r,
+    deltaR,
   };
 }
 
