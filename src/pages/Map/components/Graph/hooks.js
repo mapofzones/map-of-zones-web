@@ -29,7 +29,9 @@ export const useNodeCanvasObject = (
 ) =>
   useCallback(
     (node, ctx, globalScale) => {
+      const deltaRadius = images[node.id] ? 3 : 0;
       const r =
+        deltaRadius +
         Math.sqrt(Math.max(0, node[zoneWeightAccessor] || 1)) * nodeRelSize;
 
       const isActiveMode = !!focusedNode || !!hoveredNode;
@@ -56,7 +58,15 @@ export const useNodeCanvasObject = (
         return;
       }
 
-      drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale);
+      drawNodeTitle(
+        ctx,
+        node,
+        r,
+        isActiveMode,
+        isActiveZone,
+        globalScale,
+        deltaRadius,
+      );
     },
     [
       zoneWeightAccessor,
@@ -228,7 +238,7 @@ const drawLinkComet = (ctx, source, target) => {
 function drawCometAndRotate(ctx, x, y, radians) {
   rotateCanvas(ctx, x, y, radians);
 
-  ctx.drawImage(ctx.canvas.offscreenCanvas, 0, 0, 20, 2, x - 1, y - 1, 20, 2);
+  ctx.drawImage(ctx.canvas.offscreenCanvas, 0, 0, 60, 6, x - 1, y - 1, 20, 2);
 
   rotateCanvas(ctx, x, y, -radians);
 }
@@ -406,18 +416,20 @@ function drawZone(
   const alpha = isActiveMode && !isActiveZone ? 0.2 : 1;
   const zoneColor = setOpacity(color, alpha);
 
+  let needToDrawSimpleNode = true;
   if (images[node.id]) {
-    ctx.strokeStyle = zoneColor;
-    ctx.beginPath();
-    ctx.lineWidth = 2;
-    ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-    ctx.closePath();
-    ctx.stroke();
+    needToDrawSimpleNode = !tryDrawNodeWithLogo(
+      ctx,
+      x,
+      y,
+      r,
+      zoneColor,
+      alpha,
+      images[node.id],
+    );
+  }
 
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(images[node.id], x - r + 3, y - r + 3, r * 2 - 6, r * 2 - 6);
-    ctx.globalAlpha = 1;
-  } else {
+  if (needToDrawSimpleNode) {
     ctx.fillStyle = zoneColor;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, 2 * Math.PI, false);
@@ -431,16 +443,49 @@ function drawZone(
   }
 }
 
+function tryDrawNodeWithLogo(ctx, x, y, r, zoneColor, alpha, image) {
+  ctx.globalAlpha = alpha;
+  try {
+    ctx.drawImage(image, x - r, y - r, r * 2, r * 2);
+  } catch (e) {
+    return false;
+  } finally {
+    ctx.globalAlpha = 1;
+  }
+
+  ctx.strokeStyle = zoneColor;
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.arc(x, y, r + 3, 0, 2 * Math.PI, false);
+  ctx.closePath();
+  ctx.stroke();
+
+  return true;
+}
+
 const cachedNodeTitleData = {};
 const paddingHorizontal = 2;
 const paddingVertical = 1;
 
-function drawNodeTitle(ctx, node, r, isActiveMode, isActiveZone, globalScale) {
+function drawNodeTitle(
+  ctx,
+  node,
+  r,
+  isActiveMode,
+  isActiveZone,
+  globalScale,
+  deltaR,
+) {
   const { name, isZoneMainnet } = node;
 
   let data = cachedNodeTitleData[node.id];
-  if (!data || data.globalScale !== globalScale || data.r !== r) {
-    data = getNewTitleData(ctx, globalScale, name, r, isZoneMainnet);
+  if (
+    !data ||
+    data.globalScale !== globalScale ||
+    data.r !== r ||
+    data.deltaR !== deltaR
+  ) {
+    data = getNewTitleData(ctx, globalScale, name, r, isZoneMainnet, deltaR);
     cachedNodeTitleData[node.id] = data;
   }
 
@@ -451,7 +496,7 @@ function calculateBgDimension(size, fontSize) {
   return size + fontSize * 0.5;
 }
 
-function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet) {
+function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet, deltaR) {
   const fontSize = Math.max(4, 10 / globalScale);
   const fontWeight = isZoneMainnet ? 600 : 500;
   const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
@@ -462,7 +507,8 @@ function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet) {
   const rectWidth = textBgWidth + paddingHorizontal * 2;
   const rectHeight = textBgHeight + paddingVertical * 2;
 
-  const deltaY = r + textBgHeight / 2 + 2 / globalScale + paddingVertical * 2;
+  const deltaY =
+    r + textBgHeight / 2 + 2 / globalScale + paddingVertical * 2 + deltaR;
 
   return {
     globalScale,
@@ -476,6 +522,7 @@ function getNewTitleData(ctx, globalScale, name, r, isZoneMainnet) {
     rectWidth,
     rectHeight,
     r,
+    deltaR,
   };
 }
 
@@ -649,8 +696,8 @@ function useGraphDataCached(data, diff) {
 
         if (diff.nodes.update) {
           nodes = [
-            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
             ...Object.values(diff.nodes.update).map(node => ({ ...node })),
+            ...nodes.filter(item => !diff.nodes.update[nodeKeyAccessor(item)]),
           ];
         }
       }
@@ -658,7 +705,7 @@ function useGraphDataCached(data, diff) {
 
     setGraphData({
       links,
-      nodes,
+      nodes: nodes.sort((a, b) => a.peersRating - b.peersRating),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diff]); // TODO: Do we need to pass graphData?

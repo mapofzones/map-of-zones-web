@@ -270,7 +270,18 @@ const transform = (data, isTestnetVisible) => {
     isTestnetVisible,
   );
 
-  let zonesFormatted = zonesStats.map(
+  let sortedZoneStat = [...zonesStats];
+  sortedZoneStat.sort((a, b) =>
+    isTestnetVisible
+      ? b.ibc_peers - a.ibc_peers
+      : b.ibc_peers_mainnet - a.ibc_peers_mainnet,
+  );
+  const sortedZonesMapByPeersCount = sortedZoneStat.reduce(
+    (dict, curr, index) => Object.assign(dict, { [curr.zone]: index }),
+    {},
+  );
+
+  let zonesFormatted = sortedZoneStat.map(
     ({
       zone,
       chart_cashflow,
@@ -387,10 +398,12 @@ const transform = (data, isTestnetVisible) => {
         peers: isTestnetVisible ? ibc_peers : ibc_peers_mainnet,
         ibcVolumeSentPercentage: isTestnetVisible
           ? ibc_cashflow_out_percent / 100 || ibc_cashflow_out_percent
-          : ibc_cashflow_out_percent_mainnet / 100 || ibc_cashflow_out_percent_mainnet,
+          : ibc_cashflow_out_percent_mainnet / 100 ||
+            ibc_cashflow_out_percent_mainnet,
         ibcVolumeReceivedPercentage: isTestnetVisible
           ? ibc_cashflow_in_percent / 100 || ibc_cashflow_in_percent
-          : ibc_cashflow_in_percent_mainnet / 100 || ibc_cashflow_in_percent_mainnet,
+          : ibc_cashflow_in_percent_mainnet / 100 ||
+            ibc_cashflow_in_percent_mainnet,
         // ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
         // ibcReceived: ibc_tx_in,
         // ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
@@ -434,6 +447,7 @@ const transform = (data, isTestnetVisible) => {
         ibcVolumeRating: isTestnetVisible
           ? ibc_cashflow_rating
           : ibc_cashflow_mainnet_rating,
+        peersRating: sortedZonesMapByPeersCount[zone],
         ibcTransfersRatingDiff: isTestnetVisible
           ? ibc_transfers_rating_diff
           : ibc_transfers_mainnet_rating_diff,
