@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
 
 import { useLocationTracker } from 'common/hooks';
 
@@ -84,11 +84,13 @@ function Map() {
     [focusedZone, setFocusedZone],
   );
   const handleScroll = useCallback(
-    table => {
+    event => {
+      const table = document.getElementById('table-container');
       if (table) {
-        if (table.getBoundingClientRect().top <= 20) {
+        const top = table.getBoundingClientRect().top;
+        if (top <= 20) {
           setIsTableOpened('fixed-thead');
-        } else if (table.getBoundingClientRect().top <= 60) {
+        } else if (top <= 60) {
           setIsTableOpened('opened');
         } else {
           setIsTableOpened('');
@@ -102,7 +104,11 @@ function Map() {
     return <Loader />;
   } else {
     return (
-      <div>
+      <div
+        id="pageContainer"
+        onScroll={handleScroll}
+        style={{ overflowX: 'auto', height: '100vh' }}
+      >
         {!isMapFullscreen && (
           <TotalStatTable
             showIbcVolumeChart
@@ -145,7 +151,6 @@ function Map() {
         <Leaderboard
           data={zonesStatFiltered.nodes}
           focusedZoneId={focusedZone?.id}
-          handleScroll={handleScroll}
           isTableOpened={isTableOpened}
           onSortChange={setSort}
           period={period}

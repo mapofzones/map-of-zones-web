@@ -1,5 +1,10 @@
 @import '../../../../assets/styles/constants.css';
 
+.wrapper {
+  position: sticky;
+  left: 0;
+}
+
 .container {
   display: flex;
   height: 65px;
@@ -196,11 +201,11 @@
   .item:last-child {
     display: none;
   }
-  
+
   .statContainer.small {
     flex: none;
   }
-  
+
   .item:nth-last-child(2) {
     border-right: none;
   }
