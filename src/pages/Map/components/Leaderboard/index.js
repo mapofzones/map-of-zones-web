@@ -78,13 +78,6 @@ function Leaderboard({
     }
   }, [initialSortBy, sortBy, sortedColumn]);
 
-  useEffect(() => {
-    let table = document.documentElement.querySelector('table');
-    window.addEventListener('scroll', () => handleScroll(table));
-
-    return window.removeEventListener('scroll', () => handleScroll(table));
-  }, [handleScroll]);
-
   const renderCell = cell => {
     switch (cell.column.id) {
       case 'blank':
@@ -230,74 +223,86 @@ function Leaderboard({
   }, [columns, selectedColumnIndex, isMobile]);
 
   return (
-    <div
-      id="table-container"
-      className={cx('table-container', { fixedTable: isTableOpened })}
-    >
-      <table {...getTableProps()} className={cx('table')}>
-        <Thead
-          headerGroups={headerGroups}
-          onHeaderClick={onHeaderClick}
-          period={period.rawText}
-        />
-        <tbody
-          {...getTableBodyProps()}
+    <div className="table-wrap">
+      <div
+        onScroll={handleScroll}
+        id="table-container"
+        className={cx('table-container', { fixedTable: isTableOpened })}
+      >
+        <table
+          {...getTableProps()}
           className={cx(
+            'table',
             { bodyWithFocus: !!focusedZoneId },
             { focusFixed: !!focusedZoneId && isTableOpened === 'fixed-thead' },
           )}
         >
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                className={cx(
-                  'row',
-                  { focusedRow: row.original.id === focusedZoneId },
-                  {
-                    fixed:
-                      row.original.id === focusedZoneId &&
-                      isTableOpened === 'fixed-thead',
-                  },
-                )}
-                onClick={() => {
-                  focusZone(row.original);
-                }}
-                id={
-                  row.original.id === focusedZoneId &&
-                  isTableOpened === 'fixed-thead'
-                    ? 'fixed-row'
-                    : ''
-                }
-              >
-                {row.cells.map(cell => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      className={cx('cell', cell.column.id, {
-                        sortedColumn: cell.column.isSorted,
-                      })}
-                    >
-                      {renderCell(cell)}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <SortModal
-        isOpen={isSortModalOpened}
-        onRequestClose={() => setSortModalOpened(false)}
-        data={hiddenColumnsHeaders}
-        selectedIndex={selectedColumnIndex}
-        updateSelection={index => {
-          updateSelectedColumnIndex(index);
-          setSortModalOpened(false);
-        }}
-      />
+          <Thead
+            headerGroups={headerGroups}
+            onHeaderClick={onHeaderClick}
+            period={period.rawText}
+          />
+          <tbody
+            {...getTableBodyProps()}
+            className={cx(
+              { bodyWithFocus: !!focusedZoneId },
+              {
+                focusFixed: !!focusedZoneId && isTableOpened === 'fixed-thead',
+              },
+            )}
+          >
+            {rows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  className={cx(
+                    'row',
+                    { focusedRow: row.original.id === focusedZoneId },
+                    {
+                      fixed:
+                        row.original.id === focusedZoneId &&
+                        isTableOpened === 'fixed-thead',
+                    },
+                  )}
+                  onClick={() => {
+                    focusZone(row.original);
+                  }}
+                  id={
+                    row.original.id === focusedZoneId &&
+                    isTableOpened === 'fixed-thead'
+                      ? 'fixed-row'
+                      : ''
+                  }
+                >
+                  {row.cells.map(cell => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        className={cx('cell', cell.column.id, {
+                          sortedColumn: cell.column.isSorted,
+                        })}
+                      >
+                        {renderCell(cell)}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <SortModal
+          isOpen={isSortModalOpened}
+          onRequestClose={() => setSortModalOpened(false)}
+          data={hiddenColumnsHeaders}
+          selectedIndex={selectedColumnIndex}
+          updateSelection={index => {
+            updateSelectedColumnIndex(index);
+            setSortModalOpened(false);
+          }}
+        />
+      </div>
     </div>
   );
 }
