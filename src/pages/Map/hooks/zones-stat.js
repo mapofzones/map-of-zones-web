@@ -215,13 +215,38 @@ const getScaleParams = (zones, key, isTestnetVisible) => {
 
 const getNodeWeight = (val, min, scale) => Math.log2((val || min) * scale) + 1;
 
+const filterLinksWithoutNodes = (link, nodesSet) => {
+  const hasSource = nodesSet.has(link.source);
+  const hasTarget = nodesSet.has(link.target);
+
+  if (!hasSource || !hasTarget) {
+    const ids =
+      !hasSource && !hasTarget
+        ? `${link.source}, ${link.target}`
+        : !hasSource
+        ? link.source
+        : link.target;
+
+    const msg = `There is no nodes (${ids}) for link ${link.source}->${link.target}`;
+    console.error(msg);
+
+    return false;
+  }
+  return true;
+};
+
 const transform = (data, isTestnetVisible) => {
   const zonesStats = data?.zones_stats;
-  const zonesGraphs = data?.zones_graphs;
+  const zonesGraphsData = data?.zones_graphs;
 
-  if (!zonesStats || !zonesGraphs) {
+  if (!zonesStats || !zonesGraphsData) {
     return null;
   }
+
+  const nodesSet = new Set(zonesStats.map(node => node.zone));
+  const zonesGraphs = zonesGraphsData.filter(link =>
+    filterLinksWithoutNodes(link, nodesSet),
+  );
 
   const [minIbcTxsWeight, ibcTxsScale] = getScaleParams(
     zonesStats,
