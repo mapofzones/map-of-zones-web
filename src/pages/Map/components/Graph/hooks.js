@@ -703,14 +703,39 @@ function useGraphDataCached(data, diff) {
       }
     }
 
+    const nodesSet = new Set(nodes.map(node => node.id));
+    const linksWithNodes = links.filter(link =>
+      filterLinksWithoutNodes(link, nodesSet),
+    );
+
     setGraphData({
-      links,
+      links: linksWithNodes,
       nodes: nodes.sort((a, b) => a.peersRating - b.peersRating),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diff]); // TODO: Do we need to pass graphData?
 
   return graphData;
+}
+
+function filterLinksWithoutNodes(link, nodesSet) {
+  const hasSource = nodesSet.has(link.source);
+  const hasTarget = nodesSet.has(link.target);
+
+  if (!hasSource || !hasTarget) {
+    const ids =
+      !hasSource && !hasTarget
+        ? `${link.source}, ${link.target}`
+        : !hasSource
+        ? link.source
+        : link.target;
+
+    const msg = `There is no nodes (${ids}) for link ${link.source}->${link.target}`;
+    console.error(msg);
+
+    return false;
+  }
+  return true;
 }
 
 export function useGraphData(data) {
