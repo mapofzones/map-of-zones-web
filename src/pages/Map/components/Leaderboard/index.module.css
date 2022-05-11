@@ -93,7 +93,15 @@
   cursor: pointer;
 }
 
-.row.focusedRow .cell,
+.row.pinnedRow {
+  position: sticky;
+  top: 77px;
+  box-shadow: 0 1px 2px #c7c7c7;
+  z-index: 2;
+  width: -moz-available;
+}
+
+.row.pinnedRow .cell,
 .row:hover .cell {
   background: #f4f4f5;
 }
@@ -147,7 +155,7 @@
   z-index: 5;
 }
 
-.focusedRow .text-container .shift-tooltip {
+.pinnedRow .text-container .shift-tooltip {
   top: unset;
   bottom: -8px;
 }
@@ -445,39 +453,6 @@
 
 .position-shift.new:after {
   content: none;
-}
-
-tbody.bodyWithFocus .row {
-  transform: translateY(40px);
-}
-
-tbody.bodyWithFocus .row.focusedRow {
-  transform: unset;
-}
-
-.row.focusedRow {
-  position: absolute;
-  top: 27px;
-  box-shadow: 0 1px 2px #c7c7c7;
-  z-index: 2;
-  width: -moz-available;
-}
-
-.row.focusedRow > .cell {
-  box-shadow: none;
-}
-
-tbody.bodyWithFocus.focusFixed .row {
-  transform: unset;
-}
-
-.row.focusedRow.fixed {
-  position: fixed;
-  top: 77px;
-}
-
-.row.focusedRow:not(.fixed) {
-  transform: translateX(0px) !important;
 }
 
 .zone-status-container {

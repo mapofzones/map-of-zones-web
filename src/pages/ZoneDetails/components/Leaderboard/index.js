@@ -239,10 +239,7 @@ function Leaderboard({
     <div id="table-container" className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
         <Thead headerGroups={headerGroups} onHeaderClick={() => {}} />
-        <tbody
-          {...getTableBodyProps()}
-          className={cx({ bodyWithFocus: !!focusedZoneId })}
-        >
+        <tbody {...getTableBodyProps()}>
           {rows.map(row => {
             prepareRow(row);
 

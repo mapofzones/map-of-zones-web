@@ -459,14 +459,6 @@ thead.fixed.active {
   z-index: 3;
 }
 
-tbody.bodyWithFocus .row {
-  transform: translateY(33px);
-}
-
-tbody.bodyWithFocus .row.focusedRow {
-  transform: unset;
-}
-
 .row.focusedRow {
   position: absolute;
   top: 27px;
@@ -476,10 +468,6 @@ tbody.bodyWithFocus .row.focusedRow {
 
 .row.focusedRow > .cell {
   box-shadow: none;
-}
-
-tbody.bodyWithFocus.focusFixed .row {
-  transform: unset;
 }
 
 .row.focusedRow.fixed {

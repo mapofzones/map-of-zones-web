@@ -4,12 +4,13 @@ import classNames from 'classnames/bind';
 import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 import animate from 'animate.css';
 
-import { formatNumber, trackEvent, isNumber } from 'common/helper';
+import { trackEvent, isNumber } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 import Status from 'components/Status';
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import Thead from './Thead';
+import TableRow from './TableRow';
 import SortModal from './SortModal';
 
 import columnsConfig from './config';
@@ -229,61 +230,47 @@ function Leaderboard({
     }
   }, [columns, selectedColumnIndex, isMobile]);
 
+  const pinnedRow = useMemo(() => {
+    if (focusedZoneId) {
+      return rows.find(row => row.original.id === focusedZoneId);
+    }
+    return null;
+  }, [focusedZoneId, rows]);
+
+  const simpleRows = useMemo(() => {
+    if (focusedZoneId) {
+      return rows.filter(row => row.original.id !== focusedZoneId);
+    }
+    return rows;
+  }, [focusedZoneId, rows]);
+
   return (
-    <div
-      id="table-container"
-      className={cx('table-container', { fixedTable: isTableOpened })}
-    >
+    <div id="table-container" className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
         <Thead
           headerGroups={headerGroups}
           onHeaderClick={onHeaderClick}
           period={period.rawText}
         />
-        <tbody
-          {...getTableBodyProps()}
-          className={cx(
-            { bodyWithFocus: !!focusedZoneId },
-            { focusFixed: !!focusedZoneId && isTableOpened === 'fixed-thead' },
+        <tbody {...getTableBodyProps()}>
+          {pinnedRow && (
+            <TableRow
+              row={pinnedRow}
+              isPinned={true}
+              focusZone={focusZone}
+              renderCell={renderCell}
+            />
           )}
-        >
-          {rows.map((row, i) => {
+          {simpleRows.map((row, i) => {
             prepareRow(row);
             return (
-              <tr
-                {...row.getRowProps()}
-                className={cx(
-                  'row',
-                  { focusedRow: row.original.id === focusedZoneId },
-                  {
-                    fixed:
-                      row.original.id === focusedZoneId &&
-                      isTableOpened === 'fixed-thead',
-                  },
-                )}
-                onClick={() => {
-                  focusZone(row.original);
-                }}
-                id={
-                  row.original.id === focusedZoneId &&
-                  isTableOpened === 'fixed-thead'
-                    ? 'fixed-row'
-                    : ''
-                }
-              >
-                {row.cells.map(cell => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      className={cx('cell', cell.column.id, {
-                        sortedColumn: cell.column.isSorted,
-                      })}
-                    >
-                      {renderCell(cell)}
-                    </td>
-                  );
-                })}
-              </tr>
+              <TableRow
+                key={row.original.id}
+                row={row}
+                isPinned={false}
+                focusZone={focusZone}
+                renderCell={renderCell}
+              />
             );
           })}
         </tbody>
