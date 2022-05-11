@@ -23,7 +23,9 @@
 
 .table {
   border-spacing: 0;
+  position: relative;
 }
+
 .header {
   font-style: normal;
   font-weight: 600;
@@ -445,15 +447,6 @@
   content: none;
 }
 
-table {
-  position: relative;
-}
-
-table.bodyWithFocus.focusFixed {
-  position: static;
-  overflow-y: auto;
-}
-
 tbody.bodyWithFocus .row {
   transform: translateY(40px);
 }
@@ -479,6 +472,7 @@ tbody.bodyWithFocus.focusFixed .row {
 }
 
 .row.focusedRow.fixed {
+  position: fixed;
   top: 77px;
 }
 
