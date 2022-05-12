@@ -1,5 +1,10 @@
 @import '../../../../assets/styles/constants.css';
 
+.wrapper {
+  position: sticky;
+  left: 0;
+}
+
 .container {
   display: flex;
   height: 65px;

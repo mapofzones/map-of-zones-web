@@ -110,7 +110,6 @@ GraphContainer.propTypes = {
     graph: PropTypes.object,
   }),
   isTableOpened: PropTypes.string,
-  handleScroll: PropTypes.func,
   backToMap: PropTypes.func,
   setPeriod: PropTypes.func,
   sortBy: PropTypes.node,
