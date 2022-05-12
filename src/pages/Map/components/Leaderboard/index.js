@@ -77,23 +77,18 @@ function Leaderboard({
     }
   }, [initialSortBy, sortBy, sortedColumn]);
 
-  useEffect(() => {
-    let table = document.documentElement.querySelector('table');
-    window.addEventListener('scroll', () => handleScroll(table));
-
-    return window.removeEventListener('scroll', () => handleScroll(table));
-  }, [handleScroll]);
-
   const focusZone = useCallback(
     zone => {
       setFocusedZone(zone);
 
-      if (isTableOpened) {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      }
+      document.getElementById('page-container').scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+      // window.scrollTo({
+      //   top: 0,
+      //   behavior: 'smooth',
+      // });
 
       trackEvent({
         category: 'Table',
@@ -171,7 +166,12 @@ function Leaderboard({
   }, [focusedZoneId, rows]);
 
   return (
-    <div id="table-container" className={cx('table-container')}>
+    <div
+      id="table-container"
+      className={cx('table-container', {
+        focusFixed: !!focusedZoneId && isTableOpened === 'fixed-thead',
+      })}
+    >
       <table {...getTableProps()} className={cx('table')}>
         <Thead
           headerGroups={headerGroups}
