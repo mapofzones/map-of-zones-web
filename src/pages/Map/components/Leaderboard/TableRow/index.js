@@ -2,9 +2,11 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from '../index.module.css';
 
+import TableCell from '../TableCell';
+
 const cx = classNames.bind(styles);
 
-const TableRow = ({ row, isPinned, focusZone, renderCell }) => {
+const TableRow = ({ row, isPinned, focusZone, sortedColumnId }) => {
   return (
     <tr
       {...row.getRowProps()}
@@ -14,16 +16,7 @@ const TableRow = ({ row, isPinned, focusZone, renderCell }) => {
       }}
     >
       {row.cells.map(cell => {
-        return (
-          <td
-            {...cell.getCellProps()}
-            className={cx('cell', cell.column.id, {
-              sortedColumn: cell.column.isSorted,
-            })}
-          >
-            {renderCell(cell)}
-          </td>
-        );
+        return <TableCell cell={cell} sortedColumnId={sortedColumnId} />;
       })}
     </tr>
   );
