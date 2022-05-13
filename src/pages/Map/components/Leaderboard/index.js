@@ -22,9 +22,7 @@ function Leaderboard({
   disableMultiSort,
   disableSortRemove,
   focusedZoneId,
-  handleScroll,
   initialState,
-  isTableOpened,
   onSortChange,
   period,
   setFocusedZone,
@@ -81,15 +79,6 @@ function Leaderboard({
     zone => {
       setFocusedZone(zone);
 
-      document.getElementById('page-container').scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-      // window.scrollTo({
-      //   top: 0,
-      //   behavior: 'smooth',
-      // });
-
       trackEvent({
         category: 'Table',
         action: 'select zone',
@@ -97,7 +86,7 @@ function Leaderboard({
         extra: { period: period?.rawText },
       });
     },
-    [setFocusedZone, isTableOpened, period],
+    [setFocusedZone, period],
   );
 
   const isMobile = useMobileSize();
@@ -166,12 +155,7 @@ function Leaderboard({
   }, [focusedZoneId, rows]);
 
   return (
-    <div
-      id="table-container"
-      className={cx('table-container', {
-        focusFixed: !!focusedZoneId && isTableOpened === 'fixed-thead',
-      })}
-    >
+    <div id="table-container" className={cx('table-container')}>
       <table {...getTableProps()} className={cx('table')}>
         <Thead
           headerGroups={headerGroups}

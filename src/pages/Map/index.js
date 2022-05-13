@@ -83,6 +83,17 @@ function Map() {
     },
     [focusedZone, setFocusedZone],
   );
+
+  useEffect(() => {
+    const el = document.getElementById('page-container');
+    if (el && el.scrollTop > 500) {
+      el.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [focusedZone]);
+
   const handleScroll = useCallback(
     table => {
       if (table) {

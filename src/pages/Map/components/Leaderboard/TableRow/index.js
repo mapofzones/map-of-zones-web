@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from '../index.module.css';
 
@@ -23,3 +24,17 @@ const TableRow = ({ row, isPinned, focusZone, sortedColumnId }) => {
 };
 
 export default TableRow;
+
+TableRow.propTypes = {
+  // row: PropTypes.object,
+  isPinned: PropTypes.bool,
+  focusZone: PropTypes.func,
+  sortedColumnId: PropTypes.string,
+};
+
+TableRow.defaultProps = {
+  // row: {},
+  isPinned: false,
+  focusZone: () => {},
+  sortedColumnId: '',
+};

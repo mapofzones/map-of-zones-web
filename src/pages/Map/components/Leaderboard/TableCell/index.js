@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isNumber } from 'common/helper';
 import Status from 'components/Status';
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
@@ -22,6 +23,16 @@ const TableCell = ({ cell, sortedColumnId }) => {
 };
 
 export default TableCell;
+
+TableCell.propTypes = {
+  cell: PropTypes.object,
+  sortedColumnId: PropTypes.string,
+};
+
+TableCell.defaultProps = {
+  cell: {},
+  sortedColumnId: '',
+};
 
 const CellData = ({ cell, sortedColumnId }) => {
   switch (cell.column.id) {
