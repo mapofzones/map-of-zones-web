@@ -26,7 +26,6 @@ function TotalStatTable({
   activeChannels,
   mostActiveByTxsZonesPair,
   mostActiveByVolumeZonesPair,
-  isTableOpened,
   ibcVolume,
   ibcVolumeDiff,
   ibcTxsDiff,
@@ -35,7 +34,7 @@ function TotalStatTable({
 }) {
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('container', { tableOpened: isTableOpened })}>
+      <div className={cx('container')}>
         <div className={cx('item')}>
           <div className={cx('statContainer')}>
             <div className={cx('statNameContainer')}>

@@ -86,14 +86,12 @@ const Thead = ({ period, headerGroups, onHeaderClick }) => {
 
 Thead.propTypes = {
   fixed: PropTypes.bool,
-  isTableOpened: PropTypes.string,
   headerGroups: PropTypes.array,
   onHeaderClick: PropTypes.func,
 };
 
 Thead.defaultProps = {
   fixed: false,
-  isTableOpened: '',
   headerGroups: [],
 };
 
