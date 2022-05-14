@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useMemo, useEffect } from 'react';
-
 import { useLocationTracker } from 'common/hooks';
 
 import Leaderboard from './components/Leaderboard';
@@ -19,11 +18,17 @@ import {
   useShowTestnet,
 } from './hooks';
 import columns from './components/Leaderboard/config';
+import classNames from 'classnames/bind';
+import styles from './index.module.css';
+
+const cx = classNames.bind(styles);
 
 const ORDER_SORT = {
   true: 'desc',
   false: 'asc',
 };
+
+const mapHeight = 500;
 
 function Map() {
   useLocationTracker(); // TODO: Move to App component
@@ -33,7 +38,7 @@ function Map() {
   const [sort, setSort] = useSorting();
   const [isTestnetVisible, toggleShowTestnet] = useShowTestnet();
 
-  const [isTableOpened, setIsTableOpened] = useState('');
+  const [isTableOpened, setIsTableOpened] = useState(false);
   const [currentFilter, setFilter] = useFilters(undefined);
 
   const sortedByColumn = useMemo(
@@ -84,97 +89,88 @@ function Map() {
     [focusedZone, setFocusedZone],
   );
 
-  useEffect(() => {
-    const el = document.getElementById('page-container');
-    if (el && el.scrollTop > 500) {
-      el.scrollTo({
+  const backToMap = useCallback(() => {
+    const pageContainer = document.getElementById('page-container');
+    if (pageContainer && pageContainer.scrollTop > mapHeight) {
+      pageContainer.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
     }
-  }, [focusedZone]);
+  }, []);
+
+  useEffect(() => {
+    backToMap();
+  }, [backToMap, focusedZone]);
 
   const handleScroll = useCallback(
-    table => {
-      if (table) {
-        console.log(table.getBoundingClientRect().top);
-        if (table.getBoundingClientRect().top <= 20) {
-          setIsTableOpened('fixed-thead');
-        } else if (table.getBoundingClientRect().top <= 60) {
-          setIsTableOpened('opened');
-        } else {
-          setIsTableOpened('');
-        }
+    event => {
+      if (event.target) {
+        const top = event.target.scrollTop;
+        setIsTableOpened(top > mapHeight);
       }
     },
     [setIsTableOpened],
   );
 
-  useEffect(() => {
-    let table = document.getElementById('page-container');
-    window.addEventListener('scroll', () => handleScroll(table));
-
-    return window.removeEventListener('scroll', () => handleScroll(table));
-  }, []);
-
   if (!totalStat || !zonesStatFiltered) {
     return <Loader />;
   } else {
     return (
-      // <div >
-      <div id="page-container" style={{ overflowX: 'auto', height: '100vh' }}>
-        <>
-          {!isMapFullscreen && (
-            <TotalStatTable
-              showIbcVolumeChart
-              activeChannels={totalStat.activeChannels}
-              activeZones={totalStat.activeZones}
-              allChannels={totalStat.allChannels}
-              allZones={totalStat.allZones}
-              ibcTxs={totalStat.ibcTxs}
-              ibcVolume={totalStat.ibcVolume}
-              ibcTxsChart={totalStat.ibcTxsChart}
-              ibcVolumeChart={totalStat.ibcVolumeChart}
-              ibcVolumePending={totalStat.ibcVolumePending}
-              ibcTxsPending={totalStat.ibcTxsPending}
-              ibcTxsFailed={totalStat.ibcTxsFailed}
-              mostActiveByTxsZonesPair={totalStat.mostActiveByTxsZonesPair}
-              mostActiveByVolumeZonesPair={
-                totalStat.mostActiveByVolumeZonesPair
-              }
-              ibcVolumeDiff={totalStat.ibcVolumeDiff}
-              ibcTxsDiff={totalStat.ibcTxsDiff}
-              period={period.name}
-            />
-          )}
-          <GraphContainer
-            currentFilter={currentFilter}
-            focusedZone={focusedZone}
-            isSortedDesc={sort}
-            isTableOpened={isTableOpened}
-            mapOpened={isMapFullscreen}
-            period={period}
-            setFilter={setFilter}
-            setFocusedZone={preSetFocusedZone}
-            setPeriod={setPeriod}
-            sortBy={sortedByColumn?.Header}
-            toggleMapOpen={toggleFullScreen}
-            zonesStat={zonesStatFiltered}
-            zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
-            isTestnetVisible={isTestnetVisible}
-            toggleShowTestnet={toggleShowTestnet}
+      <div
+        id="page-container"
+        className={cx('page-container')}
+        onScroll={handleScroll}
+      >
+        {!isMapFullscreen && (
+          <TotalStatTable
+            showIbcVolumeChart
+            activeChannels={totalStat.activeChannels}
+            activeZones={totalStat.activeZones}
+            allChannels={totalStat.allChannels}
+            allZones={totalStat.allZones}
+            ibcTxs={totalStat.ibcTxs}
+            ibcVolume={totalStat.ibcVolume}
+            ibcTxsChart={totalStat.ibcTxsChart}
+            ibcVolumeChart={totalStat.ibcVolumeChart}
+            ibcVolumePending={totalStat.ibcVolumePending}
+            ibcTxsPending={totalStat.ibcTxsPending}
+            ibcTxsFailed={totalStat.ibcTxsFailed}
+            mostActiveByTxsZonesPair={totalStat.mostActiveByTxsZonesPair}
+            mostActiveByVolumeZonesPair={totalStat.mostActiveByVolumeZonesPair}
+            ibcVolumeDiff={totalStat.ibcVolumeDiff}
+            ibcTxsDiff={totalStat.ibcTxsDiff}
+            period={period.name}
           />
-          <Leaderboard
-            data={zonesStatFiltered.nodes}
-            focusedZoneId={focusedZone?.id}
-            isTableOpened={isTableOpened}
-            onSortChange={setSort}
-            period={period}
-            setFocusedZone={preSetFocusedZone}
-            initialState={initialState}
-          />
-          <Footer />
-        </>
+        )}
+        <GraphContainer
+          currentFilter={currentFilter}
+          focusedZone={focusedZone}
+          isSortedDesc={sort}
+          isTableOpened={isTableOpened}
+          mapOpened={isMapFullscreen}
+          period={period}
+          setFilter={setFilter}
+          backToMap={backToMap}
+          setFocusedZone={preSetFocusedZone}
+          setPeriod={setPeriod}
+          sortBy={sortedByColumn?.Header}
+          toggleMapOpen={toggleFullScreen}
+          zonesStat={zonesStatFiltered}
+          zoneWeightAccessor={sortedByColumn?.zoneWeightAccessor}
+          isTestnetVisible={isTestnetVisible}
+          toggleShowTestnet={toggleShowTestnet}
+        />
+        <Leaderboard
+          data={zonesStatFiltered.nodes}
+          focusedZoneId={focusedZone?.id}
+          isTableOpened={isTableOpened}
+          onSortChange={setSort}
+          period={period}
+          setFocusedZone={preSetFocusedZone}
+          initialState={initialState}
+        />
+        <Footer />
       </div>
     );
   }
