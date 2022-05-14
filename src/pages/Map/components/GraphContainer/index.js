@@ -31,16 +31,8 @@ function GraphContainer({
   currentFilter,
   isTestnetVisible,
   toggleShowTestnet,
+  backToMap,
 }) {
-  const backToMap = useCallback(() => {
-    if (isTableOpened) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
-  }, [isTableOpened]);
-
   const [graphType, toggleGraphType] = useGraphType();
 
   const Graph = useMemo(() => (graphType === '2D' ? Graph2D : Graph3D), [
