@@ -2,3 +2,14 @@
     overflow-x: auto;
     height: 100vh;
 }
+
+.page-container::-webkit-scrollbar {
+  background: transparent;
+  height: 6px;
+}
+
+.page-container::-webkit-scrollbar-thumb {
+  height: 6px;
+  background: #c6c6c6;
+  border-radius: 10px;
+}
