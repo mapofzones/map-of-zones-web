@@ -10,17 +10,6 @@
   min-height: calc(100vh - 598px);
 }
 
-.table-container::-webkit-scrollbar {
-  background: transparent;
-  height: 6px;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-  height: 6px;
-  background: #c6c6c6;
-  border-radius: 10px;
-}
-
 .table {
   border-spacing: 0;
   position: relative;
