@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from '../index.module.css';
 
-import TableCell from '../TableCell';
+import TableCell from '../TableCell/TableCell';
 
 const cx = classNames.bind(styles);
 
