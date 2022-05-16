@@ -5,7 +5,7 @@ import Status from 'components/Status';
 import { ReactComponent as PendingIcon } from 'assets/images/pending.svg';
 
 import classNames from 'classnames/bind';
-import styles from '../index.module.css';
+import styles from './TableCell.module.css';
 
 const cx = classNames.bind(styles);
 
