@@ -119,7 +119,9 @@
     padding: 40px 10px 15px 10px;
     text-align: center;
     flex-direction: column-reverse;
-    position: static;
+    position: sticky;
+    left: 0;
+    bottom: -188px;
   }
 
   .socialContainer {
