@@ -83,16 +83,19 @@ const CellData = ({ cell, sortedColumnId }) => {
             numeric: typeof cell.value === 'number',
           })}
         >
-          {cell.render('Cell', { itemValue: value })}
-          {isNumber(diff) && (
-            <div
-              className={cx('shift-tooltip', {
-                negative: diff < 0,
-              })}
-            >
-              {cell.render('Cell', { itemValue: diff })}
-            </div>
-          )}
+          <div className={cx('cell-value')}>
+            {isNumber(diff) && (
+              <div
+                className={cx('shift-tooltip', {
+                  negative: diff < 0,
+                })}
+              >
+                {cell.render('Cell', { itemValue: diff })}
+              </div>
+            )}
+            {cell.render('Cell', { itemValue: value })}
+          </div>
+          <div className={cx('clear')}></div>
           {isNumber(pending) && (
             <div className={cx('pendingContainer')}>
               <PendingIcon className={cx('pendingIcon')} />
