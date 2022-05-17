@@ -169,10 +169,10 @@ function Leaderboard({
               isPinned={true}
               focusZone={focusZone}
               sortedColumnId={sortedColumn.id}
+              prepareRow={prepareRow}
             />
           )}
           {simpleRows.map((row, i) => {
-            prepareRow(row);
             return (
               <TableRow
                 key={row.original.id}
@@ -180,6 +180,7 @@ function Leaderboard({
                 isPinned={false}
                 focusZone={focusZone}
                 sortedColumnId={sortedColumn.id}
+                prepareRow={prepareRow}
               />
             );
           })}

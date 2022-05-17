@@ -56,7 +56,7 @@
   font-size: 12px;
   line-height: 100%;
   color: #ffffff;
-  visibility: hidden;
+  display: none;
   opacity: 0;
   transition: 0.2s;
   z-index: 5;
@@ -68,7 +68,20 @@
 
 .cell:hover .text-container .shift-tooltip {
   opacity: 1;
-  visibility: visible;
+  display: block;
+}
+
+.cell-value {
+  position: relative;
+  float: right;
+}
+
+.cell:last-of-type .text-container .cell-value .shift-tooltip {
+  left: -50%;
+}
+
+.clear {
+  clear: both;
 }
 
 .text-container.numeric {
@@ -231,6 +244,7 @@
   font-size: 12px;
   text-align: right;
   color: #b8b8b8;
+  float: right;
 }
 
 .pendingIcon {

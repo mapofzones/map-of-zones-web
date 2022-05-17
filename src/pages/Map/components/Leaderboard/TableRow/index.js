@@ -7,7 +7,8 @@ import TableCell from '../TableCell/TableCell';
 
 const cx = classNames.bind(styles);
 
-const TableRow = ({ row, isPinned, focusZone, sortedColumnId }) => {
+const TableRow = ({ row, isPinned, sortedColumnId, focusZone, prepareRow }) => {
+  prepareRow(row);
   return (
     <tr
       {...row.getRowProps()}
