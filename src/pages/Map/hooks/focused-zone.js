@@ -2,8 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { parse, stringify } from 'querystringify';
 
-import { usePrevious } from 'common/hooks';
-
 export const useFocusedZone = nodes => {
   const history = useHistory();
   const location = useLocation();
@@ -40,18 +38,6 @@ export const useFocusedZone = nodes => {
     },
     [history, location.search, nodes, setFocusedZone],
   );
-
-  const period = useMemo(() => parseInt(parse(location.search).period, 10), [
-    location.search,
-  ]);
-  const prevPeriod = usePrevious(period);
-
-  // Reset the selected zone if a period is changed manually (skip initial period value)
-  useEffect(() => {
-    if (period && prevPeriod && period !== prevPeriod) {
-      updateZone(undefined);
-    }
-  }, [period, prevPeriod, updateZone]);
 
   useEffect(() => {
     if (zoneFromSearch && nodes) {
