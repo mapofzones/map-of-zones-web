@@ -85,7 +85,7 @@
 }
 
 .text-container.numeric {
-  font-family: var(--font-monospace), monospace;
+  font-family: var(--font-monospace), sans-serif;
 }
 
 .cell.zoneLabelUrl {
