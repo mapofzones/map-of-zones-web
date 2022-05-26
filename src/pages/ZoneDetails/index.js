@@ -6,7 +6,7 @@ import Leaderboard from './components/Leaderboard';
 // TODO: What is purpose to use two same footers and headers? I Just change this for remove code duplication, but could be return
 import Footer from 'pages/Map/components/Footer';
 import Header from './components/Header';
-import Loader from './components/Loader';
+import Loader from 'components/Loader';
 import ChannelDetails from './components/ChannelDetails';
 import { usePeriodSelector } from '../Map/hooks';
 
