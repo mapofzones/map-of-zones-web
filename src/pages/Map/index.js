@@ -5,7 +5,7 @@ import Leaderboard from './components/Leaderboard';
 import TotalStatTable from './components/TotalStatTable';
 import Footer from './components/Footer';
 import GraphContainer from './components/GraphContainer';
-import Loader from './components/Loader';
+import Loader from 'components/Loader';
 import {
   useZonesStat,
   useTotalStat,
