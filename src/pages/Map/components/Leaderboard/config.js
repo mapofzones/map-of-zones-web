@@ -63,10 +63,9 @@ const columns = [
     Header: 'Total Txs',
     accessor: 'totalTxsRating',
     id: 'totalTxs',
-    // diffAccessor: 'totalTxsDiff',
+    diffAccessor: 'totalTxsDiff',
     ratingAccessor: 'totalTxsRatingDiff',
-    Cell: ({ itemValue }) =>
-      itemValue === null ? '-' : formatNumber(itemValue),
+    Cell: ({ itemValue }) => formatNumber(itemValue),
     zoneWeightAccessor: 'txsWeight',
     tooltip: 'All transactions in a specified zone',
   },
@@ -109,11 +108,17 @@ const columns = [
       'USD value of tokens successfully received from other Zones with pertinent volume in progress',
   },
   {
+    Header: 'Peers',
+    accessor: 'peers',
+    id: 'peers',
+    Cell: ({ itemValue }) => formatNumber(itemValue),
+    disableSortBy: true,
+  },
+  {
     Header: 'Channels',
     accessor: 'channels',
     id: 'channels',
-    Cell: ({ itemValue }) =>
-      itemValue === null ? '-' : formatNumber(itemValue),
+    Cell: ({ itemValue }) => formatNumber(itemValue),
     tooltip: 'Channels',
     disableSortBy: true,
   },

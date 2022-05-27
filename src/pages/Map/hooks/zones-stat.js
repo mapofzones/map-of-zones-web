@@ -10,6 +10,7 @@ const ZONES_STAT_FRAGMENT = gql`
     zone
     chart_cashflow
     total_txs
+    total_txs_diff
     total_ibc_txs
     ibc_tx_out
     channels_num
@@ -313,6 +314,7 @@ const transform = (data, isTestnetVisible) => {
       zone,
       chart_cashflow,
       total_txs,
+      total_txs_diff,
       total_ibc_txs,
       ibc_tx_out,
       channels_num,
@@ -414,6 +416,7 @@ const transform = (data, isTestnetVisible) => {
         name: zone_readable_name,
         txsActivity: transformChartData(chart_cashflow, 'txs'),
         totalTxs: total_txs,
+        totalTxsDiff: total_txs_diff,
         ibcTransfers: isTestnetVisible ? ibc_transfers : ibc_transfers_mainnet,
         // ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         // ibcSent: ibc_tx_out,
