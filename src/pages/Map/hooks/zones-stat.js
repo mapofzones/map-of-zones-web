@@ -9,8 +9,10 @@ const ZONES_STAT_FRAGMENT = gql`
   fragment stat on zones_stats {
     zone
     chart_cashflow
+    total_txs
     total_ibc_txs
     ibc_tx_out
+    channels_num
     channels_cnt_active_period
     ibc_transfers_weight
     ibc_transfers_mainnet_weight
@@ -310,8 +312,10 @@ const transform = (data, isTestnetVisible) => {
     ({
       zone,
       chart_cashflow,
+      total_txs,
       total_ibc_txs,
       ibc_tx_out,
+      channels_num,
       channels_cnt_active_period,
       ibc_transfers_weight,
       ibc_transfers_mainnet_weight,
@@ -409,7 +413,7 @@ const transform = (data, isTestnetVisible) => {
         id: zone,
         name: zone_readable_name,
         txsActivity: transformChartData(chart_cashflow, 'txs'),
-        // totalTxs: total_txs,
+        totalTxs: total_txs,
         ibcTransfers: isTestnetVisible ? ibc_transfers : ibc_transfers_mainnet,
         // ibcPercentage: ibc_percent ? ibc_percent / 100 : ibc_percent,
         // ibcSent: ibc_tx_out,
@@ -432,7 +436,7 @@ const transform = (data, isTestnetVisible) => {
         // ibcSentPercentage: ibc_tx_out / total_ibc_txs || 0,
         // ibcReceived: ibc_tx_in,
         // ibcReceivedPercentage: ibc_tx_in / total_ibc_txs || 0,
-        // channels: channels_num,
+        channels: channels_num,
         // openChannels: channels_cnt_open,
         activeChannels: channels_cnt_active_period,
         // activeChannelsPercent: channels_percent_active_period,
