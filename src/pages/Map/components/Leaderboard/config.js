@@ -60,6 +60,17 @@ const columns = [
       'Number of successfully relayed IBC transfers with pertinent quantity in progress',
   },
   {
+    Header: 'Total Txs',
+    accessor: 'totalTxsRating',
+    id: 'totalTxs',
+    // diffAccessor: 'totalTxsDiff',
+    ratingAccessor: 'totalTxsRatingDiff',
+    Cell: ({ itemValue }) =>
+      itemValue === null ? '-' : formatNumber(itemValue),
+    zoneWeightAccessor: 'txsWeight',
+    tooltip: 'All transactions in a specified zone',
+  },
+  {
     Header: 'IBC volume out, $',
     accessor: 'ibcVolumeSentRating',
     id: 'ibcVolumeSent',
@@ -96,6 +107,15 @@ const columns = [
     zoneWeightAccessor: 'ibcVolumeReceivedWeight',
     tooltip:
       'USD value of tokens successfully received from other Zones with pertinent volume in progress',
+  },
+  {
+    Header: 'Channels',
+    accessor: 'channels',
+    id: 'channels',
+    Cell: ({ itemValue }) =>
+      itemValue === null ? '-' : formatNumber(itemValue),
+    tooltip: 'Channels',
+    disableSortBy: true,
   },
   {
     Header: 'Active Addresses',
