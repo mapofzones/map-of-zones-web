@@ -15,6 +15,7 @@ const TableCell = ({ cell, sortedColumnId }) => {
       {...cell.getCellProps()}
       className={cx('cell', cell.column.id, {
         sortedColumn: cell.column.isSorted,
+        hasBorderRight: !!cell.column.hasBorderRight,
       })}
     >
       <CellData cell={cell} sortedColumnId={sortedColumnId} />
