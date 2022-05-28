@@ -48,47 +48,6 @@ const columns = [
       'USD value of tokens successfully relayed via IBC transfer with pertinent volume in progress',
   },
   {
-    Header: 'IBC transfers',
-    accessor: 'ibcTransfersRating',
-    id: 'ibcTransfers',
-    diffAccessor: 'ibcTransfersDiff',
-    pendingAccessor: 'ibcTransfersPending',
-    ratingAccessor: 'ibcTransfersRatingDiff',
-    Cell: ({ itemValue }) => formatNumber(itemValue),
-    zoneWeightAccessor: 'ibcTransfersWeight',
-    tooltip:
-      'Number of successfully relayed IBC transfers with pertinent quantity in progress',
-  },
-  {
-    Header: 'Total Txs',
-    accessor: 'totalTxsRating',
-    id: 'totalTxs',
-    diffAccessor: 'totalTxsDiff',
-    ratingAccessor: 'totalTxsRatingDiff',
-    Cell: ({ itemValue }) => formatNumber(itemValue),
-    zoneWeightAccessor: 'txsWeight',
-    tooltip: 'All transactions in a specified zone',
-  },
-  {
-    Header: 'IBC volume out, $',
-    accessor: 'ibcVolumeSentRating',
-    id: 'ibcVolumeSent',
-    diffAccessor: 'ibcVolumeSentDiff',
-    pendingAccessor: 'ibcVolumeSentPending',
-    ratingAccessor: 'ibcVolumeSentRatingDiff',
-    Cell: ({ itemValue }) => (
-      <FormattedNumber
-        value={itemValue}
-        style="currency"
-        currency="USD"
-        maximumFractionDigits="0"
-      />
-    ),
-    zoneWeightAccessor: 'ibcVolumeSentWeight',
-    tooltip:
-      'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
-  },
-  {
     Header: 'IBC volume in, $',
     accessor: 'ibcVolumeReceivedRating',
     id: 'ibcVolumeReceived',
@@ -108,6 +67,49 @@ const columns = [
       'USD value of tokens successfully received from other Zones with pertinent volume in progress',
   },
   {
+    Header: 'IBC volume out, $',
+    accessor: 'ibcVolumeSentRating',
+    id: 'ibcVolumeSent',
+    diffAccessor: 'ibcVolumeSentDiff',
+    pendingAccessor: 'ibcVolumeSentPending',
+    ratingAccessor: 'ibcVolumeSentRatingDiff',
+    Cell: ({ itemValue }) => (
+      <FormattedNumber
+        value={itemValue}
+        style="currency"
+        currency="USD"
+        maximumFractionDigits="0"
+      />
+    ),
+    zoneWeightAccessor: 'ibcVolumeSentWeight',
+    tooltip:
+      'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
+    hasBorderRight: true,
+  },
+  {
+    Header: 'Total txs',
+    accessor: 'totalTxsRating',
+    id: 'totalTxs',
+    diffAccessor: 'totalTxsDiff',
+    ratingAccessor: 'totalTxsRatingDiff',
+    Cell: ({ itemValue }) => formatNumber(itemValue),
+    zoneWeightAccessor: 'txsWeight',
+    tooltip: 'All transactions in a specified zone',
+  },
+  {
+    Header: 'IBC transfers',
+    accessor: 'ibcTransfersRating',
+    id: 'ibcTransfers',
+    diffAccessor: 'ibcTransfersDiff',
+    pendingAccessor: 'ibcTransfersPending',
+    ratingAccessor: 'ibcTransfersRatingDiff',
+    Cell: ({ itemValue }) => formatNumber(itemValue),
+    zoneWeightAccessor: 'ibcTransfersWeight',
+    tooltip:
+      'Number of successfully relayed IBC transfers with pertinent quantity in progress',
+    hasBorderRight: true,
+  },
+  {
     Header: 'Peers',
     accessor: 'peers',
     id: 'peers',
@@ -121,6 +123,7 @@ const columns = [
     Cell: ({ itemValue }) => formatNumber(itemValue),
     tooltip: 'Channels',
     disableSortBy: true,
+    hasBorderRight: true,
   },
   {
     Header: 'Active Addresses',

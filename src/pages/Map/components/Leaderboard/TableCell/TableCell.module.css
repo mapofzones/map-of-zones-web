@@ -150,7 +150,6 @@
 }
 
 .cell.ibcVolumeSent {
-  border-left: 1px solid var(--table-borders-color);
   width: 165px;
   min-width: 165px;
   max-width: 165px;
@@ -160,6 +159,9 @@
   width: 160px;
   min-width: 160px;
   max-width: 160px;
+}
+
+.cell.hasBorderRight {
   border-right: 1px solid var(--table-borders-color);
 }
 

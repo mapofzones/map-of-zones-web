@@ -24,6 +24,7 @@ const Thead = ({ period, headerGroups, onHeaderClick }) => {
               {...column.getHeaderProps(column.getSortByToggleProps())}
               className={cx('header', column.id, {
                 sortedColumn: column.isSorted,
+                hasBorderRight: !!column.hasBorderRight,
               })}
               title=""
             >
