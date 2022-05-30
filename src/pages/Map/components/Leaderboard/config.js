@@ -114,6 +114,8 @@ const columns = [
     accessor: 'peers',
     id: 'peers',
     Cell: ({ itemValue }) => formatNumber(itemValue),
+    tooltip:
+      'Number of counterparties of a particular Zone with established IBC connectors',
     disableSortBy: true,
   },
   {
@@ -121,7 +123,8 @@ const columns = [
     accessor: 'channels',
     id: 'channels',
     Cell: ({ itemValue }) => formatNumber(itemValue),
-    tooltip: 'Channels',
+    tooltip:
+      'Number of channels that connect a particular Zone to its counterparties',
     disableSortBy: true,
     hasBorderRight: true,
   },
