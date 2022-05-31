@@ -8,7 +8,7 @@ import { trackEvent } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 
 import Thead from './Thead';
-import TableRow from './TableRow';
+import TableRow from './TableRow/TableRow';
 import SortModal from './SortModal';
 
 import columnsConfig from './config';
