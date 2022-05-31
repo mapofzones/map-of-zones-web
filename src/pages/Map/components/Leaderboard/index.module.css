@@ -63,30 +63,6 @@
   min-width: 20px;
 }
 
-.row {
-  cursor: pointer;
-}
-
-.row.pinnedRow {
-  position: sticky;
-  top: 77px;
-  box-shadow: 0 1px 2px #c7c7c7;
-  z-index: 5;
-  width: -moz-available;
-}
-
-/* TODO: move style */
-.row.pinnedRow .cell,
-.row:hover .cell {
-  background: #f4f4f5;
-}
-
-/* TODO: move style */
-.pinnedRow .text-container .shift-tooltip {
-  top: unset;
-  bottom: -8px;
-}
-
 .header.zoneLabelUrl {
   width: 35px;
   min-width: 35px;

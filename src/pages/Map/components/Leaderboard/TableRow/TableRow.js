@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import styles from '../index.module.css';
 
 import TableCell from '../TableCell/TableCell';
 
+import styles from './TableRow.module.css';
 const cx = classNames.bind(styles);
 
 const TableRow = ({ row, isPinned, sortedColumnId, focusZone, prepareRow }) => {
@@ -27,14 +27,14 @@ const TableRow = ({ row, isPinned, sortedColumnId, focusZone, prepareRow }) => {
 export default TableRow;
 
 TableRow.propTypes = {
-  // row: PropTypes.object,
+  row: PropTypes.object,
   isPinned: PropTypes.bool,
   focusZone: PropTypes.func,
   sortedColumnId: PropTypes.string,
 };
 
 TableRow.defaultProps = {
-  // row: {},
+  row: {},
   isPinned: false,
   focusZone: () => {},
   sortedColumnId: '',
