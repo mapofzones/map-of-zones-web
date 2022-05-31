@@ -7,7 +7,7 @@ import animate from 'animate.css';
 import { trackEvent } from 'common/helper';
 import { useMobileSize } from 'common/hooks';
 
-import Thead from './Thead';
+import Thead from './Thead/Thead';
 import TableRow from './TableRow/TableRow';
 import SortModal from './SortModal';
 
