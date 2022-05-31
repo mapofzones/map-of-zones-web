@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import { useMobileSize } from 'common/hooks';
 import { ReactComponent as ArrowDown } from 'assets/images/arrow-down.svg';
 
-import styles from '../index.module.css';
+import styles from './Thead.module.css';
 
 const cx = classNames.bind(styles);
 
