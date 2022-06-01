@@ -5,6 +5,11 @@
   --table-gray: #b8b8b8;
 }
 
+.table-container {
+  position: sticky;
+  left: 0;
+}
+
 .table-container::-webkit-scrollbar {
   background: transparent;
   height: 6px;
