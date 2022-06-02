@@ -621,7 +621,7 @@ Graph.propTypes = {
     links: PropTypes.array,
     graph: PropTypes.object,
   }),
-  isChartVisible: PropTypes.string,
+  isChartVisible: PropTypes.bool,
   period: PropTypes.shape({
     hours: PropTypes.number,
     step: PropTypes.number,

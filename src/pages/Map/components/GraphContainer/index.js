@@ -101,11 +101,14 @@ GraphContainer.propTypes = {
     links: PropTypes.array, // TODO
     graph: PropTypes.object,
   }),
-  isTableOpened: PropTypes.string,
+  isTableOpened: PropTypes.bool,
   backToMap: PropTypes.func,
   setPeriod: PropTypes.func,
   sortBy: PropTypes.node,
-  isSortedDesc: PropTypes.bool,
+  isSortedDesc: PropTypes.shape({
+    tableOrderBy: PropTypes.string,
+    tableOrderSort: PropTypes.string,
+  }),
   zoneWeightAccessor: PropTypes.string,
   setFocusedZone: PropTypes.func,
   setFilter: PropTypes.func,
