@@ -18,7 +18,13 @@ const TableRow = ({ row, isPinned, sortedColumnId, focusZone, prepareRow }) => {
       }}
     >
       {row.cells.map(cell => {
-        return <TableCell cell={cell} sortedColumnId={sortedColumnId} />;
+        return (
+          <TableCell
+            key={cell.column.id}
+            cell={cell}
+            sortedColumnId={sortedColumnId}
+          />
+        );
       })}
     </tr>
   );

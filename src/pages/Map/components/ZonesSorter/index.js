@@ -82,9 +82,12 @@ ZonesSorter.propTypes = {
   hours: PropTypes.number,
   setPeriod: PropTypes.func,
   className: PropTypes.string,
-  isTableOpened: PropTypes.string,
+  isTableOpened: PropTypes.bool,
   sortBy: PropTypes.node,
-  isSortedDesc: PropTypes.bool,
+  isSortedDesc: PropTypes.shape({
+    tableOrderBy: PropTypes.string,
+    tableOrderSort: PropTypes.string,
+  }),
   focusedZoneName: PropTypes.string,
 };
 
