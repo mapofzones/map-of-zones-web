@@ -180,7 +180,7 @@
 .cell.ibcActiveAddresses .text-container {
   display: flex;
   align-items: flex-end;
-  justify-content: start;
+  justify-content: flex-start;
   height: 100%;
   flex-direction: column;
 }

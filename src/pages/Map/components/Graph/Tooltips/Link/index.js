@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FormattedNumber } from 'react-intl';
 
@@ -13,20 +12,11 @@ const cx = classNames.bind(styles);
 // TODO: If a zone is focused on the map - this zone will be the first in the tooltip
 // If no zone is focused on the map - the first zone in the tooltip should be the one with the biggest IN volume
 function LinkTooltip({ link, period }) {
-  const history = useHistory();
-  const location = useLocation();
-
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     setIsActive(true);
   }, []);
-
-  const onDetailsPress = useCallback(() => {
-    history.push(`/zone?source=${link.source.id}&targets=${link.target.id}`, {
-      navigateFrom: location,
-    });
-  }, [history, link.source.id, link.target.id, location]);
 
   let mapTooltip =
     document.querySelector('.graph-tooltip') ||
@@ -112,7 +102,7 @@ function LinkTooltip({ link, period }) {
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={link.ibcVolume}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -121,7 +111,7 @@ function LinkTooltip({ link, period }) {
                   <PendingIcon className={cx('pendingIcon')} />
                   <FormattedNumber
                     value={link.ibcVolumePending}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -130,13 +120,6 @@ function LinkTooltip({ link, period }) {
             </div>
           </div>
         </div>
-        {/* <button
-          type="button"
-          onClick={onDetailsPress}
-          className={cx('detailsButton')}
-        >
-          Details
-        </button> */}
       </div>
     </div>
   );

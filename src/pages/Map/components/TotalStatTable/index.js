@@ -44,6 +44,7 @@ function TotalStatTable({
                   <PendingIcon className={cx('pendingIcon')} />
                   <FormattedNumber
                     value={ibcVolumePending}
+                    // eslint-disable-next-line react/style-prop-object
                     style="currency"
                     currency="USD"
                     maximumFractionDigits="0"
@@ -55,7 +56,7 @@ function TotalStatTable({
               <span className={cx('statValue')}>
                 <FormattedNumber
                   value={ibcVolume}
-                  style="currency"
+                  style={`currency`}
                   currency="USD"
                   maximumFractionDigits="0"
                 />
@@ -70,7 +71,7 @@ function TotalStatTable({
                   {ibcVolumeDiff > 0 ? '+' : ''}
                   <FormattedNumber
                     value={ibcVolumeDiff}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -299,7 +300,7 @@ function TotalStatTable({
                 >
                   <FormattedNumber
                     value={mostActiveByVolumeZonesPair.volume}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -312,7 +313,7 @@ function TotalStatTable({
                       {mostActiveByVolumeZonesPair.volumeDiff > 0 ? '+' : ''}
                       <FormattedNumber
                         value={mostActiveByVolumeZonesPair.volumeDiff}
-                        style="currency"
+                        style={`currency`}
                         currency="USD"
                         maximumFractionDigits="0"
                       />
@@ -323,7 +324,7 @@ function TotalStatTable({
                   <PendingIcon className={cx('pendingIcon')} />
                   <FormattedNumber
                     value={mostActiveByVolumeZonesPair.volumePending}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />

@@ -225,7 +225,7 @@ function Graph({
         clearNodeFocus();
       }
     }
-  }, [focusedNode, nodes]);
+  }, [clearNodeFocus, focusedNode, nodes]);
 
   return (
     <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

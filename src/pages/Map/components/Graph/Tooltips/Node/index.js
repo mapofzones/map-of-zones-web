@@ -89,7 +89,7 @@ function NodeTooltip({ node, period }) {
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolume}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -98,7 +98,7 @@ function NodeTooltip({ node, period }) {
                   <PendingIcon className={cx('pendingIcon')} />
                   <FormattedNumber
                     value={node.ibcVolumePending}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -109,7 +109,7 @@ function NodeTooltip({ node, period }) {
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolumeSent}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -121,7 +121,7 @@ function NodeTooltip({ node, period }) {
                   <PendingIcon className={cx('pendingIcon')} />
                   <FormattedNumber
                     value={node.ibcVolumeSentPending}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -146,7 +146,7 @@ function NodeTooltip({ node, period }) {
                 <div className={cx('value')}>
                   <FormattedNumber
                     value={node.ibcVolumeReceived}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />
@@ -158,7 +158,7 @@ function NodeTooltip({ node, period }) {
                   <PendingIcon className={cx('pendingIcon')} />
                   <FormattedNumber
                     value={node.ibcVolumeReceivedPending}
-                    style="currency"
+                    style={`currency`}
                     currency="USD"
                     maximumFractionDigits="0"
                   />

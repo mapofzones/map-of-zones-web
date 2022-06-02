@@ -38,7 +38,7 @@ const columns = [
     Cell: ({ itemValue }) => (
       <FormattedNumber
         value={itemValue}
-        style="currency"
+        style={`currency`}
         currency="USD"
         maximumFractionDigits="0"
       />
@@ -57,7 +57,7 @@ const columns = [
     Cell: ({ itemValue }) => (
       <FormattedNumber
         value={itemValue}
-        style="currency"
+        style={`currency`}
         currency="USD"
         maximumFractionDigits="0"
       />
@@ -76,7 +76,7 @@ const columns = [
     Cell: ({ itemValue }) => (
       <FormattedNumber
         value={itemValue}
-        style="currency"
+        style={`currency`}
         currency="USD"
         maximumFractionDigits="0"
       />
