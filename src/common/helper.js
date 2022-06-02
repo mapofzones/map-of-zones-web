@@ -77,4 +77,4 @@ export const transformChartData = (chartData, keyName) => {
     newArray[index] = value;
     return newArray;
   }, []);
-}
+};

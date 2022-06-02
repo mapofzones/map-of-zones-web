@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Switch from 'react-switch';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
