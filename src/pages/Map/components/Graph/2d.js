@@ -222,7 +222,7 @@ function Graph({
     fg.d3Force('link', null);
 
     // charge
-    fg.d3Force('charge').strength(-10);
+    fg.d3Force('charge').strength(0);
   }, []);
 
   useEffect(() => {

@@ -612,6 +612,82 @@ const transform = (data, isTestnetVisible) => {
     }),
   );
 
+  const getLevel = index => {
+    if (index < 10) {
+      return 1;
+    } else if (index < 30) {
+      return 2;
+    }
+    return 3;
+  };
+
+  const getItemsInLevel = (index, size) => {
+    if (index < 10) {
+      return Math.min(10, size);
+    } else if (index < 30) {
+      return Math.min(20, size - 10);
+    }
+    return size - 30;
+  };
+
+  if (zonesFormatted) {
+    const radiusConst = 150;
+    let index = 0;
+    const indexes = new Set();
+    let prevLevel = 0;
+    let step = 1;
+
+    const mainnets = zonesFormatted.filter(z => z.isZoneMainnet);
+    const testnets = zonesFormatted.filter(z => !z.isZoneMainnet);
+
+    Object.keys(mainnets).forEach((k, i, array) => {
+      const level = getLevel(i);
+      const itemsInLevel = getItemsInLevel(i, array.length);
+      const distBetweenIndexes = Math.floor(itemsInLevel / 3);
+
+      if (prevLevel !== level) {
+        step = 1;
+        index = 0;
+        indexes.clear();
+        prevLevel = level;
+      }
+
+      const angleConst = (2 * Math.PI) / itemsInLevel;
+      const zoneAngle = index * angleConst;
+
+      indexes.add(index);
+      index +=
+        step % 3 === 0
+          ? Math.floor(itemsInLevel / 3) + Math.floor(itemsInLevel / 2 / 3)
+          : distBetweenIndexes;
+      index = index % itemsInLevel;
+      while (indexes.has(index) && indexes.size < itemsInLevel) {
+        index++;
+        index = index % itemsInLevel;
+      }
+      step++;
+
+      const r = level * radiusConst;
+      const x = r * Math.cos(zoneAngle);
+      const y = r * Math.sin(zoneAngle);
+
+      mainnets[k].x = x;
+      mainnets[k].y = y;
+    });
+
+    Object.keys(testnets).forEach((k, i, array) => {
+      const angleConst = (2 * Math.PI) / array.length;
+
+      const zoneAngle = i * angleConst;
+      const r = i % 2 === 0 ? 550 : 650;
+      const x = r * Math.cos(zoneAngle);
+      const y = r * Math.sin(zoneAngle);
+
+      testnets[k].x = x;
+      testnets[k].y = y;
+    });
+  }
+
   return {
     nodes: zonesFormatted,
     links: linksFormatted,
