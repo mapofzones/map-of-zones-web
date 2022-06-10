@@ -612,6 +612,18 @@ const transform = (data, isTestnetVisible) => {
     }),
   );
 
+  if (zonesFormatted) {
+    Object.keys(zonesFormatted).forEach((k, i, array) => {
+      let angle = 1 * i;
+      const a = 80;
+      const b = 10;
+      let x = 0 + (a + b * angle) * Math.cos(angle);
+      let y = 0 + (a + b * angle) * Math.sin(angle);
+      zonesFormatted[k].x = x;
+      zonesFormatted[k].y = y;
+    });
+  }
+
   return {
     nodes: zonesFormatted,
     links: linksFormatted,
