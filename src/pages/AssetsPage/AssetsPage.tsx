@@ -1,5 +1,5 @@
 function AssetsPage() {
-  return <>Assets Page</>
-};
+  return <>Assets Page</>;
+}
 
 export default AssetsPage;
