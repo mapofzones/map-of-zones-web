@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ ...props }) => {
   return (
-    <header>
+    <header {...props}>
       <NavLink to="/">Home</NavLink>
       <NavLink to="/zones">Zones</NavLink>
       <NavLink to="/assets">Assets</NavLink>
