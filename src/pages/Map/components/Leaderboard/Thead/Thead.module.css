@@ -217,8 +217,6 @@
 
 .explanation-icon .explanation-tooltip {
   position: absolute;
-  top: 25px;
-  left: 5px;
   width: max-content;
   max-width: 260px;
   background: #ffffff;
@@ -238,14 +236,13 @@
   visibility: hidden;
   transition: 0.2s;
   z-index: 1244;
+
+  top: 25px;
+  left: 0;
+  transform: translateX(calc(-100% + 20px));
 }
 
 .explanation-icon:hover .explanation-tooltip {
   opacity: 1;
   visibility: visible;
-}
-
-.explanation-icon .explanation-tooltip.centerPos {
-  left: 0;
-  transform: translateX(-50%);
 }

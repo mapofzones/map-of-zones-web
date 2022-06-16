@@ -48,14 +48,7 @@ const Thead = ({ period, headerGroups, onHeaderClick }) => {
                 {!!column.tooltip && !isMobile && (
                   <div className={cx('explanation-icon')}>
                     ?
-                    <div
-                      className={cx('explanation-tooltip', {
-                        centerPos:
-                          column.id === 'ibcVolumeSent' ||
-                          column.id === 'ibcVolumeReceived' ||
-                          column.id === 'ibcActiveAddresses',
-                      })}
-                    >
+                    <div className={cx('explanation-tooltip')}>
                       {column.tooltip}
                     </div>
                   </div>
