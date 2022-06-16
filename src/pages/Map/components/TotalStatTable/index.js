@@ -140,13 +140,20 @@ function TotalStatTable({
             </ResponsiveContainer>
           )}
         </div>
-        <div className={cx('item')}>
+        <div className={cx('item', 'zonesCountContainer')}>
           <div className={cx('statContainer', 'row')}>
             <div className={cx('statContainer', 'small', 'nested')}>
               <div className={cx('statName')}>All Zones</div>
               <div className={cx('statValue')}>{formatNumber(allZones)}</div>
             </div>
-            <div className={cx('statContainer', 'small', 'nested')}>
+            <div
+              className={cx(
+                'statContainer',
+                'activeZonesContainer',
+                'small',
+                'nested',
+              )}
+            >
               <div className={cx('statName')}>Active Zones</div>
               <div className={cx('statValue')}>{formatNumber(activeZones)}</div>
             </div>
@@ -179,14 +186,8 @@ function TotalStatTable({
             </div>
           </div>
         )}
-        <div className={cx('item')}>
-          <div
-            className={cx(
-              'statContainer',
-              'row',
-              'mostActiveZonesPairContainer',
-            )}
-          >
+        <div className={cx('item', 'mostActiveZonesPairContainer')}>
+          <div className={cx('statContainer', 'row')}>
             <div className={cx('statContainer', 'nested')}>
               <div className={cx('statNameContainer')}>
                 <div className={cx('statName')}>Most Active Pair of Zones</div>
@@ -251,14 +252,8 @@ function TotalStatTable({
             )}
           </div>
         </div>
-        <div className={cx('item')}>
-          <div
-            className={cx(
-              'statContainer',
-              'row',
-              'mostActiveZonesPairContainer',
-            )}
-          >
+        <div className={cx('item', 'biggestVolumePairContainer')}>
+          <div className={cx('statContainer', 'row')}>
             <div className={cx('statContainer', 'nested')}>
               <div className={cx('statNameContainer')}>
                 <div className={cx('statName')}>Biggest volume Pair</div>
