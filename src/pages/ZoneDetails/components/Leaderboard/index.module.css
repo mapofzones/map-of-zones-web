@@ -370,8 +370,6 @@
 
 .explanation-icon .explanation-tooltip {
   position: absolute;
-  top: 25px;
-  left: 5px;
   width: max-content;
   max-width: 260px;
   background: #ffffff;
@@ -391,6 +389,10 @@
   visibility: hidden;
   transition: 0.2s;
   z-index: 1244;
+
+  top: 25px;
+  left: 5px;
+  transform: translateX(calc(-100% + 20px));
 }
 
 .explanation-icon:hover .explanation-tooltip {
@@ -531,13 +533,6 @@ thead.fixed.active {
   margin-right: 3px;
   width: 11px;
   height: 9px;
-}
-
-@media (max-width: 1380px) {
-  .explanation-icon .explanation-tooltip.centerPos {
-    left: 0;
-    transform: translateX(-50%);
-  }
 }
 
 /*
