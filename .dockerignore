@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+build
+Dockerfile
+.dockerignore
+.gitignore
+README.md
+**/.git
+**/.DS_Store
