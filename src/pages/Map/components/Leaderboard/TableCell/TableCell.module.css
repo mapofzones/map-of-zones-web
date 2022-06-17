@@ -139,6 +139,24 @@
   max-width: 140px;
 }
 
+.cell.totalTxs {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.cell.channels {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+}
+
+.cell.peers {
+  width: 65px;
+  min-width: 65px;
+  max-width: 65px;
+}
+
 .cell.activeAddresses {
   width: 80px;
   min-width: 80px;
