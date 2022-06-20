@@ -36,6 +36,13 @@
         "semi": "off",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/semi": "warn"
+        "@typescript-eslint/semi": "warn",
+        "import/export": "off",
+        "max-len": [
+            "error",
+            {
+                "code": 120
+            }
+        ]
     }
 }

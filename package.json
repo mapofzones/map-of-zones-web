@@ -6,10 +6,11 @@
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "classnames": "^2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "typescript": "^4.7.3",
     "web-vitals": "^2.1.4"
   },
@@ -21,7 +22,8 @@
     "lint:fix": "yarn run lint --fix"
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "printWidth": 120
   },
   "eslintConfig": {
     "extends": [
