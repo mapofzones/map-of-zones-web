@@ -39,7 +39,7 @@
         "@typescript-eslint/semi": "warn",
         "import/export": "off",
         "max-len": [
-            "error",
+            "warn",
             {
                 "code": 120
             }

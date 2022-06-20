@@ -22,8 +22,7 @@
     "lint:fix": "yarn run lint --fix"
   },
   "prettier": {
-    "singleQuote": true,
-    "printWidth": 120
+    "singleQuote": true
   },
   "eslintConfig": {
     "extends": [
