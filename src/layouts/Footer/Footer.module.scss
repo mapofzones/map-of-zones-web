@@ -6,20 +6,9 @@
   font-size: 11px;
   line-height: 12px;
 
-  .externalLinksBlock,
-  .emailLinkBlock,
-  .socialsBlock,
-  .notListedBlock {
-    padding: 0 8px;
-    border-right: 1px solid var(--grey-600);
-  }
-
-  .notListedBlock {
-    padding-right: 0;
-    border-right: none;
-  }
-
   .shareButtonsBlock {
+    display: flex;
+    flex-direction: row;
     flex: 1;
     font-size: 12px;
 
@@ -28,21 +17,25 @@
     }
   }
 
+  .externalLinksBlock,
+  .emailLinkBlock,
+  .socialsBlock,
+  .notListedBlock {
+    padding: 0 8px;
+    border-right: 1px solid var(--grey-600);
+  }
+
   .socialsBlock {
     display: flex;
     height: 12px;
-    
-    a {
-      .icon {
-        margin-left: 12px;
-        fill: var(--grey-500);
-      }
 
-      &:hover {
-        .icon {
-          fill: var(--white);
-        }
-      }
+    .socialLink {
+      margin-left: 12px;
     }
+  }
+
+  .notListedBlock {
+    padding-right: 0;
+    border-right: none;
   }
 }

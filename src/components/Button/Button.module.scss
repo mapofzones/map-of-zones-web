@@ -1,5 +1,5 @@
 .button {
-  display: inline-block;
+  display: flex;
   padding: 5px 8px 4px;
   text-align: center;
   border: none;
@@ -11,6 +11,8 @@
   cursor: pointer;
 
   .icon {
+    display: flex;
+    line-height: 15px;
     fill: var(--grey-100);
     margin-right: 6px;
   }
