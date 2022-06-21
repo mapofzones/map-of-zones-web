@@ -1,11 +1,11 @@
-import Button from '../../components/Button/Button';
+import { Button, Link } from '../../components';
 
 import { GithubLogo, TgLogo, TwitterLogo } from '../../icons';
 import styles from './Footer.module.scss';
 
 const Footer = ({ ...props }) => {
   const shareClick = () => {
-    console.log('share click');
+    console.log('share/tweet click');
   };
 
   return (
@@ -20,31 +20,43 @@ const Footer = ({ ...props }) => {
       </div>
       <div className={styles.externalLinksBlock}>
         {'© '}
-        <a href="https://bitquasar.com" target="_blank" rel="noopener noreferrer">
+        <Link href="https://bitquasar.com" target="_blank" rel="noopener noreferrer">
           Bitquasar.com
-        </a>
+        </Link>
         {' & '}
-        <a href="https://ztake.org" target="_blank" rel="noopener noreferrer">
+        <Link href="https://ztake.org" target="_blank" rel="noopener noreferrer">
           Ztake.org
-        </a>
+        </Link>
       </div>
       <div className={styles.emailLinkBlock}>
-        <a href="mailto:hi@ztake.org">support@mapofzones.com</a>
+        <Link href="mailto:support@mapofzones.com">support@mapofzones.com</Link>
       </div>
       <div className={styles.socialsBlock}>
         <span>Our Socials:</span>
-        <a href="https://github.com/mapofzones" target="_blank" rel="noopener noreferrer">
-          <GithubLogo className={styles.icon} />
-        </a>
-        <a href="https://t.me/MapOfZones" target="_blank" rel="noopener noreferrer">
-          <TgLogo className={styles.icon} />
-        </a>
-        <a href="https://twitter.com/mapofzones" target="_blank" rel="noopener noreferrer">
-          <TwitterLogo className={styles.icon} />
-        </a>
+        <Link
+          href="https://github.com/mapofzones"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.socialLink}
+          Icon={GithubLogo}
+        />
+        <Link
+          href="https://t.me/MapOfZones"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.socialLink}
+          Icon={TgLogo}
+        />
+        <Link
+          href="https://twitter.com/mapofzones"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.socialLink}
+          Icon={TwitterLogo}
+        />
       </div>
       <div className={styles.notListedBlock}>
-        <a>Not listed?</a>
+        <Link>Not listed?</Link>
       </div>
     </footer>
   );

@@ -1,0 +1,17 @@
+a {
+  text-decoration: none;
+  color: inherit;
+
+  .icon {
+    fill: var(--grey-500);
+  }
+
+  &:hover {
+    color: var(--white);
+    fill: var(--white);
+
+    .icon {
+      fill: var(--white);
+    }
+  }
+}

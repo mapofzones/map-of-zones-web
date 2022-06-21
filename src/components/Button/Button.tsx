@@ -11,4 +11,4 @@ function Button({ children, className, Icon, ...props }: ButtonProps): JSX.Eleme
   );
 }
 
-export default Button;
+export { Button };
