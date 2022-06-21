@@ -1,17 +1,25 @@
 .button {
   display: inline-block;
-  box-sizing: border-box;
   padding: 5px 8px 4px;
   text-align: center;
   border: none;
   border-radius: 5px;
   font-size: 12px;
   line-height: 15px;
-  background-color: #25252E;
-  color: #FFFFFF;
+  background-color: var(--black-300);
+  color: var(--white);
   cursor: pointer;
-}
 
-.button:hover {
+  .icon {
+    fill: var(--grey-100);
+    margin-right: 6px;
+  }
 
+  &:hover {
+    background-color: var(--black-100);
+
+    .icon {
+      fill: var(--white);
+    }
+  }
 }

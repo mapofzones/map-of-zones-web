@@ -2,11 +2,10 @@ import { ButtonProps } from './Button.props';
 import styles from './Button.module.scss';
 import cn from 'classnames';
 
-function Button({ children, className, icon, ...props }: any): JSX.Element {
-  // console.log(icon);
+function Button({ children, className, Icon, ...props }: ButtonProps): JSX.Element {
   return (
     <button type="button" className={cn(styles.button, className)} {...props}>
-      {icon}
+      {Icon && <span className={styles.icon}>{<Icon />}</span>}
       {children}
     </button>
   );

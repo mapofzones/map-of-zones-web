@@ -1,16 +1,48 @@
 .footer {
-  color: #6F6F78;
+  display: flex;
+  align-items: center;
+  color: var(--grey-500);
+  padding: 8px 16px;
+  font-size: 11px;
+  line-height: 12px;
 
-  .shareButtons {
-    .icon {
-      fill: #BFBFC3;
+  .externalLinksBlock,
+  .emailLinkBlock,
+  .socialsBlock,
+  .notListedBlock {
+    padding: 0 8px;
+    border-right: 1px solid var(--grey-600);
+  }
+
+  .notListedBlock {
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .shareButtonsBlock {
+    flex: 1;
+    font-size: 12px;
+
+    .shareBtn:first-of-type {
+      margin-right: 8px;
     }
   }
 
+  .socialsBlock {
+    display: flex;
+    height: 12px;
+    
+    a {
+      .icon {
+        margin-left: 12px;
+        fill: var(--grey-500);
+      }
 
-  .socials {
-    .icon {
-      fill: #6F6F78;
+      &:hover {
+        .icon {
+          fill: var(--white);
+        }
+      }
     }
   }
 }
