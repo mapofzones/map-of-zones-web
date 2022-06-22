@@ -1,0 +1,48 @@
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 16px 10px 0 16px;
+
+  nav {
+    margin-left: 20px;
+
+    a {
+      padding: 5px 10px;
+      color: var(--grey-300);
+
+      &:hover {
+        color: var(--grey-100);
+      }
+
+      &:global(.active) {
+        background-color: var(--black-200);
+        color: var(--white);
+        border-radius: 5px;
+      }
+    }
+  }
+
+  .marketCapContainer {
+    font-size: 13px;
+
+    .marketCapTitle {
+      color: var(--grey-300);
+    }
+  }
+
+  .tagline {
+    font-size: 9px;
+    line-height: 11px;
+    color: var(--grey-300);
+  }
+
+  .line {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--black-100);
+    margin-left: 1px;
+  }
+}
