@@ -50,6 +50,7 @@
         font-size: 12px;
         line-height: 15.05px;
         color: var(--grey-500);
+        margin-left: 3px;
       }
     }
 
@@ -65,6 +66,10 @@
 
       &:not(:hover) {
         background-color: var(--black-700);
+      }
+
+      .btnText {
+        margin-right: 8px;
       }
     }
   }
