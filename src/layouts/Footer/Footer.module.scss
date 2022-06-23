@@ -1,8 +1,8 @@
-.footer {
+.container {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   color: var(--grey-500);
-  padding: 8px 16px;
+  padding: 0 16px 8px;
   font-size: 11px;
   line-height: 12px;
 

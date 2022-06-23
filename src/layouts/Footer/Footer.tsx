@@ -3,13 +3,13 @@ import { Button, Link } from '../../components';
 import { GithubLogo, TgLogo, TwitterLogo } from '../../icons';
 import styles from './Footer.module.scss';
 
-const Footer = ({ ...props }) => {
+function Footer({ ...props }): JSX.Element {
   const shareClick = () => {
     console.log('share/tweet click');
   };
 
   return (
-    <footer className={styles.footer} {...props}>
+    <footer className={styles.container} {...props}>
       <div className={styles.shareButtonsBlock}>
         <Button onClick={shareClick} className={styles.shareBtn} Icon={TgLogo}>
           Share
@@ -60,6 +60,6 @@ const Footer = ({ ...props }) => {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;
