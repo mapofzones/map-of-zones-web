@@ -67,52 +67,5 @@
         background-color: var(--black-200);
       }
     }
-
-    .zonesInfoTable {
-      .tableRow {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        grid-template-rows: auto auto;
-        grid-template-areas:
-          'logo name value'
-          'logo name pending';
-        padding: 7px 16px;
-        margin: 0 -16px;
-        align-items: center;
-        font-size: 15px;
-        line-height: 18.81px;
-        cursor: pointer;
-
-        &:hover {
-          background-color: var(--black-300);
-        }
-
-        .zoneLogo {
-          grid-area: logo;
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background-color: var(--grey-300);
-        }
-
-        .zoneName {
-          grid-area: name;
-          margin-left: 12px;
-        }
-
-        .zoneValue {
-          grid-area: value;
-          text-align: right;
-        }
-
-        .zonePendingValue {
-          grid-area: pending;
-          font-size: 12px;
-          line-height: 15.05px;
-          color: var(--grey-500);
-          text-align: right;
-        }
-      }
-    }
   }
 }
