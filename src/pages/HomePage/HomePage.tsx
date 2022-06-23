@@ -1,5 +1,6 @@
 import { Button, Card } from '../../components';
 import styles from './HomePage.module.scss';
+import { ZonesInfoTable } from './index';
 
 function HomePage() {
   return (
@@ -19,26 +20,7 @@ function HomePage() {
           <span className={styles.totalContainer_value}>$226,150,297,401</span>
           <span className={styles.totalContainer_pending}>$1,984,546</span>
         </Card>
-        <div className={styles.zonesInfoTable}>
-          <div className={styles.tableRow}>
-            <div className={styles.zoneLogo}></div>
-            <span className={styles.zoneName}>Osmosis</span>
-            <span className={styles.zoneValue}>$16,150,297,401</span>
-            <span className={styles.zonePendingValue}>$74,546</span>
-          </div>
-          <div className={styles.tableRow}>
-            <div className={styles.zoneLogo}></div>
-            <span className={styles.zoneName}>Injective</span>
-            <span className={styles.zoneValue}>$5,273,986,485</span>
-            <span className={styles.zonePendingValue}>$34,236</span>
-          </div>
-          <div className={styles.tableRow}>
-            <div className={styles.zoneLogo}></div>
-            <span className={styles.zoneName}>Juno</span>
-            <span className={styles.zoneValue}>$2,920,284,678</span>
-            <span className={styles.zonePendingValue}>$14,465</span>
-          </div>
-        </div>
+        <ZonesInfoTable />
         <Button className={styles.detailedBtn}>Detailed View</Button>
       </Card>
     </div>
