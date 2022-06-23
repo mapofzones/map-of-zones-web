@@ -1,0 +1,118 @@
+.pageContainer {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  height: 100%;
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    margin: 4px 16px 4px 0px;
+
+    .blockRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 32px;
+
+      &:first-child {
+        margin-bottom: 12px;
+      }
+
+      &:nth-child(2) {
+        margin-bottom: 16px;
+      }
+    }
+
+    .totalContainer {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: auto auto auto;
+      grid-template-columns: 1fr 1fr;
+      padding: 12px;
+      border: 1px solid var(--black-100);
+      margin-bottom: 12px;
+
+      &_title {
+        font-size: 13px;
+        line-height: 16.3px;
+        color: var(--grey-300);
+        margin-bottom: 4px;
+      }
+
+      &_value {
+        font-size: 15px;
+        line-height: 18.81px;
+        color: var(--white);
+        margin-bottom: 2px;
+      }
+
+      &_pending {
+        font-size: 12px;
+        line-height: 15.05px;
+        color: var(--grey-300);
+      }
+    }
+
+    .zonesInfoTable {
+      flex-grow: 1;
+    }
+
+    .detailedBtn {
+      height: 40px;
+      font-size: 15px;
+      line-height: 19px;
+      color: var(--grey-300);
+
+      &:not(:hover) {
+        background-color: var(--black-200);
+      }
+    }
+
+    .zonesInfoTable {
+      .tableRow {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+          'logo name value'
+          'logo name pending';
+        padding: 7px 16px;
+        margin: 0 -16px;
+        align-items: center;
+        font-size: 15px;
+        line-height: 18.81px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--black-300);
+        }
+
+        .zoneLogo {
+          grid-area: logo;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background-color: var(--grey-300);
+        }
+
+        .zoneName {
+          grid-area: name;
+          margin-left: 12px;
+        }
+
+        .zoneValue {
+          grid-area: value;
+          text-align: right;
+        }
+
+        .zonePendingValue {
+          grid-area: pending;
+          font-size: 12px;
+          line-height: 15.05px;
+          color: var(--grey-500);
+          text-align: right;
+        }
+      }
+    }
+  }
+}
