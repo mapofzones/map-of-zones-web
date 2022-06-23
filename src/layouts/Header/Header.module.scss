@@ -1,8 +1,8 @@
-.header {
+.container {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 16px 10px 0 16px;
+  padding: 10px 16px 0 16px;
 
   nav {
     margin-left: 20px;

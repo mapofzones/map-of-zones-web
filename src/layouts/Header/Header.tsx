@@ -4,9 +4,9 @@ import { Logo } from '../../icons';
 
 import styles from './Header.module.scss';
 
-const Header = ({ ...props }) => {
+function Header({ ...props }): JSX.Element {
   return (
-    <header className={styles.header} {...props}>
+    <header className={styles.container} {...props}>
       <Logo />
       <nav>
         <NavLink to="/">Home</NavLink>
@@ -22,6 +22,6 @@ const Header = ({ ...props }) => {
       <hr className={styles.line} />
     </header>
   );
-};
+}
 
 export default Header;
