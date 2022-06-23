@@ -9,14 +9,14 @@
 
     a {
       padding: 5px 10px;
-      color: var(--grey-300);
+      color: var(--grey-500);
 
       &:hover {
-        color: var(--grey-100);
+        color: var(--grey-800);
       }
 
       &:global(.active) {
-        background-color: var(--black-200);
+        background-color: var(--black-700);
         color: var(--white);
         border-radius: 5px;
       }
@@ -27,14 +27,14 @@
     font-size: 13px;
 
     .marketCapTitle {
-      color: var(--grey-300);
+      color: var(--grey-500);
     }
   }
 
   .tagline {
     font-size: 9px;
     line-height: 11px;
-    color: var(--grey-300);
+    color: var(--grey-500);
   }
 
   .line {
@@ -42,7 +42,7 @@
     grid-column-end: 4;
     width: 100%;
     border: none;
-    border-top: 1px solid var(--black-100);
+    border-top: 1px solid var(--black-900);
     margin-left: 1px;
   }
 }

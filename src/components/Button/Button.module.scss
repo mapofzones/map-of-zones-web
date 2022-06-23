@@ -8,19 +8,19 @@
   border-radius: 5px;
   font-size: 12px;
   line-height: 15px;
-  background-color: var(--black-300);
+  background-color: var(--black-600);
   color: var(--white);
   cursor: pointer;
 
   .icon {
     display: flex;
     line-height: 15px;
-    fill: var(--grey-100);
+    fill: var(--grey-800);
     margin-right: 6px;
   }
 
   &:hover {
-    background-color: var(--black-100);
+    background-color: var(--black-900);
 
     .icon {
       fill: var(--white);

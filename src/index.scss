@@ -2,15 +2,15 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--black);
@@ -18,8 +18,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 a {
@@ -33,23 +32,25 @@ a {
 }
 
 :root {
-  --white: #FFFFFF;
+  --white: #ffffff;
   --black: #000000;
   --primary: #5f405a;
-  --secondary: #22AAFF;
-  --green: #66DD55;
-  --orange: #FF9900;
-  --red: #FF4455;
-  --black-100: #33333D;
-  --black-200: #2A2A33;
-  --black-300: #25252E;
-  --black-400: #212129;
-  --black-500: #1C1C25;
-  --black-600: #0E0E16;
-  --grey-100: #BFBFC3;
-  --grey-200: #9F9FA5;
-  --grey-300: #8F8F96;
-  --grey-400: #7F7F87;
-  --grey-500: #6F6F78;
-  --grey-600: #4F4F5A;
+  --secondary: #22aaff;
+  --green: #66dd55;
+  --orange: #ff9900;
+  --red: #ff4455;
+
+  --black-100: #0e0e16;
+  --black-400: #1c1c25;
+  --black-500: #212129;
+  --black-600: #25252e;
+  --black-700: #2a2a33;
+  --black-900: #33333d;
+
+  --grey-100: #4f4f5a;
+  --grey-300: #6f6f78;
+  --grey-400: #7f7f87;
+  --grey-500: #8f8f96;
+  --grey-600: #9f9fa5;
+  --grey-800: #bfbfc3;
 }

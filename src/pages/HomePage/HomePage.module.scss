@@ -29,13 +29,13 @@
       grid-template-rows: auto auto auto;
       grid-template-columns: 1fr 1fr;
       padding: 12px;
-      border: 1px solid var(--black-100);
+      border: 1px solid var(--black-900);
       margin-bottom: 12px;
 
       &_title {
         font-size: 13px;
         line-height: 16.3px;
-        color: var(--grey-300);
+        color: var(--grey-500);
         margin-bottom: 4px;
       }
 
@@ -49,7 +49,7 @@
       &_pending {
         font-size: 12px;
         line-height: 15.05px;
-        color: var(--grey-300);
+        color: var(--grey-500);
       }
     }
 
@@ -61,10 +61,10 @@
       height: 40px;
       font-size: 15px;
       line-height: 19px;
-      color: var(--grey-300);
+      color: var(--grey-500);
 
       &:not(:hover) {
-        background-color: var(--black-200);
+        background-color: var(--black-700);
       }
     }
   }

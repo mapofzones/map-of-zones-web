@@ -13,7 +13,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: var(--black-300);
+    background-color: var(--black-600);
   }
 
   .logo {
@@ -21,7 +21,7 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: var(--grey-300);
+    background-color: var(--grey-500);
   }
 
   .name {
