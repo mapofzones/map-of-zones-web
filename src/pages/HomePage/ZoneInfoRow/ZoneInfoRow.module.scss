@@ -5,6 +5,7 @@
   grid-template-areas:
     'logo name value'
     'logo name pending';
+  row-gap: 2px;
   padding: 7px 16px;
   margin: 0 -16px;
   align-items: center;
@@ -34,11 +35,15 @@
     text-align: right;
   }
 
-  .pendingValue {
+  .pendingValueContainer {
     grid-area: pending;
     font-size: 12px;
     line-height: 15.05px;
     color: var(--grey-500);
     text-align: right;
+
+    .pendingValue {
+      margin-left: 3px;
+    }
   }
 }
