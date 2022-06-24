@@ -4,12 +4,26 @@ import { Button, Card } from '../../components';
 import { ArrowRight, PendingIcon } from '../../icons';
 import styles from './HomePage.module.scss';
 import { ZonesInfoTable } from './index';
+import { INFO_WITH_TRANSFERS, INFO_WITH_VOLUME } from './ZonesInfoTable/ZonesInfoTable';
 
 const TOTAL_INFO = gql`
   query GetTotalInfo($period: Int!) {
     headers(where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: false } }) {
       ibcVolume: ibc_cashflow_period
       ibcVolumePending: ibc_cashflow_pending_period
+    }
+  }
+`;
+
+const ZONES_INFO = gql`
+  ${INFO_WITH_VOLUME}
+  ${INFO_WITH_TRANSFERS}
+  query GetZonesInfo($period: Int!, $isMainnet: Boolean!, $withVolume: Boolean!) {
+    zonesInfo: zones_stats(
+      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
+    ) {
+      ...InfoWithVolume @include(if: $withVolume)
+      ...InfoWithTransfers @skip(if: $withVolume)
     }
   }
 `;
@@ -25,8 +39,13 @@ function HomePage() {
       }
     }
   `);
-
   const [columnType, setColumnType] = useState('volume');
+
+  const { data: zones } = useQuery(ZONES_INFO, {
+    variables: { period: 24, isMainnet: true, withVolume: columnType === 'volume' },
+  });
+
+  console.log(zones);
 
   const onColumnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -47,7 +66,7 @@ function HomePage() {
           <div>
             <select value={columnType} onChange={onColumnChange}>
               <option value="volume">IBC Volume</option>
-              <option value="transfer">IBC transfer</option>
+              <option value="transfers">IBC transfers</option>
             </select>
           </div>
           <div>24h | 7d | 30d</div>
@@ -67,7 +86,7 @@ function HomePage() {
             </>
           )}
         </Card>
-        <ZonesInfoTable columnType={columnType} />
+        <ZonesInfoTable data={zones} columnType={columnType} />
         <Button className={styles.detailedBtn}>
           <span className={styles.btnText}>Detailed View</span>
           <ArrowRight />

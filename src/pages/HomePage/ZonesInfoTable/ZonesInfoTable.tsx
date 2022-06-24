@@ -23,28 +23,49 @@ const ZONES_INFO_BY_VOLUME = gql`
   }
 `;
 
-const ZONES_INFO_BY_TRANSFERS = gql`
-  query GetZonesInfo($period: Int!, $isMainnet: Boolean!) {
-    zonesInfo: zones_stats(
-      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
-    ) {
-      id: zone
-      zoneLabelUrl: zone_label_url
-      name: zone_readable_name
-      ibcVolume: ibc_transfers
-      ibcVolumePending: ibc_transfers_pending
-      ibcVolumeRating: ibc_transfers_rating
-      ibcVolumeRatingDiff: ibc_transfers_rating_diff
-    }
+export const INFO_WITH_VOLUME = gql`
+  fragment InfoWithVolume on zones_stats {
+    id: zone
+    zoneLabelUrl: zone_label_url
+    name: zone_readable_name
+    ibcVolume: ibc_cashflow
+    ibcVolumePending: ibc_cashflow_pending
+    ibcVolumeRating: ibc_cashflow_rating
+    ibcVolumeRatingDiff: ibc_cashflow_rating_diff
   }
 `;
 
-function ZonesInfoTable({ columnType }: any) {
+export const INFO_WITH_TRANSFERS = gql`
+  fragment InfoWithTransfers on zones_stats {
+    id: zone
+    zoneLabelUrl: zone_label_url
+    name: zone_readable_name
+    ibcTransfers: ibc_transfers
+    ibcTransfersPending: ibc_transfers_pending
+    ibcTransfersRating: ibc_transfers_rating
+    ibcTransfersRatingDiff: ibc_transfers_rating_diff
+  }
+`;
+
+const fieldsMap: {
+  [key: string]: any;
+} = {
+  volume: {
+    value: 'ibcVolume',
+    pendingValue: 'ibcVolumePending',
+  },
+  transfers: {
+    value: 'ibcTransfers',
+    pendingValue: 'ibcTransfersPending',
+  },
+};
+
+function ZonesInfoTable({ data, columnType }: any) {
   console.log('ZonesInfoTable', columnType);
   // const [zonseInfo, setZonesInfo] = useState([]);
-  const { loading, error, data } = useQuery(ZONES_INFO_BY_VOLUME, {
-    variables: { period: 24, isMainnet: true, isVolume: columnType === 'volume' },
-  });
+  // const { loading, error, data } = useQuery(ZONES_INFO_BY_VOLUME, {
+  //   variables: { period: 24, isMainnet: true, isVolume: columnType === 'volume' },
+  // });
   // useEffect(() => {
   //   const query = columnType === 'volume' ? ZONES_INFO_BY_VOLUME : ZONES_INFO_BY_TRANSFERS;
   //   const { loading, error, data } = useQuery(query, {
@@ -53,17 +74,23 @@ function ZonesInfoTable({ columnType }: any) {
   //   console.log(data);
   //   setZonesInfo(data.zonesInfo);
   // }, [columnType]);
+  const fields = useMemo(() => fieldsMap[columnType], [columnType]);
+  console.log(fields);
 
   return (
     <div className={styles.zonesInfoTable}>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error...</p>}
+      {/* {loading && <p>Loading...</p>}
+      {error && <p>Error...</p>} */}
       {data &&
         data.zonesInfo &&
         data.zonesInfo.map((info: any) => (
           <ZoneInfoRow
             key={info.id}
-            data={{ name: info.name, value: info.ibcVolume, pendingValue: info.ibcVolumePending }}
+            data={{
+              name: info.name,
+              value: info[fields.value],
+              pendingValue: info[fields.pendingValue],
+            }}
           />
         ))}
     </div>
