@@ -1,0 +1,31 @@
+.container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr 1fr;
+  padding: 12px;
+  border: 1px solid var(--black-900);
+  margin-bottom: 12px;
+  min-height: 85px;
+
+  &_title {
+    font-size: 13px;
+    line-height: 16.3px;
+    color: var(--grey-500);
+    margin-bottom: 4px;
+  }
+
+  &_value {
+    font-size: 15px;
+    line-height: 18.81px;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+
+  &_pending {
+    font-size: 12px;
+    line-height: 15.05px;
+    color: var(--grey-500);
+    margin-left: 3px;
+  }
+}

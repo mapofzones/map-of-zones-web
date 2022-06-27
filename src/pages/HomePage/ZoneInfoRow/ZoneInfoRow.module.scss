@@ -17,12 +17,20 @@
     background-color: var(--black-600);
   }
 
-  .logo {
+  .logoContainer {
     grid-area: logo;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: var(--grey-500);
+
+    .logo {
+      width: 32px;
+      height: 32px;
+    }
+
+    .emptyLogo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--grey-500);
+    }
   }
 
   .name {
