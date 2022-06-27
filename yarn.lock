@@ -7217,6 +7217,13 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-number-format@^4.9.3:
+  version "4.9.3"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-4.9.3.tgz#338500fe9c61b1ac73c8d6dff4ec97dd13fd2b50"
+  integrity sha512-am1A1xYAbENuKJ+zpM7V+B1oRTSeOHYltqVKExznIVFweBzhLmOBmyb1DfIKjHo90E0bo1p3nzVJ2NgS5xh+sQ==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
