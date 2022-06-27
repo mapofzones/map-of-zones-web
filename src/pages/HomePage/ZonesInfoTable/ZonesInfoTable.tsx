@@ -6,17 +6,17 @@ import styles from './ZonesInfoTable.module.scss';
 const fieldsMap: {
   [key: string]: any;
 } = {
-  ibcVolume: {
+  IBC_VOLUME: {
     value: 'ibcVolume',
     pendingValue: 'ibcVolumePending',
   },
-  ibcTransfers: {
+  IBC_TRANSFERS: {
     value: 'ibcTransfers',
     pendingValue: 'ibcTransfersPending',
   },
 };
 
-function ZonesInfoTable({ data, columnType }: any) {
+function ZonesInfoTable({ data, columnType, numberType }: any) {
   console.log('ZonesInfoTable', columnType);
   // const [zonseInfo, setZonesInfo] = useState([]);
   // const { loading, error, data } = useQuery(ZONES_INFO_BY_VOLUME, {
@@ -42,6 +42,7 @@ function ZonesInfoTable({ data, columnType }: any) {
         data.zonesInfo.map((info: any) => (
           <ZoneInfoRow
             key={info.id}
+            numberType={numberType}
             data={{
               name: info.name,
               value: info[fields.value],
