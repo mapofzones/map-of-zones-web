@@ -5,7 +5,13 @@ import styles from './ZoneInfoRow.module.scss';
 function ZoneInfoRow({ data, numberType }: any): JSX.Element {
   return (
     <div className={styles.row}>
-      <div className={styles.logo}></div>
+      <div className={styles.logoContainer}>
+        {data.logoUrl ? (
+          <img className={styles.logo} src={data.logoUrl} alt={`${data.name} logo`} />
+        ) : (
+          <div className={styles.emptyLogo} />
+        )}
+      </div>
       <span className={styles.name}>{data.name}</span>
       <span className={styles.value}>
         <NumberFormat value={data.value} type={numberType} />

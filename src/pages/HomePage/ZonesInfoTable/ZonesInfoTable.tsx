@@ -45,6 +45,7 @@ function ZonesInfoTable({ data, columnType, numberType }: any) {
             numberType={numberType}
             data={{
               name: info.name,
+              logoUrl: info.logoUrl,
               value: info[fields.value],
               pendingValue: info[fields.pendingValue],
             }}
