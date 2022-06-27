@@ -35,6 +35,7 @@ function HomePage() {
       isMainnet: true,
       withVolume: columnType === ColumnKeys.IbcVolume,
       withTransfers: columnType === ColumnKeys.IbcTransfers,
+      withTotalTxs: columnType === ColumnKeys.TotalTxs,
     },
   });
   const { data: zones } = useQuery(ZONES_INFO_QUERY, {
@@ -43,6 +44,7 @@ function HomePage() {
       isMainnet: true,
       withVolume: columnType === ColumnKeys.IbcVolume,
       withTransfers: columnType === ColumnKeys.IbcTransfers,
+      withTotalTxs: columnType === ColumnKeys.TotalTxs,
     },
   });
 
@@ -66,6 +68,7 @@ function HomePage() {
               <option value={ColumnKeys.IbcTransfers}>
                 {metadata[ColumnKeys.IbcTransfers].title}
               </option>
+              <option value={ColumnKeys.TotalTxs}>{metadata[ColumnKeys.TotalTxs].title}</option>
             </select>
           </div>
           <div>24h | 7d | 30d</div>

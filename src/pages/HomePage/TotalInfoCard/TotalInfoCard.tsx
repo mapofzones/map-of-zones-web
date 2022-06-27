@@ -17,7 +17,7 @@ const metadata: Record<any, any> = {
   },
   TOTAL_TXS: {
     title: 'Total Transaction (24h)',
-    valueKey: 'total_txs',
+    valueKey: 'totalTxs',
   },
 };
 

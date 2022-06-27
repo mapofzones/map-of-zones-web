@@ -6,22 +6,22 @@ function ZoneInfoRow({ data, numberType }: any): JSX.Element {
   return (
     <div className={styles.row}>
       <div className={styles.logoContainer}>
-        {data.logoUrl ? (
+        {data.logoUrl && (
           <img className={styles.logo} src={data.logoUrl} alt={`${data.name} logo`} />
-        ) : (
-          <div className={styles.emptyLogo} />
         )}
       </div>
       <span className={styles.name}>{data.name}</span>
       <span className={styles.value}>
         <NumberFormat value={data.value} type={numberType} />
       </span>
-      <span className={styles.pendingValueContainer}>
-        <PendingIcon />
-        <span className={styles.pendingValue}>
-          <NumberFormat value={data.pendingValue} type={numberType} />
+      {data.pendingValue != null && (
+        <span className={styles.pendingValueContainer}>
+          <PendingIcon />
+          <span className={styles.pendingValue}>
+            <NumberFormat value={data.pendingValue} type={numberType} />
+          </span>
         </span>
-      </span>
+      )}
     </div>
   );
 }

@@ -14,6 +14,9 @@ const fieldsMap: {
     value: 'ibcTransfers',
     pendingValue: 'ibcTransfersPending',
   },
+  TOTAL_TXS: {
+    value: 'totalTxs',
+  },
 };
 
 function ZonesInfoTable({ data, columnType, numberType }: any) {
