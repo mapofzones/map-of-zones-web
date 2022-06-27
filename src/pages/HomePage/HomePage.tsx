@@ -1,48 +1,51 @@
 import { gql, useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Button, Card } from '../../components';
 import { ArrowRight, PendingIcon } from '../../icons';
+import { TOTAL_INFO_QUERY } from '../../queries/HomePage/TotalInfoQuery';
+import { ZONES_INFO_QUERY } from '../../queries/HomePage/ZonesInfoQuery';
 import styles from './HomePage.module.scss';
 import { ZonesInfoTable } from './index';
-import { INFO_WITH_TRANSFERS, INFO_WITH_VOLUME } from './ZonesInfoTable/ZonesInfoTable';
 
-const TOTAL_INFO = gql`
-  query GetTotalInfo($period: Int!) {
-    headers(where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: false } }) {
-      ibcVolume: ibc_cashflow_period
-      ibcVolumePending: ibc_cashflow_pending_period
-    }
-  }
-`;
-
-const ZONES_INFO = gql`
-  ${INFO_WITH_VOLUME}
-  ${INFO_WITH_TRANSFERS}
-  query GetZonesInfo($period: Int!, $isMainnet: Boolean!, $withVolume: Boolean!) {
-    zonesInfo: zones_stats(
-      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
-    ) {
-      ...InfoWithVolume @include(if: $withVolume)
-      ...InfoWithTransfers @skip(if: $withVolume)
-    }
-  }
-`;
+const detailedInfo: { [key: string]: any } = {
+  ibcVolume: {
+    format: 'currency',
+    title: 'Total IBC Volume (24h)',
+    value: 'ibcVolume',
+    pendingValue: 'ibcVolumePending',
+  },
+  ibcTransfers: {
+    format: 'number',
+    title: 'Total IBC Transfers (24h)',
+    value: 'ibcTransfers',
+    pendingValue: 'ibcTransfersPending',
+  },
+  tatalTxs: {
+    format: 'number',
+    title: 'Total Transaction (24h)',
+  },
+};
 
 function HomePage() {
-  const { loading, data } = useQuery(TOTAL_INFO, { variables: { period: 24 } });
-  const { data: countData } = useQuery(gql`
-    query GetZonesCount {
-      zones_stats_aggregate {
-        aggregate {
-          count
-        }
-      }
-    }
-  `);
-  const [columnType, setColumnType] = useState('volume');
+  const [columnType, setColumnType] = useState('ibcVolume');
 
-  const { data: zones } = useQuery(ZONES_INFO, {
-    variables: { period: 24, isMainnet: true, withVolume: columnType === 'volume' },
+  const details = useMemo(() => detailedInfo[columnType], [columnType]);
+
+  const { data: totalInfo } = useQuery(TOTAL_INFO_QUERY, {
+    variables: {
+      period: 24,
+      isMainnet: true,
+      withVolume: columnType === 'ibcVolume',
+      withTransfers: columnType === 'ibcTransfers',
+    },
+  });
+  const { data: zones } = useQuery(ZONES_INFO_QUERY, {
+    variables: {
+      period: 24,
+      isMainnet: true,
+      withVolume: columnType === 'ibcVolume',
+      withTransfers: columnType === 'ibcTransfers',
+    },
   });
 
   console.log(zones);
@@ -58,29 +61,29 @@ function HomePage() {
       <div>MAP</div>
       <Card className={styles.sidebar}>
         <div className={styles.blockRow}>
-          <span>168 Zones</span>
+          <span>{zones?.zonesInfo?.length} Zones</span>
           <div>Search</div>
         </div>
         <div className={styles.blockRow}>
-          {/* <div>IBC Volume</div> */}
           <div>
             <select value={columnType} onChange={onColumnChange}>
-              <option value="volume">IBC Volume</option>
-              <option value="transfers">IBC transfers</option>
+              <option value="ibcVolume">IBC Volume</option>
+              <option value="ibcTransfers">IBC Transfers</option>
             </select>
           </div>
           <div>24h | 7d | 30d</div>
         </div>
         <Card className={styles.totalContainer}>
-          {loading && <p>Loading...</p>}
-          {data && (
+          {totalInfo && (
             <>
               <span className={styles.totalContainer_title}>Total IBC Volume (24h)</span>
-              <span className={styles.totalContainer_value}>${data.headers[0].ibcVolume}</span>
+              <span className={styles.totalContainer_value}>
+                ${totalInfo.headers[0][details.value]}
+              </span>
               <span className={styles.totalContainer_pendingContainer}>
                 <PendingIcon />
                 <span className={styles.totalContainer_pending}>
-                  ${data.headers[0].ibcVolumePending}
+                  ${totalInfo.headers[0][details.pendingValue]}
                 </span>
               </span>
             </>
