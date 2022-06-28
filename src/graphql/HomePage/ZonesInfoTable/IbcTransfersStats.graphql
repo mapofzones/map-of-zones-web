@@ -1,0 +1,6 @@
+fragment IbcTransfersStats on zones_stats {
+  ibcTransfers: ibc_transfers
+  ibcTransfersPending: ibc_transfers_pending
+  ibcTransfersRating: ibc_transfers_rating
+  ibcTransfersRatingDiff: ibc_transfers_rating_diff
+}

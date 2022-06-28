@@ -29,13 +29,12 @@ function ZonesInfoTable({
   ...props
 }: ZonesInfoTableProps) {
   const fields = useMemo(() => fieldsMap[columnType], [columnType]);
-  console.log(fields);
 
   return (
     <div className={cn(styles.zonesInfoTable, className)} {...props}>
       {data &&
-        data.zonesInfo &&
-        data.zonesInfo.map((info: any) => (
+        data.zonesTable &&
+        data.zonesTable.map((info: any) => (
           <ZoneInfoRow
             key={info.id}
             numberType={numberType}

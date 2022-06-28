@@ -4,6 +4,12 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@graphql-codegen/add": "^3.1.1",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/near-operation-file-preset": "^2.2.14",
+    "@graphql-codegen/typed-document-node": "^2.2.13",
+    "@graphql-codegen/typescript": "^2.5.1",
+    "@graphql-codegen/typescript-operations": "^2.4.2",
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
@@ -22,7 +28,8 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx,.json src",
-    "lint:fix": "yarn run lint --fix"
+    "lint:fix": "yarn run lint --fix",
+    "generate": "graphql-codegen"
   },
   "prettier": {
     "singleQuote": true,
