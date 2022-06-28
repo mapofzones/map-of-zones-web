@@ -3,8 +3,7 @@ import { useMemo, useState } from 'react';
 import { Button, Card } from '../../components';
 import { ArrowRight } from '../../icons';
 import { TOTAL_INFO_QUERY, ZONES_INFO_QUERY } from '../../queries/HomePage';
-import { ZonesInfoTable } from './index';
-import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
+import { TotalInfoCard, ZonesInfoTable } from './index';
 import { ColumnKeys } from './Types';
 
 import styles from './HomePage.module.scss';

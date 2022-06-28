@@ -2,9 +2,11 @@ import { useMemo } from 'react';
 import { Card, NumberFormat } from '../../../components';
 import { PendingIcon } from '../../../icons';
 import { ColumnKeys } from '../Types';
+import cn from 'classnames';
 import styles from './TotalInfoCard.module.scss';
+import { TotalInfoCardProps } from './TotalInfoCard.props';
 
-const metadata: Record<any, any> = {
+const metadata: Record<ColumnKeys, any> = {
   IBC_VOLUME: {
     title: 'Total IBC Volume (24h)',
     valueKey: 'ibcVolume',
@@ -21,20 +23,26 @@ const metadata: Record<any, any> = {
   },
 };
 
-function TotalInfoCard({ totalInfo, columnType, numberType }: any) {
+function TotalInfoCard({
+  className,
+  totalInfo,
+  columnType,
+  numberType,
+  ...props
+}: TotalInfoCardProps) {
   const meta = useMemo(() => metadata[columnType], [columnType]);
   return (
-    <Card className={styles.container}>
+    <Card className={cn(styles.container, className)} {...props}>
       {totalInfo && (
         <>
           <span className={styles.container_title}>{meta.title}</span>
           <span className={styles.container_value}>
-            <NumberFormat value={totalInfo[meta.valueKey]} type={numberType} />
+            <NumberFormat value={totalInfo[meta.valueKey]} numberType={numberType} />
           </span>
           <span className={styles.container_pendingContainer}>
             <PendingIcon />
             <span className={styles.container_pending}>
-              <NumberFormat value={totalInfo[meta.pendingValueKey]} type={numberType} />
+              <NumberFormat value={totalInfo[meta.pendingValueKey]} numberType={numberType} />
             </span>
           </span>
         </>
