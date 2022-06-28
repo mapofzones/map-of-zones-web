@@ -1,4 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+
 import { NumberType } from '../../../components';
 
 export interface ZonesInfoRowProps

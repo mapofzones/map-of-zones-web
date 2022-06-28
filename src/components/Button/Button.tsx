@@ -1,6 +1,7 @@
-import { ButtonProps } from './Button.props';
-import styles from './Button.module.scss';
 import cn from 'classnames';
+
+import styles from './Button.module.scss';
+import { ButtonProps } from './Button.props';
 
 function Button({ children, className, Icon, ...props }: ButtonProps): JSX.Element {
   return (

@@ -1,5 +1,6 @@
-import styles from './Card.module.scss';
 import cn from 'classnames';
+
+import styles from './Card.module.scss';
 import { CardProps } from './Card.props';
 
 function Card({ className, children, ...props }: CardProps): JSX.Element {

@@ -1,4 +1,5 @@
 import { default as Format } from 'react-number-format';
+
 import { NumberFormatProps } from './NumberFormat.props';
 import { NumberType } from './NumberType';
 

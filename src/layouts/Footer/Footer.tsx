@@ -1,5 +1,4 @@
 import { Button, Link } from '../../components';
-
 import { GithubLogo, TgLogo, TwitterLogo } from '../../icons';
 import styles from './Footer.module.scss';
 
