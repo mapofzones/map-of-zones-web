@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
+
+import cn from 'classnames';
+
 import { ZoneInfoRow } from '../index';
 import { ColumnKeys } from '../Types';
-import { ZonesInfoTableProps } from './ZonesInfoTable.props';
-import cn from 'classnames';
 import styles from './ZonesInfoTable.module.scss';
+import { ZonesInfoTableProps } from './ZonesInfoTable.props';
 
 const fieldsMap: Record<ColumnKeys, any> = {
   IBC_VOLUME: {

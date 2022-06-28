@@ -1,6 +1,7 @@
-import { ColumnKeys } from './../Types';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+
 import { NumberType } from '../../../components';
+import { ColumnKeys } from './../Types';
 
 export interface TotalInfoCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

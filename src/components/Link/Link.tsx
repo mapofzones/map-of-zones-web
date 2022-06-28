@@ -1,5 +1,5 @@
-import { LinkProps } from './Link.props';
 import styles from './Link.module.scss';
+import { LinkProps } from './Link.props';
 
 function Link({ children, className, Icon, ...props }: LinkProps): JSX.Element {
   return (

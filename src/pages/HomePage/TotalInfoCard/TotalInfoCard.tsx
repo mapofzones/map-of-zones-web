@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
+
+import cn from 'classnames';
+
 import { Card, NumberFormat } from '../../../components';
 import { PendingIcon } from '../../../icons';
 import { ColumnKeys } from '../Types';
-import cn from 'classnames';
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps } from './TotalInfoCard.props';
 

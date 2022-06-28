@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+
 import { BASE_INFO_FRAGMENT } from './ZonesInfoTable/BaseInfo';
 import { INFO_WITH_TOTAL_TXS_FRAGMENT } from './ZonesInfoTable/InfoWithTotalTxs';
 import { INFO_WITH_TRANSFERS_FRAGMENT } from './ZonesInfoTable/InfoWithTransfers';

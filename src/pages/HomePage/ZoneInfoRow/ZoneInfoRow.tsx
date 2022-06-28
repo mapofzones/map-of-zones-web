@@ -1,8 +1,9 @@
-import { PendingIcon } from '../../../icons';
 import cn from 'classnames';
+
+import { NumberFormat } from '../../../components';
+import { PendingIcon } from '../../../icons';
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
-import { NumberFormat } from '../../../components';
 
 function ZoneInfoRow({ data, numberType, className, ...props }: ZonesInfoRowProps): JSX.Element {
   return (

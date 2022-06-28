@@ -1,12 +1,14 @@
-import { useQuery } from '@apollo/client';
 import { useMemo, useState } from 'react';
+
+import { useQuery } from '@apollo/client';
+
 import { Button, Card } from '../../components';
 import { ArrowRight } from '../../icons';
 import { TOTAL_INFO_QUERY, ZONES_INFO_QUERY } from '../../queries/HomePage';
-import { TotalInfoCard, ZonesInfoTable } from './index';
+import styles from './HomePage.module.scss';
 import { ColumnKeys } from './Types';
 
-import styles from './HomePage.module.scss';
+import { TotalInfoCard, ZonesInfoTable } from './index';
 
 const metadata: Record<ColumnKeys, any> = {
   IBC_VOLUME: {
