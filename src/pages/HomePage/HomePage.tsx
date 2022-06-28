@@ -3,8 +3,9 @@ import { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { Button, Card } from '../../components';
+import { TotalZonesInfoDocument } from '../../graphql/HomePage/__generated__/TotalZonesInfo.generated';
+import { ZonesTableDataDocument } from '../../graphql/HomePage/__generated__/ZonesTableData.generated';
 import { ArrowRight } from '../../icons';
-import { TOTAL_INFO_QUERY, ZONES_INFO_QUERY } from '../../queries/HomePage';
 import styles from './HomePage.module.scss';
 import { ColumnKeys } from './Types';
 
@@ -30,16 +31,15 @@ function HomePage() {
 
   const meta = useMemo(() => metadata[columnType], [columnType]);
 
-  const { data: totalInfo } = useQuery(TOTAL_INFO_QUERY, {
+  const { data: totalInfo } = useQuery(TotalZonesInfoDocument, {
     variables: {
       period: 24,
       isMainnet: true,
       withVolume: columnType === ColumnKeys.IbcVolume,
       withTransfers: columnType === ColumnKeys.IbcTransfers,
-      withTotalTxs: columnType === ColumnKeys.TotalTxs,
     },
   });
-  const { data: zones } = useQuery(ZONES_INFO_QUERY, {
+  const { data: zones } = useQuery(ZonesTableDataDocument, {
     variables: {
       period: 24,
       isMainnet: true,
@@ -59,7 +59,7 @@ function HomePage() {
       <div>MAP</div>
       <Card className={styles.sidebar}>
         <div className={styles.blockRow}>
-          <span>{zones?.zonesInfo?.length} Zones</span>
+          <span>{zones?.zonesTable?.length} Zones</span>
           <div>Search</div>
         </div>
         <div className={styles.blockRow}>

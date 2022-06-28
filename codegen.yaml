@@ -1,0 +1,38 @@
+definitions:
+  add: &top-comment
+    content: >
+      /**
+       * NOTE: THIS IS AN AUTO-GENERATED FILE. DO NOT MODIFY IT DIRECTLY.
+       */
+
+schema: http://localhost:8081/v1/graphql
+overwrite: true
+documents: 'src/**/!(*.generated).{graphql,tsx}'
+hooks:
+  afterAllFileWrite:
+    - eslint --fix
+generates:
+  ./src/graphql/base-types.ts:
+    - add: *top-comment
+    - typescript
+  ./src/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: graphql/base-types.ts
+      folder: __generated__
+    config:
+      withHOC: false
+      withHooks: true
+      withComponent: false
+    plugins:
+      - add: *top-comment
+      - typescript-operations
+      - typed-document-node
+config:
+  namingConvention: change-case-all#pascalCase
+  transformUnderscore: true
+  constEnums: true
+  immutableTypes: true
+  preResolveTypes: true
+  operationResultSuffix: 'Result'
