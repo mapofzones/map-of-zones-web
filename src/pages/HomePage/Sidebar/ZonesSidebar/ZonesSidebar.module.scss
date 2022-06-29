@@ -1,0 +1,48 @@
+.container {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+
+  .blockRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+
+    &:first-child {
+      margin-bottom: 12px;
+    }
+
+    &:nth-child(2) {
+      margin-bottom: 16px;
+    }
+  }
+
+  .scrollableTable {
+    overflow-y: scroll;
+    margin-right: -16px;
+    padding-right: 16px;
+  }
+
+  .periodSelector {
+    display: flex;
+  }
+
+  .zonesInfoTable {
+    flex-grow: 1;
+  }
+
+  .detailedBtn {
+    height: 40px;
+    font-size: 15px;
+    line-height: 19px;
+    color: var(--grey-500);
+
+    &:not(:hover) {
+      background-color: var(--black-700);
+    }
+
+    .btnText {
+      margin-right: 8px;
+    }
+  }
+}
