@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
 import Layout from './layouts/Layout/Layout';
@@ -11,7 +11,8 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
+        <Route index element={<Navigate to="/map" replace />} />
+        <Route path="map/*" element={<HomePage />} />
         <Route path="zones" element={<ZonesPage />} />
         <Route path="assets" element={<AssetsPage />} />
         <Route path="about" element={<AboutPage />} />
