@@ -1,7 +1,8 @@
 import cn from 'classnames';
 
-import { NumberFormat } from '../../../components';
-import { PendingIcon } from '../../../icons';
+import { NumberFormat } from 'components';
+import { PendingIcon } from 'icons';
+
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
 

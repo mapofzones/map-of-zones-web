@@ -2,10 +2,11 @@ import { useMemo, useState } from 'react';
 
 import { useQuery } from '@apollo/client';
 
-import { Button, Card } from '../../components';
-import { TotalZonesInfoDocument } from '../../graphql/HomePage/__generated__/TotalZonesInfo.generated';
-import { ZonesTableDataDocument } from '../../graphql/HomePage/__generated__/ZonesTableData.generated';
-import { ArrowRight } from '../../icons';
+import { Button, Card } from 'components';
+import { TotalZonesInfoDocument } from 'graphql/HomePage/__generated__/TotalZonesInfo.generated';
+import { ZonesTableDataDocument } from 'graphql/HomePage/__generated__/ZonesTableData.generated';
+import { ArrowRight } from 'icons';
+
 import styles from './HomePage.module.scss';
 import { ColumnKeys } from './Types';
 

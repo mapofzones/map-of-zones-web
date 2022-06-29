@@ -1,13 +1,14 @@
 /**
  * NOTE: THIS IS AN AUTO-GENERATED FILE. DO NOT MODIFY IT DIRECTLY.
  */
-
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+/* eslint-disable */
 
 import * as Types from '../../base-types';
+
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 import { BaseInfoFragmentDoc } from '../ZonesInfoTable/__generated__/BaseInfo.generated';
-import { IbcTransfersStatsFragmentDoc } from '../ZonesInfoTable/__generated__/IbcTransfersStats.generated';
 import { IbcVolumeStatsFragmentDoc } from '../ZonesInfoTable/__generated__/IbcVolumeStats.generated';
+import { IbcTransfersStatsFragmentDoc } from '../ZonesInfoTable/__generated__/IbcTransfersStats.generated';
 import { TotalTxsStatsFragmentDoc } from '../ZonesInfoTable/__generated__/TotalTxsStats.generated';
 export type ZonesTableDataQueryVariables = Types.Exact<{
   period: Types.Scalars['Int'];
