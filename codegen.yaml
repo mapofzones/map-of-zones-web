@@ -4,7 +4,7 @@ definitions:
       /**
        * NOTE: THIS IS AN AUTO-GENERATED FILE. DO NOT MODIFY IT DIRECTLY.
        */
-       /* eslint-disable */
+      /* eslint-disable */
 
 schema: http://localhost:8081/v1/graphql
 overwrite: true
