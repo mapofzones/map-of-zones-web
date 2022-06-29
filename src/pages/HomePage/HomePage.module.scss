@@ -1,12 +1,12 @@
 .pageContainer {
   display: grid;
   grid-template-columns: 1fr 376px;
-  height: 100%;
 
   .sidebar {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
     margin: 4px 16px 4px 0px;
+    height: calc(100vh - 103px);
 
     .blockRow {
       display: flex;
@@ -21,6 +21,16 @@
       &:nth-child(2) {
         margin-bottom: 16px;
       }
+    }
+
+    .scrollableTable {
+      overflow-y: scroll;
+      margin-right: -16px;
+      padding-right: 16px;
+    }
+
+    .periodSelector {
+      display: flex;
     }
 
     .zonesInfoTable {

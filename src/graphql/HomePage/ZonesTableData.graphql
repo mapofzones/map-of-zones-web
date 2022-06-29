@@ -1,12 +1,14 @@
 query ZonesTableData(
   $period: Int!
   $isMainnet: Boolean!
+  $orderBy: zones_stats_order_by!
   $withVolume: Boolean!
   $withTransfers: Boolean!
   $withTotalTxs: Boolean!
 ) {
   zonesTable: zones_stats(
     where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
+    order_by: [$orderBy]
   ) {
     ...BaseInfo
     ...IbcVolumeStats @include(if: $withVolume)
