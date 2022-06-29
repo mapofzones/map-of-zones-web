@@ -1,6 +1,7 @@
 /**
  * NOTE: THIS IS AN AUTO-GENERATED FILE. DO NOT MODIFY IT DIRECTLY.
  */
+/* eslint-disable */
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
