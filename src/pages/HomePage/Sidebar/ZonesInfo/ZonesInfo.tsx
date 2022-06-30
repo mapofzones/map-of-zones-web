@@ -10,7 +10,7 @@ import { TotalInfoCard } from 'pages/HomePage/TotalInfoCard/TotalInfoCard';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ZonesInfoTable } from 'pages/HomePage/ZonesInfoTable/ZonesInfoTable';
 
-import styles from './ZonesSidebar.module.scss';
+import styles from './ZonesInfo.module.scss';
 
 const metadata: Record<ColumnKeys, any> = {
   IBC_VOLUME: {
@@ -30,7 +30,7 @@ const metadata: Record<ColumnKeys, any> = {
   },
 };
 
-function ZonesSidebar() {
+function ZonesInfo() {
   const [columnType, setColumnType] = useState<ColumnKeys>(ColumnKeys.IbcVolume);
   const [selectedPeriod, setSelectedPeriod] = useState<number>(24);
 
@@ -100,4 +100,4 @@ function ZonesSidebar() {
   );
 }
 
-export { ZonesSidebar };
+export { ZonesInfo };

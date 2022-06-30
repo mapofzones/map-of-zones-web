@@ -1,14 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Sidebar, ZoneDetailsSidebar, ZonesSidebar } from 'pages/HomePage';
+import Layout from 'layouts/Layout/Layout';
+import AboutPage from 'pages/AboutPage/AboutPage';
+import AssetsPage from 'pages/AssetsPage/AssetsPage';
+import { HomePage, Sidebar, ZoneDetails, ZoneOverview, ZonesInfo } from 'pages/HomePage';
+import ZonesPage from 'pages/ZonesPage/ZonesPage';
 
 import './App.scss';
-
-import Layout from './layouts/Layout/Layout';
-import AboutPage from './pages/AboutPage/AboutPage';
-import AssetsPage from './pages/AssetsPage/AssetsPage';
-import HomePage from './pages/HomePage/HomePage';
-import ZonesPage from './pages/ZonesPage/ZonesPage';
 
 const App = () => {
   return (
@@ -17,8 +15,10 @@ const App = () => {
         <Route path="/" element={<Navigate to="map" />} />
         <Route path="map" element={<HomePage />}>
           <Route element={<Sidebar />}>
-            <Route index element={<ZonesSidebar />} />
-            <Route path=":zone/overview" element={<ZoneDetailsSidebar />} />
+            <Route index element={<ZonesInfo />} />
+            <Route path=":zone" element={<ZoneDetails />}>
+              <Route path="overview" element={<ZoneOverview />} />
+            </Route>
             <Route path="*" element={<div>Not found.</div>} />
           </Route>
         </Route>
