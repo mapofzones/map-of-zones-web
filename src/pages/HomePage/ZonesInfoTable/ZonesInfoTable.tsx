@@ -36,9 +36,10 @@ function ZonesInfoTable({
         data.zonesTable &&
         data.zonesTable.map((info: any) => (
           <ZoneInfoRow
-            key={info.id}
+            key={info.zone}
             numberType={numberType}
             data={{
+              id: info.zone,
               name: info.name,
               logoUrl: info.logoUrl,
               value: info[fields.value],

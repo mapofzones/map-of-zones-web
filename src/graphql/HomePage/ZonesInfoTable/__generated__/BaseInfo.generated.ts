@@ -8,7 +8,7 @@ import * as Types from '../../../base-types';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type BaseInfoFragment = {
   readonly __typename?: 'zones_stats';
-  readonly id: string;
+  readonly zone: string;
   readonly logoUrl?: string | null;
   readonly name: string;
 };
@@ -23,11 +23,7 @@ export const BaseInfoFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'id' },
-            name: { kind: 'Name', value: 'zone' },
-          },
+          { kind: 'Field', name: { kind: 'Name', value: 'zone' } },
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'logoUrl' },

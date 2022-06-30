@@ -23,7 +23,7 @@ export type ZonesTableDataQueryResult = {
   readonly __typename?: 'query_root';
   readonly zonesTable: ReadonlyArray<{
     readonly __typename?: 'zones_stats';
-    readonly id: string;
+    readonly zone: string;
     readonly logoUrl?: string | null;
     readonly name: string;
     readonly ibcVolume?: any | null;

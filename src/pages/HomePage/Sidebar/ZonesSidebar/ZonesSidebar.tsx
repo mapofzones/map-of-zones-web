@@ -65,6 +65,7 @@ function ZonesSidebar() {
   const onPeriodChange = (periodInHours: number) => {
     setSelectedPeriod(periodInHours);
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.blockRow}>
@@ -72,15 +73,11 @@ function ZonesSidebar() {
         <div>Search</div>
       </div>
       <div className={styles.blockRow}>
-        <div>
-          <select value={columnType} onChange={onColumnChange}>
-            <option value={ColumnKeys.IbcVolume}>{metadata[ColumnKeys.IbcVolume].title}</option>
-            <option value={ColumnKeys.IbcTransfers}>
-              {metadata[ColumnKeys.IbcTransfers].title}
-            </option>
-            <option value={ColumnKeys.TotalTxs}>{metadata[ColumnKeys.TotalTxs].title}</option>
-          </select>
-        </div>
+        <select value={columnType} onChange={onColumnChange}>
+          <option value={ColumnKeys.IbcVolume}>{metadata[ColumnKeys.IbcVolume].title}</option>
+          <option value={ColumnKeys.IbcTransfers}>{metadata[ColumnKeys.IbcTransfers].title}</option>
+          <option value={ColumnKeys.TotalTxs}>{metadata[ColumnKeys.TotalTxs].title}</option>
+        </select>
         <div className={styles.periodSelector}>
           <Button onClick={() => onPeriodChange(24)}>24h</Button>
           <Button onClick={() => onPeriodChange(24 * 7)}>7d</Button>
