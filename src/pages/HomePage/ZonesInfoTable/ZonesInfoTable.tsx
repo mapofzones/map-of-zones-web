@@ -8,16 +8,16 @@ import styles from './ZonesInfoTable.module.scss';
 import { ZonesInfoTableProps } from './ZonesInfoTable.props';
 
 const fieldsMap: Record<ColumnKeys, any> = {
-  IBC_VOLUME: {
-    value: 'ibcVolume',
-    pendingValue: 'ibcVolumePending',
+  ibcVolume: {
+    valueKey: 'ibcVolume',
+    pendingValueKey: 'ibcVolumePending',
   },
-  IBC_TRANSFERS: {
-    value: 'ibcTransfers',
-    pendingValue: 'ibcTransfersPending',
+  ibcTransfers: {
+    valueKey: 'ibcTransfers',
+    pendingValueKey: 'ibcTransfersPending',
   },
-  TOTAL_TXS: {
-    value: 'totalTxs',
+  totalTxs: {
+    pendingValueKey: 'totalTxs',
   },
 };
 
@@ -42,8 +42,8 @@ function ZonesInfoTable({
               id: info.zone,
               name: info.name,
               logoUrl: info.logoUrl,
-              value: info[fields.value],
-              pendingValue: info[fields.pendingValue],
+              value: info[fields.valueKey],
+              pendingValue: info[fields.pendingValueKey],
             }}
           />
         ))}

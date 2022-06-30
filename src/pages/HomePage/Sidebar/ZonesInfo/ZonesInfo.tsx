@@ -16,39 +16,22 @@ import { useSelectedPeriod } from './useSelectedPeriod';
 import styles from './ZonesInfo.module.scss';
 
 const metadata: Record<ColumnKeys, any> = {
-  IBC_VOLUME: {
+  ibcVolume: {
     title: 'IBC Volume',
     numberType: 'currency',
     sortingColumnKey: 'ibc_cashflow_rating',
   },
-  IBC_TRANSFERS: {
+  ibcTransfers: {
     title: 'IBC Transfers',
     numberType: 'number',
     sortingColumnKey: 'ibc_transfers_rating',
   },
-  TOTAL_TXS: {
+  totalTxs: {
     title: 'Total TXS',
     numberType: 'number',
     sortingColumnKey: 'total_txs_rating',
   },
 };
-
-export function useSelectedColumn() {
-  const [search, setSearch] = useSearchParams();
-  const columnKey = search.get('columnKey');
-  const [selectedColumnKey, setSelectedColumnKey] = useState<ColumnKeys>(
-    columnKey && Object.values(ColumnKeys).some((v) => v === columnKey)
-      ? (columnKey as ColumnKeys)
-      : ColumnKeys.IbcVolume
-  );
-
-  useEffect(() => {
-    search.set('columnKey', selectedColumnKey);
-    setSearch(search);
-  }, [selectedColumnKey]);
-
-  return [selectedColumnKey, setSelectedColumnKey] as const;
-}
 
 function ZonesInfo() {
   const [selectedPeriod, setSelectedPeriod] = useSelectedPeriod();
