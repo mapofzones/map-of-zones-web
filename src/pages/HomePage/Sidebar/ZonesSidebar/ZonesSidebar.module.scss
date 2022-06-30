@@ -1,6 +1,7 @@
 .container {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
+  height: 100%;
 
   .blockRow {
     display: flex;
@@ -19,16 +20,12 @@
 
   .scrollableTable {
     overflow-y: scroll;
-    margin-right: -16px;
-    padding-right: 16px;
+    margin: 0 -16px;
+    padding: 0 16px;
   }
 
   .periodSelector {
     display: flex;
-  }
-
-  .zonesInfoTable {
-    flex-grow: 1;
   }
 
   .detailedBtn {
