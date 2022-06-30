@@ -34,22 +34,12 @@ function Footer({ ...props }): JSX.Element {
         <span>Our Socials:</span>
         <Link
           href="https://github.com/mapofzones"
-          target="_blank"
-          rel="noopener noreferrer"
           className={styles.socialLink}
           Icon={GithubLogo}
         />
-        <Link
-          href="https://t.me/MapOfZones"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.socialLink}
-          Icon={TgLogo}
-        />
+        <Link href="https://t.me/MapOfZones" className={styles.socialLink} Icon={TgLogo} />
         <Link
           href="https://twitter.com/mapofzones"
-          target="_blank"
-          rel="noopener noreferrer"
           className={styles.socialLink}
           Icon={TwitterLogo}
         />
