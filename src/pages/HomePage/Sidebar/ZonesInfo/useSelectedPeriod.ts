@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
@@ -7,16 +7,23 @@ import { PeriodKeys } from './Types';
 export function useSelectedPeriod() {
   const [search, setSearch] = useSearchParams();
   const period = search.get('period');
-  const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(
-    period && Object.values(PeriodKeys).some((v) => v === period)
+
+  const selectedPeriod = useMemo(() => {
+    return period && Object.values(PeriodKeys).some((v) => v === period)
       ? (period as PeriodKeys)
-      : PeriodKeys.DAY
-  );
+      : PeriodKeys.DAY;
+  }, [period]);
 
   useEffect(() => {
-    search.set('period', selectedPeriod);
+    if (!period) {
+      setSelectedPeriod(PeriodKeys.DAY);
+    }
+  }, [search]);
+
+  const setSelectedPeriod = (value: PeriodKeys) => {
+    search.set('period', value);
     setSearch(search);
-  }, [selectedPeriod]);
+  };
 
   return [selectedPeriod, setSelectedPeriod] as const;
 }

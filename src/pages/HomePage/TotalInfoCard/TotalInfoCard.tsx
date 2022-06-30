@@ -16,17 +16,17 @@ type TotalInfoMetadata = {
 };
 
 const metadata: Record<ColumnKeys, TotalInfoMetadata> = {
-  IBC_VOLUME: {
+  ibcVolume: {
     title: 'Total IBC Volume (24h)',
     valueKey: 'ibcVolume',
     pendingValueKey: 'ibcVolumePending',
   },
-  IBC_TRANSFERS: {
+  ibcTransfers: {
     title: 'Total IBC Transfers (24h)',
     valueKey: 'ibcTransfers',
     pendingValueKey: 'ibcTransfersPending',
   },
-  TOTAL_TXS: {
+  totalTxs: {
     title: 'Total Transaction (24h)',
     valueKey: 'ibcTransfers', // add total txs
   },
