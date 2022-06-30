@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useQuery } from '@apollo/client';
+import { useSearchParams } from 'react-router-dom';
 
 import { Button } from 'components';
 import { TotalZonesInfoDocument } from 'graphql/HomePage/__generated__/TotalZonesInfo.generated';
@@ -10,6 +11,8 @@ import { TotalInfoCard } from 'pages/HomePage/TotalInfoCard/TotalInfoCard';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ZonesInfoTable } from 'pages/HomePage/ZonesInfoTable/ZonesInfoTable';
 
+import { PeriodKeys, PERIODS } from './Types';
+import { useSelectedPeriod } from './useSelectedPeriod';
 import styles from './ZonesInfo.module.scss';
 
 const metadata: Record<ColumnKeys, any> = {
@@ -30,40 +33,57 @@ const metadata: Record<ColumnKeys, any> = {
   },
 };
 
-function ZonesInfo() {
-  const [columnType, setColumnType] = useState<ColumnKeys>(ColumnKeys.IbcVolume);
-  const [selectedPeriod, setSelectedPeriod] = useState<number>(24);
+export function useSelectedColumn() {
+  const [search, setSearch] = useSearchParams();
+  const columnKey = search.get('columnKey');
+  const [selectedColumnKey, setSelectedColumnKey] = useState<ColumnKeys>(
+    columnKey && Object.values(ColumnKeys).some((v) => v === columnKey)
+      ? (columnKey as ColumnKeys)
+      : ColumnKeys.IbcVolume
+  );
 
-  const meta = useMemo(() => metadata[columnType], [columnType]);
+  useEffect(() => {
+    search.set('columnKey', selectedColumnKey);
+    setSearch(search);
+  }, [selectedColumnKey]);
+
+  return [selectedColumnKey, setSelectedColumnKey] as const;
+}
+
+function ZonesInfo() {
+  const [selectedPeriod, setSelectedPeriod] = useSelectedPeriod();
+  const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
+
+  const meta = useMemo(() => metadata[selectedColumnKey], [selectedColumnKey]);
 
   const { data: totalInfo } = useQuery(TotalZonesInfoDocument, {
     variables: {
-      period: selectedPeriod,
+      period: PERIODS[selectedPeriod],
       isMainnet: true,
-      withVolume: columnType === ColumnKeys.IbcVolume,
-      withTransfers: columnType === ColumnKeys.IbcTransfers,
+      withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
+      withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
     },
   });
   const { data: zones } = useQuery(ZonesTableDataDocument, {
     variables: {
-      period: selectedPeriod,
+      period: PERIODS[selectedPeriod],
       isMainnet: true,
       orderBy: {
         [meta.sortingColumnKey]: 'asc',
       },
-      withVolume: columnType === ColumnKeys.IbcVolume,
-      withTransfers: columnType === ColumnKeys.IbcTransfers,
-      withTotalTxs: columnType === ColumnKeys.TotalTxs,
+      withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
+      withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
+      withTotalTxs: selectedColumnKey === ColumnKeys.TotalTxs,
     },
   });
 
   const onColumnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value as ColumnKeys;
-    setColumnType(value);
+    setSelectedColumnKey(value);
   };
 
-  const onPeriodChange = (periodInHours: number) => {
-    setSelectedPeriod(periodInHours);
+  const onPeriodChange = (period: PeriodKeys) => {
+    setSelectedPeriod(period);
   };
 
   return (
@@ -73,24 +93,24 @@ function ZonesInfo() {
         <div>Search</div>
       </div>
       <div className={styles.blockRow}>
-        <select value={columnType} onChange={onColumnChange}>
+        <select value={selectedColumnKey} onChange={onColumnChange}>
           <option value={ColumnKeys.IbcVolume}>{metadata[ColumnKeys.IbcVolume].title}</option>
           <option value={ColumnKeys.IbcTransfers}>{metadata[ColumnKeys.IbcTransfers].title}</option>
           <option value={ColumnKeys.TotalTxs}>{metadata[ColumnKeys.TotalTxs].title}</option>
         </select>
         <div className={styles.periodSelector}>
-          <Button onClick={() => onPeriodChange(24)}>24h</Button>
-          <Button onClick={() => onPeriodChange(24 * 7)}>7d</Button>
-          <Button onClick={() => onPeriodChange(24 * 30)}>30d</Button>
+          <Button onClick={() => onPeriodChange(PeriodKeys.DAY)}>24h</Button>
+          <Button onClick={() => onPeriodChange(PeriodKeys.WEEK)}>7d</Button>
+          <Button onClick={() => onPeriodChange(PeriodKeys.MONTH)}>30d</Button>
         </div>
       </div>
       <div className={styles.scrollableTable}>
         <TotalInfoCard
           totalInfo={totalInfo?.headers[0]}
-          columnType={columnType}
+          columnType={selectedColumnKey}
           numberType={meta.numberType}
         />
-        <ZonesInfoTable data={zones} columnType={columnType} numberType={meta.numberType} />
+        <ZonesInfoTable data={zones} columnType={selectedColumnKey} numberType={meta.numberType} />
       </div>
       <Button className={styles.detailedBtn}>
         <span className={styles.btnText}>Detailed View</span>
