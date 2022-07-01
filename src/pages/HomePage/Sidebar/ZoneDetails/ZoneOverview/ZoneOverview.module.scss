@@ -1,0 +1,76 @@
+.container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+
+  .totalOverview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'title chart'
+      'volume chart'
+      'lineChart lineChart'
+      'volumeIn volumeOut'
+      'volumeInPending volumeOutPending';
+    padding: 16px;
+    border: 1px solid var(--black-900);
+    margin-bottom: 24px;
+
+    .title {
+      grid-area: title;
+      font-size: 13px;
+      line-height: 16.3px;
+      margin-bottom: 4px;
+      color: var(--grey-500);
+    }
+
+    .volumeValue {
+      grid-area: volume;
+      font-size: 20px;
+      line-height: 25px;
+    }
+
+    .volumeInValue,
+    .volumeOutValue {
+      font-size: 15px;
+      line-height: 19px;
+      margin-bottom: 2px;
+    }
+
+    .volumeInPendingValue,
+    .volumeOutPendingValue {
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--grey-500);
+    }
+
+    .chart {
+      grid-area: chart;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .lineChart {
+      grid-area: lineChart;
+    }
+  }
+
+  .detailedInfo {
+    margin-bottom: 20px;
+  }
+
+  .detailedBtn {
+    height: 40px;
+    font-size: 15px;
+    line-height: 19px;
+    color: var(--grey-500);
+
+    &:not(:hover) {
+      background-color: var(--black-700);
+    }
+
+    .btnText {
+      margin-right: 8px;
+    }
+  }
+}

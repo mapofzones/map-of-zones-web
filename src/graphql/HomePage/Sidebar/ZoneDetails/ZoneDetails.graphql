@@ -1,0 +1,8 @@
+query ZoneDetails($zone: String!) {
+  zoneDetails: zones_stats(where: { zone: { _eq: $zone } }) {
+    zone
+    logoUrl: zone_label_url
+    name: zone_readable_name
+    website
+  }
+}

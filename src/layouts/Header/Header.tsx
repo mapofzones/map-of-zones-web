@@ -8,7 +8,7 @@ function Header({ ...props }): JSX.Element {
     <header className={styles.container} {...props}>
       <Logo />
       <nav>
-        <NavLink to="/map">Home</NavLink>
+        <NavLink to="/home">Home</NavLink>
         <NavLink to="/zones">Zones</NavLink>
         <NavLink to="/assets">Assets</NavLink>
         <NavLink to="/about">About</NavLink>
