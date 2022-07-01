@@ -1,15 +1,25 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { Link } from 'components';
-import { EarthIcon } from 'icons';
+import { ExternalLink } from 'components';
+import { CloseIcon, EarthIcon } from 'icons';
 
 import styles from './ZoneDetails.module.scss';
 
 function ZoneDetails() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   const data = {
     logoUrl: '',
     name: 'Osmosis',
     website: 'http://osmosis',
+  };
+
+  const closeDetails = () => {
+    navigate({
+      pathname: '/map',
+      search: '?' + searchParams.toString(),
+    });
   };
 
   return (
@@ -23,10 +33,11 @@ function ZoneDetails() {
               )}
             </span>
             <span className={styles.zoneName}>{data.name}</span>
+            <CloseIcon className={styles.closeIcon} onClick={closeDetails} />
             <div className={styles.zoneWebsiteContainer}>
-              <Link Icon={EarthIcon} href={data.website!}>
+              <ExternalLink Icon={EarthIcon} href={data.website!}>
                 {data.website}
-              </Link>
+              </ExternalLink>
             </div>
           </div>
 

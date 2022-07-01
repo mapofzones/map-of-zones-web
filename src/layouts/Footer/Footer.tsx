@@ -1,5 +1,6 @@
-import { Button, Link } from '../../components';
-import { GithubLogo, TgLogo, TwitterLogo } from '../../icons';
+import { Button, ExternalLink } from 'components';
+import { GithubLogo, TgLogo, TwitterLogo } from 'icons';
+
 import styles from './Footer.module.scss';
 
 function Footer({ ...props }): JSX.Element {
@@ -19,33 +20,29 @@ function Footer({ ...props }): JSX.Element {
       </div>
       <div className={styles.externalLinksBlock}>
         {'© '}
-        <Link href="https://bitquasar.com" target="_blank" rel="noopener noreferrer">
-          Bitquasar.com
-        </Link>
+        <ExternalLink href="https://bitquasar.com">Bitquasar.com</ExternalLink>
         {' & '}
-        <Link href="https://ztake.org" target="_blank" rel="noopener noreferrer">
-          Ztake.org
-        </Link>
+        <ExternalLink href="https://ztake.org">Ztake.org</ExternalLink>
       </div>
       <div className={styles.emailLinkBlock}>
-        <Link href="mailto:support@mapofzones.com">support@mapofzones.com</Link>
+        <ExternalLink href="mailto:support@mapofzones.com">support@mapofzones.com</ExternalLink>
       </div>
       <div className={styles.socialsBlock}>
         <span>Our Socials:</span>
-        <Link
+        <ExternalLink
           href="https://github.com/mapofzones"
           className={styles.socialLink}
           Icon={GithubLogo}
         />
-        <Link href="https://t.me/MapOfZones" className={styles.socialLink} Icon={TgLogo} />
-        <Link
+        <ExternalLink href="https://t.me/MapOfZones" className={styles.socialLink} Icon={TgLogo} />
+        <ExternalLink
           href="https://twitter.com/mapofzones"
           className={styles.socialLink}
           Icon={TwitterLogo}
         />
       </div>
       <div className={styles.notListedBlock}>
-        <Link>Not listed?</Link>
+        <ExternalLink>Not listed?</ExternalLink>
       </div>
     </footer>
   );

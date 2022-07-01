@@ -1,4 +1,5 @@
 import { ReactComponent as ArrowRight } from './arrow-right.svg';
+import { ReactComponent as CloseIcon } from './close.svg';
 import { ReactComponent as EarthIcon } from './earth.svg';
 import { ReactComponent as GithubLogo } from './github-logo.svg';
 import { ReactComponent as Logo } from './logo.svg';
@@ -14,3 +15,4 @@ export { GithubLogo };
 export { EarthIcon };
 export { PendingIcon };
 export { ArrowRight };
+export { CloseIcon };
