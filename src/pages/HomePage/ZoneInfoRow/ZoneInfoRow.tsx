@@ -1,7 +1,6 @@
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
 
-import { NumberFormat } from 'components';
+import { LinkWithQuery, NumberFormat } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -9,7 +8,7 @@ import { ZonesInfoRowProps } from './ZoneInfoRow.props';
 
 function ZoneInfoRow({ data, numberType, className, ...props }: ZonesInfoRowProps): JSX.Element {
   return (
-    <Link to={`${data.id}/overview`}>
+    <LinkWithQuery to={`${data.id}/overview`}>
       <div className={cn(styles.row, className)} {...props}>
         <div className={styles.logoContainer}>
           {data.logoUrl && (
@@ -29,7 +28,7 @@ function ZoneInfoRow({ data, numberType, className, ...props }: ZonesInfoRowProp
           </span>
         )}
       </div>
-    </Link>
+    </LinkWithQuery>
   );
 }
 

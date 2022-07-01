@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { useQuery } from '@apollo/client';
-import { useSearchParams } from 'react-router-dom';
 
 import { Button } from 'components';
 import { TotalZonesInfoDocument } from 'graphql/HomePage/__generated__/TotalZonesInfo.generated';
@@ -12,6 +11,7 @@ import { ColumnKeys } from 'pages/HomePage/Types';
 import { ZonesInfoTable } from 'pages/HomePage/ZonesInfoTable/ZonesInfoTable';
 
 import { PeriodKeys, PERIODS } from './Types';
+import { useSelectedColumn } from './useSelectedColumn';
 import { useSelectedPeriod } from './useSelectedPeriod';
 import styles from './ZonesInfo.module.scss';
 

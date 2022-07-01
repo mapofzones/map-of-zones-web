@@ -7,7 +7,7 @@
     --logo-size: 60px;
 
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr auto;
     column-gap: 16px;
     margin-bottom: 22px;
 
@@ -22,6 +22,15 @@
       .logo {
         width: var(--logo-size);
         height: var(--logo-size);
+      }
+    }
+
+    .closeIcon {
+      stroke: var(--black-900);
+      cursor: pointer;
+
+      :hover {
+        stroke: var(--grey-300);
       }
     }
 
