@@ -2,7 +2,8 @@ import { useMemo } from 'react';
 
 import { useQuery } from '@apollo/client';
 
-import { Button } from 'components';
+import { Button, NumberType } from 'components';
+import { Zones_Stats_Select_Column } from 'graphql/base-types';
 import { TotalZonesInfoDocument } from 'graphql/HomePage/__generated__/TotalZonesInfo.generated';
 import { ZonesTableDataDocument } from 'graphql/HomePage/__generated__/ZonesTableData.generated';
 import { ArrowRight } from 'icons';
@@ -15,21 +16,24 @@ import { useSelectedColumn } from './useSelectedColumn';
 import { useSelectedPeriod } from './useSelectedPeriod';
 import styles from './ZonesInfo.module.scss';
 
-const metadata: Record<ColumnKeys, any> = {
+const metadata: Record<
+  ColumnKeys,
+  { title: string; numberType: NumberType; sortingColumnKey: Zones_Stats_Select_Column }
+> = {
   ibcVolume: {
     title: 'IBC Volume',
-    numberType: 'currency',
-    sortingColumnKey: 'ibc_cashflow_rating',
+    numberType: NumberType.Currency,
+    sortingColumnKey: Zones_Stats_Select_Column.IbcCashflowRating,
   },
   ibcTransfers: {
     title: 'IBC Transfers',
-    numberType: 'number',
-    sortingColumnKey: 'ibc_transfers_rating',
+    numberType: NumberType.Currency,
+    sortingColumnKey: Zones_Stats_Select_Column.TotalTxsRating,
   },
   totalTxs: {
     title: 'Total TXS',
-    numberType: 'number',
-    sortingColumnKey: 'total_txs_rating',
+    numberType: NumberType.Currency,
+    sortingColumnKey: Zones_Stats_Select_Column.TotalTxsRating,
   },
 };
 

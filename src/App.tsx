@@ -12,8 +12,8 @@ const App = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Navigate to="map" />} />
-        <Route path="map" element={<HomePage />}>
+        <Route path="/" element={<Navigate to="home" />} />
+        <Route path="home" element={<HomePage />}>
           <Route element={<Sidebar />}>
             <Route index element={<ZonesInfo />} />
             <Route path=":zone" element={<ZoneDetails />}>

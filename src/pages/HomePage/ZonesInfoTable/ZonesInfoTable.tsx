@@ -7,7 +7,7 @@ import { ColumnKeys } from '../Types';
 import styles from './ZonesInfoTable.module.scss';
 import { ZonesInfoTableProps } from './ZonesInfoTable.props';
 
-const fieldsMap: Record<ColumnKeys, any> = {
+const fieldsMap: Record<ColumnKeys, { valueKey: string; pendingValueKey?: string }> = {
   ibcVolume: {
     valueKey: 'ibcVolume',
     pendingValueKey: 'ibcVolumePending',
@@ -17,7 +17,7 @@ const fieldsMap: Record<ColumnKeys, any> = {
     pendingValueKey: 'ibcTransfersPending',
   },
   totalTxs: {
-    pendingValueKey: 'totalTxs',
+    valueKey: 'totalTxs',
   },
 };
 
@@ -38,12 +38,12 @@ function ZonesInfoTable({
           <ZoneInfoRow
             key={info.zone}
             numberType={numberType}
-            data={{
+            zone={{
               id: info.zone,
               name: info.name,
               logoUrl: info.logoUrl,
               value: info[fields.valueKey],
-              pendingValue: info[fields.pendingValueKey],
+              pendingValue: fields.pendingValueKey && info[fields.pendingValueKey],
             }}
           />
         ))}

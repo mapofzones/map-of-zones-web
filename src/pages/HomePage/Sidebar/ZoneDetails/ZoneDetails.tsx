@@ -34,7 +34,7 @@ function ZoneDetails() {
             <CloseIcon className={styles.closeIcon} onClick={closeDetails} />
             {data.website && (
               <div className={styles.zoneWebsiteContainer}>
-                <ExternalLink Icon={EarthIcon} href={data.website!}>
+                <ExternalLink Icon={EarthIcon} href={data.website}>
                   {data.website}
                 </ExternalLink>
               </div>
