@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo, useCallback } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
@@ -14,16 +14,19 @@ export function useSelectedPeriod() {
       : PeriodKeys.DAY;
   }, [period]);
 
+  const setSelectedPeriod = useCallback(
+    (value: PeriodKeys) => {
+      search.set('period', value);
+      setSearch(search);
+    },
+    [search, setSearch]
+  );
+
   useEffect(() => {
-    if (!period) {
+    if (!search.get('period')) {
       setSelectedPeriod(PeriodKeys.DAY);
     }
-  }, [search]);
-
-  const setSelectedPeriod = (value: PeriodKeys) => {
-    search.set('period', value);
-    setSearch(search);
-  };
+  }, [search, setSelectedPeriod]);
 
   return [selectedPeriod, setSelectedPeriod] as const;
 }

@@ -5,6 +5,6 @@ import { NumberType } from 'components';
 export interface ZonesInfoRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
-  data: any;
+  zone: any;
   numberType: NumberType;
 }
