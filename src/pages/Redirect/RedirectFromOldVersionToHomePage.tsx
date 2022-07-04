@@ -15,7 +15,7 @@ const periodMapping: Record<string, string> = {
 };
 
 // redirect from ?testnet=true&period=168&tableOrderBy=totalTxs&tableOrderSort=desc&zone=columbus-5
-function RedirectFromOldVersionToHomePage(): JSX.Element {
+export function RedirectFromOldVersionToHomePage(): JSX.Element {
   const [searchParams] = useSearchParams();
   const zone = searchParams.get('zone');
   const period = searchParams.get('period');
@@ -32,5 +32,3 @@ function RedirectFromOldVersionToHomePage(): JSX.Element {
   }
   return <Navigate to={`home?${newSearchParamsStr}`} />;
 }
-
-export { RedirectFromOldVersionToHomePage };

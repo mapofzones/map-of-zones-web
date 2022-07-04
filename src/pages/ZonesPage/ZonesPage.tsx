@@ -1,5 +1,3 @@
-function ZonesPage() {
+export function ZonesPage() {
   return <>Zones Page</>;
 }
-
-export default ZonesPage;

@@ -33,7 +33,7 @@ const metadata: Record<ColumnKeys, TotalInfoMetadata> = {
   },
 };
 
-function TotalInfoCard({
+export function TotalInfoCard({
   totalInfo,
   columnType,
   numberType,
@@ -68,5 +68,3 @@ function TotalInfoCard({
     </Card>
   );
 }
-
-export { TotalInfoCard };
