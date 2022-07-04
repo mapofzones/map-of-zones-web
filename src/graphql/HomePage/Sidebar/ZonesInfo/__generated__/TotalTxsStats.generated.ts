@@ -3,14 +3,14 @@
  */
 /* eslint-disable */
 
-import * as Types from '../../../base-types';
+import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type TotalTxsStatsFragment = {
-  readonly __typename?: 'zones_stats';
-  readonly totalTxs?: number | null;
-  readonly totalTxsRating: number;
-  readonly totalTxsRatingDiff: number;
+  __typename?: 'zones_stats';
+  totalTxs?: number | null;
+  totalTxsRating: number;
+  totalTxsRatingDiff: number;
 };
 
 export const TotalTxsStatsFragmentDoc = {

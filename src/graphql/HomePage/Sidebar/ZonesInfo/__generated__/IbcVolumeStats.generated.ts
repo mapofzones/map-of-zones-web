@@ -3,15 +3,15 @@
  */
 /* eslint-disable */
 
-import * as Types from '../../../base-types';
+import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type IbcVolumeStatsFragment = {
-  readonly __typename?: 'zones_stats';
-  readonly ibcVolume?: any | null;
-  readonly ibcVolumePending: any;
-  readonly ibcVolumeRating?: number | null;
-  readonly ibcVolumeRatingDiff?: number | null;
+  __typename?: 'zones_stats';
+  ibcVolume?: any | null;
+  ibcVolumePending: any;
+  ibcVolumeRating?: number | null;
+  ibcVolumeRatingDiff?: number | null;
 };
 
 export const IbcVolumeStatsFragmentDoc = {

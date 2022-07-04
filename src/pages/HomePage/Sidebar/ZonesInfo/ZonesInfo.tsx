@@ -1,19 +1,17 @@
 import { useMemo } from 'react';
 
-import { useQuery } from '@apollo/client';
-
 import { Button, NumberType } from 'components';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
-import { TotalZonesInfoDocument } from 'graphql/HomePage/__generated__/TotalZonesInfo.generated';
-import { ZonesTableDataDocument } from 'graphql/HomePage/__generated__/ZonesTableData.generated';
 import { ArrowRight } from 'icons';
-import { TotalInfoCard } from 'pages/HomePage/TotalInfoCard/TotalInfoCard';
+import { TotalInfoCard } from 'pages/HomePage/Sidebar/ZonesInfo/TotalInfoCard/TotalInfoCard';
+import { ZonesInfoTable } from 'pages/HomePage/Sidebar/ZonesInfo/ZonesInfoTable/ZonesInfoTable';
 import { ColumnKeys } from 'pages/HomePage/Types';
-import { ZonesInfoTable } from 'pages/HomePage/ZonesInfoTable/ZonesInfoTable';
 
-import { PeriodKeys, PERIODS } from './Types';
+import { PeriodKeys } from './Types';
 import { useSelectedColumn } from './useSelectedColumn';
 import { useSelectedPeriod } from './useSelectedPeriod';
+import { useTotalZonesInfo } from './useTotalZonesInfo';
+import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
 
 const metadata: Record<
@@ -43,26 +41,12 @@ function ZonesInfo() {
 
   const meta = useMemo(() => metadata[selectedColumnKey], [selectedColumnKey]);
 
-  const { data: totalInfo } = useQuery(TotalZonesInfoDocument, {
-    variables: {
-      period: PERIODS[selectedPeriod],
-      isMainnet: true,
-      withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
-      withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
-    },
-  });
-  const { data: zones } = useQuery(ZonesTableDataDocument, {
-    variables: {
-      period: PERIODS[selectedPeriod],
-      isMainnet: true,
-      orderBy: {
-        [meta.sortingColumnKey]: 'asc',
-      },
-      withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
-      withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
-      withTotalTxs: selectedColumnKey === ColumnKeys.TotalTxs,
-    },
-  });
+  const { data: totalInfo } = useTotalZonesInfo(selectedPeriod, selectedColumnKey);
+  const { data: zones } = useZonesTableData(
+    selectedPeriod,
+    selectedColumnKey,
+    meta.sortingColumnKey
+  );
 
   const onColumnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value as ColumnKeys;
@@ -76,7 +60,7 @@ function ZonesInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.blockRow}>
-        <span>{zones?.zonesTable?.length} Zones</span>
+        <span>{zones?.length} Zones</span>
         <div>Search</div>
       </div>
       <div className={styles.blockRow}>
@@ -93,7 +77,7 @@ function ZonesInfo() {
       </div>
       <div className={styles.scrollableTable}>
         <TotalInfoCard
-          totalInfo={totalInfo?.headers[0]}
+          totalInfo={totalInfo}
           columnType={selectedColumnKey}
           numberType={meta.numberType}
         />

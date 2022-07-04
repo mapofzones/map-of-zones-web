@@ -3,15 +3,15 @@
  */
 /* eslint-disable */
 
-import * as Types from '../../../base-types';
+import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type IbcTransfersStatsFragment = {
-  readonly __typename?: 'zones_stats';
-  readonly ibcTransfers: number;
-  readonly ibcTransfersPending: number;
-  readonly ibcTransfersRating?: number | null;
-  readonly ibcTransfersRatingDiff?: number | null;
+  __typename?: 'zones_stats';
+  ibcTransfers: number;
+  ibcTransfersPending: number;
+  ibcTransfersRating?: number | null;
+  ibcTransfersRatingDiff?: number | null;
 };
 
 export const IbcTransfersStatsFragmentDoc = {

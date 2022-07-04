@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
-import { ZoneOverviewDocument } from 'graphql/HomePage/ZoneDetailsSidebar/__generated__/ZoneOverview.generated';
+import { ZoneOverviewDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZoneOverview.generated';
 
 import { PERIODS } from '../../ZonesInfo/Types';
 import { useSelectedPeriod } from '../../ZonesInfo/useSelectedPeriod';

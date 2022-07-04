@@ -6,10 +6,10 @@
 import * as Types from '../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { BaseInfoFragmentDoc } from '../ZonesInfoTable/__generated__/BaseInfo.generated';
-import { IbcVolumeStatsFragmentDoc } from '../ZonesInfoTable/__generated__/IbcVolumeStats.generated';
-import { IbcTransfersStatsFragmentDoc } from '../ZonesInfoTable/__generated__/IbcTransfersStats.generated';
-import { TotalTxsStatsFragmentDoc } from '../ZonesInfoTable/__generated__/TotalTxsStats.generated';
+import { BaseInfoFragmentDoc } from '../Sidebar/ZonesInfo/__generated__/BaseInfo.generated';
+import { IbcVolumeStatsFragmentDoc } from '../Sidebar/ZonesInfo/__generated__/IbcVolumeStats.generated';
+import { IbcTransfersStatsFragmentDoc } from '../Sidebar/ZonesInfo/__generated__/IbcTransfersStats.generated';
+import { TotalTxsStatsFragmentDoc } from '../Sidebar/ZonesInfo/__generated__/TotalTxsStats.generated';
 export type ZonesTableDataQueryVariables = Types.Exact<{
   period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
@@ -20,23 +20,23 @@ export type ZonesTableDataQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesTableDataQueryResult = {
-  readonly __typename?: 'query_root';
-  readonly zonesTable: ReadonlyArray<{
-    readonly __typename?: 'zones_stats';
-    readonly zone: string;
-    readonly logoUrl?: string | null;
-    readonly name: string;
-    readonly ibcVolume?: any | null;
-    readonly ibcVolumePending: any;
-    readonly ibcVolumeRating?: number | null;
-    readonly ibcVolumeRatingDiff?: number | null;
-    readonly ibcTransfers: number;
-    readonly ibcTransfersPending: number;
-    readonly ibcTransfersRating?: number | null;
-    readonly ibcTransfersRatingDiff?: number | null;
-    readonly totalTxs?: number | null;
-    readonly totalTxsRating: number;
-    readonly totalTxsRatingDiff: number;
+  __typename?: 'query_root';
+  zonesTable: Array<{
+    __typename?: 'zones_stats';
+    zone: string;
+    logoUrl?: string | null;
+    name: string;
+    ibcVolume?: any | null;
+    ibcVolumePending: any;
+    ibcVolumeRating?: number | null;
+    ibcVolumeRatingDiff?: number | null;
+    ibcTransfers: number;
+    ibcTransfersPending: number;
+    ibcTransfersRating?: number | null;
+    ibcTransfersRatingDiff?: number | null;
+    totalTxs?: number | null;
+    totalTxsRating: number;
+    totalTxsRatingDiff: number;
   }>;
 };
 

@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 
 import cn from 'classnames';
 
-import { ZoneInfoRow } from '../index';
-import { ColumnKeys } from '../Types';
+import { ZoneInfoRow } from '../../../index';
+import { ColumnKeys } from '../../../Types';
 import styles from './ZonesInfoTable.module.scss';
 import { ZonesInfoTableProps } from './ZonesInfoTable.props';
 
@@ -33,8 +33,7 @@ function ZonesInfoTable({
   return (
     <div className={cn(styles.zonesInfoTable, className)} {...props}>
       {data &&
-        data.zonesTable &&
-        data.zonesTable.map((info: any) => (
+        data.map((info: any) => (
           <ZoneInfoRow
             key={info.zone}
             numberType={numberType}
