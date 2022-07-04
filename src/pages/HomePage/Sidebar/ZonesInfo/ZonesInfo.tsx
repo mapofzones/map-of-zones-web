@@ -35,7 +35,7 @@ const metadata: Record<
   },
 };
 
-function ZonesInfo() {
+function ZonesInfo(): JSX.Element {
   const [selectedPeriod, setSelectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
 

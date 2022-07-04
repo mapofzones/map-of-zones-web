@@ -1,0 +1,21 @@
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-size: 13px;
+    line-height: 16.3px;
+    color: var(--grey-500);
+    margin-bottom: 4px;
+
+    .questionMark {
+      margin-left: 4px;
+    }
+  }
+
+  .value {
+    font-size: 15px;
+    line-height: 18.81px;
+    color: var(--white);
+  }
+}
