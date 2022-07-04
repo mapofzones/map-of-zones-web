@@ -70,9 +70,9 @@ function ZonesInfo(): JSX.Element {
           <option value={ColumnKeys.TotalTxs}>{metadata[ColumnKeys.TotalTxs].title}</option>
         </select>
         <div className={styles.periodSelector}>
-          <Button onClick={() => onPeriodChange(PeriodKeys.DAY)}>24h</Button>
-          <Button onClick={() => onPeriodChange(PeriodKeys.WEEK)}>7d</Button>
-          <Button onClick={() => onPeriodChange(PeriodKeys.MONTH)}>30d</Button>
+          <Button onClick={() => onPeriodChange(PeriodKeys.DAY)}>{PeriodKeys.DAY}</Button>
+          <Button onClick={() => onPeriodChange(PeriodKeys.WEEK)}>{PeriodKeys.WEEK}</Button>
+          <Button onClick={() => onPeriodChange(PeriodKeys.MONTH)}>{PeriodKeys.MONTH}</Button>
         </div>
       </div>
       <div className={styles.scrollableTable}>

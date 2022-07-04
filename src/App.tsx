@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from 'layouts/Layout/Layout';
-import AboutPage from 'pages/AboutPage/AboutPage';
-import AssetsPage from 'pages/AssetsPage/AssetsPage';
+import { AboutPage } from 'pages/AboutPage/AboutPage';
+import { AssetsPage } from 'pages/AssetsPage/AssetsPage';
 import { HomePage, Sidebar, ZoneDetails, ZoneOverview, ZonesInfo } from 'pages/HomePage';
 import { RedirectFromOldVersionToHomePage } from 'pages/Redirect/RedirectFromOldVersionToHomePage';
-import ZonesPage from 'pages/ZonesPage/ZonesPage';
+import { ZonesPage } from 'pages/ZonesPage/ZonesPage';
 
 import './App.scss';
 

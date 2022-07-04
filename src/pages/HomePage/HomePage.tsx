@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import styles from './HomePage.module.scss';
 
-function HomePage() {
+export function HomePage() {
   return (
     <div className={styles.pageContainer}>
       <div>MAP</div>
@@ -10,5 +10,3 @@ function HomePage() {
     </div>
   );
 }
-
-export { HomePage };

@@ -21,7 +21,7 @@ const fieldsMap: Record<ColumnKeys, { valueKey: string; pendingValueKey?: string
   },
 };
 
-function ZonesInfoTable({
+export function ZonesInfoTable({
   data,
   columnType,
   numberType,
@@ -49,5 +49,3 @@ function ZonesInfoTable({
     </div>
   );
 }
-
-export { ZonesInfoTable };
