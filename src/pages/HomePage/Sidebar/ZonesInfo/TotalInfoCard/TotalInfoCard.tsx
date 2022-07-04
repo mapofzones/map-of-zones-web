@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Card, NumberFormat } from 'components';
 import { PendingIcon } from 'icons';
 
-import { ColumnKeys } from '../Types';
+import { ColumnKeys } from '../../../Types';
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps, TotalInfoType } from './TotalInfoCard.props';
 

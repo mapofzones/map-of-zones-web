@@ -11,13 +11,13 @@ export type ZoneDetailsQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneDetailsQueryResult = {
-  readonly __typename?: 'query_root';
-  readonly zoneDetails: ReadonlyArray<{
-    readonly __typename?: 'zones_stats';
-    readonly zone: string;
-    readonly website?: string | null;
-    readonly logoUrl?: string | null;
-    readonly name: string;
+  __typename?: 'query_root';
+  zoneDetails: Array<{
+    __typename?: 'zones_stats';
+    zone: string;
+    website?: string | null;
+    logoUrl?: string | null;
+    name: string;
   }>;
 };
 

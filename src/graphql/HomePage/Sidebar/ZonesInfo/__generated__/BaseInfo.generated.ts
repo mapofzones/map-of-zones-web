@@ -3,14 +3,14 @@
  */
 /* eslint-disable */
 
-import * as Types from '../../../base-types';
+import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type BaseInfoFragment = {
-  readonly __typename?: 'zones_stats';
-  readonly zone: string;
-  readonly logoUrl?: string | null;
-  readonly name: string;
+  __typename?: 'zones_stats';
+  zone: string;
+  logoUrl?: string | null;
+  name: string;
 };
 
 export const BaseInfoFragmentDoc = {

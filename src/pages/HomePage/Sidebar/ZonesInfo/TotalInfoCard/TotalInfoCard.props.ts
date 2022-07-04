@@ -2,7 +2,7 @@ import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 import { NumberType } from 'components';
 
-import { ColumnKeys } from './../Types';
+import { ColumnKeys } from '../../../Types';
 
 export type TotalInfoType = {
   readonly ibcVolume?: number | null;

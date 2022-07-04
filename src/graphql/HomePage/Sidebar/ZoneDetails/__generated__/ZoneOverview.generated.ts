@@ -3,7 +3,7 @@
  */
 /* eslint-disable */
 
-import * as Types from '../../../base-types';
+import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneOverviewQueryVariables = Types.Exact<{
@@ -13,20 +13,20 @@ export type ZoneOverviewQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneOverviewQueryResult = {
-  readonly __typename?: 'query_root';
-  readonly zoneOverview: ReadonlyArray<{
-    readonly __typename?: 'zones_stats';
-    readonly zone: string;
-    readonly ibcVolumeMainnet?: any | null;
-    readonly ibcVolumeInMainnet?: any | null;
-    readonly ibcVolumeOutMainnet?: any | null;
-    readonly ibcVolumeInPendingMainnet?: any | null;
-    readonly ibcVolumeOutPendingMainnet?: any | null;
-    readonly totalTxs?: number | null;
-    readonly ibcTransfers: number;
-    readonly peersCountMainnet?: number | null;
-    readonly channelsCount?: number | null;
-    readonly ibcDauMainnet?: number | null;
+  __typename?: 'query_root';
+  zoneOverview: Array<{
+    __typename?: 'zones_stats';
+    zone: string;
+    ibcVolumeMainnet?: any | null;
+    ibcVolumeInMainnet?: any | null;
+    ibcVolumeOutMainnet?: any | null;
+    ibcVolumeInPendingMainnet?: any | null;
+    ibcVolumeOutPendingMainnet?: any | null;
+    totalTxs?: number | null;
+    ibcTransfers: number;
+    peersCountMainnet?: number | null;
+    channelsCount?: number | null;
+    ibcDauMainnet?: number | null;
   }>;
 };
 

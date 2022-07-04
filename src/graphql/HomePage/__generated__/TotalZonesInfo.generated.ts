@@ -14,13 +14,13 @@ export type TotalZonesInfoQueryVariables = Types.Exact<{
 }>;
 
 export type TotalZonesInfoQueryResult = {
-  readonly __typename?: 'query_root';
-  readonly headers: ReadonlyArray<{
-    readonly __typename?: 'headers';
-    readonly ibcVolume?: any | null;
-    readonly ibcVolumePending: any;
-    readonly ibcTransfers: number;
-    readonly ibcTransfersPending: number;
+  __typename?: 'query_root';
+  headers: Array<{
+    __typename?: 'headers';
+    ibcVolume?: any | null;
+    ibcVolumePending: any;
+    ibcTransfers: number;
+    ibcTransfersPending: number;
   }>;
 };
 

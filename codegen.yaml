@@ -30,6 +30,5 @@ config:
   namingConvention: change-case-all#pascalCase
   transformUnderscore: true
   constEnums: true
-  immutableTypes: true
   preResolveTypes: true
   operationResultSuffix: 'Result'
