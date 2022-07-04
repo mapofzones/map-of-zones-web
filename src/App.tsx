@@ -1,9 +1,10 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Layout from 'layouts/Layout/Layout';
 import AboutPage from 'pages/AboutPage/AboutPage';
 import AssetsPage from 'pages/AssetsPage/AssetsPage';
 import { HomePage, Sidebar, ZoneDetails, ZoneOverview, ZonesInfo } from 'pages/HomePage';
+import { RedirectFromOldVersionToHomePage } from 'pages/Redirect/RedirectFromOldVersionToHomePage';
 import ZonesPage from 'pages/ZonesPage/ZonesPage';
 
 import './App.scss';
@@ -12,7 +13,7 @@ const App = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Navigate to="home" />} />
+        <Route path="/" element={<RedirectFromOldVersionToHomePage />} />
         <Route path="home" element={<HomePage />}>
           <Route element={<Sidebar />}>
             <Route index element={<ZonesInfo />} />
