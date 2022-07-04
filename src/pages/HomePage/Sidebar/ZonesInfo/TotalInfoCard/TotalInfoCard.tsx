@@ -6,6 +6,7 @@ import { Card, NumberFormat } from 'components';
 import { PendingIcon } from 'icons';
 
 import { ColumnKeys } from '../../../Types';
+import { useSelectedPeriod } from '../useSelectedPeriod';
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps, TotalInfoType } from './TotalInfoCard.props';
 
@@ -17,17 +18,17 @@ type TotalInfoMetadata = {
 
 const metadata: Record<ColumnKeys, TotalInfoMetadata> = {
   ibcVolume: {
-    title: 'Total IBC Volume (24h)',
+    title: 'Total IBC Volume',
     valueKey: 'ibcVolume',
     pendingValueKey: 'ibcVolumePending',
   },
   ibcTransfers: {
-    title: 'Total IBC Transfers (24h)',
+    title: 'Total IBC Transfers',
     valueKey: 'ibcTransfers',
     pendingValueKey: 'ibcTransfersPending',
   },
   totalTxs: {
-    title: 'Total Transaction (24h)',
+    title: 'Total Transaction',
     valueKey: 'ibcTransfers', // add total txs
   },
 };
@@ -39,12 +40,18 @@ function TotalInfoCard({
   className,
   ...props
 }: TotalInfoCardProps) {
+  const [selectedPeriod] = useSelectedPeriod();
+
   const meta = useMemo(() => metadata[columnType], [columnType]);
+
   return (
     <Card className={cn(styles.container, className)} {...props}>
       {totalInfo && (
         <>
-          <span className={styles.container_title}>{meta.title}</span>
+          <span className={styles.container_title}>
+            {meta.title}
+            <span> ({selectedPeriod})</span>
+          </span>
           <span className={styles.container_value}>
             <NumberFormat value={totalInfo[meta.valueKey]} numberType={numberType} />
           </span>
