@@ -30,6 +30,11 @@
       line-height: 25px;
     }
 
+    .volumeLineChart {
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
     .volumeInValue,
     .volumeOutValue {
       font-size: 15px;
@@ -48,10 +53,6 @@
       grid-area: chart;
       grid-row-start: 1;
       grid-row-end: 3;
-    }
-
-    .lineChart {
-      grid-area: lineChart;
     }
   }
 

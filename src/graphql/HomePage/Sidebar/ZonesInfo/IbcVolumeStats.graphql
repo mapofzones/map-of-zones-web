@@ -1,6 +1,6 @@
 fragment IbcVolumeStats on zones_stats {
-  ibcVolume: ibc_cashflow
-  ibcVolumePending: ibc_cashflow_pending
-  ibcVolumeRating: ibc_cashflow_rating
-  ibcVolumeRatingDiff: ibc_cashflow_rating_diff
+  ibcVolume: ibc_cashflow_mainnet
+  ibcVolumePending: ibc_cashflow_pending_mainnet
+  ibcVolumeRating: ibc_cashflow_mainnet_rating
+  ibcVolumeRatingDiff: ibc_cashflow_mainnet_rating_diff
 }

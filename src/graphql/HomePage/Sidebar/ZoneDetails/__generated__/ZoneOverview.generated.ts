@@ -20,6 +20,8 @@ export type ZoneOverviewQueryResult = {
     ibcVolumeMainnet?: any | null;
     ibcVolumeInMainnet?: any | null;
     ibcVolumeOutMainnet?: any | null;
+    ibcVolumeInPercent?: any | null;
+    ibcVolumeOutPercent?: any | null;
     ibcVolumeInPendingMainnet?: any | null;
     ibcVolumeOutPendingMainnet?: any | null;
     totalTxs?: number | null;
@@ -141,6 +143,16 @@ export const ZoneOverviewDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcVolumeOutMainnet' },
                   name: { kind: 'Name', value: 'ibc_cashflow_out_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeInPercent' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in_percent_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOutPercent' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out_percent_mainnet' },
                 },
                 {
                   kind: 'Field',

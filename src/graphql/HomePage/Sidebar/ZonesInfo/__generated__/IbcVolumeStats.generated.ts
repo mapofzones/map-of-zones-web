@@ -9,7 +9,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 export type IbcVolumeStatsFragment = {
   __typename?: 'zones_stats';
   ibcVolume?: any | null;
-  ibcVolumePending: any;
+  ibcVolumePending?: any | null;
   ibcVolumeRating?: number | null;
   ibcVolumeRatingDiff?: number | null;
 };
@@ -27,22 +27,22 @@ export const IbcVolumeStatsFragmentDoc = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'ibcVolume' },
-            name: { kind: 'Name', value: 'ibc_cashflow' },
+            name: { kind: 'Name', value: 'ibc_cashflow_mainnet' },
           },
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'ibcVolumePending' },
-            name: { kind: 'Name', value: 'ibc_cashflow_pending' },
+            name: { kind: 'Name', value: 'ibc_cashflow_pending_mainnet' },
           },
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'ibcVolumeRating' },
-            name: { kind: 'Name', value: 'ibc_cashflow_rating' },
+            name: { kind: 'Name', value: 'ibc_cashflow_mainnet_rating' },
           },
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'ibcVolumeRatingDiff' },
-            name: { kind: 'Name', value: 'ibc_cashflow_rating_diff' },
+            name: { kind: 'Name', value: 'ibc_cashflow_mainnet_rating_diff' },
           },
         ],
       },

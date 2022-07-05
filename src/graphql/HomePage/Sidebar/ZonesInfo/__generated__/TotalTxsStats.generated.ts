@@ -9,8 +9,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 export type TotalTxsStatsFragment = {
   __typename?: 'zones_stats';
   totalTxs?: number | null;
-  totalTxsRating: number;
-  totalTxsRatingDiff: number;
+  totalTxsRating?: number | null;
+  totalTxsRatingDiff?: number | null;
 };
 
 export const TotalTxsStatsFragmentDoc = {
@@ -31,12 +31,12 @@ export const TotalTxsStatsFragmentDoc = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'totalTxsRating' },
-            name: { kind: 'Name', value: 'total_txs_rating' },
+            name: { kind: 'Name', value: 'total_txs_mainnet_rating' },
           },
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'totalTxsRatingDiff' },
-            name: { kind: 'Name', value: 'total_txs_rating_diff' },
+            name: { kind: 'Name', value: 'total_txs_mainnet_rating_diff' },
           },
         ],
       },
