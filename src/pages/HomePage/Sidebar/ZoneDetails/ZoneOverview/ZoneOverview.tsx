@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { Button, Card, NumberFormat, NumberType } from 'components';
+import { Button, Card, NumberFormat, NumberType, VolumeLineChart } from 'components';
 import { ArrowRight } from 'icons';
 
 import { useSelectedPeriod } from '../../ZonesInfo/useSelectedPeriod';
@@ -10,6 +10,7 @@ import { ZoneOverviewItem } from './ZoneOverviewItem/ZoneOverviewItem';
 
 function ZoneOverview() {
   const [period] = useSelectedPeriod();
+
   const data = useZoneOverview();
 
   return (
@@ -24,9 +25,11 @@ function ZoneOverview() {
               numberType={NumberType.Currency}
             />
             <div className={styles.chart}></div>
-            <div className={styles.lineChart}>
-              <hr />
-            </div>
+            <VolumeLineChart
+              className={styles.volumeLineChart}
+              volumeInPercent={data.ibcVolumeInPercent}
+              volumeOutPercent={data.ibcVolumeOutPercent}
+            />
             <NumberFormat
               className={styles.volumeInValue}
               value={data.ibcVolumeInMainnet}

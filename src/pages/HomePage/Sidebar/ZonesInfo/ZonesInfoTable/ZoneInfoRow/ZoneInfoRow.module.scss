@@ -31,9 +31,41 @@
     }
   }
 
-  .name {
+  .zoneInfo {
     grid-area: name;
+    display: flex;
     margin-left: 12px;
+  }
+
+  .ratingDiff {
+    display: flex;
+    color: var(--green);
+    align-items: center;
+    margin-left: 4px;
+
+    &.negative {
+      color: var(--red);
+    }
+
+    .triangle {
+      margin-right: 2px;
+    }
+
+    .triangleUp {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 8px solid var(--green);
+    }
+
+    .triangleDown {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 8px solid var(--red);
+    }
   }
 
   .value {

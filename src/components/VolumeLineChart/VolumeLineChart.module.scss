@@ -1,0 +1,26 @@
+.chartContainer {
+  grid-area: lineChart;
+  display: flex;
+
+  .volumeIn {
+    &Title {
+      color: var(--blue);
+    }
+
+    &Line {
+      margin-left: 4px;
+      border-color: var(--blue);
+    }
+  }
+
+  .volumeOut {
+    &Title {
+      color: var(--pink);
+    }
+
+    &Line {
+      margin-right: 4px;
+      border-color: var(--pink);
+    }
+  }
+}

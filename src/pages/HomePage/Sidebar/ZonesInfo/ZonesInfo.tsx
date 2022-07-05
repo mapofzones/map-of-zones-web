@@ -21,17 +21,17 @@ const metadata: Record<
   ibcVolume: {
     title: 'IBC Volume',
     numberType: NumberType.Currency,
-    sortingColumnKey: Zones_Stats_Select_Column.IbcCashflowRating,
+    sortingColumnKey: Zones_Stats_Select_Column.IbcCashflowMainnetRating,
   },
   ibcTransfers: {
     title: 'IBC Transfers',
-    numberType: NumberType.Currency,
-    sortingColumnKey: Zones_Stats_Select_Column.TotalTxsRating,
+    numberType: NumberType.Number,
+    sortingColumnKey: Zones_Stats_Select_Column.IbcTransfersMainnetRating,
   },
   totalTxs: {
     title: 'Total TXS',
-    numberType: NumberType.Currency,
-    sortingColumnKey: Zones_Stats_Select_Column.TotalTxsRating,
+    numberType: NumberType.Number,
+    sortingColumnKey: Zones_Stats_Select_Column.TotalTxsMainnetRating,
   },
 };
 
@@ -77,6 +77,7 @@ function ZonesInfo(): JSX.Element {
       </div>
       <div className={styles.scrollableTable}>
         <TotalInfoCard
+          className={styles.totalInfo}
           totalInfo={totalInfo}
           columnType={selectedColumnKey}
           numberType={meta.numberType}

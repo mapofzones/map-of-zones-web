@@ -27,16 +27,16 @@ export type ZonesTableDataQueryResult = {
     logoUrl?: string | null;
     name: string;
     ibcVolume?: any | null;
-    ibcVolumePending: any;
+    ibcVolumePending?: any | null;
     ibcVolumeRating?: number | null;
     ibcVolumeRatingDiff?: number | null;
-    ibcTransfers: number;
-    ibcTransfersPending: number;
+    ibcTransfers?: number | null;
+    ibcTransfersPending?: number | null;
     ibcTransfersRating?: number | null;
     ibcTransfersRatingDiff?: number | null;
     totalTxs?: number | null;
-    totalTxsRating: number;
-    totalTxsRatingDiff: number;
+    totalTxsRating?: number | null;
+    totalTxsRatingDiff?: number | null;
   }>;
 };
 
