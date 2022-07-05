@@ -51,9 +51,9 @@ export function ZonesInfoTable({
               id: zone.zone,
               name: zone.name,
               logoUrl: zone.logoUrl,
-              ratingDiff: zone[fields.ratingDiffKey],
-              value: zone[fields.valueKey],
-              pendingValue: fields.pendingValueKey && zone[fields.pendingValueKey],
+              ratingDiff: zone[fields.ratingDiffKey] as number,
+              value: zone[fields.valueKey] as number,
+              pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as number),
             }}
           />
         ))}

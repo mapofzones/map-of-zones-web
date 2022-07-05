@@ -9,17 +9,21 @@ import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
 
 function ZoneInfoRow({ zone, numberType, className, ...props }: ZonesInfoRowProps): JSX.Element {
-  const ratingDiffAbs = useMemo(() => Math.abs(zone.ratingDiff), [zone]);
+  const ratingDiffAbs = useMemo(
+    () => (zone && zone.ratingDiff ? Math.abs(zone.ratingDiff) : undefined),
+    [zone]
+  );
 
   return (
     <LinkWithQuery to={`${zone.id}/overview`}>
       <div className={cn(styles.row, className)} {...props}>
-        <div className={styles.logoContainer}>
-          {zone.logoUrl && (
-            <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
-          )}
-        </div>
-        <span className={styles.zoneInfo}>
+        <div className={styles.zoneBaseInfoContainer}>
+          {/* TODO: separate component */}
+          <div className={styles.logoContainer}>
+            {zone.logoUrl && (
+              <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
+            )}
+          </div>
           {zone.name}
           {!!zone.ratingDiff && (
             <div className={cn(styles.ratingDiff, { [styles.negative]: zone.ratingDiff < 0 })}>
@@ -32,18 +36,24 @@ function ZoneInfoRow({ zone, numberType, className, ...props }: ZonesInfoRowProp
               <div>{ratingDiffAbs}</div>
             </div>
           )}
-        </span>
-        <span className={cn(styles.value, 'text-align')}>
-          <NumberFormat value={zone.value} numberType={numberType} />
-        </span>
-        {zone.pendingValue != null && (
-          <span className={cn(styles.pendingValueContainer, 'text-align')}>
-            <PendingIcon />
-            <span className={styles.pendingValue}>
-              <NumberFormat value={zone.pendingValue} numberType={numberType} />
+        </div>
+
+        {/* TODO: separate component */}
+        <div className={styles.valueContainer}>
+          <NumberFormat
+            className={cn(styles.value, 'text-align')}
+            value={zone.value}
+            numberType={numberType}
+          />
+          {zone.pendingValue != null && (
+            <span className={cn(styles.pendingValueContainer, 'text-align')}>
+              <PendingIcon />
+              <span className={styles.pendingValue}>
+                <NumberFormat value={zone.pendingValue} numberType={numberType} />
+              </span>
             </span>
-          </span>
-        )}
+          )}
+        </div>
       </div>
     </LinkWithQuery>
   );

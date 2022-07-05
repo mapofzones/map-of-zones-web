@@ -1,10 +1,5 @@
 .row {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    'logo name value'
-    'logo name pending';
+  display: flex;
   row-gap: 2px;
   padding: 7px 16px;
   margin: 0 -16px;
@@ -14,27 +9,27 @@
   height: 50px;
   cursor: pointer;
 
+  .zoneBaseInfoContainer {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+  }
+
   &:hover {
     background-color: var(--black-600);
   }
 
   .logoContainer {
-    grid-area: logo;
     width: 32px;
     height: 32px;
     border-radius: 50%;
     background-color: var(--grey-500);
+    margin-right: 12px;
 
     .logo {
       width: 32px;
       height: 32px;
     }
-  }
-
-  .zoneInfo {
-    grid-area: name;
-    display: flex;
-    margin-left: 12px;
   }
 
   .ratingDiff {
@@ -68,20 +63,24 @@
     }
   }
 
-  .value {
-    grid-area: value;
-    text-align: right;
-  }
+  .valueContainer {
+    display: flex;
+    flex-direction: column;
 
-  .pendingValueContainer {
-    grid-area: pending;
-    font-size: 12px;
-    line-height: 15.05px;
-    color: var(--grey-500);
-    text-align: right;
+    .value {
+      text-align: right;
+    }
 
-    .pendingValue {
-      margin-left: 3px;
+    .pendingValueContainer {
+      font-size: 12px;
+      line-height: 15.05px;
+      margin-top: 2px;
+      color: var(--grey-500);
+      text-align: right;
+
+      .pendingValue {
+        margin-left: 3px;
+      }
     }
   }
 }
