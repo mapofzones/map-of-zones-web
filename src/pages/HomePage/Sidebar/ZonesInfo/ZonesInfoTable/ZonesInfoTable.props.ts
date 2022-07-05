@@ -16,8 +16,8 @@ export interface ZonesTableDataQueryItem {
   zone: string;
   logoUrl?: string | null;
   name: string;
-  ibcVolume?: any | null;
-  ibcVolumePending?: any | null;
+  ibcVolume?: number | null;
+  ibcVolumePending?: number | null;
   ibcVolumeRating?: number | null;
   ibcVolumeRatingDiff?: number | null;
   ibcTransfers?: number | null;
