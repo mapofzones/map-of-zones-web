@@ -8,13 +8,14 @@ export function NumberFormat({
   className,
   ...props
 }: NumberFormatProps) {
-  const prefix = numberType === 'currency' ? '$' : '';
+  const prefix = numberType === NumberType.Currency ? '$' : '';
+  const thousandSeparator = numberType === NumberType.Currency ? ',' : ' ';
 
   return (
     <Format
       className={className}
       displayType={'text'}
-      thousandSeparator={true}
+      thousandSeparator={thousandSeparator}
       prefix={prefix}
       {...props}
     />
