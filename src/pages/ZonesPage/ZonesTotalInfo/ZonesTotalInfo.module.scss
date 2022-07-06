@@ -1,0 +1,134 @@
+.container {
+  display: grid;
+  margin: 12px 16px;
+  grid-template-columns: 1.8fr 1fr 1fr 1.8fr 1.8fr;
+
+  .itemContainer {
+    background-color: var(--black-400);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 0 8px;
+
+    &_title {
+      display: block;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--grey-500);  
+    }
+    
+    &_value {
+      display: block;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--white);
+      margin-top: 4px;
+    }
+
+    &_pendingValueContainer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
+    
+    &_pendingValue {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 15px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--grey-500);
+    }
+
+    &_pendingIcon {
+      margin-right: 3px;
+    }
+
+    &_divider {
+      height: 100%;
+      width: 1px;
+      background-color: var(--black-900);
+      margin: 0 12px;
+    }
+  }
+
+  .doubleItemContainer {
+    display: flex;
+
+    &_value {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+
+  .topItemContainer {
+    display: flex;
+    justify-content: space-between;
+
+    &_pendingValueContainer {
+      margin-top: 4px;
+      justify-content: flex-end;
+    }
+
+    &_total {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 16px;
+      text-align: right;
+      color: var(--green);
+    }
+
+    &_zonesContainer {
+      margin-top: 2px;
+      position: relative;
+    }
+
+    &_zoneContainer {
+      display: flex;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    &_sourceCircle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--pink);
+    }
+
+    &_targetCircle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--blue);
+    }
+
+    &_volumeTargetCircle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--white);
+    }
+
+    &_zoneText {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      color: var(--white);
+      margin-left: 8px;
+    }
+
+    &_divider {
+      width: 1px;
+      height: 10px;
+      background-color: var(--grey-500);
+      position: absolute;
+      left: 3.5px;
+      bottom: 15px;
+    }
+  }
+}
