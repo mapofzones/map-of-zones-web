@@ -1,9 +1,9 @@
 import cn from 'classnames';
 
 import { Button, Card, NumberFormat, NumberType, VolumeLineChart } from 'components';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 
-import { useSelectedPeriod } from '../../ZonesInfo/useSelectedPeriod';
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewItem } from './ZoneOverviewItem/ZoneOverviewItem';

@@ -3,10 +3,10 @@ import { useMemo } from 'react';
 import cn from 'classnames';
 
 import { Card, NumberFormat } from 'components';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { PendingIcon } from 'icons';
 
 import { ColumnKeys } from '../../../Types';
-import { useSelectedPeriod } from '../useSelectedPeriod';
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps, TotalInfoType } from './TotalInfoCard.props';
 

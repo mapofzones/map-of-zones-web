@@ -2,7 +2,7 @@ import { useEffect, useMemo, useCallback } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
-import { PeriodKeys } from './Types';
+import { PeriodKeys } from 'pages/HomePage/Sidebar/ZonesInfo/Types';
 
 export function useSelectedPeriod() {
   const [search, setSearch] = useSearchParams();

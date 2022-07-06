@@ -1,0 +1,33 @@
+.periodSelector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 160px;
+  height: 32px;
+  background-color: var(--black-600);
+  padding: 2px;
+  border-radius: 5px;
+  align-items: center;
+  cursor: pointer;
+  grid-gap: 2px;
+  font-size: 15px;
+  line-height: 19px;
+  color: var(--grey-500);
+
+  .item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: var(--black-700);
+      color: var(--grey-800);
+    }
+
+    &.active {
+      background-color: var(--grey-100);
+      color: var(--white);
+    }
+  }
+}

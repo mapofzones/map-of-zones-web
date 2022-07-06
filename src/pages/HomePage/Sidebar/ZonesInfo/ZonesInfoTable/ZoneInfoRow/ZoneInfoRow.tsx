@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import cn from 'classnames';
 
 import { LinkWithQuery, NumberFormat } from 'components';
@@ -9,16 +7,11 @@ import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
 
 function ZoneInfoRow({ zone, numberType, className, ...props }: ZonesInfoRowProps): JSX.Element {
-  const ratingDiffAbs = useMemo(
-    () => (zone && zone.ratingDiff ? Math.abs(zone.ratingDiff) : undefined),
-    [zone]
-  );
-
   return (
     <LinkWithQuery to={`${zone.id}/overview`}>
       <div className={cn(styles.row, className)} {...props}>
+        {/* TODO: separate component */}
         <div className={styles.zoneBaseInfoContainer}>
-          {/* TODO: separate component */}
           <div className={styles.logoContainer}>
             {zone.logoUrl && (
               <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
@@ -33,7 +26,7 @@ function ZoneInfoRow({ zone, numberType, className, ...props }: ZonesInfoRowProp
                   [styles.triangleDown]: zone.ratingDiff < 0,
                 })}
               />
-              <div>{ratingDiffAbs}</div>
+              {Math.abs(zone.ratingDiff)}
             </div>
           )}
         </div>

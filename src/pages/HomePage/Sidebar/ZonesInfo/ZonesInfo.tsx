@@ -1,15 +1,14 @@
 import { useMemo } from 'react';
 
-import { Button, NumberType } from 'components';
+import { Button, NumberType, PeriodSelector } from 'components';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { TotalInfoCard } from 'pages/HomePage/Sidebar/ZonesInfo/TotalInfoCard/TotalInfoCard';
 import { ZonesInfoTable } from 'pages/HomePage/Sidebar/ZonesInfo/ZonesInfoTable/ZonesInfoTable';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-import { PeriodKeys } from './Types';
 import { useSelectedColumn } from './useSelectedColumn';
-import { useSelectedPeriod } from './useSelectedPeriod';
 import { useTotalZonesInfo } from './useTotalZonesInfo';
 import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
@@ -36,7 +35,7 @@ const metadata: Record<
 };
 
 function ZonesInfo(): JSX.Element {
-  const [selectedPeriod, setSelectedPeriod] = useSelectedPeriod();
+  const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
 
   const meta = useMemo(() => metadata[selectedColumnKey], [selectedColumnKey]);
@@ -53,10 +52,6 @@ function ZonesInfo(): JSX.Element {
     setSelectedColumnKey(value);
   };
 
-  const onPeriodChange = (period: PeriodKeys) => {
-    setSelectedPeriod(period);
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.blockRow}>
@@ -69,11 +64,7 @@ function ZonesInfo(): JSX.Element {
           <option value={ColumnKeys.IbcTransfers}>{metadata[ColumnKeys.IbcTransfers].title}</option>
           <option value={ColumnKeys.TotalTxs}>{metadata[ColumnKeys.TotalTxs].title}</option>
         </select>
-        <div className={styles.periodSelector}>
-          <Button onClick={() => onPeriodChange(PeriodKeys.DAY)}>{PeriodKeys.DAY}</Button>
-          <Button onClick={() => onPeriodChange(PeriodKeys.WEEK)}>{PeriodKeys.WEEK}</Button>
-          <Button onClick={() => onPeriodChange(PeriodKeys.MONTH)}>{PeriodKeys.MONTH}</Button>
-        </div>
+        <PeriodSelector />
       </div>
       <div className={styles.scrollableTable}>
         <TotalInfoCard
