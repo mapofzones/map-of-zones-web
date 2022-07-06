@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 
 import { ZoneOverviewDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZoneOverview.generated';
 
+import { useSelectedPeriod } from '../../../../../hooks/useSelectedPeriod';
 import { PERIODS } from '../../ZonesInfo/Types';
-import { useSelectedPeriod } from '../../ZonesInfo/useSelectedPeriod';
 
 export const useZoneOverview = () => {
   const { zone = '' } = useParams();
