@@ -1,11 +1,11 @@
-import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export interface DropdownProps<T>
+import { DropdownOption } from 'components/Dropdown/DropdownOption';
+
+export interface DropdownProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   initialSelectedKey: string;
-  options: T[];
-  keyExtractor: (option: T) => string;
-  titleExtractor?: (option: T) => ReactNode;
+  options: DropdownOption[];
   className?: string;
-  onOptionSelected?: (option: string) => void;
+  onOptionSelected?: (option: DropdownOption) => void;
 }

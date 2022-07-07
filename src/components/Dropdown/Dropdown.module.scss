@@ -10,7 +10,7 @@
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+                      supported by Chrome, Edge, Opera and Firefox */
 
   .dropDownHeader {
     display: flex;
@@ -25,6 +25,7 @@
     }
 
     &.active {
+      color: var(--grey-800);
       background-color: var(--black-700);
     }
 
@@ -50,55 +51,60 @@
     margin-top: 10px;
     border-radius: 5px;
     color: var(--grey-500);
-  }
 
-  .listItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
-    margin: 0;
-    padding: 12px;
-    background: var(--black-700);
-    padding: 0 12px;
-
-    .itemTitle {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 12px 0;
-      width: 100%;
-    }
-
-    &:not(:last-of-type) {
-      .itemTitle {
-        border-bottom: 1px solid var(--black-900);
-      }
-    }
-
-    .tickIcon {
-      display: none;
-      margin-left: 4px;
-    }
-
-    &:first-child {
-      border-radius: 5px 5px 0 0;
-    }
-
-    &:last-child {
-      border-radius: 0 0 5px 5px;
-    }
-
-    &:hover {
-      background-color: var(--black-700);
-      color: var(--grey-800);
-    }
-
-    &.active {
-      background-color: var(--black-900);
+    .listItem {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+      margin: 0;
+      padding: 12px;
+      background: var(--black-700);
+      padding: 0 12px;
 
       .tickIcon {
-        display: block;
+        display: none;
+        margin-left: 4px;
+        stroke: var(--grey-500);
+      }
+
+      .itemTitle {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 12px 0;
+        width: 100%;
+      }
+
+      &:not(:last-of-type) {
+        .itemTitle {
+          border-bottom: 1px solid var(--black-900);
+        }
+      }
+
+      &:first-child {
+        border-radius: 5px 5px 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 5px 5px;
+      }
+
+      &:hover {
+        background-color: var(--black-900);
+        color: var(--grey-800);
+      }
+
+      &.active {
+        .tickIcon {
+          display: block;
+        }
+
+        &:hover {
+          .tickIcon {
+            stroke: var(--grey-800);
+          }
+        }
       }
     }
   }

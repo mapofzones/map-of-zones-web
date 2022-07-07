@@ -1,80 +1,34 @@
 import { useMemo } from 'react';
 
-import { Button, Dropdown, NumberType, PeriodSelector } from 'components';
+import { Button, Dropdown, PeriodSelector } from 'components';
 import { DropdownOption } from 'components/Dropdown/DropdownOption';
-import { Zones_Stats_Select_Column } from 'graphql/base-types';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
-import { TotalInfoCard } from 'pages/HomePage/Sidebar/ZonesInfo/TotalInfoCard/TotalInfoCard';
-import { ZonesInfoTable } from 'pages/HomePage/Sidebar/ZonesInfo/ZonesInfoTable/ZonesInfoTable';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
+import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
+import { COLUMN_OPTIONS, METADATA } from './Types';
 import { useSelectedColumn } from './useSelectedColumn';
 import { useTotalZonesInfo } from './useTotalZonesInfo';
 import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
-
-const metadata: Record<
-  ColumnKeys,
-  {
-    key: ColumnKeys;
-    title: string;
-    numberType: NumberType;
-    sortingColumnKey: Zones_Stats_Select_Column;
-  }
-> = {
-  [ColumnKeys.IbcVolume]: {
-    key: ColumnKeys.IbcVolume,
-    title: 'IBC Volume',
-    numberType: NumberType.Currency,
-    sortingColumnKey: Zones_Stats_Select_Column.IbcCashflowMainnetRating,
-  },
-  [ColumnKeys.IbcTransfers]: {
-    key: ColumnKeys.IbcTransfers,
-    title: 'IBC Transfers',
-    numberType: NumberType.Number,
-    sortingColumnKey: Zones_Stats_Select_Column.IbcTransfersMainnetRating,
-  },
-  [ColumnKeys.TotalTxs]: {
-    key: ColumnKeys.TotalTxs,
-    title: 'Total TXS',
-    numberType: NumberType.Number,
-    sortingColumnKey: Zones_Stats_Select_Column.TotalTxsMainnetRating,
-  },
-};
-
-const dropdownOptions = [
-  {
-    key: ColumnKeys.IbcVolume,
-    title: 'IBC Volume',
-  },
-  {
-    key: ColumnKeys.IbcTransfers,
-    title: 'IBC Transfers',
-  },
-  {
-    key: ColumnKeys.TotalTxs,
-    title: 'Total TXS',
-  },
-]
+import { ZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
 
 function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
 
-  const meta = useMemo(() => metadata[selectedColumnKey], [selectedColumnKey]);
+  const metadata = useMemo(() => METADATA[selectedColumnKey], [selectedColumnKey]);
 
   const { data: totalInfo } = useTotalZonesInfo(selectedPeriod, selectedColumnKey);
   const { data: zones } = useZonesTableData(
     selectedPeriod,
     selectedColumnKey,
-    meta.sortingColumnKey
+    metadata.sortingColumnKey
   );
 
-  const keyExtractor = (option: ) => option.key;
-
-  const onColumnChange = (option: ColumnKeys) => {
-    setSelectedColumnKey(option);
+  const onColumnChange = (option: DropdownOption) => {
+    setSelectedColumnKey(option.key as ColumnKeys);
   };
 
   return (
@@ -86,10 +40,8 @@ function ZonesInfo(): JSX.Element {
       <div className={styles.blockRow}>
         <Dropdown
           className={styles.columnDropdown}
-          options={Object.values(metadata).map((data) => ({ key: data.key, title: data.title }))}
+          options={COLUMN_OPTIONS}
           initialSelectedKey={selectedColumnKey}
-          keyExtractor={keyExtractor}
-          titleExtractor={(option) => option?.title}
           onOptionSelected={onColumnChange}
         />
         <PeriodSelector />
@@ -99,9 +51,13 @@ function ZonesInfo(): JSX.Element {
           className={styles.totalInfo}
           totalInfo={totalInfo}
           columnType={selectedColumnKey}
-          numberType={meta.numberType}
+          numberType={metadata.numberType}
         />
-        <ZonesInfoTable data={zones} columnType={selectedColumnKey} numberType={meta.numberType} />
+        <ZonesInfoTable
+          data={zones}
+          columnType={selectedColumnKey}
+          numberType={metadata.numberType}
+        />
       </div>
       <Button className={styles.detailedBtn}>
         <span className={styles.btnText}>Detailed View</span>
