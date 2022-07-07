@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { Button, NumberType, PeriodSelector } from 'components';
+import { Button, Dropdown, NumberType, PeriodSelector } from 'components';
+import { DropdownOption } from 'components/Dropdown/DropdownOption';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
@@ -15,24 +16,47 @@ import styles from './ZonesInfo.module.scss';
 
 const metadata: Record<
   ColumnKeys,
-  { title: string; numberType: NumberType; sortingColumnKey: Zones_Stats_Select_Column }
+  {
+    key: ColumnKeys;
+    title: string;
+    numberType: NumberType;
+    sortingColumnKey: Zones_Stats_Select_Column;
+  }
 > = {
-  ibcVolume: {
+  [ColumnKeys.IbcVolume]: {
+    key: ColumnKeys.IbcVolume,
     title: 'IBC Volume',
     numberType: NumberType.Currency,
     sortingColumnKey: Zones_Stats_Select_Column.IbcCashflowMainnetRating,
   },
-  ibcTransfers: {
+  [ColumnKeys.IbcTransfers]: {
+    key: ColumnKeys.IbcTransfers,
     title: 'IBC Transfers',
     numberType: NumberType.Number,
     sortingColumnKey: Zones_Stats_Select_Column.IbcTransfersMainnetRating,
   },
-  totalTxs: {
+  [ColumnKeys.TotalTxs]: {
+    key: ColumnKeys.TotalTxs,
     title: 'Total TXS',
     numberType: NumberType.Number,
     sortingColumnKey: Zones_Stats_Select_Column.TotalTxsMainnetRating,
   },
 };
+
+const dropdownOptions = [
+  {
+    key: ColumnKeys.IbcVolume,
+    title: 'IBC Volume',
+  },
+  {
+    key: ColumnKeys.IbcTransfers,
+    title: 'IBC Transfers',
+  },
+  {
+    key: ColumnKeys.TotalTxs,
+    title: 'Total TXS',
+  },
+]
 
 function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
@@ -47,9 +71,10 @@ function ZonesInfo(): JSX.Element {
     meta.sortingColumnKey
   );
 
-  const onColumnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value as ColumnKeys;
-    setSelectedColumnKey(value);
+  const keyExtractor = (option: ) => option.key;
+
+  const onColumnChange = (option: ColumnKeys) => {
+    setSelectedColumnKey(option);
   };
 
   return (
@@ -59,11 +84,14 @@ function ZonesInfo(): JSX.Element {
         <div>Search</div>
       </div>
       <div className={styles.blockRow}>
-        <select value={selectedColumnKey} onChange={onColumnChange}>
-          <option value={ColumnKeys.IbcVolume}>{metadata[ColumnKeys.IbcVolume].title}</option>
-          <option value={ColumnKeys.IbcTransfers}>{metadata[ColumnKeys.IbcTransfers].title}</option>
-          <option value={ColumnKeys.TotalTxs}>{metadata[ColumnKeys.TotalTxs].title}</option>
-        </select>
+        <Dropdown
+          className={styles.columnDropdown}
+          options={Object.values(metadata).map((data) => ({ key: data.key, title: data.title }))}
+          initialSelectedKey={selectedColumnKey}
+          keyExtractor={keyExtractor}
+          titleExtractor={(option) => option?.title}
+          onOptionSelected={onColumnChange}
+        />
         <PeriodSelector />
       </div>
       <div className={styles.scrollableTable}>
