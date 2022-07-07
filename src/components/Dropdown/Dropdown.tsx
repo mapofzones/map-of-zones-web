@@ -2,59 +2,57 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
+import { useComponentVisible } from 'hooks/useComponentVisible';
 import { ArrowDown, ArrowUp, TickIcon } from 'icons';
 
 import styles from './Dropdown.module.scss';
 import { DropdownProps } from './Dropdown.props';
+import { DropdownOption } from './DropdownOption';
 
-function Dropdown<T>({
+function Dropdown({
   initialSelectedKey,
   options,
   onOptionSelected,
-  keyExtractor,
-  titleExtractor,
   className,
   ...props
-}: DropdownProps<T>) {
-  const [isOpen, setIsOpen] = useState(false);
+}: DropdownProps) {
+  const { ref, isVisible, setIsVisible } = useComponentVisible<HTMLDivElement>(false);
 
-  const [selectedOption, setSelectedOption] = useState<T>(
-    options.find((v) => keyExtractor(v) === initialSelectedKey) ?? options[0]
+  const [selectedOption, setSelectedOption] = useState<DropdownOption>(
+    options.find((v) => v.key === initialSelectedKey) ?? options[0]
   );
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = () => setIsVisible(!isVisible);
 
-  const onOptionClicked = (option: T) => () => {
+  const getTitle = (option: DropdownOption) => option?.title ?? option?.key;
+
+  const onOptionClicked = (option: DropdownOption) => () => {
+    onOptionSelected?.(option);
     setSelectedOption(option);
-    onOptionSelected?.(keyExtractor(option));
-    setIsOpen(false);
+    setIsVisible(false);
   };
 
   return (
-    <div className={cn(styles.dropDownContainer, className)} {...props}>
-      <div className={cn(styles.dropDownHeader, { [styles.active]: isOpen })} onClick={toggle}>
-        <div className={styles.itemTitle}>
-          {titleExtractor?.(selectedOption) || keyExtractor(selectedOption)}
-        </div>
-        {isOpen ? (
+    <div ref={ref} className={cn(styles.dropDownContainer, className)} {...props}>
+      <div className={cn(styles.dropDownHeader, { [styles.active]: isVisible })} onClick={toggle}>
+        <div className={styles.itemTitle}>{getTitle(selectedOption)}</div>
+        {isVisible ? (
           <ArrowUp className={styles.arrowIcon} />
         ) : (
           <ArrowDown className={styles.arrowIcon} />
         )}
       </div>
-      {isOpen && (
+      {isVisible && (
         <ul className={styles.dropDownList}>
-          {options.map((option: T) => (
+          {options.map((option: DropdownOption) => (
             <li
               onClick={onOptionClicked(option)}
-              key={keyExtractor(option)}
+              key={option.key}
               className={cn(styles.listItem, {
-                [styles.active]: keyExtractor(option) === keyExtractor(selectedOption),
+                [styles.active]: option.key === selectedOption.key,
               })}
             >
-              <div className={styles.itemTitle}>
-                {titleExtractor?.(option) || keyExtractor(option)}
-              </div>
+              <div className={styles.itemTitle}>{getTitle(option)}</div>
               <TickIcon className={styles.tickIcon} />
             </li>
           ))}
