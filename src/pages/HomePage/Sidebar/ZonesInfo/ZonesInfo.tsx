@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 
 import { Button, Dropdown, PeriodSelector } from 'components';
 import { DropdownOption } from 'components/Dropdown/DropdownOption';
@@ -14,9 +14,28 @@ import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
 import { ZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
 
+function Search({ onChange }: any): JSX.Element {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
+    onChange?.(event.target.value);
+  };
+
+  return (
+    <div>
+      <input
+        type="search"
+        className={styles.searchInput}
+        placeholder={'Search'}
+        onChange={handleChange}
+      />
+    </div>
+  );
+}
+
 function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
+  const [searchValue, setSearchValue] = useState('');
 
   const metadata = useMemo(() => METADATA[selectedColumnKey], [selectedColumnKey]);
 
@@ -27,15 +46,25 @@ function ZonesInfo(): JSX.Element {
     metadata.sortingColumnKey
   );
 
+  const filteredZones = useMemo(
+    () => zones.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase())),
+    [zones, searchValue]
+  );
+
   const onColumnChange = (option: DropdownOption) => {
     setSelectedColumnKey(option.key as ColumnKeys);
+  };
+
+  const onSearchChange = (value: string) => {
+    setSearchValue(value);
+    console.log('on search', value);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.blockRow}>
         <span>{zones?.length} Zones</span>
-        <div>Search</div>
+        <Search onChange={onSearchChange} />
       </div>
       <div className={styles.blockRow}>
         <Dropdown
@@ -54,7 +83,7 @@ function ZonesInfo(): JSX.Element {
           numberType={metadata.numberType}
         />
         <ZonesInfoTable
-          data={zones}
+          data={filteredZones}
           columnType={selectedColumnKey}
           numberType={metadata.numberType}
         />
