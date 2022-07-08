@@ -1,6 +1,6 @@
-import { ChangeEvent, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import { Button, Dropdown, PeriodSelector } from 'components';
+import { Button, Dropdown, PeriodSelector, Search } from 'components';
 import { DropdownOption } from 'components/Dropdown/DropdownOption';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
@@ -13,24 +13,6 @@ import { useTotalZonesInfo } from './useTotalZonesInfo';
 import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
 import { ZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
-
-function Search({ onChange }: any): JSX.Element {
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    onChange?.(event.target.value);
-  };
-
-  return (
-    <div>
-      <input
-        type="search"
-        className={styles.searchInput}
-        placeholder={'Search'}
-        onChange={handleChange}
-      />
-    </div>
-  );
-}
 
 function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
@@ -47,7 +29,10 @@ function ZonesInfo(): JSX.Element {
   );
 
   const filteredZones = useMemo(
-    () => zones.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase())),
+    () =>
+      searchValue
+        ? zones.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase()))
+        : zones,
     [zones, searchValue]
   );
 
@@ -57,14 +42,17 @@ function ZonesInfo(): JSX.Element {
 
   const onSearchChange = (value: string) => {
     setSearchValue(value);
-    console.log('on search', value);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.blockRow}>
         <span>{zones?.length} Zones</span>
-        <Search onChange={onSearchChange} />
+        <Search
+          className={styles.search}
+          initialValue={searchValue}
+          onSearchChange={onSearchChange}
+        />
       </div>
       <div className={styles.blockRow}>
         <Dropdown
