@@ -10,6 +10,7 @@ import { ReactComponent as QuestionMark } from './question-mark.svg';
 import { ReactComponent as TgLogo } from './tg-logo.svg';
 import { ReactComponent as TickIcon } from './tick.svg';
 import { ReactComponent as TwitterLogo } from './twitter-logo.svg';
+export { ReactComponent as SearchIcon } from './search.svg';
 
 export { Logo };
 export { TgLogo };

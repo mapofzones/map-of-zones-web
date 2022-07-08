@@ -14,5 +14,9 @@ export { PeriodSelector } from './PeriodSelector/PeriodSelector';
 
 export { Dropdown } from './Dropdown/Dropdown';
 
+export { Input } from './Input/Input';
+
+export { Search } from './Search/Search';
+
 // export types
 export { NumberType } from './NumberFormat/NumberType';
