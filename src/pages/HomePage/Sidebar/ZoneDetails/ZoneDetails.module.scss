@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     column-gap: 16px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 
     .logoContainer {
       grid-row-start: 1;
@@ -43,6 +43,12 @@
       font-size: 13px;
       line-height: 16px;
       color: var(--grey-500);
+    }
+
+    .pagesSwitcher {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      margin-top: 20px;
     }
   }
 }
