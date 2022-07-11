@@ -1,0 +1,9 @@
+.container {
+  &.vertical {
+    overflow-y: auto;
+  }
+
+  &.horizontal {
+    overflow-x: auto;
+  }
+}
