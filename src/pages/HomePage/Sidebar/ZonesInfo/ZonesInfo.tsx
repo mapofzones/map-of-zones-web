@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import { Button, Dropdown, PeriodSelector, Search } from 'components';
+import { Button, Dropdown, PeriodSelector, ScrollableContainer, Search } from 'components';
 import { DropdownOption } from 'components/Dropdown/DropdownOption';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
@@ -63,7 +63,7 @@ function ZonesInfo(): JSX.Element {
         />
         <PeriodSelector />
       </div>
-      <div className={styles.scrollableTable}>
+      <ScrollableContainer className={styles.scrollableTable}>
         <TotalInfoCard
           className={styles.totalInfo}
           totalInfo={totalInfo}
@@ -75,7 +75,12 @@ function ZonesInfo(): JSX.Element {
           columnType={selectedColumnKey}
           numberType={metadata.numberType}
         />
-      </div>
+        <ZonesInfoTable
+          data={zones}
+          columnType={selectedColumnKey}
+          numberType={metadata.numberType}
+        />
+      </ScrollableContainer>
       <Button className={styles.detailedBtn}>
         <span className={styles.btnText}>Detailed View</span>
         <ArrowRight />
