@@ -45,7 +45,7 @@ export function TotalInfoCard({
   const meta = useMemo(() => metadata[columnType], [columnType]);
 
   return (
-    <Card className={cn(styles.container, className)} {...props}>
+    <Card className={cn(styles.container, className)} hasBorder {...props}>
       {totalInfo && (
         <>
           <span className={styles.container_title}>
