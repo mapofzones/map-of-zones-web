@@ -18,5 +18,9 @@ export { Input } from './Input/Input';
 
 export { Search } from './Search/Search';
 
+export { ValueWithPending } from './ValueWithPending/ValueWithPending';
+
+export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
+
 // export types
 export { NumberType } from './NumberFormat/NumberType';

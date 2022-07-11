@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  &.rightAlign {
+    align-items: flex-end;
+  }
+
+  .value {
+    font-size: 15px;
+    line-height: 19px;
+  }
+
+  .pendingContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+
+    .pendingValue {
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--grey-500);
+      margin-left: 3px;
+    }
+  }
+}
