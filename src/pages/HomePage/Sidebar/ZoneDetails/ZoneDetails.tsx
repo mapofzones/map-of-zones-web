@@ -1,6 +1,6 @@
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { ExternalLink } from 'components';
+import { ButtonGroup, ExternalLink } from 'components';
 import { CloseIcon, EarthIcon } from 'icons';
 
 import { useZoneDetails } from './useZoneDetails';
@@ -39,6 +39,10 @@ function ZoneDetails() {
                 </ExternalLink>
               </div>
             )}
+            <ButtonGroup className={styles.pagesSwitcher}>
+              <NavLink to="overview">Overview</NavLink>
+              <NavLink to="peers">Peers</NavLink>
+            </ButtonGroup>
           </div>
 
           <Outlet />

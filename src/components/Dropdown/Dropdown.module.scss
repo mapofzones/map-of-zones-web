@@ -3,6 +3,8 @@
   background-color: var(--black-600);
   color: var(--grey-500);
   border-radius: 5px;
+  font-size: 15px;
+  line-height: 19px;
   cursor: pointer;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -16,7 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
+    padding: 8px 12px 5px;
     border-radius: 5px;
 
     &:hover {

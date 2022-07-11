@@ -22,5 +22,7 @@ export { ValueWithPending } from './ValueWithPending/ValueWithPending';
 
 export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
 
+export { ButtonGroup } from './ButtonGroup/ButtonGroup';
+
 // export types
 export { NumberType } from './NumberFormat/NumberType';
