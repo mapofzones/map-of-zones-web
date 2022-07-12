@@ -24,5 +24,7 @@ export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
 
 export { ButtonGroup } from './ButtonGroup/ButtonGroup';
 
+export { PeerLineChart } from './PeerLineChart/PeerLineChart';
+
 // export types
 export { NumberType } from './NumberFormat/NumberType';
