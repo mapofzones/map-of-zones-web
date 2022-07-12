@@ -13,6 +13,8 @@ export interface ZonePeer {
   zoneCounterpartyLogoUrl?: string | null;
   zoneCounterpartyName?: string | null;
   ibcVolumeIn: number;
+  volumeInPercent: number;
+  volumeOutPercent: number;
   ibcVolumeOut: number;
   ibcVolume: number;
   ibcVolumeInPending: number;

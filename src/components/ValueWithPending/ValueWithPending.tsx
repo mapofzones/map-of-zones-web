@@ -5,6 +5,7 @@ import { NumberType } from 'components/NumberFormat/NumberType';
 import { PendingIcon } from 'icons';
 
 import styles from './ValueWithPending.module.scss';
+import { ValueWithPendingProps } from './ValueWithPending.props';
 
 export function ValueWithPending({
   value,
@@ -13,7 +14,7 @@ export function ValueWithPending({
   alignRight = false,
   className,
   ...props
-}: any) {
+}: ValueWithPendingProps) {
   return (
     <span
       className={cn(className, styles.container, {

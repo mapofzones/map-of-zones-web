@@ -1,8 +1,14 @@
 import cn from 'classnames';
 
 import styles from './PeerLineChart.module.scss';
+import { PeerLineChartProps } from './PeerLineChart.props';
 
-export function PeerLineChart({ zone, counterparty, className, ...props }: any): JSX.Element {
+export function PeerLineChart({
+  zone,
+  counterparty,
+  className,
+  ...props
+}: PeerLineChartProps): JSX.Element {
   return (
     <div className={cn(styles.chartContainer, className)} {...props}>
       <div className={styles.logoContainer}>
