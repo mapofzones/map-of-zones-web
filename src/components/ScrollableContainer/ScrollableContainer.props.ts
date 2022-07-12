@@ -1,8 +1,9 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
-export interface ButtonGroupProps
+export interface ScrollableContainerProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
-  children?: ReactNode;
-  isActive?: (key: string) => boolean;
+  children: ReactNode;
+  vertical?: boolean;
+  horizontal?: boolean;
 }

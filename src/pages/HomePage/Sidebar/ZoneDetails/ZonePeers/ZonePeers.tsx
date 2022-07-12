@@ -22,6 +22,7 @@ export function ZonePeers() {
     <>
       <ScrollableContainer className={styles.container}>
         {data &&
+          zoneDetails &&
           data.map((peer) => (
             <Card hasBorder key={peer.zoneCounterpartyKey} className={styles.peerCard}>
               <div className={styles.title}>

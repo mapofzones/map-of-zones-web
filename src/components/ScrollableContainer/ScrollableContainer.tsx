@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import styles from './ScrollableContainer.module.scss';
+import { ScrollableContainerProps } from './ScrollableContainer.props';
 
 export function ScrollableContainer({
   className,
@@ -8,7 +9,7 @@ export function ScrollableContainer({
   vertical = true,
   horizontal = false,
   ...props
-}: any) {
+}: ScrollableContainerProps) {
   return (
     <div
       className={cn(styles.container, className, {
