@@ -1,6 +1,7 @@
 import { ReactComponent as ArrowDown } from './arrow-down.svg';
 import { ReactComponent as ArrowRight } from './arrow-right.svg';
 import { ReactComponent as ArrowUp } from './arrow-up.svg';
+import { ReactComponent as CircularArrows } from './circular-arrows.svg';
 import { ReactComponent as CloseIcon } from './close.svg';
 import { ReactComponent as EarthIcon } from './earth.svg';
 import { ReactComponent as GithubLogo } from './github-logo.svg';
@@ -25,3 +26,4 @@ export { ArrowUp };
 export { CloseIcon };
 export { QuestionMark };
 export { TickIcon };
+export { CircularArrows };
