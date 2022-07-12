@@ -2,21 +2,6 @@
   display: flex;
   align-items: center;
 
-  .logoContainer {
-    --logo-size: 32px;
-    width: var(--logo-size);
-    height: var(--logo-size);
-    min-width: var(--logo-size);
-    min-height: var(--logo-size);
-    border-radius: 50%;
-    background-color: var(--grey-500);
-
-    .logo {
-      width: var(--logo-size);
-      height: var(--logo-size);
-    }
-  }
-
   hr {
     height: 1px;
     border-top: none;

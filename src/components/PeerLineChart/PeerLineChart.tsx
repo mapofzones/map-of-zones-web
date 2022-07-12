@@ -1,7 +1,11 @@
 import cn from 'classnames';
 
+import { ZoneLogo } from 'components';
+
 import styles from './PeerLineChart.module.scss';
 import { PeerLineChartProps } from './PeerLineChart.props';
+
+const LOGO_SIZE = '32px';
 
 export function PeerLineChart({
   zone,
@@ -11,21 +15,15 @@ export function PeerLineChart({
 }: PeerLineChartProps): JSX.Element {
   return (
     <div className={cn(styles.chartContainer, className)} {...props}>
-      <div className={styles.logoContainer}>
-        {zone.logoUrl && (
-          <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
-        )}
-      </div>
+      <ZoneLogo logoUrl={zone?.logoUrl} name={zone?.name} size={LOGO_SIZE} />
       <hr className={styles.volumeOutLine} style={{ width: `${counterparty.volumeOutPercent}%` }} />
       <hr className={styles.volumeInLine} style={{ width: `${counterparty.volumeInPercent}%` }} />
       <div className={styles.logoContainer}>
-        {counterparty.zoneCounterpartyLogoUrl && (
-          <img
-            className={styles.logo}
-            src={counterparty.zoneCounterpartyLogoUrl}
-            alt={`${counterparty.zoneCounterpartyName} logo`}
-          />
-        )}
+        <ZoneLogo
+          logoUrl={counterparty.zoneCounterpartyLogoUrl}
+          name={counterparty.zoneCounterpartyName}
+          size={LOGO_SIZE}
+        />
       </div>
     </div>
   );

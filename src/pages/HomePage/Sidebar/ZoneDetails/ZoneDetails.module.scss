@@ -11,18 +11,9 @@
     column-gap: 16px;
     margin-bottom: 24px;
 
-    .logoContainer {
+    .zoneLogo {
       grid-row-start: 1;
       grid-row-end: 3;
-      width: var(--logo-size);
-      height: var(--logo-size);
-      border-radius: 50%;
-      background-color: var(--grey-500);
-
-      .logo {
-        width: var(--logo-size);
-        height: var(--logo-size);
-      }
     }
 
     .closeIcon {
