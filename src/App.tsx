@@ -4,6 +4,7 @@ import Layout from 'layouts/Layout/Layout';
 import { AboutPage } from 'pages/AboutPage/AboutPage';
 import { AssetsPage } from 'pages/AssetsPage/AssetsPage';
 import { HomePage, Sidebar, ZoneDetails, ZoneOverview, ZonesInfo } from 'pages/HomePage';
+import { ZonePeers } from 'pages/HomePage/Sidebar/ZoneDetails/ZonePeers/ZonePeers';
 import { RedirectFromOldVersionToHomePage } from 'pages/Redirect/RedirectFromOldVersionToHomePage';
 import { ZonesPage } from 'pages/ZonesPage/ZonesPage';
 
@@ -19,6 +20,7 @@ const App = () => {
             <Route index element={<ZonesInfo />} />
             <Route path=":zone" element={<ZoneDetails />}>
               <Route path="overview" element={<ZoneOverview />} />
+              <Route path="peers" element={<ZonePeers />} />
             </Route>
             <Route path="*" element={<div>Not found.</div>} />
           </Route>
