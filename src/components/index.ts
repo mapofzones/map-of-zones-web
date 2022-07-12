@@ -26,5 +26,7 @@ export { ButtonGroup } from './ButtonGroup/ButtonGroup';
 
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';
 
+export { ZoneLogo } from './ZoneLogo/ZoneLogo';
+
 // export types
 export { NumberType } from './NumberFormat/NumberType';
