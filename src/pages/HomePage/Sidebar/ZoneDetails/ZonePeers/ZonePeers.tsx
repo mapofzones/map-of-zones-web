@@ -3,6 +3,7 @@ import {
   Card,
   NumberFormat,
   NumberType,
+  PeerLineChart,
   ScrollableContainer,
   ValueWithPending,
 } from 'components';
@@ -33,18 +34,16 @@ export function ZonePeers() {
                 value={peer.ibcVolumeIn + peer.ibcVolumeOut}
                 numberType={NumberType.Currency}
               />
-              <div className={styles.lineChart}>
-                <hr />
-              </div>
+              <PeerLineChart className={styles.lineChart} zone={zoneDetails} counterparty={peer} />
               <div className={styles.valuesContainer}>
-                <ValueWithPending
-                  value={peer.ibcVolumeIn}
-                  pendingValue={peer.ibcVolumeInPending}
-                  numberType={NumberType.Currency}
-                />
                 <ValueWithPending
                   value={peer.ibcVolumeOut}
                   pendingValue={peer.ibcVolumeOutPending}
+                  numberType={NumberType.Currency}
+                />
+                <ValueWithPending
+                  value={peer.ibcVolumeIn}
+                  pendingValue={peer.ibcVolumeInPending}
                   numberType={NumberType.Currency}
                   alignRight
                 />
