@@ -28,13 +28,15 @@ export function ZonesTable() {
         <PeriodSelector />
       </div>
 
-      <div className={styles.tableContainer}>
+      <table className={styles.tableContainer}>
         <TableHeader />
 
-        {data.map((zone, index) => (
-          <TableRow key={`zone_${zone.zone}`} index={index} zone={zone} />
-        ))}
-      </div>
+        <tbody>
+          {data.map((zone, index) => (
+            <TableRow key={`zone_${zone.zone}`} index={index} zone={zone} />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -1,11 +1,87 @@
 .container {
-  display: flex;
-  width: 100%;
-  padding: 12px 24px;
+  // display: flex;
+  // width: 100%;
+  // margin: 0 24px;
   cursor: pointer;
 
   &:hover {
     background-color: var(--black-500);
+  }
+
+  .columnContainer {
+    padding: 12px 12px 12px 28px;
+    white-space: nowrap;
+
+    &:not(:nth-child(1)):not(:nth-child(2)) {
+      vertical-align: top;
+    }
+
+    &:nth-child(1) {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+    }
+
+    &:nth-child(2) {
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+      width: 99%;
+    }
+
+    &:nth-child(6) {
+      border-left: 1px solid #2F2C39;
+    }
+
+    &:nth-child(8) {
+      border-left: 1px solid #2F2C39;
+    }
+
+    &:nth-child(10) {
+      border-left: 1px solid #2F2C39;
+    }
+
+    &:nth-child(11) {
+      border-left: 1px solid #2F2C39;
+    }
+
+    .position {
+      display: block;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--grey-500);
+    }
+
+    .value {
+      display: block;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      text-align: right;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .pendingValueContainer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .pendingValue {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: var(--grey-500);
+      }
+
+      .pendingIcon {
+        margin-right: 3px;
+      }
+    } 
   }
 
   .zoneBaseInfoContainer {
@@ -59,99 +135,5 @@
       border-right: 5px solid transparent;
       border-top: 8px solid var(--red);
     }
-  }
-
-
-  .columnContainer {
-    &:nth-child(1) {
-      text-align: center;
-      width: 25px;
-      left: -9px;
-      position: relative;
-      align-self: center;
-    }
-
-    &:nth-child(2) {
-      display: flex;
-      align-items: center;
-      width: 250px;
-    }
-
-    &:nth-child(3) {
-      width: 140px;
-    }
-
-    &:nth-child(4) {
-      width: 140px;
-    }
-
-    &:nth-child(5) {
-      width: 140px;
-    }
-
-    &:nth-child(6) {
-      width: 140px;
-    }
-
-    &:nth-child(7) {
-      width: 140px;
-    }
-
-    &:nth-child(8) {
-      width: 140px;
-    }
-
-    &:nth-child(9) {
-      width: 140px;
-    }
-
-    &:nth-child(10) {
-      width: 140px;
-    }
-
-    &:nth-child(11) {
-      width: 200px;
-      text-align: right;
-    }
-
-    .position {
-      display: block;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 19px;
-      font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--grey-500);
-    }
-
-    .value {
-      display: block;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 19px;
-      text-align: right;
-      font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--white);
-      margin-bottom: 2px;
-    }
-
-    .pendingValueContainer {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      .pendingValue {
-        display: block;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15px;
-        font-feature-settings: 'tnum' on, 'lnum' on;
-        color: var(--grey-500);
-      }
-
-      .pendingIcon {
-        margin-right: 3px;
-      }
-    }
-  
   }
 }
