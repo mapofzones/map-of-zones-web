@@ -3,12 +3,14 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { TableHeader } from './TableHeader/TableHeader';
 import { TableRow } from './TableRow/TableRow';
+import { useSelectedColumn } from './useSelectedColumn';
 import { useZonesCount } from './useZonesCount';
 import { useZonesTable } from './useZonesTable';
 import styles from './ZonesTable.module.scss';
 
 export function ZonesTable() {
   const [selectedPeriod] = useSelectedPeriod();
+  const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
 
   const { data: zonesCountData } = useZonesCount(selectedPeriod);
   const { data } = useZonesTable(selectedPeriod);
@@ -29,7 +31,10 @@ export function ZonesTable() {
       </div>
 
       <table className={styles.tableContainer}>
-        <TableHeader />
+        <TableHeader
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        />
 
         <tbody>
           {data.map((zone, index) => (
