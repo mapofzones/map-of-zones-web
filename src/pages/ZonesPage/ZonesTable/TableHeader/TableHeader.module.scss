@@ -1,82 +1,75 @@
 .container {
-  display: flex;
-  width: 100%;
+  // display: flex;
+  // width: 100%;
   border-bottom: 1px solid #2F2C39;
-  margin-bottom: 8px;
-  padding: 0 24px;
+  // padding: 0 24px;
 
-  .title {
+  th {
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
     color: var(--grey-500);
-    padding-bottom: 6px;
-    align-items: center;
-    justify-content: flex-end;
-    display: inline-flex;
+    padding: 0px 12px 6px 28px;
+    text-align: right;
+    white-space: nowrap;
+
+    &:not(:nth-child(1)):not(:nth-child(2)) {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--grey-800);
+      }
+    }
 
     &:nth-child(1) {
-      width: 25px;
-      justify-content: flex-start;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
     }
 
     &:nth-child(2) {
-      width: 250px;
-      justify-content: flex-start;
-    }
-
-    &:nth-child(3) {
-      width: 140px;
-    }
-
-    &:nth-child(4) {
-      width: 140px;
-    }
-
-    &:nth-child(5) {
-      width: 140px;
+      padding-left: 16px;
+      text-align: left;
+      width: 99%;
     }
 
     &:nth-child(6) {
-      width: 140px;
-    }
-
-    &:nth-child(7) {
-      width: 140px;
+      border-left: 1px solid transparent;
     }
 
     &:nth-child(8) {
-      width: 140px;
-    }
-
-    &:nth-child(9) {
-      width: 140px;
+      border-left: 1px solid transparent;
     }
 
     &:nth-child(10) {
-      width: 140px;
+      border-left: 1px solid transparent;
     }
 
     &:nth-child(11) {
-      width: 200px;
-      text-align: right;
+      border-left: 1px solid transparent;
     }
   }
 
   .sourceCircle {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
     background-color: var(--pink);
+    border-radius: 50%;
+    display: inline-block;
+    height: 7px;
     margin-right: 4px;
+    position: relative;
+    top: -1px;
+    width: 7px;
   }
 
   .targetCircle {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
     background-color: var(--blue);
+    border-radius: 50%;
+    display: inline-block;
+    height: 7px;
     margin-right: 4px;
+    position: relative;
+    top: -1px;
+    width: 7px;
   }
 
   .questionMark {

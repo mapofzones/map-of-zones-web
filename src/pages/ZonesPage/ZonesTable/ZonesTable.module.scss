@@ -1,4 +1,6 @@
 .container {
+  width: 100%;
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -21,6 +23,10 @@
   }
 
   .tableContainer {
-    margin: 4px 0 8px;
+    margin: 0 24px 8px;
+
+    tbody tr:nth-child(1) td {
+      padding-top: 20px;
+    }
   }
 }

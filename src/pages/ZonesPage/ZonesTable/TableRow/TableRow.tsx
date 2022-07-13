@@ -10,12 +10,12 @@ export function TableRow({ index, zone }: TableRowProps) {
   const tmpRating = 10;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.columnContainer}>
+    <tr className={styles.container}>
+      <td className={styles.columnContainer}>
         <span className={styles.position}>{index + 1}</span>
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <div className={styles.zoneBaseInfoContainer}>
           <div className={styles.logoContainer}>
             {zone.logoUrl && (
@@ -35,9 +35,9 @@ export function TableRow({ index, zone }: TableRowProps) {
             </div>
           )}
         </div>
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.ibcVolumeMainnet === null ? '-' : zone.ibcVolumeMainnet}
@@ -52,9 +52,9 @@ export function TableRow({ index, zone }: TableRowProps) {
             numberType={NumberType.Currency}
           />
         </span>
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.ibcVolumeInMainnet === null ? '-' : zone.ibcVolumeInMainnet}
@@ -69,9 +69,9 @@ export function TableRow({ index, zone }: TableRowProps) {
             numberType={NumberType.Currency}
           />
         </span>
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.ibcVolumeOutMainnet === null ? '-' : zone.ibcVolumeOutMainnet}
@@ -86,17 +86,17 @@ export function TableRow({ index, zone }: TableRowProps) {
             numberType={NumberType.Currency}
           />
         </span>
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.totalTxs === null ? '-' : zone.totalTxs}
           numberType={NumberType.Number}
         />
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.ibcTransfersMainnet === null ? '-' : zone.ibcTransfersMainnet}
@@ -111,33 +111,33 @@ export function TableRow({ index, zone }: TableRowProps) {
             numberType={NumberType.Number}
           />
         </span>
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.peersCountMainnet === null ? '-' : zone.peersCountMainnet}
           numberType={NumberType.Number}
         />
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.channelsCount === null ? '-' : zone.channelsCount}
           numberType={NumberType.Number}
         />
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>
+      <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
           value={zone.ibcDauMainnet === null ? '-' : zone.ibcDauMainnet}
           numberType={NumberType.Number}
         />
-      </div>
+      </td>
 
-      <div className={styles.columnContainer}>IBC Transfers Activity</div>
-    </div>
+      <td className={styles.columnContainer}>IBC Transfers Activity</td>
+    </tr>
   );
 }
