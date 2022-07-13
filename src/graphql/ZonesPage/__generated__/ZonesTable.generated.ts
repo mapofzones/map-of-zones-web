@@ -8,6 +8,7 @@ import * as Types from '../../base-types';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZonesTableQueryVariables = Types.Exact<{
   period: Types.Scalars['Int'];
+  orderBy: Types.Zones_Stats_Order_By;
   isMainnet: Types.Scalars['Boolean'];
 }>;
 
@@ -47,6 +48,14 @@ export const ZonesTableDocument = {
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'zones_stats_order_by' } },
           },
         },
         {
@@ -101,6 +110,14 @@ export const ZonesTableDocument = {
                       },
                     },
                   ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ListValue',
+                  values: [{ kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } }],
                 },
               },
             ],
