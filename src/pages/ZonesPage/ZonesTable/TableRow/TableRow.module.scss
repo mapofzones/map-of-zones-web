@@ -1,7 +1,4 @@
 .container {
-  // display: flex;
-  // width: 100%;
-  // margin: 0 24px;
   cursor: pointer;
 
   &:hover {
@@ -17,14 +14,12 @@
     }
 
     &:nth-child(1) {
-      padding-left: 0;
+      padding-left: 24px;
       padding-right: 0;
       text-align: center;
     }
 
     &:nth-child(2) {
-      display: flex;
-      align-items: center;
       padding-left: 16px;
       width: 99%;
     }
@@ -42,6 +37,7 @@
     }
 
     &:nth-child(11) {
+      padding-right: 24px;
       border-left: 1px solid #2F2C39;
     }
 
