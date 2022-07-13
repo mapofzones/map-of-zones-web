@@ -1,0 +1,17 @@
+.searchContainer {
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  .icon {
+    position: absolute;
+    right: 10px;
+  }
+
+  .searchInput {
+    padding-right: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

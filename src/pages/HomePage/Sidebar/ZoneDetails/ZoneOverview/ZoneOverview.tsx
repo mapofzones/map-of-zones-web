@@ -17,7 +17,7 @@ function ZoneOverview() {
     <>
       {data && (
         <div className={styles.container}>
-          <Card className={styles.totalOverview}>
+          <Card className={styles.totalOverview} hasBorder>
             <span className={styles.title}>IBC Volume ({period})</span>
             <NumberFormat
               className={styles.volumeValue}

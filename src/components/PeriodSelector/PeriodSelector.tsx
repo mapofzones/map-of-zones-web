@@ -1,5 +1,4 @@
-import cn from 'classnames';
-
+import { Button, ButtonGroup } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import styles from './PeriodSelector.module.scss';
@@ -13,16 +12,15 @@ export function PeriodSelector() {
   };
 
   return (
-    <div className={styles.periodSelector}>
+    <ButtonGroup
+      className={styles.periodSelector}
+      isActive={(key: string) => selectedPeriod === key}
+    >
       {Object.values(PeriodKeys).map((periodValue: PeriodKeys) => (
-        <div
-          key={periodValue}
-          className={cn(styles.item, { [styles.active]: selectedPeriod === periodValue })}
-          onClick={() => onPeriodChange(periodValue)}
-        >
+        <Button key={periodValue} onClick={() => onPeriodChange(periodValue)}>
           {periodValue}
-        </div>
+        </Button>
       ))}
-    </div>
+    </ButtonGroup>
   );
 }

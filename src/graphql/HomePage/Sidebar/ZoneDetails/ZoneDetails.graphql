@@ -1,5 +1,5 @@
 query ZoneDetails($zone: String!) {
-  zoneDetails: zones_stats(where: { zone: { _eq: $zone } }) {
+  zoneDetails: zones_stats(limit: 1, where: { zone: { _eq: $zone } }) {
     zone
     logoUrl: zone_label_url
     name: zone_readable_name
