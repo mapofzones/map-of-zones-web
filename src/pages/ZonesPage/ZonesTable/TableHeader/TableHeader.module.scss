@@ -1,10 +1,6 @@
 .container {
-  // display: flex;
-  // width: 100%;
-  border-bottom: 1px solid #2F2C39;
-  // padding: 0 24px;
-
   th {
+    position: relative;
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
@@ -12,6 +8,7 @@
     padding: 0px 12px 6px 28px;
     text-align: right;
     white-space: nowrap;
+    border-bottom: 1px solid #2F2C39;
     
     &.selected {
       color: var(--white);
@@ -27,9 +24,20 @@
     }
 
     &:nth-child(1) {
-      padding-left: 0;
+      padding-left: 24px;
       padding-right: 0;
       text-align: center;
+
+      // TODO: find another solution
+      &::before {
+        content: '';
+        background-color: #0e0e16;
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 24px;
+        height: 1px;
+      }
     }
 
     &:nth-child(2) {
@@ -51,7 +59,19 @@
     }
 
     &:nth-child(11) {
+      padding-right: 24px;
       border-left: 1px solid transparent;
+
+      // TODO: find another solution
+      &::after {
+        content: '';
+        background-color: #0e0e16;
+        position: absolute;
+        bottom: -1px;
+        right: 0;
+        width: 24px;
+        height: 1px;
+      }
     }
   }
 
