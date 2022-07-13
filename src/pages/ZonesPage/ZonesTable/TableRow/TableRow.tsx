@@ -19,7 +19,10 @@ export function TableRow({ index, zone }: TableRowProps) {
         <div className={styles.zoneBaseInfoContainer}>
           <div className={styles.logoContainer}>
             {zone.logoUrl && (
-              <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
+              <>
+                <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
+                <div className={styles.shadow} />
+              </>
             )}
           </div>
           <span className={styles.value}>{zone.name}</span>
