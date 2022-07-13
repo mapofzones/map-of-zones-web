@@ -1,0 +1,157 @@
+.container {
+  display: flex;
+  width: 100%;
+  padding: 12px 24px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--black-500);
+  }
+
+  .zoneBaseInfoContainer {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+
+    .logoContainer {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--grey-500);
+      margin-right: 12px;
+  
+      .logo {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+
+  .ratingDiff {
+    display: flex;
+    color: var(--green);
+    align-items: center;
+    margin-left: 4px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+
+    &.negative {
+      color: var(--red);
+    }
+
+    .triangle {
+      margin-right: 2px;
+    }
+
+    .triangleUp {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 8px solid var(--green);
+    }
+
+    .triangleDown {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 8px solid var(--red);
+    }
+  }
+
+
+  .columnContainer {
+    &:nth-child(1) {
+      text-align: center;
+      width: 25px;
+      left: -9px;
+      position: relative;
+      align-self: center;
+    }
+
+    &:nth-child(2) {
+      display: flex;
+      align-items: center;
+      width: 250px;
+    }
+
+    &:nth-child(3) {
+      width: 120px;
+    }
+
+    &:nth-child(4) {
+      width: 120px;
+    }
+
+    &:nth-child(5) {
+      width: 120px;
+    }
+
+    &:nth-child(6) {
+      width: 120px;
+    }
+
+    &:nth-child(7) {
+      width: 120px;
+    }
+
+    &:nth-child(8) {
+      width: 120px;
+    }
+
+    &:nth-child(9) {
+      width: 120px;
+    }
+
+    &:nth-child(10) {
+      width: 120px;
+    }
+
+    &:nth-child(11) {
+      width: 200px;
+      text-align: right;
+    }
+
+    .position {
+      display: block;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--grey-500);
+    }
+
+    .value {
+      display: block;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      text-align: right;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .pendingValueContainer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .pendingValue {
+        display: block;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: var(--grey-500);
+      }
+
+      .pendingIcon {
+        margin-right: 3px;
+      }
+    }
+  
+  }
+}

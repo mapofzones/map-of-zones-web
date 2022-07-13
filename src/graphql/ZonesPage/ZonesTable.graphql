@@ -1,0 +1,22 @@
+query ZonesTable(
+  $period: Int!
+  $isMainnet: Boolean!
+) {
+  zonesTable: zones_stats(where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }) {
+    channelsCount: channels_num
+    ibcDauMainnet: ibc_active_addresses_mainnet
+    ibcTransfersMainnet: ibc_transfers_mainnet
+    ibcTransfersPendingMainnet: ibc_transfers_pending_mainnet
+    ibcVolumeInMainnet: ibc_cashflow_in_mainnet
+    ibcVolumeInPendingMainnet: ibc_cashflow_in_pending_mainnet
+    ibcVolumeMainnet: ibc_cashflow_mainnet
+    ibcVolumeOutMainnet: ibc_cashflow_out_mainnet
+    ibcVolumeOutPendingMainnet: ibc_cashflow_out_pending_mainnet
+    ibcVolumePendingMainnet: ibc_cashflow_pending_mainnet
+    logoUrl: zone_label_url
+    name: zone_readable_name
+    peersCountMainnet: ibc_peers_mainnet
+    totalTxs: total_txs
+    zone
+  }
+}
