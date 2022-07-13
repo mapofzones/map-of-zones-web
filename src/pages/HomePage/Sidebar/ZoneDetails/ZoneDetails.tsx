@@ -1,6 +1,6 @@
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { ExternalLink } from 'components';
+import { ButtonGroup, ExternalLink, ZoneLogo } from 'components';
 import { CloseIcon, EarthIcon } from 'icons';
 
 import { useZoneDetails } from './useZoneDetails';
@@ -25,11 +25,12 @@ function ZoneDetails() {
       {data && (
         <div className={styles.container}>
           <div className={styles.detailsTitle}>
-            <span className={styles.logoContainer}>
-              {data.logoUrl && (
-                <img className={styles.logo} src={data.logoUrl} alt={`${data.name} logo`} />
-              )}
-            </span>
+            <ZoneLogo
+              logoUrl={data?.logoUrl}
+              name={data?.name}
+              size={'60px'}
+              className={styles.zoneLogo}
+            />
             <span className={styles.zoneName}>{data.name}</span>
             <CloseIcon className={styles.closeIcon} onClick={closeDetails} />
             {data.website && (
@@ -39,6 +40,10 @@ function ZoneDetails() {
                 </ExternalLink>
               </div>
             )}
+            <ButtonGroup className={styles.pagesSwitcher}>
+              <NavLink to="overview">Overview</NavLink>
+              <NavLink to="peers">Peers</NavLink>
+            </ButtonGroup>
           </div>
 
           <Outlet />

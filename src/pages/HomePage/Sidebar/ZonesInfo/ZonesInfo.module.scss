@@ -18,8 +18,15 @@
     }
   }
 
+  .search {
+    width: 140px;
+  }
+
+  .columnDropdown {
+    width: 150px;
+  }
+
   .scrollableTable {
-    overflow-y: scroll;
     margin: 0 -16px;
     padding: 0 16px;
   }

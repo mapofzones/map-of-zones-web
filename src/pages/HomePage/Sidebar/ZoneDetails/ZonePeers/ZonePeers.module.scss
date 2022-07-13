@@ -1,0 +1,51 @@
+.container {
+  height: 100%;
+  margin: 0 -16px;
+  padding: 0 16px;
+
+  .peerCard {
+    margin-bottom: 16px;
+
+    .title {
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--grey-500);
+      margin-bottom: 4px;
+
+      .icon {
+        margin: 0 6px;
+      }
+    }
+
+    .lineChart {
+      margin: 8px 0;
+    }
+
+    .totalValue {
+      font-size: 20px;
+      line-height: 25px;
+      margin-bottom: 8px;
+    }
+
+    .valuesContainer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+  }
+}
+
+.detailedBtn {
+  height: 40px;
+  font-size: 15px;
+  line-height: 19px;
+  color: var(--grey-500);
+
+  &:not(:hover) {
+    background-color: var(--black-700);
+  }
+
+  .btnText {
+    margin-right: 8px;
+  }
+}

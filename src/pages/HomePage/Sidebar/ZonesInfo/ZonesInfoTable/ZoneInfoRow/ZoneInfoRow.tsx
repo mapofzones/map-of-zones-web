@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { LinkWithQuery, NumberFormat } from 'components';
+import { LinkWithQuery, NumberFormat, ZoneLogo } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -12,11 +12,12 @@ function ZoneInfoRow({ zone, numberType, className, ...props }: ZonesInfoRowProp
       <div className={cn(styles.row, className)} {...props}>
         {/* TODO: separate component */}
         <div className={styles.zoneBaseInfoContainer}>
-          <div className={styles.logoContainer}>
-            {zone.logoUrl && (
-              <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
-            )}
-          </div>
+          <ZoneLogo
+            logoUrl={zone.logoUrl}
+            name={zone.name}
+            size={'32px'}
+            className={styles.zoneLogo}
+          />
           {zone.name}
           {!!zone.ratingDiff && (
             <div className={cn(styles.ratingDiff, { [styles.negative]: zone.ratingDiff < 0 })}>
