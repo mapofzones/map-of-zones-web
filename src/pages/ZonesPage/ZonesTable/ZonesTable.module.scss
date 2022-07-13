@@ -1,0 +1,26 @@
+.container {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 24px;
+
+    &_title {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 25px;
+      color: var(--white);      
+    }
+
+    &_subtitle {
+      margin-left: 8px;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--grey-500);
+    }
+  }
+
+  .tableContainer {
+    margin: 4px 0 8px;
+  }
+}
