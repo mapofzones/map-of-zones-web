@@ -12,8 +12,13 @@
     padding: 0px 12px 6px 28px;
     text-align: right;
     white-space: nowrap;
+    
+    &.selected {
+      color: var(--white);
+      border-bottom: 1px solid #FFFFFF;
+    }
 
-    &:not(:nth-child(1)):not(:nth-child(2)) {
+    &:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(8)):not(:nth-child(9)):not(:nth-child(11)):not(.selected) {
       cursor: pointer;
 
       &:hover {
