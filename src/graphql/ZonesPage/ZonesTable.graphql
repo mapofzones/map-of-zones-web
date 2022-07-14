@@ -8,18 +8,24 @@ query ZonesTable(
     order_by: [$orderBy]
   ) {
     channelsCount: channels_num
+    ibcActiveAddressesMainnetRatingDiff: ibc_active_addresses_mainnet_rating_diff,
     ibcDauMainnet: ibc_active_addresses_mainnet
     ibcTransfersMainnet: ibc_transfers_mainnet
+    ibcTransfersMainnetRatingDiff: ibc_transfers_mainnet_rating_diff
     ibcTransfersPendingMainnet: ibc_transfers_pending_mainnet
     ibcVolumeInMainnet: ibc_cashflow_in_mainnet
+    ibcVolumeInMainnetRatingDiff: ibc_cashflow_in_mainnet_rating_diff
     ibcVolumeInPendingMainnet: ibc_cashflow_in_pending_mainnet
     ibcVolumeMainnet: ibc_cashflow_mainnet
+    ibcVolumeMainnetRatingDiff: ibc_cashflow_mainnet_rating_diff
     ibcVolumeOutMainnet: ibc_cashflow_out_mainnet
+    ibcVolumeOutMainnetRatingDiff: ibc_cashflow_out_mainnet_rating_diff
     ibcVolumeOutPendingMainnet: ibc_cashflow_out_pending_mainnet
     ibcVolumePendingMainnet: ibc_cashflow_pending_mainnet
     logoUrl: zone_label_url
     name: zone_readable_name
     peersCountMainnet: ibc_peers_mainnet
+    totalIbcTxsMainnetRatingDiff: total_ibc_txs_mainnet_rating_diff
     totalTxs: total_txs
     zone
   }

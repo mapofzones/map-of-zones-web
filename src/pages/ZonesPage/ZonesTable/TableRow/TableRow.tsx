@@ -1,13 +1,28 @@
+import { useMemo } from 'react';
+
 import cn from 'classnames';
 
 import { NumberFormat, NumberType } from 'components';
 import { PendingIcon } from 'icons';
 
+import { ColumnKeys } from '../TableHeader/Types';
 import styles from './TableRow.module.scss';
-import { TableRowProps } from './TableRow.props';
+import { TableRowProps, ZoneData } from './TableRow.props';
 
-export function TableRow({ index, zone }: TableRowProps) {
-  const tmpRating = 10;
+const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
+  ibcActiveAddresses: 'ibcActiveAddressesMainnetRatingDiff',
+  ibcVolumeReceived: 'ibcVolumeInMainnetRatingDiff',
+  ibcVolumeSent: 'ibcVolumeOutMainnetRatingDiff',
+  ibcVolume: 'ibcVolumeMainnetRatingDiff',
+  ibcTransfers: 'ibcTransfersMainnetRatingDiff',
+  totalTxs: 'totalIbcTxsMainnetRatingDiff',
+};
+
+export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
+  const ratingDiff = useMemo(
+    () => zone[ratingDiffKeysMap[selectedColumnKey]],
+    [selectedColumnKey, zone]
+  );
 
   return (
     <tr className={styles.container}>
@@ -26,15 +41,15 @@ export function TableRow({ index, zone }: TableRowProps) {
             )}
           </div>
           <span className={styles.value}>{zone.name}</span>
-          {!!tmpRating && (
-            <div className={cn(styles.ratingDiff, { [styles.negative]: tmpRating < 0 })}>
+          {!!ratingDiff && (
+            <div className={cn(styles.ratingDiff, { [styles.negative]: ratingDiff < 0 })}>
               <div
                 className={cn(styles.triangle, {
-                  [styles.triangleUp]: tmpRating > 0,
-                  [styles.triangleDown]: tmpRating < 0,
+                  [styles.triangleUp]: ratingDiff > 0,
+                  [styles.triangleDown]: ratingDiff < 0,
                 })}
               />
-              {Math.abs(tmpRating)}
+              {Math.abs(ratingDiff)}
             </div>
           )}
         </div>

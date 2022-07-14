@@ -46,7 +46,12 @@ export function ZonesTable() {
 
         <tbody>
           {data.map((zone, index) => (
-            <TableRow key={`zone_${zone.zone}`} index={index} zone={zone} />
+            <TableRow
+              key={`zone_${zone.zone}`}
+              index={index}
+              selectedColumnKey={selectedColumnKey}
+              zone={zone}
+            />
           ))}
         </tbody>
       </table>
