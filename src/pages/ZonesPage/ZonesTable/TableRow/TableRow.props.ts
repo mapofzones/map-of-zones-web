@@ -26,6 +26,7 @@ export interface ZoneData {
   ibcVolumeOutMainnetRatingDiff?: number | null;
   ibcVolumeOutPendingMainnet?: number | null;
   ibcVolumePendingMainnet?: number | null;
+  isZoneUpToDate?: boolean | null;
   logoUrl?: string | null;
   name: string;
   peersCountMainnet?: number | null;
