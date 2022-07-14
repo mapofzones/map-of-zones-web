@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { SkeletonElementWrapper } from 'components';
+import { SkeletonCircle } from 'components';
 
 import styles from './ZoneLogo.module.scss';
 import { ZoneLogoProps } from './ZoneLogo.props';
@@ -14,10 +14,11 @@ export function ZoneLogo({
   ...props
 }: ZoneLogoProps) {
   const style = { width: size, height: size };
-  const classes = cn(styles.container, className);
+  const classes = cn(className, styles.container);
+
   return (
     <>
-      {loading && <SkeletonElementWrapper className={classes} style={style} />}
+      {loading && <SkeletonCircle className={classes} size={size} />}
       {!loading && (
         <div className={classes} style={style} {...props}>
           {logoUrl && (

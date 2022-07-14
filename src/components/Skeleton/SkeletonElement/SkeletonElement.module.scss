@@ -4,7 +4,14 @@
   background-size: 400% 400%;
   animation: pulse 1.2s ease-in-out infinite;
 
-  border-radius: 5px;
+  &.rectangle {
+    border-radius: 5px;
+  }
+
+  &.circle {
+    border-radius: 50%;
+  }
+
   padding: 0 5px;
   border: none;
 }

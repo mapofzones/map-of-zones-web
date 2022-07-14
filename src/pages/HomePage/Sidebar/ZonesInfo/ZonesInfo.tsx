@@ -6,7 +6,7 @@ import {
   PeriodSelector,
   ScrollableContainer,
   Search,
-  SkeletonLine,
+  SkeletonTextWrapper,
 } from 'components';
 import { DropdownOption } from 'components/Dropdown/DropdownOption';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
@@ -58,9 +58,9 @@ function ZonesInfo(): JSX.Element {
     <div className={styles.container}>
       <div className={styles.blockRow}>
         <span>
-          <SkeletonLine loading={tableDataLoading} defaultValue={'00'}>
+          <SkeletonTextWrapper loading={tableDataLoading} defaultText={'00'}>
             {zones?.length}
-          </SkeletonLine>
+          </SkeletonTextWrapper>
           {' Zones'}
         </span>
 

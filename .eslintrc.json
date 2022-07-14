@@ -38,6 +38,7 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/semi": "warn",
+    "@typescript-eslint/no-empty-interface": "off",
     "import/export": "off",
     "import/order": [
       "error",

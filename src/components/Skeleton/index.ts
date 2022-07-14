@@ -1,3 +1,3 @@
-export { SkeletonElementWrapper } from './SkeletonElementWrapper/SkeletonElementWrapper';
+export * from './SkeletonElement';
 
-export { SkeletonLine } from './SkeletonLine/SkeletonLine';
+export { SkeletonTextWrapper } from './SkeletonTextWrapper/SkeletonTextWrapper';

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { SkeletonElementWrapper } from 'components';
+import { SkeletonRectangle } from 'components/Skeleton/SkeletonElement/SkeletonElement';
 
 import styles from './Card.module.scss';
 import { CardProps } from './Card.props';
@@ -14,7 +14,7 @@ function Card({
 }: CardProps): JSX.Element {
   return (
     <>
-      {loading && <SkeletonElementWrapper className={className}>{children}</SkeletonElementWrapper>}
+      {loading && <SkeletonRectangle className={className} />}
       {!loading && (
         <div
           className={cn(className, styles.container, {
