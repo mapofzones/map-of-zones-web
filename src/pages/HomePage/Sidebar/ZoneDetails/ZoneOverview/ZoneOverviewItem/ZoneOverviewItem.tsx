@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { SkeletonLine } from 'components';
+import { SkeletonTextWrapper } from 'components';
 import { NumberFormat } from 'components/NumberFormat/NumberFormat';
 import { QuestionMark } from 'icons';
 
@@ -26,9 +26,9 @@ function ZoneOverviewItem({
         <QuestionMark className={styles.questionMark} />
       </div>
       <div className={styles.value}>
-        <SkeletonLine loading={loading} defaultValue={defaultLoadingValue}>
+        <SkeletonTextWrapper loading={loading} defaultText={defaultLoadingValue}>
           {children ? children : <NumberFormat value={value} numberType={numberType} />}
-        </SkeletonLine>
+        </SkeletonTextWrapper>
       </div>
     </div>
   );

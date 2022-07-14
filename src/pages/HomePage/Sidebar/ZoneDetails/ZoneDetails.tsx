@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { ButtonGroup, ExternalLink, ZoneLogo, SkeletonLine } from 'components';
+import { ButtonGroup, ExternalLink, ZoneLogo, SkeletonTextWrapper } from 'components';
 import { CloseIcon, EarthIcon } from 'icons';
 
 import { useZoneDetails } from './useZoneDetails';
@@ -33,12 +33,16 @@ function ZoneDetails() {
           className={styles.zoneLogo}
         />
         <div className={styles.zoneBaseInfo}>
-          <SkeletonLine loading={loading} defaultValue={'Cosmos hub'} className={styles.zoneName}>
-            {data?.name}
-          </SkeletonLine>
-          <SkeletonLine
+          <SkeletonTextWrapper
             loading={loading}
-            defaultValue={'https://cosmos.network'}
+            defaultText={'Cosmos hub'}
+            className={styles.zoneName}
+          >
+            {data?.name}
+          </SkeletonTextWrapper>
+          <SkeletonTextWrapper
+            loading={loading}
+            defaultText={'https://cosmos.network'}
             className={styles.zoneWebsite}
           >
             {data?.website && (
@@ -46,7 +50,7 @@ function ZoneDetails() {
                 {data.website}
               </ExternalLink>
             )}
-          </SkeletonLine>
+          </SkeletonTextWrapper>
         </div>
       </div>
 

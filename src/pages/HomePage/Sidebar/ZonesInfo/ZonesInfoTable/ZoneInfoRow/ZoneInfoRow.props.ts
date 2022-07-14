@@ -3,7 +3,7 @@ import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { NumberType } from 'components';
 
 export interface ZonesInfoRowProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
   className?: string;
   zone: ZoneInfoData;
   numberType?: NumberType;
