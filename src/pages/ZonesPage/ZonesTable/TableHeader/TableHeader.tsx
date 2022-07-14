@@ -18,8 +18,10 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcVolume)}
         >
-          IBC Volume
-          <QuestionMark className={styles.questionMark} />
+          <span>
+            IBC Volume
+            <QuestionMark className={styles.questionMark} />
+          </span>
         </th>
         <th
           className={cn({
@@ -27,9 +29,11 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcVolumeReceived)}
         >
-          <div className={styles.targetCircle} />
-          IBC Volume In
-          <QuestionMark className={styles.questionMark} />
+          <span>
+            <div className={styles.targetCircle} />
+            IBC Volume In
+            <QuestionMark className={styles.questionMark} />
+          </span>
         </th>
         <th
           className={cn({
@@ -37,9 +41,11 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcVolumeSent)}
         >
-          <div className={styles.sourceCircle} />
-          IBC Volume Out
-          <QuestionMark className={styles.questionMark} />
+          <span>
+            <div className={styles.sourceCircle} />
+            IBC Volume Out
+            <QuestionMark className={styles.questionMark} />
+          </span>
         </th>
         <th
           className={cn({
@@ -47,8 +53,10 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.TotalTxs)}
         >
-          Total TXS
-          <QuestionMark className={styles.questionMark} />
+          <span>
+            Total TXS
+            <QuestionMark className={styles.questionMark} />
+          </span>
         </th>
         <th
           className={cn({
@@ -56,8 +64,10 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcTransfers)}
         >
-          IBC Transfers
-          <QuestionMark className={styles.questionMark} />
+          <span>
+            IBC Transfers
+            <QuestionMark className={styles.questionMark} />
+          </span>
         </th>
         <th>
           Peers
@@ -73,8 +83,10 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcActiveAddresses)}
         >
-          DAU
-          <QuestionMark className={styles.questionMark} />
+          <span>
+            DAU
+            <QuestionMark className={styles.questionMark} />
+          </span>
         </th>
         <th>IBC Transfers Activity</th>
       </tr>
