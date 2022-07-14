@@ -10,7 +10,8 @@
     white-space: nowrap;
     border-bottom: 1px solid #2F2C39;
     
-    &.selected {
+    &.selected > span {
+      padding-bottom: 6px;
       color: var(--white);
       border-bottom: 1px solid #FFFFFF;
     }
