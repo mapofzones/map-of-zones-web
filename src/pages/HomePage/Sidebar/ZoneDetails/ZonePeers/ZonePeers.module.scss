@@ -4,7 +4,9 @@
   padding: 0 16px;
 
   .peerCard {
+    display: block;
     margin-bottom: 16px;
+    min-height: 160px;
 
     .title {
       font-size: 13px;

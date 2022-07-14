@@ -1,5 +1,6 @@
 import cn from 'classnames';
 
+import { SkeletonLine } from 'components';
 import { NumberFormat } from 'components/NumberFormat/NumberFormat';
 import { QuestionMark } from 'icons';
 
@@ -10,6 +11,8 @@ function ZoneOverviewItem({
   title,
   period,
   value,
+  loading,
+  defaultLoadingValue,
   className,
   children,
   numberType,
@@ -23,7 +26,9 @@ function ZoneOverviewItem({
         <QuestionMark className={styles.questionMark} />
       </div>
       <div className={styles.value}>
-        {children ? children : <NumberFormat value={value} numberType={numberType} />}
+        <SkeletonLine loading={loading} defaultValue={defaultLoadingValue}>
+          {children ? children : <NumberFormat value={value} numberType={numberType} />}
+        </SkeletonLine>
       </div>
     </div>
   );

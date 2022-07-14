@@ -14,7 +14,7 @@ export function useZonesTableData(
   selectedColumnKey: ColumnKeys,
   sortingColumnKey: Zones_Stats_Select_Column,
   isMainnet = true
-): { data: ZonesTableDataQueryItem[] } {
+): { data: ZonesTableDataQueryItem[]; loading: boolean } {
   const options = useMemo(
     () => ({
       variables: {
@@ -30,7 +30,7 @@ export function useZonesTableData(
     }),
     [selectedPeriod, selectedColumnKey, sortingColumnKey, isMainnet]
   );
-  const { data } = useQuery(ZonesTableDataDocument, options);
+  const { data, loading } = useQuery(ZonesTableDataDocument, options);
 
-  return useMemo(() => ({ data: data?.zonesTable ?? [] }), [data]);
+  return useMemo(() => ({ data: data?.zonesTable ?? [], loading }), [data, loading]);
 }

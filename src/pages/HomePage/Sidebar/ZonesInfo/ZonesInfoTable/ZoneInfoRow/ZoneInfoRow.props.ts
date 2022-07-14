@@ -6,7 +6,7 @@ export interface ZonesInfoRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   zone: ZoneInfoData;
-  numberType: NumberType;
+  numberType?: NumberType;
 }
 
 export interface ZoneInfoData {

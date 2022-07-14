@@ -5,14 +5,14 @@ import { useParams } from 'react-router-dom';
 
 import { ZoneDetailsDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZoneDetails.generated';
 
-export function useZoneDetails(): ZoneDetails | undefined {
+export function useZoneDetails(): { data: ZoneDetails | undefined; loading: boolean } {
   const { zone = '' } = useParams();
 
   const options = useMemo(() => ({ variables: { zone }, skip: !zone }), [zone]);
 
-  const { data } = useQuery(ZoneDetailsDocument, options);
+  const { data, loading } = useQuery(ZoneDetailsDocument, options);
 
-  return useMemo(() => data?.zoneDetails[0], [data]);
+  return useMemo(() => ({ data: data?.zoneDetails[0], loading }), [data, loading]);
 }
 
 interface ZoneDetails {

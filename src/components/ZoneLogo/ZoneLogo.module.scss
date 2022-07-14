@@ -1,4 +1,19 @@
 .container {
   border-radius: 50%;
   background-color: var(--grey-500);
+
+  &.loading {
+    background: linear-gradient(-90deg, #2a2a33 0%, #1e1c25 50%, #2a2a33 100%);
+    background-size: 400% 400%;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -135% 0%;
+  }
 }

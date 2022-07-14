@@ -11,4 +11,6 @@ export interface ZoneOverviewItemProps
   className?: string;
   children?: ReactNode;
   numberType?: NumberType;
+  loading?: boolean;
+  defaultLoadingValue?: string;
 }

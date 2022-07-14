@@ -1,6 +1,13 @@
 import { useMemo, useState } from 'react';
 
-import { Button, Dropdown, PeriodSelector, ScrollableContainer, Search } from 'components';
+import {
+  Button,
+  Dropdown,
+  PeriodSelector,
+  ScrollableContainer,
+  Search,
+  SkeletonLine,
+} from 'components';
 import { DropdownOption } from 'components/Dropdown/DropdownOption';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
@@ -21,8 +28,11 @@ function ZonesInfo(): JSX.Element {
 
   const metadata = useMemo(() => METADATA[selectedColumnKey], [selectedColumnKey]);
 
-  const { data: totalInfo } = useTotalZonesInfo(selectedPeriod, selectedColumnKey);
-  const { data: zones } = useZonesTableData(
+  const { data: totalInfo, loading: totalInfoLoading } = useTotalZonesInfo(
+    selectedPeriod,
+    selectedColumnKey
+  );
+  const { data: zones, loading: tableDataLoading } = useZonesTableData(
     selectedPeriod,
     selectedColumnKey,
     metadata.sortingColumnKey
@@ -47,7 +57,13 @@ function ZonesInfo(): JSX.Element {
   return (
     <div className={styles.container}>
       <div className={styles.blockRow}>
-        <span>{zones?.length} Zones</span>
+        <span>
+          <SkeletonLine loading={tableDataLoading} defaultValue={'00'}>
+            {zones?.length}
+          </SkeletonLine>
+          {' Zones'}
+        </span>
+
         <Search
           className={styles.search}
           initialValue={searchValue}
@@ -65,6 +81,7 @@ function ZonesInfo(): JSX.Element {
       </div>
       <ScrollableContainer className={styles.scrollableTable}>
         <TotalInfoCard
+          loading={totalInfoLoading}
           className={styles.totalInfo}
           totalInfo={totalInfo}
           columnType={selectedColumnKey}
@@ -72,11 +89,7 @@ function ZonesInfo(): JSX.Element {
         />
         <ZonesInfoTable
           data={filteredZones}
-          columnType={selectedColumnKey}
-          numberType={metadata.numberType}
-        />
-        <ZonesInfoTable
-          data={zones}
+          loading={tableDataLoading}
           columnType={selectedColumnKey}
           numberType={metadata.numberType}
         />

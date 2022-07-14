@@ -5,5 +5,6 @@ export interface ZoneLogoProps
   logoUrl?: string | null;
   name?: string | null;
   size?: string;
+  loading?: boolean;
   className?: string;
 }
