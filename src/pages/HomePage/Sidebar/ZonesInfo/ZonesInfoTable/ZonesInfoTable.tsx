@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import { ZoneInfoRow } from '../../../index';
 import { ColumnKeys } from '../../../Types';
+import { ZoneInfoRowLoader } from './ZoneInfoRow/ZoneInfoRow';
 import styles from './ZonesInfoTable.module.scss';
 import { ZonesInfoTableProps, ZonesTableDataQueryItem } from './ZonesInfoTable.props';
 
@@ -35,6 +36,7 @@ export function ZonesInfoTable({
   data,
   columnType,
   numberType,
+  loading,
   className,
   ...props
 }: ZonesInfoTableProps) {
@@ -42,8 +44,9 @@ export function ZonesInfoTable({
 
   return (
     <div className={cn(styles.zonesInfoTable, className)} {...props}>
-      {data &&
-        data.map((zone: ZonesTableDataQueryItem) => (
+      {loading && <ZoneInfoTableLoader />}
+      {!loading &&
+        data?.map((zone: ZonesTableDataQueryItem) => (
           <ZoneInfoRow
             key={zone.zone}
             numberType={numberType}
@@ -58,5 +61,17 @@ export function ZonesInfoTable({
           />
         ))}
     </div>
+  );
+}
+
+function ZoneInfoTableLoader(): JSX.Element {
+  return (
+    <>
+      {Array(7)
+        .fill(0)
+        .map((_, index: number) => (
+          <ZoneInfoRowLoader key={index} />
+        ))}
+    </>
   );
 }

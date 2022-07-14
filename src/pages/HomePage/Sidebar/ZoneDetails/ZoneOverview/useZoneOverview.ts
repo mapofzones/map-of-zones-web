@@ -17,7 +17,7 @@ export const useZoneOverview = () => {
     [zone, period]
   );
 
-  const { data } = useQuery(ZoneOverviewDocument, options);
+  const { data, loading } = useQuery(ZoneOverviewDocument, options);
 
-  return useMemo(() => data?.zoneOverview[0], [data]);
+  return useMemo(() => ({ data: data?.zoneOverview[0], loading }), [data, loading]);
 };

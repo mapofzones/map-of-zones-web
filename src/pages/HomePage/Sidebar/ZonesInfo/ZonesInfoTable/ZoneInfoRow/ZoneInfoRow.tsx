@@ -1,12 +1,17 @@
 import cn from 'classnames';
 
-import { LinkWithQuery, NumberFormat, ZoneLogo } from 'components';
+import { LinkWithQuery, NumberFormat, NumberType, ZoneLogo, SkeletonLine } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
 
-function ZoneInfoRow({ zone, numberType, className, ...props }: ZonesInfoRowProps): JSX.Element {
+function ZoneInfoRow({
+  zone,
+  numberType = NumberType.Number,
+  className,
+  ...props
+}: ZonesInfoRowProps): JSX.Element {
   return (
     <LinkWithQuery to={`${zone.id}/overview`}>
       <div className={cn(styles.row, className)} {...props}>
@@ -50,6 +55,23 @@ function ZoneInfoRow({ zone, numberType, className, ...props }: ZonesInfoRowProp
         </div>
       </div>
     </LinkWithQuery>
+  );
+}
+
+export function ZoneInfoRowLoader() {
+  return (
+    <div className={styles.row}>
+      <div className={styles.zoneBaseInfoContainer}>
+        <ZoneLogo loading={true} size={'32px'} />
+        <SkeletonLine
+          style={{ marginLeft: '16px' }}
+          loading={true}
+          defaultValueMinLength={5}
+          defaultValueMaxLength={10}
+        />
+      </div>
+      <SkeletonLine loading={true} defaultValue={'$123,456,789'} />
+    </div>
   );
 }
 

@@ -35,6 +35,7 @@ const metadata: Record<ColumnKeys, TotalInfoMetadata> = {
 
 export function TotalInfoCard({
   totalInfo,
+  loading,
   columnType,
   numberType,
   className,
@@ -45,22 +46,25 @@ export function TotalInfoCard({
   const meta = useMemo(() => metadata[columnType], [columnType]);
 
   return (
-    <Card className={cn(styles.container, className)} hasBorder {...props}>
+    <Card className={cn(styles.container, className)} hasBorder {...props} loading={loading}>
       {totalInfo && (
         <>
           <span className={styles.container_title}>
-            {meta.title}
-            <span> ({selectedPeriod})</span>
+            {meta.title} ({selectedPeriod})
           </span>
-          <span className={styles.container_value}>
-            <NumberFormat value={totalInfo[meta.valueKey]} numberType={numberType} />
-          </span>
+          <NumberFormat
+            className={styles.container_value}
+            value={totalInfo[meta.valueKey]}
+            numberType={numberType}
+          />
           {meta.pendingValueKey && (
             <span className={styles.container_pendingContainer}>
               <PendingIcon />
-              <span className={styles.container_pending}>
-                <NumberFormat value={totalInfo[meta.pendingValueKey]} numberType={numberType} />
-              </span>
+              <NumberFormat
+                className={styles.container_pending}
+                value={totalInfo[meta.pendingValueKey]}
+                numberType={numberType}
+              />
             </span>
           )}
         </>

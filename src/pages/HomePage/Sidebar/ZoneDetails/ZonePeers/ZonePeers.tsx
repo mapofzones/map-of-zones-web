@@ -14,16 +14,19 @@ import { useZonePeers } from './useZonePeers';
 import styles from './ZonePeers.module.scss';
 
 export function ZonePeers() {
-  const { data } = useZonePeers();
+  const { data: peers, loading: peersLoading } = useZonePeers();
 
-  const zoneDetails = useZoneDetails();
+  const { data: zoneDetails, loading: zoneDetailsLoading } = useZoneDetails();
+
+  const loading = peersLoading || zoneDetailsLoading;
 
   return (
     <>
       <ScrollableContainer className={styles.container}>
-        {data &&
+        {loading && <ZonePeersSkeleton />}
+        {!loading &&
           zoneDetails &&
-          data.map((peer) => (
+          peers?.map((peer) => (
             <Card hasBorder key={peer.zoneCounterpartyKey} className={styles.peerCard}>
               <div className={styles.title}>
                 {zoneDetails?.name}
@@ -57,6 +60,18 @@ export function ZonePeers() {
         <span className={styles.btnText}>Learn More</span>
         <ArrowRight />
       </Button>
+    </>
+  );
+}
+
+export function ZonePeersSkeleton() {
+  return (
+    <>
+      {Array(3)
+        .fill(0)
+        .map((_, index: number) => (
+          <Card hasBorder key={index} className={styles.peerCard} loading={true} />
+        ))}
     </>
   );
 }
