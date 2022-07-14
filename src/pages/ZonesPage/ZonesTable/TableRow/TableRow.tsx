@@ -20,7 +20,7 @@ const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
 
 export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
   const ratingDiff = useMemo(
-    () => zone[ratingDiffKeysMap[selectedColumnKey]],
+    () => zone[ratingDiffKeysMap[selectedColumnKey]] as number,
     [selectedColumnKey, zone]
   );
 
