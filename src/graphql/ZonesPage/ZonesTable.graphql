@@ -22,6 +22,7 @@ query ZonesTable(
     ibcVolumeOutMainnetRatingDiff: ibc_cashflow_out_mainnet_rating_diff
     ibcVolumeOutPendingMainnet: ibc_cashflow_out_pending_mainnet
     ibcVolumePendingMainnet: ibc_cashflow_pending_mainnet
+    isZoneUpToDate: is_zone_up_to_date
     logoUrl: zone_label_url
     name: zone_readable_name
     peersCountMainnet: ibc_peers_mainnet

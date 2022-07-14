@@ -6,6 +6,7 @@ import { NumberFormat, NumberType } from 'components';
 import { PendingIcon } from 'icons';
 
 import { ColumnKeys } from '../TableHeader/Types';
+import Status from './Status/Status';
 import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
 
@@ -41,6 +42,9 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
             )}
           </div>
           <span className={styles.value}>{zone.name}</span>
+
+          <Status isZoneUpToDate={zone.isZoneUpToDate} />
+
           {!!ratingDiff && (
             <div className={cn(styles.ratingDiff, { [styles.negative]: ratingDiff < 0 })}>
               <div

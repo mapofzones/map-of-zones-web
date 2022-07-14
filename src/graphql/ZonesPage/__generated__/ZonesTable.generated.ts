@@ -32,6 +32,7 @@ export type ZonesTableQueryResult = {
     ibcVolumeOutMainnetRatingDiff?: number | null;
     ibcVolumeOutPendingMainnet?: any | null;
     ibcVolumePendingMainnet?: any | null;
+    isZoneUpToDate?: boolean | null;
     logoUrl?: string | null;
     name: string;
     peersCountMainnet?: number | null;
@@ -204,6 +205,11 @@ export const ZonesTableDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcVolumePendingMainnet' },
                   name: { kind: 'Name', value: 'ibc_cashflow_pending_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'isZoneUpToDate' },
+                  name: { kind: 'Name', value: 'is_zone_up_to_date' },
                 },
                 {
                   kind: 'Field',
