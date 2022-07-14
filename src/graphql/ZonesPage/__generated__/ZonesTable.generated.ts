@@ -18,18 +18,24 @@ export type ZonesTableQueryResult = {
     __typename?: 'zones_stats';
     zone: string;
     channelsCount?: number | null;
+    ibcActiveAddressesMainnetRatingDiff?: number | null;
     ibcDauMainnet?: number | null;
     ibcTransfersMainnet?: number | null;
+    ibcTransfersMainnetRatingDiff?: number | null;
     ibcTransfersPendingMainnet?: number | null;
     ibcVolumeInMainnet?: any | null;
+    ibcVolumeInMainnetRatingDiff?: number | null;
     ibcVolumeInPendingMainnet?: any | null;
     ibcVolumeMainnet?: any | null;
+    ibcVolumeMainnetRatingDiff?: number | null;
     ibcVolumeOutMainnet?: any | null;
+    ibcVolumeOutMainnetRatingDiff?: number | null;
     ibcVolumeOutPendingMainnet?: any | null;
     ibcVolumePendingMainnet?: any | null;
     logoUrl?: string | null;
     name: string;
     peersCountMainnet?: number | null;
+    totalIbcTxsMainnetRatingDiff?: number | null;
     totalTxs?: number | null;
   }>;
 };
@@ -131,6 +137,11 @@ export const ZonesTableDocument = {
                 },
                 {
                   kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcActiveAddressesMainnetRatingDiff' },
+                  name: { kind: 'Name', value: 'ibc_active_addresses_mainnet_rating_diff' },
+                },
+                {
+                  kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcDauMainnet' },
                   name: { kind: 'Name', value: 'ibc_active_addresses_mainnet' },
                 },
@@ -138,6 +149,11 @@ export const ZonesTableDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcTransfersMainnet' },
                   name: { kind: 'Name', value: 'ibc_transfers_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcTransfersMainnetRatingDiff' },
+                  name: { kind: 'Name', value: 'ibc_transfers_mainnet_rating_diff' },
                 },
                 {
                   kind: 'Field',
@@ -151,6 +167,11 @@ export const ZonesTableDocument = {
                 },
                 {
                   kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeInMainnetRatingDiff' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in_mainnet_rating_diff' },
+                },
+                {
+                  kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcVolumeInPendingMainnet' },
                   name: { kind: 'Name', value: 'ibc_cashflow_in_pending_mainnet' },
                 },
@@ -161,8 +182,18 @@ export const ZonesTableDocument = {
                 },
                 {
                   kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeMainnetRatingDiff' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_mainnet_rating_diff' },
+                },
+                {
+                  kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcVolumeOutMainnet' },
                   name: { kind: 'Name', value: 'ibc_cashflow_out_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOutMainnetRatingDiff' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out_mainnet_rating_diff' },
                 },
                 {
                   kind: 'Field',
@@ -188,6 +219,11 @@ export const ZonesTableDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'peersCountMainnet' },
                   name: { kind: 'Name', value: 'ibc_peers_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'totalIbcTxsMainnetRatingDiff' },
+                  name: { kind: 'Name', value: 'total_ibc_txs_mainnet_rating_diff' },
                 },
                 {
                   kind: 'Field',
