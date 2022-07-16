@@ -6,6 +6,7 @@ export interface ZonesInfoRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
   className?: string;
   zone: ZoneInfoData;
+  searchValue?: string;
   numberType?: NumberType;
 }
 

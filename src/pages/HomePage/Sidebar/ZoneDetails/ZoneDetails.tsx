@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { ButtonGroup, ExternalLink, ZoneLogo, SkeletonTextWrapper } from 'components';
-import { CloseIcon, EarthIcon } from 'icons';
+import { CloseCircleIcon, EarthIcon } from 'icons';
 
 import { useZoneDetails } from './useZoneDetails';
 import styles from './ZoneDetails.module.scss';
@@ -22,7 +22,7 @@ function ZoneDetails() {
 
   return (
     <div className={styles.container}>
-      <CloseIcon className={styles.closeIcon} onClick={closeDetails} />
+      <CloseCircleIcon className={styles.closeIcon} onClick={closeDetails} />
 
       <div className={styles.detailsTitle}>
         <ZoneLogo

@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 
+import cn from 'classnames';
+
 import {
   Button,
   Dropdown,
@@ -25,6 +27,7 @@ function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
   const [searchValue, setSearchValue] = useState('');
+  const [searchExpanded, setSearchExpanded] = useState(false);
 
   const metadata = useMemo(() => METADATA[selectedColumnKey], [selectedColumnKey]);
 
@@ -38,14 +41,6 @@ function ZonesInfo(): JSX.Element {
     metadata.sortingColumnKey
   );
 
-  const filteredZones = useMemo(
-    () =>
-      searchValue
-        ? zones.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase()))
-        : zones,
-    [zones, searchValue]
-  );
-
   const onColumnChange = (option: DropdownOption) => {
     setSelectedColumnKey(option.key as ColumnKeys);
   };
@@ -56,8 +51,8 @@ function ZonesInfo(): JSX.Element {
 
   return (
     <div className={styles.container}>
-      <div className={styles.blockRow}>
-        <span>
+      <div className={cn(styles.zoneCountSearchContainer, { [styles.expanded]: searchExpanded })}>
+        <span className={styles.zonesCountInfo}>
           <SkeletonTextWrapper loading={tableDataLoading} defaultText={'00'}>
             {zones?.length}
           </SkeletonTextWrapper>
@@ -66,11 +61,12 @@ function ZonesInfo(): JSX.Element {
 
         <Search
           className={styles.search}
-          initialValue={searchValue}
           onSearchChange={onSearchChange}
+          onFocus={() => setSearchExpanded(true)}
+          onBlur={() => setSearchExpanded(false)}
         />
       </div>
-      <div className={styles.blockRow}>
+      <div className={styles.selectorsContainer}>
         <Dropdown
           className={styles.columnDropdown}
           options={COLUMN_OPTIONS}
@@ -88,7 +84,8 @@ function ZonesInfo(): JSX.Element {
           numberType={metadata.numberType}
         />
         <ZonesInfoTable
-          data={filteredZones}
+          data={zones}
+          searchValue={searchValue}
           loading={tableDataLoading}
           columnType={selectedColumnKey}
           numberType={metadata.numberType}
