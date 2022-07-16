@@ -1,3 +1,5 @@
+import React from 'react';
+
 import cn from 'classnames';
 
 import {
@@ -15,10 +17,15 @@ import { ZonesInfoRowProps } from './ZoneInfoRow.props';
 
 function ZoneInfoRow({
   zone,
+  searchValue,
   numberType = NumberType.Number,
   className,
   ...props
 }: ZonesInfoRowProps): JSX.Element {
+  const names = searchValue
+    ? zone.name.split(new RegExp(`(${searchValue})`, 'gi')).filter((part: string) => !!part)
+    : [zone.name];
+
   return (
     <LinkWithQuery to={`${zone.id}/overview`} className={cn(styles.row, className)} {...props}>
       {/* TODO: separate component */}
@@ -29,7 +36,20 @@ function ZoneInfoRow({
           size={'32px'}
           className={styles.zoneLogo}
         />
-        {zone.name}
+        <div className={styles.name}>
+          {names.map((value, index) => {
+            const key = `${zone.name}_${index}`;
+            if (value.toLowerCase() === searchValue?.toLowerCase() || names.length <= 1) {
+              return <React.Fragment key={key}>{value}</React.Fragment>;
+            }
+            return (
+              <span className={styles.notActive} key={key}>
+                {value}
+              </span>
+            );
+          })}
+        </div>
+
         {!!zone.ratingDiff && (
           <div className={cn(styles.ratingDiff, { [styles.negative]: zone.ratingDiff < 0 })}>
             <div
@@ -53,9 +73,11 @@ function ZoneInfoRow({
         {zone.pendingValue != null && (
           <span className={cn(styles.pendingValueContainer, 'text-align')}>
             <PendingIcon />
-            <span className={styles.pendingValue}>
-              <NumberFormat value={zone.pendingValue} numberType={numberType} />
-            </span>
+            <NumberFormat
+              className={styles.pendingValue}
+              value={zone.pendingValue}
+              numberType={numberType}
+            />
           </span>
         )}
       </div>

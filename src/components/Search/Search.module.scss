@@ -3,15 +3,50 @@
   position: relative;
   align-items: center;
 
-  .icon {
+  .loopIcon {
     position: absolute;
     right: 10px;
+    visibility: hidden;
+  }
+
+  .searchInput:placeholder-shown + .loopIcon {
+    visibility: visible;
   }
 
   .searchInput {
-    padding-right: 30px;
+    width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .searchInput::-webkit-search-cancel-button {
+    --icon-color: var(--grey-100);
+
+    -webkit-appearance: none;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+    margin-right: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        transparent 43%,
+        var(--icon-color) 45%,
+        var(--icon-color) 55%,
+        transparent 57%,
+        transparent 100%
+      ),
+      linear-gradient(
+        135deg,
+        transparent 0%,
+        transparent 43%,
+        var(--icon-color) 45%,
+        var(--icon-color) 55%,
+        transparent 57%,
+        transparent 100%
+      );
+    cursor: pointer;
   }
 }

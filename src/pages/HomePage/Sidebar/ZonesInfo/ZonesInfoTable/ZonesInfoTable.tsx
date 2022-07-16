@@ -34,6 +34,7 @@ const fieldsMap: Record<
 
 export function ZonesInfoTable({
   data,
+  searchValue,
   columnType,
   numberType,
   loading,
@@ -42,14 +43,26 @@ export function ZonesInfoTable({
 }: ZonesInfoTableProps) {
   const fields = useMemo(() => fieldsMap[columnType], [columnType]);
 
+  const filteredZones = useMemo(
+    () =>
+      searchValue
+        ? data?.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase()))
+        : data,
+    [data, searchValue]
+  );
+
   return (
     <div className={cn(styles.zonesInfoTable, className)} {...props}>
       {loading && <ZoneInfoTableLoader />}
+      {!loading && !!searchValue && !filteredZones?.length && (
+        <div className={styles.zonesNotFoundContainer}>No zones found.</div>
+      )}
       {!loading &&
-        data?.map((zone: ZonesTableDataQueryItem) => (
+        filteredZones?.map((zone: ZonesTableDataQueryItem) => (
           <ZoneInfoRow
             key={zone.zone}
             numberType={numberType}
+            searchValue={searchValue}
             zone={{
               id: zone.zone,
               name: zone.name,
