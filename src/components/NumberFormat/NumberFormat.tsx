@@ -9,6 +9,9 @@ export function NumberFormat({
   ...props
 }: NumberFormatProps) {
   const prefix = numberType === NumberType.Currency ? '$' : '';
+  const suffix = numberType === NumberType.Percent ? ' %' : '';
+  const decimalScale = numberType === NumberType.Percent ? 2 : undefined;
+  const decimalSeparator = numberType === NumberType.Percent ? ',' : '.';
   const thousandSeparator = numberType === NumberType.Currency ? ',' : ' ';
 
   return (
@@ -17,6 +20,9 @@ export function NumberFormat({
       displayType={'text'}
       thousandSeparator={thousandSeparator}
       prefix={prefix}
+      suffix={suffix}
+      decimalScale={decimalScale}
+      decimalSeparator={decimalSeparator}
       {...props}
     />
   );
