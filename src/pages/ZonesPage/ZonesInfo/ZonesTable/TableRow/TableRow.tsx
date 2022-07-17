@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import cn from 'classnames';
 
-import { NumberFormat, NumberType } from 'components';
+import { LinkWithQuery, NumberFormat, NumberType } from 'components';
 import { PendingIcon } from 'icons';
 
 import { ColumnKeys } from '../TableHeader/Types';
@@ -26,7 +26,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
   );
 
   return (
-    <tr className={styles.container}>
+    <LinkWithQuery className={styles.container} to={`${zone.zone}/overview`}>
       <td className={styles.columnContainer}>
         <span className={styles.position}>{index + 1}</span>
       </td>
@@ -160,6 +160,6 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       </td>
 
       <td className={styles.columnContainer}>IBC Transfers Activity</td>
-    </tr>
+    </LinkWithQuery>
   );
 }
