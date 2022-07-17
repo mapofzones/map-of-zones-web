@@ -3,7 +3,7 @@
  */
 /* eslint-disable */
 
-import * as Types from '../../base-types';
+import * as Types from '../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZonesCountQueryVariables = Types.Exact<{
