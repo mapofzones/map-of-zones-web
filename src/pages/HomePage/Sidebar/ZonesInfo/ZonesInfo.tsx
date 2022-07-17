@@ -1,6 +1,15 @@
 import { useMemo, useState } from 'react';
 
-import { Button, Dropdown, PeriodSelector, ScrollableContainer, Search } from 'components';
+import cn from 'classnames';
+
+import {
+  Button,
+  Dropdown,
+  PeriodSelector,
+  ScrollableContainer,
+  Search,
+  SkeletonTextWrapper,
+} from 'components';
 import { DropdownOption } from 'components/Dropdown/DropdownOption';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
@@ -18,22 +27,18 @@ function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
   const [searchValue, setSearchValue] = useState('');
+  const [searchExpanded, setSearchExpanded] = useState(false);
 
   const metadata = useMemo(() => METADATA[selectedColumnKey], [selectedColumnKey]);
 
-  const { data: totalInfo } = useTotalZonesInfo(selectedPeriod, selectedColumnKey);
-  const { data: zones } = useZonesTableData(
+  const { data: totalInfo, loading: totalInfoLoading } = useTotalZonesInfo(
+    selectedPeriod,
+    selectedColumnKey
+  );
+  const { data: zones, loading: tableDataLoading } = useZonesTableData(
     selectedPeriod,
     selectedColumnKey,
     metadata.sortingColumnKey
-  );
-
-  const filteredZones = useMemo(
-    () =>
-      searchValue
-        ? zones.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase()))
-        : zones,
-    [zones, searchValue]
   );
 
   const onColumnChange = (option: DropdownOption) => {
@@ -46,15 +51,22 @@ function ZonesInfo(): JSX.Element {
 
   return (
     <div className={styles.container}>
-      <div className={styles.blockRow}>
-        <span>{zones?.length} Zones</span>
+      <div className={cn(styles.zoneCountSearchContainer, { [styles.expanded]: searchExpanded })}>
+        <span className={styles.zonesCountInfo}>
+          <SkeletonTextWrapper loading={tableDataLoading} defaultText={'00'}>
+            {zones?.length}
+          </SkeletonTextWrapper>
+          {' Zones'}
+        </span>
+
         <Search
           className={styles.search}
-          initialValue={searchValue}
           onSearchChange={onSearchChange}
+          onFocus={() => setSearchExpanded(true)}
+          onBlur={() => setSearchExpanded(false)}
         />
       </div>
-      <div className={styles.blockRow}>
+      <div className={styles.selectorsContainer}>
         <Dropdown
           className={styles.columnDropdown}
           options={COLUMN_OPTIONS}
@@ -65,18 +77,16 @@ function ZonesInfo(): JSX.Element {
       </div>
       <ScrollableContainer className={styles.scrollableTable}>
         <TotalInfoCard
+          loading={totalInfoLoading}
           className={styles.totalInfo}
           totalInfo={totalInfo}
           columnType={selectedColumnKey}
           numberType={metadata.numberType}
         />
         <ZonesInfoTable
-          data={filteredZones}
-          columnType={selectedColumnKey}
-          numberType={metadata.numberType}
-        />
-        <ZonesInfoTable
           data={zones}
+          searchValue={searchValue}
+          loading={tableDataLoading}
           columnType={selectedColumnKey}
           numberType={metadata.numberType}
         />
