@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { ButtonGroup, ExternalLink, ZoneLogo } from 'components';
-import { CloseIcon, EarthIcon } from 'icons';
+import { ButtonGroup, ExternalLink, ZoneLogo, SkeletonTextWrapper } from 'components';
+import { CloseCircleIcon, EarthIcon } from 'icons';
 
 import { useZoneDetails } from './useZoneDetails';
 import styles from './ZoneDetails.module.scss';
@@ -11,7 +11,7 @@ function ZoneDetails() {
 
   const [searchParams] = useSearchParams();
 
-  const data = useZoneDetails();
+  const { data, loading } = useZoneDetails();
 
   const closeDetails = () => {
     navigate({
@@ -21,35 +21,46 @@ function ZoneDetails() {
   };
 
   return (
-    <>
-      {data && (
-        <div className={styles.container}>
-          <div className={styles.detailsTitle}>
-            <ZoneLogo
-              logoUrl={data?.logoUrl}
-              name={data?.name}
-              size={'60px'}
-              className={styles.zoneLogo}
-            />
-            <span className={styles.zoneName}>{data.name}</span>
-            <CloseIcon className={styles.closeIcon} onClick={closeDetails} />
-            {data.website && (
-              <div className={styles.zoneWebsiteContainer}>
-                <ExternalLink Icon={EarthIcon} href={data.website}>
-                  {data.website}
-                </ExternalLink>
-              </div>
-            )}
-            <ButtonGroup className={styles.pagesSwitcher}>
-              <NavLink to="overview">Overview</NavLink>
-              <NavLink to="peers">Peers</NavLink>
-            </ButtonGroup>
-          </div>
+    <div className={styles.container}>
+      <CloseCircleIcon className={styles.closeIcon} onClick={closeDetails} />
 
-          <Outlet />
+      <div className={styles.detailsTitle}>
+        <ZoneLogo
+          logoUrl={data?.logoUrl}
+          name={data?.name}
+          size={'60px'}
+          loading={loading}
+          className={styles.zoneLogo}
+        />
+        <div className={styles.zoneBaseInfo}>
+          <SkeletonTextWrapper
+            loading={loading}
+            defaultText={'Cosmos hub'}
+            className={styles.zoneName}
+          >
+            {data?.name}
+          </SkeletonTextWrapper>
+          <SkeletonTextWrapper
+            loading={loading}
+            defaultText={'https://cosmos.network'}
+            className={styles.zoneWebsite}
+          >
+            {data?.website && (
+              <ExternalLink Icon={EarthIcon} href={data.website}>
+                {data.website}
+              </ExternalLink>
+            )}
+          </SkeletonTextWrapper>
         </div>
-      )}
-    </>
+      </div>
+
+      <ButtonGroup className={styles.pagesSwitcher}>
+        <NavLink to="overview">Overview</NavLink>
+        <NavLink to="peers">Peers</NavLink>
+      </ButtonGroup>
+
+      <Outlet />
+    </div>
   );
 }
 

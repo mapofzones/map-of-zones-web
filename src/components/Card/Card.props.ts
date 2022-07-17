@@ -4,5 +4,6 @@ export interface CardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children?: ReactNode;
   className?: string;
+  loading?: boolean;
   hasBorder?: boolean;
 }

@@ -30,5 +30,7 @@ export { PeerLineChart } from './PeerLineChart/PeerLineChart';
 
 export { ZoneLogo } from './ZoneLogo/ZoneLogo';
 
+export * from './Skeleton';
+
 // export types
 export { NumberType } from './NumberFormat/NumberType';

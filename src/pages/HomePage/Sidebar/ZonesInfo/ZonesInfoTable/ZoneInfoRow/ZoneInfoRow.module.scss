@@ -23,6 +23,12 @@
     margin-right: 12px;
   }
 
+  .name {
+    .notActive {
+      color: var(--grey-500);
+    }
+  }
+
   .ratingDiff {
     display: flex;
     color: var(--green);

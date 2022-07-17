@@ -24,12 +24,13 @@ export function useTotalZonesInfo(
     [selectedPeriod, selectedColumnKey, isMainnet]
   );
 
-  const { data } = useQuery(TotalZonesInfoDocument, options);
+  const { data, loading } = useQuery(TotalZonesInfoDocument, options);
 
   return useMemo(
     () => ({
       data: data?.headers[0],
+      loading,
     }),
-    [data]
+    [data, loading]
   );
 }

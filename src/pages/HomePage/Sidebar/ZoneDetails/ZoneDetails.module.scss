@@ -1,45 +1,50 @@
 .container {
   display: grid;
-  grid-template-rows: auto 1fr;
+  position: relative;
+  grid-template-rows: auto auto 1fr auto;
+  grid-row: auto;
   height: 100%;
 
   .detailsTitle {
-    --logo-size: 60px;
-
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    column-gap: 16px;
-    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
 
     .zoneLogo {
-      grid-row-start: 1;
-      grid-row-end: 3;
+      margin-right: 16px;
     }
 
-    .closeIcon {
-      stroke: var(--black-900);
-      cursor: pointer;
+    .zoneBaseInfo {
+      display: flex;
+      flex-direction: column;
 
-      :hover {
-        stroke: var(--grey-300);
+      .zoneName {
+        font-size: 20px;
+        line-height: 25px;
+      }
+
+      .zoneWebsite {
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--grey-500);
+        margin-top: 5px;
       }
     }
+  }
 
-    .zoneName {
-      font-size: 20px;
-      line-height: 25px;
-    }
+  .closeIcon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    stroke: var(--black-900);
+    cursor: pointer;
 
-    .zoneWebsiteContainer {
-      font-size: 13px;
-      line-height: 16px;
-      color: var(--grey-500);
+    :hover {
+      stroke: var(--grey-300);
     }
+  }
 
-    .pagesSwitcher {
-      grid-column-start: 1;
-      grid-column-end: 4;
-      margin-top: 20px;
-    }
+  .pagesSwitcher {
+    margin-top: 20px;
+    margin-bottom: 24px;
   }
 }

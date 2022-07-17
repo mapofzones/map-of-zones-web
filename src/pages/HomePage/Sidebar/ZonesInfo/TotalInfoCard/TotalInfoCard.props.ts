@@ -15,6 +15,7 @@ export interface TotalInfoCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   totalInfo?: TotalInfoType;
+  loading?: boolean;
   columnType: ColumnKeys;
   numberType: NumberType;
 }

@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FocusEvent, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -9,24 +9,39 @@ import styles from './Search.module.scss';
 import { SearchProps } from './Search.props';
 
 export function Search({
-  initialValue,
   onSearchChange,
+  onFocus,
+  onBlur,
   className,
   ...props
 }: SearchProps): JSX.Element {
+  const [enteredText, setEnteredText] = useState('');
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEnteredText(event.target.value);
     onSearchChange?.(event.target.value);
+  };
+
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
+    onFocus?.(event);
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+    onBlur?.(event);
   };
 
   return (
     <div className={cn(styles.searchContainer, className)} {...props}>
-      <SearchIcon className={styles.icon} />
       <Input
         className={styles.searchInput}
+        type="search"
         placeholder={'Search'}
-        value={initialValue}
+        value={enteredText || ''}
         onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
+      <SearchIcon className={styles.loopIcon} />
     </div>
   );
 }
