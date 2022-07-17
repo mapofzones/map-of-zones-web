@@ -1,15 +1,9 @@
-import { ScrollUpButton } from 'components';
-
-import { ZonesTable } from './ZonesTable/ZonesTable';
-import { ZonesTotalInfo } from './ZonesTotalInfo/ZonesTotalInfo';
+import { Outlet } from 'react-router-dom';
 
 export function ZonesPage() {
   return (
     <div>
-      <ZonesTotalInfo />
-      <ZonesTable />
-
-      <ScrollUpButton />
+      <Outlet />
     </div>
   );
 }
