@@ -9,22 +9,24 @@
 
   .tooltip {
     position: absolute;
-    top: -30px;
+    top: -50px;
     left: -25px;
     width: max-content;
     max-width: 260px;
-    background-color: var(--white);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    border-radius: 2px;
-    padding: 4px 6px;
+    background-color: var(--black-400);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--black-600);
+    border-radius: 4px;
+    padding: 12px;
 
+    color: var(--grey-800);
+    font-feature-settings: 'tnum' on, 'lnum' on;
     font-size: 12px;
-    line-height: 115%;
     font-style: normal;
-    font-weight: normal;
-    color: var(--black-100);
-    white-space: normal;
+    font-weight: 400;
+    line-height: 15px;
     text-align: left;
+    white-space: normal;
 
     opacity: 0;
     visibility: hidden;
