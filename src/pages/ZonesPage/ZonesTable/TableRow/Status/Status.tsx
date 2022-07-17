@@ -2,6 +2,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+import { Tooltip } from 'components';
+
 import styles from './Status.module.scss';
 
 const STATUS_ICON_COLOR_BY_ZONE = {
@@ -30,7 +32,7 @@ export default function Status({ isZoneUpToDate }) {
           className={styles.icon}
         />
       </div>
-      <div className={styles.tooltip}>{STATUS_TITLE_BY_ZONE[isZoneUpToDate]}</div>
+      <Tooltip className={styles.tooltip} text={STATUS_TITLE_BY_ZONE[isZoneUpToDate]} />
     </div>
   );
 }
