@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { useQuery } from '@apollo/client';
 
-import { ZonesTotalInfoDocument } from 'graphql/ZonesPage/__generated__/ZonesTotalInfo.generated';
+import { ZonesTotalInfoDocument } from 'graphql/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.generated';
 import { PeriodKeys, PERIODS } from 'pages/HomePage/Sidebar/ZonesInfo/Types';
 
 export function useZonesTotalInfo(selectedPeriod: PeriodKeys, isMainnet = true) {
