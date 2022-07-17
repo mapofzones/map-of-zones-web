@@ -1,14 +1,13 @@
+import { Tooltip } from 'components';
 import { QuestionMark } from 'icons';
 
 import styles from './ExplanationTooltip.module.scss';
 
-// TODO: add proptypes
-// eslint-disable-next-line react/prop-types
-export function ExplanationTooltip({ text = '' }) {
+export function ExplanationTooltip({ text = '' }: { text: string }) {
   return (
     <div className={styles.container}>
       <QuestionMark className={styles.questionMark} />
-      <div className={styles.tooltip}>{text}</div>
+      <Tooltip className={styles.tooltip} text={text} />
     </div>
   );
 }
