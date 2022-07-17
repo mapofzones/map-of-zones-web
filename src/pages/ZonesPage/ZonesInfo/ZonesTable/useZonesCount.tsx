@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { PeriodKeys } from 'components/PeriodSelector/Types';
-import { ZonesCountDocument } from 'graphql/ZonesPage/__generated__/ZonesCount.generated';
+import { ZonesCountDocument } from 'graphql/ZonesPage/ZonesInfo/__generated__/ZonesCount.generated';
 import { PERIODS } from 'pages/HomePage/Sidebar/ZonesInfo/Types';
 
 export function useZonesCount(selectedPeriod: PeriodKeys, isMainnet = true) {
