@@ -1,0 +1,19 @@
+import { Ft_Channel_Group_Stats_Select_Column } from 'graphql/base-types';
+
+export enum ColumnKeys {
+  IbcVolumeReceived = 'ibcVolumeIn',
+  IbcVolumeSent = 'ibcVolumeOut',
+  IbcTransfers = 'ibcTransfers',
+  IbcTransfersPending = 'ibcTransfersPending',
+  IbcTransfersFailed = 'ibcTransfersFailed',
+  SuccessRate = 'successRate',
+}
+
+export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Ft_Channel_Group_Stats_Select_Column> = {
+  [ColumnKeys.IbcVolumeReceived]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowIn,
+  [ColumnKeys.IbcVolumeSent]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowOut,
+  [ColumnKeys.IbcTransfers]: Ft_Channel_Group_Stats_Select_Column.IbcTx,
+  [ColumnKeys.IbcTransfersPending]: Ft_Channel_Group_Stats_Select_Column.IbcTxPending,
+  [ColumnKeys.IbcTransfersFailed]: Ft_Channel_Group_Stats_Select_Column.IbcTxFailed,
+  [ColumnKeys.SuccessRate]: Ft_Channel_Group_Stats_Select_Column.IbcTxSuccessRate,
+};

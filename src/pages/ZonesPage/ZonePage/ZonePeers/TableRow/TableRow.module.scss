@@ -1,0 +1,150 @@
+.container {
+  display: table-row;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--black-500);
+
+    .zoneBaseInfoContainer {
+      .logoContainer {
+        border: 2px solid var(--black-500);
+      }
+
+      .logoContainerSmall {
+        border: 0;
+      }
+    }
+  }
+
+  .columnContainer {
+    padding: 12px 12px 12px 28px;
+    white-space: nowrap;
+
+    &:not(:nth-child(1)) {
+      vertical-align: top;
+    }
+
+    &:nth-child(1) {
+      padding-left: 24px;
+      width: 99%;
+      min-width: 450px;
+    }
+
+    &:nth-child(3) {
+      border-left: 1px solid #2F2C39;
+    }
+
+    &:nth-child(5) {
+      border-left: 1px solid #2F2C39;
+    }
+
+    &:nth-child(8) {
+      padding-right: 24px;
+      border-left: 1px solid #2F2C39;
+    }
+
+    .position {
+      display: block;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--grey-500);
+    }
+
+    .value {
+      display: block;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      text-align: right;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .pendingValueContainer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .pendingValue {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: var(--grey-500);
+      }
+
+      .pendingValueLarge {
+        font-size: 15px;
+        line-height: 19px;
+      }
+
+      .pendingIcon {
+        margin-right: 3px;
+      }
+    } 
+  }
+
+  .arrowIcon {
+    margin-right: 12px;
+  }
+
+  .zoneBaseInfoContainer {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+
+    .logoContainer {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--grey-500);
+      margin-right: 12px;
+      margin-left: 12px;
+      position: relative;
+      border: 2px solid var(--black-100);
+  
+      .logo {
+        width: 100%;
+        height: 100%;
+      }
+
+      .shadow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-shadow: inset 0px 0px 7px #0E0E16;
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    .logoContainerSmall {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      margin-right: 0;
+      margin-left: 24px;
+      border: 0;
+    }
+  }
+
+  .zoneCounterpartyNameContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .channelsText {
+    margin-top: 2px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: var(--white);
+    opacity: 0.5;
+  }
+}
