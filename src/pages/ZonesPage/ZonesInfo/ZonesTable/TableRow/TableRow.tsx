@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import cn from 'classnames';
 
 import { NumberFormat, NumberType, ZoneStatus } from 'components';
@@ -19,10 +17,7 @@ const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
 };
 
 export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
-  const ratingDiff = useMemo(
-    () => zone[ratingDiffKeysMap[selectedColumnKey]] as number,
-    [selectedColumnKey, zone]
-  );
+  const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
 
   return (
     <tr className={styles.container}>
@@ -61,7 +56,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.ibcVolumeMainnet === null ? '-' : zone.ibcVolumeMainnet}
+          value={zone.ibcVolumeMainnet}
           numberType={NumberType.Currency}
         />
 
@@ -69,7 +64,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           <PendingIcon className={styles.pendingIcon} />
           <NumberFormat
             className={styles.pendingValue}
-            value={zone.ibcVolumePendingMainnet === null ? '-' : zone.ibcVolumePendingMainnet}
+            value={zone.ibcVolumePendingMainnet}
             numberType={NumberType.Currency}
           />
         </span>
@@ -78,7 +73,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.ibcVolumeInMainnet === null ? '-' : zone.ibcVolumeInMainnet}
+          value={zone.ibcVolumeInMainnet}
           numberType={NumberType.Currency}
         />
 
@@ -86,7 +81,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           <PendingIcon className={styles.pendingIcon} />
           <NumberFormat
             className={styles.pendingValue}
-            value={zone.ibcVolumeInPendingMainnet === null ? '-' : zone.ibcVolumeInPendingMainnet}
+            value={zone.ibcVolumeInPendingMainnet}
             numberType={NumberType.Currency}
           />
         </span>
@@ -95,7 +90,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.ibcVolumeOutMainnet === null ? '-' : zone.ibcVolumeOutMainnet}
+          value={zone.ibcVolumeOutMainnet}
           numberType={NumberType.Currency}
         />
 
@@ -103,7 +98,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           <PendingIcon className={styles.pendingIcon} />
           <NumberFormat
             className={styles.pendingValue}
-            value={zone.ibcVolumeOutPendingMainnet === null ? '-' : zone.ibcVolumeOutPendingMainnet}
+            value={zone.ibcVolumeOutPendingMainnet}
             numberType={NumberType.Currency}
           />
         </span>
@@ -112,7 +107,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.totalTxs === null ? '-' : zone.totalTxs}
+          value={zone.totalTxs}
           numberType={NumberType.Number}
         />
       </td>
@@ -120,7 +115,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.ibcTransfersMainnet === null ? '-' : zone.ibcTransfersMainnet}
+          value={zone.ibcTransfersMainnet}
           numberType={NumberType.Number}
         />
 
@@ -128,7 +123,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           <PendingIcon className={styles.pendingIcon} />
           <NumberFormat
             className={styles.pendingValue}
-            value={zone.ibcTransfersPendingMainnet === null ? '-' : zone.ibcTransfersPendingMainnet}
+            value={zone.ibcTransfersPendingMainnet}
             numberType={NumberType.Number}
           />
         </span>
@@ -137,7 +132,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.peersCountMainnet === null ? '-' : zone.peersCountMainnet}
+          value={zone.peersCountMainnet}
           numberType={NumberType.Number}
         />
       </td>
@@ -145,7 +140,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.channelsCount === null ? '-' : zone.channelsCount}
+          value={zone.channelsCount}
           numberType={NumberType.Number}
         />
       </td>
@@ -153,7 +148,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <td className={styles.columnContainer}>
         <NumberFormat
           className={styles.value}
-          value={zone.ibcDauMainnet === null ? '-' : zone.ibcDauMainnet}
+          value={zone.ibcDauMainnet}
           numberType={NumberType.Number}
         />
       </td>

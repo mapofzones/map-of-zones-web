@@ -14,6 +14,7 @@ export function NumberFormat({
   return (
     <Format
       className={className}
+      defaultValue="-"
       displayType={'text'}
       thousandSeparator={thousandSeparator}
       prefix={prefix}

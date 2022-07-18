@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { PeriodSelector } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
@@ -15,10 +13,7 @@ export function ZonesTable() {
   const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
 
-  const sortingColumnKey = useMemo(
-    () => SORTING_COLUMN_KEYS[selectedColumnKey],
-    [selectedColumnKey]
-  );
+  const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
 
   const { data: zonesCountData } = useZonesCount(selectedPeriod);
   const { data } = useZonesTable(selectedPeriod, sortingColumnKey);
