@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { ScrollUpIcon } from 'icons';
 
@@ -6,8 +6,15 @@ import styles from './ScrollUpButton.module.scss';
 
 const VISIBILITY_OFFSET = 400;
 
-export function ScrollUpButton() {
+export function ScrollUpButton(): JSX.Element {
   const [isVisible, setIsVisible] = useState(false);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,18 +33,8 @@ export function ScrollUpButton() {
   }, []);
 
   if (isVisible) {
-    return (
-      <ScrollUpIcon
-        onClick={() =>
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          })
-        }
-        className={styles.icon}
-      />
-    );
+    return <ScrollUpIcon onClick={scrollToTop} className={styles.icon} />;
   }
 
-  return null;
+  return <></>;
 }

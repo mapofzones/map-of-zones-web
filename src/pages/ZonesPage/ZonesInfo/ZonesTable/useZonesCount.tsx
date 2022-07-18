@@ -19,10 +19,7 @@ export function useZonesCount(selectedPeriod: PeriodKeys, isMainnet = true) {
 
   const { data } = useQuery(ZonesCountDocument, options);
 
-  return useMemo(
-    () => ({
-      data: data?.headers[0],
-    }),
-    [data]
-  );
+  return {
+    data: data?.headers[0],
+  };
 }
