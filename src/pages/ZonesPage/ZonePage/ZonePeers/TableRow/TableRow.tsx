@@ -1,9 +1,8 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType } from 'components';
+import { NumberFormat, NumberType, ZoneStatus } from 'components';
 import { ArrowDown, PendingIcon } from 'icons';
 
-import Status from './Status/Status';
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
@@ -42,7 +41,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
             <div className={styles.zoneCounterpartyNameContainer}>
               <span className={styles.value}>{zone.zoneCounterpartyName}</span>
 
-              <Status isZoneUpToDate={zone.isZoneCounterpartyUpToDate} />
+              <ZoneStatus className={styles.status} status={zone.isZoneCounterpartyUpToDate} />
             </div>
 
             <span className={styles.channelsText}>
