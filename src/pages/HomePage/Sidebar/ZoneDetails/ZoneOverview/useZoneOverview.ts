@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
@@ -12,12 +10,8 @@ export const useZoneOverview = () => {
   const { zone = '' } = useParams();
   const [period] = useSelectedPeriod();
 
-  const options = useMemo(
-    () => ({ variables: { zone, period: PERIODS[period], isMainnet: true }, skip: !zone }),
-    [zone, period]
-  );
-
+  const options = { variables: { zone, period: PERIODS[period], isMainnet: true }, skip: !zone };
   const { data, loading } = useQuery(ZoneOverviewDocument, options);
 
-  return useMemo(() => ({ data: data?.zoneOverview[0], loading }), [data, loading]);
+  return { data: data?.zoneOverview[0], loading };
 };

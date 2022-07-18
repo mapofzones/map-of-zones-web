@@ -17,5 +17,4 @@ export interface TotalInfoCardProps
   totalInfo?: TotalInfoType;
   loading?: boolean;
   columnType: ColumnKeys;
-  numberType: NumberType;
 }

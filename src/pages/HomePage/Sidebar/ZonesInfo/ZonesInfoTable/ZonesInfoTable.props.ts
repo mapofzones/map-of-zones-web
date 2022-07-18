@@ -9,9 +9,7 @@ export interface ZonesInfoTableProps
   className?: string;
   data?: ZonesTableDataQueryItem[];
   searchValue?: string;
-  loading?: boolean;
   columnType: ColumnKeys;
-  numberType: NumberType;
 }
 
 export interface ZonesTableDataQueryItem {
