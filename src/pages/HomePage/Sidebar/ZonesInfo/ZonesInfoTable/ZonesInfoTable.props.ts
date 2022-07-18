@@ -9,9 +9,7 @@ export interface ZonesInfoTableProps
   className?: string;
   data?: ZonesTableDataQueryItem[];
   searchValue?: string;
-  loading?: boolean;
   columnType: ColumnKeys;
-  numberType: NumberType;
 }
 
 export interface ZonesTableDataQueryItem {
@@ -22,6 +20,7 @@ export interface ZonesTableDataQueryItem {
   ibcVolumePending?: number | null;
   ibcVolumeRating?: number | null;
   ibcVolumeRatingDiff?: number | null;
+  chartVolume?: any | null;
   ibcTransfers?: number | null;
   ibcTransfersPending?: number | null;
   ibcTransfersRating?: number | null;

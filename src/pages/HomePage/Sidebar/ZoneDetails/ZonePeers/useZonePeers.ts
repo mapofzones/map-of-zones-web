@@ -25,10 +25,7 @@ export function useZonePeers() {
   const { zone = '' } = useParams();
   const [selectedPeriod] = useSelectedPeriod();
 
-  const options = useMemo(
-    () => ({ variables: { source: zone, period: PERIODS[selectedPeriod] }, skip: !zone }),
-    [zone, selectedPeriod]
-  );
+  const options = { variables: { source: zone, period: PERIODS[selectedPeriod] }, skip: !zone };
 
   const { data, loading } = useQuery(ZonePeersDocument, options);
 
