@@ -20,7 +20,10 @@ export function useZonesTotalInfo(selectedPeriod: PeriodKeys, isMainnet = true) 
 
   return useMemo(
     () => ({
-      data: data?.headers[0],
+      data: data?.headers[0] && {
+        ...data.headers[0],
+        ibcTransfersTopPair: data.headers[0].ibcTransfersTopPair[0],
+      },
     }),
     [data]
   );

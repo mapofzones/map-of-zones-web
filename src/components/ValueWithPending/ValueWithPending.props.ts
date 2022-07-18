@@ -4,8 +4,8 @@ import { NumberType } from 'components';
 
 export interface ValueWithPendingProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  value: number;
-  pendingValue?: number;
+  value?: number | null;
+  pendingValue?: number | null;
   numberType: NumberType;
   alignRight?: boolean;
   className?: string;
