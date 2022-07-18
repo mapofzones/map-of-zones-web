@@ -25,20 +25,20 @@
     }
 
     &:nth-child(6) {
-      border-left: 1px solid #2F2C39;
+      border-left: 1px solid var(--black-700);
     }
 
     &:nth-child(8) {
-      border-left: 1px solid #2F2C39;
+      border-left: 1px solid var(--black-700);
     }
 
     &:nth-child(10) {
-      border-left: 1px solid #2F2C39;
+      border-left: 1px solid var(--black-700);
     }
 
     &:nth-child(11) {
       padding-right: 24px;
-      border-left: 1px solid #2F2C39;
+      border-left: 1px solid var(--black-700);
     }
 
     .position {
