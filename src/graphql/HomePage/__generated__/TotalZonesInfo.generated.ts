@@ -19,6 +19,7 @@ export type TotalZonesInfoQueryResult = {
     __typename?: 'headers';
     ibcVolume?: any | null;
     ibcVolumePending: any;
+    ibcVolumeChart?: any | null;
     ibcTransfers: number;
     ibcTransfersPending: number;
   }>;
@@ -135,6 +136,24 @@ export const TotalZonesInfoDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcVolumePending' },
                   name: { kind: 'Name', value: 'ibc_cashflow_pending_period' },
+                  directives: [
+                    {
+                      kind: 'Directive',
+                      name: { kind: 'Name', value: 'include' },
+                      arguments: [
+                        {
+                          kind: 'Argument',
+                          name: { kind: 'Name', value: 'if' },
+                          value: { kind: 'Variable', name: { kind: 'Name', value: 'withVolume' } },
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeChart' },
+                  name: { kind: 'Name', value: 'chart_cashflow' },
                   directives: [
                     {
                       kind: 'Directive',

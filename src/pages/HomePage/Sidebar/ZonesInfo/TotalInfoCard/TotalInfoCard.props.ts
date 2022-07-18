@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { NumberType } from 'components';
+import { ChartItemByString } from 'utils/helper';
 
 import { ColumnKeys } from '../../../Types';
 
@@ -9,6 +9,7 @@ export type TotalInfoType = {
   readonly ibcVolumePending: number;
   readonly ibcTransfers: number;
   readonly ibcTransfersPending: number;
+  readonly ibcVolumeChart: ChartItemByString[];
 };
 
 export interface TotalInfoCardProps
