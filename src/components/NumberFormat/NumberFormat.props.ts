@@ -4,5 +4,6 @@ import { NumberType } from './NumberType';
 
 export interface NumberFormatProps extends FormatProps {
   className?: string;
+  defaultValue?: string;
   numberType?: NumberType;
 }
