@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useQuery } from '@apollo/client';
 
 import { TotalZonesInfoDocument } from 'graphql/HomePage/__generated__/TotalZonesInfo.generated';
@@ -12,25 +10,19 @@ export function useTotalZonesInfo(
   selectedColumnKey: ColumnKeys,
   isMainnet = true
 ) {
-  const options = useMemo(
-    () => ({
-      variables: {
-        period: PERIODS[selectedPeriod],
-        isMainnet: isMainnet,
-        withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
-        withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
-      },
-    }),
-    [selectedPeriod, selectedColumnKey, isMainnet]
-  );
+  const options = {
+    variables: {
+      period: PERIODS[selectedPeriod],
+      isMainnet: isMainnet,
+      withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
+      withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
+    },
+  };
 
   const { data, loading } = useQuery(TotalZonesInfoDocument, options);
 
-  return useMemo(
-    () => ({
-      data: data?.headers[0],
-      loading,
-    }),
-    [data, loading]
-  );
+  return {
+    data: data?.headers[0],
+    loading,
+  };
 }

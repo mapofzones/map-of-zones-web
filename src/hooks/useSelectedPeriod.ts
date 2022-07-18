@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
@@ -8,11 +8,10 @@ export function useSelectedPeriod() {
   const [search, setSearch] = useSearchParams();
   const period = search.get('period');
 
-  const selectedPeriod = useMemo(() => {
-    return period && Object.values(PeriodKeys).some((v) => v === period)
+  const selectedPeriod =
+    period && Object.values(PeriodKeys).some((v) => v === period)
       ? (period as PeriodKeys)
       : PeriodKeys.DAY;
-  }, [period]);
 
   const setSelectedPeriod = useCallback(
     (value: PeriodKeys) => {

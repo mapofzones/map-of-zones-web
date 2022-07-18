@@ -3280,13 +3280,13 @@ export type Nodes_Lcd_Addrs_Variance_Order_By = {
 export type Nodes_Rpc_Addrs = {
   __typename?: 'nodes_rpc_addrs';
   added_at: Scalars['timestamp'];
-  earliest_block_height?: Maybe<Scalars['Int']>;
+  earliest_block_height?: Maybe<Scalars['bigint']>;
   ip_or_dns: Scalars['String'];
   is_alive: Scalars['Boolean'];
   is_hidden: Scalars['Boolean'];
   is_prioritized: Scalars['Boolean'];
   last_active?: Maybe<Scalars['timestamp']>;
-  last_block_height?: Maybe<Scalars['Int']>;
+  last_block_height?: Maybe<Scalars['bigint']>;
   last_checked_at: Scalars['timestamp'];
   moniker?: Maybe<Scalars['String']>;
   node_id?: Maybe<Scalars['String']>;
@@ -3362,13 +3362,13 @@ export type Nodes_Rpc_Addrs_Bool_Exp = {
   _not?: InputMaybe<Nodes_Rpc_Addrs_Bool_Exp>;
   _or?: InputMaybe<Array<InputMaybe<Nodes_Rpc_Addrs_Bool_Exp>>>;
   added_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  earliest_block_height?: InputMaybe<Int_Comparison_Exp>;
+  earliest_block_height?: InputMaybe<Bigint_Comparison_Exp>;
   ip_or_dns?: InputMaybe<String_Comparison_Exp>;
   is_alive?: InputMaybe<Boolean_Comparison_Exp>;
   is_hidden?: InputMaybe<Boolean_Comparison_Exp>;
   is_prioritized?: InputMaybe<Boolean_Comparison_Exp>;
   last_active?: InputMaybe<Timestamp_Comparison_Exp>;
-  last_block_height?: InputMaybe<Int_Comparison_Exp>;
+  last_block_height?: InputMaybe<Bigint_Comparison_Exp>;
   last_checked_at?: InputMaybe<Timestamp_Comparison_Exp>;
   moniker?: InputMaybe<String_Comparison_Exp>;
   node_id?: InputMaybe<String_Comparison_Exp>;
@@ -3383,10 +3383,10 @@ export type Nodes_Rpc_Addrs_Bool_Exp = {
 export type Nodes_Rpc_Addrs_Max_Fields = {
   __typename?: 'nodes_rpc_addrs_max_fields';
   added_at?: Maybe<Scalars['timestamp']>;
-  earliest_block_height?: Maybe<Scalars['Int']>;
+  earliest_block_height?: Maybe<Scalars['bigint']>;
   ip_or_dns?: Maybe<Scalars['String']>;
   last_active?: Maybe<Scalars['timestamp']>;
-  last_block_height?: Maybe<Scalars['Int']>;
+  last_block_height?: Maybe<Scalars['bigint']>;
   last_checked_at?: Maybe<Scalars['timestamp']>;
   moniker?: Maybe<Scalars['String']>;
   node_id?: Maybe<Scalars['String']>;
@@ -3418,10 +3418,10 @@ export type Nodes_Rpc_Addrs_Max_Order_By = {
 export type Nodes_Rpc_Addrs_Min_Fields = {
   __typename?: 'nodes_rpc_addrs_min_fields';
   added_at?: Maybe<Scalars['timestamp']>;
-  earliest_block_height?: Maybe<Scalars['Int']>;
+  earliest_block_height?: Maybe<Scalars['bigint']>;
   ip_or_dns?: Maybe<Scalars['String']>;
   last_active?: Maybe<Scalars['timestamp']>;
-  last_block_height?: Maybe<Scalars['Int']>;
+  last_block_height?: Maybe<Scalars['bigint']>;
   last_checked_at?: Maybe<Scalars['timestamp']>;
   moniker?: Maybe<Scalars['String']>;
   node_id?: Maybe<Scalars['String']>;
@@ -3558,8 +3558,8 @@ export type Nodes_Rpc_Addrs_Stddev_Samp_Order_By = {
 /** aggregate sum on columns */
 export type Nodes_Rpc_Addrs_Sum_Fields = {
   __typename?: 'nodes_rpc_addrs_sum_fields';
-  earliest_block_height?: Maybe<Scalars['Int']>;
-  last_block_height?: Maybe<Scalars['Int']>;
+  earliest_block_height?: Maybe<Scalars['bigint']>;
+  last_block_height?: Maybe<Scalars['bigint']>;
   response_time?: Maybe<Scalars['Int']>;
 };
 

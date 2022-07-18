@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import cn from 'classnames';
 
 import { Card, NumberFormat } from 'components';
@@ -7,6 +5,7 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { PendingIcon } from 'icons';
 
 import { ColumnKeys } from '../../../Types';
+import { METADATA } from '../Types';
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps, TotalInfoType } from './TotalInfoCard.props';
 
@@ -37,13 +36,13 @@ export function TotalInfoCard({
   totalInfo,
   loading,
   columnType,
-  numberType,
   className,
   ...props
 }: TotalInfoCardProps) {
   const [selectedPeriod] = useSelectedPeriod();
 
-  const meta = useMemo(() => metadata[columnType], [columnType]);
+  const meta = metadata[columnType];
+  const numberType = METADATA[columnType].numberType;
 
   return (
     <Card className={cn(styles.container, className)} hasBorder {...props} loading={loading}>
