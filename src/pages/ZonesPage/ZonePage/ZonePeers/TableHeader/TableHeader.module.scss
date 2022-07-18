@@ -1,0 +1,97 @@
+.container {
+  th {
+    position: relative;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--grey-500);
+    padding: 0px 12px 6px 28px;
+    text-align: right;
+    white-space: nowrap;
+    border-bottom: 1px solid #2F2C39;
+    
+    &.selected > span {
+      padding-bottom: 6px;
+      color: var(--white);
+      border-bottom: 1px solid #FFFFFF;
+    }
+
+    &:not(:nth-child(1)):not(.selected) {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--grey-800);
+      }
+    }
+
+    &:nth-child(1) {
+      padding-left: 24px;
+      text-align: left;
+      width: 99%;
+      min-width: 450px;
+
+      // TODO: find another solution
+      &::before {
+        content: '';
+        background-color: #0e0e16;
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 24px;
+        height: 1px;
+      }
+    }
+
+    &:nth-child(3) {
+      border-left: 1px solid transparent;
+    }
+
+    &:nth-child(5) {
+      border-left: 1px solid transparent;
+    }
+
+    &:nth-child(8) {
+      padding-right: 24px;
+      border-left: 1px solid transparent;
+
+      // TODO: find another solution
+      &::after {
+        content: '';
+        background-color: #0e0e16;
+        position: absolute;
+        bottom: -1px;
+        right: 0;
+        width: 24px;
+        height: 1px;
+      }
+    }
+  }
+
+  .sourceCircle {
+    background-color: var(--pink);
+    border-radius: 50%;
+    display: inline-block;
+    height: 7px;
+    margin-right: 4px;
+    position: relative;
+    top: -1px;
+    width: 7px;
+  }
+
+  .targetCircle {
+    background-color: var(--blue);
+    border-radius: 50%;
+    display: inline-block;
+    height: 7px;
+    margin-right: 4px;
+    position: relative;
+    top: -1px;
+    width: 7px;
+  }
+
+  .questionMark {
+    margin-left: 4px;
+    top: 1px;
+    position: relative;
+  }
+}

@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+
+  .tableContainer {
+    margin-bottom: 8px;
+
+    tbody tr:nth-child(1) td {
+      padding-top: 20px;
+    }
+  }
+}
