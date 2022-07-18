@@ -2,15 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import {
-  LinkWithQuery,
-  NumberFormat,
-  NumberType,
-  ZoneLogo,
-  SkeletonTextWrapper,
-  SkeletonCircle,
-  RatingDiffTriangle,
-} from 'components';
+import { LinkWithQuery, NumberFormat, NumberType, RatingDiffTriangle, ZoneLogo } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -73,25 +65,6 @@ function ZoneInfoRow({
         )}
       </div>
     </LinkWithQuery>
-  );
-}
-
-export function ZoneInfoRowLoader() {
-  return (
-    <div className={styles.row}>
-      <div className={styles.zoneBaseInfoContainer}>
-        <SkeletonCircle size={'32px'} />
-        <SkeletonTextWrapper
-          style={{ marginLeft: '16px' }}
-          loading={true}
-          defaultTextMinLength={10}
-          defaultTextMaxLength={15}
-        />
-      </div>
-      <div className={styles.valueContainer}>
-        <SkeletonTextWrapper loading={true} defaultText={'$123,456,789'} />
-      </div>
-    </div>
   );
 }
 
