@@ -1,33 +1,5 @@
 .container {
   th {
-    position: relative;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    color: var(--grey-500);
-    padding: 0px 12px 6px 28px;
-    text-align: right;
-    white-space: nowrap;
-    border-bottom: 1px solid var(--black-700);
-    
-    &.selected > span {
-      padding-bottom: 6px;
-      color: var(--white);
-      border-bottom: 1px solid var(--white);
-    }
-
-    &.selectable {
-      cursor: pointer;
-
-      &:hover {
-        color: var(--grey-800);
-      }
-    }
-
-    &.withBorder {
-      border-left: 1px solid transparent;
-    }
-
     &:nth-child(1) {
       padding-left: 24px;
       padding-right: 0;
@@ -67,23 +39,4 @@
       }
     }
   }
-
-  .circle {
-    border-radius: 50%;
-    display: inline-block;
-    height: 7px;
-    margin-right: 4px;
-    position: relative;
-    top: -1px;
-    width: 7px;
-
-    &.source {
-      background-color: var(--pink);
-    }
-  
-    &.target {
-      background-color: var(--blue);
-    }
-  }
-
 }
