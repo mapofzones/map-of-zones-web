@@ -104,7 +104,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         </span>
       </td>
 
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <NumberFormat
           className={styles.value}
           value={zone.totalTxs}
@@ -129,7 +129,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         </span>
       </td>
 
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <NumberFormat
           className={styles.value}
           value={zone.peersCountMainnet}
@@ -145,7 +145,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <NumberFormat
           className={styles.value}
           value={zone.ibcDauMainnet}
@@ -153,7 +153,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={styles.columnContainer}>IBC Transfers Activity</td>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>IBC Transfers Activity</td>
     </tr>
   );
 }

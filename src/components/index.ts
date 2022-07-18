@@ -2,6 +2,7 @@ export { Button } from './Button/Button';
 export { ButtonGroup } from './ButtonGroup/ButtonGroup';
 export { Card } from './Card/Card';
 export { Dropdown } from './Dropdown/Dropdown';
+export { ExplanationTooltip } from './ExplanationTooltip/ExplanationTooltip';
 export { ExternalLink } from './ExternalLink/ExternalLink';
 export { Input } from './Input/Input';
 export { LinkWithQuery } from './LinkWithQuery/LinkWithQuery';
