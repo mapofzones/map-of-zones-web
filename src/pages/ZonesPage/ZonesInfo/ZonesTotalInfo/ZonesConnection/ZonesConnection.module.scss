@@ -1,0 +1,45 @@
+.container {
+  margin-top: 2px;
+  position: relative;
+
+  .zoneContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+
+    .title {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+      color: var(--white);
+      margin-left: 8px;
+    }
+
+    .circle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+  
+      &.source {
+        background-color: var(--pink);
+      }
+    
+      &.target {
+        background-color: var(--blue);
+      }
+
+      &.volume {
+        background-color: var(--white);
+      }
+    }
+  }
+
+  .divider {
+    width: 1px;
+    height: 10px;
+    background-color: var(--grey-500);
+    position: absolute;
+    left: 3.5px;
+    bottom: 15px;
+  }
+}

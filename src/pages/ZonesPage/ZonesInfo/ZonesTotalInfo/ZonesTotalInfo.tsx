@@ -5,6 +5,7 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { PendingIcon } from 'icons';
 
 import { useZonesTotalInfo } from './useZonesTotalInfo';
+import { ZonesConnection } from './ZonesConnection/ZonesConnection';
 import styles from './ZonesTotalInfo.module.scss';
 
 export function ZonesTotalInfo(): JSX.Element {
@@ -71,22 +72,11 @@ export function ZonesTotalInfo(): JSX.Element {
       <div className={cn(styles.itemContainer, styles.topItemContainer)}>
         <div>
           <span className={styles.itemContainer_title}>Most Active Pair ({selectedPeriod})</span>
-
-          <div className={styles.topItemContainer_zonesContainer}>
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_sourceCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcTransfersTopPair.source}
-              </span>
-            </div>
-            <div className={styles.topItemContainer_divider} />
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_targetCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcTransfersTopPair.target}
-              </span>
-            </div>
-          </div>
+          <ZonesConnection
+            circlesTypes={['source', 'target']}
+            source={zonesTotalInfo.ibcTransfersTopPair.source}
+            target={zonesTotalInfo.ibcTransfersTopPair.target}
+          />
         </div>
         <div>
           <span className={styles.topItemContainer_total}>
@@ -116,21 +106,11 @@ export function ZonesTotalInfo(): JSX.Element {
       <div className={cn(styles.itemContainer, styles.topItemContainer)}>
         <div>
           <span className={styles.itemContainer_title}>Biggest Volume Pair ({selectedPeriod})</span>
-          <div className={styles.topItemContainer_zonesContainer}>
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_sourceCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcVolumeTopPair[0].source}
-              </span>
-            </div>
-            <div className={styles.topItemContainer_divider} />
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_volumeTargetCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcVolumeTopPair[0].target}
-              </span>
-            </div>
-          </div>
+          <ZonesConnection
+            circlesTypes={['source', 'volume']}
+            source={zonesTotalInfo.ibcVolumeTopPair[0].source}
+            target={zonesTotalInfo.ibcVolumeTopPair[0].target}
+          />
         </div>
         <div>
           <NumberFormat
