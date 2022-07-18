@@ -21,11 +21,9 @@
     
     &_value {
       display: block;
-      font-weight: 400;
       font-size: 15px;
       line-height: 19px;
       font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--white);
       margin-top: 4px;
     }
 
@@ -54,6 +52,12 @@
       width: 1px;
       background-color: var(--black-900);
       margin: 0 12px;
+    }
+
+    &_withAdditionalData {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
   }
 

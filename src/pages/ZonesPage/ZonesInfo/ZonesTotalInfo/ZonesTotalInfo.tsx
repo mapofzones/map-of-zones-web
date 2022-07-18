@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType } from 'components';
+import { NumberFormat, NumberType, ValueWithPending } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { PendingIcon } from 'icons';
 
@@ -20,37 +20,24 @@ export function ZonesTotalInfo(): JSX.Element {
     <div className={styles.container}>
       <div className={styles.itemContainer}>
         <span className={styles.itemContainer_title}>Total IBC Volume ({selectedPeriod})</span>
-        <NumberFormat
+        <ValueWithPending
           className={styles.itemContainer_value}
-          value={zonesTotalInfo.ibcVolume}
           numberType={NumberType.Currency}
+          pendingValue={zonesTotalInfo.ibcVolumePending}
+          value={zonesTotalInfo.ibcVolume}
         />
-        <div className={styles.itemContainer_pendingValueContainer}>
-          <span className={styles.itemContainer_pendingValue}>
-            <PendingIcon className={styles.itemContainer_pendingIcon} />
-            <NumberFormat
-              value={zonesTotalInfo.ibcVolumePending}
-              numberType={NumberType.Currency}
-            />
-          </span>
-        </div>
       </div>
 
       <div className={styles.itemContainer}>
         <span className={styles.itemContainer_title}>Total IBC Transfers ({selectedPeriod})</span>
-        <NumberFormat
-          className={styles.itemContainer_value}
-          value={zonesTotalInfo.ibcTransfers}
-          numberType={NumberType.Number}
-        />
-        <div className={styles.itemContainer_pendingValueContainer}>
-          <span className={styles.itemContainer_pendingValue}>
-            <PendingIcon className={styles.itemContainer_pendingIcon} />
-            <NumberFormat
-              value={zonesTotalInfo.ibcTransfersPending}
-              numberType={NumberType.Number}
-            />
-          </span>
+        <div className={styles.itemContainer_withAdditionalData}>
+          <ValueWithPending
+            className={styles.itemContainer_value}
+            numberType={NumberType.Number}
+            pendingValue={zonesTotalInfo.ibcTransfersPending}
+            value={zonesTotalInfo.ibcTransfers}
+          />
+
           <span className={styles.itemContainer_pendingValue}>
             Failed:&nbsp;
             <NumberFormat
@@ -89,14 +76,14 @@ export function ZonesTotalInfo(): JSX.Element {
             <div className={styles.topItemContainer_zoneContainer}>
               <div className={styles.topItemContainer_sourceCircle} />
               <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcTransfersTopPair[0].source}
+                {zonesTotalInfo.ibcTransfersTopPair.source}
               </span>
             </div>
             <div className={styles.topItemContainer_divider} />
             <div className={styles.topItemContainer_zoneContainer}>
               <div className={styles.topItemContainer_targetCircle} />
               <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcTransfersTopPair[0].target}
+                {zonesTotalInfo.ibcTransfersTopPair.target}
               </span>
             </div>
           </div>
@@ -104,7 +91,7 @@ export function ZonesTotalInfo(): JSX.Element {
         <div>
           <span className={styles.topItemContainer_total}>
             <NumberFormat
-              value={zonesTotalInfo.ibcTransfersTopPair[0].txs}
+              value={zonesTotalInfo.ibcTransfersTopPair.txs}
               numberType={NumberType.Number}
             />
             &nbsp;Transfers
@@ -118,7 +105,7 @@ export function ZonesTotalInfo(): JSX.Element {
             <span className={styles.itemContainer_pendingValue}>
               <PendingIcon className={styles.itemContainer_pendingIcon} />
               <NumberFormat
-                value={zonesTotalInfo.ibcTransfersTopPair[0].txs_pending}
+                value={zonesTotalInfo.ibcTransfersTopPair.txs_pending}
                 numberType={NumberType.Number}
               />
             </span>

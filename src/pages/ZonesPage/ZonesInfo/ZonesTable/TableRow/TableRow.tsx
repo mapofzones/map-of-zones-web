@@ -1,7 +1,6 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType, ZoneStatus } from 'components';
-import { PendingIcon } from 'icons';
+import { NumberType, RatingDiffTriangle, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
 
 import { ColumnKeys } from '../TableHeader/Types';
 import styles from './TableRow.module.scss';
@@ -27,129 +26,86 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
 
       <td className={styles.columnContainer}>
         <div className={styles.zoneBaseInfoContainer}>
-          <div className={styles.logoContainer}>
-            {zone.logoUrl && (
-              <>
-                <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
-                <div className={styles.shadow} />
-              </>
-            )}
-          </div>
-          <span className={styles.value}>{zone.name}</span>
-
+          <ZoneLogo logoUrl={zone.logoUrl} className={styles.logo} />
+          <span className={styles.zoneName}>{zone.name}</span>
           <ZoneStatus className={styles.status} status={zone.isZoneUpToDate} />
-
-          {!!ratingDiff && (
-            <div className={cn(styles.ratingDiff, { [styles.negative]: ratingDiff < 0 })}>
-              <div
-                className={cn(styles.triangle, {
-                  [styles.triangleUp]: ratingDiff > 0,
-                  [styles.triangleDown]: ratingDiff < 0,
-                })}
-              />
-              {Math.abs(ratingDiff)}
-            </div>
-          )}
+          <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} />
         </div>
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
+          numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumePendingMainnet}
           value={zone.ibcVolumeMainnet}
-          numberType={NumberType.Currency}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumePendingMainnet}
-            numberType={NumberType.Currency}
-          />
-        </span>
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
+          numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumeInPendingMainnet}
           value={zone.ibcVolumeInMainnet}
-          numberType={NumberType.Currency}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumeInPendingMainnet}
-            numberType={NumberType.Currency}
-          />
-        </span>
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
+          numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumeOutPendingMainnet}
           value={zone.ibcVolumeOutMainnet}
-          numberType={NumberType.Currency}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumeOutPendingMainnet}
-            numberType={NumberType.Currency}
-          />
-        </span>
       </td>
 
       <td className={cn(styles.columnContainer, styles.withBorder)}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
+          numberType={NumberType.Number}
           value={zone.totalTxs}
-          numberType={NumberType.Number}
         />
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
+          numberType={NumberType.Number}
+          pendingValue={zone.ibcTransfersPendingMainnet}
           value={zone.ibcTransfersMainnet}
-          numberType={NumberType.Number}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcTransfersPendingMainnet}
-            numberType={NumberType.Number}
-          />
-        </span>
       </td>
 
       <td className={cn(styles.columnContainer, styles.withBorder)}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.peersCountMainnet}
           numberType={NumberType.Number}
+          value={zone.peersCountMainnet}
         />
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.channelsCount}
           numberType={NumberType.Number}
+          value={zone.channelsCount}
         />
       </td>
 
       <td className={cn(styles.columnContainer, styles.withBorder)}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcDauMainnet}
           numberType={NumberType.Number}
+          value={zone.ibcDauMainnet}
         />
       </td>
 
