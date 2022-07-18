@@ -9,6 +9,7 @@ export { LinkWithQuery } from './LinkWithQuery/LinkWithQuery';
 export { NumberFormat } from './NumberFormat/NumberFormat';
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';
 export { PeriodSelector } from './PeriodSelector/PeriodSelector';
+export { RatingDiffTriangle } from './RatingDiffTriangle/RatingDiffTriangle';
 export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
 export { ScrollUpButton } from './ScrollUpButton/ScrollUpButton';
 export { Search } from './Search/Search';
