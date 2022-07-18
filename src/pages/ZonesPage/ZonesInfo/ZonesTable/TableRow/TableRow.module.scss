@@ -9,6 +9,10 @@
     padding: 12px 12px 12px 28px;
     white-space: nowrap;
 
+    &.withBorder {
+      border-left: 1px solid var(--black-700);
+    }
+
     &:not(:nth-child(1)):not(:nth-child(2)) {
       vertical-align: top;
     }
@@ -24,21 +28,8 @@
       width: 100%;
     }
 
-    &:nth-child(6) {
-      border-left: 1px solid var(--black-700);
-    }
-
-    &:nth-child(8) {
-      border-left: 1px solid var(--black-700);
-    }
-
-    &:nth-child(10) {
-      border-left: 1px solid var(--black-700);
-    }
-
-    &:nth-child(11) {
+    &:last-child {
       padding-right: 24px;
-      border-left: 1px solid var(--black-700);
     }
 
     .position {

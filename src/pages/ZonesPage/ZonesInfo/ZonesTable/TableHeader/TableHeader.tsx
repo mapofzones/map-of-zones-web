@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
-import { ExplanationTooltip } from './ExplanationTooltip/ExplanationTooltip';
+import { ExplanationTooltip } from 'components';
+
 import styles from './TableHeader.module.scss';
 import { TableHeaderProps } from './TableHeader.props';
 import { ColumnKeys } from './Types';
@@ -28,7 +29,7 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
         <th>#</th>
         <th>Name</th>
         <th
-          className={cn({
+          className={cn(styles.selectable, {
             [styles.selected]: selectedColumnKey === ColumnKeys.IbcVolume,
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcVolume)}
@@ -39,31 +40,31 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           </span>
         </th>
         <th
-          className={cn({
+          className={cn(styles.selectable, {
             [styles.selected]: selectedColumnKey === ColumnKeys.IbcVolumeReceived,
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcVolumeReceived)}
         >
           <span>
-            <div className={styles.targetCircle} />
+            <div className={cn(styles.circle, styles.target)} />
             IBC Volume In
             <ExplanationTooltip text={EXPLANATION_TEXT.ibcVolumeInMainnet} />
           </span>
         </th>
         <th
-          className={cn({
+          className={cn(styles.selectable, {
             [styles.selected]: selectedColumnKey === ColumnKeys.IbcVolumeSent,
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcVolumeSent)}
         >
           <span>
-            <div className={styles.sourceCircle} />
+            <div className={cn(styles.circle, styles.source)} />
             IBC Volume Out
             <ExplanationTooltip text={EXPLANATION_TEXT.ibcVolumeOutMainnet} />
           </span>
         </th>
         <th
-          className={cn({
+          className={cn(styles.selectable, styles.withBorder, {
             [styles.selected]: selectedColumnKey === ColumnKeys.TotalTxs,
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.TotalTxs)}
@@ -74,7 +75,7 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           </span>
         </th>
         <th
-          className={cn({
+          className={cn(styles.selectable, {
             [styles.selected]: selectedColumnKey === ColumnKeys.IbcTransfers,
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcTransfers)}
@@ -84,7 +85,7 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
             <ExplanationTooltip text={EXPLANATION_TEXT.ibcTransfersMainnet} />
           </span>
         </th>
-        <th>
+        <th className={styles.withBorder}>
           Peers
           <ExplanationTooltip text={EXPLANATION_TEXT.peersCountMainnet} />
         </th>
@@ -93,7 +94,7 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
           <ExplanationTooltip text={EXPLANATION_TEXT.channelsCount} />
         </th>
         <th
-          className={cn({
+          className={cn(styles.selectable, styles.withBorder, {
             [styles.selected]: selectedColumnKey === ColumnKeys.IbcActiveAddresses,
           })}
           onClick={() => setSelectedColumnKey(ColumnKeys.IbcActiveAddresses)}
@@ -103,7 +104,7 @@ export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHe
             <ExplanationTooltip text={EXPLANATION_TEXT.ibcDauMainnet} />
           </span>
         </th>
-        <th>IBC Transfers Activity</th>
+        <th className={styles.withBorder}>IBC Transfers Activity</th>
       </tr>
     </thead>
   );

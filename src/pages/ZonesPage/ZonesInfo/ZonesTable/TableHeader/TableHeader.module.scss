@@ -16,12 +16,16 @@
       border-bottom: 1px solid var(--white);
     }
 
-    &:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(8)):not(:nth-child(9)):not(:nth-child(11)):not(.selected) {
+    &.selectable {
       cursor: pointer;
 
       &:hover {
         color: var(--grey-800);
       }
+    }
+
+    &.withBorder {
+      border-left: 1px solid transparent;
     }
 
     &:nth-child(1) {
@@ -47,19 +51,7 @@
       width: 100%;
     }
 
-    &:nth-child(6) {
-      border-left: 1px solid transparent;
-    }
-
-    &:nth-child(8) {
-      border-left: 1px solid transparent;
-    }
-
-    &:nth-child(10) {
-      border-left: 1px solid transparent;
-    }
-
-    &:nth-child(11) {
+    &:last-child {
       padding-right: 24px;
       border-left: 1px solid transparent;
 
@@ -76,8 +68,7 @@
     }
   }
 
-  .sourceCircle {
-    background-color: var(--pink);
+  .circle {
     border-radius: 50%;
     display: inline-block;
     height: 7px;
@@ -85,16 +76,14 @@
     position: relative;
     top: -1px;
     width: 7px;
+
+    &.source {
+      background-color: var(--pink);
+    }
+  
+    &.target {
+      background-color: var(--blue);
+    }
   }
 
-  .targetCircle {
-    background-color: var(--blue);
-    border-radius: 50%;
-    display: inline-block;
-    height: 7px;
-    margin-right: 4px;
-    position: relative;
-    top: -1px;
-    width: 7px;
-  }
 }
