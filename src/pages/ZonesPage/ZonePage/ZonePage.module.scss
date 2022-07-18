@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 32px 24px 45px;
+
+  .detailsTitle {
+    display: flex;
+    align-items: center;
+
+    .zoneLogo {
+      margin-right: 12px;
+    }
+
+    .zoneName {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 35px;
+      color: var(--white);
+    }
+  }
+
+  .zoneWebsite {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: var(--grey-500);
+    margin-top: 9px;
+    display: flex;
+  }
+
+  .navigationButtonsContainer {
+    background-color: transparent;
+    padding: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+    color: var(--grey-500);
+    border-bottom: 1px solid var(--black-900);
+    border-radius: 0;
+    grid-gap: 21px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .navigationButton {
+      position: relative;
+      top: 1px;
+      padding: 0 3px 8px;
+      
+      &:hover {
+        color: var(--white) !important;
+        background-color: transparent !important;
+      }
+    }
+
+    .navigationButtonActive {
+      color: var(--white);
+      border-bottom: 1px solid var(--white);
+    }
+  }
+}
