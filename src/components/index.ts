@@ -15,6 +15,7 @@ export { Tooltip } from './Tooltip/Tooltip';
 export { ValueWithPending } from './ValueWithPending/ValueWithPending';
 export { VolumeLineChart } from './VolumeLineChart/VolumeLineChart';
 export { ZoneLogo } from './ZoneLogo/ZoneLogo';
+export { ZoneStatus } from './ZoneStatus/ZoneStatus';
 export * from './Skeleton';
 
 // export types
