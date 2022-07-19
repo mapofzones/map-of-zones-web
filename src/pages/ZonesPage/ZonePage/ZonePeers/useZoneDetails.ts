@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
@@ -8,11 +6,11 @@ import { ZoneDetailsDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__gene
 export function useZoneDetails(): { data: ZoneDetails | undefined; loading: boolean } {
   const { zone = '' } = useParams();
 
-  const options = useMemo(() => ({ variables: { zone }, skip: !zone }), [zone]);
+  const options = { variables: { zone }, skip: !zone };
 
   const { data, loading } = useQuery(ZoneDetailsDocument, options);
 
-  return useMemo(() => ({ data: data?.zoneDetails[0], loading }), [data, loading]);
+  return { data: data?.zoneDetails[0], loading };
 }
 
 export interface ZoneDetails {

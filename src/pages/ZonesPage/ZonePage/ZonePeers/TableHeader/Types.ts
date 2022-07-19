@@ -1,4 +1,5 @@
 import { Ft_Channel_Group_Stats_Select_Column } from 'graphql/base-types';
+import { CircleType } from 'pages/ZonesPage/ZonesInfo/ZonesTable/TableHeader/TableHeaderItem/TableHeaderItem.props';
 
 export enum ColumnKeys {
   IbcVolumeReceived = 'ibcVolumeIn',
@@ -17,3 +18,49 @@ export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Ft_Channel_Group_Stats_Sele
   [ColumnKeys.IbcTransfersFailed]: Ft_Channel_Group_Stats_Select_Column.IbcTxFailed,
   [ColumnKeys.SuccessRate]: Ft_Channel_Group_Stats_Select_Column.IbcTxSuccessRate,
 };
+
+export const TABLE_HEADER_CONFIG = [
+  {
+    title: 'Peer',
+  },
+  {
+    title: 'Total IBC Volume',
+    columnKey: ColumnKeys.IbcVolumeSent,
+    explanationText: 'Test text',
+  },
+  {
+    title: 'Injective Sends',
+    columnKey: ColumnKeys.IbcVolumeSent,
+    explanationText: 'Test text',
+    circleType: CircleType.Source,
+    withBorder: true,
+  },
+  {
+    title: 'Injective Receives',
+    columnKey: ColumnKeys.IbcVolumeReceived,
+    explanationText: 'Test text',
+    circleType: CircleType.Target,
+  },
+  {
+    title: 'IBC Success',
+    columnKey: ColumnKeys.IbcTransfers,
+    explanationText: 'Test text',
+    withBorder: true,
+  },
+  {
+    title: 'IBC Pending',
+    columnKey: ColumnKeys.IbcTransfersPending,
+    explanationText: 'Test text',
+  },
+  {
+    title: 'IBC Failed',
+    columnKey: ColumnKeys.IbcTransfersFailed,
+    explanationText: 'Test text',
+  },
+  {
+    title: 'Success Rate',
+    columnKey: ColumnKeys.SuccessRate,
+    explanationText: 'Test text',
+    withBorder: true,
+  },
+];
