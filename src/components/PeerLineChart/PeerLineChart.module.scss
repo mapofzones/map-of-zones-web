@@ -7,6 +7,12 @@
     border-top: none;
   }
 
+  .notActiveLine {
+    border-color: var(--black-900);
+    width: 100%;
+    margin: 0 2px;
+  }
+
   .volumeOutLine {
     margin-left: 2px;
     margin-right: 2px;
