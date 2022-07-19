@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType, ZoneStatus } from 'components';
-import { ArrowDown, PendingIcon } from 'icons';
+import { NumberType, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
+import { ArrowDown } from 'icons';
 
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
@@ -14,28 +14,10 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
           <ArrowDown className={styles.arrowIcon} />
 
           <div className={cn(styles.logoContainer, styles.logoContainerSmall)}>
-            {parentZone?.logoUrl && (
-              <>
-                <img
-                  className={cn(styles.logo, styles.logoSmall)}
-                  src={parentZone.logoUrl}
-                  alt={`${zone.zoneCounterpartyName} logo`}
-                />
-                <div className={styles.shadow} />
-              </>
-            )}
+            <ZoneLogo logoUrl={parentZone?.logoUrl} size="16px" className={styles.logo} />
           </div>
           <div className={styles.logoContainer}>
-            {zone.zoneCounterpartyLogoUrl && (
-              <>
-                <img
-                  className={styles.logo}
-                  src={zone.zoneCounterpartyLogoUrl}
-                  alt={`${zone.zoneCounterpartyName} logo`}
-                />
-                <div className={cn(styles.shadow, styles.shadowSmall)} />
-              </>
-            )}
+            <ZoneLogo logoUrl={zone?.zoneCounterpartyLogoUrl} className={styles.logo} />
           </div>
           <div>
             <div className={styles.zoneCounterpartyNameContainer}>
@@ -52,88 +34,68 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcVolumeOut === null ? '-' : zone.ibcVolumeOut}
           numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumeOutPending}
+          value={zone.ibcVolumeOut}
         />
+      </td>
 
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumeOutPending === null ? '-' : zone.ibcVolumeOutPending}
-            numberType={NumberType.Currency}
-          />
-        </span>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <ValueWithPending
+          alignRight={true}
+          className={styles.value}
+          numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumeOutPending}
+          value={zone.ibcVolumeOut}
+        />
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcVolumeOut === null ? '-' : zone.ibcVolumeOut}
           numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumeInPending}
+          value={zone.ibcVolumeIn}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumeOutPending === null ? '-' : zone.ibcVolumeOutPending}
-            numberType={NumberType.Currency}
-          />
-        </span>
       </td>
 
-      <td className={styles.columnContainer}>
-        <NumberFormat
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcVolumeIn === null ? '-' : zone.ibcVolumeIn}
-          numberType={NumberType.Currency}
-        />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumeInPending === null ? '-' : zone.ibcVolumeInPending}
-            numberType={NumberType.Currency}
-          />
-        </span>
-      </td>
-
-      <td className={styles.columnContainer}>
-        <NumberFormat
-          className={styles.value}
-          value={zone.ibcTransfers === null ? '-' : zone.ibcTransfers}
           numberType={NumberType.Number}
+          value={zone.ibcTransfers}
         />
       </td>
 
       <td className={styles.columnContainer}>
-        <div className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={cn(styles.value, styles.pendingValue, styles.pendingValueLarge)}
-            value={zone.ibcTransfersPending === null ? '-' : zone.ibcTransfersPending}
-            numberType={NumberType.Number}
-          />
-        </div>
-      </td>
-
-      <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcTransfersFailed === null ? '-' : zone.ibcTransfersFailed}
           numberType={NumberType.Number}
+          value={zone.ibcTransfersPending}
         />
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.successRate === null ? '-' : zone.successRate}
+          numberType={NumberType.Number}
+          value={zone.ibcTransfersFailed}
+        />
+      </td>
+
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <ValueWithPending
+          alignRight={true}
+          className={styles.value}
           numberType={NumberType.Percent}
+          value={zone.successRate}
         />
       </td>
     </tr>

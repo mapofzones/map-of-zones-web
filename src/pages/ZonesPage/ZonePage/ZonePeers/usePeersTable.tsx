@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
@@ -16,29 +14,24 @@ export function usePeersTable(
 ): { data: ZoneData[] } {
   const { zone = '' } = useParams();
 
-  const options = useMemo(
-    () => ({
-      variables: {
-        source: zone,
-        period: PERIODS[selectedPeriod],
-        orderBy: {
-          [sortingColumnKey]: 'desc',
-        },
+  const options = {
+    variables: {
+      source: zone,
+      period: PERIODS[selectedPeriod],
+      orderBy: {
+        [sortingColumnKey]: 'desc',
       },
-    }),
-    [selectedPeriod, sortingColumnKey, zone]
-  );
+    },
+  };
+
   const { data } = useQuery(ZonesListZonePeersDocument, options);
 
-  return useMemo(
-    () => ({
-      data: (data?.zonePeers ?? []).map((zone) => ({
-        ...zone,
-        channels: (data?.zoneChannels ?? []).filter(
-          (channel) => channel.zoneCounterpartyKey === zone.zoneCounterpartyKey
-        ),
-      })),
-    }),
-    [data]
-  );
+  return {
+    data: (data?.zonePeers ?? []).map((zone) => ({
+      ...zone,
+      channels: (data?.zoneChannels ?? []).filter(
+        (channel) => channel.zoneCounterpartyKey === zone.zoneCounterpartyKey
+      ),
+    })),
+  };
 }
