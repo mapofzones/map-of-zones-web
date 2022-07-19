@@ -5,6 +5,7 @@ export { Dropdown } from './Dropdown/Dropdown';
 export { ExplanationTooltip } from './ExplanationTooltip/ExplanationTooltip';
 export { ExternalLink } from './ExternalLink/ExternalLink';
 export { Input } from './Input/Input';
+export { LineChart } from './LineChart/LineChart';
 export { LinkWithQuery } from './LinkWithQuery/LinkWithQuery';
 export { NumberFormat } from './NumberFormat/NumberFormat';
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';
