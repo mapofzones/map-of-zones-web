@@ -1,5 +1,4 @@
 .container {
-  display: table-row;
   cursor: pointer;
 
   &:hover {
@@ -26,9 +25,11 @@
     }
 
     &:first-child {
-      padding-left: 24px;
+      display: flex;
+      align-items: center;
       width: 100%;
       min-width: 450px;
+      padding-left: 0;
     }
 
     &:last-child {
@@ -45,8 +46,11 @@
     }
   }
 
-  .arrowIcon {
-    margin-right: 12px;
+  .arrowContainer {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .zoneBaseInfoContainer {
@@ -60,10 +64,8 @@
       border-radius: 50%;
       background-color: var(--grey-500);
       margin-right: 12px;
-      margin-left: 12px;
       position: relative;
       border: 2px solid var(--black-100);
-
     }
 
     .logoContainerSmall {
@@ -71,7 +73,7 @@
       width: 16px;
       height: 16px;
       margin-right: 0;
-      margin-left: 24px;
+      margin-left: -12px;
       border: 0;
     }
   }

@@ -1,0 +1,77 @@
+.container {
+  height: 48px;
+
+  &:hover {
+    background-color: rgba(#ffffff, 0.03); // TODO: not working with var(--white)
+  }
+
+  .columnContainer {
+    height: inherit;
+    padding: 7.5px 7.5px 7.5px 28px;
+    white-space: nowrap;
+    vertical-align: top;
+
+    &.withBorder {
+      border-left: 1px solid var(--black-700);
+    }
+
+    &:first-child {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-width: 450px;
+      padding-left: 0;
+      vertical-align: middle;
+    }
+
+    &:last-child {
+      padding-right: 24px;
+    }
+
+    .arrowContainer {
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .position {
+      font-size: 10px;
+      line-height: 13px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--grey-500);
+    }
+
+    .channelsContainer {
+      display: flex;
+      align-items: center;
+
+      .channel {
+        width: 70px;
+        font-size: 13px;
+        line-height: 16px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .statusContainer {
+        height: 1px;
+        width: 129px;
+        margin: 0 12px;
+        background-color: var(--green);
+      }
+
+      .infoIcon {
+        cursor: pointer;
+        margin-left: 12px;
+      }
+    }
+
+    .value {
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      font-size: 13px;
+      line-height: 16px;
+    }
+  }
+}
