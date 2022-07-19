@@ -14,18 +14,16 @@ export function useZonesTable(
   sortingColumnKey: Zones_Stats_Select_Column,
   isMainnet = true
 ): { data: ZoneData[] } {
-  const options = useMemo(
-    () => ({
-      variables: {
-        period: PERIODS[selectedPeriod],
-        isMainnet: isMainnet,
-        orderBy: {
-          [sortingColumnKey]: 'asc',
-        },
+  const options = {
+    variables: {
+      period: PERIODS[selectedPeriod],
+      isMainnet: isMainnet,
+      orderBy: {
+        [sortingColumnKey]: 'asc',
       },
-    }),
-    [selectedPeriod, sortingColumnKey, isMainnet]
-  );
+    },
+  };
+
   const { data } = useQuery(ZonesTableDocument, options);
 
   return useMemo(() => ({ data: data?.zonesTable ?? [] }), [data]);

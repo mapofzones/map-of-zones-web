@@ -1,9 +1,13 @@
-import { useMemo } from 'react';
-
 import cn from 'classnames';
 
-import { LinkWithQuery, NumberFormat, NumberType, ZoneStatus } from 'components';
-import { PendingIcon } from 'icons';
+import {
+  LinkWithQuery,
+  NumberType,
+  RatingDiffTriangle,
+  ValueWithPending,
+  ZoneLogo,
+  ZoneStatus,
+} from 'components';
 
 import { ColumnKeys } from '../TableHeader/Types';
 import styles from './TableRow.module.scss';
@@ -19,10 +23,7 @@ const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
 };
 
 export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
-  const ratingDiff = useMemo(
-    () => zone[ratingDiffKeysMap[selectedColumnKey]] as number,
-    [selectedColumnKey, zone]
-  );
+  const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
 
   return (
     <LinkWithQuery className={styles.container} to={`${zone.zone}/overview`}>
@@ -32,133 +33,90 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
 
       <td className={styles.columnContainer}>
         <div className={styles.zoneBaseInfoContainer}>
-          <div className={styles.logoContainer}>
-            {zone.logoUrl && (
-              <>
-                <img className={styles.logo} src={zone.logoUrl} alt={`${zone.name} logo`} />
-                <div className={styles.shadow} />
-              </>
-            )}
-          </div>
-          <span className={styles.value}>{zone.name}</span>
-
+          <ZoneLogo logoUrl={zone.logoUrl} className={styles.logo} />
+          <span className={styles.zoneName}>{zone.name}</span>
           <ZoneStatus className={styles.status} status={zone.isZoneUpToDate} />
-
-          {!!ratingDiff && (
-            <div className={cn(styles.ratingDiff, { [styles.negative]: ratingDiff < 0 })}>
-              <div
-                className={cn(styles.triangle, {
-                  [styles.triangleUp]: ratingDiff > 0,
-                  [styles.triangleDown]: ratingDiff < 0,
-                })}
-              />
-              {Math.abs(ratingDiff)}
-            </div>
-          )}
+          <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} />
         </div>
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcVolumeMainnet === null ? '-' : zone.ibcVolumeMainnet}
           numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumePendingMainnet}
+          value={zone.ibcVolumeMainnet}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumePendingMainnet === null ? '-' : zone.ibcVolumePendingMainnet}
-            numberType={NumberType.Currency}
-          />
-        </span>
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcVolumeInMainnet === null ? '-' : zone.ibcVolumeInMainnet}
           numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumeInPendingMainnet}
+          value={zone.ibcVolumeInMainnet}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumeInPendingMainnet === null ? '-' : zone.ibcVolumeInPendingMainnet}
-            numberType={NumberType.Currency}
-          />
-        </span>
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcVolumeOutMainnet === null ? '-' : zone.ibcVolumeOutMainnet}
           numberType={NumberType.Currency}
+          pendingValue={zone.ibcVolumeOutPendingMainnet}
+          value={zone.ibcVolumeOutMainnet}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcVolumeOutPendingMainnet === null ? '-' : zone.ibcVolumeOutPendingMainnet}
-            numberType={NumberType.Currency}
-          />
-        </span>
       </td>
 
-      <td className={styles.columnContainer}>
-        <NumberFormat
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.totalTxs === null ? '-' : zone.totalTxs}
           numberType={NumberType.Number}
+          value={zone.totalTxs}
         />
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcTransfersMainnet === null ? '-' : zone.ibcTransfersMainnet}
           numberType={NumberType.Number}
+          pendingValue={zone.ibcTransfersPendingMainnet}
+          value={zone.ibcTransfersMainnet}
         />
-
-        <span className={styles.pendingValueContainer}>
-          <PendingIcon className={styles.pendingIcon} />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={zone.ibcTransfersPendingMainnet === null ? '-' : zone.ibcTransfersPendingMainnet}
-            numberType={NumberType.Number}
-          />
-        </span>
       </td>
 
-      <td className={styles.columnContainer}>
-        <NumberFormat
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.peersCountMainnet === null ? '-' : zone.peersCountMainnet}
           numberType={NumberType.Number}
+          value={zone.peersCountMainnet}
         />
       </td>
 
       <td className={styles.columnContainer}>
-        <NumberFormat
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.channelsCount === null ? '-' : zone.channelsCount}
           numberType={NumberType.Number}
+          value={zone.channelsCount}
         />
       </td>
 
-      <td className={styles.columnContainer}>
-        <NumberFormat
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <ValueWithPending
+          alignRight={true}
           className={styles.value}
-          value={zone.ibcDauMainnet === null ? '-' : zone.ibcDauMainnet}
           numberType={NumberType.Number}
+          value={zone.ibcDauMainnet}
         />
       </td>
 
-      <td className={styles.columnContainer}>IBC Transfers Activity</td>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>IBC Transfers Activity</td>
     </LinkWithQuery>
   );
 }

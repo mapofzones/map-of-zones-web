@@ -9,6 +9,11 @@
     border-radius: 4px;
     padding: 12px 16px;
     margin: 0 8px;
+    max-height: 80px;
+
+    &.withChart {
+      display: flex;
+    }
 
     &_title {
       display: block;
@@ -21,11 +26,9 @@
     
     &_value {
       display: block;
-      font-weight: 400;
       font-size: 15px;
       line-height: 19px;
       font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--white);
       margin-top: 4px;
     }
 
@@ -55,6 +58,12 @@
       background-color: var(--black-900);
       margin: 0 12px;
     }
+
+    &_withAdditionalData {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
   }
 
   .doubleItemContainer {
@@ -81,55 +90,6 @@
       line-height: 16px;
       text-align: right;
       color: var(--green);
-    }
-
-    &_zonesContainer {
-      margin-top: 2px;
-      position: relative;
-    }
-
-    &_zoneContainer {
-      display: flex;
-      align-items: center;
-      margin-top: 2px;
-    }
-
-    &_sourceCircle {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--pink);
-    }
-
-    &_targetCircle {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--blue);
-    }
-
-    &_volumeTargetCircle {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--white);
-    }
-
-    &_zoneText {
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 19px;
-      color: var(--white);
-      margin-left: 8px;
-    }
-
-    &_divider {
-      width: 1px;
-      height: 10px;
-      background-color: var(--grey-500);
-      position: absolute;
-      left: 3.5px;
-      bottom: 15px;
     }
   }
 }

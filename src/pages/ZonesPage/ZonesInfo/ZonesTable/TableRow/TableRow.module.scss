@@ -9,9 +9,10 @@
   .columnContainer {
     padding: 12px 12px 12px 28px;
     white-space: nowrap;
+    vertical-align: top;
 
-    &:not(:nth-child(1)):not(:nth-child(2)) {
-      vertical-align: top;
+    &.withBorder {
+      border-left: 1px solid var(--black-700);
     }
 
     &:nth-child(1) {
@@ -23,24 +24,12 @@
 
     &:nth-child(2) {
       padding-left: 16px;
-      width: 99%;
+      width: 100%;
+      vertical-align: middle;
     }
 
-    &:nth-child(6) {
-      border-left: 1px solid #2F2C39;
-    }
-
-    &:nth-child(8) {
-      border-left: 1px solid #2F2C39;
-    }
-
-    &:nth-child(10) {
-      border-left: 1px solid #2F2C39;
-    }
-
-    &:nth-child(11) {
+    &:last-child {
       padding-right: 24px;
-      border-left: 1px solid #2F2C39;
     }
 
     .position {
@@ -52,33 +41,13 @@
       color: var(--grey-500);
     }
 
-    .value {
-      display: block;
-      font-weight: 400;
+    .zoneName {
       font-size: 15px;
       line-height: 19px;
-      text-align: right;
-      font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--white);
-      margin-bottom: 2px;
     }
 
-    .pendingValueContainer {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      .pendingValue {
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15px;
-        font-feature-settings: 'tnum' on, 'lnum' on;
-        color: var(--grey-500);
-      }
-
-      .pendingIcon {
-        margin-right: 3px;
-      }
+    .value {
+      font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .status {
@@ -91,62 +60,12 @@
     flex-grow: 1;
     align-items: center;
 
-    .logoContainer {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: var(--grey-500);
+    .logo {
       margin-right: 12px;
-      position: relative;
-  
-      .logo {
-        width: 32px;
-        height: 32px;
-      }
-
-      .shadow {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        box-shadow: inset 0px 0px 7px #0E0E16;
-        border-radius: 50%;
-        top: 0;
-        left: 0;
-      }
     }
   }
 
   .ratingDiff {
-    display: flex;
-    color: var(--green);
-    align-items: center;
     margin-left: 4px;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-
-    &.negative {
-      color: var(--red);
-    }
-
-    .triangle {
-      margin-right: 2px;
-    }
-
-    .triangleUp {
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 8px solid var(--green);
-    }
-
-    .triangleDown {
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 8px solid var(--red);
-    }
   }
 }

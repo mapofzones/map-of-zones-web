@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useQuery } from '@apollo/client';
 
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
@@ -15,22 +13,20 @@ export function useZonesTableData(
   sortingColumnKey: Zones_Stats_Select_Column,
   isMainnet = true
 ): { data: ZonesTableDataQueryItem[]; loading: boolean } {
-  const options = useMemo(
-    () => ({
-      variables: {
-        period: PERIODS[selectedPeriod],
-        isMainnet: isMainnet,
-        orderBy: {
-          [sortingColumnKey]: 'asc',
-        },
-        withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
-        withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
-        withTotalTxs: selectedColumnKey === ColumnKeys.TotalTxs,
+  const options = {
+    variables: {
+      period: PERIODS[selectedPeriod],
+      isMainnet: isMainnet,
+      orderBy: {
+        [sortingColumnKey]: 'asc',
       },
-    }),
-    [selectedPeriod, selectedColumnKey, sortingColumnKey, isMainnet]
-  );
+      withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
+      withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
+      withTotalTxs: selectedColumnKey === ColumnKeys.TotalTxs,
+    },
+  };
+
   const { data, loading } = useQuery(ZonesTableDataDocument, options);
 
-  return useMemo(() => ({ data: data?.zonesTable ?? [], loading }), [data, loading]);
+  return { data: data?.zonesTable ?? [], loading };
 }

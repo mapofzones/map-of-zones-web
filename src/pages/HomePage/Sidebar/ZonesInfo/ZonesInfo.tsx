@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import cn from 'classnames';
 
@@ -21,7 +21,8 @@ import { useSelectedColumn } from './useSelectedColumn';
 import { useTotalZonesInfo } from './useTotalZonesInfo';
 import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
-import { ZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
+import { MemoizedZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
+import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton';
 
 function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
@@ -29,7 +30,7 @@ function ZonesInfo(): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
   const [searchExpanded, setSearchExpanded] = useState(false);
 
-  const metadata = useMemo(() => METADATA[selectedColumnKey], [selectedColumnKey]);
+  const metadata = METADATA[selectedColumnKey];
 
   const { data: totalInfo, loading: totalInfoLoading } = useTotalZonesInfo(
     selectedPeriod,
@@ -81,16 +82,17 @@ function ZonesInfo(): JSX.Element {
           className={styles.totalInfo}
           totalInfo={totalInfo}
           columnType={selectedColumnKey}
-          numberType={metadata.numberType}
         />
-        <ZonesInfoTable
-          data={zones}
-          searchValue={searchValue}
-          loading={tableDataLoading}
-          columnType={selectedColumnKey}
-          numberType={metadata.numberType}
-        />
+        {!tableDataLoading && (
+          <MemoizedZonesInfoTable
+            data={zones}
+            searchValue={searchValue}
+            columnType={selectedColumnKey}
+          />
+        )}
+        {tableDataLoading && <ZonesInfoTableSkeleton />}
       </ScrollableContainer>
+      <div className={styles.shadow}></div>
       <Button className={styles.detailedBtn}>
         <span className={styles.btnText}>Detailed View</span>
         <ArrowRight />
