@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
@@ -8,11 +8,10 @@ export function useSelectedColumn() {
   const [search, setSearch] = useSearchParams();
   const columnKey = search.get('columnKey');
 
-  const selectedColumnKey = useMemo(() => {
-    return columnKey && Object.values(ColumnKeys).some((v) => v === columnKey)
+  const selectedColumnKey =
+    columnKey && Object.values(ColumnKeys).some((v) => v === columnKey)
       ? (columnKey as ColumnKeys)
       : ColumnKeys.IbcVolume;
-  }, [columnKey]);
 
   const setSelectedColumnKey = useCallback(
     (value: ColumnKeys) => {

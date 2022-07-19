@@ -1,56 +1,54 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType } from 'components';
+import { LineChart, NumberFormat, NumberType, ValueWithPending } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { PendingIcon } from 'icons';
 
 import { useZonesTotalInfo } from './useZonesTotalInfo';
+import { ZonesConnection } from './ZonesConnection/ZonesConnection';
 import styles from './ZonesTotalInfo.module.scss';
 
-export function ZonesTotalInfo() {
+export function ZonesTotalInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
 
   const { data: zonesTotalInfo } = useZonesTotalInfo(selectedPeriod);
 
   if (!zonesTotalInfo) {
-    return null;
+    return <></>;
   }
 
   return (
     <div className={styles.container}>
-      <div className={styles.itemContainer}>
-        <span className={styles.itemContainer_title}>Total IBC Volume ({selectedPeriod})</span>
-        <NumberFormat
-          className={styles.itemContainer_value}
-          value={zonesTotalInfo.ibcVolume}
-          numberType={NumberType.Currency}
-        />
-        <div className={styles.itemContainer_pendingValueContainer}>
-          <span className={styles.itemContainer_pendingValue}>
-            <PendingIcon className={styles.itemContainer_pendingIcon} />
-            <NumberFormat
-              value={zonesTotalInfo.ibcVolumePending}
-              numberType={NumberType.Currency}
-            />
-          </span>
+      <div className={cn(styles.itemContainer, styles.withChart)}>
+        <div>
+          <span className={styles.itemContainer_title}>Total IBC Volume ({selectedPeriod})</span>
+          <ValueWithPending
+            className={styles.itemContainer_value}
+            numberType={NumberType.Currency}
+            pendingValue={zonesTotalInfo.ibcVolumePending}
+            value={zonesTotalInfo.ibcVolume}
+          />
         </div>
+
+        {zonesTotalInfo.ibcVolumeChart && (
+          <LineChart
+            className={styles.chart}
+            data={zonesTotalInfo.ibcVolumeChart}
+            dataKey="ibcVolumeChart"
+          />
+        )}
       </div>
 
       <div className={styles.itemContainer}>
         <span className={styles.itemContainer_title}>Total IBC Transfers ({selectedPeriod})</span>
-        <NumberFormat
-          className={styles.itemContainer_value}
-          value={zonesTotalInfo.ibcTransfers}
-          numberType={NumberType.Number}
-        />
-        <div className={styles.itemContainer_pendingValueContainer}>
-          <span className={styles.itemContainer_pendingValue}>
-            <PendingIcon className={styles.itemContainer_pendingIcon} />
-            <NumberFormat
-              value={zonesTotalInfo.ibcTransfersPending}
-              numberType={NumberType.Number}
-            />
-          </span>
+        <div className={styles.itemContainer_withAdditionalData}>
+          <ValueWithPending
+            className={styles.itemContainer_value}
+            numberType={NumberType.Number}
+            pendingValue={zonesTotalInfo.ibcTransfersPending}
+            value={zonesTotalInfo.ibcTransfers}
+          />
+
           <span className={styles.itemContainer_pendingValue}>
             Failed:&nbsp;
             <NumberFormat
@@ -84,27 +82,16 @@ export function ZonesTotalInfo() {
       <div className={cn(styles.itemContainer, styles.topItemContainer)}>
         <div>
           <span className={styles.itemContainer_title}>Most Active Pair ({selectedPeriod})</span>
-
-          <div className={styles.topItemContainer_zonesContainer}>
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_sourceCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcTransfersTopPair[0].source}
-              </span>
-            </div>
-            <div className={styles.topItemContainer_divider} />
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_targetCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcTransfersTopPair[0].target}
-              </span>
-            </div>
-          </div>
+          <ZonesConnection
+            circlesTypes={['source', 'target']}
+            source={zonesTotalInfo.ibcTransfersTopPair.source}
+            target={zonesTotalInfo.ibcTransfersTopPair.target}
+          />
         </div>
         <div>
           <span className={styles.topItemContainer_total}>
             <NumberFormat
-              value={zonesTotalInfo.ibcTransfersTopPair[0].txs}
+              value={zonesTotalInfo.ibcTransfersTopPair.txs}
               numberType={NumberType.Number}
             />
             &nbsp;Transfers
@@ -118,7 +105,7 @@ export function ZonesTotalInfo() {
             <span className={styles.itemContainer_pendingValue}>
               <PendingIcon className={styles.itemContainer_pendingIcon} />
               <NumberFormat
-                value={zonesTotalInfo.ibcTransfersTopPair[0].txs_pending}
+                value={zonesTotalInfo.ibcTransfersTopPair.txs_pending}
                 numberType={NumberType.Number}
               />
             </span>
@@ -129,26 +116,16 @@ export function ZonesTotalInfo() {
       <div className={cn(styles.itemContainer, styles.topItemContainer)}>
         <div>
           <span className={styles.itemContainer_title}>Biggest Volume Pair ({selectedPeriod})</span>
-          <div className={styles.topItemContainer_zonesContainer}>
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_sourceCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcVolumeTopPair[0].source}
-              </span>
-            </div>
-            <div className={styles.topItemContainer_divider} />
-            <div className={styles.topItemContainer_zoneContainer}>
-              <div className={styles.topItemContainer_volumeTargetCircle} />
-              <span className={styles.topItemContainer_zoneText}>
-                {zonesTotalInfo.ibcVolumeTopPair[0].target}
-              </span>
-            </div>
-          </div>
+          <ZonesConnection
+            circlesTypes={['source', 'volume']}
+            source={zonesTotalInfo.ibcVolumeTopPair.source}
+            target={zonesTotalInfo.ibcVolumeTopPair.target}
+          />
         </div>
         <div>
           <NumberFormat
             className={styles.topItemContainer_total}
-            value={zonesTotalInfo.ibcVolumeTopPair[0].cashflow}
+            value={zonesTotalInfo.ibcVolumeTopPair.cashflow}
             numberType={NumberType.Currency}
           />
           <div
@@ -160,7 +137,7 @@ export function ZonesTotalInfo() {
             <span className={styles.itemContainer_pendingValue}>
               <PendingIcon className={styles.itemContainer_pendingIcon} />
               <NumberFormat
-                value={zonesTotalInfo.ibcVolumeTopPair[0].cashflow_pending}
+                value={zonesTotalInfo.ibcVolumeTopPair.cashflow_pending}
                 numberType={NumberType.Currency}
               />
             </span>

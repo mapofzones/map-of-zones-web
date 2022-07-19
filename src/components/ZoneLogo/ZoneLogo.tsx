@@ -22,7 +22,10 @@ export function ZoneLogo({
       {!loading && (
         <div className={classes} style={style} {...props}>
           {logoUrl && (
-            <img className={styles.logo} src={logoUrl} style={style} alt={`${name} logo`} />
+            <>
+              <img src={logoUrl} style={style} alt={`${name} logo`} />
+              <div className={styles.shadow} />
+            </>
           )}
         </div>
       )}

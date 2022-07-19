@@ -2,14 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import {
-  LinkWithQuery,
-  NumberFormat,
-  NumberType,
-  ZoneLogo,
-  SkeletonTextWrapper,
-  SkeletonCircle,
-} from 'components';
+import { LinkWithQuery, NumberFormat, NumberType, RatingDiffTriangle, ZoneLogo } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -50,17 +43,7 @@ function ZoneInfoRow({
           })}
         </div>
 
-        {!!zone.ratingDiff && (
-          <div className={cn(styles.ratingDiff, { [styles.negative]: zone.ratingDiff < 0 })}>
-            <div
-              className={cn(styles.triangle, {
-                [styles.triangleUp]: zone.ratingDiff > 0,
-                [styles.triangleDown]: zone.ratingDiff < 0,
-              })}
-            />
-            {Math.abs(zone.ratingDiff)}
-          </div>
-        )}
+        <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={zone.ratingDiff} />
       </div>
 
       {/* TODO: separate component */}
@@ -82,25 +65,6 @@ function ZoneInfoRow({
         )}
       </div>
     </LinkWithQuery>
-  );
-}
-
-export function ZoneInfoRowLoader() {
-  return (
-    <div className={styles.row}>
-      <div className={styles.zoneBaseInfoContainer}>
-        <SkeletonCircle size={'32px'} />
-        <SkeletonTextWrapper
-          style={{ marginLeft: '16px' }}
-          loading={true}
-          defaultTextMinLength={10}
-          defaultTextMaxLength={15}
-        />
-      </div>
-      <div className={styles.valueContainer}>
-        <SkeletonTextWrapper loading={true} defaultText={'$123,456,789'} />
-      </div>
-    </div>
   );
 }
 

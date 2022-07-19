@@ -1,0 +1,37 @@
+.gradient {
+  .stop {
+    &1,
+    &2,
+    &3,
+    &4 {
+      stop-color: var(--grey-400);
+    }
+
+    &1 {
+      stop-opacity: 0;
+    }
+
+    &3,
+    &4 {
+      .chart.positive & {
+        stop-color: var(--green);
+      }
+
+      .chart.negative & {
+        stop-color: var(--red);
+      }
+    }
+  }
+}
+
+.dot circle {
+  stroke: var(--black-100);
+
+  .chart.positive & {
+    fill: var(--green);
+  }
+
+  .chart.negative & {
+    fill: var(--red);
+  }
+}

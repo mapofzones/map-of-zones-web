@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import cn from 'classnames';
 
 import { ZoneInfoRow } from '../../../index';
 import { ColumnKeys } from '../../../Types';
-import { ZoneInfoRowLoader } from './ZoneInfoRow/ZoneInfoRow';
+import { METADATA } from '../Types';
 import styles from './ZonesInfoTable.module.scss';
 import { ZonesInfoTableProps, ZonesTableDataQueryItem } from './ZonesInfoTable.props';
 
@@ -32,16 +32,15 @@ const fieldsMap: Record<
   },
 };
 
-export function ZonesInfoTable({
+function ZonesInfoTable({
   data,
   searchValue,
   columnType,
-  numberType,
-  loading,
   className,
   ...props
 }: ZonesInfoTableProps) {
-  const fields = useMemo(() => fieldsMap[columnType], [columnType]);
+  const fields = fieldsMap[columnType];
+  const numberType = METADATA[columnType].numberType;
 
   const filteredZones = useMemo(
     () =>
@@ -53,38 +52,26 @@ export function ZonesInfoTable({
 
   return (
     <div className={cn(styles.zonesInfoTable, className)} {...props}>
-      {loading && <ZoneInfoTableLoader />}
-      {!loading && !!searchValue && !filteredZones?.length && (
+      {!!searchValue && !filteredZones?.length && (
         <div className={styles.zonesNotFoundContainer}>No zones found.</div>
       )}
-      {!loading &&
-        filteredZones?.map((zone: ZonesTableDataQueryItem) => (
-          <ZoneInfoRow
-            key={zone.zone}
-            numberType={numberType}
-            searchValue={searchValue}
-            zone={{
-              id: zone.zone,
-              name: zone.name,
-              logoUrl: zone.logoUrl,
-              ratingDiff: zone[fields.ratingDiffKey] as number,
-              value: zone[fields.valueKey] as number,
-              pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as number),
-            }}
-          />
-        ))}
+      {filteredZones?.map((zone: ZonesTableDataQueryItem) => (
+        <ZoneInfoRow
+          key={zone.zone}
+          numberType={numberType}
+          searchValue={searchValue}
+          zone={{
+            id: zone.zone,
+            name: zone.name,
+            logoUrl: zone.logoUrl,
+            ratingDiff: zone[fields.ratingDiffKey] as number,
+            value: zone[fields.valueKey] as number,
+            pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as number),
+          }}
+        />
+      ))}
     </div>
   );
 }
 
-function ZoneInfoTableLoader(): JSX.Element {
-  return (
-    <>
-      {Array(7)
-        .fill(0)
-        .map((_, index: number) => (
-          <ZoneInfoRowLoader key={index} />
-        ))}
-    </>
-  );
-}
+export const MemoizedZonesInfoTable = memo(ZonesInfoTable);

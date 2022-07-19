@@ -4,6 +4,7 @@ import { NumberFormatProps } from './NumberFormat.props';
 import { NumberType } from './NumberType';
 
 export function NumberFormat({
+  defaultValue = '-',
   numberType = NumberType.Number,
   className,
   ...props
@@ -17,6 +18,7 @@ export function NumberFormat({
   return (
     <Format
       className={className}
+      defaultValue={defaultValue}
       displayType={'text'}
       thousandSeparator={thousandSeparator}
       prefix={prefix}
