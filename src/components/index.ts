@@ -10,6 +10,8 @@ export { LinkWithQuery } from './LinkWithQuery/LinkWithQuery';
 
 export { VolumeLineChart } from './VolumeLineChart/VolumeLineChart';
 
+export { PercentStackedLineChart } from './PercentStackedLineChart/PercentStackedLineChart';
+
 export { PeriodSelector } from './PeriodSelector/PeriodSelector';
 
 export { Dropdown } from './Dropdown/Dropdown';

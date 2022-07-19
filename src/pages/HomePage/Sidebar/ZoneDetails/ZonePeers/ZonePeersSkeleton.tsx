@@ -1,4 +1,4 @@
-import { Card } from 'components';
+import { SkeletonRectangle } from 'components';
 
 import styles from './ZonePeers.module.scss';
 
@@ -8,7 +8,7 @@ export function ZonePeersSkeleton() {
       {Array(3)
         .fill(0)
         .map((_, index: number) => (
-          <Card hasBorder key={index} className={styles.peerCard} loading={true} />
+          <SkeletonRectangle key={index} className={styles.peerCard} />
         ))}
     </>
   );

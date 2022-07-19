@@ -92,6 +92,7 @@ function ZonesInfo(): JSX.Element {
         )}
         {tableDataLoading && <ZonesInfoTableSkeleton />}
       </ScrollableContainer>
+      <div className={styles.shadow}></div>
       <Button className={styles.detailedBtn}>
         <span className={styles.btnText}>Detailed View</span>
         <ArrowRight />
