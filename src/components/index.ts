@@ -9,6 +9,7 @@ export { LineChart } from './LineChart/LineChart';
 export { LinkWithQuery } from './LinkWithQuery/LinkWithQuery';
 export { NumberFormat } from './NumberFormat/NumberFormat';
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';
+export { PercentStackedLineChart } from './PercentStackedLineChart/PercentStackedLineChart';
 export { PeriodSelector } from './PeriodSelector/PeriodSelector';
 export { RatingDiffTriangle } from './RatingDiffTriangle/RatingDiffTriangle';
 export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';

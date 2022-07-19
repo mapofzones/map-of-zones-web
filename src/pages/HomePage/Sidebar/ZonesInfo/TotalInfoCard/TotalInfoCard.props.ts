@@ -9,7 +9,7 @@ export type TotalInfoType = {
   readonly ibcVolumePending: number;
   readonly ibcTransfers: number;
   readonly ibcTransfersPending: number;
-  readonly ibcVolumeChart: ChartItemByString[];
+  readonly ibcVolumeChart?: ChartItemByString[];
 };
 
 export interface TotalInfoCardProps
