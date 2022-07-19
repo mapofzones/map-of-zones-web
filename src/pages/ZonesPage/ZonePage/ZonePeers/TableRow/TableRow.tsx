@@ -6,17 +6,33 @@ import { NumberType, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
 import { ArrowDown } from 'icons';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
+import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
 export function TableRow({ parentZone, zone }: TableRowProps) {
-  const [isChannelsVisible, setChannelsVisible] = useState(false);
+  const [channelsConfig, setChannelsConfig] = useState({
+    isChannelsVisible: false,
+    isMoreChannelsVisible: false,
+  });
 
-  const toggleChannels = () => setChannelsVisible((prevState) => !prevState);
+  const channelsToShow = channelsConfig.isMoreChannelsVisible
+    ? zone.channels
+    : [...zone.channels].splice(0, 3);
+
+  const toggleChannelsVisibility = () => {
+    setChannelsConfig((prevState) => ({
+      isChannelsVisible: !prevState.isChannelsVisible,
+      isMoreChannelsVisible: false,
+    }));
+  };
+
+  const showMoreChannels = () =>
+    setChannelsConfig({ isChannelsVisible: true, isMoreChannelsVisible: true });
 
   return (
     <>
-      <tr className={styles.container} onClick={toggleChannels}>
+      <tr className={styles.container} onClick={toggleChannelsVisibility}>
         <td className={styles.columnContainer}>
           <div className={styles.arrowContainer}>
             <ArrowDown />
@@ -110,14 +126,21 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
         </td>
       </tr>
 
-      {isChannelsVisible &&
-        zone.channels.map((channel, index) => (
+      {channelsConfig.isChannelsVisible &&
+        channelsToShow.map((channel, index) => (
           <ChannelRow
-            key={`channel_${channel.zoneCounterpartyChannelId}`}
+            key={`${channel.channelId}_${channel.zoneCounterpartyChannelId}`}
             channel={channel}
             index={index}
           />
         ))}
+
+      {channelsConfig.isChannelsVisible && (
+        <ShowMoreRow
+          count={zone.channels.length - channelsToShow.length}
+          showMoreChannels={showMoreChannels}
+        />
+      )}
     </>
   );
 }
