@@ -1,7 +1,6 @@
-import { TableHeaderItem } from 'pages/ZonesPage/ZonesInfo/ZonesTable/TableHeader/TableHeaderItem/TableHeaderItem';
-
 import styles from './TableHeader.module.scss';
 import { TableHeaderProps } from './TableHeader.props';
+import { TableHeaderItem } from './TableHeaderItem/TableHeaderItem';
 import { TABLE_HEADER_CONFIG } from './Types';
 
 export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHeaderProps) {
