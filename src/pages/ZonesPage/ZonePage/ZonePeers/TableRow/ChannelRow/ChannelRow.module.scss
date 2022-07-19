@@ -7,7 +7,7 @@
 
   .columnContainer {
     height: inherit;
-    padding: 7.5px 7.5px 7.5px 28px;
+    padding: 7.5px 12px 7.5px 28px;
     white-space: nowrap;
     vertical-align: top;
 
@@ -47,7 +47,7 @@
       align-items: center;
 
       .channel {
-        width: 70px;
+        width: 80px;
         font-size: 13px;
         line-height: 16px;
         font-feature-settings: 'tnum' on, 'lnum' on;

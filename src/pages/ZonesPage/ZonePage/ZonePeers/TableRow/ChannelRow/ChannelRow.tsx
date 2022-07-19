@@ -6,9 +6,9 @@ import { InfoIcon } from 'icons';
 import styles from './ChannelRow.module.scss';
 import { ChannelRowProps } from './ChannelRow.props';
 
-export function ChannelRow({ channel, index }: ChannelRowProps) {
+export function ChannelRow({ className, channel, index }: ChannelRowProps) {
   return (
-    <tr className={styles.container}>
+    <tr className={cn(styles.container, className)}>
       <td className={styles.columnContainer}>
         <div className={styles.arrowContainer}>
           <div className={styles.position}>{index + 1}</div>
