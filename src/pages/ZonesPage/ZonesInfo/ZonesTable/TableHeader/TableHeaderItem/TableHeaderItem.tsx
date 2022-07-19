@@ -1,11 +1,9 @@
-import { useCallback } from 'react';
-
 import cn from 'classnames';
 
 import { ExplanationTooltip } from 'components';
 
-import { ColumnKeys } from '../Types';
 import styles from './TableHeaderItem.module.scss';
+import { CircleType, TableHeaderItemProps } from './TableHeaderItem.props';
 
 export function TableHeaderItem({
   circleType,
@@ -15,20 +13,12 @@ export function TableHeaderItem({
   setSelectedColumnKey,
   title,
   withBorder = false,
-}: {
-  circleType?: string;
-  columnKey?: ColumnKeys;
-  explanationText?: string;
-  isSelected: boolean;
-  setSelectedColumnKey: (value: ColumnKeys) => void;
-  title: string;
-  withBorder?: boolean;
-}) {
-  const onClick = useCallback(() => {
+}: TableHeaderItemProps) {
+  const onClick = () => {
     if (columnKey && !isSelected) {
       setSelectedColumnKey(columnKey);
     }
-  }, [columnKey, isSelected, setSelectedColumnKey]);
+  };
 
   return (
     <th
@@ -43,8 +33,8 @@ export function TableHeaderItem({
         {!!circleType && (
           <div
             className={cn(styles.circle, {
-              [styles.source]: circleType === 'source',
-              [styles.target]: circleType === 'target',
+              [styles.source]: circleType === CircleType.Source,
+              [styles.target]: circleType === CircleType.Target,
             })}
           />
         )}

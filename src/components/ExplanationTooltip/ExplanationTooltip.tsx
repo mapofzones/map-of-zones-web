@@ -4,15 +4,13 @@ import { QuestionMark } from 'icons';
 
 import { Tooltip } from '../Tooltip/Tooltip';
 import styles from './ExplanationTooltip.module.scss';
+import { ExplanationTooltipProps } from './ExplanationTooltip.props';
 
 export function ExplanationTooltip({
   className,
   text = '',
   ...props
-}: {
-  className?: string;
-  text?: string;
-}): JSX.Element {
+}: ExplanationTooltipProps): JSX.Element {
   return (
     <div className={cn(styles.container, className)} {...props}>
       <QuestionMark className={styles.questionMark} />
