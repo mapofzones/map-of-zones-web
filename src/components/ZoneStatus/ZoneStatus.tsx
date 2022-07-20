@@ -32,7 +32,7 @@ export function ZoneStatus({ className, status }: ZoneStatusProps) {
           className={styles.icon}
         />
       </div>
-      <Tooltip className={styles.tooltip} text={STATUS_TITLE_BY_ZONE[parsedStatus]} />
+      <Tooltip className={styles.tooltip}>{STATUS_TITLE_BY_ZONE[parsedStatus]}</Tooltip>
     </div>
   );
 }
