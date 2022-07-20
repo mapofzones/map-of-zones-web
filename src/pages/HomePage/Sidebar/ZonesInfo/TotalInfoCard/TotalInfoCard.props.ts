@@ -4,14 +4,6 @@ import { ChartItemByString } from 'utils/helper';
 
 import { ColumnKeys } from '../../../Types';
 
-export type TotalInfoType = {
-  readonly ibcVolume?: number | null;
-  readonly ibcVolumePending: number;
-  readonly ibcTransfers: number;
-  readonly ibcTransfersPending: number;
-  readonly ibcVolumeChart?: ChartItemByString[];
-};
-
 export interface TotalInfoCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
@@ -19,3 +11,11 @@ export interface TotalInfoCardProps
   loading?: boolean;
   columnType: ColumnKeys;
 }
+
+export type TotalInfoType = {
+  readonly ibcVolume?: number | null;
+  readonly ibcVolumePending: number;
+  readonly ibcTransfers: number;
+  readonly ibcTransfersPending: number;
+  readonly ibcVolumeChart?: ChartItemByString[];
+};

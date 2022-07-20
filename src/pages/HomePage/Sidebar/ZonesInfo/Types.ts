@@ -3,17 +3,20 @@ import { NumberType } from 'components/ui/NumberFormat/NumberType';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-export enum PeriodKeys {
-  DAY = '24h',
-  WEEK = '7d',
-  MONTH = '30d',
-}
-
-export const PERIODS: Record<PeriodKeys, number> = {
-  '24h': 24,
-  '7d': 24 * 7,
-  '30d': 24 * 30,
-};
+export const COLUMN_OPTIONS: DropdownOption[] = [
+  {
+    key: ColumnKeys.IbcVolume,
+    title: 'IBC Volume',
+  },
+  {
+    key: ColumnKeys.IbcTransfers,
+    title: 'IBC Transfers',
+  },
+  {
+    key: ColumnKeys.TotalTxs,
+    title: 'Total TXS',
+  },
+];
 
 export const METADATA: Record<
   ColumnKeys,
@@ -36,17 +39,14 @@ export const METADATA: Record<
   },
 };
 
-export const COLUMN_OPTIONS: DropdownOption[] = [
-  {
-    key: ColumnKeys.IbcVolume,
-    title: 'IBC Volume',
-  },
-  {
-    key: ColumnKeys.IbcTransfers,
-    title: 'IBC Transfers',
-  },
-  {
-    key: ColumnKeys.TotalTxs,
-    title: 'Total TXS',
-  },
-];
+export enum PeriodKeys {
+  DAY = '24h',
+  WEEK = '7d',
+  MONTH = '30d',
+}
+
+export const PERIODS: Record<PeriodKeys, number> = {
+  '24h': 24,
+  '7d': 24 * 7,
+  '30d': 24 * 30,
+};
