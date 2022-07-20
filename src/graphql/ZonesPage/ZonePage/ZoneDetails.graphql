@@ -1,0 +1,9 @@
+query ZonesListZoneDetails($zone: String!) {
+  zoneDetails: zones_stats(limit: 1, where: { zone: { _eq: $zone } }) {
+    zone
+    isZoneUpToDate: is_zone_up_to_date
+    logoUrl: zone_label_url
+    name: zone_readable_name
+    website
+  }
+}
