@@ -6,3 +6,4 @@ export { Sidebar } from './Sidebar/Sidebar';
 export { ZonesInfo } from './Sidebar/ZonesInfo/ZonesInfo';
 export { ZoneDetails } from './Sidebar/ZoneDetails/ZoneDetails';
 export { ZoneOverview } from './Sidebar/ZoneDetails/ZoneOverview/ZoneOverview';
+export { ZonePeers } from './Sidebar/ZoneDetails/ZonePeers/ZonePeers';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import { LinkWithQuery, NumberFormat, NumberType, ZoneLogo } from 'components';
+import { LinkWithQuery, NumberFormat, NumberType, RatingDiffTriangle, ZoneLogo } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -43,17 +43,7 @@ function ZoneInfoRow({
           })}
         </div>
 
-        {!!zone.ratingDiff && (
-          <div className={cn(styles.ratingDiff, { [styles.negative]: zone.ratingDiff < 0 })}>
-            <div
-              className={cn(styles.triangle, {
-                [styles.triangleUp]: zone.ratingDiff > 0,
-                [styles.triangleDown]: zone.ratingDiff < 0,
-              })}
-            />
-            {Math.abs(zone.ratingDiff)}
-          </div>
-        )}
+        <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={zone.ratingDiff} />
       </div>
 
       {/* TODO: separate component */}
