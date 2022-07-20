@@ -1,5 +1,5 @@
-import { DropdownOption } from 'components/Dropdown/DropdownOption';
-import { NumberType } from 'components/NumberFormat/NumberType';
+import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
+import { NumberType } from 'components/ui/NumberFormat/NumberType';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
