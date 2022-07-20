@@ -1,15 +1,15 @@
 .container {
+  align-items: center;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: center;
-  padding: 10px 16px 0 16px;
+  padding: 10px 16px 0;
 
   nav {
     margin-left: 20px;
 
     a {
-      padding: 5px 10px;
       color: var(--grey-500);
+      padding: 5px 10px;
 
       &:hover {
         color: var(--grey-800);
@@ -17,8 +17,8 @@
 
       &:global(.active) {
         background-color: var(--black-700);
-        color: var(--white);
         border-radius: 5px;
+        color: var(--white);
       }
     }
   }
@@ -32,17 +32,17 @@
   }
 
   .tagline {
+    color: var(--grey-500);
     font-size: 9px;
     line-height: 11px;
-    color: var(--grey-500);
   }
 
   .line {
-    grid-column-start: 2;
-    grid-column-end: 4;
-    width: 100%;
     border: none;
     border-top: 1px solid var(--black-900);
+    grid-column-end: 4;
+    grid-column-start: 2;
     margin-left: 1px;
+    width: 100%;
   }
 }

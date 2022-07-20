@@ -1,7 +1,7 @@
 .chartContainer {
-  grid-area: lineChart;
-  display: flex;
   align-items: center;
+  display: flex;
+  grid-area: lineChart;
 
   .volumeIn {
     &Title {

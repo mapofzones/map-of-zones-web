@@ -12,14 +12,14 @@
   }
 
   .pendingContainer {
-    display: flex;
     align-items: center;
+    display: flex;
     margin-top: 2px;
 
     .pendingValue {
+      color: var(--grey-500);
       font-size: 12px;
       line-height: 15px;
-      color: var(--grey-500);
       margin-left: 3px;
     }
   }

@@ -4,11 +4,11 @@ th {
   font-size: 13px;
   line-height: 16px;
   color: var(--grey-500);
-  padding: 0px 12px 6px 28px;
+  padding: 0 12px 6px 28px;
   text-align: right;
   white-space: nowrap;
   border-bottom: 1px solid var(--black-700);
-  
+
   &.selected > span {
     padding-bottom: 6px;
     color: var(--white);

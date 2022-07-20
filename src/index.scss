@@ -4,18 +4,18 @@
 
 html,
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background: var(--black-100);
   color: var(--white);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
@@ -23,9 +23,9 @@ code {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
   cursor: pointer;
+  text-decoration: none;
 
   &:hover {
     color: var(--white);
@@ -36,26 +36,24 @@ table {
   border-collapse: collapse;
 }
 
-.align-right {
+.alignRight {
   text-align: right;
 }
 
 :root {
-  --white: #ffffff;
-  --black: #000000;
-  --pink: #ee11cc;
-  --blue: #22aaff;
-  --green: #66dd55;
-  --orange: #ff9900;
-  --red: #ff4455;
-
+  --white: #fff;
+  --black: #000;
+  --pink: #e1c;
+  --blue: #2af;
+  --green: #6d5;
+  --orange: #f90;
+  --red: #f45;
   --black-100: #0e0e16;
   --black-400: #1c1c25;
   --black-500: #212129;
   --black-600: #25252e;
   --black-700: #2a2a33;
   --black-900: #33333d;
-
   --grey-100: #4f4f5a;
   --grey-300: #6f6f78;
   --grey-400: #7f7f87;

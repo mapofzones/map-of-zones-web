@@ -36,7 +36,7 @@ function ZoneOverview() {
               numberType={NumberType.Currency}
             />
             <NumberFormat
-              className={cn(styles.volumeOutValue, 'align-right')}
+              className={cn(styles.volumeOutValue, 'alignRight')}
               value={data.ibcVolumeOutMainnet}
               numberType={NumberType.Currency}
             />
@@ -46,7 +46,7 @@ function ZoneOverview() {
               numberType={NumberType.Currency}
             />
             <NumberFormat
-              className={cn(styles.volumeOutPendingValue, 'align-right')}
+              className={cn(styles.volumeOutPendingValue, 'alignRight')}
               value={data.ibcVolumeOutPendingMainnet}
               numberType={NumberType.Currency}
             />

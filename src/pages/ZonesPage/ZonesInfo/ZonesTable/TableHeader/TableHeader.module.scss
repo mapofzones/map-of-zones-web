@@ -7,13 +7,13 @@
 
       // TODO: find another solution
       &::before {
-        content: '';
         background-color: var(--black-100);
-        position: absolute;
         bottom: -1px;
-        left: 0;
-        width: 24px;
+        content: '';
         height: 1px;
+        left: 0;
+        position: absolute;
+        width: 24px;
       }
     }
 
@@ -24,18 +24,18 @@
     }
 
     &:last-child {
-      padding-right: 24px;
       border-left: 1px solid transparent;
+      padding-right: 24px;
 
       // TODO: find another solution
       &::after {
-        content: '';
         background-color: var(--black-100);
-        position: absolute;
         bottom: -1px;
+        content: '';
+        height: 1px;
+        position: absolute;
         right: 0;
         width: 24px;
-        height: 1px;
       }
     }
   }

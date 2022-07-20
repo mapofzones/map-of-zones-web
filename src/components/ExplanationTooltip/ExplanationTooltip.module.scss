@@ -4,13 +4,13 @@
 
   .questionMark {
     margin-left: 4px;
-    top: 1px;
     position: relative;
+    top: 1px;
   }
 
   .tooltip {
-    top: 25px;
     left: 0;
+    top: 25px;
     transform: translateX(calc(-100% + 20px));
   }
 

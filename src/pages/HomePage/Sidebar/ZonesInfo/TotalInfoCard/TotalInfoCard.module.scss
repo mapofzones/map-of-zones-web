@@ -1,35 +1,35 @@
 .container {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: auto auto auto;
   grid-template-columns: 1fr 1fr;
-  padding: 12px;
+  grid-template-rows: auto auto auto;
   margin-bottom: 12px;
   min-height: 85px;
+  padding: 12px;
 
   &_title {
+    color: var(--grey-500);
     font-size: 13px;
     line-height: 16.3px;
-    color: var(--grey-500);
     margin-bottom: 4px;
   }
 
   &_value {
+    color: var(--white);
     font-size: 15px;
     line-height: 18.81px;
-    color: var(--white);
     margin-bottom: 2px;
   }
 
   &_pending {
+    color: var(--grey-500);
     font-size: 12px;
     line-height: 15.05px;
-    color: var(--grey-500);
     margin-left: 3px;
   }
 
   &_chart {
-    grid-row-start: 1;
     grid-row-end: 4;
+    grid-row-start: 1;
   }
 }

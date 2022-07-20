@@ -5,9 +5,9 @@
   position: relative;
 
   .zoneCountSearchContainer {
+    column-gap: 8px;
     display: grid;
     grid-template-columns: 1fr 140px;
-    column-gap: 8px;
     margin-bottom: 12px;
 
     &.expanded {
@@ -20,10 +20,10 @@
   }
 
   .selectorsContainer {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    display: flex;
     height: 32px;
+    justify-content: space-between;
     margin-bottom: 16px;
   }
 
@@ -37,18 +37,18 @@
   }
 
   .shadow {
-    position: absolute;
+    background: linear-gradient(0deg, #1e1c25 0%, rgb(30 28 37 / 0%) 100%);
     bottom: 40px;
-    width: 100%;
     height: 33px;
-    background: linear-gradient(0deg, #1e1c25 0%, rgba(30, 28, 37, 0) 100%);
+    position: absolute;
+    width: 100%;
   }
 
   .detailedBtn {
-    height: 40px;
-    font-size: 15px;
-    line-height: 19px;
     color: var(--grey-500);
+    font-size: 15px;
+    height: 40px;
+    line-height: 19px;
 
     &:not(:hover) {
       background-color: var(--black-700);

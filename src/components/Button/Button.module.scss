@@ -1,21 +1,21 @@
 .button {
-  display: flex;
-  padding: 5px 8px 4px;
-  text-align: center;
   align-items: center;
-  justify-content: center;
+  background-color: var(--black-600);
   border: none;
   border-radius: 5px;
-  font-size: 12px;
-  line-height: 15px;
-  background-color: var(--black-600);
   color: var(--white);
   cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
+  line-height: 15px;
+  padding: 5px 8px 4px;
+  text-align: center;
 
   .icon {
     display: flex;
-    line-height: 15px;
     fill: var(--grey-800);
+    line-height: 15px;
     margin-right: 6px;
   }
 

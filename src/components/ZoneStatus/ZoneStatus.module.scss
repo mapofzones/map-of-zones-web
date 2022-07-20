@@ -1,38 +1,38 @@
 .container {
-  position: relative;
   cursor: pointer;
+  position: relative;
+
+  .tooltip {
+    left: -25px;
+    top: -50px;
+  }
 
   &:hover .tooltip {
     opacity: 1;
     visibility: visible;
   }
 
-  .tooltip {
-    top: -50px;
-    left: -25px;
-  }
-
   .status {
-    position: relative;
     align-items: center;
-    justify-content: center;
-    height: 10px;
-    width: 10px;
-    display: flex;
     cursor: pointer;
+    display: flex;
+    height: 10px;
+    justify-content: center;
+    position: relative;
+    width: 10px;
 
     .icon {
-      width: 4px;
-      height: 4px;
       border-radius: 50%;
+      height: 4px;
+      width: 4px;
     }
 
     .iconBackground {
-      width: 10px;
-      height: 10px;
       border-radius: 50%;
+      height: 10px;
       opacity: 0.3;
       position: absolute;
+      width: 10px;
     }
   }
 }
