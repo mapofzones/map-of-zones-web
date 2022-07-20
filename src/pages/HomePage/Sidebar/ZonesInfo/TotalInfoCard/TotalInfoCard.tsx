@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { Card, NumberFormat } from 'components';
-import { LineChart } from 'components/LineChart/LineChart';
+import { LineChart } from 'components/ui/LineChart/LineChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { PendingIcon } from 'icons';
 import { ChartItemByString } from 'utils/helper';

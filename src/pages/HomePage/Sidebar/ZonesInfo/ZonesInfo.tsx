@@ -10,7 +10,7 @@ import {
   Search,
   SkeletonTextWrapper,
 } from 'components';
-import { DropdownOption } from 'components/Dropdown/DropdownOption';
+import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';

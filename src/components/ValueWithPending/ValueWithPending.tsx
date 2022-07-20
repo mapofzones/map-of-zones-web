@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { NumberFormat } from 'components';
-import { NumberType } from 'components/NumberFormat/NumberType';
+import { NumberType } from 'components/ui/NumberFormat/NumberType';
 import { PendingIcon } from 'icons';
 
 import styles from './ValueWithPending.module.scss';
