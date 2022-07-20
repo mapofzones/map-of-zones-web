@@ -1,18 +1,22 @@
 import { useMemo } from 'react';
 
+import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { TableHeader } from './TableHeader/TableHeader';
-import { SORTING_COLUMN_KEYS } from './TableHeader/Types';
+import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
 import { usePeersTable } from './usePeersTable';
-import { useSelectedColumn } from './useSelectedColumn';
 import { useZoneDetails } from './useZoneDetails';
 import styles from './ZonePeers.module.scss';
 
 export function ZonePeers() {
   const [selectedPeriod] = useSelectedPeriod();
-  const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
+
+  const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
+    'columnKey',
+    ColumnKeys.IbcVolumeReceived
+  );
 
   const sortingColumnKey = useMemo(
     () => SORTING_COLUMN_KEYS[selectedColumnKey],
