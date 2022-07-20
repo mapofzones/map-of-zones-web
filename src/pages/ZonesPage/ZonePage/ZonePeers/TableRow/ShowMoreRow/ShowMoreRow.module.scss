@@ -1,10 +1,4 @@
 .container {
-  &.emptyContainer {
-    .columnContainer {
-      padding: 0 0 19px 0;
-    }
-  }
-
   .columnContainer {
     padding: 12px 12px 31px 28px;
     white-space: nowrap;
@@ -18,7 +12,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      min-width: 450px;
+      min-width: 460px;
       padding-left: 0;
       vertical-align: middle;
     }
@@ -33,7 +27,7 @@
       align-items: center;
       justify-content: center;
     }
-  
+
     .position {
       font-size: 10px;
       line-height: 13px;
@@ -59,6 +53,11 @@
         margin-left: 7px;
       }
     }
+  }
 
+  &.emptyContainer {
+    .columnContainer {
+      padding: 0 0 19px;
+    }
   }
 }

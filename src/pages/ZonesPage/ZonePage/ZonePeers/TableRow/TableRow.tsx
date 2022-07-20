@@ -38,23 +38,50 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
             <ArrowDown />
           </div>
 
-          <div className={styles.zoneBaseInfoContainer}>
-            <div className={cn(styles.logoContainer, styles.logoContainerSmall)}>
-              <ZoneLogo logoUrl={parentZone?.logoUrl} size="16px" className={styles.logo} />
-            </div>
-            <div className={styles.logoContainer}>
-              <ZoneLogo logoUrl={zone?.zoneCounterpartyLogoUrl} className={styles.logo} />
-            </div>
-            <div>
-              <div className={styles.zoneCounterpartyNameContainer}>
-                <span className={styles.value}>{zone.zoneCounterpartyName}</span>
-
-                <ZoneStatus className={styles.status} status={zone.isZoneCounterpartyUpToDate} />
+          <div className={styles.zonesInfoContainer}>
+            <div
+              className={cn(styles.zoneContainer, {
+                [styles.animated]: channelsConfig.isChannelsVisible,
+              })}
+            >
+              <div
+                className={cn(styles.logoContainer, {
+                  [styles.logoContainerSmall]: !channelsConfig.isChannelsVisible,
+                })}
+              >
+                <ZoneLogo
+                  logoUrl={parentZone?.logoUrl}
+                  size={channelsConfig.isChannelsVisible ? '32px' : '16px'}
+                  className={styles.logo}
+                />
               </div>
 
-              <span className={styles.channelsText}>
-                {zone.channels.length} Channel{zone.channels.length !== 1 ? 's' : ''}
-              </span>
+              {channelsConfig.isChannelsVisible && (
+                <div className={styles.zoneNameContainer}>
+                  <span className={styles.value}>{parentZone?.name}</span>
+
+                  <ZoneStatus className={styles.status} status={parentZone?.isZoneUpToDate} />
+                </div>
+              )}
+            </div>
+
+            <div className={styles.zoneContainer}>
+              <div className={styles.logoContainer}>
+                <ZoneLogo logoUrl={zone?.zoneCounterpartyLogoUrl} className={styles.logo} />
+              </div>
+              <div>
+                <div className={styles.zoneNameContainer}>
+                  <span className={styles.value}>{zone.zoneCounterpartyName}</span>
+
+                  <ZoneStatus className={styles.status} status={zone.isZoneCounterpartyUpToDate} />
+                </div>
+
+                {!channelsConfig.isChannelsVisible && (
+                  <span className={styles.channelsText}>
+                    {zone.channels.length} Channel{zone.channels.length !== 1 ? 's' : ''}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </td>
@@ -132,6 +159,8 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
             key={`${channel.channelId}_${channel.zoneCounterpartyChannelId}`}
             channel={channel}
             index={index}
+            parentZone={parentZone}
+            zone={zone}
           />
         ))}
 

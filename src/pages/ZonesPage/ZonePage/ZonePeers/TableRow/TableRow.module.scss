@@ -1,21 +1,49 @@
 .container {
+  height: 62px;
   cursor: pointer;
 
-  &:hover {
-    background-color: var(--black-500);
+  .zonesInfoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .zoneBaseInfoContainer {
+    .zoneContainer {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+
+      &.animated {
+        width: 233px;
+      }
+
       .logoContainer {
-        border: 2px solid var(--black-500);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: var(--grey-500);
+        margin-right: 12px;
+        position: relative;
+        border: 2px solid var(--black-100);
       }
 
       .logoContainerSmall {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        margin-right: 0;
+        margin-left: -12px;
         border: 0;
+      }
+
+      .zoneNameContainer {
+        display: flex;
+        align-items: center;
       }
     }
   }
 
   .columnContainer {
+    height: inherit;
     padding: 12px 12px 12px 28px;
     white-space: nowrap;
     vertical-align: top;
@@ -28,7 +56,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      min-width: 450px;
+      min-width: 460px;
       padding-left: 0;
     }
 
@@ -53,38 +81,8 @@
     justify-content: center;
   }
 
-  .zoneBaseInfoContainer {
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-
-    .logoContainer {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background-color: var(--grey-500);
-      margin-right: 12px;
-      position: relative;
-      border: 2px solid var(--black-100);
-    }
-
-    .logoContainerSmall {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      margin-right: 0;
-      margin-left: -12px;
-      border: 0;
-    }
-  }
-
   .status {
     margin-left: 4px;
-  }
-
-  .zoneCounterpartyNameContainer {
-    display: flex;
-    align-items: center;
   }
 
   .channelsText {
@@ -96,5 +94,21 @@
     font-feature-settings: 'tnum' on, 'lnum' on;
     color: var(--white);
     opacity: 0.5;
+  }
+
+  &:hover {
+    background-color: var(--black-500);
+
+    .zonesInfoContainer {
+      .zoneContainer {
+        .logoContainer {
+          border: 2px solid var(--black-500);
+        }
+
+        .logoContainerSmall {
+          border: 0;
+        }
+      }
+    }
   }
 }

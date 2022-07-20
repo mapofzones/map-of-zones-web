@@ -1,20 +1,24 @@
 .container {
   th {
     &:first-child {
-      padding-left: 24px;
-      text-align: left;
       width: 100%;
-      min-width: 450px;
+      min-width: 460px;
+      padding-left: 24px;
+
+      text-align: left;
 
       // TODO: find another solution
       &::before {
-        content: '';
-        background-color: #0e0e16;
         position: absolute;
         bottom: -1px;
         left: 0;
+
         width: 24px;
         height: 1px;
+
+        background-color: #0e0e16;
+
+        content: '';
       }
     }
 
@@ -23,13 +27,16 @@
 
       // TODO: find another solution
       &::after {
-        content: '';
-        background-color: #0e0e16;
         position: absolute;
-        bottom: -1px;
         right: 0;
+        bottom: -1px;
+
         width: 24px;
         height: 1px;
+
+        background-color: #0e0e16;
+
+        content: '';
       }
     }
   }
