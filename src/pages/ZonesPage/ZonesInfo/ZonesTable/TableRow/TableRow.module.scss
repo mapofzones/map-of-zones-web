@@ -7,24 +7,27 @@
 
   .columnContainer {
     padding: 12px 12px 12px 28px;
-    vertical-align: top;
+
     white-space: nowrap;
+    vertical-align: top;
 
     &.withBorder {
       border-left: 1px solid var(--black-700);
     }
 
     &:nth-child(1) {
-      padding-left: 24px;
       padding-right: 0;
+      padding-left: 24px;
+
       text-align: center;
       vertical-align: middle;
     }
 
     &:nth-child(2) {
-      padding-left: 16px;
-      vertical-align: middle;
       width: 100%;
+      padding-left: 16px;
+
+      vertical-align: middle;
     }
 
     &:last-child {
@@ -32,12 +35,13 @@
     }
 
     .position {
-      color: var(--grey-500);
       display: block;
-      font-feature-settings: 'tnum' on, 'lnum' on;
-      font-size: 15px;
+
+      color: var(--grey-500);
       font-weight: 400;
+      font-size: 15px;
       line-height: 19px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .zoneName {
@@ -55,9 +59,9 @@
   }
 
   .zoneBaseInfoContainer {
-    align-items: center;
     display: flex;
     flex-grow: 1;
+    align-items: center;
 
     .logo {
       margin-right: 12px;

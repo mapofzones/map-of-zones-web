@@ -1,27 +1,31 @@
 .chartContainer {
-  align-items: center;
   display: flex;
+  align-items: center;
 
   hr {
-    border-top: none;
     height: 1px;
+
+    border-top: none;
   }
 
   .notActiveLine {
-    border-color: var(--black-900);
-    margin: 0 2px;
     width: 100%;
+    margin: 0 2px;
+
+    border-color: var(--black-900);
   }
 
   .volumeOutLine {
-    border-color: var(--pink);
-    margin-left: 2px;
     margin-right: 2px;
+    margin-left: 2px;
+
+    border-color: var(--pink);
   }
 
   .volumeInLine {
-    border-color: var(--pink);
     margin-right: 2px;
+
+    border-color: var(--pink);
     opacity: 0.5;
   }
 }
