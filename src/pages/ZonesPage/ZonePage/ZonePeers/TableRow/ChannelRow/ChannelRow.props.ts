@@ -1,12 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export interface ChannelRowProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  className?: string;
-  channel: ChannelData;
-  index: number;
-}
-
 export interface ChannelData {
   channelId?: string | null;
   clientId?: string | null;
@@ -22,4 +15,11 @@ export interface ChannelData {
   successRate?: number | null;
   zoneCounterpartyChannelId?: string | null;
   zoneCounterpartyKey?: string | null;
+}
+
+export interface ChannelRowProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  className?: string;
+  channel: ChannelData;
+  index: number;
 }
