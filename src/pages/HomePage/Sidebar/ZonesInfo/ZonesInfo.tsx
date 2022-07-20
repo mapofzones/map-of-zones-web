@@ -11,13 +11,13 @@ import {
   SkeletonTextWrapper,
 } from 'components';
 import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
+import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
 import { COLUMN_OPTIONS, METADATA } from './Types';
-import { useSelectedColumn } from './useSelectedColumn';
 import { useTotalZonesInfo } from './useTotalZonesInfo';
 import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
@@ -26,7 +26,10 @@ import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton'
 
 function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
-  const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
+  const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
+    'columnKey',
+    ColumnKeys.IbcVolume
+  );
   const [searchValue, setSearchValue] = useState('');
   const [searchExpanded, setSearchExpanded] = useState(false);
 

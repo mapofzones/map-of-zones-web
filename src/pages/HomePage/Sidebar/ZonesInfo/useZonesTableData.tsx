@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 
+import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
 import { ZonesTableDataDocument } from 'graphql/HomePage/__generated__/ZonesTableData.generated';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-import { PeriodKeys, PERIODS } from './Types';
 import { ZonesTableDataQueryItem } from './ZonesInfoTable/ZonesInfoTable.props';
 
 export function useZonesTableData(
@@ -15,7 +15,7 @@ export function useZonesTableData(
 ): { data: ZonesTableDataQueryItem[]; loading: boolean } {
   const options = {
     variables: {
-      period: PERIODS[selectedPeriod],
+      period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
       isMainnet: isMainnet,
       orderBy: {
         [sortingColumnKey]: 'asc',

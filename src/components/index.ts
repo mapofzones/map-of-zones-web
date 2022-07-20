@@ -1,10 +1,10 @@
+export * from './PeriodSelector';
+
 export * from './Skeleton';
 
 export * from './ui';
 
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';
-
-export { PeriodSelector } from './PeriodSelector/PeriodSelector';
 
 export { RatingDiffTriangle } from './RatingDiffTriangle/RatingDiffTriangle';
 

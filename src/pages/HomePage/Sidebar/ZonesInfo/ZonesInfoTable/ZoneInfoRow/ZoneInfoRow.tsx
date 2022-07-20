@@ -48,13 +48,9 @@ function ZoneInfoRow({
 
       {/* TODO: separate component */}
       <div className={styles.valueContainer}>
-        <NumberFormat
-          className={cn(styles.value, 'text-align')}
-          value={zone.value}
-          numberType={numberType}
-        />
+        <NumberFormat className={cn(styles.value)} value={zone.value} numberType={numberType} />
         {zone.pendingValue != null && (
-          <span className={cn(styles.pendingValueContainer, 'text-align')}>
+          <span className={cn(styles.pendingValueContainer)}>
             <PendingIcon />
             <NumberFormat
               className={styles.pendingValue}

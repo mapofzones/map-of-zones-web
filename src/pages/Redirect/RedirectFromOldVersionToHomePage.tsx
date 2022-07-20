@@ -5,13 +5,13 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 
-import { PeriodKeys } from 'pages/HomePage/Sidebar/ZonesInfo/Types';
+import { PeriodKeys } from 'components';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-const periodMapping: Record<string, string> = {
-  '24': '24h',
-  '168': '7d',
-  '720': '30d',
+const periodMapping: Record<string, PeriodKeys> = {
+  '24': PeriodKeys.DAY,
+  '168': PeriodKeys.WEEK,
+  '720': PeriodKeys.MONTH,
 };
 
 // redirect from ?testnet=true&period=168&tableOrderBy=totalTxs&tableOrderSort=desc&zone=columbus-5

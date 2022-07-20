@@ -3,10 +3,9 @@ import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
+import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZonePeersDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZonePeers.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-
-import { PERIODS } from '../../ZonesInfo/Types';
 
 export interface ZonePeer {
   zoneCounterpartyKey: string;
@@ -25,7 +24,10 @@ export function useZonePeers() {
   const { zone = '' } = useParams();
   const [selectedPeriod] = useSelectedPeriod();
 
-  const options = { variables: { source: zone, period: PERIODS[selectedPeriod] }, skip: !zone };
+  const options = {
+    variables: { source: zone, period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod] },
+    skip: !zone,
+  };
 
   const { data, loading } = useQuery(ZonePeersDocument, options);
 

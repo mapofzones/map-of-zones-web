@@ -46,6 +46,8 @@
     height: 33px;
 
     background: linear-gradient(0deg, #1e1c25 0%, rgb(30 28 37 / 0%) 100%);
+
+    pointer-events: none;
   }
 
   .detailedBtn {

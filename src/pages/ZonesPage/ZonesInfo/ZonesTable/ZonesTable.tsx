@@ -1,17 +1,21 @@
 import { PeriodSelector } from 'components';
+import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { TableHeader } from './TableHeader/TableHeader';
-import { SORTING_COLUMN_KEYS } from './TableHeader/Types';
+import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
-import { useSelectedColumn } from './useSelectedColumn';
 import { useZonesCount } from './useZonesCount';
 import { useZonesTable } from './useZonesTable';
 import styles from './ZonesTable.module.scss';
 
 export function ZonesTable() {
   const [selectedPeriod] = useSelectedPeriod();
-  const [selectedColumnKey, setSelectedColumnKey] = useSelectedColumn();
+
+  const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
+    'columnKey',
+    ColumnKeys.IbcVolume
+  );
 
   const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
 
