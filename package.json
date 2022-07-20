@@ -2,6 +2,10 @@
   "name": "map-of-zones-web",
   "version": "0.1.0",
   "private": true,
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint --fix",
+    "*.{css,scss}": "stylelint --fix"
+  },
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@graphql-codegen/add": "^3.1.1",
@@ -64,6 +68,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.0",
     "sass": "^1.52.3",
     "stylelint": "^14.9.1",

@@ -3,10 +3,11 @@
   flex-direction: column;
 
   .title {
+    margin-bottom: 4px;
+
     color: var(--grey-500);
     font-size: 13px;
     line-height: 16.3px;
-    margin-bottom: 4px;
 
     .questionMark {
       margin-left: 4px;

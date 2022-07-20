@@ -1,10 +1,12 @@
 .container {
-  animation: pulse 1.2s ease-in-out infinite;
+  display: inline-block;
+  padding: 0 5px;
+
   background: linear-gradient(-90deg, #2a2a33 0%, #1e1c25 50%, #2a2a33 100%);
   background-size: 400% 400%;
   border: none;
-  display: inline-block;
-  padding: 0 5px;
+
+  animation: pulse 1.2s ease-in-out infinite;
 
   &.rectangle {
     border-radius: 5px;

@@ -7,18 +7,19 @@
     margin: 16px 24px;
 
     &_title {
+      color: var(--white);
       font-weight: 400;
       font-size: 20px;
       line-height: 25px;
-      color: var(--white);
     }
 
     &_subtitle {
       margin-left: 8px;
+
+      color: var(--grey-500);
       font-weight: 400;
       font-size: 13px;
       line-height: 16px;
-      color: var(--grey-500);
     }
   }
 

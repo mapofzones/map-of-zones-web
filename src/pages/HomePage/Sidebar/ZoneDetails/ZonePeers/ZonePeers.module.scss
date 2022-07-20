@@ -6,14 +6,15 @@
 
 .peerCard {
   display: block;
-  margin-bottom: 16px;
   min-height: 160px;
+  margin-bottom: 16px;
 }
 
 .detailedBtn {
+  height: 40px;
+
   color: var(--grey-500);
   font-size: 15px;
-  height: 40px;
   line-height: 19px;
 
   &:not(:hover) {

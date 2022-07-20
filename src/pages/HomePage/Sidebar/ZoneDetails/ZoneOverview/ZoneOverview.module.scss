@@ -12,34 +12,37 @@
       'volumeIn volumeOut'
       'volumeInPending volumeOutPending';
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 12px;
     min-height: 150px;
+    margin-bottom: 12px;
     padding: 16px;
 
     .title {
+      grid-area: title;
+      margin-bottom: 4px;
+
       color: var(--grey-500);
       font-size: 13px;
-      grid-area: title;
       line-height: 16.3px;
-      margin-bottom: 4px;
     }
 
     .volumeValue {
-      font-size: 20px;
       grid-area: volume;
+
+      font-size: 20px;
       line-height: 25px;
     }
 
     .volumeLineChart {
-      margin-bottom: 4px;
       margin-top: 12px;
+      margin-bottom: 4px;
     }
 
     .volumeInValue,
     .volumeOutValue {
+      margin-bottom: 2px;
+
       font-size: 15px;
       line-height: 19px;
-      margin-bottom: 2px;
     }
 
     .volumeInPendingValue,
@@ -51,22 +54,23 @@
 
     .chart {
       grid-area: chart;
-      grid-row-end: 3;
       grid-row-start: 1;
+      grid-row-end: 3;
     }
   }
 
   .detailedInfo {
-    align-items: center;
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(4, 63px);
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
     margin-bottom: 20px;
 
     &Item:not(:first-of-type, :nth-of-type(2)) {
-      border-top: 1px solid var(--black-900);
-      height: 100%;
       justify-content: center;
+      height: 100%;
+
+      border-top: 1px solid var(--black-900);
 
       .additionalInfo {
         color: var(--grey-500);
@@ -75,9 +79,10 @@
   }
 
   .detailedBtn {
+    height: 40px;
+
     color: var(--grey-500);
     font-size: 15px;
-    height: 40px;
     line-height: 19px;
 
     &:not(:hover) {

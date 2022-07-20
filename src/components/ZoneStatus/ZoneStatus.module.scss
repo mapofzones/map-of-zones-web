@@ -1,38 +1,44 @@
 .container {
-  cursor: pointer;
   position: relative;
 
+  cursor: pointer;
+
   .tooltip {
-    left: -25px;
     top: -50px;
+    left: -25px;
   }
 
   &:hover .tooltip {
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
   }
 
   .status {
-    align-items: center;
-    cursor: pointer;
-    display: flex;
-    height: 10px;
-    justify-content: center;
     position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 10px;
+    height: 10px;
+
+    cursor: pointer;
 
     .icon {
-      border-radius: 50%;
-      height: 4px;
       width: 4px;
+      height: 4px;
+
+      border-radius: 50%;
     }
 
     .iconBackground {
-      border-radius: 50%;
-      height: 10px;
-      opacity: 0.3;
       position: absolute;
+
       width: 10px;
+      height: 10px;
+
+      border-radius: 50%;
+      opacity: 0.3;
     }
   }
 }

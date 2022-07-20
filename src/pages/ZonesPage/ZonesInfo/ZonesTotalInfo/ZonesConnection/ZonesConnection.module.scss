@@ -1,6 +1,7 @@
 .container {
-  margin-top: 2px;
   position: relative;
+
+  margin-top: 2px;
 
   .zoneContainer {
     display: flex;
@@ -8,16 +9,18 @@
     margin-top: 2px;
 
     .title {
+      margin-left: 8px;
+
+      color: var(--white);
       font-weight: 400;
       font-size: 15px;
       line-height: 19px;
-      color: var(--white);
-      margin-left: 8px;
     }
 
     .circle {
       width: 8px;
       height: 8px;
+
       border-radius: 50%;
 
       &.source {
@@ -35,11 +38,13 @@
   }
 
   .divider {
+    position: absolute;
+    bottom: 15px;
+    left: 3.5px;
+
     width: 1px;
     height: 10px;
+
     background-color: var(--grey-500);
-    position: absolute;
-    left: 3.5px;
-    bottom: 15px;
   }
 }
