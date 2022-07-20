@@ -1,13 +1,14 @@
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
-import { ZoneDetailsDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZoneDetails.generated';
+import { ZonesListZoneDetailsDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZoneDetails.generated';
 
 export interface ZoneDetails {
   zone: string;
-  website?: string | null;
+  isZoneUpToDate?: boolean | null;
   logoUrl?: string | null;
   name: string;
+  website?: string | null;
 }
 
 export function useZoneDetails(): { data: ZoneDetails | undefined; loading: boolean } {
@@ -15,7 +16,7 @@ export function useZoneDetails(): { data: ZoneDetails | undefined; loading: bool
 
   const options = { variables: { zone }, skip: !zone };
 
-  const { data, loading } = useQuery(ZoneDetailsDocument, options);
+  const { data, loading } = useQuery(ZonesListZoneDetailsDocument, options);
 
   return { data: data?.zoneDetails[0], loading };
 }
