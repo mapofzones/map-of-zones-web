@@ -1,33 +1,39 @@
 .dropDownContainer {
   position: relative;
-  background-color: var(--black-600);
+
   color: var(--grey-500);
-  border-radius: 5px;
   font-size: 15px;
   line-height: 19px;
+
+  background-color: var(--black-600);
+  border-radius: 5px;
   cursor: pointer;
-  -webkit-touch-callout: none; /* iOS Safari */
+
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                       supported by Chrome, Edge, Opera and Firefox */
+  -webkit-touch-callout: none; /* iOS Safari */
 
   .dropDownHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 8px 12px 5px;
+
     border-radius: 5px;
 
     &:hover {
       color: var(--grey-800);
+
       background-color: var(--black-900);
     }
 
     &.active {
       color: var(--grey-800);
+
       background-color: var(--black-700);
     }
 
@@ -36,44 +42,50 @@
     }
 
     .arrowIcon {
-      margin-left: 4px;
       width: 12px;
       height: 8px;
+      margin-left: 4px;
     }
   }
 
   .dropDownList {
     position: absolute;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    margin-top: 10px;
-    border-radius: 5px;
-    color: var(--grey-500);
     z-index: 1000;
+
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+
+    color: var(--grey-500);
+
+    border-radius: 5px;
 
     .listItem {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      list-style: none;
       margin: 0;
       padding: 12px;
-      background: var(--black-700);
       padding: 0 12px;
+
+      list-style: none;
+      background: var(--black-700);
 
       .tickIcon {
         display: none;
         margin-left: 4px;
+
         stroke: var(--grey-500);
       }
 
       .itemTitle {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 12px 0;
         width: 100%;
+        padding: 12px 0;
+        overflow: hidden;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       &:not(:last-of-type) {
@@ -91,8 +103,9 @@
       }
 
       &:hover {
-        background-color: var(--black-900);
         color: var(--grey-800);
+
+        background-color: var(--black-900);
       }
 
       &.active {

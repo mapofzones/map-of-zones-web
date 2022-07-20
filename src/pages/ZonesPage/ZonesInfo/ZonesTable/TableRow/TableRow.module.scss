@@ -1,5 +1,6 @@
 .container {
   display: table-row;
+
   cursor: pointer;
 
   &:hover {
@@ -8,6 +9,7 @@
 
   .columnContainer {
     padding: 12px 12px 12px 28px;
+
     white-space: nowrap;
     vertical-align: top;
 
@@ -16,15 +18,17 @@
     }
 
     &:nth-child(1) {
-      padding-left: 24px;
       padding-right: 0;
+      padding-left: 24px;
+
       text-align: center;
       vertical-align: middle;
     }
 
     &:nth-child(2) {
-      padding-left: 16px;
       width: 100%;
+      padding-left: 16px;
+
       vertical-align: middle;
     }
 
@@ -34,11 +38,12 @@
 
     .position {
       display: block;
+
+      color: var(--grey-500);
       font-weight: 400;
       font-size: 15px;
       line-height: 19px;
       font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--grey-500);
     }
 
     .zoneName {

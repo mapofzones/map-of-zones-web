@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 
+import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { TotalZonesInfoDocument } from 'graphql/HomePage/__generated__/TotalZonesInfo.generated';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { transformChartData } from 'utils/helper';
 
 import { TotalInfoType } from './TotalInfoCard/TotalInfoCard.props';
-import { PeriodKeys, PERIODS } from './Types';
 
 const IBC_VOLUME_CHART_KEY = 'ibcVolumeChart';
 
@@ -16,7 +16,7 @@ export function useTotalZonesInfo(
 ) {
   const options = {
     variables: {
-      period: PERIODS[selectedPeriod],
+      period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
       isMainnet: isMainnet,
       withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
       withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,

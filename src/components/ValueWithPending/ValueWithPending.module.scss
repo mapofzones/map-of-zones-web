@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+
   font-size: 15px;
   line-height: 19px;
 
@@ -14,10 +15,11 @@
     margin-top: 2px;
 
     .pendingValue {
+      margin-left: 3px;
+
+      color: var(--grey-500);
       font-size: 12px;
       line-height: 15px;
-      color: var(--grey-500);
-      margin-left: 3px;
     }
   }
 }

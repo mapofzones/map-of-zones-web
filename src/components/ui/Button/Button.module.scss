@@ -1,22 +1,26 @@
 .button {
   display: flex;
-  padding: 5px 8px 4px;
-  text-align: center;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: 5px;
+  padding: 5px 8px 4px;
+
+  color: var(--white);
   font-size: 12px;
   line-height: 15px;
+  text-align: center;
+
   background-color: var(--black-600);
-  color: var(--white);
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 
   .icon {
     display: flex;
-    line-height: 15px;
-    fill: var(--grey-800);
     margin-right: 6px;
+
+    line-height: 15px;
+
+    fill: var(--grey-800);
   }
 
   &:hover {

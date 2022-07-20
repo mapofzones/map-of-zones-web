@@ -1,11 +1,13 @@
 .searchContainer {
-  display: flex;
   position: relative;
+
+  display: flex;
   align-items: center;
 
   .loopIcon {
     position: absolute;
     right: 10px;
+
     visibility: hidden;
   }
 
@@ -15,20 +17,21 @@
 
   .searchInput {
     width: 100%;
-    text-overflow: ellipsis;
     overflow: hidden;
+
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .searchInput::-webkit-search-cancel-button {
     --icon-color: var(--grey-100);
 
-    -webkit-appearance: none;
     display: inline-block;
     width: 12px;
     height: 12px;
-    margin-left: 10px;
     margin-right: 0;
+    margin-left: 10px;
+
     background: linear-gradient(
         45deg,
         transparent 0%,
@@ -48,5 +51,7 @@
         transparent 100%
       );
     cursor: pointer;
+
+    appearance: none;
   }
 }

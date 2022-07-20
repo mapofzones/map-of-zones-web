@@ -3,10 +3,11 @@
   flex-direction: column;
 
   .title {
+    margin-bottom: 4px;
+
+    color: var(--grey-500);
     font-size: 13px;
     line-height: 16.3px;
-    color: var(--grey-500);
-    margin-bottom: 4px;
 
     .questionMark {
       margin-left: 4px;
@@ -14,8 +15,8 @@
   }
 
   .value {
+    color: var(--white);
     font-size: 15px;
     line-height: 18.81px;
-    color: var(--white);
   }
 }

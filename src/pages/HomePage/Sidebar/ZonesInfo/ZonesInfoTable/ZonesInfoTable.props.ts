@@ -1,7 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { NumberType } from 'components';
-
 import { ColumnKeys } from '../../../Types';
 
 export interface ZonesInfoTableProps

@@ -32,7 +32,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "sort-exports"],
   "rules": {
     "semi": "off",
     "react/jsx-uses-react": "off",
@@ -66,6 +66,10 @@
           "caseInsensitive": true
         }
       }
+    ],
+    "sort-exports/sort-exports": [
+      "error",
+      { "sortDir": "asc", "ignoreCase": true, "sortExportKindFirst": "type" }
     ]
   }
 }

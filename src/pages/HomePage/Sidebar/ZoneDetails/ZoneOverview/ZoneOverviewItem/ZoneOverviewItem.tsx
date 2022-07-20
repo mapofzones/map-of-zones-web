@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { SkeletonTextWrapper } from 'components';
-import { NumberFormat } from 'components/NumberFormat/NumberFormat';
+import { NumberFormat } from 'components/ui/NumberFormat/NumberFormat';
 import { QuestionMark } from 'icons';
 
 import styles from './ZoneOverviewItem.module.scss';

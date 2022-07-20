@@ -1,13 +1,14 @@
 .peerCard {
   display: block;
-  margin-bottom: 16px;
   min-height: 160px;
+  margin-bottom: 16px;
 
   .title {
+    margin-bottom: 4px;
+
+    color: var(--grey-500);
     font-size: 13px;
     line-height: 16px;
-    color: var(--grey-500);
-    margin-bottom: 4px;
 
     .icon {
       margin: 0 6px;
@@ -19,9 +20,10 @@
   }
 
   .totalValue {
+    margin-bottom: 8px;
+
     font-size: 20px;
     line-height: 25px;
-    margin-bottom: 8px;
   }
 
   .valuesContainer {

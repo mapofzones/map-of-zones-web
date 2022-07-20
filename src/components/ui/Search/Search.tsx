@@ -2,7 +2,7 @@ import { ChangeEvent, FocusEvent, useState } from 'react';
 
 import cn from 'classnames';
 
-import { Input } from 'components/Input/Input';
+import { Input } from 'components/ui/Input/Input';
 import { SearchIcon } from 'icons';
 
 import styles from './Search.module.scss';
