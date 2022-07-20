@@ -34,7 +34,11 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
     <>
       <tr className={styles.container} onClick={toggleChannelsVisibility}>
         <td className={styles.columnContainer}>
-          <div className={styles.arrowContainer}>
+          <div
+            className={cn(styles.arrowContainer, {
+              [styles.arrowUp]: channelsConfig.isChannelsVisible,
+            })}
+          >
             <ArrowDown />
           </div>
 

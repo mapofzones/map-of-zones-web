@@ -1,11 +1,12 @@
 .container {
   height: 62px;
+
   cursor: pointer;
 
   .zonesInfoContainer {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     .zoneContainer {
       display: flex;
@@ -17,21 +18,25 @@
       }
 
       .logoContainer {
+        position: relative;
+
         width: 36px;
         height: 36px;
-        border-radius: 50%;
-        background-color: var(--grey-500);
         margin-right: 12px;
-        position: relative;
+
+        background-color: var(--grey-500);
         border: 2px solid var(--black-100);
+        border-radius: 50%;
       }
 
       .logoContainerSmall {
         position: absolute;
+
         width: 16px;
         height: 16px;
         margin-right: 0;
         margin-left: -12px;
+
         border: 0;
       }
 
@@ -45,6 +50,7 @@
   .columnContainer {
     height: inherit;
     padding: 12px 12px 12px 28px;
+
     white-space: nowrap;
     vertical-align: top;
 
@@ -75,10 +81,16 @@
   }
 
   .arrowContainer {
-    width: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 60px;
+
+    transition: 0.5s;
+
+    &.arrowUp {
+      transform: rotateX(180deg);
+    }
   }
 
   .status {
@@ -87,13 +99,15 @@
 
   .channelsText {
     margin-top: 2px;
-    font-style: normal;
+
+    color: var(--white);
     font-weight: 400;
     font-size: 13px;
+    font-style: normal;
     line-height: 16px;
-    font-feature-settings: 'tnum' on, 'lnum' on;
-    color: var(--white);
+
     opacity: 0.5;
+    font-feature-settings: 'tnum' on, 'lnum' on;
   }
 
   &:hover {
