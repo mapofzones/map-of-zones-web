@@ -5,7 +5,7 @@ export { ReactComponent as CircularArrows } from './circular-arrows.svg';
 export { ReactComponent as CloseCircleIcon } from './close-circle.svg';
 export { ReactComponent as EarthIcon } from './earth.svg';
 export { ReactComponent as GithubLogo } from './github-logo.svg';
-import { ReactComponent as InfoIcon } from './info.svg';
+export { ReactComponent as InfoIcon } from './info.svg';
 export { ReactComponent as Logo } from './logo.svg';
 export { ReactComponent as PendingIcon } from './pending.svg';
 export { ReactComponent as QuestionMark } from './question-mark.svg';
