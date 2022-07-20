@@ -1,5 +1,4 @@
-import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
-import { NumberType } from 'components/ui/NumberFormat/NumberType';
+import { DropdownOption, NumberType } from 'components';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
@@ -37,16 +36,4 @@ export const METADATA: Record<
     numberType: NumberType.Number,
     sortingColumnKey: Zones_Stats_Select_Column.TotalTxsMainnetRating,
   },
-};
-
-export enum PeriodKeys {
-  DAY = '24h',
-  WEEK = '7d',
-  MONTH = '30d',
-}
-
-export const PERIODS: Record<PeriodKeys, number> = {
-  '24h': 24,
-  '7d': 24 * 7,
-  '30d': 24 * 30,
 };
