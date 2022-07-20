@@ -3,11 +3,11 @@ import { useMemo } from 'react';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
+import { useZoneDetails } from '../useZoneDetails';
 import { TableHeader } from './TableHeader/TableHeader';
 import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
 import { usePeersTable } from './usePeersTable';
-import { useZoneDetails } from './useZoneDetails';
 import styles from './ZonePeers.module.scss';
 
 export function ZonePeers() {

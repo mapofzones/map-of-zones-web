@@ -13,11 +13,6 @@ export function ChannelInfoTooltip({
   parentZone,
   zone,
 }: ChannelInfoTooltipProps) {
-  console.log({
-    parentZone,
-    zone,
-  });
-
   return (
     <div className={cn(styles.container, className)}>
       <InfoIcon />

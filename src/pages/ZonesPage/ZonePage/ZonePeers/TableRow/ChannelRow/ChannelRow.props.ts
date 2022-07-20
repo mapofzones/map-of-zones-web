@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZoneDetails } from '../../useZoneDetails';
+import { ZoneDetails } from '../../../useZoneDetails';
 import { ZoneData } from '../TableRow.props';
 
 export interface ChannelData {
