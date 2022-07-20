@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZoneDetails } from '../../useZoneDetails';
-import { ZoneData } from '../TableRow.props';
+import { ZoneDetails } from '../../../useZoneDetails';
+import { ZoneData } from '../../TableRow.props';
 
 export interface ChannelData {
   channelId?: string | null;
@@ -20,11 +20,10 @@ export interface ChannelData {
   zoneCounterpartyKey?: string | null;
 }
 
-export interface ChannelRowProps
+export interface ChannelInfoTooltipProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   channel: ChannelData;
-  index: number;
   parentZone: ZoneDetails;
   zone: ZoneData;
 }

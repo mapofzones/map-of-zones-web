@@ -5,7 +5,7 @@ import { ZoneDetails } from '../useZoneDetails';
 export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
-  parentZone?: ZoneDetails;
+  parentZone: ZoneDetails;
   zone: ZoneData;
 }
 export interface ZoneData {

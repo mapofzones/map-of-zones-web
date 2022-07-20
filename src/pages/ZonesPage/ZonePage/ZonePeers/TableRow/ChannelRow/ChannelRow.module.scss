@@ -2,7 +2,7 @@
   height: 48px;
 
   &:hover {
-    background-color: rgba(#ffffff, 0.03); // TODO: not working with var(--white)
+    background-color: rgba(#fff, 0.03); // TODO: not working with var(--white)
   }
 
   .columnContainer {
@@ -19,7 +19,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      min-width: 450px;
+      min-width: 460px;
       padding-left: 0;
       vertical-align: middle;
     }
@@ -34,7 +34,7 @@
       align-items: center;
       justify-content: center;
     }
-  
+
     .position {
       font-size: 10px;
       line-height: 13px;
@@ -60,10 +60,17 @@
         width: 129px;
         margin: 0 12px;
         background-color: var(--green);
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+
+        &.statusClosedContainer {
+          background-color: var(--orange);
+        }
       }
 
       .infoIcon {
-        cursor: pointer;
         margin-left: 12px;
       }
     }

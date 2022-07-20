@@ -26,8 +26,12 @@ export function ZonePeers() {
   const { data } = usePeersTable(selectedPeriod, sortingColumnKey);
   const { data: parentZoneData } = useZoneDetails();
 
+  if (!parentZoneData) {
+    return <></>;
+  }
+
   return (
-    <div>
+    <div className={styles.container}>
       <table className={styles.tableContainer}>
         <TableHeader
           selectedColumnKey={selectedColumnKey}

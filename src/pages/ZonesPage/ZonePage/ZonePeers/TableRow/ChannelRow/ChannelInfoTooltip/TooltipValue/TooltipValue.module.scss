@@ -1,0 +1,14 @@
+.container {
+  margin-top: 8px;
+
+  color: var(--grey-500);
+  font-size: 13px;
+  line-height: 16px;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+
+  .subtitle {
+    margin-top: 2px;
+
+    color: var(--white);
+  }
+}

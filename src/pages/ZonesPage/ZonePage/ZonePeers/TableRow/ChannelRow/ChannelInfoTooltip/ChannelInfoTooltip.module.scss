@@ -1,0 +1,38 @@
+.container {
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  .tooltip {
+    width: 234px;
+    left: 46px;
+
+    .title {
+      font-size: 15px;
+      line-height: 19px;
+
+      .arrowIcon {
+        margin: 0 8px;
+      }
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      margin: 12px 0;
+      background-color: var(--black-900);
+    }
+
+    .connection {
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--orange);
+    }
+  }
+
+  &:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+}
