@@ -1,21 +1,19 @@
 .container {
-  position: absolute;
-  width: max-content;
-  max-width: 260px;
   background-color: var(--black-400);
-  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.7);
   border: 1px solid var(--black-600);
   border-radius: 4px;
-  padding: 12px;
-
+  box-shadow: 0 8px 30px rgb(0 0 0 / 70%);
   color: var(--grey-800);
   font-size: 12px;
   line-height: 15px;
-  text-align: left;
-  white-space: normal;
-
+  max-width: 260px;
   opacity: 0;
-  visibility: hidden;
+  padding: 12px;
+  position: absolute;
+  text-align: left;
   transition: 0.2s;
+  visibility: hidden;
+  white-space: normal;
+  width: max-content;
   z-index: 1244;
 }

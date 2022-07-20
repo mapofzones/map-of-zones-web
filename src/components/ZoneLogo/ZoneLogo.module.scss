@@ -1,15 +1,15 @@
 .container {
-  border-radius: 50%;
   background-color: var(--grey-500);
+  border-radius: 50%;
   position: relative;
 
   .shadow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    box-shadow: inset 0px 0px 7px var(--black-100);
     border-radius: 50%;
-    top: 0;
+    box-shadow: inset 0 0 7px var(--black-100);
+    height: 100%;
     left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 }

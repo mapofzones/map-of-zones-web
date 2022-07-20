@@ -1,18 +1,18 @@
 .row {
-  display: flex;
-  row-gap: 2px;
-  padding: 7px 16px;
-  margin: 0 -16px;
   align-items: center;
-  font-size: 15px;
-  line-height: 18.81px;
-  height: 50px;
   cursor: pointer;
+  display: flex;
+  font-size: 15px;
+  height: 50px;
+  line-height: 18.81px;
+  margin: 0 -16px;
+  padding: 7px 16px;
+  row-gap: 2px;
 
   .zoneBaseInfoContainer {
+    align-items: center;
     display: flex;
     flex-grow: 1;
-    align-items: center;
   }
 
   &:hover {
@@ -42,10 +42,10 @@
     }
 
     .pendingValueContainer {
+      color: var(--grey-500);
       font-size: 12px;
       line-height: 15.05px;
       margin-top: 2px;
-      color: var(--grey-500);
       text-align: right;
 
       .pendingValue {

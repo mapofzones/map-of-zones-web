@@ -1,11 +1,11 @@
 .dropDownContainer {
-  position: relative;
   background-color: var(--black-600);
-  color: var(--grey-500);
   border-radius: 5px;
+  color: var(--grey-500);
+  cursor: pointer;
   font-size: 15px;
   line-height: 19px;
-  cursor: pointer;
+  position: relative;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -15,20 +15,20 @@
                       supported by Chrome, Edge, Opera and Firefox */
 
   .dropDownHeader {
-    display: flex;
     align-items: center;
+    border-radius: 5px;
+    display: flex;
     justify-content: space-between;
     padding: 8px 12px 5px;
-    border-radius: 5px;
 
     &:hover {
-      color: var(--grey-800);
       background-color: var(--black-900);
+      color: var(--grey-800);
     }
 
     &.active {
-      color: var(--grey-800);
       background-color: var(--black-700);
+      color: var(--grey-800);
     }
 
     .itemTitle {
@@ -36,30 +36,30 @@
     }
 
     .arrowIcon {
+      height: 8px;
       margin-left: 4px;
       width: 12px;
-      height: 8px;
     }
   }
 
   .dropDownList {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    margin-top: 10px;
     border-radius: 5px;
     color: var(--grey-500);
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    position: absolute;
+    width: 100%;
     z-index: 1000;
 
     .listItem {
-      display: flex;
       align-items: center;
+      background: var(--black-700);
+      display: flex;
       justify-content: space-between;
       list-style: none;
       margin: 0;
       padding: 12px;
-      background: var(--black-700);
       padding: 0 12px;
 
       .tickIcon {
@@ -69,10 +69,10 @@
       }
 
       .itemTitle {
-        text-overflow: ellipsis;
         overflow: hidden;
-        white-space: nowrap;
         padding: 12px 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         width: 100%;
       }
 

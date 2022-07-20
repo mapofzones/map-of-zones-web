@@ -1,22 +1,22 @@
 hr {
-  height: 1px;
   border-top: none;
+  height: 1px;
 }
 
 .notActiveLine {
   border-color: var(--black-900);
-  width: 100%;
   margin: 0 2px;
+  width: 100%;
 }
 
 .leftLine {
+  border-color: var(--pink);
   margin-left: 2px;
   margin-right: 2px;
-  border-color: var(--pink);
 }
 
 .rightLine {
-  margin-right: 2px;
   border-color: var(--pink);
+  margin-right: 2px;
   opacity: 0.5;
 }

@@ -1,22 +1,22 @@
 .container {
-  display: flex;
-  background-color: var(--black-600);
-  padding: 2px;
-  border-radius: 5px;
   align-items: center;
-  cursor: pointer;
-  grid-gap: 2px;
-  font-size: 15px;
-  line-height: 19px;
+  background-color: var(--black-600);
+  border-radius: 5px;
   color: var(--grey-600);
+  cursor: pointer;
+  display: flex;
+  font-size: 15px;
+  grid-gap: 2px;
+  line-height: 19px;
+  padding: 2px;
 
   .item {
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    padding: 5px 10px;
-    height: 100%;
     border-radius: 5px;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+    padding: 5px 10px;
 
     &:hover {
       background-color: var(--black-900);

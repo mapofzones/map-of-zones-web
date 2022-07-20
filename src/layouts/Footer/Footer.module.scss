@@ -1,15 +1,15 @@
 .container {
-  display: flex;
   align-items: flex-end;
   color: var(--grey-500);
-  padding: 0 16px 8px;
+  display: flex;
   font-size: 11px;
   line-height: 12px;
+  padding: 0 16px 8px;
 
   .shareButtonsBlock {
     display: flex;
-    flex-direction: row;
     flex: 1;
+    flex-direction: row;
     font-size: 12px;
 
     .shareBtn:first-of-type {
@@ -21,8 +21,8 @@
   .emailLinkBlock,
   .socialsBlock,
   .notListedBlock {
-    padding: 0 8px;
     border-right: 1px solid var(--grey-100);
+    padding: 0 8px;
   }
 
   .socialsBlock {
@@ -35,7 +35,7 @@
   }
 
   .notListedBlock {
-    padding-right: 0;
     border-right: none;
+    padding-right: 0;
   }
 }

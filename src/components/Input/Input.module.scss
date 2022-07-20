@@ -1,10 +1,10 @@
 .input {
-  border: none;
-  padding: 6px 12px;
-  border-radius: 5px;
-  outline: none;
   background-color: var(--black-100);
+  border: none;
+  border-radius: 5px;
   color: var(--grey-300);
+  outline: none;
+  padding: 6px 12px;
 
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   &::placeholder {
@@ -13,7 +13,7 @@
   }
 
   /* Microsoft Edge */
-  &::-ms-input-placeholder {
+  &::input-placeholder {
     color: var(--grey-100);
   }
 
@@ -25,7 +25,7 @@
     }
 
     /* Microsoft Edge */
-    &::-ms-input-placeholder {
+    &::input-placeholder {
       color: var(--grey-300);
     }
   }

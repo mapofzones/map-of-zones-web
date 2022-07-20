@@ -11,10 +11,10 @@
 }
 
 .detailedBtn {
-  height: 40px;
-  font-size: 15px;
-  line-height: 19px;
   color: var(--grey-500);
+  font-size: 15px;
+  height: 40px;
+  line-height: 19px;
 
   &:not(:hover) {
     background-color: var(--black-700);

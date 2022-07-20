@@ -1,8 +1,8 @@
 .link {
+  color: inherit;
   display: inline-flex;
   gap: 8px;
   text-decoration: none;
-  color: inherit;
 
   .icon {
     fill: var(--grey-500);
