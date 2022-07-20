@@ -19,6 +19,7 @@ export type ZonesListZoneDetailsQueryResult = {
     isZoneUpToDate?: boolean | null;
     logoUrl?: string | null;
     name: string;
+    peersCount?: number | null;
   }>;
 };
 
@@ -94,6 +95,11 @@ export const ZonesListZoneDetailsDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'name' },
                   name: { kind: 'Name', value: 'zone_readable_name' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'peersCount' },
+                  name: { kind: 'Name', value: 'ibc_peers_mainnet' },
                 },
                 { kind: 'Field', name: { kind: 'Name', value: 'website' } },
               ],

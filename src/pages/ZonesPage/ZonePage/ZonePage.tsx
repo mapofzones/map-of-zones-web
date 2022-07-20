@@ -4,8 +4,8 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { ExternalLink, PeriodSelector, ZoneLogo } from 'components';
 import { EarthIcon } from 'icons';
 
+import { useZoneDetails } from './useZoneDetails';
 import styles from './ZonePage.module.scss';
-import { useZoneDetails } from './ZonePeers/useZoneDetails';
 
 export function ZonePage() {
   const { data, loading } = useZoneDetails();
@@ -53,6 +53,7 @@ export function ZonePage() {
             to="peers"
           >
             Peers
+            {data?.peersCount && <div className={styles.counter}>{data.peersCount}</div>}
           </NavLink>
           <NavLink
             className={({ isActive }) =>

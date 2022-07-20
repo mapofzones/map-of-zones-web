@@ -52,16 +52,30 @@
       position: relative;
       top: 1px;
       padding: 0 3px 8px;
-      
+      display: flex;
+      align-items: center;
+
+      &.navigationButtonActive {
+        color: var(--white);
+        border-bottom: 1px solid var(--white);
+      }
+
+      .counter {
+        background-color: var(--black-900);
+        border-radius: 100px;
+        font-size: 15px;
+        line-height: 19px;
+        text-align: center;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: var(--grey-500);
+        padding: 4px 6px;
+        margin-left: 10px;
+      }
+
       &:hover {
         color: var(--white) !important;
         background-color: transparent !important;
       }
-    }
-
-    .navigationButtonActive {
-      color: var(--white);
-      border-bottom: 1px solid var(--white);
     }
   }
 }

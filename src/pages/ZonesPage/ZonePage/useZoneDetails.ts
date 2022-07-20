@@ -8,6 +8,7 @@ export interface ZoneDetails {
   isZoneUpToDate?: boolean | null;
   logoUrl?: string | null;
   name: string;
+  peersCount?: number | null;
   website?: string | null;
 }
 

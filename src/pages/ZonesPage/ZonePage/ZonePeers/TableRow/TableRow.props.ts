@@ -1,6 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZoneDetails } from '../useZoneDetails';
+import { ZoneDetails } from '../../useZoneDetails';
+import { ChannelData } from './ChannelRow/ChannelRow.props';
 
 export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -9,7 +10,7 @@ export interface TableRowProps
   zone: ZoneData;
 }
 export interface ZoneData {
-  channels: Array<any>;
+  channels: Array<ChannelData>;
   zoneCounterpartyKey?: string | null;
   zoneCounterpartyLogoUrl?: string | null;
   zoneCounterpartyName?: string | null;
