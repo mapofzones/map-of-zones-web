@@ -4,6 +4,7 @@ module.exports = {
     'stylelint-config-standard',
     'stylelint-config-sass-guidelines',
     'stylelint-prettier/recommended',
+    'stylelint-config-rational-order',
   ],
   rules: {
     'no-empty-source': null,
@@ -17,5 +18,14 @@ module.exports = {
     'selector-pseudo-class-no-unknown': null,
     'selector-no-qualifying-type': null,
     'order/properties-alphabetical-order': null,
+    'order/properties-order': [],
+    'declaration-empty-line-before': null,
+    'plugin/rational-order': [
+      true,
+      {
+        'border-in-box-model': false,
+        'empty-line-between-groups': true,
+      },
+    ],
   },
 };
