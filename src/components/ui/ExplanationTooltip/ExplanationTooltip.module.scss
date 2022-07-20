@@ -1,21 +1,24 @@
 .container {
-  display: inline;
   position: relative;
 
+  display: inline;
+
   .questionMark {
-    margin-left: 4px;
-    top: 1px;
     position: relative;
+    top: 1px;
+
+    margin-left: 4px;
   }
 
   .tooltip {
     top: 25px;
     left: 0;
+
     transform: translateX(calc(-100% + 20px));
   }
 
   &:hover .tooltip {
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
   }
 }

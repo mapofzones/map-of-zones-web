@@ -1,38 +1,44 @@
 .container {
   position: relative;
-  cursor: pointer;
 
-  &:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
-  }
+  cursor: pointer;
 
   .tooltip {
     top: -50px;
     left: -25px;
   }
 
+  &:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
   .status {
     position: relative;
+
+    display: flex;
     align-items: center;
     justify-content: center;
-    height: 10px;
     width: 10px;
-    display: flex;
+    height: 10px;
+
     cursor: pointer;
 
     .icon {
       width: 4px;
       height: 4px;
+
       border-radius: 50%;
     }
 
     .iconBackground {
+      position: absolute;
+
       width: 10px;
       height: 10px;
+
       border-radius: 50%;
       opacity: 0.3;
-      position: absolute;
     }
   }
 }

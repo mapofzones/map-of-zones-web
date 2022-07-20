@@ -1,17 +1,22 @@
 th {
   position: relative;
+
+  padding: 0 12px 6px 28px;
+
+  color: var(--grey-500);
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: var(--grey-500);
-  padding: 0px 12px 6px 28px;
-  text-align: right;
   white-space: nowrap;
+  text-align: right;
+
   border-bottom: 1px solid var(--black-700);
-  
+
   &.selected > span {
     padding-bottom: 6px;
+
     color: var(--white);
+
     border-bottom: 1px solid var(--white);
   }
 
@@ -29,13 +34,15 @@ th {
 }
 
 .circle {
-  border-radius: 50%;
-  display: inline-block;
-  height: 7px;
-  margin-right: 4px;
   position: relative;
   top: -1px;
+
+  display: inline-block;
   width: 7px;
+  height: 7px;
+  margin-right: 4px;
+
+  border-radius: 50%;
 
   &.source {
     background-color: var(--pink);
