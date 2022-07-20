@@ -1,3 +1,9 @@
+import { Outlet } from 'react-router-dom';
+
 export function ZonesPage() {
-  return <>Zones Page</>;
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }
