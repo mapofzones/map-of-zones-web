@@ -1,0 +1,19 @@
+query ZonesMap($period: Int!, $isMainnet: Boolean!) {
+  zonesStats: zones_stats(
+    where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
+    order_by: { ibc_tx_in: asc, zone: asc }
+  ) {
+    zone
+    name: zone_readable_name
+    isMainnet: is_zone_mainnet
+    logoUrl: zone_label_url
+    ibcVolume: ibc_cashflow_mainnet
+  }
+  zonesGraphs: zones_graphs(where: { timeframe: { _eq: $period } }) {
+    # , is_mainnet: { _eq:  }
+    source
+    target
+    # ibc_transfers
+    ibcVolume: ibc_cashflow
+  }
+}
