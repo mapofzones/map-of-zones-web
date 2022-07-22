@@ -16,10 +16,10 @@ export type ZonesMapQueryResult = {
   zonesStats: Array<{
     __typename?: 'zones_stats';
     zone: string;
-    ibcVolume?: any | null;
+    name: string;
     isMainnet: boolean;
     logoUrl?: string | null;
-    name: string;
+    ibcVolume?: any | null;
   }>;
   zonesGraphs: Array<{
     __typename?: 'zones_graphs';
@@ -125,8 +125,8 @@ export const ZonesMapDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'zone' } },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolume' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_mainnet' },
+                  alias: { kind: 'Name', value: 'name' },
+                  name: { kind: 'Name', value: 'zone_readable_name' },
                 },
                 {
                   kind: 'Field',
@@ -140,8 +140,8 @@ export const ZonesMapDocument = {
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'name' },
-                  name: { kind: 'Name', value: 'zone_readable_name' },
+                  alias: { kind: 'Name', value: 'ibcVolume' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_mainnet' },
                 },
               ],
             },
