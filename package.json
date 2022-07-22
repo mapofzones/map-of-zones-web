@@ -45,7 +45,7 @@
     "eject": "react-scripts eject",
     "lint:scss": "npx stylelint 'src/**/*.scss'",
     "lint:scss:fix": "stylelint 'src/**/*.scss' --fix",
-    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx,.json src",
+    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx,.graphql,.json src",
     "lint:js:fix": "yarn run lint:js --fix",
     "generate": "graphql-codegen",
     "prepare": "husky install"
@@ -73,6 +73,7 @@
     ]
   },
   "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^3.10.6",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "eslint": "^8.17.0",
