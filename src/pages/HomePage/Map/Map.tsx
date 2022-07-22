@@ -15,6 +15,40 @@ export interface Link extends LinkObject {
   target: string;
   ibcVolume?: number | null;
 }
+
+export interface Node extends NodeObject {
+  zone: string;
+  ibcVolume?: number | null;
+  isMainnet: boolean;
+  logoUrl?: string | null;
+  name: string;
+}
+
+export interface ZoneLink {
+  __typename?: 'zones_graphs';
+  source: string;
+  target: string;
+  ibcVolume?: any | null;
+}
+
+const getLevel = (index: number) => {
+  if (index < 10) {
+    return 1;
+  } else if (index < 30) {
+    return 2;
+  }
+  return 3;
+};
+
+const getItemsInLevel = (index: number, size: number) => {
+  if (index < 10) {
+    return Math.min(10, size);
+  } else if (index < 30) {
+    return Math.min(20, size - 10);
+  }
+  return size - 30;
+};
+
 function transformMapData(data: ZonesMapQueryResult | undefined) {
   const nodes: Node[] = [];
   const links: Link[] = [];
@@ -23,21 +57,47 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
     return { nodes, links };
   }
 
-  let zonesStats = data.zonesStats;
-  const zonesGraphsData = data.zonesGraphs;
+  let zonesStats: ZoneStat[] = JSON.parse(JSON.stringify(data.zonesStats));
+  const zonesGraphsData: ZoneLink[] = JSON.parse(JSON.stringify(data.zonesGraphs));
+
+  zonesStats = zonesStats.sort((a, b) => b.ibcVolume - a.ibcVolume);
 
   const nodesKeySet = new Set(zonesStats.map((node) => node.zone));
 
   const zonesGraphs = zonesGraphsData.filter((link) => filterLinksWithoutNodes(link, nodesKeySet));
-  zonesStats = JSON.parse(JSON.stringify(zonesStats)); // deep copy
-  zonesStats = zonesStats.sort((a, b) => b.ibcVolume - a.ibcVolume);
+
+  const radiusConst = 100;
+
+  zonesStats.forEach((zone: ZoneStat, index: number, arr: ZoneStat[]) => {
+    const level = getLevel(index);
+    const itemsInLevel = getItemsInLevel(index, arr.length);
+    const { x, y } = getCoordinates(itemsInLevel, index, level, radiusConst);
+
+    const node: Node = {
+      ...zone,
+      level,
+      x,
+      y,
+    } as Node;
+    nodes.push(node);
+  });
 
   const d = {
-    nodes: zonesStats as Node[],
+    nodes,
     links: JSON.parse(JSON.stringify(zonesGraphs)) as Link[],
   } as GraphData;
 
   return d;
+}
+
+function getCoordinates(itemsInLevel: number, index: number, level: number, radiusConst: number) {
+  const angleConst = (2 * Math.PI) / itemsInLevel;
+  const zoneAngle = index * angleConst;
+
+  const r = level * radiusConst;
+  const x = r * Math.cos(zoneAngle);
+  const y = r * Math.sin(zoneAngle);
+  return { x, y };
 }
 
 function filterLinksWithoutNodes(link: any, nodesSet: Set<string>) {
@@ -60,9 +120,10 @@ function filterLinksWithoutNodes(link: any, nodesSet: Set<string>) {
   return true;
 }
 
-export interface Node extends NodeObject {
+export interface ZoneStat {
+  __typename?: 'zones_stats';
   zone: string;
-  ibcVolume?: number | null;
+  ibcVolume?: any | null;
   isMainnet: boolean;
   logoUrl?: string | null;
   name: string;
@@ -70,6 +131,7 @@ export interface Node extends NodeObject {
 
 export function Map() {
   const [graphData, setGraphData] = useState<GraphData>({ nodes: [], links: [] });
+
   const options = {
     variables: {
       period: 24,
@@ -80,6 +142,7 @@ export function Map() {
   const { data, loading } = useQuery(ZonesMapDocument, {
     ...options,
     onCompleted: (data: ZonesMapQueryResult) => {
+      console.log('on complete');
       const graphData = transformMapData(data);
       setGraphData(graphData);
     },
@@ -105,7 +168,7 @@ export function Map() {
         nodeId="zone"
         height={document.documentElement.clientHeight}
         width={document.documentElement.clientWidth - 360}
-        linkColor={() => 'rgba(255, 255, 255, 0.1)'}
+        linkColor={() => '#212129'}
         graphData={graphData}
         nodeVal={10}
         enableNodeDrag={false}
