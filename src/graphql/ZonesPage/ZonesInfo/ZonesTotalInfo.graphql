@@ -1,15 +1,12 @@
-query ZonesTotalInfo(
-  $period: Int!
-  $isMainnet: Boolean!
-) {
+query ZonesTotalInfo($period: Int!, $isMainnet: Boolean!) {
   headers(where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: $isMainnet } }) {
-    activeChannels: channels_cnt_period,
-    allChannels: channels_cnt_all,
+    activeChannels: channels_cnt_period
+    allChannels: channels_cnt_all
     ibcVolume: ibc_cashflow_period
     ibcVolumeTopPair: top_ibc_cashflow_zone_pair
     ibcVolumeChart: chart_cashflow
-    ibcVolumePending: ibc_cashflow_pending_period 
-    ibcTransfers: ibc_transfers_period 
+    ibcVolumePending: ibc_cashflow_pending_period
+    ibcTransfers: ibc_transfers_period
     ibcTransfersTopPair: top_transfer_zone_pair
     ibcTransfersPending: ibc_transfers_pending_period
     ibcTransfersFailed: ibc_transfers_failed_period
