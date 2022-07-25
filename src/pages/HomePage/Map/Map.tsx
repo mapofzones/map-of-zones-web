@@ -1,27 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useQuery } from '@apollo/client';
 import ForceGraph2D, { GraphData, LinkObject, NodeObject } from 'react-force-graph-2d';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
+import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import {
   ZonesMapDocument,
   ZonesMapQueryResult,
 } from 'graphql/HomePage/Map/__generated__/ZonesMap.generated';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import styles from './Map.module.scss';
+import { useNodeCanvasObject } from './useNodeCanvasObject';
 
 export interface Link extends LinkObject {
-  source: string;
-  target: string;
+  source: MapNode;
+  target: MapNode;
   ibcVolume?: number | null;
 }
 
-export interface Node extends NodeObject {
+export interface MapNode extends NodeObject {
   zone: string;
-  ibcVolume?: number | null;
   isMainnet: boolean;
   logoUrl?: string | null;
   name: string;
+  ibcVolume?: number | null;
+  ibcVolumeIn?: number | null;
+  ibcVolumeOut?: number | null;
+  level: number;
+  radius: number;
+  logoRadius?: number;
+  color: string;
 }
 
 export interface ZoneLink {
@@ -50,7 +60,7 @@ const getItemsInLevel = (index: number, size: number) => {
 };
 
 function transformMapData(data: ZonesMapQueryResult | undefined) {
-  const nodes: Node[] = [];
+  const nodes: MapNode[] = [];
   const links: Link[] = [];
 
   if (!data) {
@@ -60,7 +70,9 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
   let zonesStats: ZoneStat[] = JSON.parse(JSON.stringify(data.zonesStats));
   const zonesGraphsData: ZoneLink[] = JSON.parse(JSON.stringify(data.zonesGraphs));
 
-  zonesStats = zonesStats.sort((a, b) => b.ibcVolume - a.ibcVolume);
+  zonesStats = zonesStats.sort((a, b) =>
+    a.ibcVolume === null ? -1 : b.ibcVolume === null ? 1 : b.ibcVolume - a.ibcVolume
+  );
 
   const nodesKeySet = new Set(zonesStats.map((node) => node.zone));
 
@@ -72,13 +84,19 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
     const level = getLevel(index);
     const itemsInLevel = getItemsInLevel(index, arr.length);
     const { x, y } = getCoordinates(itemsInLevel, index, level, radiusConst);
+    const radius = getZoneRadius(level);
+    const logoRadius = getZoneLogoRadius(level);
+    const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
 
-    const node: Node = {
+    const node: MapNode = {
       ...zone,
       level,
       x,
       y,
-    } as Node;
+      radius,
+      logoRadius,
+      color,
+    } as MapNode;
     nodes.push(node);
   });
 
@@ -123,43 +141,89 @@ function filterLinksWithoutNodes(link: any, nodesSet: Set<string>) {
 export interface ZoneStat {
   __typename?: 'zones_stats';
   zone: string;
-  ibcVolume?: any | null;
+  ibcVolume: number | null;
+  ibcVolumeIn: number | null;
+  ibcVolumeOut: number | null;
   isMainnet: boolean;
   logoUrl?: string | null;
   name: string;
 }
 
 export function Map() {
+  const [hoveredZoneKey, setHoveredZoneKey] = useState<string | undefined>(undefined);
+
+  const [selectedPeriod] = useSelectedPeriod();
+
+  const { zone: selectedZoneKey = '' } = useParams();
+
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+
   const [graphData, setGraphData] = useState<GraphData>({ nodes: [], links: [] });
 
   const options = {
     variables: {
-      period: 24,
+      period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
       isMainnet: true,
     },
   };
 
   const { data, loading } = useQuery(ZonesMapDocument, {
     ...options,
+    fetchPolicy: 'network-only',
     onCompleted: (data: ZonesMapQueryResult) => {
-      console.log('on complete');
-      const graphData = transformMapData(data);
-      setGraphData(graphData);
+      const newData = transformMapData(data);
+      console.log('on complete', graphData, newData);
+      setGraphData(newData);
     },
   });
-  console.log('Map');
 
   const graphRef = useRef<any>();
 
   useEffect(() => {
     const fg = graphRef.current;
-
-    // links
     fg.d3Force('link', null);
-
-    // charge
     fg.d3Force('charge').strength(-10);
   }, []);
+
+  const nodeCanvasObject = useNodeCanvasObject(
+    selectedZoneKey,
+    hoveredZoneKey,
+    graphData.links as Link[]
+  );
+
+  const onZoomClick = useCallback(() => {
+    graphRef.current.zoom(2, 1000);
+  }, []);
+
+  const onNodeClick = useCallback(
+    (node: NodeObject) => {
+      const zone = node as MapNode;
+      navigate({
+        pathname: `${zone.zone}/overview`,
+        search: '?' + searchParams.toString(),
+      });
+    },
+    [searchParams, navigate]
+  );
+
+  const onNodeHover = useCallback(
+    (node: NodeObject | null) => {
+      const zone = node as MapNode;
+      setHoveredZoneKey(zone?.zone);
+    },
+    [setHoveredZoneKey]
+  );
+
+  const clearSelectedNode = useCallback(() => {
+    if (selectedZoneKey) {
+      navigate({
+        pathname: '',
+        search: '?' + searchParams.toString(),
+      });
+    }
+  }, [selectedZoneKey, searchParams, navigate]);
 
   return (
     <div className={styles.container}>
@@ -168,11 +232,47 @@ export function Map() {
         nodeId="zone"
         height={document.documentElement.clientHeight}
         width={document.documentElement.clientWidth - 360}
-        linkColor={() => '#212129'}
+        linkColor={useCallback(() => '#212129', [])}
         graphData={graphData}
-        nodeVal={10}
+        nodeCanvasObject={nodeCanvasObject}
+        onNodeClick={onNodeClick}
+        onNodeHover={onNodeHover}
+        onLinkClick={clearSelectedNode}
+        onBackgroundClick={clearSelectedNode}
+        cooldownTime={Infinity}
+        nodeVal={useCallback((data: any) => {
+          const zone = data as MapNode;
+          return zone.radius * 2;
+        }, [])}
+        enableZoomInteraction={false}
         enableNodeDrag={false}
       />
+      <button onClick={onZoomClick}>Zoom in</button>
     </div>
   );
+}
+function getZoneRadius(level: number) {
+  if (level === 1) {
+    return 25;
+  } else if (level === 2) {
+    return 14;
+  }
+  return 5;
+}
+
+function getZoneLogoRadius(level: number) {
+  if (level === 1) {
+    return 18;
+  } else if (level === 2) {
+    return 8;
+  }
+  return undefined;
+}
+
+function getZoneColor(valueIn: number | null, valueOut: number | null) {
+  return valueOut === null || valueIn === null || valueIn === valueOut
+    ? '#ffffff'
+    : valueOut > valueIn
+    ? '#ee11cc'
+    : '#22aaff';
 }
