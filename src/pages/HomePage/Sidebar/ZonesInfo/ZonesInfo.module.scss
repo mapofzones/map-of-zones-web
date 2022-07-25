@@ -5,22 +5,6 @@
   grid-template-rows: auto auto 1fr auto;
   height: 100%;
 
-  .zoneCountSearchContainer {
-    display: grid;
-    grid-template-columns: 1fr 140px;
-    margin-bottom: 12px;
-
-    column-gap: 8px;
-
-    &.expanded {
-      grid-template-columns: 1fr;
-
-      .zonesCountInfo {
-        display: none;
-      }
-    }
-  }
-
   .selectorsContainer {
     display: flex;
     align-items: center;

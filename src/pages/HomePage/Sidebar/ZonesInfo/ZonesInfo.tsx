@@ -23,6 +23,7 @@ import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
 import { MemoizedZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
 import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton';
+import { ZonesInfoTitle } from './ZonesInfoTitle/ZonesInfoTitle';
 
 function ZonesInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
@@ -31,7 +32,6 @@ function ZonesInfo(): JSX.Element {
     ColumnKeys.IbcVolume
   );
   const [searchValue, setSearchValue] = useState('');
-  const [searchExpanded, setSearchExpanded] = useState(false);
 
   const metadata = METADATA[selectedColumnKey];
 
@@ -55,7 +55,12 @@ function ZonesInfo(): JSX.Element {
 
   return (
     <div className={styles.container}>
-      <div className={cn(styles.zoneCountSearchContainer, { [styles.expanded]: searchExpanded })}>
+      <ZonesInfoTitle
+        zonesCount={zones?.length}
+        loading={tableDataLoading}
+        onSearchChange={onSearchChange}
+      />
+      {/* <div className={cn(styles.zoneCountSearchContainer, { [styles.expanded]: searchExpanded })}>
         <span className={styles.zonesCountInfo}>
           <SkeletonTextWrapper loading={tableDataLoading} defaultText={'00'}>
             {zones?.length}
@@ -69,7 +74,7 @@ function ZonesInfo(): JSX.Element {
           onFocus={() => setSearchExpanded(true)}
           onBlur={() => setSearchExpanded(false)}
         />
-      </div>
+      </div> */}
       <div className={styles.selectorsContainer}>
         <Dropdown
           className={styles.columnDropdown}
