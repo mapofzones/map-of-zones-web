@@ -1,0 +1,15 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  margin-bottom: 12px;
+
+  column-gap: 8px;
+
+  &.expanded {
+    grid-template-columns: 1fr;
+
+    .zonesCountInfo {
+      display: none;
+    }
+  }
+}

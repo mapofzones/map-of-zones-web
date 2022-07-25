@@ -43,11 +43,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
+    "dev": "concurrently \"yarn start\" \"yarn generate:watch\"",
     "lint:scss": "npx stylelint 'src/**/*.scss'",
     "lint:scss:fix": "stylelint 'src/**/*.scss' --fix",
-    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx,.json src",
-    "lint:js:fix": "yarn run lint --fix",
+    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx,.graphql,.json src",
+    "lint:js:fix": "yarn run lint:js --fix",
     "generate": "graphql-codegen",
+    "generate:watch": "graphql-codegen --watch",
     "prepare": "husky install"
   },
   "prettier": {
@@ -73,8 +75,10 @@
     ]
   },
   "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^3.10.6",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
+    "concurrently": "^7.3.0",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
@@ -86,6 +90,7 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.0",
+    "react-force-graph-2d": "^1.23.10",
     "sass": "^1.52.3",
     "stylelint": "^14.9.1",
     "stylelint-config-prettier": "^9.0.3",
