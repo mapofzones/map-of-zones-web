@@ -1,7 +1,4 @@
-query ZonesCount(
-  $period: Int!
-  $isMainnet: Boolean!
-) {
+query ZonesCount($period: Int!, $isMainnet: Boolean!) {
   headers(where: { timeframe: { _eq: $period }, is_mainnet_only: { _eq: $isMainnet } }) {
     allZonesCount: zones_cnt_all
     activeZonesCount: zones_cnt_period

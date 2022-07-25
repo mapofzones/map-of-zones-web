@@ -32,7 +32,14 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "sort-exports"],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier",
+    "sort-exports",
+    "@graphql-eslint"
+  ],
   "rules": {
     "semi": "off",
     "react/jsx-uses-react": "off",
@@ -71,5 +78,16 @@
       "error",
       { "sortDir": "asc", "ignoreCase": true, "sortExportKindFirst": "type" }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": ["@graphql-eslint"],
+      "rules": {
+        "@graphql-eslint/no-duplicate-fields": "error",
+        "@graphql-eslint/match-document-filename": ["warn", { "fileExtension": ".graphql" }]
+      }
+    }
+  ]
 }

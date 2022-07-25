@@ -1,14 +1,10 @@
-query ZonesTable(
-  $period: Int!
-  $orderBy: zones_stats_order_by!
-  $isMainnet: Boolean!
-) {
+query ZonesTable($period: Int!, $orderBy: zones_stats_order_by!, $isMainnet: Boolean!) {
   zonesTable: zones_stats(
     where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
     order_by: [$orderBy]
   ) {
     channelsCount: channels_num
-    ibcActiveAddressesMainnetRatingDiff: ibc_active_addresses_mainnet_rating_diff,
+    ibcActiveAddressesMainnetRatingDiff: ibc_active_addresses_mainnet_rating_diff
     ibcDauMainnet: ibc_active_addresses_mainnet
     ibcTransfersMainnet: ibc_transfers_mainnet
     ibcTransfersMainnetRatingDiff: ibc_transfers_mainnet_rating_diff
