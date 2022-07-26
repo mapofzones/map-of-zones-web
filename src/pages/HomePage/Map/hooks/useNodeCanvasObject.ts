@@ -2,23 +2,24 @@ import { useCallback } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
 
-import { Link, MapNode } from './Map';
+import { Link, MapNode } from '../Map';
+import { HoveredZoneKeyType, SelectedZoneKeyType } from '../Types';
 
-function isNeighbor(selectedZoneKey: string, zone: string, links: Link[]) {
+function isNeighbor(activeZoneKey: string, currentZoneKey: string, links: Link[]) {
   return links.some(
     (link) =>
-      (link.source.zone === selectedZoneKey && link.target.zone === zone) ||
-      (link.source.zone === zone && link.target.zone === selectedZoneKey)
+      (link.source.zone === activeZoneKey && link.target.zone === currentZoneKey) ||
+      (link.source.zone === currentZoneKey && link.target.zone === activeZoneKey)
   );
 }
 
 export const useNodeCanvasObject = (
-  selectedZoneKey: string,
-  hoveredZoneKey: string | undefined,
+  selectedZoneKey: SelectedZoneKeyType,
+  hoveredZoneKey: HoveredZoneKeyType,
   links: Link[]
 ) =>
   useCallback(
-    (node: NodeObject, ctx: CanvasRenderingContext2D, globalScale: number) => {
+    (node: NodeObject, ctx: CanvasRenderingContext2D, _globalScale: number) => {
       const currentNode = node as MapNode;
 
       const isSelectedZone = selectedZoneKey && currentNode.zone === selectedZoneKey;
