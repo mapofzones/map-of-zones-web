@@ -1,14 +1,12 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ColumnKeys } from '../Types';
-
-export interface TableHeaderItemProps
+export interface TableHeaderItemProps<T extends string>
   extends DetailedHTMLProps<HTMLAttributes<HTMLTableCellElement>, HTMLTableCellElement> {
   circleType?: CircleType;
-  columnKey?: ColumnKeys;
+  columnKey?: T;
   explanationText?: string;
   isSelected: boolean;
-  setSelectedColumnKey: (value: ColumnKeys) => void;
+  setSelectedColumnKey: (value: T) => void;
   title: string;
   withBorder?: boolean;
 }
