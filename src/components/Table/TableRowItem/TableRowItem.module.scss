@@ -1,0 +1,19 @@
+td {
+  height: inherit;
+  padding: 12px 12px 12px 28px;
+
+  white-space: nowrap;
+  vertical-align: top;
+
+  &.sticky {
+    position: sticky;
+    left: 0;
+    z-index: 100;
+
+    background-color: var(--black-100);
+  }
+
+  &.withBorder {
+    border-right: 1px solid var(--black-700);
+  }
+}

@@ -2,7 +2,14 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
-import { NumberType, PendingValue, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
+import {
+  NumberType,
+  PendingValue,
+  TableRowItem,
+  ValueWithPending,
+  ZoneLogo,
+  ZoneStatus,
+} from 'components';
 import { ArrowDown } from 'icons';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
@@ -33,7 +40,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
   return (
     <>
       <tr className={styles.container} onClick={toggleChannelsVisibility}>
-        <td className={cn(styles.columnContainer, styles.sticky)}>
+        <TableRowItem isSticky={true}>
           <div
             className={cn(styles.arrowContainer, {
               [styles.arrowUp]: channelsConfig.isChannelsVisible,
@@ -88,9 +95,9 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
               </div>
             </div>
           </div>
-        </td>
+        </TableRowItem>
 
-        <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <TableRowItem withBorder={true}>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
@@ -98,9 +105,9 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
             pendingValue={zone.ibcVolumeOutPending}
             value={zone.ibcVolumeOut}
           />
-        </td>
+        </TableRowItem>
 
-        <td className={styles.columnContainer}>
+        <TableRowItem>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
@@ -108,9 +115,9 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
             pendingValue={zone.ibcVolumeOutPending}
             value={zone.ibcVolumeOut}
           />
-        </td>
+        </TableRowItem>
 
-        <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <TableRowItem withBorder={true}>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
@@ -118,34 +125,34 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
             pendingValue={zone.ibcVolumeInPending}
             value={zone.ibcVolumeIn}
           />
-        </td>
+        </TableRowItem>
 
-        <td className={styles.columnContainer}>
+        <TableRowItem>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
             numberType={NumberType.Number}
             value={zone.ibcTransfers}
           />
-        </td>
+        </TableRowItem>
 
-        <td className={styles.columnContainer}>
+        <TableRowItem>
           <PendingValue
             alignRight={true}
             className={styles.value}
             numberType={NumberType.Number}
             value={zone.ibcTransfersPending}
           />
-        </td>
+        </TableRowItem>
 
-        <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <TableRowItem withBorder={true}>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
             numberType={NumberType.Number}
             value={zone.ibcTransfersFailed}
           />
-        </td>
+        </TableRowItem>
 
         <td className={styles.columnContainer}>
           <ValueWithPending

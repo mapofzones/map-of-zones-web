@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { NumberType, ValueWithPending } from 'components';
+import { NumberType, TableRowItem, ValueWithPending } from 'components';
 import { ChannelClosedIcon } from 'icons';
 
 import { ChannelInfoTooltip } from './ChannelInfoTooltip/ChannelInfoTooltip';
@@ -10,7 +10,7 @@ import { ChannelRowProps } from './ChannelRow.props';
 export function ChannelRow({ className, channel, index, parentZone, zone }: ChannelRowProps) {
   return (
     <tr className={cn(styles.container, className)}>
-      <td className={cn(styles.columnContainer, styles.sticky)}>
+      <TableRowItem isSticky={true}>
         <div className={styles.arrowContainer}>
           <div className={styles.position}>{index + 1}</div>
         </div>
@@ -32,9 +32,9 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
             zone={zone}
           />
         </div>
-      </td>
+      </TableRowItem>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -42,9 +42,9 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
           pendingValue={channel.ibcVolumeOutPending}
           value={channel.ibcVolumeOut}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -52,9 +52,9 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
           pendingValue={channel.ibcVolumeOutPending}
           value={channel.ibcVolumeOut}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -62,43 +62,43 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
           pendingValue={channel.ibcVolumeInPending}
           value={channel.ibcVolumeIn}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
           value={channel.ibcTransfers}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
           value={channel.ibcTransfersPending}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
           value={channel.ibcTransfersFailed}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Percent}
           value={channel.successRate}
         />
-      </td>
+      </TableRowItem>
     </tr>
   );
 }
