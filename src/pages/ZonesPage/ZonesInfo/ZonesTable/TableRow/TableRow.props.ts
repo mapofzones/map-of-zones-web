@@ -1,5 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
+import { ChartItemByString } from 'utils/helper';
+
 import { ColumnKeys } from '../TableHeader/Types';
 
 export interface TableRowProps
@@ -14,6 +16,7 @@ export interface ZoneData {
   channelsCount?: number | null;
   ibcActiveAddressesMainnetRatingDiff?: number | null;
   ibcDauMainnet?: number | null;
+  ibcTransfersChart?: ChartItemByString[];
   ibcTransfersMainnet?: number | null;
   ibcTransfersMainnetRatingDiff?: number | null;
   ibcTransfersPendingMainnet?: number | null;

@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import {
   LinkWithQuery,
+  LineChart,
   NumberType,
   RatingDiffTriangle,
   ValueWithPending,
@@ -116,7 +117,9 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={styles.columnContainer}>IBC Transfers Activity</td>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        {zone.ibcTransfersChart && <LineChart data={zone.ibcTransfersChart} dataKey="txs" />}
+      </td>
     </LinkWithQuery>
   );
 }
