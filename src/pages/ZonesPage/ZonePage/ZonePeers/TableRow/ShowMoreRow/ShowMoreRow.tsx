@@ -1,5 +1,6 @@
 import cn from 'classnames';
 
+import { TableRowItem } from 'components';
 import { ArrowDown } from 'icons';
 
 import styles from './ShowMoreRow.module.scss';
@@ -9,7 +10,7 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
   return (
     <tr className={cn(styles.container, { [styles.emptyContainer]: !count })}>
       {count ? (
-        <td className={cn(styles.columnContainer, styles.sticky)}>
+        <TableRowItem isSticky={true}>
           <div className={styles.arrowContainer}>
             <div className={styles.position}>...</div>
           </div>
@@ -18,17 +19,17 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
             Show {count} more
             <ArrowDown className={styles.arrowIcon} />
           </div>
-        </td>
+        </TableRowItem>
       ) : (
         <td className={cn(styles.columnContainer, styles.sticky)} />
       )}
-      <td className={cn(styles.columnContainer, styles.withBorder)} />
-      <td className={styles.columnContainer} />
-      <td className={cn(styles.columnContainer, styles.withBorder)} />
-      <td className={styles.columnContainer} />
-      <td className={styles.columnContainer} />
-      <td className={cn(styles.columnContainer, styles.withBorder)} />
-      <td className={styles.columnContainer} />
+      <TableRowItem withBorder={true} />
+      <TableRowItem />
+      <TableRowItem withBorder={true} />
+      <TableRowItem />
+      <TableRowItem />
+      <TableRowItem withBorder={true} />
+      <TableRowItem />
     </tr>
   );
 }

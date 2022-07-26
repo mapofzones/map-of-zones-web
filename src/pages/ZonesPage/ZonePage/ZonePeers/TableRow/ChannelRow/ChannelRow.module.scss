@@ -1,34 +1,8 @@
 .container {
   height: 48px;
 
-  &:hover {
-    background-color: #16161c;
-
-    .columnContainer {
-      &:first-child {
-        background-color: #16161c;
-        z-index: 1000;
-      }
-    }
-  }
-
-  .columnContainer {
-    height: inherit;
+  td {
     padding: 7.5px 12px 7.5px 28px;
-
-    white-space: nowrap;
-    vertical-align: top;
-
-    &.withBorder {
-      border-right: 1px solid var(--black-700);
-    }
-
-    &.sticky {
-      position: sticky;
-      left: 0;
-      background-color: var(--black-100);
-      z-index: 100;
-    }
 
     &:first-child {
       display: flex;
@@ -99,6 +73,18 @@
 
       font-size: 13px;
       line-height: 16px;
+    }
+  }
+
+  &:hover {
+    background-color: #16161c;
+
+    td {
+      &:first-child {
+        z-index: 1000;
+
+        background-color: #16161c;
+      }
     }
   }
 }

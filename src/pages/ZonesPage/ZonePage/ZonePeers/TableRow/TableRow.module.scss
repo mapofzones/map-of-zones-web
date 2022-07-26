@@ -47,24 +47,7 @@
     }
   }
 
-  .columnContainer {
-    height: inherit;
-    padding: 12px 12px 12px 28px;
-
-    white-space: nowrap;
-    vertical-align: top;
-
-    &.withBorder {
-      border-right: 1px solid var(--black-700);
-    }
-
-    &.sticky {
-      position: sticky;
-      left: 0;
-      background-color: var(--black-100);
-      z-index: 100;
-    }
-
+  td {
     &:first-child {
       display: flex;
       align-items: center;
@@ -122,7 +105,7 @@
   &:hover {
     background-color: var(--black-500);
 
-    .columnContainer {
+    td {
       &:first-child {
         background-color: var(--black-500);
       }
