@@ -1,5 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+
 import {
-  LinkWithQuery,
   LineChart,
   NumberType,
   RatingDiffTriangle,
@@ -23,10 +24,16 @@ const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
 };
 
 export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
+  const navigate = useNavigate();
+
   const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
 
+  const onClick = () => {
+    navigate(`${zone.zone}/overview`);
+  };
+
   return (
-    <LinkWithQuery className={styles.container} to={`${zone.zone}/overview`}>
+    <tr className={styles.container} onClick={onClick}>
       <TableRowItem>
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
@@ -119,6 +126,6 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
       <TableRowItem withBorder={true}>
         {zone.ibcTransfersChart && <LineChart data={zone.ibcTransfersChart} dataKey="txs" />}
       </TableRowItem>
-    </LinkWithQuery>
+    </tr>
   );
 }
