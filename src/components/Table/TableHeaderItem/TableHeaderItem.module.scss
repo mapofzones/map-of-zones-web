@@ -12,6 +12,42 @@ th {
 
   border-bottom: 1px solid var(--black-700);
 
+  &:first-child {
+    padding-left: 24px;
+
+    // TODO: find another solution
+    &::before {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+
+      width: 24px;
+      height: 1px;
+
+      background-color: var(--black-100);
+
+      content: '';
+    }
+  }
+
+  &:last-child {
+    padding-right: 24px;
+
+    // TODO: find another solution
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+
+      width: 24px;
+      height: 1px;
+
+      background-color: var(--black-100);
+
+      content: '';
+    }
+  }
+
   &.selected > span {
     padding-bottom: 6px;
 
@@ -31,8 +67,9 @@ th {
   &.sticky {
     position: sticky;
     left: 0;
-    background-color: var(--black-100);
     z-index: 100;
+
+    background-color: var(--black-100);
   }
 
   &.withBorder {
