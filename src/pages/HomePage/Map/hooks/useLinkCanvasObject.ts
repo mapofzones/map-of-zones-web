@@ -2,8 +2,7 @@ import { useCallback } from 'react';
 
 import { LinkObject } from 'react-force-graph-2d';
 
-import { Link } from '../Map';
-import { HoveredZoneKeyType, SelectedZoneKeyType } from '../Types';
+import { HoveredZoneKeyType, Link, SelectedZoneKeyType } from '../Types';
 
 function isLinkRelatedToNode(nodeKey: SelectedZoneKeyType | HoveredZoneKeyType, link: Link) {
   return !!nodeKey && (nodeKey === link.source.zone || nodeKey === link.target.zone);
