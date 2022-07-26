@@ -20,6 +20,7 @@ export type ZonesTableQueryResult = {
     channelsCount?: number | null;
     ibcActiveAddressesMainnetRatingDiff?: number | null;
     ibcDauMainnet?: number | null;
+    ibcTransfersChart: any;
     ibcTransfersMainnet?: number | null;
     ibcTransfersMainnetRatingDiff?: number | null;
     ibcTransfersPendingMainnet?: number | null;
@@ -145,6 +146,11 @@ export const ZonesTableDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcDauMainnet' },
                   name: { kind: 'Name', value: 'ibc_active_addresses_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcTransfersChart' },
+                  name: { kind: 'Name', value: 'chart' },
                 },
                 {
                   kind: 'Field',
