@@ -1,11 +1,9 @@
-import { useMemo } from 'react';
-
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { useZoneDetails } from '../useZoneDetails';
 import { TableHeader } from './TableHeader/TableHeader';
-import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
+import { ColumnKeys } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
 import { usePeersTable } from './usePeersTable';
 import styles from './ZonePeers.module.scss';
@@ -18,12 +16,7 @@ export function ZonePeers() {
     ColumnKeys.IbcVolumeReceived
   );
 
-  const sortingColumnKey = useMemo(
-    () => SORTING_COLUMN_KEYS[selectedColumnKey],
-    [selectedColumnKey]
-  );
-
-  const { data } = usePeersTable(selectedPeriod, sortingColumnKey);
+  const { data } = usePeersTable(selectedPeriod, selectedColumnKey);
   const { data: parentZoneData } = useZoneDetails();
 
   if (!parentZoneData) {

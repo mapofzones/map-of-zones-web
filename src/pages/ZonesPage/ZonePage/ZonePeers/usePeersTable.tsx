@@ -2,14 +2,14 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components/PeriodSelector/Types';
-import { Ft_Channel_Group_Stats_Select_Column } from 'graphql/base-types';
 import { ZonesListZonePeersDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZonePeers.generated';
 
+import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
 import { ZoneData } from './TableRow/TableRow.props';
 
 export function usePeersTable(
   selectedPeriod: PeriodKeys,
-  sortingColumnKey: Ft_Channel_Group_Stats_Select_Column
+  selectedColumnKey: ColumnKeys
 ): { data: ZoneData[] } {
   const { zone = '' } = useParams();
 
@@ -18,7 +18,7 @@ export function usePeersTable(
       source: zone,
       period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
       orderBy: {
-        [sortingColumnKey]: 'desc',
+        [SORTING_COLUMN_KEYS[selectedColumnKey]]: 'desc',
       },
     },
   };
@@ -28,9 +28,9 @@ export function usePeersTable(
   return {
     data: (data?.zonePeers ?? []).map((zone) => ({
       ...zone,
-      channels: (data?.zoneChannels ?? []).filter(
-        (channel) => channel.zoneCounterpartyKey === zone.zoneCounterpartyKey
-      ),
+      channels: (data?.zoneChannels ?? [])
+        .filter((channel) => channel.zoneCounterpartyKey === zone.zoneCounterpartyKey)
+        .sort((a, b) => b[selectedColumnKey] - a[selectedColumnKey]),
     })),
   };
 }
