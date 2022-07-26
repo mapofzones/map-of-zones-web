@@ -1,11 +1,12 @@
 .container {
   .columnContainer {
     padding: 12px 12px 31px 28px;
+
     white-space: nowrap;
     vertical-align: top;
 
     &.withBorder {
-      border-left: 1px solid var(--black-700);
+      border-right: 1px solid var(--black-700);
     }
 
     &:first-child {
@@ -14,6 +15,7 @@
       width: 100%;
       min-width: 460px;
       padding-left: 0;
+
       vertical-align: middle;
     }
 
@@ -22,34 +24,36 @@
     }
 
     .arrowContainer {
-      width: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 60px;
     }
 
     .position {
+      position: relative;
+      top: -2px;
+
+      color: var(--grey-500);
       font-size: 10px;
       line-height: 13px;
       font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--grey-500);
-      position: relative;
-      top: -2px;
     }
 
     .title {
-      cursor: pointer;
+      color: var(--grey-500);
       font-size: 13px;
       line-height: 16px;
-      color: var(--grey-500);
+
+      cursor: pointer;
 
       &:hover {
         color: var(--white);
       }
 
       .arrowIcon {
-        height: 6px;
         width: 10px;
+        height: 6px;
         margin-left: 7px;
       }
     }
