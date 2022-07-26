@@ -10,16 +10,6 @@
   }
 
   .pendingContainer {
-    display: flex;
-    align-items: center;
     margin-top: 2px;
-
-    .pendingValue {
-      margin-left: 3px;
-
-      color: var(--grey-500);
-      font-size: 12px;
-      line-height: 15px;
-    }
   }
 }
