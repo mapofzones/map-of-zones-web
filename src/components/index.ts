@@ -2,6 +2,8 @@ export * from './PeriodSelector';
 
 export * from './Skeleton';
 
+export * from './Table';
+
 export * from './ui';
 
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';

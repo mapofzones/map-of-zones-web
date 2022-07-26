@@ -1,6 +1,5 @@
+import { CircleType } from 'components/Table/TableHeaderItem/TableHeaderItem.props';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
-
-import { CircleType } from './TableHeaderItem/TableHeaderItem.props';
 
 export enum ColumnKeys {
   IbcActiveAddresses = 'ibcActiveAddresses',

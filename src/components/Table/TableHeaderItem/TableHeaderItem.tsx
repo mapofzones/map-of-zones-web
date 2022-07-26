@@ -13,7 +13,7 @@ export function TableHeaderItem({
   setSelectedColumnKey,
   title,
   withBorder = false,
-}: TableHeaderItemProps) {
+}: TableHeaderItemProps<any>) {
   const onClick = () => {
     if (columnKey && !isSelected) {
       setSelectedColumnKey(columnKey);

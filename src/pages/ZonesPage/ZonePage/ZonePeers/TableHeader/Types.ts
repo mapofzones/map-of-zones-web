@@ -1,5 +1,5 @@
+import { CircleType } from 'components/Table/TableHeaderItem/TableHeaderItem.props';
 import { Ft_Channel_Group_Stats_Select_Column } from 'graphql/base-types';
-import { CircleType } from 'pages/ZonesPage/ZonesInfo/ZonesTable/TableHeader/TableHeaderItem/TableHeaderItem.props';
 
 export enum ColumnKeys {
   IbcVolumeReceived = 'ibcVolumeIn',
