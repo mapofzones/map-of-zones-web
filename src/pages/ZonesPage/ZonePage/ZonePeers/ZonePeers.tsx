@@ -1,3 +1,4 @@
+import { ScrollUpButton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
@@ -41,6 +42,8 @@ export function ZonePeers() {
           ))}
         </tbody>
       </table>
+
+      <ScrollUpButton />
     </div>
   );
 }
