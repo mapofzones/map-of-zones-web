@@ -2,14 +2,16 @@ import { useCallback } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
 
-import { Link, MapNode } from '../Map';
-import { HoveredZoneKeyType, SelectedZoneKeyType } from '../Types';
+import { HoveredZoneKeyType, Link, MapNode, SelectedZoneKeyType } from '../Types';
 
-function isNeighbor(activeZoneKey: string, currentZoneKey: string, links: Link[]) {
-  return links.some(
-    (link) =>
-      (link.source.zone === activeZoneKey && link.target.zone === currentZoneKey) ||
-      (link.source.zone === currentZoneKey && link.target.zone === activeZoneKey)
+function isNeighbor(activeZoneKey: string | undefined, currentZoneKey: string, links: Link[]) {
+  return (
+    activeZoneKey &&
+    links.some(
+      (link) =>
+        (link.source.zone === activeZoneKey && link.target.zone === currentZoneKey) ||
+        (link.source.zone === currentZoneKey && link.target.zone === activeZoneKey)
+    )
   );
 }
 
@@ -33,7 +35,7 @@ export const useNodeCanvasObject = (
       const isHoveredNeighbor =
         !!selectedZoneKey || isSelectedNeighbor
           ? false
-          : hoveredZoneKey && isNeighbor(hoveredZoneKey, currentNode.zone, links);
+          : isNeighbor(hoveredZoneKey, currentNode.zone, links);
 
       const isActive = isSelectedNeighbor || isHoveredNeighbor; // ACTIVE style -- opacity: border=0.6 (9A) background=0.1 (1A)
       const isFaded = !isNormal && !isFocusedZone && !isActive; // FADED style -- opacity: border=0.2 (33) background=0.05 (0D)
