@@ -1,24 +1,9 @@
 .container {
   th {
-    &:nth-child(1) {
+    &:first-child {
       padding-right: 0;
-      padding-left: 24px;
 
       text-align: center;
-
-      // TODO: find another solution
-      &::before {
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-
-        width: 24px;
-        height: 1px;
-
-        background-color: var(--black-100);
-
-        content: '';
-      }
     }
 
     &:nth-child(2) {
@@ -30,23 +15,6 @@
 
     &:last-child {
       padding-right: 24px;
-      padding-left: 20px;
-
-      border-left: 1px solid transparent;
-
-      // TODO: find another solution
-      &::after {
-        position: absolute;
-        right: 0;
-        bottom: -1px;
-
-        width: 24px;
-        height: 1px;
-
-        background-color: var(--black-100);
-
-        content: '';
-      }
     }
   }
 }
