@@ -1,4 +1,8 @@
-query ZonesListZonePeers($source: String!, $orderBy: ft_channel_group_stats_order_by!, $period: Int!) {
+query ZonesListZonePeers(
+  $source: String!
+  $orderBy: ft_channel_group_stats_order_by!
+  $period: Int!
+) {
   zonePeers: ft_channel_group_stats(
     where: {
       zone: { _eq: $source }
