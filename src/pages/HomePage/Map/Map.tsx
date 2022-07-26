@@ -11,8 +11,10 @@ import {
 } from 'graphql/HomePage/Map/__generated__/ZonesMap.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
+import { useLinkCanvasObject } from './hooks/useLinkCanvasObject';
+import { useNodeCanvasObject } from './hooks/useNodeCanvasObject';
 import styles from './Map.module.scss';
-import { useNodeCanvasObject } from './useNodeCanvasObject';
+import { HoveredZoneKeyType, SelectedZoneKeyType } from './Types';
 
 export interface Link extends LinkObject {
   source: MapNode;
@@ -150,11 +152,11 @@ export interface ZoneStat {
 }
 
 export function Map() {
-  const [hoveredZoneKey, setHoveredZoneKey] = useState<string | undefined>(undefined);
+  const [hoveredZoneKey, setHoveredZoneKey] = useState<HoveredZoneKeyType>(undefined);
 
   const [selectedPeriod] = useSelectedPeriod();
 
-  const { zone: selectedZoneKey = '' } = useParams();
+  const { zone: selectedZoneKey = '' } = useParams<SelectedZoneKeyType>();
 
   const navigate = useNavigate();
 
@@ -174,7 +176,6 @@ export function Map() {
     fetchPolicy: 'network-only',
     onCompleted: (data: ZonesMapQueryResult) => {
       const newData = transformMapData(data);
-      console.log('on complete', graphData, newData);
       setGraphData(newData);
     },
   });
@@ -192,6 +193,8 @@ export function Map() {
     hoveredZoneKey,
     graphData.links as Link[]
   );
+
+  const linkCanvasObject = useLinkCanvasObject(selectedZoneKey, hoveredZoneKey);
 
   const onZoomClick = useCallback(() => {
     graphRef.current.zoom(2, 1000);
@@ -230,17 +233,19 @@ export function Map() {
       <ForceGraph2D
         ref={graphRef}
         nodeId="zone"
+        nodeLabel={undefined}
         height={document.documentElement.clientHeight}
         width={document.documentElement.clientWidth - 360}
-        linkColor={useCallback(() => '#212129', [])}
+        // linkColor={useCallback(() => '#212129', [])}
         graphData={graphData}
         nodeCanvasObject={nodeCanvasObject}
+        linkCanvasObject={linkCanvasObject}
         onNodeClick={onNodeClick}
         onNodeHover={onNodeHover}
         onLinkClick={clearSelectedNode}
         onBackgroundClick={clearSelectedNode}
-        cooldownTime={Infinity}
-        nodeVal={useCallback((data: any) => {
+        // cooldownTime={Infinity}
+        nodeVal={useCallback((data: NodeObject) => {
           const zone = data as MapNode;
           return zone.radius * 2;
         }, [])}
