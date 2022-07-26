@@ -28,6 +28,13 @@ th {
     }
   }
 
+  &.sticky {
+    position: sticky;
+    left: 0;
+    background-color: var(--black-100);
+    z-index: 100;
+  }
+
   &.withBorder {
     border-right: 1px solid transparent;
   }

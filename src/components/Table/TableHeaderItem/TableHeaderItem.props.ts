@@ -6,6 +6,7 @@ export interface TableHeaderItemProps<T extends string>
   columnKey?: T;
   explanationText?: string;
   isSelected: boolean;
+  isSticky?: boolean;
   setSelectedColumnKey: (value: T) => void;
   title: string;
   withBorder?: boolean;

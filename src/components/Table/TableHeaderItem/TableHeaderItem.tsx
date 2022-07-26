@@ -10,6 +10,7 @@ export function TableHeaderItem({
   columnKey,
   explanationText,
   isSelected,
+  isSticky,
   setSelectedColumnKey,
   title,
   withBorder = false,
@@ -25,6 +26,7 @@ export function TableHeaderItem({
       className={cn({
         [styles.selectable]: !!columnKey,
         [styles.selected]: isSelected,
+        [styles.sticky]: isSticky,
         [styles.withBorder]: withBorder,
       })}
       onClick={onClick}

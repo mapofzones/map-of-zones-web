@@ -2,7 +2,14 @@
   height: 48px;
 
   &:hover {
-    background-color: rgba(#fff, 0.03); // TODO: not working with var(--white)
+    background-color: #16161c;
+
+    .columnContainer {
+      &:first-child {
+        background-color: #16161c;
+        z-index: 1000;
+      }
+    }
   }
 
   .columnContainer {
@@ -14,6 +21,13 @@
 
     &.withBorder {
       border-right: 1px solid var(--black-700);
+    }
+
+    &.sticky {
+      position: sticky;
+      left: 0;
+      background-color: var(--black-100);
+      z-index: 100;
     }
 
     &:first-child {

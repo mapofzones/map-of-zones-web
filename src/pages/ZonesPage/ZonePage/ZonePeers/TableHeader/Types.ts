@@ -22,6 +22,7 @@ export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Ft_Channel_Group_Stats_Sele
 export const TABLE_HEADER_CONFIG = [
   {
     title: 'Peer',
+    isSticky: true,
   },
   {
     title: 'Total IBC Volume',

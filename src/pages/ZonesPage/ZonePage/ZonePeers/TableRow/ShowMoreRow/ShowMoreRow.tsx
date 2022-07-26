@@ -9,7 +9,7 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
   return (
     <tr className={cn(styles.container, { [styles.emptyContainer]: !count })}>
       {count ? (
-        <td className={styles.columnContainer}>
+        <td className={cn(styles.columnContainer, styles.sticky)}>
           <div className={styles.arrowContainer}>
             <div className={styles.position}>...</div>
           </div>
@@ -20,7 +20,7 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
           </div>
         </td>
       ) : (
-        <td className={styles.columnContainer} />
+        <td className={cn(styles.columnContainer, styles.sticky)} />
       )}
       <td className={cn(styles.columnContainer, styles.withBorder)} />
       <td className={styles.columnContainer} />
