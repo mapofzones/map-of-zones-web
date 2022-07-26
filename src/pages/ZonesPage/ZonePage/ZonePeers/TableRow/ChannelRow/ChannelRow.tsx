@@ -10,7 +10,7 @@ import { ChannelRowProps } from './ChannelRow.props';
 export function ChannelRow({ className, channel, index, parentZone, zone }: ChannelRowProps) {
   return (
     <tr className={cn(styles.container, className)}>
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.sticky)}>
         <div className={styles.arrowContainer}>
           <div className={styles.position}>{index + 1}</div>
         </div>

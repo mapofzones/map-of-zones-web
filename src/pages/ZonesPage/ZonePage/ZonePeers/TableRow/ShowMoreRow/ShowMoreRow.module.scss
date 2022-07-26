@@ -9,6 +9,13 @@
       border-right: 1px solid var(--black-700);
     }
 
+    &.sticky {
+      position: sticky;
+      left: 0;
+      background-color: var(--black-100);
+      z-index: 100;
+    }
+
     &:first-child {
       display: flex;
       align-items: center;

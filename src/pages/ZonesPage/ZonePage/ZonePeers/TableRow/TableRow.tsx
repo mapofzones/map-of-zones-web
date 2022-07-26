@@ -33,7 +33,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
   return (
     <>
       <tr className={styles.container} onClick={toggleChannelsVisibility}>
-        <td className={styles.columnContainer}>
+        <td className={cn(styles.columnContainer, styles.sticky)}>
           <div
             className={cn(styles.arrowContainer, {
               [styles.arrowUp]: channelsConfig.isChannelsVisible,
