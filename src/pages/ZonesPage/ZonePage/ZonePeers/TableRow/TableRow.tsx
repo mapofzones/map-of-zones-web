@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
-import { NumberType, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
+import { NumberType, PendingValue, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
 import { ArrowDown } from 'icons';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
@@ -130,7 +130,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
         </td>
 
         <td className={styles.columnContainer}>
-          <ValueWithPending
+          <PendingValue
             alignRight={true}
             className={styles.value}
             numberType={NumberType.Number}
