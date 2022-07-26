@@ -90,16 +90,6 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
           </div>
         </td>
 
-        <td className={styles.columnContainer}>
-          <ValueWithPending
-            alignRight={true}
-            className={styles.value}
-            numberType={NumberType.Currency}
-            pendingValue={zone.ibcVolumeOutPending}
-            value={zone.ibcVolumeOut}
-          />
-        </td>
-
         <td className={cn(styles.columnContainer, styles.withBorder)}>
           <ValueWithPending
             alignRight={true}
@@ -111,6 +101,16 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
         </td>
 
         <td className={styles.columnContainer}>
+          <ValueWithPending
+            alignRight={true}
+            className={styles.value}
+            numberType={NumberType.Currency}
+            pendingValue={zone.ibcVolumeOutPending}
+            value={zone.ibcVolumeOut}
+          />
+        </td>
+
+        <td className={cn(styles.columnContainer, styles.withBorder)}>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
@@ -120,7 +120,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
           />
         </td>
 
-        <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <td className={styles.columnContainer}>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
@@ -138,7 +138,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
           />
         </td>
 
-        <td className={styles.columnContainer}>
+        <td className={cn(styles.columnContainer, styles.withBorder)}>
           <ValueWithPending
             alignRight={true}
             className={styles.value}
@@ -147,7 +147,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
           />
         </td>
 
-        <td className={cn(styles.columnContainer, styles.withBorder)}>
+        <td className={styles.columnContainer}>
           <ValueWithPending
             alignRight={true}
             className={styles.value}

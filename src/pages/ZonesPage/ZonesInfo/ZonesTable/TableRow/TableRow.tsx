@@ -60,7 +60,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -70,7 +70,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <td className={styles.columnContainer}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -79,7 +79,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -89,7 +89,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <td className={styles.columnContainer}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -98,7 +98,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -116,7 +116,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>IBC Transfers Activity</td>
+      <td className={styles.columnContainer}>IBC Transfers Activity</td>
     </LinkWithQuery>
   );
 }

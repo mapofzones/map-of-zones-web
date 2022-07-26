@@ -8,11 +8,12 @@
   .columnContainer {
     height: inherit;
     padding: 7.5px 12px 7.5px 28px;
+
     white-space: nowrap;
     vertical-align: top;
 
     &.withBorder {
-      border-left: 1px solid var(--black-700);
+      border-right: 1px solid var(--black-700);
     }
 
     &:first-child {
@@ -21,6 +22,7 @@
       width: 100%;
       min-width: 460px;
       padding-left: 0;
+
       vertical-align: middle;
     }
 
@@ -29,17 +31,17 @@
     }
 
     .arrowContainer {
-      width: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 60px;
     }
 
     .position {
+      color: var(--grey-500);
       font-size: 10px;
       line-height: 13px;
       font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--grey-500);
     }
 
     .channelsContainer {
@@ -48,22 +50,25 @@
 
       .channel {
         width: 80px;
+        overflow: hidden;
+
         font-size: 13px;
         line-height: 16px;
-        font-feature-settings: 'tnum' on, 'lnum' on;
         text-overflow: ellipsis;
-        overflow: hidden;
+        font-feature-settings: 'tnum' on, 'lnum' on;
       }
 
       .statusContainer {
-        height: 1px;
-        width: 129px;
-        margin: 0 12px;
-        background-color: var(--green);
         position: relative;
+
+        display: flex;
         align-items: center;
         justify-content: center;
-        display: flex;
+        width: 129px;
+        height: 1px;
+        margin: 0 12px;
+
+        background-color: var(--green);
 
         &.statusClosedContainer {
           background-color: var(--orange);
@@ -77,6 +82,7 @@
 
     .value {
       font-feature-settings: 'tnum' on, 'lnum' on;
+
       font-size: 13px;
       line-height: 16px;
     }

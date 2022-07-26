@@ -34,16 +34,6 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
         </div>
       </td>
 
-      <td className={styles.columnContainer}>
-        <ValueWithPending
-          alignRight={true}
-          className={styles.value}
-          numberType={NumberType.Currency}
-          pendingValue={channel.ibcVolumeOutPending}
-          value={channel.ibcVolumeOut}
-        />
-      </td>
-
       <td className={cn(styles.columnContainer, styles.withBorder)}>
         <ValueWithPending
           alignRight={true}
@@ -55,6 +45,16 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
       </td>
 
       <td className={styles.columnContainer}>
+        <ValueWithPending
+          alignRight={true}
+          className={styles.value}
+          numberType={NumberType.Currency}
+          pendingValue={channel.ibcVolumeOutPending}
+          value={channel.ibcVolumeOut}
+        />
+      </td>
+
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -64,7 +64,7 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
         />
       </td>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <td className={styles.columnContainer}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -82,7 +82,7 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
         />
       </td>
 
-      <td className={styles.columnContainer}>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -91,7 +91,7 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
         />
       </td>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <td className={styles.columnContainer}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}

@@ -27,25 +27,25 @@ export const TABLE_HEADER_CONFIG = [
     title: 'Total IBC Volume',
     columnKey: ColumnKeys.IbcVolumeSent,
     explanationText: 'Test text',
+    withBorder: true,
   },
   {
     title: 'Injective Sends',
     columnKey: ColumnKeys.IbcVolumeSent,
     explanationText: 'Test text',
     circleType: CircleType.Source,
-    withBorder: true,
   },
   {
     title: 'Injective Receives',
     columnKey: ColumnKeys.IbcVolumeReceived,
     explanationText: 'Test text',
     circleType: CircleType.Target,
+    withBorder: true,
   },
   {
     title: 'IBC Success',
     columnKey: ColumnKeys.IbcTransfers,
     explanationText: 'Test text',
-    withBorder: true,
   },
   {
     title: 'IBC Pending',
@@ -56,11 +56,11 @@ export const TABLE_HEADER_CONFIG = [
     title: 'IBC Failed',
     columnKey: ColumnKeys.IbcTransfersFailed,
     explanationText: 'Test text',
+    withBorder: true,
   },
   {
     title: 'Success Rate',
     columnKey: ColumnKeys.SuccessRate,
     explanationText: 'Test text',
-    withBorder: true,
   },
 ];

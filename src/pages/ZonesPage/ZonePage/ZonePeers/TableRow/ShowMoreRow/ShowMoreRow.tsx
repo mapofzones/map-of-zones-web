@@ -22,13 +22,13 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
       ) : (
         <td className={styles.columnContainer} />
       )}
-      <td className={styles.columnContainer} />
       <td className={cn(styles.columnContainer, styles.withBorder)} />
       <td className={styles.columnContainer} />
       <td className={cn(styles.columnContainer, styles.withBorder)} />
       <td className={styles.columnContainer} />
       <td className={styles.columnContainer} />
       <td className={cn(styles.columnContainer, styles.withBorder)} />
+      <td className={styles.columnContainer} />
     </tr>
   );
 }

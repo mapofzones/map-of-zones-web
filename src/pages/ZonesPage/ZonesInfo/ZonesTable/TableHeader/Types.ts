@@ -45,28 +45,29 @@ export const TABLE_HEADER_CONFIG = [
     explanationText:
       'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
     circleType: CircleType.Target,
+    withBorder: true,
   },
   {
     title: 'Total TXS',
     columnKey: ColumnKeys.TotalTxs,
     explanationText: 'All transactions in a specified zone',
-    withBorder: true,
   },
   {
     title: 'IBC Transfers',
     columnKey: ColumnKeys.IbcTransfers,
     explanationText:
       'Number of successfully relayed IBC transfers with pertinent quantity in progress',
+    withBorder: true,
   },
   {
     title: 'Peers',
     explanationText:
       'Number of counterparties of a particular Zone with established IBC connectors',
-    withBorder: true,
   },
   {
     title: 'Channels',
     explanationText: 'Number of channels that connect a particular Zone to its counterparties',
+    withBorder: true,
   },
   {
     title: 'DAU',
@@ -76,6 +77,5 @@ export const TABLE_HEADER_CONFIG = [
   },
   {
     title: 'IBC Transfers Activity',
-    withBorder: true,
   },
 ];
