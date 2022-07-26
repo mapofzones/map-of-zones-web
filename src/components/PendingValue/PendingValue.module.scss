@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  color: var(--grey-500);
+  font-size: 12px;
+  line-height: 15px;
+
+  &.rightAlign {
+    justify-content: flex-end;
+  }
+
+  .value {
+    margin-left: 3px;
+  }
+}
