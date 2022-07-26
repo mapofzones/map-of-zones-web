@@ -1,6 +1,13 @@
 import cn from 'classnames';
 
-import { NumberType, RatingDiffTriangle, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
+import {
+  LineChart,
+  NumberType,
+  RatingDiffTriangle,
+  ValueWithPending,
+  ZoneLogo,
+  ZoneStatus,
+} from 'components';
 
 import { ColumnKeys } from '../TableHeader/Types';
 import styles from './TableRow.module.scss';
@@ -109,7 +116,9 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </td>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>IBC Transfers Activity</td>
+      <td className={cn(styles.columnContainer, styles.withBorder)}>
+        {zone.ibcTransfersChart && <LineChart data={zone.ibcTransfersChart} dataKey="txs" />}
+      </td>
     </tr>
   );
 }
