@@ -3,10 +3,6 @@
 
   cursor: pointer;
 
-  &:hover {
-    background-color: var(--black-500);
-  }
-
   td {
     &:first-child {
       position: sticky;
@@ -77,5 +73,16 @@
 
   .ratingDiff {
     margin-left: 4px;
+  }
+
+  &:hover {
+    background-color: var(--black-500);
+
+    td {
+      &:first-child,
+      &:nth-child(2) {
+        background-color: var(--black-500);
+      }
+    }
   }
 }

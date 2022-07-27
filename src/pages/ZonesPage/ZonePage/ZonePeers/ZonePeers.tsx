@@ -26,22 +26,24 @@ export function ZonePeers() {
 
   return (
     <div className={styles.container}>
-      <table className={styles.tableContainer}>
-        <TableHeader
-          selectedColumnKey={selectedColumnKey}
-          setSelectedColumnKey={setSelectedColumnKey}
-        />
+      <div className={styles.tableContainer}>
+        <table>
+          <TableHeader
+            selectedColumnKey={selectedColumnKey}
+            setSelectedColumnKey={setSelectedColumnKey}
+          />
 
-        <tbody>
-          {data.map((zone) => (
-            <TableRow
-              key={`zone_${zone.zoneCounterpartyKey}`}
-              parentZone={parentZoneData}
-              zone={zone}
-            />
-          ))}
-        </tbody>
-      </table>
+          <tbody>
+            {data.map((zone) => (
+              <TableRow
+                key={`zone_${zone.zoneCounterpartyKey}`}
+                parentZone={parentZoneData}
+                zone={zone}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <ScrollUpButton />
     </div>
