@@ -14,6 +14,10 @@
       vertical-align: middle;
     }
 
+    &:last-child {
+      padding-right: 24px;
+    }
+
     .arrowContainer {
       display: flex;
       align-items: center;
