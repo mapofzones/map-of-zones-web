@@ -9,17 +9,29 @@
 
   td {
     &:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 100;
+
       padding-right: 0;
 
       text-align: center;
       vertical-align: middle;
+
+      background-color: var(--black-100);
     }
 
     &:nth-child(2) {
+      position: sticky;
+      left: 42px; // TODO: calculate dynamically
+      z-index: 100;
+
       width: 100%;
       padding-left: 16px;
 
       vertical-align: middle;
+
+      background-color: var(--black-100);
     }
 
     &:last-child {

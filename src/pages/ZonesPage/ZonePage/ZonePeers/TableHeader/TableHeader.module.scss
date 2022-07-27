@@ -1,8 +1,15 @@
 .container {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+
+  background-color: var(--black-100);
+
   th {
     &:first-child {
       width: 100%;
       min-width: 460px;
+
       text-align: left;
     }
   }
