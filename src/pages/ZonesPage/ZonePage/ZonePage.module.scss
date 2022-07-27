@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin: 32px 24px 45px;
+  margin: 32px 24px 40px;
 
   .detailsTitle {
     display: flex;
@@ -13,67 +13,75 @@
     }
 
     .zoneName {
-      font-style: normal;
+      color: var(--white);
       font-weight: 400;
       font-size: 28px;
+      font-style: normal;
       line-height: 35px;
-      color: var(--white);
     }
   }
 
   .zoneWebsite {
-    font-style: normal;
+    display: flex;
+    margin-top: 9px;
+
+    color: var(--grey-500);
     font-weight: 400;
     font-size: 13px;
+    font-style: normal;
     line-height: 16px;
     font-feature-settings: 'tnum' on, 'lnum' on;
-    color: var(--grey-500);
-    margin-top: 9px;
-    display: flex;
   }
 
   .navigationButtonsContainer {
-    background-color: transparent;
+    display: flex;
+    grid-gap: 21px;
+    align-items: center;
     padding: 0;
-    font-style: normal;
+
+    color: var(--grey-500);
     font-weight: 400;
     font-size: 18px;
+    font-style: normal;
     line-height: 23px;
     text-align: center;
-    color: var(--grey-500);
+
+    background-color: transparent;
     border-bottom: 1px solid var(--black-900);
     border-radius: 0;
-    grid-gap: 21px;
-    display: flex;
-    align-items: center;
     cursor: pointer;
 
     .navigationButton {
       position: relative;
       top: 1px;
-      padding: 0 3px 8px;
+
       display: flex;
       align-items: center;
+      padding: 0 3px 8px;
 
       &.navigationButtonActive {
         color: var(--white);
+
         border-bottom: 1px solid var(--white);
       }
 
       .counter {
-        background-color: var(--black-900);
-        border-radius: 100px;
+        margin-left: 10px;
+        padding: 4px 6px;
+
+        color: var(--grey-500);
         font-size: 15px;
         line-height: 19px;
         text-align: center;
+
+        background-color: var(--black-900);
+        border-radius: 100px;
         font-feature-settings: 'tnum' on, 'lnum' on;
-        color: var(--grey-500);
-        padding: 4px 6px;
-        margin-left: 10px;
       }
 
       &:hover {
         color: var(--white) !important;
+
         background-color: transparent !important;
       }
     }
