@@ -37,25 +37,23 @@ export function ZonesTable() {
         <PeriodSelector />
       </div>
 
-      <div className={styles.tableContainer}>
-        <table>
-          <TableHeader
-            selectedColumnKey={selectedColumnKey}
-            setSelectedColumnKey={setSelectedColumnKey}
-          />
+      <table className={styles.tableContainer}>
+        <TableHeader
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        />
 
-          <tbody>
-            {data.map((zone, index) => (
-              <TableRow
-                key={`zone_${zone.zone}`}
-                index={index}
-                selectedColumnKey={selectedColumnKey}
-                zone={zone}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+          {data.map((zone, index) => (
+            <TableRow
+              key={`zone_${zone.zone}`}
+              index={index}
+              selectedColumnKey={selectedColumnKey}
+              zone={zone}
+            />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
