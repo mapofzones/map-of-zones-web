@@ -20,6 +20,7 @@ export interface MapNode extends NodeObject {
   radius: number;
   logoRadius?: number;
   color: string;
+  fontSize: number;
 }
 
 export type SelectedZoneKeyType = string | undefined;
