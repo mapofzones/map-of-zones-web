@@ -54,6 +54,7 @@ export function Map() {
           const zone = data as MapNode;
           return zone.radius * 2;
         }, [])}
+        cooldownTime={Infinity}
         enableZoomInteraction={false}
         enableNodeDrag={false}
       />
