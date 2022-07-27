@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { motion } from 'framer-motion';
 
 import { NumberType, TableRowItem, ValueWithPending } from 'components';
 import { ChannelClosedIcon } from 'icons';
@@ -9,7 +10,13 @@ import { ChannelRowProps } from './ChannelRow.props';
 
 export function ChannelRow({ className, channel, index, parentZone, zone }: ChannelRowProps) {
   return (
-    <tr className={cn(styles.container, className)}>
+    <motion.tr
+      className={cn(styles.container, className)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <TableRowItem isSticky={true}>
         <div className={styles.arrowContainer}>
           <div className={styles.position}>{index + 1}</div>
@@ -99,6 +106,6 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
           value={channel.successRate}
         />
       </TableRowItem>
-    </tr>
+    </motion.tr>
   );
 }
