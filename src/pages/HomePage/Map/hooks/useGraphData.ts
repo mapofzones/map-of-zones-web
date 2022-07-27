@@ -61,6 +61,7 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
     const radius = getZoneRadius(level);
     const logoRadius = getZoneLogoRadius(level);
     const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
+    const fontSize = getFontSize(level);
 
     const node: MapNode = {
       ...zone,
@@ -70,6 +71,7 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
       radius,
       logoRadius,
       color,
+      fontSize,
     } as MapNode;
     nodes.push(node);
   });
@@ -98,6 +100,15 @@ function getZoneLogoRadius(level: number) {
     return 8;
   }
   return undefined;
+}
+
+function getFontSize(level: number) {
+  if (level === 1) {
+    return 11;
+  } else if (level === 2) {
+    return 10;
+  }
+  return 8;
 }
 
 function getZoneColor(valueIn: number | null, valueOut: number | null) {
