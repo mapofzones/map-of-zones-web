@@ -8,6 +8,8 @@ query ZonesMap($period: Int!, $isMainnet: Boolean!) {
     isMainnet: is_zone_mainnet
     logoUrl: zone_label_url
     ibcVolume: ibc_cashflow_mainnet
+    ibcVolumeIn: ibc_cashflow_in_mainnet
+    ibcVolumeOut: ibc_cashflow_out_mainnet
   }
   zonesGraphs: zones_graphs(where: { timeframe: { _eq: $period } }) {
     # , is_mainnet: { _eq:  }
