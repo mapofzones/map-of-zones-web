@@ -4,45 +4,34 @@
   cursor: pointer;
 
   .zonesInfoContainer {
+    position: relative;
+
     display: flex;
     align-items: center;
-    justify-content: center;
 
     .zoneContainer {
-      display: flex;
-      flex-grow: 1;
-      align-items: center;
+      position: absolute;
 
-      &.animated {
-        width: 233px;
-      }
+      display: flex;
+      align-items: center;
 
       .logoContainer {
         position: relative;
 
-        width: 36px;
-        height: 36px;
         margin-right: 12px;
 
-        background-color: var(--grey-500);
         border: 2px solid var(--black-100);
         border-radius: 50%;
       }
 
-      .logoContainerSmall {
-        position: absolute;
-
-        width: 16px;
-        height: 16px;
-        margin-right: 0;
-        margin-left: -12px;
-
-        border: 0;
+      .zoneInfoContainer {
+        position: relative;
       }
 
       .zoneNameContainer {
         display: flex;
         align-items: center;
+        overflow: hidden;
       }
     }
   }
@@ -54,11 +43,6 @@
       width: 100%;
       min-width: 460px;
       padding-left: 0;
-    }
-
-    .zoneName {
-      font-size: 15px;
-      line-height: 19px;
     }
 
     .value {
@@ -73,12 +57,6 @@
     align-items: center;
     justify-content: center;
     width: 60px;
-
-    transition: 0.5s;
-
-    &.arrowUp {
-      transform: rotateX(180deg);
-    }
   }
 
   .status {
@@ -88,10 +66,7 @@
   .channelsText {
     margin-top: 2px;
 
-    color: var(--white);
-    font-weight: 400;
     font-size: 13px;
-    font-style: normal;
     line-height: 16px;
 
     opacity: 0.5;
@@ -111,10 +86,6 @@
       .zoneContainer {
         .logoContainer {
           border: 2px solid var(--black-500);
-        }
-
-        .logoContainerSmall {
-          border: 0;
         }
       }
     }

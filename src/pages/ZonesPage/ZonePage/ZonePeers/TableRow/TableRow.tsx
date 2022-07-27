@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import cn from 'classnames';
+import { motion } from 'framer-motion';
 
 import {
   NumberType,
@@ -27,6 +27,12 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
     ? zone.channels
     : [...zone.channels].splice(0, 3);
 
+  const animationConfig = {
+    animate: channelsConfig.isChannelsVisible ? 'hidden' : 'visible',
+    initial: 'visible',
+    transition: { duration: 0.5 },
+  };
+
   const toggleChannelsVisibility = () => {
     setChannelsConfig((prevState) => ({
       isChannelsVisible: !prevState.isChannelsVisible,
@@ -41,59 +47,70 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
     <>
       <tr className={styles.container} onClick={toggleChannelsVisibility}>
         <TableRowItem isSticky={true}>
-          <div
-            className={cn(styles.arrowContainer, {
-              [styles.arrowUp]: channelsConfig.isChannelsVisible,
-            })}
+          <motion.div
+            className={styles.arrowContainer}
+            variants={{
+              visible: { rotateX: 180 },
+              hidden: { rotateX: 0 },
+            }}
+            {...animationConfig}
           >
             <ArrowDown />
-          </div>
+          </motion.div>
 
           <div className={styles.zonesInfoContainer}>
-            <div
-              className={cn(styles.zoneContainer, {
-                [styles.animated]: channelsConfig.isChannelsVisible,
-              })}
-            >
-              <div
-                className={cn(styles.logoContainer, {
-                  [styles.logoContainerSmall]: !channelsConfig.isChannelsVisible,
-                })}
+            <div className={styles.zoneContainer}>
+              <motion.div
+                className={styles.logoContainer}
+                variants={{
+                  visible: { left: -22, scale: 0.5 },
+                  hidden: { left: 0, scale: 1 },
+                }}
+                {...animationConfig}
               >
-                <ZoneLogo
-                  logoUrl={parentZone?.logoUrl}
-                  size={channelsConfig.isChannelsVisible ? '32px' : '16px'}
-                  className={styles.logo}
-                />
-              </div>
+                <ZoneLogo logoUrl={parentZone?.logoUrl} className={styles.logo} />
+              </motion.div>
 
-              {channelsConfig.isChannelsVisible && (
-                <div className={styles.zoneNameContainer}>
-                  <span className={styles.value}>{parentZone?.name}</span>
+              <motion.div
+                className={styles.zoneNameContainer}
+                variants={{ visible: { opacity: 0 }, hidden: { opacity: 1 } }}
+                {...animationConfig}
+              >
+                <span className={styles.value}>{parentZone?.name}</span>
 
-                  <ZoneStatus className={styles.status} status={parentZone?.isZoneUpToDate} />
-                </div>
-              )}
+                <ZoneStatus className={styles.status} status={parentZone?.isZoneUpToDate} />
+              </motion.div>
             </div>
 
-            <div className={styles.zoneContainer}>
+            <motion.div
+              className={styles.zoneContainer}
+              variants={{ visible: { left: 0 }, hidden: { left: 233 } }}
+              {...animationConfig}
+            >
               <div className={styles.logoContainer}>
                 <ZoneLogo logoUrl={zone?.zoneCounterpartyLogoUrl} className={styles.logo} />
               </div>
-              <div>
+
+              <motion.div
+                className={styles.zoneInfoContainer}
+                variants={{ visible: { top: 0 }, hidden: { top: 8 } }}
+                {...animationConfig}
+              >
                 <div className={styles.zoneNameContainer}>
                   <span className={styles.value}>{zone.zoneCounterpartyName}</span>
 
                   <ZoneStatus className={styles.status} status={zone.isZoneCounterpartyUpToDate} />
                 </div>
 
-                {!channelsConfig.isChannelsVisible && (
-                  <span className={styles.channelsText}>
-                    {zone.channels.length} Channel{zone.channels.length !== 1 ? 's' : ''}
-                  </span>
-                )}
-              </div>
-            </div>
+                <motion.div
+                  className={styles.channelsText}
+                  variants={{ visible: { opacity: 0.5 }, hidden: { opacity: 0 } }}
+                  {...animationConfig}
+                >
+                  {zone.channels.length} Channel{zone.channels.length !== 1 ? 's' : ''}
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </div>
         </TableRowItem>
 
