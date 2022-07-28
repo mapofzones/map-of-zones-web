@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZoneDetails } from '../../../useZoneDetails';
+import { ZonesListZoneDetails } from '../../../useZonesListZoneDetails';
 import { ZoneData } from '../TableRow.props';
 
 export interface ChannelData {
@@ -25,6 +25,6 @@ export interface ChannelRowProps
   className?: string;
   channel: ChannelData;
   index: number;
-  parentZone: ZoneDetails;
+  parentZone: ZonesListZoneDetails;
   zone: ZoneData;
 }

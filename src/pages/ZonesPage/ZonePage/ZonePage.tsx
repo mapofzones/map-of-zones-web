@@ -1,14 +1,13 @@
-import cn from 'classnames';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-import { ExternalLink, PeriodSelector, ZoneLogo } from 'components';
+import { ExternalLink, NavigationButton, PeriodSelector, ZoneLogo } from 'components';
 import { EarthIcon } from 'icons';
 
-import { useZoneDetails } from './useZoneDetails';
+import { useZonesListZoneDetails } from './useZonesListZoneDetails';
 import styles from './ZonePage.module.scss';
 
 export function ZonePage() {
-  const { data, loading } = useZoneDetails();
+  const { data, loading } = useZonesListZoneDetails();
 
   return (
     <div>
@@ -34,47 +33,12 @@ export function ZonePage() {
         </div>
 
         <div className={styles.navigationButtonsContainer}>
-          <NavLink
-            className={({ isActive }) =>
-              cn(styles.navigationButton, {
-                [styles.navigationButtonActive]: isActive,
-              })
-            }
-            to="overview"
-          >
-            Overview
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              cn(styles.navigationButton, {
-                [styles.navigationButtonActive]: isActive,
-              })
-            }
-            to="peers"
-          >
+          <NavigationButton to="overview">Overview</NavigationButton>
+          <NavigationButton to="peers" count={data?.peersCount}>
             Peers
-            {data?.peersCount && <div className={styles.counter}>{data.peersCount}</div>}
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              cn(styles.navigationButton, {
-                [styles.navigationButtonActive]: isActive,
-              })
-            }
-            to="nodes"
-          >
-            Nodes
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => {
-              return cn(styles.navigationButton, {
-                [styles.navigationButtonActive]: isActive,
-              });
-            }}
-            to="pools"
-          >
-            Pools
-          </NavLink>
+          </NavigationButton>
+          <NavigationButton to="nodes">Nodes</NavigationButton>
+          <NavigationButton to="pools">Pools</NavigationButton>
         </div>
 
         <PeriodSelector />

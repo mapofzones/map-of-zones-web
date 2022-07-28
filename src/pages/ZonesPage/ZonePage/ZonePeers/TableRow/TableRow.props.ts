@@ -1,12 +1,12 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZoneDetails } from '../../useZoneDetails';
+import { ZonesListZoneDetails } from '../../useZonesListZoneDetails';
 import { ChannelData } from './ChannelRow/ChannelRow.props';
 
 export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
-  parentZone: ZoneDetails;
+  parentZone: ZonesListZoneDetails;
   zone: ZoneData;
 }
 export interface ZoneData {

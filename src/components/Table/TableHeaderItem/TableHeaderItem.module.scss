@@ -1,7 +1,7 @@
 th {
   position: relative;
 
-  padding: 6px 12px 6px 28px;
+  padding: 6px 12px 0 28px;
 
   color: var(--grey-500);
   font-weight: 400;
@@ -11,6 +11,29 @@ th {
   text-align: right;
 
   border-bottom: 1px solid var(--black-700);
+
+  .circleContainer {
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+
+    .circle {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 4px;
+
+      border-radius: 50%;
+
+      &.source {
+        background-color: var(--pink);
+      }
+
+      &.target {
+        background-color: var(--blue);
+      }
+    }
+  }
 
   &:first-child {
     padding-left: 24px;
@@ -48,12 +71,11 @@ th {
     }
   }
 
-  &.selected > span {
-    padding-bottom: 5px;
-
-    color: var(--white);
-
-    border-bottom: 1px solid var(--white);
+  &.selected {
+    .circleContainer {
+      color: var(--white);
+      border-bottom: 1px solid var(--white);
+    }
   }
 
   &.selectable {
@@ -74,25 +96,5 @@ th {
 
   &.withBorder {
     border-right: 1px solid transparent;
-  }
-}
-
-.circle {
-  position: relative;
-  top: -1px;
-
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-right: 4px;
-
-  border-radius: 50%;
-
-  &.source {
-    background-color: var(--pink);
-  }
-
-  &.target {
-    background-color: var(--blue);
   }
 }
