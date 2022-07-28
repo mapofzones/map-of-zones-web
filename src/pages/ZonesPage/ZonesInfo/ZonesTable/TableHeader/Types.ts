@@ -37,14 +37,14 @@ export const TABLE_HEADER_CONFIG = [
     columnKey: ColumnKeys.IbcVolumeReceived,
     explanationText:
       'USD value of tokens successfully received from other Zones with pertinent volume in progress',
-    circleType: CircleType.Source,
+    circleType: CircleType.Target,
   },
   {
     title: 'IBC Volume Out',
     columnKey: ColumnKeys.IbcVolumeSent,
     explanationText:
       'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
-    circleType: CircleType.Target,
+    circleType: CircleType.Source,
     withBorder: true,
   },
   {
