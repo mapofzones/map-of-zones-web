@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { ZonesListZoneDetailsDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZoneDetails.generated';
 
-export interface ZoneDetails {
+export interface ZonesListZoneDetails {
   zone: string;
   isZoneUpToDate?: boolean | null;
   logoUrl?: string | null;
@@ -12,7 +12,10 @@ export interface ZoneDetails {
   website?: string | null;
 }
 
-export function useZoneDetails(): { data: ZoneDetails | undefined; loading: boolean } {
+export function useZonesListZoneDetails(): {
+  data: ZonesListZoneDetails | undefined;
+  loading: boolean;
+} {
   const { zone = '' } = useParams();
 
   const options = { variables: { zone }, skip: !zone };

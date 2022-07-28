@@ -2,7 +2,7 @@ import { ScrollUpButton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
-import { useZoneDetails } from '../useZoneDetails';
+import { useZonesListZoneDetails } from '../useZonesListZoneDetails';
 import { TableHeader } from './TableHeader/TableHeader';
 import { ColumnKeys } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
@@ -18,7 +18,7 @@ export function ZonePeers() {
   );
 
   const { data } = usePeersTable(selectedPeriod, selectedColumnKey);
-  const { data: parentZoneData } = useZoneDetails();
+  const { data: parentZoneData } = useZonesListZoneDetails();
 
   if (!parentZoneData) {
     return <></>;

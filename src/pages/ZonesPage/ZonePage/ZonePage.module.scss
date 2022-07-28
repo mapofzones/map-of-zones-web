@@ -36,54 +36,7 @@
   .navigationButtonsContainer {
     display: flex;
     grid-gap: 21px;
-    align-items: center;
-    padding: 0;
 
-    color: var(--grey-500);
-    font-weight: 400;
-    font-size: 18px;
-    font-style: normal;
-    line-height: 23px;
-    text-align: center;
-
-    background-color: transparent;
     border-bottom: 1px solid var(--black-900);
-    border-radius: 0;
-    cursor: pointer;
-
-    .navigationButton {
-      position: relative;
-      top: 1px;
-
-      display: flex;
-      align-items: center;
-      padding: 0 3px 8px;
-
-      &.navigationButtonActive {
-        color: var(--white);
-
-        border-bottom: 1px solid var(--white);
-      }
-
-      .counter {
-        margin-left: 10px;
-        padding: 4px 6px;
-
-        color: var(--grey-500);
-        font-size: 15px;
-        line-height: 19px;
-        text-align: center;
-
-        background-color: var(--black-900);
-        border-radius: 100px;
-        font-feature-settings: 'tnum' on, 'lnum' on;
-      }
-
-      &:hover {
-        color: var(--white) !important;
-
-        background-color: transparent !important;
-      }
-    }
   }
 }

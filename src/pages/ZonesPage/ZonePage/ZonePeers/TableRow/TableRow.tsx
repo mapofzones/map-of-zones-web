@@ -28,8 +28,8 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
     : [...zone.channels].splice(0, 3);
 
   const animationConfig = {
-    animate: channelsConfig.isChannelsVisible ? 'hidden' : 'visible',
-    initial: 'visible',
+    animate: channelsConfig.isChannelsVisible ? 'channelsHidden' : 'channelsVisible',
+    initial: 'channelsVisible',
     transition: { duration: 0.5 },
   };
 
@@ -50,8 +50,8 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
           <motion.div
             className={styles.arrowContainer}
             variants={{
-              visible: { rotateX: 180 },
-              hidden: { rotateX: 0 },
+              channelsVisible: { rotateX: 180 },
+              channelsHidden: { rotateX: 0 },
             }}
             {...animationConfig}
           >
@@ -63,8 +63,8 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
               <motion.div
                 className={styles.logoContainer}
                 variants={{
-                  visible: { left: -22, scale: 0.5 },
-                  hidden: { left: 0, scale: 1 },
+                  channelsVisible: { left: -22, scale: 0.5 },
+                  channelsHidden: { left: 0, scale: 1 },
                 }}
                 {...animationConfig}
               >
@@ -73,7 +73,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
 
               <motion.div
                 className={styles.zoneNameContainer}
-                variants={{ visible: { opacity: 0 }, hidden: { opacity: 1 } }}
+                variants={{ channelsVisible: { opacity: 0 }, channelsHidden: { opacity: 1 } }}
                 {...animationConfig}
               >
                 <span className={styles.value}>{parentZone?.name}</span>
@@ -84,7 +84,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
 
             <motion.div
               className={styles.zoneContainer}
-              variants={{ visible: { left: 0 }, hidden: { left: 233 } }}
+              variants={{ channelsVisible: { left: 0 }, channelsHidden: { left: 233 } }}
               {...animationConfig}
             >
               <div className={styles.logoContainer}>
@@ -93,7 +93,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
 
               <motion.div
                 className={styles.zoneInfoContainer}
-                variants={{ visible: { top: 0 }, hidden: { top: 8 } }}
+                variants={{ channelsVisible: { top: 0 }, channelsHidden: { top: 8 } }}
                 {...animationConfig}
               >
                 <div className={styles.zoneNameContainer}>
@@ -104,7 +104,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
 
                 <motion.div
                   className={styles.channelsText}
-                  variants={{ visible: { opacity: 0.5 }, hidden: { opacity: 0 } }}
+                  variants={{ channelsVisible: { opacity: 0.5 }, channelsHidden: { opacity: 0 } }}
                   {...animationConfig}
                 >
                   {zone.channels.length} Channel{zone.channels.length !== 1 ? 's' : ''}
@@ -181,22 +181,22 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
         </td>
       </tr>
 
-      {channelsConfig.isChannelsVisible &&
-        channelsToShow.map((channel, index) => (
-          <ChannelRow
-            key={`${channel.channelId}_${channel.zoneCounterpartyChannelId}`}
-            channel={channel}
-            index={index}
-            parentZone={parentZone}
-            zone={zone}
-          />
-        ))}
-
       {channelsConfig.isChannelsVisible && (
-        <ShowMoreRow
-          count={zone.channels.length - channelsToShow.length}
-          showMoreChannels={showMoreChannels}
-        />
+        <>
+          {channelsToShow.map((channel, index) => (
+            <ChannelRow
+              key={`${channel.channelId}_${channel.zoneCounterpartyChannelId}`}
+              channel={channel}
+              index={index}
+              parentZone={parentZone}
+              zone={zone}
+            />
+          ))}
+          <ShowMoreRow
+            count={zone.channels.length - channelsToShow.length}
+            showMoreChannels={showMoreChannels}
+          />
+        </>
       )}
     </>
   );

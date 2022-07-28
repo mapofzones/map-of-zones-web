@@ -16,7 +16,7 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {count ? (
+      {!!count && (
         <TableRowItem isSticky={true}>
           <div className={styles.arrowContainer}>
             <div className={styles.position}>...</div>
@@ -27,9 +27,8 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
             <ArrowDown className={styles.arrowIcon} />
           </div>
         </TableRowItem>
-      ) : (
-        <TableRowItem isSticky={true} />
       )}
+      {!count && <TableRowItem isSticky={true} />}
       <TableRowItem withBorder={true} />
       <TableRowItem />
       <TableRowItem withBorder={true} />

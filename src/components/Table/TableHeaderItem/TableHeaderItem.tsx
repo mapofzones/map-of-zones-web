@@ -31,7 +31,7 @@ export function TableHeaderItem({
       })}
       onClick={onClick}
     >
-      <span>
+      <span className={styles.circleContainer}>
         {!!circleType && (
           <div
             className={cn(styles.circle, {

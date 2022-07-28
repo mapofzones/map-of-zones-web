@@ -24,9 +24,8 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
 
         <div className={styles.channelsContainer}>
           <div className={styles.channel}>{channel.channelId}</div>
-          {channel.isOpened ? (
-            <div className={styles.statusContainer} />
-          ) : (
+          {channel.isOpened && <div className={styles.statusContainer} />}
+          {!channel.isOpened && (
             <div className={cn(styles.statusContainer, styles.statusClosedContainer)}>
               <ChannelClosedIcon />
             </div>
