@@ -28,7 +28,7 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
           </div>
         </TableRowItem>
       ) : (
-        <td className={cn(styles.columnContainer, styles.sticky)} />
+        <TableRowItem isSticky={true} />
       )}
       <TableRowItem withBorder={true} />
       <TableRowItem />

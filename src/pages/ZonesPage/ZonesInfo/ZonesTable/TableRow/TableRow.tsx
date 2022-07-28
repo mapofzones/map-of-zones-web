@@ -123,7 +123,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         />
       </TableRowItem>
 
-      <TableRowItem withBorder={true}>
+      <TableRowItem>
         {zone.ibcTransfersChart && <LineChart data={zone.ibcTransfersChart} dataKey="txs" />}
       </TableRowItem>
     </tr>

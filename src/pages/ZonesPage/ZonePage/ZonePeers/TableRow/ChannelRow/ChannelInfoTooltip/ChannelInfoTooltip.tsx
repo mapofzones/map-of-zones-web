@@ -26,7 +26,7 @@ export function ChannelInfoTooltip({
 
         <div className={styles.divider} />
 
-        <div className={styles.connection}>Poor connection</div>
+        {!channel.isOpened && <div className={styles.connection}>Poor connection</div>}
 
         {channel.clientId && <TooltipValue title="Client ID" subtitle={channel.clientId} />}
 
@@ -44,6 +44,8 @@ export function ChannelInfoTooltip({
             subtitle={channel.zoneCounterpartyChannelId}
           />
         )}
+
+        <div className={styles.triangle} />
       </Tooltip>
     </div>
   );
