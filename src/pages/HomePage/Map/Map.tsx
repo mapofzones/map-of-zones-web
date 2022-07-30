@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import cn from 'classnames';
 import ForceGraph2D, { NodeObject } from 'react-force-graph-2d';
 
 import { Button } from 'components';
@@ -62,10 +63,14 @@ export function Map() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.legend}>
+        <span className={cn(styles.circle, styles.sendCircle)}></span>Mainly Sends
+        <span className={cn(styles.circle, styles.receiveCircle)}></span>Mainly Receives
+      </div>
       <ForceGraph2D
         ref={graphRef}
         nodeId="zone"
-        nodeLabel={undefined}
+        nodeLabel={''}
         height={document.documentElement.clientHeight}
         width={document.documentElement.clientWidth - 360}
         graphData={graphData}
