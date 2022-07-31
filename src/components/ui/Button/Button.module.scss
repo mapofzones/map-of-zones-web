@@ -14,13 +14,17 @@
   border-radius: 5px;
   cursor: pointer;
 
+  .content {
+    margin-left: 6px;
+  }
+
   .icon {
     display: flex;
-    margin-right: 6px;
 
     line-height: 15px;
 
     fill: var(--grey-800);
+    stroke: var(--grey-800);
   }
 
   &:hover {
@@ -28,6 +32,16 @@
 
     .icon {
       fill: var(--white);
+      stroke: var(--white);
+    }
+  }
+
+  &:disabled {
+    background-color: var(--black-500);
+
+    .icon {
+      fill: var(--grey-100);
+      stroke: var(--grey-100);
     }
   }
 }
