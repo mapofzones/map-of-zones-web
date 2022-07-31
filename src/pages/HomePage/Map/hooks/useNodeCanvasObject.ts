@@ -5,6 +5,7 @@ import { NodeObject } from 'react-force-graph-2d';
 import { HoveredZoneKeyType, Link, MapNode, SelectedZoneKeyType } from '../Types';
 
 const TEXT_PADDING_TOP = 3;
+const FONT_WEIGHT = 400;
 
 function isNeighbor(
   activeZoneKey: string | undefined,
@@ -114,14 +115,12 @@ function drawTitle(
     return;
   }
 
-  const fontWeight = 400;
-  const nameInCamelCase = name[0].toUpperCase() + name.substring(1);
   const deltaY = radius + fontSize / 2 + TEXT_PADDING_TOP;
   const textColor = isFaded ? '#33333D' : isNormal ? '#9F9FA5' : '#FFFFFF';
 
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = `${fontWeight} ${fontSize}px Roboto Mono`;
+  ctx.font = `${FONT_WEIGHT} ${fontSize}px Roboto Mono`;
   ctx.fillStyle = textColor;
-  ctx.fillText(nameInCamelCase, x, y + deltaY);
+  ctx.fillText(name, x, y + deltaY);
 }
