@@ -1,4 +1,4 @@
-import { ScrollUpButton, TableHeader } from 'components';
+import { ScrollUpButton, Table } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
@@ -25,24 +25,20 @@ export function ZonePeers() {
 
   return (
     <div className={styles.container}>
-      <table className={styles.tableContainer}>
-        <TableHeader
-          className={styles.tableHeader}
-          config={TABLE_HEADER_CONFIG}
-          selectedColumnKey={selectedColumnKey}
-          setSelectedColumnKey={setSelectedColumnKey}
-        />
-
-        <tbody>
-          {data.map((zone) => (
-            <TableRow
-              key={`zone_${zone.zoneCounterpartyKey}`}
-              parentZone={parentZoneData}
-              zone={zone}
-            />
-          ))}
-        </tbody>
-      </table>
+      <Table
+        className={styles.table}
+        headerConfig={TABLE_HEADER_CONFIG}
+        selectedColumnKey={selectedColumnKey}
+        setSelectedColumnKey={setSelectedColumnKey}
+      >
+        {data.map((zone) => (
+          <TableRow
+            key={`zone_${zone.zoneCounterpartyKey}`}
+            parentZone={parentZoneData}
+            zone={zone}
+          />
+        ))}
+      </Table>
 
       <ScrollUpButton />
     </div>
