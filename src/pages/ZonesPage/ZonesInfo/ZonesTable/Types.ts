@@ -1,4 +1,4 @@
-import { CircleType } from 'components/Table/TableHeaderItem/TableHeaderItem.props';
+import { CircleType } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
 
 export enum ColumnKeys {

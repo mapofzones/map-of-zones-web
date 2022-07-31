@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components/PeriodSelector/Types';
 import { ZonesListZonePeersDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZonePeers.generated';
 
-import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
 import { ZoneData } from './TableRow/TableRow.props';
+import { ColumnKeys, SORTING_COLUMN_KEYS } from './Types';
 
 export function usePeersTable(
   selectedPeriod: PeriodKeys,

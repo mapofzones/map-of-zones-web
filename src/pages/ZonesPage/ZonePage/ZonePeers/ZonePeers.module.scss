@@ -4,4 +4,15 @@
   .tableContainer {
     margin-bottom: 8px;
   }
+
+  .tableHeader {
+    th {
+      &:first-child {
+        width: 100%;
+        min-width: 460px;
+
+        text-align: left;
+      }
+    }
+  }
 }

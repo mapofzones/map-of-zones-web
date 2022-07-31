@@ -1,11 +1,10 @@
-import { ScrollUpButton } from 'components';
+import { ScrollUpButton, TableHeader } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { useZonesListZoneDetails } from '../useZonesListZoneDetails';
-import { TableHeader } from './TableHeader/TableHeader';
-import { ColumnKeys } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
+import { ColumnKeys, TABLE_HEADER_CONFIG } from './Types';
 import { usePeersTable } from './usePeersTable';
 import styles from './ZonePeers.module.scss';
 
@@ -28,6 +27,8 @@ export function ZonePeers() {
     <div className={styles.container}>
       <table className={styles.tableContainer}>
         <TableHeader
+          className={styles.tableHeader}
+          config={TABLE_HEADER_CONFIG}
           selectedColumnKey={selectedColumnKey}
           setSelectedColumnKey={setSelectedColumnKey}
         />

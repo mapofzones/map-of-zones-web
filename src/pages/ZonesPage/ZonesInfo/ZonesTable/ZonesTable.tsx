@@ -1,10 +1,9 @@
-import { PeriodSelector } from 'components';
+import { PeriodSelector, TableHeader } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
-import { TableHeader } from './TableHeader/TableHeader';
-import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
+import { ColumnKeys, SORTING_COLUMN_KEYS, TABLE_HEADER_CONFIG } from './Types';
 import { useZonesCount } from './useZonesCount';
 import { useZonesTable } from './useZonesTable';
 import styles from './ZonesTable.module.scss';
@@ -39,6 +38,8 @@ export function ZonesTable() {
 
       <table className={styles.tableContainer}>
         <TableHeader
+          className={styles.tableHeader}
+          config={TABLE_HEADER_CONFIG}
           selectedColumnKey={selectedColumnKey}
           setSelectedColumnKey={setSelectedColumnKey}
         />
