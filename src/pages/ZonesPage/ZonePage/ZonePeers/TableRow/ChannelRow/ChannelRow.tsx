@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 
-import { NumberType, TableRowItem, ValueWithPending } from 'components';
+import { NumberType, PendingValue, TableRowItem, ValueWithPending } from 'components';
 import { ChannelClosedIcon } from 'icons';
 
 import { ChannelInfoTooltip } from './ChannelInfoTooltip/ChannelInfoTooltip';
@@ -80,11 +80,11 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
       </TableRowItem>
 
       <TableRowItem>
-        <ValueWithPending
+        <PendingValue
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
-          value={channel.ibcTransfersPending}
+          value={zone.ibcTransfersPending}
         />
       </TableRowItem>
 
