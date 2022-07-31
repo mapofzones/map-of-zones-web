@@ -5,7 +5,7 @@ import { ExplanationTooltip } from 'components';
 import styles from './TableHeaderItem.module.scss';
 import { CircleType, TableHeaderItemProps } from './TableHeaderItem.props';
 
-export function TableHeaderItem({
+export function TableHeaderItem<T extends string>({
   circleType,
   columnKey,
   explanationText,
@@ -14,7 +14,7 @@ export function TableHeaderItem({
   setSelectedColumnKey,
   title,
   withBorder = false,
-}: TableHeaderItemProps<any>) {
+}: TableHeaderItemProps<T>) {
   const onClick = () => {
     if (columnKey && !isSelected) {
       setSelectedColumnKey(columnKey);

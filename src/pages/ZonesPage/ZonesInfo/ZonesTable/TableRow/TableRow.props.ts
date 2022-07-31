@@ -2,7 +2,7 @@ import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 import { ChartItemByString } from 'utils/helper';
 
-import { ColumnKeys } from '../TableHeader/Types';
+import { ColumnKeys } from '../Types';
 
 export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

@@ -10,7 +10,7 @@ import {
   TableRowItem,
 } from 'components';
 
-import { ColumnKeys } from '../TableHeader/Types';
+import { ColumnKeys } from '../Types';
 import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
 
