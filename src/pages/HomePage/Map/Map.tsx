@@ -5,6 +5,7 @@ import ForceGraph2D, { NodeObject } from 'react-force-graph-2d';
 
 import { Button } from 'components';
 import { ZoomIn, ZoomOut } from 'icons';
+import { debounce } from 'utils/timer';
 
 import { useClearSelectedNode, useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useGraphData } from './hooks/useGraphData';
@@ -20,6 +21,24 @@ export function Map() {
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
   const { graphData, loading } = useGraphData();
   const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
+
+  const [windowSize, setWindowSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  useEffect(() => {
+    const withDebounce = debounce(
+      () => setWindowSize({ height: window.innerHeight, width: window.innerWidth }),
+      100
+    );
+
+    window.addEventListener('resize', withDebounce);
+
+    return () => {
+      window.removeEventListener('resize', withDebounce);
+    };
+  }, []);
 
   const graphRef = useRef<any>();
   useEffect(() => {
@@ -71,8 +90,8 @@ export function Map() {
         ref={graphRef}
         nodeId="zone"
         nodeLabel={''}
-        height={document.documentElement.clientHeight}
-        width={document.documentElement.clientWidth - 360}
+        height={windowSize.height}
+        width={windowSize.width - 360}
         graphData={graphData}
         nodeCanvasObject={nodeCanvasObject}
         linkCanvasObject={linkCanvasObject}
