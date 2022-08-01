@@ -1,15 +1,16 @@
 import cn from 'classnames';
 
 import styles from './Table.module.scss';
+import { TableProps } from './Table.props';
 import { TableHeader } from './TableHeader/TableHeader';
 
-export function Table({
+export function Table<T extends string>({
   children,
   className,
   headerConfig,
   selectedColumnKey,
   setSelectedColumnKey,
-}: any) {
+}: TableProps<T>) {
   return (
     <table className={cn(styles.tableContainer, className)}>
       <TableHeader
