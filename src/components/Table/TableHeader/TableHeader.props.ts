@@ -15,7 +15,7 @@ export interface ConfigItem<T extends string> extends Object {
 export interface TableHeaderProps<T extends string>
   extends DetailedHTMLProps<HTMLAttributes<HTMLTableCellElement>, HTMLTableCellElement> {
   className?: string;
-  config: Array<ConfigItem<T>>;
+  config: ConfigItem<T>[];
   selectedColumnKey: T;
   setSelectedColumnKey: (value: T) => void;
 }
