@@ -1,12 +1,16 @@
 import cn from 'classnames';
 
+import { NumberFormat, NumberType } from 'components/ui';
+
 import styles from './RatingDiffTriangle.module.scss';
 
 export function RatingDiffTriangle({
   className,
+  numberType = NumberType.Number,
   ratingDiff,
 }: {
   className?: string;
+  numberType?: NumberType;
   ratingDiff?: number;
 }): JSX.Element {
   if (!ratingDiff) {
@@ -21,7 +25,7 @@ export function RatingDiffTriangle({
           [styles.triangleDown]: ratingDiff < 0,
         })}
       />
-      {Math.abs(ratingDiff)}
+      <NumberFormat value={Math.abs(ratingDiff)} numberType={numberType} />
     </div>
   );
 }
