@@ -1,0 +1,44 @@
+.container {
+  width: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 24px 16px;
+
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  .table {
+    th {
+      &:first-child {
+        position: sticky;
+        z-index: 100;
+
+        padding-right: 0;
+
+        background-color: var(--black-100);
+      }
+
+      &:nth-child(2) {
+        position: sticky;
+        left: 42px; // TODO: calculate dynamically
+        z-index: 100;
+
+        width: 100%;
+        padding-left: 16px;
+
+        background-color: var(--black-100);
+      }
+
+      &:nth-last-child(2) {
+        padding-right: 0;
+      }
+
+      &:last-child {
+        padding-left: 96px;
+      }
+    }
+  }
+}

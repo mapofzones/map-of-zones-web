@@ -11,7 +11,7 @@ export function RatingDiffTriangle({
 }: {
   className?: string;
   numberType?: NumberType;
-  ratingDiff?: number;
+  ratingDiff?: number | null;
 }): JSX.Element {
   if (!ratingDiff) {
     return <></>;

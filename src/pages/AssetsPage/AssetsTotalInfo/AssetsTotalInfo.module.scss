@@ -4,7 +4,7 @@
   margin: 12px 16px;
 
   .itemContainer {
-    max-height: 80px;
+    height: 80px;
     margin: 0 8px;
     padding: 12px 16px;
 
@@ -37,8 +37,8 @@
 
     .totalContainer {
       display: flex;
-      align-items: flex-end;
       flex-direction: column;
+      align-items: flex-end;
 
       .total {
         color: var(--green);
@@ -50,6 +50,7 @@
 
     .value {
       margin-top: 4px;
+
       font-size: 15px;
       line-height: 19px;
       font-feature-settings: 'tnum' on, 'lnum' on;
