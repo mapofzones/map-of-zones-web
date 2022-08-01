@@ -4,13 +4,17 @@ import { NumberFormatProps } from './NumberFormat.props';
 import { NumberType } from './NumberType';
 
 export function NumberFormat({
+  className,
   defaultValue = '-',
   numberType = NumberType.Number,
-  className,
+  prefix,
+  suffix,
   ...props
 }: NumberFormatProps) {
-  const prefix = numberType === NumberType.Currency ? '$' : '';
-  const suffix = numberType === NumberType.Percent ? ' %' : '';
+  const parsedPrefix =
+    prefix === undefined ? (numberType === NumberType.Currency ? '$' : '') : prefix;
+  const parsedSuffix =
+    suffix === undefined ? (numberType === NumberType.Percent ? '%' : '') : suffix;
   const decimalScale = numberType === NumberType.Percent ? 2 : undefined;
   const decimalSeparator = numberType === NumberType.Percent ? ',' : '.';
   const thousandSeparator = numberType === NumberType.Currency ? ',' : ' ';
@@ -21,8 +25,8 @@ export function NumberFormat({
       defaultValue={defaultValue}
       displayType={'text'}
       thousandSeparator={thousandSeparator}
-      prefix={prefix}
-      suffix={suffix}
+      prefix={parsedPrefix}
+      suffix={parsedSuffix}
       decimalScale={decimalScale}
       decimalSeparator={decimalSeparator}
       {...props}

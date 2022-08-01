@@ -8,5 +8,7 @@ export interface ValueWithPendingProps
   className?: string;
   numberType: NumberType;
   pendingValue?: number | null;
+  prefix?: string;
+  suffix?: string;
   value?: number | null;
 }

@@ -11,6 +11,8 @@ export function PendingValue({
   alignRight = false,
   className,
   numberType = NumberType.Number,
+  prefix,
+  suffix,
   value,
   ...props
 }: PendingValueProps) {
@@ -26,7 +28,13 @@ export function PendingValue({
       {...props}
     >
       <PendingIcon />
-      <NumberFormat className={styles.value} value={value} numberType={numberType} />
+      <NumberFormat
+        className={styles.value}
+        numberType={numberType}
+        prefix={prefix}
+        suffix={suffix}
+        value={value}
+      />
     </span>
   );
 }

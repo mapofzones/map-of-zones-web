@@ -7,5 +7,7 @@ export interface PendingValueProps
   alignRight?: boolean;
   className?: string;
   numberType: NumberType;
+  prefix?: string;
+  suffix?: string;
   value?: number | null;
 }

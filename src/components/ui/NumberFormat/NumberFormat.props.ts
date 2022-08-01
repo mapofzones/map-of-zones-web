@@ -6,4 +6,6 @@ export interface NumberFormatProps extends FormatProps {
   className?: string;
   defaultValue?: string;
   numberType?: NumberType;
+  prefix?: string;
+  suffix?: string;
 }
