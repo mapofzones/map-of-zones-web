@@ -1,4 +1,7 @@
-import { CircleType } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
+import {
+  Align,
+  CircleType,
+} from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
 
 export enum ColumnKeys {
@@ -22,9 +25,11 @@ export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Zones_Stats_Select_Column> 
 export const TABLE_HEADER_CONFIG = [
   {
     title: '#',
+    align: Align.Center,
   },
   {
     title: 'Name',
+    align: Align.Left,
   },
   {
     title: 'IBC Volume',

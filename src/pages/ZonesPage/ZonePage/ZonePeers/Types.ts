@@ -1,4 +1,7 @@
-import { CircleType } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
+import {
+  Align,
+  CircleType,
+} from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
 import { Ft_Channel_Group_Stats_Select_Column } from 'graphql/base-types';
 
 export enum ColumnKeys {
@@ -23,6 +26,7 @@ export const TABLE_HEADER_CONFIG = [
   {
     title: 'Peer',
     isSticky: true,
+    align: Align.Left,
   },
   {
     title: 'Total IBC Volume',

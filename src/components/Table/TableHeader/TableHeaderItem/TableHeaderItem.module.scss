@@ -12,26 +12,31 @@ th {
 
   border-bottom: 1px solid var(--black-700);
 
-  .circleContainer {
+  .contentContainer {
     display: flex;
     align-items: center;
-    padding-bottom: 5px;
+    justify-content: flex-end;
 
     .circle {
       display: inline-block;
       width: 7px;
       height: 7px;
       margin-right: 4px;
-
+      margin-bottom: 6px;
+  
       border-radius: 50%;
-
+  
       &.source {
         background-color: var(--pink);
       }
-
+  
       &.target {
         background-color: var(--blue);
       }
+    }
+
+    .titleContainer {
+      padding-bottom: 6px;
     }
   }
 
@@ -71,8 +76,20 @@ th {
     }
   }
 
+  &.alignCenter {
+    .contentContainer {
+      justify-content: center;
+    } 
+  }
+
+  &.alignLeft {
+    .contentContainer {
+      justify-content: flex-start;
+    } 
+  }
+
   &.selected {
-    .circleContainer {
+    .titleContainer {
       color: var(--white);
 
       border-bottom: 1px solid var(--white);
