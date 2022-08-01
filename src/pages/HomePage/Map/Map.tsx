@@ -16,7 +16,7 @@ import { Link, MapNode } from './Types';
 
 const ZOOM_VALUES = [0.75, 1, 1.5, 2.25];
 
-export function Map() {
+export function Map({ className }: any) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
   const { graphData, loading } = useGraphData();
@@ -81,7 +81,7 @@ export function Map() {
   }, [isZoomOutDisabled, currentZoomIndex]);
 
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, className)}>
       <div className={styles.legend}>
         <span className={cn(styles.circle, styles.sendCircle)}></span>Mainly Sends
         <span className={cn(styles.circle, styles.receiveCircle)}></span>Mainly Receives

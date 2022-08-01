@@ -6,7 +6,7 @@ import { Map } from './Map/Map';
 export function HomePage() {
   return (
     <div className={styles.pageContainer}>
-      <Map />
+      <Map className={styles.map} />
       <Outlet />
     </div>
   );

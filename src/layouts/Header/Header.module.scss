@@ -1,57 +1,75 @@
 .container {
   z-index: 1000;
 
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
-  padding: 10px 16px 0;
+  padding: 0 16px;
 
   background: var(--black-100);
   opacity: 0.7;
   backdrop-filter: blur(8px);
 
-  nav {
-    margin-left: 20px;
+  .logoContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
 
-    a {
-      padding: 5px 10px;
-
+    .tagline {
       color: var(--grey-500);
-
-      &:hover {
-        color: var(--grey-800);
-      }
-
-      &:global(.active) {
-        color: var(--white);
-
-        background-color: var(--black-700);
-        border-radius: 5px;
-      }
+      font-size: 7px;
+      line-height: 11px;
     }
   }
 
-  .marketCapContainer {
-    font-size: 13px;
-
-    .marketCapTitle {
-      color: var(--grey-500);
-    }
-  }
-
-  .tagline {
-    color: var(--grey-500);
-    font-size: 9px;
-    line-height: 11px;
-  }
-
-  .line {
-    grid-column-start: 2;
-    grid-column-end: 4;
+  .headerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    margin-left: 1px;
+    height: 100%;
+    margin-bottom: 6px;
 
-    border: none;
-    border-top: 1px solid var(--black-900);
+    border-bottom: 1px solid var(--black-900);
+
+    nav {
+      margin-left: 20px;
+
+      a {
+        padding: 5px 10px;
+
+        color: var(--grey-500);
+
+        &:hover {
+          color: var(--grey-800);
+        }
+
+        &:global(.active) {
+          color: var(--white);
+
+          background-color: var(--black-700);
+          border-radius: 5px;
+        }
+      }
+    }
+
+    .marketCapContainer {
+      font-size: 13px;
+
+      .marketCapTitle {
+        color: var(--grey-500);
+      }
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .container {
+    .marketCapContainer {
+      display: none;
+    }
+
+    .line {
+      display: none;
+    }
   }
 }
