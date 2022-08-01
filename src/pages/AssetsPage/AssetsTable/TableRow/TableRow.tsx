@@ -50,6 +50,7 @@ export function TableRow({ asset, index, selectedColumnKey }: TableRowProps) {
 
       <TableRowItem>
         <RatingDiffTriangle
+          allowEmpty={true}
           className={styles.value}
           numberType={NumberType.Percent}
           ratingDiff={asset.price24hPercent}
@@ -58,6 +59,7 @@ export function TableRow({ asset, index, selectedColumnKey }: TableRowProps) {
 
       <TableRowItem>
         <RatingDiffTriangle
+          allowEmpty={true}
           className={styles.value}
           numberType={NumberType.Percent}
           ratingDiff={asset.price7dPercent}
@@ -84,6 +86,7 @@ export function TableRow({ asset, index, selectedColumnKey }: TableRowProps) {
 
       <TableRowItem>
         <RatingDiffTriangle
+          allowEmpty={true}
           className={styles.value}
           numberType={NumberType.Percent}
           ratingDiff={asset.volume24hPercent}
@@ -94,7 +97,8 @@ export function TableRow({ asset, index, selectedColumnKey }: TableRowProps) {
         <ValueWithPending
           alignRight={true}
           className={styles.value}
-          numberType={NumberType.Number}
+          numberType={NumberType.Currency}
+          prefix=""
           value={asset.supply}
         />
       </TableRowItem>

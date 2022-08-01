@@ -1,15 +1,12 @@
 import cn from 'classnames';
 
 import { LineChart, NumberType, RatingDiffTriangle, ValueWithPending, ZoneLogo } from 'components';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import styles from './AssetsTotalInfo.module.scss';
 import { useAssetsTotalInfo } from './useAssetsTotalInfo';
 
 export function AssetsTotalInfo(): JSX.Element {
-  const [selectedPeriod] = useSelectedPeriod();
-
-  const { data: zonesTotalInfo } = useAssetsTotalInfo(selectedPeriod);
+  const { data: zonesTotalInfo } = useAssetsTotalInfo();
 
   if (!zonesTotalInfo) {
     return <></>;
@@ -19,11 +16,11 @@ export function AssetsTotalInfo(): JSX.Element {
     <div className={styles.container}>
       <div className={cn(styles.itemContainer, styles.withChart)}>
         <div>
-          <div className={styles.title}>{selectedPeriod} Trading Volume</div>
+          <div className={styles.title}>24h Trading Volume</div>
           <ValueWithPending
             className={styles.value}
             numberType={NumberType.Currency}
-            value={995345645124}
+            value={zonesTotalInfo.volume24h}
           />
         </div>
 
@@ -41,45 +38,43 @@ export function AssetsTotalInfo(): JSX.Element {
         <ValueWithPending
           className={styles.value}
           numberType={NumberType.Currency}
-          value={198308551250}
+          value={zonesTotalInfo.marketCap}
         />
       </div>
 
-      <div className={cn(styles.itemContainer, styles.doubleItemContainer)}>
+      <div className={cn(styles.itemContainer, styles.doubleItem)}>
         <div className={styles.title}>All Assets</div>
         <ValueWithPending
-          className={cn(styles.value, styles.doublevalue)}
+          className={styles.value}
           numberType={NumberType.Number}
-          value={35}
+          value={zonesTotalInfo.assetsCount}
         />
       </div>
 
       <div className={cn(styles.itemContainer, styles.topItem)}>
         <div className={styles.zoneInfoContainer}>
-          <ZoneLogo
-            logoUrl="https://storage.mapofzones.com/frontend/labels/Cosmos40.svg"
-            className={styles.logo}
-          />
+          <ZoneLogo logoUrl={zonesTotalInfo.topMarketLogo} className={styles.logo} />
           <div>
             <div className={styles.title}>Atom Market Cap Dominance</div>
-            <div className={styles.value}>Cosmos</div>
+            <div className={styles.value}>{zonesTotalInfo.topMarketName}</div>
           </div>
         </div>
 
         <div className={styles.totalContainer}>
-          <ValueWithPending className={styles.total} value={35} numberType={NumberType.Percent} />
+          <ValueWithPending
+            className={styles.total}
+            value={zonesTotalInfo.topMarketDominance}
+            numberType={NumberType.Percent}
+          />
         </div>
       </div>
 
       <div className={cn(styles.itemContainer, styles.topItem)}>
         <div className={styles.zoneInfoContainer}>
-          <ZoneLogo
-            logoUrl="https://storage.mapofzones.com/frontend/labels/Cosmos40.svg"
-            className={styles.logo}
-          />
+          <ZoneLogo logoUrl={zonesTotalInfo.topMoverLogo} className={styles.logo} />
           <div>
             <div className={styles.title}>Top Mover</div>
-            <div className={styles.value}>Desmos</div>
+            <div className={styles.value}>{zonesTotalInfo.topMoverName}</div>
           </div>
         </div>
 
@@ -87,12 +82,12 @@ export function AssetsTotalInfo(): JSX.Element {
           <RatingDiffTriangle
             className={styles.total}
             numberType={NumberType.Percent}
-            ratingDiff={1.54}
+            ratingDiff={zonesTotalInfo.topMoverRating}
           />
           <ValueWithPending
             className={styles.value}
             numberType={NumberType.Currency}
-            value={760644271905}
+            value={zonesTotalInfo.topMoverValue}
           />
         </div>
       </div>

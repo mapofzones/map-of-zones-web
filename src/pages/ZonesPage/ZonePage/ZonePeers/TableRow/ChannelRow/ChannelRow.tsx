@@ -101,6 +101,7 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
         <ValueWithPending
           alignRight={true}
           className={styles.value}
+          suffix=" %"
           numberType={NumberType.Percent}
           value={channel.successRate}
         />

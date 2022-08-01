@@ -176,6 +176,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
             alignRight={true}
             className={styles.value}
             numberType={NumberType.Percent}
+            suffix=" %"
             value={zone.successRate}
           />
         </td>

@@ -12,22 +12,6 @@
     border-radius: 4px;
     box-shadow: 0 8px 15px rgb(0 0 0 / 30%);
 
-    &.doubleItem {
-      &_value {
-        font-size: 24px;
-        line-height: 30px;
-      }
-    }
-
-    &.topItem {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &.withChart {
-      display: flex;
-    }
-
     .title {
       color: var(--grey-500);
       font-size: 13px;
@@ -62,6 +46,22 @@
       .logo {
         margin-right: 12px;
       }
+    }
+
+    &.doubleItem {
+      .value {
+        font-size: 24px;
+        line-height: 30px;
+      }
+    }
+
+    &.topItem {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &.withChart {
+      display: flex;
     }
   }
 }
