@@ -36,7 +36,7 @@
 
     border-bottom: 1px solid var(--black-900);
 
-    nav {
+    .menu {
       margin-left: 20px;
 
       a {
@@ -89,21 +89,24 @@
 
       border: none;
 
-      nav {
-        display: none;
+      .menu {
+        position: absolute;
+        top: -100%;
+        left: -100%;
+
+        display: flex;
+        flex-direction: column;
         margin-left: 0;
         padding-top: 10px;
 
         background-color: #0e0e16;
 
         &.opened {
-          position: absolute;
-          top: 63px;
+          top: 62px;
           left: 0;
 
-          display: flex;
-          flex-direction: column;
           width: 100%;
+          height: auto;
 
           a {
             margin: 0 24px;

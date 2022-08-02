@@ -1,6 +1,6 @@
-export function debounce(this: unknown, fn: any, ms: number) {
+export function debounce(this: unknown, fn: () => void, ms: number) {
   let timer: number | undefined;
-  return (_: unknown) => {
+  return () => {
     clearTimeout(timer);
     timer = setTimeout((_) => {
       timer = undefined;

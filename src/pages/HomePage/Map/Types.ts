@@ -29,7 +29,7 @@ export interface ZoneLink {
   __typename?: 'zones_graphs';
   source: string;
   target: string;
-  ibcVolume?: any | null;
+  ibcVolume?: number | null;
 }
 
 export interface ZoneStat {

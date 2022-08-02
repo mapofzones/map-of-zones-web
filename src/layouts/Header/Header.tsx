@@ -1,25 +1,33 @@
-import { useState } from 'react';
-
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
+import { useComponentVisible } from 'hooks/useComponentVisible';
 import { Logo } from 'icons';
 
-import { Burger } from './Burger/Burger';
+import { BurgerWithRef } from './Burger/Burger';
 import styles from './Header.module.scss';
 
 function Header({ ...props }): JSX.Element {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {
+    ref,
+    isVisible: isMenuOpen,
+    setIsVisible: setIsMenuOpen,
+  } = useComponentVisible<HTMLDivElement>(false);
 
   return (
     <header className={styles.container} {...props}>
-      <Burger className={styles.burgerIcon} isOpened={isMenuOpen} setIsOpened={setIsMenuOpen} />
+      <BurgerWithRef
+        ref={ref}
+        className={styles.burgerIcon}
+        isOpened={isMenuOpen}
+        setIsOpened={setIsMenuOpen}
+      />
       <div className={styles.logoContainer}>
         <Logo />
         <span className={styles.tagline}>Cosmos network explorer</span>
       </div>
       <div className={styles.headerContent}>
-        <nav className={cn({ [styles.opened]: isMenuOpen })} onClick={() => setIsMenuOpen(false)}>
+        <nav className={cn(styles.menu, { [styles.opened]: isMenuOpen })}>
           <NavLink to="/home">Home</NavLink>
           <NavLink to="/zones">Zones</NavLink>
           <NavLink to="/assets">Assets</NavLink>
@@ -30,7 +38,6 @@ function Header({ ...props }): JSX.Element {
           <span className={styles.marketCapValue}>$198,308,551,250</span>
         </div>
       </div>
-      {/* <hr className={styles.line} /> */}
     </header>
   );
 }

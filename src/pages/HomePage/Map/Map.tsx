@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import cn from 'classnames';
-import ForceGraph2D, { NodeObject } from 'react-force-graph-2d';
+import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
 import { Button } from 'components';
 import { ZoomIn, ZoomOut } from 'icons';
@@ -16,7 +16,7 @@ import { Link, MapNode } from './Types';
 
 const ZOOM_VALUES = [0.75, 1, 1.5, 2.25];
 
-export function Map({ className }: any) {
+export function Map({ className }: { className: string }) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
   const { graphData, loading } = useGraphData();
@@ -40,11 +40,11 @@ export function Map({ className }: any) {
     };
   }, []);
 
-  const graphRef = useRef<any>();
+  const graphRef = useRef<ForceGraphMethods>();
   useEffect(() => {
     const fg = graphRef.current;
-    fg.d3Force('link', null);
-    fg.d3Force('charge').strength(-10);
+    fg?.d3Force('link', null as never);
+    fg?.d3Force('charge')?.strength(-10);
   }, []);
 
   const nodeCanvasObject = useNodeCanvasObject(
@@ -58,7 +58,7 @@ export function Map({ className }: any) {
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);
 
   useEffect(() => {
-    graphRef.current.zoom(ZOOM_VALUES[currentZoomIndex], 500);
+    graphRef.current?.zoom(ZOOM_VALUES[currentZoomIndex], 500);
   }, [currentZoomIndex]);
 
   const isZoomInDisabled = useMemo(
