@@ -1,0 +1,46 @@
+.container {
+  width: 20px;
+  height: 20px;
+
+  div {
+    position: relative;
+
+    height: 1.2px;
+    margin-bottom: 5px;
+
+    background-color: var(--white);
+    transform-origin: 1px;
+
+    transition: all 0.5s linear;
+
+    &:first-child {
+      transform: rotate(0);
+    }
+
+    &:nth-child(2) {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    &:nth-child(3) {
+      transform: rotate(0);
+    }
+  }
+
+  &.opened {
+    div {
+      &:first-child {
+        transform: rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        transform: translateX(20px);
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}

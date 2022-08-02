@@ -3,11 +3,16 @@
 
   display: flex;
   align-items: center;
+  width: 100vw;
   padding: 0 16px;
 
   background: var(--black-100);
   opacity: 0.7;
   backdrop-filter: blur(8px);
+
+  .burgerIcon {
+    display: none;
+  }
 
   .logoContainer {
     display: flex;
@@ -39,6 +44,8 @@
 
         color: var(--grey-500);
 
+        transition: color 0.3s linear;
+
         &:hover {
           color: var(--grey-800);
         }
@@ -64,12 +71,68 @@
 
 @media (max-width: 630px) {
   .container {
-    .marketCapContainer {
-      display: none;
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+
+    cursor: pointer;
+    opacity: 1;
+    backdrop-filter: none;
+
+    .burgerIcon {
+      display: block;
     }
 
-    .line {
-      display: none;
+    .headerContent {
+      width: auto;
+
+      border: none;
+
+      nav {
+        display: none;
+        margin-left: 0;
+        padding-top: 10px;
+
+        background-color: #0e0e16;
+
+        &.opened {
+          position: absolute;
+          top: 63px;
+          left: 0;
+
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+
+          a {
+            margin: 0 24px;
+            padding: 16px 0;
+
+            color: var(--white);
+
+            border-bottom: 1px solid var(--black-900);
+
+            &:hover {
+              color: var(--grey-400);
+            }
+
+            &:global(.active) {
+              color: var(--grey-400);
+
+              background: none;
+            }
+          }
+        }
+      }
+
+      .marketCapContainer {
+        display: none;
+      }
+
+      .line {
+        display: none;
+      }
     }
   }
 }

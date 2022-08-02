@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: flex-end;
+  width: 100vw;
   padding: 0 16px 8px;
 
   color: var(--grey-500);
@@ -19,10 +20,17 @@
     }
   }
 
+  .externalLinksBlock {
+    grid-area: externalLinksBlock;
+  }
+
+  .emailLinkBlock {
+    grid-area: emailLinkBlock;
+  }
+
   .externalLinksBlock,
   .emailLinkBlock,
-  .socialsBlock,
-  .notListedBlock {
+  .socialsBlock {
     padding: 0 8px;
 
     border-right: 1px solid var(--grey-100);
@@ -30,6 +38,7 @@
 
   .socialsBlock {
     display: flex;
+    grid-area: socialsBlock;
     height: 12px;
 
     .socialLink {
@@ -38,8 +47,60 @@
   }
 
   .notListedBlock {
+    grid-area: notListedBlock;
     padding-right: 0;
 
     border-right: none;
+  }
+}
+
+@media (max-width: 630px) {
+  .container {
+    display: grid;
+    grid-template-areas:
+      'socialsBlock socialsBlock'
+      'emailLinkBlock notListedBlock'
+      'externalLinksBlock externalLinksBlock';
+    justify-content: center;
+    padding: 24px 0;
+    place-items: center;
+
+    .shareButtonsBlock {
+      display: none;
+    }
+
+    .externalLinksBlock,
+    .socialsBlock {
+      border: none;
+    }
+
+    .socialsBlock {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      height: auto;
+      margin-bottom: 28px;
+      place-items: center;
+
+      span {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        margin-bottom: 12px;
+      }
+
+      .socialLink {
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+
+        background: var(--black-900);
+        border-radius: 50%;
+      }
+    }
+
+    .externalLinksBlock {
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
   }
 }
