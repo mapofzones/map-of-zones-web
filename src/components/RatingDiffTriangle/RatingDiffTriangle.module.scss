@@ -6,28 +6,28 @@
   font-size: 13px;
   line-height: 16px;
 
+  .triangle {
+    width: 0;
+    height: 0;
+    margin-right: 2px;
+  }
+
   &.negative {
     color: var(--red);
+
+    .triangle {
+      border-top: 8px solid var(--red);
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+    }
   }
 
   &.positive {
     color: var(--green);
-  }
 
-  .triangle {
-    margin-right: 2px;
-    width: 0;
-    height: 0;
-
-    &.up {
+    .triangle {
       border-right: 5px solid transparent;
       border-bottom: 8px solid var(--green);
-      border-left: 5px solid transparent;
-    }
-
-    &.down {
-      border-top: 8px solid var(--red);
-      border-right: 5px solid transparent;
       border-left: 5px solid transparent;
     }
   }

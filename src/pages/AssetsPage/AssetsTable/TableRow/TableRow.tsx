@@ -22,11 +22,11 @@ export function TableRow({ asset, index, selectedColumnKey }: TableRowProps) {
 
   return (
     <tr className={styles.container}>
-      <TableRowItem>
+      <TableRowItem isSticky={true}>
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
 
-      <TableRowItem>
+      <TableRowItem isSticky={true}>
         <div className={styles.assetInfoContainer}>
           <ZoneLogo logoUrl={asset.logoUrl} className={styles.logo} />
           <div>

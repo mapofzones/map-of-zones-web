@@ -13,23 +13,14 @@
   .table {
     th {
       &:first-child {
-        position: sticky;
-        z-index: 100;
-
         padding-right: 0;
-
-        background-color: var(--black-100);
       }
 
       &:nth-child(2) {
-        position: sticky;
         left: 42px; // TODO: calculate dynamically
-        z-index: 100;
 
         width: 100%;
         padding-left: 16px;
-
-        background-color: var(--black-100);
       }
 
       &:nth-last-child(2) {

@@ -26,10 +26,12 @@ export const TABLE_HEADER_CONFIG = [
   {
     title: '#',
     align: Align.Center,
+    isSticky: true,
   },
   {
     title: 'Name',
     align: Align.Left,
+    isSticky: true,
   },
   {
     title: 'IBC Volume',

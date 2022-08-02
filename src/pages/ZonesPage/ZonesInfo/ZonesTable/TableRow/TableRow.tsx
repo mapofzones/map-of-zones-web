@@ -34,11 +34,11 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
 
   return (
     <tr className={styles.container} onClick={onClick}>
-      <TableRowItem>
+      <TableRowItem isSticky={true}>
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
 
-      <TableRowItem>
+      <TableRowItem isSticky={true}>
         <div className={styles.zoneBaseInfoContainer}>
           <ZoneLogo logoUrl={zone.logoUrl} className={styles.logo} />
           <span className={styles.zoneName}>{zone.name}</span>

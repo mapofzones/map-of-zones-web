@@ -1,3 +1,4 @@
+// TODO: add query
 // import { useQuery } from '@apollo/client';
 
 // import { ZonesTableDocument } from 'graphql/ZonesPage/ZonesInfo/__generated__/ZonesTable.generated';

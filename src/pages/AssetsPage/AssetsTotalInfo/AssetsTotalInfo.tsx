@@ -1,6 +1,12 @@
-import cn from 'classnames';
-
-import { LineChart, NumberType, RatingDiffTriangle, ValueWithPending, ZoneLogo } from 'components';
+import {
+  LineChart,
+  NumberType,
+  RatingDiffTriangle,
+  TotalCard,
+  TotalInfo,
+  ValueWithPending,
+  ZoneLogo,
+} from 'components';
 
 import styles from './AssetsTotalInfo.module.scss';
 import { useAssetsTotalInfo } from './useAssetsTotalInfo';
@@ -13,8 +19,8 @@ export function AssetsTotalInfo(): JSX.Element {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={cn(styles.itemContainer, styles.withChart)}>
+    <TotalInfo>
+      <TotalCard className={styles.withChart}>
         <div>
           <div className={styles.title}>24h Trading Volume</div>
           <ValueWithPending
@@ -31,27 +37,27 @@ export function AssetsTotalInfo(): JSX.Element {
             dataKey="ibcVolumeChart"
           />
         )}
-      </div>
+      </TotalCard>
 
-      <div className={styles.itemContainer}>
+      <TotalCard>
         <div className={styles.title}>Cosmos Network Mkt Cap</div>
         <ValueWithPending
           className={styles.value}
           numberType={NumberType.Currency}
           value={zonesTotalInfo.marketCap}
         />
-      </div>
+      </TotalCard>
 
-      <div className={cn(styles.itemContainer, styles.doubleItem)}>
+      <TotalCard className={styles.doubleItem}>
         <div className={styles.title}>All Assets</div>
         <ValueWithPending
           className={styles.value}
           numberType={NumberType.Number}
           value={zonesTotalInfo.assetsCount}
         />
-      </div>
+      </TotalCard>
 
-      <div className={cn(styles.itemContainer, styles.topItem)}>
+      <TotalCard className={styles.topItem}>
         <div className={styles.zoneInfoContainer}>
           <ZoneLogo logoUrl={zonesTotalInfo.topMarketLogo} className={styles.logo} />
           <div>
@@ -67,9 +73,9 @@ export function AssetsTotalInfo(): JSX.Element {
             numberType={NumberType.Percent}
           />
         </div>
-      </div>
+      </TotalCard>
 
-      <div className={cn(styles.itemContainer, styles.topItem)}>
+      <TotalCard className={styles.topItem}>
         <div className={styles.zoneInfoContainer}>
           <ZoneLogo logoUrl={zonesTotalInfo.topMoverLogo} className={styles.logo} />
           <div>
@@ -90,7 +96,7 @@ export function AssetsTotalInfo(): JSX.Element {
             value={zonesTotalInfo.topMoverValue}
           />
         </div>
-      </div>
-    </div>
+      </TotalCard>
+    </TotalInfo>
   );
 }
