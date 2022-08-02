@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 import {
   LineChart,
@@ -7,9 +7,10 @@ import {
   ValueWithPending,
   ZoneLogo,
   ZoneStatus,
+  TableRowItem,
 } from 'components';
 
-import { ColumnKeys } from '../TableHeader/Types';
+import { ColumnKeys } from '../Types';
 import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
 
@@ -23,24 +24,30 @@ const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
 };
 
 export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
+  const navigate = useNavigate();
+
   const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
 
-  return (
-    <tr className={styles.container}>
-      <td className={styles.columnContainer}>
-        <span className={styles.position}>{index + 1}</span>
-      </td>
+  const onClick = () => {
+    navigate(`${zone.zone}/overview`);
+  };
 
-      <td className={styles.columnContainer}>
+  return (
+    <tr className={styles.container} onClick={onClick}>
+      <TableRowItem isSticky={true}>
+        <span className={styles.position}>{index + 1}</span>
+      </TableRowItem>
+
+      <TableRowItem isSticky={true}>
         <div className={styles.zoneBaseInfoContainer}>
           <ZoneLogo logoUrl={zone.logoUrl} className={styles.logo} />
           <span className={styles.zoneName}>{zone.name}</span>
           <ZoneStatus className={styles.status} status={zone.isZoneUpToDate} />
           <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} />
         </div>
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -48,9 +55,9 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           pendingValue={zone.ibcVolumePendingMainnet}
           value={zone.ibcVolumeMainnet}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -58,9 +65,9 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           pendingValue={zone.ibcVolumeInPendingMainnet}
           value={zone.ibcVolumeInMainnet}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -68,18 +75,18 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           pendingValue={zone.ibcVolumeOutPendingMainnet}
           value={zone.ibcVolumeOutMainnet}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
           value={zone.totalTxs}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -87,38 +94,38 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
           pendingValue={zone.ibcTransfersPendingMainnet}
           value={zone.ibcTransfersMainnet}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
           value={zone.peersCountMainnet}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={styles.columnContainer}>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
           value={zone.channelsCount}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
           value={zone.ibcDauMainnet}
         />
-      </td>
+      </TableRowItem>
 
-      <td className={cn(styles.columnContainer, styles.withBorder)}>
+      <TableRowItem>
         {zone.ibcTransfersChart && <LineChart data={zone.ibcTransfersChart} dataKey="txs" />}
-      </td>
+      </TableRowItem>
     </tr>
   );
 }

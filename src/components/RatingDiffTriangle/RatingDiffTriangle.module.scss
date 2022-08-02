@@ -2,34 +2,33 @@
   display: flex;
   align-items: center;
 
-  color: var(--green);
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
 
-  &.negative {
-    color: var(--red);
-  }
-
   .triangle {
+    width: 0;
+    height: 0;
     margin-right: 2px;
   }
 
-  .triangleUp {
-    width: 0;
-    height: 0;
+  &.negative {
+    color: var(--red);
 
-    border-right: 5px solid transparent;
-    border-bottom: 8px solid var(--green);
-    border-left: 5px solid transparent;
+    .triangle {
+      border-top: 8px solid var(--red);
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+    }
   }
 
-  .triangleDown {
-    width: 0;
-    height: 0;
+  &.positive {
+    color: var(--green);
 
-    border-top: 8px solid var(--red);
-    border-right: 5px solid transparent;
-    border-left: 5px solid transparent;
+    .triangle {
+      border-right: 5px solid transparent;
+      border-bottom: 8px solid var(--green);
+      border-left: 5px solid transparent;
+    }
   }
 }

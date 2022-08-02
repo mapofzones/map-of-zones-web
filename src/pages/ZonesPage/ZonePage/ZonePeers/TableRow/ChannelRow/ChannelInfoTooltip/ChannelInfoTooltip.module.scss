@@ -1,0 +1,56 @@
+.container {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  .tooltip {
+    left: 46px;
+
+    width: 234px;
+
+    .title {
+      font-size: 15px;
+      line-height: 19px;
+
+      .arrowIcon {
+        margin: 0 8px;
+      }
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      margin: 12px 0;
+
+      background-color: var(--black-900);
+    }
+
+    .connection {
+      color: var(--orange);
+      font-size: 13px;
+      line-height: 16px;
+    }
+
+    .triangle {
+      position: absolute;
+      top: calc(50% - 9px);
+      left: -10px;
+
+      width: 18px;
+      height: 18px;
+
+      background-color: var(--black-400);
+      border-bottom: 1px solid var(--black-600);
+      border-left: 1px solid var(--black-600);
+      transform: rotate(45deg);
+    }
+  }
+
+  &:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+}

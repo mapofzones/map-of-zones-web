@@ -1,0 +1,51 @@
+.title {
+  color: var(--grey-500);
+  font-size: 13px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.totalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .total {
+    color: var(--green);
+    font-size: 13px;
+    line-height: 16px;
+    text-align: right;
+  }
+}
+
+.value {
+  margin-top: 4px;
+
+  font-size: 15px;
+  line-height: 19px;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
+.zoneInfoContainer {
+  display: flex;
+
+  .logo {
+    margin-right: 12px;
+  }
+}
+
+.doubleItem {
+  .value {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}
+
+.topItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.withChart {
+  display: flex;
+}

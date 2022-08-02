@@ -3,17 +3,19 @@ import cn from 'classnames';
 import { ExplanationTooltip } from 'components';
 
 import styles from './TableHeaderItem.module.scss';
-import { CircleType, TableHeaderItemProps } from './TableHeaderItem.props';
+import { Align, CircleType, TableHeaderItemProps } from './TableHeaderItem.props';
 
-export function TableHeaderItem({
+export function TableHeaderItem<T extends string>({
+  align = Align.Right,
   circleType,
   columnKey,
   explanationText,
   isSelected,
+  isSticky,
   setSelectedColumnKey,
   title,
   withBorder = false,
-}: TableHeaderItemProps) {
+}: TableHeaderItemProps<T>) {
   const onClick = () => {
     if (columnKey && !isSelected) {
       setSelectedColumnKey(columnKey);
@@ -23,13 +25,16 @@ export function TableHeaderItem({
   return (
     <th
       className={cn({
+        [styles.alignLeft]: align === Align.Left,
+        [styles.alignCenter]: align === Align.Center,
         [styles.selectable]: !!columnKey,
         [styles.selected]: isSelected,
+        [styles.sticky]: isSticky,
         [styles.withBorder]: withBorder,
       })}
       onClick={onClick}
     >
-      <span>
+      <div className={styles.contentContainer}>
         {!!circleType && (
           <div
             className={cn(styles.circle, {
@@ -38,9 +43,11 @@ export function TableHeaderItem({
             })}
           />
         )}
-        {title}
-        {explanationText && <ExplanationTooltip text={explanationText} />}
-      </span>
+        <div className={styles.titleContainer}>
+          {title}
+          {explanationText && <ExplanationTooltip text={explanationText} />}
+        </div>
+      </div>
     </th>
   );
 }

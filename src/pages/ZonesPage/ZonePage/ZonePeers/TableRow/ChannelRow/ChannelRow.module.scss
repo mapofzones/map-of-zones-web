@@ -1,0 +1,91 @@
+.container {
+  height: 48px;
+
+  td {
+    padding: 7.5px 12px 7.5px 28px;
+
+    &:first-child {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-width: 460px;
+      padding-left: 0;
+
+      vertical-align: middle;
+    }
+
+    &:last-child {
+      padding-right: 24px;
+    }
+
+    .arrowContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+    }
+
+    .position {
+      color: var(--grey-500);
+      font-size: 10px;
+      line-height: 13px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+    }
+
+    .channelsContainer {
+      display: flex;
+      align-items: center;
+
+      .channel {
+        width: 80px;
+        overflow: hidden;
+
+        font-size: 13px;
+        line-height: 16px;
+        text-overflow: ellipsis;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+      }
+
+      .statusContainer {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 129px;
+        height: 1px;
+        margin: 0 12px;
+
+        background-color: var(--green);
+
+        &.statusClosedContainer {
+          background-color: var(--orange);
+        }
+      }
+
+      .infoIcon {
+        margin-left: 12px;
+      }
+    }
+
+    .value {
+      font-feature-settings: 'tnum' on, 'lnum' on;
+
+      font-size: 13px;
+      line-height: 16px;
+    }
+  }
+
+  &:hover {
+    background-color: #16161c;
+
+    // TODO: enable only for scrollable table
+    td {
+      &:first-child {
+        z-index: 1000;
+
+        background-color: #16161c;
+      }
+    }
+  }
+}

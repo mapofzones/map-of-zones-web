@@ -1,0 +1,35 @@
+.container {
+  width: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 24px 16px;
+
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  .table {
+    th {
+      &:first-child {
+        padding-right: 0;
+      }
+
+      &:nth-child(2) {
+        left: 42px; // TODO: calculate dynamically
+
+        width: 100%;
+        padding-left: 16px;
+      }
+
+      &:nth-last-child(2) {
+        padding-right: 0;
+      }
+
+      &:last-child {
+        padding-left: 96px;
+      }
+    }
+  }
+}

@@ -1,13 +1,19 @@
+import cn from 'classnames';
+
 import styles from './TableHeader.module.scss';
 import { TableHeaderProps } from './TableHeader.props';
 import { TableHeaderItem } from './TableHeaderItem/TableHeaderItem';
-import { TABLE_HEADER_CONFIG } from './Types';
 
-export function TableHeader({ selectedColumnKey, setSelectedColumnKey }: TableHeaderProps) {
+export function TableHeader<T extends string>({
+  className,
+  config,
+  selectedColumnKey,
+  setSelectedColumnKey,
+}: TableHeaderProps<T>) {
   return (
-    <thead className={styles.container}>
+    <thead className={cn(styles.container, className)}>
       <tr>
-        {TABLE_HEADER_CONFIG.map((header) => (
+        {config.map((header) => (
           <TableHeaderItem
             key={header.title}
             isSelected={selectedColumnKey === header.columnKey}

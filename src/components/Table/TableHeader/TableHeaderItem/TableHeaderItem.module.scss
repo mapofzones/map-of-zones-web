@@ -1,0 +1,118 @@
+th {
+  position: relative;
+
+  padding: 6px 12px 0 28px;
+
+  color: var(--grey-500);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  white-space: nowrap;
+  text-align: right;
+
+  border-bottom: 1px solid var(--black-700);
+
+  .contentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .circle {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 4px;
+      margin-bottom: 6px;
+  
+      border-radius: 50%;
+  
+      &.source {
+        background-color: var(--pink);
+      }
+  
+      &.target {
+        background-color: var(--blue);
+      }
+    }
+
+    .titleContainer {
+      padding-bottom: 6px;
+    }
+  }
+
+  &:first-child {
+    padding-left: 24px;
+
+    // TODO: find another solution
+    &::before {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+
+      width: 24px;
+      height: 1px;
+
+      background-color: var(--black-100);
+
+      content: '';
+    }
+  }
+
+  &:last-child {
+    padding-right: 24px;
+
+    // TODO: find another solution
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+
+      width: 24px;
+      height: 1px;
+
+      background-color: var(--black-100);
+
+      content: '';
+    }
+  }
+
+  &.alignCenter {
+    .contentContainer {
+      justify-content: center;
+    } 
+  }
+
+  &.alignLeft {
+    .contentContainer {
+      justify-content: flex-start;
+    } 
+  }
+
+  &.selected {
+    .titleContainer {
+      color: var(--white);
+
+      border-bottom: 1px solid var(--white);
+    }
+  }
+
+  &.selectable {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--grey-800);
+    }
+  }
+
+  &.sticky {
+    position: sticky;
+    left: 0;
+    z-index: 100;
+
+    background-color: var(--black-100);
+  }
+
+  &.withBorder {
+    border-right: 1px solid transparent;
+  }
+}

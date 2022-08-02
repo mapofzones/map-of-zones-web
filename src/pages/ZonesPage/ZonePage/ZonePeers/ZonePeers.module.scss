@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+
+  .table {
+    th {
+      &:first-child {
+        width: 100%;
+        min-width: 460px;
+
+        text-align: left;
+      }
+    }
+  }
+}

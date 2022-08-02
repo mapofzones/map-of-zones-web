@@ -4,7 +4,7 @@
   .header {
     display: flex;
     justify-content: space-between;
-    margin: 16px 24px;
+    margin: 24px 24px 16px;
 
     &_title {
       color: var(--white);
@@ -23,11 +23,26 @@
     }
   }
 
-  .tableContainer {
-    margin-bottom: 8px;
+  .table {
+    th {
+      &:first-child {
+        padding-right: 0;
 
-    tbody tr:nth-child(1) td {
-      padding-top: 20px;
+        text-align: center;
+      }
+
+      &:nth-child(2) {
+        left: 42px; // TODO: calculate dynamically
+
+        width: 100%;
+        padding-left: 16px;
+
+        text-align: left;
+      }
+
+      &:last-child {
+        padding-right: 24px;
+      }
     }
   }
 }

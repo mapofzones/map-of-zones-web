@@ -14,7 +14,7 @@ export function ExplanationTooltip({
   return (
     <div className={cn(styles.container, className)} {...props}>
       <QuestionMark className={styles.questionMark} />
-      <Tooltip className={styles.tooltip} text={text} />
+      <Tooltip className={styles.tooltip}>{text}</Tooltip>
     </div>
   );
 }

@@ -1,16 +1,48 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-import { ButtonGroup } from 'components';
+import { ExternalLink, NavigationButton, PeriodSelector, ZoneLogo } from 'components';
+import { EarthIcon } from 'icons';
+
+import { useZonesListZoneDetails } from './useZonesListZoneDetails';
+import styles from './ZonePage.module.scss';
 
 export function ZonePage() {
+  const { data, loading } = useZonesListZoneDetails();
+
   return (
     <div>
-      <ButtonGroup>
-        <NavLink to="overview">Overview</NavLink>
-        <NavLink to="peers">Peers</NavLink>
-        <NavLink to="nodes">Nodes</NavLink>
-        <NavLink to="pools">Pools</NavLink>
-      </ButtonGroup>
+      <div className={styles.header}>
+        <div>
+          <div className={styles.detailsTitle}>
+            <ZoneLogo
+              logoUrl={data?.logoUrl}
+              name={data?.name}
+              size={'36px'}
+              loading={loading}
+              className={styles.zoneLogo}
+            />
+            <span className={styles.zoneName}>{data?.name}</span>
+          </div>
+          <span className={styles.zoneWebsite}>
+            {data?.website && (
+              <ExternalLink Icon={EarthIcon} href={data.website}>
+                {data.website}
+              </ExternalLink>
+            )}
+          </span>
+        </div>
+
+        <div className={styles.navigationButtonsContainer}>
+          <NavigationButton to="overview">Overview</NavigationButton>
+          <NavigationButton to="peers" count={data?.peersCount}>
+            Peers
+          </NavigationButton>
+          <NavigationButton to="nodes">Nodes</NavigationButton>
+          <NavigationButton to="pools">Pools</NavigationButton>
+        </div>
+
+        <PeriodSelector />
+      </div>
 
       <Outlet />
     </div>

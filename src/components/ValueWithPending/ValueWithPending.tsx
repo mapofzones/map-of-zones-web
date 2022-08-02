@@ -1,18 +1,19 @@
 import cn from 'classnames';
 
-import { NumberFormat } from 'components';
+import { NumberFormat, PendingValue } from 'components';
 import { NumberType } from 'components/ui/NumberFormat/NumberType';
-import { PendingIcon } from 'icons';
 
 import styles from './ValueWithPending.module.scss';
 import { ValueWithPendingProps } from './ValueWithPending.props';
 
 export function ValueWithPending({
-  value,
-  pendingValue,
-  numberType = NumberType.Number,
   alignRight = false,
   className,
+  numberType = NumberType.Number,
+  pendingValue,
+  prefix,
+  suffix,
+  value,
   ...props
 }: ValueWithPendingProps) {
   return (
@@ -22,16 +23,15 @@ export function ValueWithPending({
       })}
       {...props}
     >
-      <NumberFormat className={styles.value} value={value} numberType={numberType} />
+      <NumberFormat numberType={numberType} prefix={prefix} suffix={suffix} value={value} />
       {pendingValue != null && (
-        <span className={styles.pendingContainer}>
-          <PendingIcon />
-          <NumberFormat
-            className={styles.pendingValue}
-            value={pendingValue}
-            numberType={numberType}
-          />
-        </span>
+        <PendingValue
+          className={styles.pendingContainer}
+          numberType={numberType}
+          prefix={prefix}
+          suffix={suffix}
+          value={pendingValue}
+        />
       )}
     </span>
   );

@@ -1,6 +1,8 @@
+import {
+  Align,
+  CircleType,
+} from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
-
-import { CircleType } from './TableHeaderItem/TableHeaderItem.props';
 
 export enum ColumnKeys {
   IbcActiveAddresses = 'ibcActiveAddresses',
@@ -23,9 +25,13 @@ export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Zones_Stats_Select_Column> 
 export const TABLE_HEADER_CONFIG = [
   {
     title: '#',
+    align: Align.Center,
+    isSticky: true,
   },
   {
     title: 'Name',
+    align: Align.Left,
+    isSticky: true,
   },
   {
     title: 'IBC Volume',
@@ -38,36 +44,37 @@ export const TABLE_HEADER_CONFIG = [
     columnKey: ColumnKeys.IbcVolumeReceived,
     explanationText:
       'USD value of tokens successfully received from other Zones with pertinent volume in progress',
-    circleType: CircleType.Source,
+    circleType: CircleType.Target,
   },
   {
     title: 'IBC Volume Out',
     columnKey: ColumnKeys.IbcVolumeSent,
     explanationText:
       'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
-    circleType: CircleType.Target,
+    circleType: CircleType.Source,
+    withBorder: true,
   },
   {
     title: 'Total TXS',
     columnKey: ColumnKeys.TotalTxs,
     explanationText: 'All transactions in a specified zone',
-    withBorder: true,
   },
   {
     title: 'IBC Transfers',
     columnKey: ColumnKeys.IbcTransfers,
     explanationText:
       'Number of successfully relayed IBC transfers with pertinent quantity in progress',
+    withBorder: true,
   },
   {
     title: 'Peers',
     explanationText:
       'Number of counterparties of a particular Zone with established IBC connectors',
-    withBorder: true,
   },
   {
     title: 'Channels',
     explanationText: 'Number of channels that connect a particular Zone to its counterparties',
+    withBorder: true,
   },
   {
     title: 'DAU',
@@ -77,6 +84,5 @@ export const TABLE_HEADER_CONFIG = [
   },
   {
     title: 'IBC Transfers Activity',
-    withBorder: true,
   },
 ];

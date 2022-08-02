@@ -1,10 +1,9 @@
-import { PeriodSelector } from 'components';
+import { PeriodSelector, Table } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
-import { TableHeader } from './TableHeader/TableHeader';
-import { ColumnKeys, SORTING_COLUMN_KEYS } from './TableHeader/Types';
 import { TableRow } from './TableRow/TableRow';
+import { ColumnKeys, SORTING_COLUMN_KEYS, TABLE_HEADER_CONFIG } from './Types';
 import { useZonesCount } from './useZonesCount';
 import { useZonesTable } from './useZonesTable';
 import styles from './ZonesTable.module.scss';
@@ -37,23 +36,21 @@ export function ZonesTable() {
         <PeriodSelector />
       </div>
 
-      <table className={styles.tableContainer}>
-        <TableHeader
-          selectedColumnKey={selectedColumnKey}
-          setSelectedColumnKey={setSelectedColumnKey}
-        />
-
-        <tbody>
-          {data.map((zone, index) => (
-            <TableRow
-              key={`zone_${zone.zone}`}
-              index={index}
-              selectedColumnKey={selectedColumnKey}
-              zone={zone}
-            />
-          ))}
-        </tbody>
-      </table>
+      <Table
+        className={styles.table}
+        headerConfig={TABLE_HEADER_CONFIG}
+        selectedColumnKey={selectedColumnKey}
+        setSelectedColumnKey={setSelectedColumnKey}
+      >
+        {data.map((zone, index) => (
+          <TableRow
+            key={`zone_${zone.zone}`}
+            index={index}
+            selectedColumnKey={selectedColumnKey}
+            zone={zone}
+          />
+        ))}
+      </Table>
     </div>
   );
 }

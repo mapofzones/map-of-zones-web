@@ -1,0 +1,56 @@
+.container {
+  td {
+    padding: 12px 12px 31px 28px;
+
+    &:first-child {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-width: 460px;
+      padding-left: 0;
+
+      vertical-align: middle;
+    }
+
+    .arrowContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+    }
+
+    .position {
+      position: relative;
+      top: -2px;
+
+      color: var(--grey-500);
+      font-size: 10px;
+      line-height: 13px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+    }
+
+    .title {
+      color: var(--grey-500);
+      font-size: 13px;
+      line-height: 16px;
+
+      cursor: pointer;
+
+      &:hover {
+        color: var(--white);
+      }
+
+      .arrowIcon {
+        width: 10px;
+        height: 6px;
+        margin-left: 7px;
+      }
+    }
+  }
+
+  &.emptyContainer {
+    .columnContainer {
+      padding: 0 0 19px;
+    }
+  }
+}

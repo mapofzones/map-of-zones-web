@@ -1,29 +1,19 @@
 .container {
+  display: table-row;
+
   cursor: pointer;
 
-  &:hover {
-    background-color: var(--black-500);
-  }
-
-  .columnContainer {
-    padding: 12px 12px 12px 28px;
-
-    white-space: nowrap;
-    vertical-align: top;
-
-    &.withBorder {
-      border-left: 1px solid var(--black-700);
-    }
-
-    &:nth-child(1) {
+  td {
+    &:first-child {
       padding-right: 0;
-      padding-left: 24px;
 
       text-align: center;
       vertical-align: middle;
     }
 
     &:nth-child(2) {
+      left: 42px; // TODO: calculate dynamically
+
       width: 100%;
       padding-left: 16px;
 
@@ -32,7 +22,9 @@
 
     &:last-child {
       height: 40px;
-      padding: 10px 24px 10px 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 0;
     }
 
     .position {
@@ -71,5 +63,17 @@
 
   .ratingDiff {
     margin-left: 4px;
+  }
+
+  &:hover {
+    background-color: var(--black-500);
+
+    // TODO: enable only for scrollable table
+    td {
+      &:first-child,
+      &:nth-child(2) {
+        background-color: var(--black-500);
+      }
+    }
   }
 }

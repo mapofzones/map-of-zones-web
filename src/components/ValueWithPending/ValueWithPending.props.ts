@@ -4,9 +4,11 @@ import { NumberType } from 'components';
 
 export interface ValueWithPendingProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  value?: number | null;
-  pendingValue?: number | null;
-  numberType: NumberType;
   alignRight?: boolean;
   className?: string;
+  numberType: NumberType;
+  pendingValue?: number | null;
+  prefix?: string;
+  suffix?: string;
+  value?: number | null;
 }
