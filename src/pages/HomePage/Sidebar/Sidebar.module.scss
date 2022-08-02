@@ -2,3 +2,10 @@
   height: calc(100vh - 103px);
   margin: 4px 16px 4px 0;
 }
+
+@media (max-width: 630px) {
+  .container {
+    height: calc(100vh - 85px);
+    margin: 16px 8px;
+  }
+}

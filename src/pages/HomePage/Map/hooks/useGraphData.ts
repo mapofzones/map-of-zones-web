@@ -147,11 +147,13 @@ function getCoordinates(itemsInLevel: number, index: number, level: number, radi
   return { x, y };
 }
 
-function filterLinksWithoutNodes(link: any, nodesSet: Set<string>) {
+function filterLinksWithoutNodes(link: ZoneLink, nodesSet: Set<string>) {
   const hasSource = nodesSet.has(link.source);
   const hasTarget = nodesSet.has(link.target);
 
   if (!hasSource || !hasTarget) {
+    return false;
+
     const ids =
       !hasSource && !hasTarget
         ? `${link.source}, ${link.target}`
@@ -160,7 +162,7 @@ function filterLinksWithoutNodes(link: any, nodesSet: Set<string>) {
         : link.target;
 
     const msg = `There is no nodes (${ids}) for link ${link.source}->${link.target}`;
-    // console.error(msg);
+    console.error(msg);
 
     return false;
   }

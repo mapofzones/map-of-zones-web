@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import cn from 'classnames';
-import ForceGraph2D, { NodeObject } from 'react-force-graph-2d';
+import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
 import { Button } from 'components';
 import { ZoomIn, ZoomOut } from 'icons';
+import { debounce } from 'utils/timer';
 
 import { useClearSelectedNode, useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useGraphData } from './hooks/useGraphData';
@@ -15,17 +16,35 @@ import { Link, MapNode } from './Types';
 
 const ZOOM_VALUES = [0.75, 1, 1.5, 2.25];
 
-export function Map() {
+export function Map({ className }: { className: string }) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
   const { graphData, loading } = useGraphData();
   const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
 
-  const graphRef = useRef<any>();
+  const [windowSize, setWindowSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  useEffect(() => {
+    const withDebounce = debounce(
+      () => setWindowSize({ height: window.innerHeight, width: window.innerWidth }),
+      100
+    );
+
+    window.addEventListener('resize', withDebounce);
+
+    return () => {
+      window.removeEventListener('resize', withDebounce);
+    };
+  }, []);
+
+  const graphRef = useRef<ForceGraphMethods>();
   useEffect(() => {
     const fg = graphRef.current;
-    fg.d3Force('link', null);
-    fg.d3Force('charge').strength(-10);
+    fg?.d3Force('link', null as never);
+    fg?.d3Force('charge')?.strength(-10);
   }, []);
 
   const nodeCanvasObject = useNodeCanvasObject(
@@ -39,7 +58,7 @@ export function Map() {
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);
 
   useEffect(() => {
-    graphRef.current.zoom(ZOOM_VALUES[currentZoomIndex], 500);
+    graphRef.current?.zoom(ZOOM_VALUES[currentZoomIndex], 500);
   }, [currentZoomIndex]);
 
   const isZoomInDisabled = useMemo(
@@ -62,7 +81,7 @@ export function Map() {
   }, [isZoomOutDisabled, currentZoomIndex]);
 
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, className)}>
       <div className={styles.legend}>
         <span className={cn(styles.circle, styles.sendCircle)}></span>Mainly Sends
         <span className={cn(styles.circle, styles.receiveCircle)}></span>Mainly Receives
@@ -71,8 +90,8 @@ export function Map() {
         ref={graphRef}
         nodeId="zone"
         nodeLabel={''}
-        height={document.documentElement.clientHeight}
-        width={document.documentElement.clientWidth - 360}
+        height={windowSize.height}
+        width={windowSize.width - 376}
         graphData={graphData}
         nodeCanvasObject={nodeCanvasObject}
         linkCanvasObject={linkCanvasObject}

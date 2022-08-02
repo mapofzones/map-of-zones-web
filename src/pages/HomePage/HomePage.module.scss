@@ -2,3 +2,13 @@
   display: grid;
   grid-template-columns: 1fr 376px;
 }
+
+@media (max-width: 630px) {
+  .pageContainer {
+    grid-template-columns: 1fr;
+
+    .map {
+      display: none;
+    }
+  }
+}
