@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 9px 16px;
+
+  font-size: 15px;
+  line-height: 19px;
+
+  cursor: pointer;
+
+  .logo {
+    margin-right: 12px;
+  }
+
+  .nameNotActive {
+    color: var(--grey-500);
+  }
+
+  &.active {
+    background-color: var(--black-700);
+
+    pointer-events: none;
+  }
+
+  &:hover {
+    background-color: var(--black-700);
+  }
+}

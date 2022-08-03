@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+  top: 140px;
+  z-index: 1000;
+  left: 24px;
+
+  background-color: var(--black-500);
+  border-radius: 5px;
+  width: 360px;
+  max-height: 570px;
+  display: flex;
+  flex-direction: column;
+
+  .searchContainer {
+    margin: 16px;
+  }
+
+  .itemsContainer {
+    padding-bottom: 8px;
+  }
+
+  .zonesNotFoundContainer {
+    margin: 24px 0 32px;
+
+    color: var(--grey-300);
+    font-size: 15px;
+    line-height: 19px;
+    text-align: center;
+  }
+}
