@@ -16,19 +16,20 @@ export function ShowMoreRow({ count, isTableScrollable, showMoreChannels }: Show
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {!!count && (
-        <TableRowItem isSticky={true} withBorder={isTableScrollable}>
-          <div className={styles.arrowContainer}>
-            <div className={styles.position}>...</div>
-          </div>
+      <TableRowItem isSticky={true} withBorder={isTableScrollable}>
+        {!!count && (
+          <>
+            <div className={styles.arrowContainer}>
+              <div className={styles.position}>...</div>
+            </div>
 
-          <div className={styles.title} onClick={showMoreChannels}>
-            Show {count} more
-            <ArrowDown className={styles.arrowIcon} />
-          </div>
-        </TableRowItem>
-      )}
-      {!count && <TableRowItem isSticky={true} />}
+            <div className={styles.title} onClick={showMoreChannels}>
+              Show {count} more
+              <ArrowDown className={styles.arrowIcon} />
+            </div>
+          </>
+        )}
+      </TableRowItem>
       <TableRowItem withBorder={true} />
       <TableRowItem />
       <TableRowItem withBorder={true} />

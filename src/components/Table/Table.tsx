@@ -23,26 +23,28 @@ export function Table<T extends string>({
     !!tableRef.current?.offsetWidth && tableRef.current.offsetWidth > windowWidth;
 
   return (
-    <table className={cn(styles.tableContainer, className)} ref={tableRef}>
-      <TableHeader
-        className={styles.tableHeader}
-        config={headerConfig}
-        selectedColumnKey={selectedColumnKey}
-        setSelectedColumnKey={setSelectedColumnKey}
-      />
+    <div className={styles.container}>
+      <table className={cn(styles.table, className)} ref={tableRef}>
+        <TableHeader
+          className={styles.tableHeader}
+          config={headerConfig}
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        />
 
-      <tbody>
-        {children &&
-          React.Children.map<ReactNode, ReactNode>(children, (child) => {
-            if (!React.isValidElement(child)) {
-              return child;
-            }
+        <tbody>
+          {children &&
+            React.Children.map<ReactNode, ReactNode>(children, (child) => {
+              if (!React.isValidElement(child)) {
+                return child;
+              }
 
-            return React.cloneElement(child, {
-              isTableScrollable,
-            });
-          })}
-      </tbody>
-    </table>
+              return React.cloneElement(child, {
+                isTableScrollable,
+              });
+            })}
+        </tbody>
+      </table>
+    </div>
   );
 }
