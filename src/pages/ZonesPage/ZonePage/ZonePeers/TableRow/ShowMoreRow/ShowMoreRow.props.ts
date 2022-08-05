@@ -4,5 +4,6 @@ export interface ShowMoreRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   count: number;
+  isTableScrollable?: boolean;
   showMoreChannels: () => void;
 }

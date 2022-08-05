@@ -1,4 +1,8 @@
+import React, { ReactNode, useRef } from 'react';
+
 import cn from 'classnames';
+
+import { useWindowSize } from 'hooks/useWindowSize';
 
 import styles from './Table.module.scss';
 import { TableProps } from './Table.props';
@@ -11,8 +15,15 @@ export function Table<T extends string>({
   selectedColumnKey,
   setSelectedColumnKey,
 }: TableProps<T>) {
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  const { width: windowWidth } = useWindowSize();
+
+  const isTableScrollable =
+    !!tableRef.current?.offsetWidth && tableRef.current.offsetWidth > windowWidth;
+
   return (
-    <table className={cn(styles.tableContainer, className)}>
+    <table className={cn(styles.tableContainer, className)} ref={tableRef}>
       <TableHeader
         className={styles.tableHeader}
         config={headerConfig}
@@ -20,7 +31,18 @@ export function Table<T extends string>({
         setSelectedColumnKey={setSelectedColumnKey}
       />
 
-      <tbody>{children}</tbody>
+      <tbody>
+        {children &&
+          React.Children.map<ReactNode, ReactNode>(children, (child) => {
+            if (!React.isValidElement(child)) {
+              return child;
+            }
+
+            return React.cloneElement(child, {
+              isTableScrollable,
+            });
+          })}
+      </tbody>
     </table>
   );
 }

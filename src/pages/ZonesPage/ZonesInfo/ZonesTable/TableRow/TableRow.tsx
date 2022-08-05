@@ -23,7 +23,7 @@ const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
   totalTxs: 'totalIbcTxsMainnetRatingDiff',
 };
 
-export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
+export function TableRow({ index, isTableScrollable, selectedColumnKey, zone }: TableRowProps) {
   const navigate = useNavigate();
 
   const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
@@ -38,7 +38,7 @@ export function TableRow({ index, selectedColumnKey, zone }: TableRowProps) {
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
 
-      <TableRowItem isSticky={true}>
+      <TableRowItem isSticky={true} withBorder={isTableScrollable}>
         <div className={styles.zoneBaseInfoContainer}>
           <ZoneLogo logoUrl={zone.logoUrl} className={styles.logo} />
           <span className={styles.zoneName}>{zone.name}</span>

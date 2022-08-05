@@ -7,7 +7,7 @@ import { ArrowDown } from 'icons';
 import styles from './ShowMoreRow.module.scss';
 import { ShowMoreRowProps } from './ShowMoreRow.props';
 
-export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
+export function ShowMoreRow({ count, isTableScrollable, showMoreChannels }: ShowMoreRowProps) {
   return (
     <motion.tr
       className={cn(styles.container, { [styles.emptyContainer]: !count })}
@@ -17,7 +17,7 @@ export function ShowMoreRow({ count, showMoreChannels }: ShowMoreRowProps) {
       transition={{ duration: 0.5 }}
     >
       {!!count && (
-        <TableRowItem isSticky={true}>
+        <TableRowItem isSticky={true} withBorder={isTableScrollable}>
           <div className={styles.arrowContainer}>
             <div className={styles.position}>...</div>
           </div>
