@@ -23,8 +23,8 @@ export function Table<T extends string>({
     !!tableRef.current?.offsetWidth && tableRef.current.offsetWidth > windowWidth;
 
   return (
-    <div className={styles.container}>
-      <table className={cn(styles.table, className)} ref={tableRef}>
+    <div className={cn(styles.container, className)}>
+      <table className={styles.table} ref={tableRef}>
         <TableHeader
           className={styles.tableHeader}
           config={headerConfig}

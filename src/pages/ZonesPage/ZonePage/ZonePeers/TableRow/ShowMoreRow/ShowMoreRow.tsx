@@ -16,7 +16,7 @@ export function ShowMoreRow({ count, isTableScrollable, showMoreChannels }: Show
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <TableRowItem isSticky={true} withBorder={isTableScrollable}>
+      <TableRowItem isSticky={isTableScrollable} withBorder={isTableScrollable}>
         {!!count && (
           <>
             <div className={styles.arrowContainer}>

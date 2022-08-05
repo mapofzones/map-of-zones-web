@@ -68,11 +68,12 @@
   &:hover {
     background-color: var(--black-500);
 
-    // TODO: enable only for scrollable table
-    td {
-      &:first-child,
-      &:nth-child(2) {
-        background-color: var(--black-500);
+    &.scrollable {
+      td {
+        &:first-child,
+        &:nth-child(2) {
+          background-color: var(--black-500);
+        }
       }
     }
   }

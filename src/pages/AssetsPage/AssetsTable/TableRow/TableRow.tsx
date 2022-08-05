@@ -21,12 +21,12 @@ export function TableRow({ asset, index, isTableScrollable, selectedColumnKey }:
   const ratingDiff = asset[ratingDiffKeysMap[selectedColumnKey]] as number;
 
   return (
-    <tr className={styles.container}>
-      <TableRowItem isSticky={true}>
+    <tr className={cn(styles.container, { [styles.scrollable]: isTableScrollable })}>
+      <TableRowItem isSticky={isTableScrollable}>
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
 
-      <TableRowItem isSticky={true} withBorder={isTableScrollable}>
+      <TableRowItem isSticky={isTableScrollable} withBorder={isTableScrollable}>
         <div className={styles.assetInfoContainer}>
           <ZoneLogo logoUrl={asset.logoUrl} className={styles.logo} />
           <div>

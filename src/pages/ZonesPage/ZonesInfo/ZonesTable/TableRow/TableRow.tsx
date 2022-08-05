@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -33,12 +34,15 @@ export function TableRow({ index, isTableScrollable, selectedColumnKey, zone }: 
   };
 
   return (
-    <tr className={styles.container} onClick={onClick}>
-      <TableRowItem isSticky={true}>
+    <tr
+      className={cn(styles.container, { [styles.scrollable]: isTableScrollable })}
+      onClick={onClick}
+    >
+      <TableRowItem isSticky={isTableScrollable}>
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
 
-      <TableRowItem isSticky={true} withBorder={isTableScrollable}>
+      <TableRowItem isSticky={isTableScrollable} withBorder={isTableScrollable}>
         <div className={styles.zoneBaseInfoContainer}>
           <ZoneLogo logoUrl={zone.logoUrl} className={styles.logo} />
           <span className={styles.zoneName}>{zone.name}</span>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import cn from 'classnames';
 import { motion } from 'framer-motion';
 
 import {
@@ -45,8 +46,11 @@ export function TableRow({ isTableScrollable, parentZone, zone }: TableRowProps)
 
   return (
     <>
-      <tr className={styles.container} onClick={toggleChannelsVisibility}>
-        <TableRowItem isSticky={true} withBorder={isTableScrollable}>
+      <tr
+        className={cn(styles.container, { [styles.scrollable]: isTableScrollable })}
+        onClick={toggleChannelsVisibility}
+      >
+        <TableRowItem isSticky={isTableScrollable} withBorder={isTableScrollable}>
           <motion.div
             className={styles.arrowContainer}
             variants={{
