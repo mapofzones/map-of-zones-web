@@ -28,4 +28,24 @@
     line-height: 19px;
     text-align: center;
   }
+
+  .zone {
+    cursor: pointer;
+
+    > div {
+      padding: 9px 16px;
+
+      &:hover {
+        background-color: var(--black-700);
+      }
+    }
+
+    &.activeZone {
+      pointer-events: none;
+
+      > div {
+        background-color: var(--black-700);
+      }
+    }
+  }
 }

@@ -1,16 +1,13 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZonesListZoneDetails } from '../../useZonesListZoneDetails';
-
 export interface ZoneData {
   logoUrl?: string | null;
   name: string;
-  zone: string;
+  ratingDiff?: number | null;
 }
 
-export interface ZoneInfoProps
+export interface ZoneInfoWithSearchProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  currentZone?: ZonesListZoneDetails;
-  searchValue: string;
+  searchValue?: string;
   zone: ZoneData;
 }

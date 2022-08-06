@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 
-import { ScrollableContainer, Search } from 'components';
+import cn from 'classnames';
 
-import { ZoneInfo } from './ZoneInfo/ZoneInfo';
+import { LinkWithQuery, ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
+
 import styles from './ZonesSelector.module.scss';
 import { ZonesSearchProps } from './ZonesSelector.props';
 
@@ -35,12 +36,13 @@ export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX
         )}
 
         {filteredZones.map((zone) => (
-          <ZoneInfo
+          <LinkWithQuery
+            className={cn(styles.zone, { [styles.activeZone]: currentZone?.zone === zone.zone })}
             key={`zone_${zone.zone}`}
-            currentZone={currentZone}
-            searchValue={searchValue}
-            zone={zone}
-          />
+            to={`/zones/${zone.zone}/overview`}
+          >
+            <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
+          </LinkWithQuery>
         ))}
       </ScrollableContainer>
     </div>
