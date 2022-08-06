@@ -1,15 +1,16 @@
 .container {
   position: absolute;
   top: 140px;
-  z-index: 1000;
   left: 24px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  max-height: 570px;
 
   background-color: var(--black-500);
   border-radius: 5px;
-  width: 360px;
-  max-height: 570px;
-  display: flex;
-  flex-direction: column;
 
   .searchContainer {
     margin: 16px;

@@ -10,7 +10,7 @@ import { ArrowDown, EarthIcon } from 'icons';
 import { useZonesData } from './useZonesData';
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';
 import styles from './ZonePage.module.scss';
-import { ZonesSearch } from './ZonesSearch/ZonesSearch';
+import { ZonesSelector } from './ZonesSelector/ZonesSelector';
 
 export function ZonePage() {
   const location = useLocation();
@@ -75,7 +75,7 @@ export function ZonePage() {
         <PeriodSelector />
       </div>
 
-      {isSearchVisible && <ZonesSearch currentZone={data} zonesList={zonesList} />}
+      {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
 
       <Outlet />
     </div>

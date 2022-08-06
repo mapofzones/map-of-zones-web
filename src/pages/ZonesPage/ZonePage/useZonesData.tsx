@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZonesDataDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZonesData.generated';
 
-import { ZoneData } from './ZonesSearch/ZoneInfo/ZoneInfo.props';
+import { ZoneData } from './ZonesSelector/ZoneInfo/ZoneInfo.props';
 
 export function useZonesData(
   selectedPeriod: PeriodKeys,

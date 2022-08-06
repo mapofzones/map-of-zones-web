@@ -3,10 +3,10 @@ import { useMemo, useState } from 'react';
 import { ScrollableContainer, Search } from 'components';
 
 import { ZoneInfo } from './ZoneInfo/ZoneInfo';
-import styles from './ZonesSearch.module.scss';
-import { ZonesSearchProps } from './ZonesSearch.props';
+import styles from './ZonesSelector.module.scss';
+import { ZonesSearchProps } from './ZonesSelector.props';
 
-export function ZonesSearch({ currentZone, zonesList }: ZonesSearchProps): JSX.Element {
+export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
 
   const filteredZones = useMemo(
