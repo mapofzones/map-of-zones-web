@@ -17,6 +17,10 @@ body {
   background: var(--black-100);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  > div {
+    height: 100%;
+  }
 }
 
 code {
