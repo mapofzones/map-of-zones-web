@@ -5,6 +5,8 @@
     vertical-align: middle;
 
     &:first-child {
+      min-width: 42px; // TODO: calculate dynamically
+
       padding-right: 0;
 
       text-align: center;
