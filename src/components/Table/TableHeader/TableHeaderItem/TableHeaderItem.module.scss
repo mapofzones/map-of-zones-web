@@ -1,5 +1,8 @@
 th {
-  position: relative;
+  position: sticky;
+  background-color: var(--black-100);
+  top: 0;
+  z-index: 2;
 
   padding: 6px 12px 0 28px;
 
@@ -23,13 +26,13 @@ th {
       height: 7px;
       margin-right: 4px;
       margin-bottom: 6px;
-  
+
       border-radius: 50%;
-  
+
       &.source {
         background-color: var(--pink);
       }
-  
+
       &.target {
         background-color: var(--blue);
       }
@@ -79,13 +82,13 @@ th {
   &.alignCenter {
     .contentContainer {
       justify-content: center;
-    } 
+    }
   }
 
   &.alignLeft {
     .contentContainer {
       justify-content: flex-start;
-    } 
+    }
   }
 
   &.selected {
@@ -105,11 +108,8 @@ th {
   }
 
   &.sticky {
-    position: sticky;
     left: 0;
-    z-index: 100;
-
-    background-color: var(--black-100);
+    z-index: 3;
   }
 
   &.withBorder {
