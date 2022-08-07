@@ -23,10 +23,9 @@ export function Table<T extends string>({
     !!tableRef.current?.offsetWidth && tableRef.current.offsetWidth > windowWidth;
 
   return (
-    <div className={cn(styles.container, className)}>
+    <div className={cn(styles.container, { [styles.scrollable]: isTableScrollable }, className)}>
       <table className={styles.table} ref={tableRef}>
         <TableHeader
-          className={styles.tableHeader}
           config={headerConfig}
           selectedColumnKey={selectedColumnKey}
           setSelectedColumnKey={setSelectedColumnKey}

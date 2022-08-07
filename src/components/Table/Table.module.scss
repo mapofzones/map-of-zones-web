@@ -1,5 +1,7 @@
 .container {
-  overflow-x: scroll;
+  &.scrollable {
+    overflow-x: scroll;
+  }
 }
 
 .table {
