@@ -36,7 +36,7 @@ export function ZoneOverviewActivity({ className }: any) {
         value={49850}
         numberType={NumberType.Number}
         chartData={undefined}
-        chartKey={'txs'}
+        chartKey={'totalTxs'}
         loading={loading}
         hasBorder={false}
       />
@@ -47,7 +47,7 @@ export function ZoneOverviewActivity({ className }: any) {
         pendingValue={4546}
         numberType={NumberType.Number}
         chartData={undefined}
-        chartKey={'transfers'}
+        chartKey={'ibcTransfer'}
         loading={loading}
         hasBorder={false}
       />

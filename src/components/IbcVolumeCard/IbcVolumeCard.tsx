@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { VolumeLineChart } from 'components';
-import { Card, NumberFormat, NumberType } from 'components/ui';
+import { Card, LineChart, NumberFormat, NumberType } from 'components/ui';
 
 import styles from './IbcVolumeCard.module.scss';
 
@@ -16,7 +16,11 @@ export function IbcVolumeCard({ data, loading, period, hasBorder, className }: a
             value={data.ibcVolumeMainnet}
             numberType={NumberType.Currency}
           />
-          <div className={styles.chart}></div>
+          <div className={styles.chart}>
+            {/* {data.ibcVolumeChartData && (
+              <LineChart data={data.ibcVolumeChartData} dataKey={'ibcVolume'} />
+            )} */}
+          </div>
           <VolumeLineChart
             className={styles.volumeLineChart}
             volumeInPercent={data.ibcVolumeInPercent}

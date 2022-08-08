@@ -1,13 +1,20 @@
 .container {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: auto auto auto;
-  grid-template-columns: 1fr 1fr;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
   min-height: 85px;
   padding: 12px;
 
   &_chart {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+
     grid-row-start: 1;
     grid-row-end: 4;
+
+    transform: scaleX(50%) translateX(50%);
   }
 }
