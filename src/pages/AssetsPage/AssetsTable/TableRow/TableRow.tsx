@@ -15,6 +15,12 @@ import { AssetData, TableRowProps } from './TableRow.props';
 
 const ratingDiffKeysMap: Record<ColumnKeys, keyof AssetData> = {
   marketCap: 'marketCapDiffRating',
+  price: 'priceDiffRating',
+  price24hPercent: 'price24hPercentDiffRating',
+  price7dPercent: 'price7dPercentDiffRating',
+  volume24h: 'volume24hDiffRating',
+  volume24hPercent: 'volume24hPercentDiffRating',
+  supply: 'supplyDiffRating',
 };
 
 export function TableRow({ asset, index, selectedColumnKey }: TableRowProps) {
