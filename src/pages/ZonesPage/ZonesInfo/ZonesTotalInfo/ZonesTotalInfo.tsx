@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import {
+  Divider,
   LineChart,
   NumberFormat,
   NumberType,
@@ -75,7 +76,7 @@ export function ZonesTotalInfo(): JSX.Element {
             numberType={NumberType.Number}
           />
         </div>
-        <div className={styles.divider} />
+        <Divider />
         <div>
           <span className={styles.title}>Active</span>
           <NumberFormat

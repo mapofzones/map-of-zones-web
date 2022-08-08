@@ -33,10 +33,11 @@
     padding: 8px 12px;
 
     .detailedInfoItem {
-      padding-top: 20px;
       padding-bottom: 12px;
 
       &:not(:first-child) {
+        padding-top: 20px;
+
         border-top: 1px solid var(--black-900);
       }
 

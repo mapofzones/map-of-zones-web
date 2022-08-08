@@ -30,14 +30,6 @@
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
-.divider {
-  width: 1px;
-  height: 100%;
-  margin: 0 12px;
-
-  background-color: var(--black-900);
-}
-
 .withAdditionalData {
   display: flex;
   align-items: flex-end;

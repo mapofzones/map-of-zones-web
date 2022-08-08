@@ -1,9 +1,8 @@
 import cn from 'classnames';
 
-import { Card, NumberFormat, ValueWithPending, ValueWithTitle } from 'components';
+import { Card, ValueWithTitle } from 'components';
 import { LineChart } from 'components/ui/LineChart/LineChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { PendingIcon } from 'icons';
 
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps } from './TotalInfoCard.props';

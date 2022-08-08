@@ -12,7 +12,7 @@ export function ZoneOverviewToken({ className }: any) {
         <div className={styles.tokenInfoItem}>
           <span className={styles.tokenInfoItem_title}>Price</span>
           <span className={styles.tokenInfoItem_data}>
-            <ZoneLogo />
+            <ZoneLogo size="20px" />
             <span className={styles.tokenName}>INJ</span>
             <NumberFormat
               value={1.56}
