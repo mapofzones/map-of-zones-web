@@ -6,7 +6,7 @@ import { ChannelData } from './ChannelRow/ChannelRow.props';
 export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
-  isTableScrollable?: boolean;
+  isTableHorizontalScrollable?: boolean;
   parentZone: ZonesListZoneDetails;
   zone: ZoneData;
 }

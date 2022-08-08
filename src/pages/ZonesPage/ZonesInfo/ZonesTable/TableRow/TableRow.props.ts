@@ -8,7 +8,7 @@ export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   index: number;
-  isTableScrollable?: boolean;
+  isTableHorizontalScrollable?: boolean;
   selectedColumnKey: ColumnKeys;
   zone: ZoneData;
 }

@@ -97,7 +97,7 @@
   &:hover {
     background-color: var(--black-500);
 
-    &.scrollable {
+    &.horizontalScrollable {
       td {
         &:first-child,
         &:nth-child(2) {

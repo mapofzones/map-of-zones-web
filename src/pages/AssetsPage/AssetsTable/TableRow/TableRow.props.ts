@@ -24,6 +24,6 @@ export interface TableRowProps
   asset: AssetData;
   className?: string;
   index: number;
-  isTableScrollable?: boolean;
+  isTableHorizontalScrollable?: boolean;
   selectedColumnKey: ColumnKeys;
 }

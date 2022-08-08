@@ -17,16 +17,25 @@ const ratingDiffKeysMap: Record<ColumnKeys, keyof AssetData> = {
   marketCap: 'marketCapDiffRating',
 };
 
-export function TableRow({ asset, index, isTableScrollable, selectedColumnKey }: TableRowProps) {
+export function TableRow({
+  asset,
+  index,
+  isTableHorizontalScrollable,
+  selectedColumnKey,
+}: TableRowProps) {
   const ratingDiff = asset[ratingDiffKeysMap[selectedColumnKey]] as number;
 
   return (
-    <tr className={cn(styles.container, { [styles.scrollable]: isTableScrollable })}>
-      <TableRowItem isSticky={isTableScrollable}>
+    <tr
+      className={cn(styles.container, {
+        [styles.horizontalScrollable]: isTableHorizontalScrollable,
+      })}
+    >
+      <TableRowItem isSticky={isTableHorizontalScrollable}>
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
 
-      <TableRowItem isSticky={isTableScrollable} withBorder={isTableScrollable}>
+      <TableRowItem isSticky={isTableHorizontalScrollable} withBorder={isTableHorizontalScrollable}>
         <div className={styles.assetInfoContainer}>
           <ZoneLogo logoUrl={asset.logoUrl} className={styles.logo} />
           <div>

@@ -18,7 +18,7 @@ import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
-export function TableRow({ isTableScrollable, parentZone, zone }: TableRowProps) {
+export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: TableRowProps) {
   const [channelsConfig, setChannelsConfig] = useState({
     isChannelsVisible: false,
     isMoreChannelsVisible: false,
@@ -47,10 +47,15 @@ export function TableRow({ isTableScrollable, parentZone, zone }: TableRowProps)
   return (
     <>
       <tr
-        className={cn(styles.container, { [styles.scrollable]: isTableScrollable })}
+        className={cn(styles.container, {
+          [styles.horizontalScrollable]: isTableHorizontalScrollable,
+        })}
         onClick={toggleChannelsVisibility}
       >
-        <TableRowItem isSticky={isTableScrollable} withBorder={isTableScrollable}>
+        <TableRowItem
+          isSticky={isTableHorizontalScrollable}
+          withBorder={isTableHorizontalScrollable}
+        >
           <motion.div
             className={styles.arrowContainer}
             variants={{
@@ -193,14 +198,14 @@ export function TableRow({ isTableScrollable, parentZone, zone }: TableRowProps)
               key={`${channel.channelId}_${channel.zoneCounterpartyChannelId}`}
               channel={channel}
               index={index}
-              isTableScrollable={isTableScrollable}
+              isTableHorizontalScrollable={isTableHorizontalScrollable}
               parentZone={parentZone}
               zone={zone}
             />
           ))}
           <ShowMoreRow
             count={zone.channels.length - channelsToShow.length}
-            isTableScrollable={isTableScrollable}
+            isTableHorizontalScrollable={isTableHorizontalScrollable}
             showMoreChannels={showMoreChannels}
           />
         </>

@@ -12,19 +12,23 @@ export function ChannelRow({
   className,
   channel,
   index,
-  isTableScrollable,
+  isTableHorizontalScrollable,
   parentZone,
   zone,
 }: ChannelRowProps) {
   return (
     <motion.tr
-      className={cn(styles.container, { [styles.scrollable]: isTableScrollable }, className)}
+      className={cn(
+        styles.container,
+        { [styles.horizontalScrollable]: isTableHorizontalScrollable },
+        className
+      )}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <TableRowItem isSticky={isTableScrollable} withBorder={isTableScrollable}>
+      <TableRowItem isSticky={isTableHorizontalScrollable} withBorder={isTableHorizontalScrollable}>
         <div className={styles.arrowContainer}>
           <div className={styles.position}>{index + 1}</div>
         </div>

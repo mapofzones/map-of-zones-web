@@ -19,11 +19,17 @@ export function Table<T extends string>({
 
   const { width: windowWidth } = useWindowSize();
 
-  const isTableScrollable =
+  const isTableHorizontalScrollable =
     !!tableRef.current?.offsetWidth && tableRef.current.offsetWidth > windowWidth;
 
   return (
-    <div className={cn(styles.container, { [styles.scrollable]: isTableScrollable }, className)}>
+    <div
+      className={cn(
+        styles.container,
+        { [styles.horizontalScrollable]: isTableHorizontalScrollable },
+        className
+      )}
+    >
       <table className={styles.table} ref={tableRef}>
         <TableHeader
           config={headerConfig}
@@ -39,7 +45,7 @@ export function Table<T extends string>({
               }
 
               return React.cloneElement(child, {
-                isTableScrollable,
+                isTableHorizontalScrollable,
               });
             })}
         </tbody>
