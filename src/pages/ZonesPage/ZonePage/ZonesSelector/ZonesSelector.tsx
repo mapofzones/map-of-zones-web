@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import cn from 'classnames';
 
 import { LinkWithQuery, ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
+import { searchZonesByName } from 'utils/helper';
 
 import styles from './ZonesSelector.module.scss';
 import { ZonesSearchProps } from './ZonesSelector.props';
@@ -11,10 +12,7 @@ export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX
   const [searchValue, setSearchValue] = useState('');
 
   const filteredZones = useMemo(
-    () =>
-      searchValue
-        ? zonesList?.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase()))
-        : zonesList,
+    () => (searchValue ? searchZonesByName(zonesList, searchValue) : zonesList),
     [searchValue, zonesList]
   );
 

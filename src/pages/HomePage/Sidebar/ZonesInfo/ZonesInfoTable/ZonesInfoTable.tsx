@@ -2,6 +2,8 @@ import { memo, useMemo } from 'react';
 
 import cn from 'classnames';
 
+import { searchZonesByName } from 'utils/helper';
+
 import { ZoneInfoRow } from '../../../index';
 import { ColumnKeys } from '../../../Types';
 import { METADATA } from '../Types';
@@ -43,10 +45,7 @@ function ZonesInfoTable({
   const numberType = METADATA[columnType].numberType;
 
   const filteredZones = useMemo(
-    () =>
-      searchValue
-        ? data?.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase()))
-        : data,
+    () => (searchValue ? searchZonesByName(data || [], searchValue) : data),
     [data, searchValue]
   );
 

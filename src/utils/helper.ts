@@ -6,6 +6,17 @@ export interface ChartItemByString {
   [key: string]: number;
 }
 
+interface ZoneItemForSearch {
+  name: string;
+}
+
+export function searchZonesByName<T extends ZoneItemForSearch>(
+  zones: T[],
+  searchValue: string
+): T[] {
+  return zones?.filter((zone) => zone.name.toLowerCase().includes(searchValue.toLowerCase()));
+}
+
 export const transformChartData = (chartData: ChartItemByNumber[], keyName: string) => {
   if (!chartData) {
     return undefined;
