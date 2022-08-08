@@ -66,7 +66,7 @@ export function ZonesTotalInfo(): JSX.Element {
         </div>
       </TotalCard>
 
-      <TotalCard className={styles.doubleItem}>
+      <TotalCard className={styles.doubleItem} hiding={true}>
         <div>
           <span className={styles.title}>All Channels</span>
           <NumberFormat
