@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr 1fr;
+  min-height: 85px;
+  padding: 12px;
+
+  &_chart {
+    grid-row-start: 1;
+    grid-row-end: 4;
+  }
+}

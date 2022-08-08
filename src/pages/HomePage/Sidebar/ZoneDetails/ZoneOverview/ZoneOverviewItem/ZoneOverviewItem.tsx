@@ -16,10 +16,11 @@ function ZoneOverviewItem({
   className,
   children,
   numberType,
+  rowLoyout = false,
   ...props
 }: ZoneOverviewItemProps) {
   return (
-    <div className={cn(styles.itemContainer, className)} {...props}>
+    <div className={cn(styles.itemContainer, className, { [styles.row]: rowLoyout })} {...props}>
       <div className={styles.title}>
         {title}
         {period && <span> ({period})</span>}

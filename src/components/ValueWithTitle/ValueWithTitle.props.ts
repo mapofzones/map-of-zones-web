@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 import { NumberType } from 'components';
 
@@ -11,5 +11,4 @@ export interface ValueWithPendingProps
   prefix?: string;
   suffix?: string;
   value?: number | null;
-  children?: ReactNode;
 }

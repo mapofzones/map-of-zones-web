@@ -1,6 +1,4 @@
-import cn from 'classnames';
-
-import { Button, Card, NumberFormat, NumberType, VolumeLineChart } from 'components';
+import { Button, NumberFormat, IbcVolumeCard } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 
@@ -15,44 +13,7 @@ function ZoneOverview() {
 
   return (
     <div className={styles.container}>
-      <Card className={styles.totalOverview} hasBorder loading={loading}>
-        {data && (
-          <>
-            <span className={styles.title}>IBC Volume ({period})</span>
-            <NumberFormat
-              className={styles.volumeValue}
-              value={data.ibcVolumeMainnet}
-              numberType={NumberType.Currency}
-            />
-            <div className={styles.chart}></div>
-            <VolumeLineChart
-              className={styles.volumeLineChart}
-              volumeInPercent={data.ibcVolumeInPercent}
-              volumeOutPercent={data.ibcVolumeOutPercent}
-            />
-            <NumberFormat
-              className={styles.volumeInValue}
-              value={data.ibcVolumeInMainnet}
-              numberType={NumberType.Currency}
-            />
-            <NumberFormat
-              className={cn(styles.volumeOutValue, 'alignRight')}
-              value={data.ibcVolumeOutMainnet}
-              numberType={NumberType.Currency}
-            />
-            <NumberFormat
-              className={styles.volumeInPendingValue}
-              value={data.ibcVolumeInPendingMainnet}
-              numberType={NumberType.Currency}
-            />
-            <NumberFormat
-              className={cn(styles.volumeOutPendingValue, 'alignRight')}
-              value={data.ibcVolumeOutPendingMainnet}
-              numberType={NumberType.Currency}
-            />
-          </>
-        )}
-      </Card>
+      <IbcVolumeCard data={data} period={period} loading={loading} hasBorder />
       <div className={styles.detailedInfo}>
         <ZoneOverviewItem
           className={styles.detailedInfoItem}

@@ -1,0 +1,60 @@
+.container {
+  .title {
+    color: var(--white);
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .tokenInfoContainer {
+    display: flex;
+    margin-top: 17px;
+
+    .tokenInfoItem {
+      display: block;
+      padding-right: 32px;
+      padding-left: 20px;
+
+      border-left: 1px solid var(--black-900);
+
+      &:first-child {
+        padding-left: 0;
+
+        border-left: none;
+      }
+
+      &_title {
+        margin-bottom: 4px;
+
+        color: var(--grey-500);
+        font-size: 15px;
+        line-height: 19px;
+      }
+
+      &_data {
+        display: flex;
+        align-items: center;
+
+        font-size: 18px;
+        line-height: 23px;
+
+        .tokenName {
+          margin-right: 4px;
+          margin-left: 8px;
+
+          color: var(--grey-500);
+        }
+
+        .tokenPriceDiff {
+          margin-right: 4px;
+          margin-left: 8px;
+        }
+
+        .period {
+          color: var(--grey-500);
+          font-size: 13px;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+}

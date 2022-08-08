@@ -1,0 +1,60 @@
+.container {
+  display: grid;
+  grid-area: activity;
+  grid-template-areas:
+    'activityTitle activityTitle'
+    'volumeCard totalTxsCard'
+    'volumeCard transfersCard';
+  grid-template-rows: auto 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+
+  .title {
+    grid-area: activityTitle;
+
+    color: var(--white);
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .volumeCard {
+    grid-area: volumeCard;
+  }
+
+  .totalTxsCard {
+    grid-area: totalTxsCard;
+  }
+
+  .transfersCard {
+    grid-area: transfersCard;
+  }
+
+  .overviewItemsGroup {
+    padding: 8px 12px;
+
+    .detailedInfoItem {
+      padding-top: 20px;
+      padding-bottom: 12px;
+
+      &:not(:first-child) {
+        border-top: 1px solid var(--black-900);
+      }
+
+      .additionalInfo {
+        color: var(--grey-500);
+      }
+
+      &.dauInfo {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dauValue {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: -7px;
+      }
+    }
+  }
+}
