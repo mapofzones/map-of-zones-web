@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import { motion } from 'framer-motion';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { ExternalLink, NavigationButton, PeriodSelector, ZoneLogo } from 'components';
+import {
+  AnimatedArrowDown,
+  ExternalLink,
+  NavigationButton,
+  PeriodSelector,
+  ZoneLogo,
+} from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { ArrowDown, EarthIcon } from 'icons';
+import { EarthIcon } from 'icons';
 
 import { useZonesData } from './useZonesData';
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';
@@ -40,19 +45,11 @@ export function ZonePage() {
               className={styles.zoneLogo}
             />
             <span className={styles.zoneName}>{data?.name}</span>
-            <motion.div
+            <AnimatedArrowDown
               className={styles.arrowContainer}
-              variants={{
-                searchVisible: { rotateX: 180 },
-                searchHidden: { rotateX: 0 },
-              }}
-              animate={isSearchVisible ? 'searchVisible' : 'searchHidden'}
-              initial="searchHidden"
-              transition={{ duration: 0.5 }}
+              isReverted={isSearchVisible}
               onClick={toggleSearch}
-            >
-              <ArrowDown />
-            </motion.div>
+            />
           </div>
           <span className={styles.zoneWebsite}>
             {data?.website && (

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import {
+  AnimatedArrowDown,
   NumberType,
   PendingValue,
   TableRowItem,
@@ -10,7 +11,6 @@ import {
   ZoneLogo,
   ZoneStatus,
 } from 'components';
-import { ArrowDown } from 'icons';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
 import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';
@@ -47,16 +47,11 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
     <>
       <tr className={styles.container} onClick={toggleChannelsVisibility}>
         <TableRowItem isSticky={true}>
-          <motion.div
+          <AnimatedArrowDown
             className={styles.arrowContainer}
-            variants={{
-              channelsVisible: { rotateX: 180 },
-              channelsHidden: { rotateX: 0 },
-            }}
-            {...animationConfig}
-          >
-            <ArrowDown />
-          </motion.div>
+            isReverted={!channelsConfig.isChannelsVisible}
+            initial={false}
+          />
 
           <div className={styles.zonesInfoContainer}>
             <div className={styles.zoneContainer}>
