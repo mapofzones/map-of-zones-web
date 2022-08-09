@@ -1,7 +1,0 @@
-query ZonesData($period: Int!, $isMainnet: Boolean!) {
-  zonesData: zones_stats(
-    where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
-  ) {
-    ...BaseInfo
-  }
-}

@@ -95,7 +95,9 @@ export const ZonesDataDocument = {
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseInfo' } }],
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfo' } },
+              ],
             },
           },
         ],
