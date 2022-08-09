@@ -4,7 +4,7 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { useZonesListZoneDetails } from '../useZonesListZoneDetails';
 import { TableRow } from './TableRow/TableRow';
-import { ColumnKeys, TABLE_HEADER_CONFIG } from './Types';
+import { ColumnKeys, getTableHeaderConfig } from './Types';
 import { usePeersTable } from './usePeersTable';
 import styles from './ZonePeers.module.scss';
 
@@ -23,11 +23,13 @@ export function ZonePeers() {
     return <></>;
   }
 
+  const headerConfig = getTableHeaderConfig(parentZoneData);
+
   return (
     <div className={styles.container}>
       <Table
         className={styles.table}
-        headerConfig={TABLE_HEADER_CONFIG}
+        headerConfig={headerConfig}
         selectedColumnKey={selectedColumnKey}
         setSelectedColumnKey={setSelectedColumnKey}
       >

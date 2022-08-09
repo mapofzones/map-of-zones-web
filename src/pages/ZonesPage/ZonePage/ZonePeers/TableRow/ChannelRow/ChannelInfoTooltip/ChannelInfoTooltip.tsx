@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { Tooltip } from 'components';
+import { Divider, Tooltip } from 'components';
 import { InfoIcon, RevertedArrowsIcon } from 'icons';
 
 import styles from './ChannelInfoTooltip.module.scss';
@@ -24,7 +24,7 @@ export function ChannelInfoTooltip({
           {zone.zoneCounterpartyName}
         </div>
 
-        <div className={styles.divider} />
+        <Divider horizontal />
 
         {!channel.isOpened && <div className={styles.connection}>Poor connection</div>}
 

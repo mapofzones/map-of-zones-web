@@ -7,7 +7,7 @@ import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import {
   ZonesMapDocument,
   ZonesMapQueryResult,
-} from 'graphql/HomePage/Map/__generated__/ZonesMap.generated';
+} from 'graphql/HomePage/__generated__/ZonesMap.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { Link, MapNode, ZoneLink, ZoneStat } from '../Types';

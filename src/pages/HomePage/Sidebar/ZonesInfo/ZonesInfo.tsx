@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { Button, Dropdown, PeriodSelector, ScrollableContainer } from 'components';
 import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
@@ -17,11 +19,14 @@ import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton'
 import { ZonesInfoTitle } from './ZonesInfoTitle/ZonesInfoTitle';
 
 function ZonesInfo(): JSX.Element {
+  const navigate = useNavigate();
+
   const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
     'columnKey',
     ColumnKeys.IbcVolume
   );
+
   const [searchValue, setSearchValue] = useState('');
 
   const metadata = METADATA[selectedColumnKey];
@@ -44,6 +49,10 @@ function ZonesInfo(): JSX.Element {
     setSearchValue(value);
   };
 
+  const onDetailedBtnClick = () => {
+    navigate('/zones');
+  };
+
   return (
     <div className={styles.container}>
       <ZonesInfoTitle
@@ -51,21 +60,6 @@ function ZonesInfo(): JSX.Element {
         loading={tableDataLoading}
         onSearchChange={onSearchChange}
       />
-      {/* <div className={cn(styles.zoneCountSearchContainer, { [styles.expanded]: searchExpanded })}>
-        <span className={styles.zonesCountInfo}>
-          <SkeletonTextWrapper loading={tableDataLoading} defaultText={'00'}>
-            {zones?.length}
-          </SkeletonTextWrapper>
-          {' Zones'}
-        </span>
-
-        <Search
-          className={styles.search}
-          onSearchChange={onSearchChange}
-          onFocus={() => setSearchExpanded(true)}
-          onBlur={() => setSearchExpanded(false)}
-        />
-      </div> */}
       <div className={styles.selectorsContainer}>
         <Dropdown
           className={styles.columnDropdown}
@@ -92,7 +86,7 @@ function ZonesInfo(): JSX.Element {
         {tableDataLoading && <ZonesInfoTableSkeleton />}
       </ScrollableContainer>
       <div className={styles.shadow}></div>
-      <Button className={styles.detailedBtn}>
+      <Button className={styles.detailedBtn} onClick={onDetailedBtnClick}>
         <span className={styles.btnText}>Detailed View</span>
         <ArrowRight />
       </Button>

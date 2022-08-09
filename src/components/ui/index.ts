@@ -5,6 +5,7 @@ export { AnimatedArrowDown } from './AnimatedArrowDown/AnimatedArrowDown';
 export { Button } from './Button/Button';
 export { ButtonGroup } from './ButtonGroup/ButtonGroup';
 export { Card } from './Card/Card';
+export { Divider } from './Divider/Divider';
 export { ExplanationTooltip } from './ExplanationTooltip/ExplanationTooltip';
 export { ExternalLink } from './ExternalLink/ExternalLink';
 export { Input } from './Input/Input';
