@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { init, track } from '@amplitude/analytics-browser';
+import { init } from '@amplitude/analytics-browser';
+// import { init, track } from '@amplitude/analytics-browser';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
@@ -13,6 +14,15 @@ import useDebounce from './useDebounce';
 if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_AMPLITUDE_KEY) {
   init(process.env.REACT_APP_AMPLITUDE_KEY);
 }
+
+export const trackEvent = (event: string, data?: object) => {
+  if (process.env.NODE_ENV === 'production') {
+    // track(event, data);
+    console.log('track event:', { event, data });
+  } else {
+    console.log('track event:', { event, data });
+  }
+};
 
 const PAGE_TITLE: Record<string, string> = {
   Assets: 'assets page',
@@ -71,6 +81,8 @@ export function useAnalytics() {
     if (pathname.includes('/home')) {
       if (pathname.includes('/overview')) return PAGE_TITLE.HomeOverview;
       if (pathname.includes('/peers')) return PAGE_TITLE.HomePeers;
+
+      return PAGE_TITLE.Home;
     }
 
     if (pathname.includes('/zones')) {
@@ -83,14 +95,6 @@ export function useAnalytics() {
     if (pathname === '/assets') return PAGE_TITLE.Assets;
 
     return '';
-  };
-
-  const trackEvent = (event: string, data?: object) => {
-    if (process.env.NODE_ENV === 'production') {
-      track(event, data);
-    } else {
-      console.log('track event:', { event, data });
-    }
   };
 
   useEffect(() => {
@@ -126,6 +130,33 @@ export function useAnalytics() {
     };
   }, [location.pathname]);
 
+  // changed period
+  useEffect(() => {
+    const currentPage = history[history.length - 1];
+    const prevPage = history[history.length - 2];
+
+    if (currentPage) {
+      const currentPageSearch = queryString.parse(currentPage.search);
+      const prevPageSearch = queryString.parse(prevPage?.search);
+      const currentPageTitle = getPageTitle(currentPage.pathname);
+      const prevPageTitle = getPageTitle(prevPage?.pathname);
+
+      if (
+        currentPageTitle === prevPageTitle &&
+        currentPageSearch.period !== prevPageSearch.period
+      ) {
+        trackEvent('changed period', {
+          period: currentPageSearch.period,
+          source: currentPageTitle,
+        });
+      }
+    }
+  }, [history]);
+
+  // TODO: shared page
+  // TODO: chosen link
+  // TODO: changed zone
+
   // Overall
   useEffect(() => {
     const currentPage = history[history.length - 1];
@@ -138,10 +169,9 @@ export function useAnalytics() {
 
       if (currentPageTitle && currentPageTitle !== prevPageTitle) {
         trackEvent('viewed application page', {
-          'page title': currentPageTitle,
-          'referrer url': prevPageTitle,
-          'visit number': history.filter(({ pathname }) => pathname === currentPage.pathname)
-            .length,
+          page_title: currentPageTitle,
+          referrer_url: prevPageTitle,
+          visit_number: history.filter(({ pathname }) => pathname === currentPage.pathname).length,
           default_period: currentPageSearch.period,
         });
       }
@@ -150,15 +180,12 @@ export function useAnalytics() {
 
   // zone peers
   useEffect(() => {
-    // TODO: expanded peer
-    // TODO: folded peer
-    // TODO: viewed peers info
-
     const currentPage = history[history.length - 1];
     const prevPage = history[history.length - 2];
 
     if (currentPage) {
       const currentPageSearch = queryString.parse(currentPage.search);
+      const prevPageSearch = queryString.parse(prevPage?.search);
       const currentPageTitle = getPageTitle(currentPage.pathname);
       const prevPageTitle = getPageTitle(prevPage?.pathname);
 
@@ -167,12 +194,29 @@ export function useAnalytics() {
         zone: currentPage.pathname.split('/')[2],
       };
 
-      if (currentPageTitle === PAGE_TITLE.ZonePeers && prevPageTitle !== PAGE_TITLE.ZonePeers) {
-        trackEvent('viewed zone peers page', {
-          'referrer url': prevPageTitle,
-          source: '', // 'direct link' | 'zone subtab' | 'sidebar' | 'zone switcher'
-          ...defaultProps,
-        });
+      if (currentPageTitle === PAGE_TITLE.ZonePeers) {
+        let source = '';
+
+        if (history.length === 1) {
+          source = 'direct link';
+        } else if (
+          prevPageTitle === currentPageTitle &&
+          defaultProps.zone !== prevPage.pathname.split('/')[2]
+        ) {
+          source = 'zone switcher';
+        } else if (prevPageTitle === PAGE_TITLE.ZoneOverview) {
+          source = 'zone subtab';
+        } else if (prevPageTitle === PAGE_TITLE.HomePeers) {
+          source = 'sidebar';
+        }
+
+        if (source) {
+          trackEvent('viewed zone peers page', {
+            referrer_url: prevPageTitle,
+            source,
+            ...defaultProps,
+          });
+        }
       }
 
       if (
@@ -186,7 +230,13 @@ export function useAnalytics() {
         });
       }
 
-      if (currentPageTitle === PAGE_TITLE.ZonePeers) {
+      if (
+        currentPageTitle === PAGE_TITLE.ZonePeers &&
+        prevPageTitle === PAGE_TITLE.ZonePeers &&
+        currentPageSearch.columnKey &&
+        prevPageSearch.columnKey &&
+        currentPageSearch.columnKey !== prevPageSearch.columnKey
+      ) {
         trackEvent('sorted zone peers list', {
           param: ZONES_PEERS_COLUMN_TITLE[currentPageSearch.columnKey as string],
           ...defaultProps,
@@ -202,15 +252,26 @@ export function useAnalytics() {
 
     if (currentPage) {
       const currentPageSearch = queryString.parse(currentPage.search);
+      const prevPageSearch = queryString.parse(prevPage?.search);
       const currentPageTitle = getPageTitle(currentPage.pathname);
       const prevPageTitle = getPageTitle(prevPage?.pathname);
 
-      if (currentPageTitle === PAGE_TITLE.ZonesList && prevPageTitle !== PAGE_TITLE.ZonesList) {
-        trackEvent('viewed zones list page', {
-          'referrer url': prevPageTitle,
-          period: currentPageSearch.period,
-          source: '', // 'menu' | 'sidebar' | 'direct link'
-        });
+      if (currentPageTitle === PAGE_TITLE.ZonesList) {
+        let source = '';
+
+        if (history.length === 1) {
+          source = 'direct link';
+        } else if (prevPageTitle !== currentPageTitle) {
+          source = 'menu';
+        }
+
+        if (source) {
+          trackEvent('viewed zones list page', {
+            referrer_url: prevPageTitle,
+            period: currentPageSearch.period,
+            source: source, // TODO: 'sidebar'
+          });
+        }
       }
 
       if (currentPageTitle === PAGE_TITLE.ZoneOverview && prevPageTitle === PAGE_TITLE.ZonesList) {
@@ -220,7 +281,13 @@ export function useAnalytics() {
         });
       }
 
-      if (currentPageTitle === PAGE_TITLE.ZonesList) {
+      if (
+        currentPageTitle === PAGE_TITLE.ZonesList &&
+        prevPageTitle === PAGE_TITLE.ZonesList &&
+        currentPageSearch.columnKey &&
+        prevPageSearch.columnKey &&
+        currentPageSearch.columnKey !== prevPageSearch.columnKey
+      ) {
         trackEvent('sorted zones list', {
           param: ZONES_PAGE_COLUMN_TITLE[currentPageSearch.columnKey as string],
           period: currentPageSearch.period,
@@ -236,17 +303,24 @@ export function useAnalytics() {
 
     if (currentPage) {
       const currentPageSearch = queryString.parse(currentPage.search);
+      const prevPageSearch = queryString.parse(prevPage?.search);
       const currentPageTitle = getPageTitle(currentPage.pathname);
       const prevPageTitle = getPageTitle(prevPage?.pathname);
 
-      if (currentPageTitle === PAGE_TITLE.Assets) {
+      if (currentPageTitle === PAGE_TITLE.Assets && prevPageTitle !== PAGE_TITLE.Assets) {
         trackEvent('viewed assets page', {
-          'referrer url': prevPageTitle,
-          source: '', // 'menu' | 'direct link'
+          referrer_url: prevPageTitle,
+          source: history.length === 1 ? 'direct link' : 'menu',
         });
       }
 
-      if (currentPageTitle === PAGE_TITLE.Assets) {
+      if (
+        currentPageTitle === PAGE_TITLE.Assets &&
+        prevPageTitle === PAGE_TITLE.Assets &&
+        currentPageSearch.columnKey &&
+        prevPageSearch.columnKey &&
+        currentPageSearch.columnKey !== prevPageSearch.columnKey
+      ) {
         trackEvent('sorted assets list', {
           param: ASSETS_PAGE_COLUMN_TITLE[currentPageSearch.columnKey as string],
         });
