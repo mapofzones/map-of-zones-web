@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { Button, NumberFormat, IbcVolumeCard } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
@@ -7,9 +9,17 @@ import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewItem } from './ZoneOverviewItem/ZoneOverviewItem';
 
 function ZoneOverview() {
+  const navigate = useNavigate();
+
+  const { zone } = useParams();
+
   const [period] = useSelectedPeriod();
 
   const { data, loading } = useZoneOverview();
+
+  const onDetailedBtnClick = () => {
+    navigate(`/zones/${zone}/overview`);
+  };
 
   return (
     <div className={styles.container}>
@@ -82,7 +92,7 @@ function ZoneOverview() {
         </ZoneOverviewItem>
       </div>
 
-      <Button className={styles.detailedBtn}>
+      <Button className={styles.detailedBtn} onClick={onDetailedBtnClick}>
         <span className={styles.btnText}>Learn More</span>
         <ArrowRight />
       </Button>
