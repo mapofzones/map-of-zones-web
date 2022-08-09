@@ -4,6 +4,8 @@ import {
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
 import { Ft_Channel_Group_Stats_Select_Column } from 'graphql/base-types';
 
+import { ZonesListZoneDetails } from '../useZonesListZoneDetails';
+
 export enum ColumnKeys {
   IbcVolumeReceived = 'ibcVolumeIn',
   IbcVolumeSent = 'ibcVolumeOut',
@@ -13,16 +15,7 @@ export enum ColumnKeys {
   SuccessRate = 'successRate',
 }
 
-export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Ft_Channel_Group_Stats_Select_Column> = {
-  [ColumnKeys.IbcVolumeReceived]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowIn,
-  [ColumnKeys.IbcVolumeSent]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowOut,
-  [ColumnKeys.IbcTransfers]: Ft_Channel_Group_Stats_Select_Column.IbcTx,
-  [ColumnKeys.IbcTransfersPending]: Ft_Channel_Group_Stats_Select_Column.IbcTxPending,
-  [ColumnKeys.IbcTransfersFailed]: Ft_Channel_Group_Stats_Select_Column.IbcTxFailed,
-  [ColumnKeys.SuccessRate]: Ft_Channel_Group_Stats_Select_Column.IbcTxSuccessRate,
-};
-
-export const TABLE_HEADER_CONFIG = [
+export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
   {
     title: 'Peer',
     isSticky: true,
@@ -35,17 +28,17 @@ export const TABLE_HEADER_CONFIG = [
     withBorder: true,
   },
   {
-    title: 'Injective Sends',
-    columnKey: ColumnKeys.IbcVolumeSent,
-    explanationText: 'Test text',
-    circleType: CircleType.Source,
-  },
-  {
-    title: 'Injective Receives',
+    title: `${zone.name} Receives`,
     columnKey: ColumnKeys.IbcVolumeReceived,
     explanationText: 'Test text',
     circleType: CircleType.Target,
     withBorder: true,
+  },
+  {
+    title: `${zone.name} Sends`,
+    columnKey: ColumnKeys.IbcVolumeSent,
+    explanationText: 'Test text',
+    circleType: CircleType.Source,
   },
   {
     title: 'IBC Success',
@@ -69,3 +62,12 @@ export const TABLE_HEADER_CONFIG = [
     explanationText: 'Test text',
   },
 ];
+
+export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Ft_Channel_Group_Stats_Select_Column> = {
+  [ColumnKeys.IbcVolumeReceived]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowIn,
+  [ColumnKeys.IbcVolumeSent]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowOut,
+  [ColumnKeys.IbcTransfers]: Ft_Channel_Group_Stats_Select_Column.IbcTx,
+  [ColumnKeys.IbcTransfersPending]: Ft_Channel_Group_Stats_Select_Column.IbcTxPending,
+  [ColumnKeys.IbcTransfersFailed]: Ft_Channel_Group_Stats_Select_Column.IbcTxFailed,
+  [ColumnKeys.SuccessRate]: Ft_Channel_Group_Stats_Select_Column.IbcTxSuccessRate,
+};
