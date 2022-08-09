@@ -2,7 +2,15 @@
   height: 80px;
   padding: 12px 16px;
 
+  white-space: nowrap;
+
   background-color: var(--black-400);
   border-radius: 4px;
   box-shadow: 0 8px 15px rgb(0 0 0 / 30%);
+}
+
+@media (max-width: 1280px) {
+  .hiding {
+    display: none;
+  }
 }

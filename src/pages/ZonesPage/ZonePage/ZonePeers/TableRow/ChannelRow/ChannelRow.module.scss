@@ -76,16 +76,9 @@
     }
   }
 
-  &:hover {
+  &:hover > td {
+    z-index: 4;
+
     background-color: #16161c;
-
-    // TODO: enable only for scrollable table
-    td {
-      &:first-child {
-        z-index: 1000;
-
-        background-color: #16161c;
-      }
-    }
   }
 }

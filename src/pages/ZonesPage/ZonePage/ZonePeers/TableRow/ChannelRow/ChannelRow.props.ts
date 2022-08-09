@@ -25,6 +25,7 @@ export interface ChannelRowProps
   className?: string;
   channel: ChannelData;
   index: number;
+  isTableHorizontalScrollable?: boolean;
   parentZone: ZonesListZoneDetails;
   zone: ZoneData;
 }
