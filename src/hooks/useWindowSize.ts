@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 
+// TODO: remove when final font will be chosen
 export function useWindowSize() {
   const [size, setSize] = useState({ width: 0, height: 0 });
 
