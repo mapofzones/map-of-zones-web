@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { ZonesDataDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZonesData.generated';
+import { ZonesDataDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZonesData.query.generated';
 
 export interface ZoneData {
   logoUrl?: string | null;

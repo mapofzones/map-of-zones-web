@@ -6,7 +6,7 @@
 import * as Types from '../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { BaseInfoFragmentDoc } from '../../../HomePage/Sidebar/ZonesInfo/__generated__/BaseInfo.generated';
+import { ZoneBaseInfoFragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZonesDataQueryVariables = Types.Exact<{
   period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
@@ -95,12 +95,14 @@ export const ZonesDataDocument = {
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseInfo' } }],
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfo' } },
+              ],
             },
           },
         ],
       },
     },
-    ...BaseInfoFragmentDoc.definitions,
+    ...ZoneBaseInfoFragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonesDataQueryResult, ZonesDataQueryVariables>;
