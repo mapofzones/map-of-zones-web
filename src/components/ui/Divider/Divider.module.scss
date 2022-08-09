@@ -1,0 +1,13 @@
+.divider {
+  width: 1px;
+  height: 100%;
+  margin: 0 12px;
+
+  background-color: var(--black-900);
+
+  &.horizontal {
+    width: 100%;
+    height: 1px;
+    margin: 12px 0;
+  }
+}

@@ -14,6 +14,7 @@ export function ValueWithPending({
   prefix,
   suffix,
   value,
+  children,
   ...props
 }: ValueWithPendingProps) {
   return (
@@ -23,7 +24,10 @@ export function ValueWithPending({
       })}
       {...props}
     >
-      <NumberFormat numberType={numberType} prefix={prefix} suffix={suffix} value={value} />
+      {children}
+      {value && (
+        <NumberFormat numberType={numberType} prefix={prefix} suffix={suffix} value={value} />
+      )}
       {pendingValue != null && (
         <PendingValue
           className={styles.pendingContainer}

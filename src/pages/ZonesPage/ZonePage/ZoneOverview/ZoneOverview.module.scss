@@ -1,0 +1,33 @@
+.container {
+  display: grid;
+  grid-template-areas:
+    'token activity'
+    'parameters parameters';
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 42px;
+  height: 100%;
+  padding: 0 36px 36px;
+
+  .tokenBlock {
+    grid-area: token;
+  }
+
+  .activityBlock {
+    grid-area: activity;
+  }
+
+  .parametersBlock {
+    grid-area: parameters;
+  }
+}
+
+@media (max-width: 980px) {
+  .container {
+    display: grid;
+    grid-template-areas:
+      'token'
+      'activity'
+      'parameters';
+    grid-template-columns: 1fr;
+  }
+}

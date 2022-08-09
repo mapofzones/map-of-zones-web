@@ -1,0 +1,54 @@
+.container {
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'volume chart'
+    'lineChart lineChart'
+    'volumeIn volumeOut'
+    'volumeInPending volumeOutPending';
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 150px;
+  padding: 16px;
+
+  .title {
+    grid-area: title;
+    margin-bottom: 4px;
+
+    color: var(--grey-500);
+    font-size: 13px;
+    line-height: 16.3px;
+  }
+
+  .volumeValue {
+    grid-area: volume;
+
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  .volumeLineChart {
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+
+  .volumeInValue,
+  .volumeOutValue {
+    margin-bottom: 2px;
+
+    font-size: 15px;
+    line-height: 19px;
+  }
+
+  .volumeInPendingValue,
+  .volumeOutPendingValue {
+    color: var(--grey-500);
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .chart {
+    grid-area: chart;
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+}
