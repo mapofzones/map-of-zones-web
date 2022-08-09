@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import cn from 'classnames';
 
 import { LinkWithQuery, ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
-import { searchZonesByName } from 'utils/helper';
+import { useFilteredZones } from 'hooks/useFilteredZones';
 
 import styles from './ZonesSelector.module.scss';
 import { ZonesSearchProps } from './ZonesSelector.props';
@@ -11,10 +11,7 @@ import { ZonesSearchProps } from './ZonesSelector.props';
 export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
 
-  const filteredZones = useMemo(
-    () => (searchValue ? searchZonesByName(zonesList, searchValue) : zonesList),
-    [searchValue, zonesList]
-  );
+  const filteredZones = useFilteredZones(zonesList, searchValue);
 
   const onSearchChange = (value: string) => {
     setSearchValue(value);
