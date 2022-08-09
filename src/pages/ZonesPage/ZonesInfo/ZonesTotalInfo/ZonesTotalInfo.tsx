@@ -20,7 +20,6 @@ export function ZonesTotalInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod();
 
   const { data: zonesTotalInfo } = useZonesTotalInfo(selectedPeriod);
-
   if (!zonesTotalInfo) {
     return <></>;
   }
