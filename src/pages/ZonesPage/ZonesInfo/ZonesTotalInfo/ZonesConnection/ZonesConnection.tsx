@@ -23,7 +23,7 @@ export function ZonesConnection({
         />
         <span className={styles.title}>{source}</span>
       </div>
-      <div className={styles.divider} />
+      <div className={styles.link} />
       <div className={styles.zoneContainer}>
         <div
           className={cn(styles.circle, {

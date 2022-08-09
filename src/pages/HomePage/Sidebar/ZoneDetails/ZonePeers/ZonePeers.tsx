@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { Button, ScrollableContainer } from 'components';
 import { ArrowRight } from 'icons';
 
@@ -8,11 +10,19 @@ import { ZonePeersSkeleton } from './ZonePeersSkeleton';
 import { MemoizedZonePeersTable } from './ZonePeersTable/ZonePeersTable';
 
 export function ZonePeers() {
+  const navigate = useNavigate();
+
+  const { zone } = useParams();
+
   const { data: peers, loading: peersLoading } = useZonePeers();
 
   const { data: zoneDetails, loading: zoneDetailsLoading } = useZoneDetails();
 
   const loading = peersLoading || zoneDetailsLoading;
+
+  const onDetailedBtnClick = () => {
+    navigate(`/zones/${zone}/peers`);
+  };
 
   return (
     <>
@@ -21,7 +31,7 @@ export function ZonePeers() {
         {!loading && <MemoizedZonePeersTable peers={peers} zoneDetails={zoneDetails} />}
       </ScrollableContainer>
 
-      <Button className={styles.detailedBtn}>
+      <Button className={styles.detailedBtn} onClick={onDetailedBtnClick}>
         <span className={styles.btnText}>Learn More</span>
         <ArrowRight />
       </Button>

@@ -1,6 +1,0 @@
-fragment IbcVolumeStats on zones_stats {
-  ibcVolume: ibc_cashflow_mainnet
-  ibcVolumePending: ibc_cashflow_pending_mainnet
-  ibcVolumeRating: ibc_cashflow_mainnet_rating
-  ibcVolumeRatingDiff: ibc_cashflow_mainnet_rating_diff
-}

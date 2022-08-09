@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { ZonePeersDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZonePeers.generated';
+import { ZonePeersDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZonePeers.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 export interface ZonePeer {

@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
 
+  &.row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .title {
     margin-bottom: 4px;
 
