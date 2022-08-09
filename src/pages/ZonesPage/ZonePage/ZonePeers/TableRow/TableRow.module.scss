@@ -73,14 +73,8 @@
   }
 
   &:hover {
-    background-color: var(--black-500);
-
-    &.horizontalScrollable {
-      td {
-        &:first-child {
-          background-color: var(--black-500);
-        }
-      }
+    td {
+      background-color: var(--black-500);
     }
 
     .zonesInfoContainer {

@@ -67,16 +67,7 @@
     margin-left: 4px;
   }
 
-  &:hover {
+  &:hover > td {
     background-color: var(--black-500);
-
-    &.horizontalScrollable {
-      td {
-        &:first-child,
-        &:nth-child(2) {
-          background-color: var(--black-500);
-        }
-      }
-    }
   }
 }

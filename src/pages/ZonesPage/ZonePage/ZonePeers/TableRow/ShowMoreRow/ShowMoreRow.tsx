@@ -20,7 +20,7 @@ export function ShowMoreRow({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <TableRowItem isSticky={isTableHorizontalScrollable} withBorder={isTableHorizontalScrollable}>
+      <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
         {!!count && (
           <>
             <div className={styles.arrowContainer}>

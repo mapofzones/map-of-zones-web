@@ -76,17 +76,9 @@
     }
   }
 
-  &:hover {
+  &:hover > td {
+    z-index: 4;
+
     background-color: #16161c;
-
-    &.horizontalScrollable {
-      td {
-        &:first-child {
-          z-index: 4;
-
-          background-color: #16161c;
-        }
-      }
-    }
   }
 }
