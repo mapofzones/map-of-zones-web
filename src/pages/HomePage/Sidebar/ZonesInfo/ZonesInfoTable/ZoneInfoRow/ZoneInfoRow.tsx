@@ -2,7 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import { LinkWithQuery, NumberFormat, NumberType, RatingDiffTriangle, ZoneLogo } from 'components';
+import { LinkWithQuery, NumberFormat, NumberType, ZoneInfoWithSearch } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -15,36 +15,9 @@ function ZoneInfoRow({
   className,
   ...props
 }: ZonesInfoRowProps): JSX.Element {
-  const names = searchValue
-    ? zone.name.split(new RegExp(`(${searchValue})`, 'gi')).filter((part: string) => !!part)
-    : [zone.name];
-
   return (
     <LinkWithQuery to={`${zone.id}/overview`} className={cn(styles.row, className)} {...props}>
-      {/* TODO: separate component */}
-      <div className={styles.zoneBaseInfoContainer}>
-        <ZoneLogo
-          logoUrl={zone.logoUrl}
-          name={zone.name}
-          size={'32px'}
-          className={styles.zoneLogo}
-        />
-        <div className={styles.name}>
-          {names.map((value, index) => {
-            const key = `${zone.name}_${index}`;
-            if (value.toLowerCase() === searchValue?.toLowerCase() || names.length <= 1) {
-              return <React.Fragment key={key}>{value}</React.Fragment>;
-            }
-            return (
-              <span className={styles.notActive} key={key}>
-                {value}
-              </span>
-            );
-          })}
-        </div>
-
-        <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={zone.ratingDiff} />
-      </div>
+      <ZoneInfoWithSearch className={styles.zoneContainer} searchValue={searchValue} zone={zone} />
 
       {/* TODO: separate component */}
       <div className={styles.valueContainer}>

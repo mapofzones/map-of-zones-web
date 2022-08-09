@@ -21,6 +21,19 @@
     }
   }
 
+  .arrowContainer {
+    position: relative;
+    top: 3px;
+
+    margin-left: 12px;
+
+    cursor: pointer;
+
+    svg {
+      stroke: var(--white);
+    }
+  }
+
   .zoneWebsite {
     display: flex;
     margin-top: 9px;
