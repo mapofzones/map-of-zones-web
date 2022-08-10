@@ -68,12 +68,25 @@ const ZONES_PEERS_COLUMN_TITLE: Record<string, string> = {
   [ZonesPageZonePeersColumnKeys.SuccessRate]: 'success rate',
 };
 
+interface Page {
+  key: string;
+  pathname: string;
+  search: {
+    columnKey?: string;
+    period?: string;
+  };
+  title: string;
+}
+
 export function useAnalytics() {
   const location = useLocation();
 
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<Page[]>([]);
 
   const debouncedLocation = useDebounce(location, 500);
+
+  const currentPage = history[history.length - 1];
+  const prevPage = history[history.length - 2];
 
   const getPageTitle = (pathname: string | null) => {
     if (!pathname) return '';
@@ -100,8 +113,15 @@ export function useAnalytics() {
   useEffect(() => {
     if (debouncedLocation) {
       setHistory((prevState) => {
-        if (prevState[prevState.length - 1] !== debouncedLocation) {
-          return [...prevState, debouncedLocation];
+        if (prevState[prevState.length - 1]?.key !== debouncedLocation.key) {
+          return [
+            ...prevState,
+            {
+              ...debouncedLocation,
+              title: getPageTitle(debouncedLocation.pathname),
+              search: queryString.parse(debouncedLocation.search),
+            },
+          ];
         }
 
         return prevState;
@@ -111,7 +131,7 @@ export function useAnalytics() {
 
   // page scroll
   useEffect(() => {
-    const eventName = EVENT_FOR_SCROLL_BY_PAGE_TITLE[getPageTitle(location.pathname)];
+    const eventName = EVENT_FOR_SCROLL_BY_PAGE_TITLE[currentPage?.title];
 
     const scrollListener = () => {
       if (window.scrollY > 50) {
@@ -128,30 +148,22 @@ export function useAnalytics() {
     return () => {
       window.removeEventListener('scroll', scrollListener);
     };
-  }, [location.pathname]);
+  }, [currentPage]);
 
   // changed period
   useEffect(() => {
-    const currentPage = history[history.length - 1];
-    const prevPage = history[history.length - 2];
-
     if (currentPage) {
-      const currentPageSearch = queryString.parse(currentPage.search);
-      const prevPageSearch = queryString.parse(prevPage?.search);
-      const currentPageTitle = getPageTitle(currentPage.pathname);
-      const prevPageTitle = getPageTitle(prevPage?.pathname);
-
       if (
-        currentPageTitle === prevPageTitle &&
-        currentPageSearch.period !== prevPageSearch.period
+        currentPage.title === prevPage?.title &&
+        currentPage.search.period !== prevPage?.search.period
       ) {
         trackEvent('changed period', {
-          period: currentPageSearch.period,
-          source: currentPageTitle,
+          period: currentPage.search.period,
+          source: currentPage.title,
         });
       }
     }
-  }, [history]);
+  }, [currentPage, prevPage]);
 
   // TODO: shared page
   // TODO: chosen link
@@ -159,60 +171,43 @@ export function useAnalytics() {
 
   // Overall
   useEffect(() => {
-    const currentPage = history[history.length - 1];
-    const prevPage = history[history.length - 2];
-
-    if (currentPage) {
-      const currentPageSearch = queryString.parse(currentPage.search);
-      const currentPageTitle = getPageTitle(currentPage.pathname);
-      const prevPageTitle = getPageTitle(prevPage?.pathname);
-
-      if (currentPageTitle && currentPageTitle !== prevPageTitle) {
-        trackEvent('viewed application page', {
-          page_title: currentPageTitle,
-          referrer_url: prevPageTitle,
-          visit_number: history.filter(({ pathname }) => pathname === currentPage.pathname).length,
-          default_period: currentPageSearch.period,
-        });
-      }
+    if (currentPage?.title && currentPage.title !== prevPage?.title) {
+      trackEvent('viewed application page', {
+        page_title: currentPage.title,
+        referrer_url: prevPage?.title,
+        visit_number: history.filter(({ pathname }) => pathname === currentPage.pathname).length,
+        default_period: currentPage.search.period,
+      });
     }
-  }, [history]);
+  }, [currentPage, prevPage, history]);
 
   // zone peers
   useEffect(() => {
-    const currentPage = history[history.length - 1];
-    const prevPage = history[history.length - 2];
-
     if (currentPage) {
-      const currentPageSearch = queryString.parse(currentPage.search);
-      const prevPageSearch = queryString.parse(prevPage?.search);
-      const currentPageTitle = getPageTitle(currentPage.pathname);
-      const prevPageTitle = getPageTitle(prevPage?.pathname);
-
       const defaultProps = {
-        period: currentPageSearch.period,
+        period: currentPage.search.period,
         zone: currentPage.pathname.split('/')[2],
       };
 
-      if (currentPageTitle === PAGE_TITLE.ZonePeers) {
+      if (currentPage.title === PAGE_TITLE.ZonePeers) {
         let source = '';
 
-        if (history.length === 1) {
+        if (!prevPage) {
           source = 'direct link';
         } else if (
-          prevPageTitle === currentPageTitle &&
+          prevPage.title === currentPage.title &&
           defaultProps.zone !== prevPage.pathname.split('/')[2]
         ) {
           source = 'zone switcher';
-        } else if (prevPageTitle === PAGE_TITLE.ZoneOverview) {
+        } else if (prevPage.title === PAGE_TITLE.ZoneOverview) {
           source = 'zone subtab';
-        } else if (prevPageTitle === PAGE_TITLE.HomePeers) {
+        } else if (prevPage.title === PAGE_TITLE.HomePeers) {
           source = 'sidebar';
         }
 
         if (source) {
           trackEvent('viewed zone peers page', {
-            referrer_url: prevPageTitle,
+            referrer_url: prevPage?.title,
             source,
             ...defaultProps,
           });
@@ -220,113 +215,101 @@ export function useAnalytics() {
       }
 
       if (
-        (currentPageTitle === PAGE_TITLE.ZonePeers && prevPageTitle === PAGE_TITLE.ZoneOverview) ||
-        (currentPageTitle === PAGE_TITLE.ZoneOverview && prevPageTitle === PAGE_TITLE.ZonePeers)
+        (currentPage.title === PAGE_TITLE.ZonePeers &&
+          prevPage?.title === PAGE_TITLE.ZoneOverview) ||
+        (currentPage.title === PAGE_TITLE.ZoneOverview && prevPage?.title === PAGE_TITLE.ZonePeers)
       ) {
         trackEvent('switched zone subtab', {
-          zone_subtab: currentPageTitle === PAGE_TITLE.ZonePeers ? 'peers' : 'overview',
-          param: ZONES_PEERS_COLUMN_TITLE[currentPageSearch.columnKey as string],
+          zone_subtab: currentPage.title === PAGE_TITLE.ZonePeers ? 'peers' : 'overview',
+          param: ZONES_PEERS_COLUMN_TITLE[currentPage.search.columnKey as string],
           ...defaultProps,
         });
       }
 
       if (
-        currentPageTitle === PAGE_TITLE.ZonePeers &&
-        prevPageTitle === PAGE_TITLE.ZonePeers &&
-        currentPageSearch.columnKey &&
-        prevPageSearch.columnKey &&
-        currentPageSearch.columnKey !== prevPageSearch.columnKey
+        currentPage.title === PAGE_TITLE.ZonePeers &&
+        prevPage?.title === PAGE_TITLE.ZonePeers &&
+        currentPage.search.columnKey &&
+        prevPage?.search.columnKey &&
+        currentPage.search.columnKey !== prevPage?.search.columnKey
       ) {
         trackEvent('sorted zone peers list', {
-          param: ZONES_PEERS_COLUMN_TITLE[currentPageSearch.columnKey as string],
+          param: ZONES_PEERS_COLUMN_TITLE[currentPage.search.columnKey as string],
           ...defaultProps,
         });
       }
     }
-  }, [history]);
+  }, [currentPage, prevPage]);
 
   // zones list
   useEffect(() => {
-    const currentPage = history[history.length - 1];
-    const prevPage = history[history.length - 2];
-
     if (currentPage) {
-      const currentPageSearch = queryString.parse(currentPage.search);
-      const prevPageSearch = queryString.parse(prevPage?.search);
-      const currentPageTitle = getPageTitle(currentPage.pathname);
-      const prevPageTitle = getPageTitle(prevPage?.pathname);
-
-      if (currentPageTitle === PAGE_TITLE.ZonesList) {
+      if (currentPage.title === PAGE_TITLE.ZonesList) {
         let source = '';
 
-        if (history.length === 1) {
+        if (!prevPage) {
           source = 'direct link';
-        } else if (prevPageTitle !== currentPageTitle) {
+        } else if (prevPage.title !== currentPage.title) {
           source = 'menu';
         }
 
         if (source) {
           trackEvent('viewed zones list page', {
-            referrer_url: prevPageTitle,
-            period: currentPageSearch.period,
+            referrer_url: prevPage?.title,
+            period: currentPage.search.period,
             source: source, // TODO: 'sidebar'
           });
         }
       }
 
-      if (currentPageTitle === PAGE_TITLE.ZoneOverview && prevPageTitle === PAGE_TITLE.ZonesList) {
+      if (
+        currentPage.title === PAGE_TITLE.ZoneOverview &&
+        prevPage?.title === PAGE_TITLE.ZonesList
+      ) {
         trackEvent('selected zone', {
-          period: currentPageSearch.period,
+          period: currentPage.search.period,
           zone: currentPage.pathname.split('/')[2],
         });
       }
 
       if (
-        currentPageTitle === PAGE_TITLE.ZonesList &&
-        prevPageTitle === PAGE_TITLE.ZonesList &&
-        currentPageSearch.columnKey &&
-        prevPageSearch.columnKey &&
-        currentPageSearch.columnKey !== prevPageSearch.columnKey
+        currentPage.title === PAGE_TITLE.ZonesList &&
+        prevPage?.title === PAGE_TITLE.ZonesList &&
+        currentPage.search.columnKey &&
+        prevPage?.search.columnKey &&
+        currentPage.search.columnKey !== prevPage?.search.columnKey
       ) {
         trackEvent('sorted zones list', {
-          param: ZONES_PAGE_COLUMN_TITLE[currentPageSearch.columnKey as string],
-          period: currentPageSearch.period,
+          param: ZONES_PAGE_COLUMN_TITLE[currentPage.search.columnKey as string],
+          period: currentPage.search.period,
         });
       }
     }
-  }, [history]);
+  }, [currentPage, prevPage]);
 
   // assets
   useEffect(() => {
-    const currentPage = history[history.length - 1];
-    const prevPage = history[history.length - 2];
-
     if (currentPage) {
-      const currentPageSearch = queryString.parse(currentPage.search);
-      const prevPageSearch = queryString.parse(prevPage?.search);
-      const currentPageTitle = getPageTitle(currentPage.pathname);
-      const prevPageTitle = getPageTitle(prevPage?.pathname);
-
-      if (currentPageTitle === PAGE_TITLE.Assets && prevPageTitle !== PAGE_TITLE.Assets) {
+      if (currentPage.title === PAGE_TITLE.Assets && prevPage?.title !== PAGE_TITLE.Assets) {
         trackEvent('viewed assets page', {
-          referrer_url: prevPageTitle,
-          source: history.length === 1 ? 'direct link' : 'menu',
+          referrer_url: prevPage?.title,
+          source: prevPage ? 'menu' : 'direct link',
         });
       }
 
       if (
-        currentPageTitle === PAGE_TITLE.Assets &&
-        prevPageTitle === PAGE_TITLE.Assets &&
-        currentPageSearch.columnKey &&
-        prevPageSearch.columnKey &&
-        currentPageSearch.columnKey !== prevPageSearch.columnKey
+        currentPage.title === PAGE_TITLE.Assets &&
+        prevPage?.title === PAGE_TITLE.Assets &&
+        currentPage.search.columnKey &&
+        prevPage?.search.columnKey &&
+        currentPage.search.columnKey !== prevPage?.search.columnKey
       ) {
         trackEvent('sorted assets list', {
-          param: ASSETS_PAGE_COLUMN_TITLE[currentPageSearch.columnKey as string],
+          param: ASSETS_PAGE_COLUMN_TITLE[currentPage.search.columnKey as string],
         });
       }
     }
-  }, [history]);
+  }, [currentPage, prevPage]);
 
   return trackEvent;
 }
