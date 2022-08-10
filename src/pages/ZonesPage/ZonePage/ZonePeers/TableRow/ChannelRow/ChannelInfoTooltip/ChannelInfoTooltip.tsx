@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import cn from 'classnames';
 
 import { Divider, Tooltip } from 'components';
@@ -15,15 +17,20 @@ export function ChannelInfoTooltip({
   parentZone,
   zone,
 }: ChannelInfoTooltipProps) {
+  const [isEventTracked, setIsEventTracked] = useState(false);
+
   const [selectedPeriod] = useSelectedPeriod();
 
   const onMouseEnter = () => {
-    trackEvent('viewed peers info', {
-      zone: parentZone.zone,
-      channel: channel.channelId,
-      peer: zone.zoneCounterpartyKey,
-      period: selectedPeriod,
-    });
+    if (!isEventTracked) {
+      setIsEventTracked(true);
+      trackEvent('viewed peers info', {
+        zone: parentZone.zone,
+        channel: channel.channelId,
+        peer: zone.zoneCounterpartyKey,
+        period: selectedPeriod,
+      });
+    }
   };
 
   return (
