@@ -5,11 +5,11 @@ import { ZonesTotalInfo } from './ZonesTotalInfo/ZonesTotalInfo';
 
 export function ZonesInfo() {
   return (
-    <div>
+    <>
       <ZonesTotalInfo />
       <ZonesTable />
 
       <ScrollUpButton />
-    </div>
+    </>
   );
 }

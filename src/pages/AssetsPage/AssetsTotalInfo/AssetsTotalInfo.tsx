@@ -48,7 +48,7 @@ export function AssetsTotalInfo(): JSX.Element {
         />
       </TotalCard>
 
-      <TotalCard className={styles.doubleItem}>
+      <TotalCard className={styles.doubleItem} hiding={true}>
         <div className={styles.title}>All Assets</div>
         <ValueWithPending
           className={styles.value}

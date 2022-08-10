@@ -5,6 +5,8 @@
 
   td {
     &:first-child {
+      min-width: 42px; // TODO: calculate dynamically
+
       padding-right: 0;
 
       text-align: center;
@@ -65,15 +67,7 @@
     margin-left: 4px;
   }
 
-  &:hover {
+  &:hover > td {
     background-color: var(--black-500);
-
-    // TODO: enable only for scrollable table
-    td {
-      &:first-child,
-      &:nth-child(2) {
-        background-color: var(--black-500);
-      }
-    }
   }
 }

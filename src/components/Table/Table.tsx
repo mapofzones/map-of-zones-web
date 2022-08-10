@@ -1,4 +1,8 @@
+import React, { ReactNode, useRef } from 'react';
+
 import cn from 'classnames';
+
+import { useWindowSize } from 'hooks/useWindowSize';
 
 import styles from './Table.module.scss';
 import { TableProps } from './Table.props';
@@ -11,16 +15,41 @@ export function Table<T extends string>({
   selectedColumnKey,
   setSelectedColumnKey,
 }: TableProps<T>) {
-  return (
-    <table className={cn(styles.tableContainer, className)}>
-      <TableHeader
-        className={styles.tableHeader}
-        config={headerConfig}
-        selectedColumnKey={selectedColumnKey}
-        setSelectedColumnKey={setSelectedColumnKey}
-      />
+  const tableRef = useRef<HTMLTableElement>(null);
 
-      <tbody>{children}</tbody>
-    </table>
+  const { width: windowWidth } = useWindowSize();
+
+  const isTableHorizontalScrollable =
+    !!tableRef.current?.offsetWidth && tableRef.current.offsetWidth > windowWidth;
+
+  return (
+    <div
+      className={cn(
+        styles.container,
+        { [styles.horizontalScrollable]: isTableHorizontalScrollable },
+        className
+      )}
+    >
+      <table className={styles.table} ref={tableRef}>
+        <TableHeader
+          config={headerConfig}
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        />
+
+        <tbody>
+          {children &&
+            React.Children.map<ReactNode, ReactNode>(children, (child) => {
+              if (!React.isValidElement(child)) {
+                return child;
+              }
+
+              return React.cloneElement(child, {
+                isTableHorizontalScrollable,
+              });
+            })}
+        </tbody>
+      </table>
+    </div>
   );
 }

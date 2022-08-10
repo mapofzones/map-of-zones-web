@@ -16,7 +16,7 @@ td {
   &.sticky {
     position: sticky;
     left: 0;
-    z-index: 100;
+    z-index: 3;
 
     background-color: var(--black-100);
   }
