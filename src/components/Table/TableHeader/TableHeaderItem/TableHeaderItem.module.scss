@@ -1,6 +1,5 @@
 th {
   position: sticky;
-  background-color: var(--black-100);
   top: 0;
   z-index: 2;
 
@@ -12,6 +11,8 @@ th {
   line-height: 16px;
   white-space: nowrap;
   text-align: right;
+
+  background-color: var(--black-100);
 
   border-bottom: 1px solid var(--black-700);
 

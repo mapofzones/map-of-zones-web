@@ -13,6 +13,7 @@ export function Search({
   onFocus,
   onBlur,
   className,
+  placeholder = 'Search',
   ...props
 }: SearchProps): JSX.Element {
   const [enteredText, setEnteredText] = useState('');
@@ -35,7 +36,7 @@ export function Search({
       <Input
         className={styles.searchInput}
         type="search"
-        placeholder={'Search'}
+        placeholder={placeholder}
         value={enteredText || ''}
         onChange={handleChange}
         onFocus={handleFocus}

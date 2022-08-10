@@ -11,28 +11,12 @@
   cursor: pointer;
   row-gap: 2px;
 
-  .zoneBaseInfoContainer {
-    display: flex;
+  .zoneContainer {
     flex-grow: 1;
-    align-items: center;
   }
 
   &:hover {
     background-color: var(--black-600);
-  }
-
-  .zoneLogo {
-    margin-right: 12px;
-  }
-
-  .name {
-    .notActive {
-      color: var(--grey-500);
-    }
-  }
-
-  .ratingDiff {
-    margin-left: 4px;
   }
 
   .valueContainer {

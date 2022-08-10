@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  font-size: 15px;
+  line-height: 19px;
+
+  .logo {
+    margin-right: 12px;
+  }
+
+  .nameNotActive {
+    color: var(--grey-500);
+  }
+
+  .ratingDiff {
+    margin-left: 4px;
+  }
+}
