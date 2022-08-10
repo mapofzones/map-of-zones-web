@@ -55,7 +55,7 @@ export const TABLE_HEADER_CONFIG = [
     withBorder: true,
   },
   {
-    title: 'Total TXS',
+    title: 'Total Txs',
     columnKey: ColumnKeys.TotalTxs,
     explanationText: 'All transactions in a specified zone',
   },

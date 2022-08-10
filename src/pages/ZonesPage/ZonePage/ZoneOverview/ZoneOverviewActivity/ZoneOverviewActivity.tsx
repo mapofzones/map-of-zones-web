@@ -20,7 +20,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
       <IbcVolumeCard className={styles.volumeCard} data={data} loading={loading} period={period} />
       <TotalInfoCard
         className={styles.totalTxsCard}
-        title={'Total TXS'}
+        title={'Total Txs'}
         value={data?.totalTxs ?? undefined}
         numberType={NumberType.Number}
         chartData={undefined}

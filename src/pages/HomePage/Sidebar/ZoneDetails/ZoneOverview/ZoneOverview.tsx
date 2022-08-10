@@ -27,7 +27,7 @@ function ZoneOverview() {
       <div className={styles.detailedInfo}>
         <ZoneOverviewItem
           className={styles.detailedInfoItem}
-          title={'Total TXS'}
+          title={'Total Txs'}
           period={period}
           value={data?.totalTxs}
           loading={loading}
