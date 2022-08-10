@@ -19,7 +19,7 @@ const ZOOM_VALUES = [0.75, 1, 1.5, 2.25];
 export function Map({ className }: { className: string }) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
-  const { graphData, loading } = useGraphData();
+  const { graphData } = useGraphData();
   const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
 
   const [windowSize, setWindowSize] = useState({

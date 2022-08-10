@@ -18,7 +18,6 @@ export interface ZonesTableDataQueryItem {
   ibcVolumePending?: number | null;
   ibcVolumeRating?: number | null;
   ibcVolumeRatingDiff?: number | null;
-  chartVolume?: any | null;
   ibcTransfers?: number | null;
   ibcTransfersPending?: number | null;
   ibcTransfersRating?: number | null;

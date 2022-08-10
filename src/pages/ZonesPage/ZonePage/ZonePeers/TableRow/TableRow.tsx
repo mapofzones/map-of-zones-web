@@ -60,7 +60,7 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
   return (
     <>
       <tr className={styles.container} onClick={toggleChannelsVisibility}>
-        <TableRowItem isSticky={true}>
+        <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
           <AnimatedArrowDown
             className={styles.arrowContainer}
             isReverted={!channelsConfig.isChannelsVisible}

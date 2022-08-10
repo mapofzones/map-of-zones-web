@@ -5,7 +5,7 @@ import { ValueWithTitle } from 'components/ValueWithTitle/ValueWithTitle';
 
 import styles from './ZoneOverviewParameters.module.scss';
 
-export function ZoneOverviewParameters({ className }: any) {
+export function ZoneOverviewParameters({ className }: { className?: string }) {
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Parameters</div>

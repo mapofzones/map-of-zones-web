@@ -13,7 +13,7 @@ export const COLUMN_OPTIONS: DropdownOption[] = [
   },
   {
     key: ColumnKeys.TotalTxs,
-    title: 'Total TXS',
+    title: 'Total Txs',
   },
 ];
 

@@ -6,14 +6,16 @@
 import * as Types from '../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneOverviewActivityFragmentDoc } from './ZoneOverviewActivity.fragment.generated';
-export type ZonesPageZoneOverviewQueryVariables = Types.Exact<{
+import { ZoneIbcVolumeCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcVolumeCard.fragment.generated';
+import { ZoneIbcTransfersCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcTransfersCard.fragment.generated';
+import { ZoneTotalTxsCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneTotalTxsCard.fragment.generated';
+export type ZoneOverviewActivityQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
   period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
 }>;
 
-export type ZonesPageZoneOverviewQueryResult = {
+export type ZoneOverviewActivityQueryResult = {
   __typename?: 'query_root';
   zoneOverview: Array<{
     __typename?: 'zones_stats';
@@ -33,13 +35,13 @@ export type ZonesPageZoneOverviewQueryResult = {
   }>;
 };
 
-export const ZonesPageZoneOverviewDocument = {
+export const ZoneOverviewActivityDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'ZonesPageZoneOverview' },
+      name: { kind: 'Name', value: 'ZoneOverviewActivity' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -129,13 +131,32 @@ export const ZonesPageZoneOverviewDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneOverviewActivity' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcVolumeCard' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcTransfersCard' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneTotalTxsCard' } },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'peersCount' },
+                  name: { kind: 'Name', value: 'ibc_peers_mainnet' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'channelsCount' },
+                  name: { kind: 'Name', value: 'channels_num' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcDauMainnet' },
+                  name: { kind: 'Name', value: 'ibc_active_addresses_mainnet' },
+                },
               ],
             },
           },
         ],
       },
     },
-    ...ZoneOverviewActivityFragmentDoc.definitions,
+    ...ZoneIbcVolumeCardFragmentDoc.definitions,
+    ...ZoneIbcTransfersCardFragmentDoc.definitions,
+    ...ZoneTotalTxsCardFragmentDoc.definitions,
   ],
-} as unknown as DocumentNode<ZonesPageZoneOverviewQueryResult, ZonesPageZoneOverviewQueryVariables>;
+} as unknown as DocumentNode<ZoneOverviewActivityQueryResult, ZoneOverviewActivityQueryVariables>;

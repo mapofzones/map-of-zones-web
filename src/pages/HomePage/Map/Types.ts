@@ -1,8 +1,13 @@
 import { LinkObject, NodeObject } from 'react-force-graph-2d';
 
+export interface Comet {
+  __progress: number;
+}
+
 export type HoveredZoneKeyType = string | undefined;
 
 export interface Link extends LinkObject {
+  __comet?: Comet;
   source: MapNode;
   target: MapNode;
   ibcVolume?: number | null;

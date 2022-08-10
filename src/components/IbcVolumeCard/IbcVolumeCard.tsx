@@ -1,11 +1,18 @@
 import cn from 'classnames';
 
 import { VolumeLineChart } from 'components';
-import { Card, LineChart, NumberFormat, NumberType } from 'components/ui';
+import { Card, NumberFormat, NumberType } from 'components/ui';
 
 import styles from './IbcVolumeCard.module.scss';
+import { IbcVolumeCardProps } from './IbcVolumeCard.props';
 
-export function IbcVolumeCard({ data, loading, period, hasBorder, className }: any) {
+export function IbcVolumeCard({
+  className,
+  data,
+  hasBorder = false,
+  loading,
+  period,
+}: IbcVolumeCardProps): JSX.Element {
   return (
     <Card className={cn(styles.container, className)} hasBorder={hasBorder} loading={loading}>
       {data && (
@@ -23,8 +30,8 @@ export function IbcVolumeCard({ data, loading, period, hasBorder, className }: a
           </div>
           <VolumeLineChart
             className={styles.volumeLineChart}
-            volumeInPercent={data.ibcVolumeInPercent}
-            volumeOutPercent={data.ibcVolumeOutPercent}
+            volumeInPercent={data.ibcVolumeInPercent ?? 0}
+            volumeOutPercent={data.ibcVolumeOutPercent ?? 0}
           />
           <NumberFormat
             className={styles.volumeInValue}
