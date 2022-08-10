@@ -16,9 +16,12 @@ td {
   &.sticky {
     position: sticky;
     left: 0;
-    z-index: 3;
 
     background-color: var(--black-100);
+
+    &:hover {
+      z-index: 4;
+    }
   }
 
   &.withBorder {
