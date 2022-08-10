@@ -66,7 +66,7 @@ export function ZonesTotalInfo(): JSX.Element {
         </div>
       </TotalCard>
 
-      <TotalCard className={styles.doubleItem}>
+      <TotalCard className={styles.doubleItem} hiding={true}>
         <div>
           <span className={styles.title}>All Channels</span>
           <NumberFormat
@@ -87,7 +87,7 @@ export function ZonesTotalInfo(): JSX.Element {
       </TotalCard>
 
       <TotalCard className={styles.topItem}>
-        <div>
+        <div className={styles.zonesPairContainer}>
           <span className={styles.title}>Most Active Pair ({selectedPeriod})</span>
           <ZonesConnection
             circlesTypes={['source', 'target']}
@@ -112,7 +112,7 @@ export function ZonesTotalInfo(): JSX.Element {
       </TotalCard>
 
       <TotalCard className={styles.topItem}>
-        <div>
+        <div className={styles.zonesPairContainer}>
           <span className={styles.title}>Biggest Volume Pair ({selectedPeriod})</span>
           <ZonesConnection
             circlesTypes={['source', 'volume']}

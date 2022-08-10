@@ -1,14 +1,14 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 import { NumberType } from 'components';
 
-export interface ValueWithPendingProps
+export interface ValueWithTitleProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   alignRight?: boolean;
+  children?: ReactNode;
   className?: string;
-  numberType: NumberType;
+  numberType?: NumberType;
   pendingValue?: number | null;
-  prefix?: string;
-  suffix?: string;
+  title: string;
   value?: number | null;
 }

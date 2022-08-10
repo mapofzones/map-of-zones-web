@@ -6,34 +6,22 @@ import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCar
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
 
+import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
 
-export function ZoneOverviewActivity({ className }: any) {
+export function ZoneOverviewActivity({ className }: { className?: string }) {
   const [period] = useSelectedPeriod();
 
-  const loading = false;
+  const { data, loading } = useZoneOverviewActivity();
 
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Activity</div>
-      <IbcVolumeCard
-        className={styles.volumeCard}
-        data={{
-          ibcVolumeMainnet: 2414795629,
-          ibcVolumeInPercent: 33,
-          ibcVolumeOutPercent: 66,
-          ibcVolumeInMainnet: 327629,
-          ibcVolumeOutMainnet: 644725,
-          ibcVolumeInPendingMainnet: 4546,
-          ibcVolumeOutPendingMainnet: 889,
-        }}
-        loading={loading}
-        period={period}
-      />
+      <IbcVolumeCard className={styles.volumeCard} data={data} loading={loading} period={period} />
       <TotalInfoCard
         className={styles.totalTxsCard}
         title={'Total TXS'}
-        value={49850}
+        value={data?.totalTxs ?? undefined}
         numberType={NumberType.Number}
         chartData={undefined}
         chartKey={'totalTxs'}
@@ -43,7 +31,7 @@ export function ZoneOverviewActivity({ className }: any) {
       <TotalInfoCard
         className={styles.transfersCard}
         title={'IBC Transfers'}
-        value={35452}
+        value={data?.ibcTransfers ?? undefined}
         pendingValue={4546}
         numberType={NumberType.Number}
         chartData={undefined}
@@ -56,7 +44,7 @@ export function ZoneOverviewActivity({ className }: any) {
           className={styles.detailedInfoItem}
           rowLoyout
           title={'Peers'}
-          value={12}
+          value={data?.peersCount}
           loading={loading}
           defaultLoadingValue={'12'}
         ></ZoneOverviewItem>
@@ -64,7 +52,7 @@ export function ZoneOverviewActivity({ className }: any) {
           className={styles.detailedInfoItem}
           rowLoyout
           title={'Channels'}
-          value={304}
+          value={data?.channelsCount}
           loading={loading}
           defaultLoadingValue={'250'}
         ></ZoneOverviewItem>
@@ -85,7 +73,7 @@ export function ZoneOverviewActivity({ className }: any) {
           defaultLoadingValue={'2 345 (99,8% of DAU)'}
         >
           <div className={styles.dauValue}>
-            <NumberFormat value={4020} />
+            <NumberFormat value={data?.ibcDauMainnet} />
             <span className={styles.additionalInfo}> (99,8% of DAU)</span>
           </div>
         </ZoneOverviewItem>

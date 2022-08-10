@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import { motion } from 'framer-motion';
 
 import { ArrowDown } from 'icons';

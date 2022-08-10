@@ -62,7 +62,7 @@ function drawLine(ctx: CanvasRenderingContext2D, link: Link, isRalatedToActiveZo
   }
 }
 
-function drawCommet(ctx: CanvasRenderingContext2D, link: any) {
+function drawCommet(ctx: CanvasRenderingContext2D, link: Link) {
   const { x: sourceX, y: sourceY } = link.source;
   const { x: targetX, y: targetY } = link.target;
 
@@ -75,20 +75,18 @@ function drawCommet(ctx: CanvasRenderingContext2D, link: any) {
     return;
   }
 
-  const commet = link.__commet || {};
+  const comet = link.__comet || { __progress: 0 };
 
-  let commetProgress: number = commet.__progress ?? 0;
-  commetProgress += COMET_SPEED;
+  comet.__progress += COMET_SPEED;
 
-  if (commetProgress >= 1) {
-    link.__commet = undefined;
+  if (comet.__progress >= 1) {
+    link.__comet = undefined;
     return;
   }
 
-  calculateAndDrawComet(ctx, targetX, sourceX, targetY, sourceY, commetProgress);
+  calculateAndDrawComet(ctx, targetX, sourceX, targetY, sourceY, comet.__progress);
 
-  commet.__progress = commetProgress;
-  link.__commet = commet;
+  link.__comet = comet;
 }
 function calculateAndDrawComet(
   ctx: CanvasRenderingContext2D,

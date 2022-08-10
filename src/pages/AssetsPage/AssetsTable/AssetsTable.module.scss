@@ -1,6 +1,4 @@
 .container {
-  width: 100%;
-
   .header {
     display: flex;
     justify-content: space-between;
@@ -13,6 +11,7 @@
   .table {
     th {
       &:first-child {
+        min-width: 42px; // TODO: calculate dynamically
         padding-right: 0;
       }
 
@@ -20,6 +19,8 @@
         left: 42px; // TODO: calculate dynamically
 
         width: 100%;
+
+        min-width: 260px;
         padding-left: 16px;
       }
 

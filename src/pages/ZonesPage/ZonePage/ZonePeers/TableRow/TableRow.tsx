@@ -17,7 +17,7 @@ import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
-export function TableRow({ parentZone, zone }: TableRowProps) {
+export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: TableRowProps) {
   const [channelsConfig, setChannelsConfig] = useState({
     isChannelsVisible: false,
     isMoreChannelsVisible: false,
@@ -46,7 +46,7 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
   return (
     <>
       <tr className={styles.container} onClick={toggleChannelsVisibility}>
-        <TableRowItem isSticky={true}>
+        <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
           <AnimatedArrowDown
             className={styles.arrowContainer}
             isReverted={!channelsConfig.isChannelsVisible}
@@ -184,12 +184,14 @@ export function TableRow({ parentZone, zone }: TableRowProps) {
               key={`${channel.channelId}_${channel.zoneCounterpartyChannelId}`}
               channel={channel}
               index={index}
+              isTableHorizontalScrollable={isTableHorizontalScrollable}
               parentZone={parentZone}
               zone={zone}
             />
           ))}
           <ShowMoreRow
             count={zone.channels.length - channelsToShow.length}
+            isTableHorizontalScrollable={isTableHorizontalScrollable}
             showMoreChannels={showMoreChannels}
           />
         </>

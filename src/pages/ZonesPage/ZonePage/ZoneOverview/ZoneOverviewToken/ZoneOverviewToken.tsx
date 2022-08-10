@@ -4,7 +4,7 @@ import { NumberFormat, NumberType, RatingDiffTriangle, ZoneLogo } from 'componen
 
 import styles from './ZoneOverviewToken.module.scss';
 
-export function ZoneOverviewToken({ className }: any) {
+export function ZoneOverviewToken({ className }: { className?: string }) {
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Token</div>

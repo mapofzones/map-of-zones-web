@@ -73,13 +73,8 @@
   }
 
   &:hover {
-    background-color: var(--black-500);
-
-    // TODO: enable only for scrollable table
     td {
-      &:first-child {
-        background-color: var(--black-500);
-      }
+      background-color: var(--black-500);
     }
 
     .zonesInfoContainer {

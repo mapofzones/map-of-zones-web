@@ -6,7 +6,7 @@ import { ChartItemByString } from 'utils/helper';
 export interface TotalInfoCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title: string;
-  value: number;
+  value?: number;
   pendingValue?: number;
   chartData?: ChartItemByString[];
   chartKey?: string;

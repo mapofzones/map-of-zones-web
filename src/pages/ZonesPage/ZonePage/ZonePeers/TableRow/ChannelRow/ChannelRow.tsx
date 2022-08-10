@@ -8,7 +8,14 @@ import { ChannelInfoTooltip } from './ChannelInfoTooltip/ChannelInfoTooltip';
 import styles from './ChannelRow.module.scss';
 import { ChannelRowProps } from './ChannelRow.props';
 
-export function ChannelRow({ className, channel, index, parentZone, zone }: ChannelRowProps) {
+export function ChannelRow({
+  className,
+  channel,
+  index,
+  isTableHorizontalScrollable,
+  parentZone,
+  zone,
+}: ChannelRowProps) {
   return (
     <motion.tr
       className={cn(styles.container, className)}
@@ -17,7 +24,7 @@ export function ChannelRow({ className, channel, index, parentZone, zone }: Chan
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <TableRowItem isSticky={true}>
+      <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
         <div className={styles.arrowContainer}>
           <div className={styles.position}>{index + 1}</div>
         </div>
