@@ -4,21 +4,22 @@ import { useParams } from 'react-router-dom';
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZoneOverviewActivityDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 export type ZoneOverviewActivityQueryResult = {
-  peersCount?: number | null;
-  channelsCount?: number | null;
-  ibcDauMainnet?: number | null;
-  ibcVolumeMainnet?: number | null;
-  ibcVolumeInMainnet?: number | null;
-  ibcVolumeOutMainnet?: number | null;
-  ibcVolumeInPercent?: number | null;
-  ibcVolumeOutPercent?: number | null;
-  ibcVolumeInPendingMainnet?: number | null;
-  ibcVolumeOutPendingMainnet?: number | null;
-  ibcTransfers?: number | null;
-  ibcTransfersPending?: number | null;
-  totalTxs?: number | null;
+  peersCount?: number;
+  channelsCount?: number;
+  ibcDauMainnet?: number;
+  ibcVolumeMainnet?: number;
+  ibcVolumeInMainnet?: number;
+  ibcVolumeOutMainnet?: number;
+  ibcVolumeInPercent?: number;
+  ibcVolumeOutPercent?: number;
+  ibcVolumeInPendingMainnet?: number;
+  ibcVolumeOutPendingMainnet?: number;
+  ibcTransfers?: number;
+  ibcTransfersPending?: number;
+  totalTxs?: number;
 };
 
 export function useZoneOverviewActivity(): {
@@ -36,5 +37,8 @@ export function useZoneOverviewActivity(): {
 
   const { data, loading } = useQuery(ZoneOverviewActivityDocument, options);
 
-  return { data: data?.zoneOverview[0], loading };
+  return {
+    data: nullsToUndefined(data?.zoneOverview[0]),
+    loading,
+  };
 }

@@ -9,7 +9,7 @@ import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOvervie
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
 
-export function ZoneOverviewActivity({ className }: any) {
+export function ZoneOverviewActivity({ className }: { className?: string }) {
   const [period] = useSelectedPeriod();
 
   const { data, loading } = useZoneOverviewActivity();
@@ -17,20 +17,7 @@ export function ZoneOverviewActivity({ className }: any) {
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Activity</div>
-      <IbcVolumeCard
-        className={styles.volumeCard}
-        data={{
-          ibcVolumeMainnet: data?.ibcVolumeMainnet,
-          ibcVolumeInPercent: data?.ibcVolumeInPercent,
-          ibcVolumeOutPercent: data?.ibcVolumeOutPercent,
-          ibcVolumeInMainnet: data?.ibcVolumeInMainnet,
-          ibcVolumeOutMainnet: data?.ibcVolumeOutMainnet,
-          ibcVolumeInPendingMainnet: data?.ibcVolumeInPendingMainnet,
-          ibcVolumeOutPendingMainnet: data?.ibcVolumeOutPendingMainnet,
-        }}
-        loading={loading}
-        period={period}
-      />
+      <IbcVolumeCard className={styles.volumeCard} data={data} loading={loading} period={period} />
       <TotalInfoCard
         className={styles.totalTxsCard}
         title={'Total TXS'}

@@ -4,9 +4,14 @@ import cn from 'classnames';
 
 import { Search, SkeletonTextWrapper } from 'components';
 
+import { ZoneInfoTitleProps } from './ZoneInfoTitle.props';
 import styles from './ZonesInfoTitle.module.scss';
 
-export function ZonesInfoTitle({ loading, zonesCount, onSearchChange }: any) {
+export function ZonesInfoTitle({
+  loading,
+  onSearchChange,
+  zonesCount,
+}: ZoneInfoTitleProps): JSX.Element {
   const [searchExpanded, setSearchExpanded] = useState(false);
 
   return (
