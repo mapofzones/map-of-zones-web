@@ -9,7 +9,7 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
 
   const lastPointIndex = data.length - 1;
   const referencePoint = isChartColored ? data[lastPointIndex] : undefined;
-  const gradientColorStart = isChartColored ? (1 - 1 / lastPointIndex) * 100 : undefined;
+  const colorBreakPointPercentage = isChartColored ? (1 - 1 / lastPointIndex) * 100 : undefined;
 
   const isPositive = isChartColored
     ? data[lastPointIndex - 1][dataKey] < data[lastPointIndex][dataKey]
@@ -17,6 +17,10 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
   const isNegative = isChartColored
     ? data[lastPointIndex - 1][dataKey] > data[lastPointIndex][dataKey]
     : false;
+
+  const gradientId = `gradient-${
+    isPositive ? 'pos' : isNegative ? 'neg' : 'neutral'
+  }-${colorBreakPointPercentage}`;
 
   return (
     <ResponsiveContainer className={className}>
@@ -27,10 +31,10 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
           [styles.positive]: isPositive,
         })}
       >
-        {gradientColorStart && (
+        {colorBreakPointPercentage && (
           <defs>
             <linearGradient
-              id="gradient"
+              id={gradientId}
               x1="0"
               y1="0"
               x2="100%"
@@ -38,13 +42,13 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
               className={cn(styles.gradient)}
             >
               <stop className={styles.stop1} offset="0%" />
-              <stop className={styles.stop2} offset={`${gradientColorStart}%`} />
-              <stop className={styles.stop3} offset={`${gradientColorStart}%`} />
+              <stop className={styles.stop2} offset={`${colorBreakPointPercentage}%`} />
+              <stop className={styles.stop3} offset={`${colorBreakPointPercentage}%`} />
               <stop className={styles.stop4} offset="100%" />
             </linearGradient>
           </defs>
         )}
-        <Line stroke="url(#gradient)" dataKey={dataKey} dot={false} />
+        <Line stroke={`url(#${gradientId})`} dataKey={dataKey} dot={false} />
         {referencePoint && (
           <ReferenceDot
             x={lastPointIndex}
