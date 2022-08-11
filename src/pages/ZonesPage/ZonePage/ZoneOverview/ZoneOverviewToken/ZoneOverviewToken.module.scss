@@ -38,6 +38,10 @@
         font-size: 18px;
         line-height: 23px;
 
+        .infoGroup {
+          display: flex;
+        }
+
         .tokenName {
           margin-right: 4px;
           margin-left: 8px;
@@ -54,6 +58,41 @@
           color: var(--grey-500);
           font-size: 13px;
           line-height: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    .tokenInfoContainer {
+      flex-direction: column;
+
+      .tokenInfoItem {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 0;
+
+        border-top: 1px solid var(--black-900);
+        border-left: none;
+
+        &:first-child {
+          border: none;
+        }
+
+        &_data {
+          display: grid;
+          flex-direction: column;
+
+          .infoGroup {
+            justify-content: flex-end;
+
+            &:first-child {
+              margin-bottom: 2px;
+            }
+          }
         }
       }
     }

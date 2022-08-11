@@ -41,7 +41,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
       />
       <div className={styles.overviewItemsGroup}>
         <ZoneOverviewItem
-          className={styles.detailedInfoItem}
+          className={cn(styles.detailedInfoItem, styles.peersOverviewItem)}
           rowLoyout
           title={'Peers'}
           value={data?.peersCount}
@@ -49,24 +49,22 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           defaultLoadingValue={'12'}
         ></ZoneOverviewItem>
         <ZoneOverviewItem
-          className={styles.detailedInfoItem}
+          className={cn(styles.detailedInfoItem, styles.channelsOverviewItem)}
           rowLoyout
           title={'Channels'}
           value={data?.channelsCount}
           loading={loading}
           defaultLoadingValue={'250'}
         ></ZoneOverviewItem>
-      </div>
-      <div className={styles.overviewItemsGroup}>
         <ZoneOverviewItem
-          className={styles.detailedInfoItem}
+          className={cn(styles.detailedInfoItem, styles.dauOverviewItem)}
           rowLoyout
           title={'DAU'}
           loading={loading}
           value={undefined}
         />
         <ZoneOverviewItem
-          className={styles.detailedInfoItem}
+          className={cn(styles.detailedInfoItem, styles.ibcDauOverviewItem)}
           rowLoyout
           title={'IBC DAU'}
           loading={loading}
