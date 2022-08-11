@@ -35,8 +35,8 @@ const PAGE_TITLE: Record<string, string> = {
 };
 
 const EVENT_FOR_SCROLL_BY_PAGE_TITLE: Record<string, string> = {
-  [PAGE_TITLE.Assets]: 'scroled assets list',
-  [PAGE_TITLE.ZonesList]: 'scroled zones list',
+  [PAGE_TITLE.Assets]: 'scrolled assets list',
+  [PAGE_TITLE.ZonesList]: 'scrolled zones list',
 };
 
 const ASSETS_PAGE_COLUMN_TITLE: Record<string, string> = {
@@ -60,7 +60,7 @@ const ZONES_PAGE_COLUMN_TITLE: Record<string, string> = {
 
 const ZONES_PEERS_COLUMN_TITLE: Record<string, string> = {
   // total ibc volume
-  [ZonesPageZonePeersColumnKeys.IbcVolumeReceived]: 'recieves',
+  [ZonesPageZonePeersColumnKeys.IbcVolumeReceived]: 'receives',
   [ZonesPageZonePeersColumnKeys.IbcVolumeSent]: 'sends',
   [ZonesPageZonePeersColumnKeys.IbcTransfers]: 'ibc success',
   [ZonesPageZonePeersColumnKeys.IbcTransfersPending]: 'ibc pending',
