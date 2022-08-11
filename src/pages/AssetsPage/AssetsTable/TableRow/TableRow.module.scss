@@ -38,9 +38,10 @@
     }
 
     .chartContainer {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      min-width: 235px;
       height: 40px;
 
       .code {

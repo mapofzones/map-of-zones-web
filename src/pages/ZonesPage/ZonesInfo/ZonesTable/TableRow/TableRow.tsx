@@ -39,11 +39,11 @@ export function TableRow({
 
   return (
     <tr className={styles.container} onClick={onClick}>
-      <TableRowItem isSticky={true}>
+      <TableRowItem isSticky={isTableHorizontalScrollable}>
         <span className={styles.position}>{index + 1}</span>
       </TableRowItem>
 
-      <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
+      <TableRowItem isSticky={isTableHorizontalScrollable} withBorder={isTableHorizontalScrollable}>
         <div className={styles.zoneBaseInfoContainer}>
           <ZoneLogo logoUrl={zone.logoUrl} className={styles.logo} />
           <span className={styles.zoneName}>{zone.name}</span>

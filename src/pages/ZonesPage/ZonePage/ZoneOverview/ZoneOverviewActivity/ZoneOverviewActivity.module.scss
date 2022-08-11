@@ -1,11 +1,11 @@
 .container {
   display: grid;
-  grid-area: activity;
   grid-template-areas:
     'activityTitle activityTitle'
     'volumeCard totalTxsCard'
-    'volumeCard transfersCard';
-  grid-template-rows: auto 1fr 1fr;
+    'volumeCard transfersCard'
+    'overviewItemsGroup overviewItemsGroup';
+  grid-template-rows: auto 1fr 1fr 1fr;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 
@@ -30,15 +30,24 @@
   }
 
   .overviewItemsGroup {
-    padding: 8px 12px;
+
+    display: grid;
+    grid-area: overviewItemsGroup;
+    grid-auto-flow: column;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 24px;
 
     .detailedInfoItem {
-      padding-bottom: 12px;
+      margin: 0 20px;
+      padding: 12px 0;
 
-      &:not(:first-child) {
-        padding-top: 20px;
+      &:first-child,
+      &:nth-child(3) {
+        padding-top: 8px;
 
-        border-top: 1px solid var(--black-900);
+        border-bottom: 1px solid var(--black-900);
       }
 
       .additionalInfo {
@@ -55,6 +64,45 @@
         flex-direction: column;
         align-items: flex-end;
         margin-top: -7px;
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    grid-template-areas:
+      'activityTitle'
+      'volumeCard'
+      'totalTxsCard'
+      'transfersCard'
+      'overviewItemsGroup';
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+    .overviewItemsGroup {
+      grid-auto-flow: row;
+      grid-template-rows: auto;
+      grid-template-columns: 1fr;
+
+      .detailedInfoItem {
+        margin: 0 20px;
+        padding: 20px 0;
+
+        border-bottom: 1px solid var(--black-900);
+
+        &:first-child {
+          padding-top: 12px;
+        }
+
+        &:nth-child(3) {
+          padding-top: 20px;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
       }
     }
   }

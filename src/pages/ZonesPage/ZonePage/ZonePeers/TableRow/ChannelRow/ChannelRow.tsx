@@ -24,7 +24,7 @@ export function ChannelRow({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
+      <TableRowItem isSticky={isTableHorizontalScrollable} withBorder={isTableHorizontalScrollable}>
         <div className={styles.arrowContainer}>
           <div className={styles.position}>{index + 1}</div>
         </div>
