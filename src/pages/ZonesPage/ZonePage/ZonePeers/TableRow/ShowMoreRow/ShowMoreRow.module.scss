@@ -54,3 +54,19 @@
     }
   }
 }
+
+@media (max-width: 375px) {
+  .container {
+    td {
+      &:first-child {
+        min-width: 0;
+        max-width: 188px;
+        overflow: hidden;
+      }
+
+      .arrowContainer {
+        width: 34px;
+      }
+    }
+  }
+}

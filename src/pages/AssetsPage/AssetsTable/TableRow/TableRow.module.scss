@@ -79,14 +79,21 @@
       margin-right: 12px;
     }
 
-    .nameContainer {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2px;
+    .nameAndStatusContainer {
+      overflow: hidden;
 
-      .name {
-        font-size: 15px;
-        line-height: 19px;
+      .nameContainer {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2px;
+
+        .name {
+          font-size: 15px;
+          line-height: 19px;
+
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
@@ -97,5 +104,22 @@
 
   &:hover > td {
     background-color: var(--black-500);
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    td {
+      &:first-child {
+        min-width: 30px; // TODO: calculate dynamically
+      }
+
+      &:nth-child(2) {
+        left: 30px; // TODO: calculate dynamically
+        min-width: 0;
+        max-width: 150px;
+        padding-left: 8px;
+      }
+    }
   }
 }

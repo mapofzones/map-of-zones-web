@@ -12,3 +12,17 @@
     }
   }
 }
+
+@media (max-width: 375px) {
+  .container {
+    .table {
+      th {
+        &:first-child {
+          min-width: 188px;
+          overflow: hidden;
+          max-width: 188px;
+        }
+      }
+    }
+  }
+}

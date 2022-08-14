@@ -40,8 +40,11 @@
     }
 
     .zoneName {
+      overflow: hidden;
+
       font-size: 15px;
       line-height: 19px;
+      text-overflow: ellipsis;
     }
 
     .value {
@@ -69,5 +72,25 @@
 
   &:hover > td {
     background-color: var(--black-500);
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    td {
+      &:first-child {
+        min-width: 30px; // TODO: calculate dynamically
+      }
+
+      &:nth-child(2) {
+        left: 30px; // TODO: calculate dynamically
+
+        max-width: 156px;
+      }
+
+      .status {
+        display: none;
+      }
+    }
   }
 }

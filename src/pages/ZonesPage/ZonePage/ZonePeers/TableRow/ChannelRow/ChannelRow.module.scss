@@ -33,6 +33,8 @@
     }
 
     .channelsContainer {
+      position: relative;
+
       display: flex;
       align-items: center;
 
@@ -57,9 +59,11 @@
         margin: 0 12px;
 
         background-color: var(--green);
+        border-color: var(--green);
 
         &.statusClosedContainer {
           background-color: var(--orange);
+          border-color: var(--orange);
         }
       }
 
@@ -78,5 +82,62 @@
 
   &:hover > td {
     background-color: #16161c;
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    td {
+      &:first-child {
+        min-width: 0;
+        max-width: 188px;
+        overflow: hidden;
+      }
+
+      &:last-child {
+        padding-right: 12px;
+      }
+
+      .arrowContainer {
+        width: 34px;
+      }
+
+      .channelsContainer {
+        display: grid;
+        gap: 4px;
+
+        .statusContainer {
+          position: absolute;
+          left: 0;
+
+          width: 5px;
+          height: 60%;
+          margin: 0;
+
+          background: transparent;
+          border-style: solid;
+          border-width: 1px;
+          border-right-color: transparent;
+
+          &.statusClosedContainer {
+            background: transparent;
+            border-right-color: transparent;
+
+            svg {
+              display: none;
+            }
+          }
+        }
+
+        .channel {
+          position: relative;
+          left: 8px;
+        }
+
+        .infoIcon {
+          display: none;
+        }
+      }
+    }
   }
 }

@@ -11,6 +11,7 @@ import {
   ZoneLogo,
   ZoneStatus,
 } from 'components';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
 import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';
@@ -18,6 +19,8 @@ import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
 export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: TableRowProps) {
+  const isMobile = useMediaQuery('(max-width: 375px)');
+
   const [channelsConfig, setChannelsConfig] = useState({
     isChannelsVisible: false,
     isMoreChannelsVisible: false,
@@ -28,7 +31,11 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
     : [...zone.channels].splice(0, 3);
 
   const animationConfig = {
-    animate: channelsConfig.isChannelsVisible ? 'channelsHidden' : 'channelsVisible',
+    animate: isMobile
+      ? false
+      : channelsConfig.isChannelsVisible
+      ? 'channelsHidden'
+      : 'channelsVisible',
     initial: 'channelsVisible',
     transition: { duration: 0.5 },
   };
@@ -52,8 +59,8 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
         >
           <AnimatedArrowDown
             className={styles.arrowContainer}
-            isReverted={!channelsConfig.isChannelsVisible}
-            initial={false}
+            isReverted={channelsConfig.isChannelsVisible}
+            initial={true}
           />
 
           <div className={styles.zonesInfoContainer}>

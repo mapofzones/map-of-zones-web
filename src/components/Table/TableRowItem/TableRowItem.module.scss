@@ -28,3 +28,15 @@ td {
     border-right: 1px solid var(--black-700);
   }
 }
+
+@media (max-width: 375px) {
+  td {
+    &:first-child {
+      padding-left: 12px;
+    }
+
+    &:last-child {
+      padding-right: 12px;
+    }
+  }
+}
