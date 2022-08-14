@@ -1,0 +1,23 @@
+.container {
+  padding-top: 30px;
+
+  .tooltipWrapper {
+    padding: 0 !important;
+
+    text-align: center;
+
+    background-color: rgb(255 255 255 / 0%) !important;
+    border: none !important;
+    transform: translateX(calc(-50% - 0px));
+  }
+}
+
+.dot circle {
+  fill: var(--green);
+  stroke: #1e1c25;
+  stroke-opacity: 1;
+
+  .chart.negative & {
+    fill: var(--red);
+  }
+}

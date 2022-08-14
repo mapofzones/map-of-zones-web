@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import { NumberFormat, NumberType, RatingDiffTriangle, ZoneLogo } from 'components';
+import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 
 import styles from './ZoneOverviewToken.module.scss';
 
@@ -47,6 +48,9 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
             numberType={NumberType.Currency}
           />
         </div>
+      </div>
+      <div className={styles.tokenInfoChart}>
+        <AreaChart />
       </div>
     </div>
   );
