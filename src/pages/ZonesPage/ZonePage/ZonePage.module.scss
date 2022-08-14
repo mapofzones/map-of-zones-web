@@ -4,52 +4,89 @@
   justify-content: space-between;
   margin: 32px 24px 40px;
 
-  .detailsTitle {
-    display: flex;
-    align-items: center;
+  .zoneContainer {
+    grid-area: zoneContainer;
 
-    .zoneLogo {
-      margin-right: 12px;
+    .detailsTitle {
+      display: flex;
+      align-items: center;
+
+      .zoneLogo {
+        margin-right: 12px;
+      }
+
+      .zoneName {
+        font-size: 28px;
+        line-height: 35px;
+      }
+
+      .arrowContainer {
+        position: relative;
+        top: 3px;
+
+        margin-left: 12px;
+
+        cursor: pointer;
+
+        svg {
+          stroke: var(--white);
+        }
+      }
     }
 
-    .zoneName {
-      color: var(--white);
+    .zoneWebsite {
+      display: flex;
+      margin-top: 9px;
+
+      color: var(--grey-500);
       font-weight: 400;
-      font-size: 28px;
+      font-size: 13px;
       font-style: normal;
-      line-height: 35px;
+      line-height: 16px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
     }
-  }
-
-  .arrowContainer {
-    position: relative;
-    top: 3px;
-
-    margin-left: 12px;
-
-    cursor: pointer;
-
-    svg {
-      stroke: var(--white);
-    }
-  }
-
-  .zoneWebsite {
-    display: flex;
-    margin-top: 9px;
-
-    color: var(--grey-500);
-    font-weight: 400;
-    font-size: 13px;
-    font-style: normal;
-    line-height: 16px;
-    font-feature-settings: 'tnum' on, 'lnum' on;
   }
 
   .navigationButtonsContainer {
+    grid-area: navigationButtonsContainer;
+
     display: flex;
     grid-gap: 21px;
 
     border-bottom: 1px solid var(--black-900);
+  }
+
+  .pagesSwitcher {
+    grid-area: pagesSwitcher;
+
+    margin: 33px 0 8px;
+  }
+
+  .periodContainer {
+    grid-area: periodContainer;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    display: grid;
+    grid-template-areas:
+      'zoneContainer periodContainer'
+      'pagesSwitcher pagesSwitcher';
+
+    margin: 24px 12px 40px;
+
+    .zoneContainer {
+      .detailsTitle {
+        .zoneName {
+          font-size: 20px;
+          line-height: 25px;
+        }
+
+        .arrowContainer {
+          top: 0;
+        }
+      }
+    }
   }
 }

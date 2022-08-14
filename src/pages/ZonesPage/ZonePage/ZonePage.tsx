@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import { Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 import {
   AnimatedArrowDown,
+  ButtonGroup,
   ExternalLink,
   NavigationButton,
   PeriodSelector,
   ZoneLogo,
 } from 'components';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { EarthIcon } from 'icons';
 
@@ -19,6 +21,8 @@ import { ZonesSelector } from './ZonesSelector/ZonesSelector';
 
 export function ZonePage() {
   const location = useLocation();
+
+  const isMobile = useMediaQuery('(max-width: 375px)');
 
   const [isSearchVisible, setSearchVisible] = useState(false);
 
@@ -35,7 +39,7 @@ export function ZonePage() {
   return (
     <div>
       <div className={styles.header}>
-        <div>
+        <div className={styles.zoneContainer}>
           <div className={styles.detailsTitle}>
             <ZoneLogo
               logoUrl={data?.logoUrl}
@@ -60,16 +64,27 @@ export function ZonePage() {
           </span>
         </div>
 
-        <div className={styles.navigationButtonsContainer}>
-          <NavigationButton to="overview">Overview</NavigationButton>
-          <NavigationButton to="peers" count={data?.peersCount}>
-            Peers
-          </NavigationButton>
-          <NavigationButton to="nodes">Nodes</NavigationButton>
-          <NavigationButton to="pools">Pools</NavigationButton>
-        </div>
+        {isMobile && (
+          <ButtonGroup className={styles.pagesSwitcher}>
+            <NavLink to="overview">Overview</NavLink>
+            <NavLink to="peers">{`Peers ${
+              data?.peersCount ? `(${data.peersCount})` : ''
+            }`}</NavLink>
+          </ButtonGroup>
+        )}
 
-        <PeriodSelector />
+        {!isMobile && (
+          <div className={styles.navigationButtonsContainer}>
+            <NavigationButton to="overview">Overview</NavigationButton>
+            <NavigationButton to="peers" count={data?.peersCount}>
+              Peers
+            </NavigationButton>
+            {/* <NavigationButton to="nodes">Nodes</NavigationButton> */}
+            {/* <NavigationButton to="pools">Pools</NavigationButton> */}
+          </div>
+        )}
+
+        <PeriodSelector className={styles.periodContainer} useDropdown={isMobile} />
       </div>
 
       {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
