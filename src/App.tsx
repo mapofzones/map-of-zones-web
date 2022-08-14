@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { useAnalytics } from 'hooks/useAnalytics';
+import { useAnalytics } from 'hooks/analytics/useAnalytics';
 import Layout from 'layouts/Layout/Layout';
 import { AboutPage } from 'pages/AboutPage/AboutPage';
 import { AssetsPage } from 'pages/AssetsPage/AssetsPage';

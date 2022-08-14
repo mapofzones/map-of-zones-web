@@ -11,7 +11,7 @@ import {
   ZoneLogo,
   ZoneStatus,
 } from 'components';
-import { trackEvent } from 'hooks/useAnalytics';
+import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';

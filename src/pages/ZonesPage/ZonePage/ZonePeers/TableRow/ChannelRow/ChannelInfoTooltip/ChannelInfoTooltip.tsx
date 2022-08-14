@@ -3,7 +3,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { Divider, Tooltip } from 'components';
-import { trackEvent } from 'hooks/useAnalytics';
+import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { InfoIcon, RevertedArrowsIcon } from 'icons';
 
