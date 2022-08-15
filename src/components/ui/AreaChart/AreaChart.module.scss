@@ -4,6 +4,9 @@
   .tooltipWrapper {
     padding: 0 !important;
 
+    color: #8f8f96;
+    font-size: 12px;
+
     text-align: center;
 
     background-color: rgb(255 255 255 / 0%) !important;
@@ -12,12 +15,33 @@
   }
 }
 
+.gradient {
+  .stop {
+    &1 {
+      stop-opacity: 0.2;
+    }
+
+    &2 {
+      stop-opacity: 0;
+    }
+
+    &1,
+    &2 {
+      stop-color: #6ed15b;
+
+      .chart.negative & {
+        stop-color: #f45;
+      }
+    }
+  }
+}
+
 .dot circle {
-  fill: var(--green);
+  fill: #6d5;
   stroke: #1e1c25;
   stroke-opacity: 1;
 
   .chart.negative & {
-    fill: var(--red);
+    fill: #f45;
   }
 }

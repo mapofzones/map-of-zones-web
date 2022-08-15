@@ -6,6 +6,41 @@ import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 import styles from './ZoneOverviewToken.module.scss';
 
 export function ZoneOverviewToken({ className }: { className?: string }) {
+  const data = [
+    {
+      time: 1660194000,
+      price: 1.22,
+    },
+    {
+      time: 1660197600,
+      price: 1.25,
+    },
+    {
+      time: 1660201200,
+      price: 1.32,
+    },
+    {
+      time: 1660204800,
+      price: 1.12,
+    },
+    {
+      time: 1660208400,
+      price: 1.14,
+    },
+    {
+      time: 1660212000,
+      price: 1.18,
+    },
+    {
+      time: 1660215600,
+      price: 1.28,
+    },
+    {
+      time: 1660219200,
+      price: 1.32,
+    },
+  ];
+
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Token</div>
@@ -50,7 +85,12 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         </div>
       </div>
       <div className={styles.tokenInfoChart}>
-        <AreaChart />
+        <AreaChart
+          data={data}
+          dataKey={'price'}
+          dataFormat={NumberType.Currency}
+          timeFormat={'HH:mm'}
+        />
       </div>
     </div>
   );
