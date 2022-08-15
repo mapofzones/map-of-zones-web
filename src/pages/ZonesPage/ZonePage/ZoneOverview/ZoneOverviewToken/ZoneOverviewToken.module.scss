@@ -21,6 +21,31 @@
 
       border-left: 1px solid var(--black-900);
 
+      .infoGroup {
+        display: flex;
+      }
+
+      .tokenName {
+        margin-right: 4px;
+        margin-left: 8px;
+
+        color: var(--grey-500);
+      }
+
+      .tokenPriceDiff {
+        margin-right: 4px;
+        margin-left: 8px;
+
+        font-size: 12px;
+        line-height: 14px;
+      }
+
+      .period {
+        color: var(--grey-500);
+        font-size: 12px;
+        line-height: 14px;
+      }
+
       &:first-child {
         padding-left: 0;
 
@@ -29,41 +54,19 @@
 
       &_title {
         display: inline-block;
-        margin-bottom: 4px;
+        margin-bottom: 8px;
 
         color: var(--grey-500);
-        font-size: 15px;
-        line-height: 19px;
+        font-size: 14px;
+        line-height: 16px;
       }
 
       &_data {
         display: flex;
         align-items: center;
 
-        font-size: 18px;
+        font-size: 20px;
         line-height: 23px;
-
-        .infoGroup {
-          display: flex;
-        }
-
-        .tokenName {
-          margin-right: 4px;
-          margin-left: 8px;
-
-          color: var(--grey-500);
-        }
-
-        .tokenPriceDiff {
-          margin-right: 4px;
-          margin-left: 8px;
-        }
-
-        .period {
-          color: var(--grey-500);
-          font-size: 13px;
-          line-height: 16px;
-        }
       }
     }
   }

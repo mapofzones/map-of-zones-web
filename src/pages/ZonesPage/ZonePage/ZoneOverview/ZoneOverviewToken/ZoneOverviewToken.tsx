@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType, RatingDiffTriangle, ZoneLogo } from 'components';
+import { NumberFormat, NumberType, RatingDiffTriangle, ValueWithTitle, ZoneLogo } from 'components';
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 
 import styles from './ZoneOverviewToken.module.scss';
@@ -68,20 +68,10 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           </span>
         </div>
         <div className={styles.tokenInfoItem}>
-          <span className={styles.tokenInfoItem_title}>Market Cap</span>
-          <NumberFormat
-            className={styles.tokenInfoItem_data}
-            value={997309120}
-            numberType={NumberType.Currency}
-          />
+          <ValueWithTitle title="Market Cap" value={997309120} numberType={NumberType.Currency} />
         </div>
         <div className={styles.tokenInfoItem}>
-          <span className={styles.tokenInfoItem_title}>Volume</span>
-          <NumberFormat
-            className={styles.tokenInfoItem_data}
-            value={1530009150}
-            numberType={NumberType.Currency}
-          />
+          <ValueWithTitle title="Volume" value={1530009150} numberType={NumberType.Currency} />
         </div>
       </div>
       <div className={styles.tokenInfoChart}>

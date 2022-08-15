@@ -12,11 +12,11 @@
 
   .title {
     grid-area: title;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 
     color: var(--grey-500);
-    font-size: 13px;
-    line-height: 16.3px;
+    font-size: 14px;
+    line-height: 16px;
   }
 
   .volumeValue {
@@ -28,22 +28,22 @@
 
   .volumeLineChart {
     margin-top: 12px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
 
   .volumeInValue,
   .volumeOutValue {
-    margin-bottom: 2px;
+    margin-bottom: 6px;
 
-    font-size: 15px;
-    line-height: 19px;
+    font-size: 14px;
+    line-height: 16px;
   }
 
   .volumeInPendingValue,
   .volumeOutPendingValue {
     color: var(--grey-500);
     font-size: 12px;
-    line-height: 15px;
+    line-height: 14px;
   }
 
   .chart {

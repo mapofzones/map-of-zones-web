@@ -21,6 +21,7 @@ export function ValueWithTitle({
         value={value}
         pendingValue={pendingValue}
         alignRight={alignRight}
+        className={styles.value}
       >
         {children}
       </ValueWithPending>
