@@ -14,12 +14,14 @@
   border-radius: 5px;
   cursor: pointer;
 
-  .content {
-    margin-left: 6px;
+  &.medium {
+    font-size: 15px;
+    line-height: 19px;
   }
 
   .icon {
     display: flex;
+    margin-right: 6px;
 
     line-height: 15px;
 

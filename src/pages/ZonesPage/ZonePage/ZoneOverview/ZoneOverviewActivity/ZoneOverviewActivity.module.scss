@@ -30,7 +30,6 @@
   }
 
   .overviewItemsGroup {
-
     display: grid;
     grid-area: overviewItemsGroup;
     grid-auto-flow: column;
@@ -52,6 +51,8 @@
 
       .additionalInfo {
         color: var(--grey-500);
+        font-size: 12px;
+        line-height: 14px;
       }
 
       &.dauInfo {

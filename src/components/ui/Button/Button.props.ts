@@ -11,4 +11,11 @@ export interface ButtonProps
   children?: ReactNode;
   Icon?: FunctionComponent<SVGProps<SVGSVGElement>>;
   className?: string;
+  size?: ButtonSize;
+}
+
+export enum ButtonSize {
+  SMALL = 'small',
+  MEDIUM = 'mdeium',
+  LARGE = 'large',
 }

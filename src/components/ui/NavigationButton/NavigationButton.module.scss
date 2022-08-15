@@ -6,30 +6,30 @@
   align-items: center;
   padding: 0 3px 8px;
 
-  cursor: pointer;
-
   color: var(--grey-500);
   font-weight: 400;
-  font-size: 18px;
+  font-size: 20px;
   font-style: normal;
   line-height: 23px;
   text-align: center;
 
   border-bottom: 1px solid transparent;
 
+  cursor: pointer;
+
   .counter {
     margin-left: 10px;
     padding: 4px 6px;
-  
+
     color: var(--grey-500);
     font-size: 15px;
     line-height: 19px;
     text-align: center;
-  
+
     background-color: var(--black-900);
     border-radius: 100px;
     font-feature-settings: 'tnum' on, 'lnum' on;
-  }  
+  }
 
   &.active {
     color: var(--white);

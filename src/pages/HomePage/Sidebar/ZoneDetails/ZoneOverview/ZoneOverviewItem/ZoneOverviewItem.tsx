@@ -21,7 +21,9 @@ function ZoneOverviewItem({
 }: ZoneOverviewItemProps) {
   return (
     <div
-      className={cn(styles.itemContainer, className, { [styles.rowDirection]: rowDirection })}
+      className={cn(styles.itemContainer, className, {
+        [styles.rowDirection]: rowDirection,
+      })}
       {...props}
     >
       <div className={styles.title}>

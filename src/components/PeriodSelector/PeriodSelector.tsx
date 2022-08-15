@@ -1,4 +1,5 @@
 import { Button, ButtonGroup } from 'components';
+import { ButtonSize } from 'components/ui/Button/Button.props';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import styles from './PeriodSelector.module.scss';
@@ -17,7 +18,11 @@ export function PeriodSelector() {
       isActive={(key: string) => selectedPeriod === key}
     >
       {Object.values(PeriodKeys).map((periodValue: PeriodKeys) => (
-        <Button key={periodValue} onClick={() => onPeriodChange(periodValue)}>
+        <Button
+          key={periodValue}
+          size={ButtonSize.MEDIUM}
+          onClick={() => onPeriodChange(periodValue)}
+        >
           {periodValue}
         </Button>
       ))}

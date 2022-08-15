@@ -60,10 +60,15 @@
     }
 
     .marketCapContainer {
-      font-size: 13px;
+      font-size: 14px;
+      line-height: 16px;
 
       .marketCapTitle {
         color: var(--grey-500);
+      }
+
+      .marketCapValue {
+        color: var(--white);
       }
     }
   }
