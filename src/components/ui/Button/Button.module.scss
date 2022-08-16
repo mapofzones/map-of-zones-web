@@ -6,7 +6,6 @@
 
   color: var(--white);
   font-size: 12px;
-  line-height: 15px;
   text-align: center;
 
   background-color: var(--black-600);
@@ -16,14 +15,11 @@
 
   &.medium {
     font-size: 15px;
-    line-height: 19px;
   }
 
   .icon {
     display: flex;
     margin-right: 6px;
-
-    line-height: 15px;
 
     fill: var(--grey-800);
     stroke: var(--grey-800);

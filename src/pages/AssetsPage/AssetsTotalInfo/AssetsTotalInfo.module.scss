@@ -1,7 +1,6 @@
 .title {
   color: var(--grey-500);
   font-size: 13px;
-  line-height: 16px;
   white-space: nowrap;
 }
 
@@ -13,7 +12,6 @@
   .total {
     color: var(--green);
     font-size: 13px;
-    line-height: 16px;
     text-align: right;
   }
 }
@@ -22,7 +20,6 @@
   margin-top: 4px;
 
   font-size: 15px;
-  line-height: 19px;
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
@@ -38,7 +35,6 @@
 .doubleItem {
   .value {
     font-size: 24px;
-    line-height: 30px;
   }
 }
 

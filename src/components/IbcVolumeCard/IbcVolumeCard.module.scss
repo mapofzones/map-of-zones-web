@@ -16,14 +16,12 @@
 
     color: var(--grey-500);
     font-size: 14px;
-    line-height: 16px;
   }
 
   .volumeValue {
     grid-area: volume;
 
     font-size: 20px;
-    line-height: 23px;
   }
 
   .volumeLineChart {
@@ -36,14 +34,12 @@
     margin-bottom: 6px;
 
     font-size: 14px;
-    line-height: 16px;
   }
 
   .volumeInPendingValue,
   .volumeOutPendingValue {
     color: var(--grey-500);
     font-size: 12px;
-    line-height: 14px;
   }
 
   .chart {

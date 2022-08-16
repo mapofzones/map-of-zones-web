@@ -34,7 +34,6 @@
     .code {
       color: var(--grey-500);
       font-size: 13px;
-      line-height: 16px;
     }
 
     .chartContainer {
@@ -48,7 +47,6 @@
         margin-right: 6px;
 
         font-size: 15px;
-        line-height: 19px;
       }
     }
 
@@ -57,7 +55,6 @@
 
       color: var(--grey-500);
       font-size: 15px;
-      line-height: 19px;
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
@@ -65,7 +62,6 @@
       justify-content: flex-end;
 
       font-size: 15px;
-      line-height: 19px;
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }
@@ -86,7 +82,6 @@
 
       .name {
         font-size: 15px;
-        line-height: 19px;
       }
     }
   }
