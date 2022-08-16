@@ -6,16 +6,18 @@ import {
   SVGProps,
 } from 'react';
 
+import { ElementSize } from 'types/ElementSize';
+
 export interface ButtonProps
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   children?: ReactNode;
   Icon?: FunctionComponent<SVGProps<SVGSVGElement>>;
   className?: string;
-  size?: ButtonSize;
+  size?: ElementSize;
+  buttonType?: ButtonType;
 }
 
-export enum ButtonSize {
-  SMALL = 'small',
-  MEDIUM = 'mdeium',
-  LARGE = 'large',
+export enum ButtonType {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
 }

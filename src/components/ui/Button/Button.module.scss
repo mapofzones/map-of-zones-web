@@ -4,8 +4,6 @@
   justify-content: center;
   padding: 5px 8px 4px;
 
-  color: var(--white);
-  font-size: var(--font-secondary-size-md);
   text-align: center;
 
   background-color: var(--black-600);
@@ -13,8 +11,24 @@
   border-radius: 5px;
   cursor: pointer;
 
-  &.medium {
-    font-size: var(--font-base-size-lg);
+  &.primary {
+    color: var(--white);
+  }
+
+  &.secondary {
+    color: var(--grey-500);
+  }
+
+  &.lg {
+    font-size: var(--font-heading-size-sm);
+  }
+
+  &.md {
+    font-size: var(--font-base-size-md);
+  }
+
+  &.sm {
+    font-size: var(--font-secondary-size-md);
   }
 
   .icon {
@@ -25,6 +39,15 @@
     stroke: var(--grey-800);
   }
 
+  &:disabled {
+    background-color: var(--black-500);
+
+    .icon {
+      fill: var(--grey-100);
+      stroke: var(--grey-100);
+    }
+  }
+
   &:hover {
     background-color: var(--black-900);
 
@@ -32,14 +55,14 @@
       fill: var(--white);
       stroke: var(--white);
     }
-  }
 
-  &:disabled {
-    background-color: var(--black-500);
+    &.secondary {
+      color: var(--grey-800);
 
-    .icon {
-      fill: var(--grey-100);
-      stroke: var(--grey-100);
+      .icon {
+        fill: var(--grey-800);
+        stroke: var(--grey-800);
+      }
     }
   }
 }

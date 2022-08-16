@@ -1,6 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 import { NumberType } from 'components';
+import { ElementSize } from 'types/ElementSize';
 import { ChartItemByString } from 'utils/helper';
 
 export interface TotalInfoCardProps
@@ -14,6 +15,7 @@ export interface TotalInfoCardProps
   className?: string;
   loading?: boolean;
   hasBorder?: boolean;
+  size?: ElementSize;
 }
 
 export type TotalInfoType = {

@@ -1,8 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button, NumberFormat, IbcVolumeCard } from 'components';
+import { ButtonType } from 'components/ui/Button/Button.props';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
+import { ElementSize } from 'types/ElementSize';
 
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
@@ -92,7 +94,12 @@ function ZoneOverview() {
         </ZoneOverviewItem>
       </div>
 
-      <Button className={styles.detailedBtn} onClick={onDetailedBtnClick}>
+      <Button
+        className={styles.detailedBtn}
+        onClick={onDetailedBtnClick}
+        size={ElementSize.MEDIUM}
+        buttonType={ButtonType.SECONDARY}
+      >
         <span className={styles.btnText}>Learn More</span>
         <ArrowRight />
       </Button>

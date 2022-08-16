@@ -7,6 +7,7 @@
     'volumeIn volumeOut'
     'volumeInPending volumeOutPending';
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: flex-start;
   min-height: 150px;
   padding: 16px;
 

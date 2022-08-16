@@ -1,12 +1,15 @@
 import cn from 'classnames';
 
+import { ElementSize } from 'types/ElementSize';
+
 import styles from './Button.module.scss';
-import { ButtonProps, ButtonSize } from './Button.props';
+import { ButtonProps, ButtonType } from './Button.props';
 
 function Button({
   children,
   className,
-  size = ButtonSize.SMALL,
+  size = ElementSize.MEDIUM,
+  buttonType = ButtonType.PRIMARY,
   Icon,
   ...props
 }: ButtonProps): JSX.Element {
@@ -14,9 +17,11 @@ function Button({
     <button
       type="button"
       className={cn(className, styles.button, {
-        [styles.small]: size === ButtonSize.SMALL,
-        [styles.medium]: size === ButtonSize.MEDIUM,
-        [styles.large]: size === ButtonSize.LARGE,
+        [styles.sm]: size === ElementSize.SMALL,
+        [styles.md]: size === ElementSize.MEDIUM,
+        [styles.lg]: size === ElementSize.LARGE,
+        [styles.primary]: buttonType === ButtonType.PRIMARY,
+        [styles.secondary]: buttonType === ButtonType.SECONDARY,
       })}
       {...props}
     >

@@ -5,6 +5,7 @@ import { IbcVolumeCard } from 'components/IbcVolumeCard/IbcVolumeCard';
 import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCard';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
+import { ElementSize } from 'types/ElementSize';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
@@ -27,6 +28,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         chartKey={'totalTxs'}
         loading={loading}
         hasBorder={false}
+        size={ElementSize.LARGE}
       />
       <TotalInfoCard
         className={styles.transfersCard}
@@ -38,6 +40,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         chartKey={'ibcTransfer'}
         loading={loading}
         hasBorder={false}
+        size={ElementSize.LARGE}
       />
       <div className={styles.overviewItemsGroup}>
         <ZoneOverviewItem

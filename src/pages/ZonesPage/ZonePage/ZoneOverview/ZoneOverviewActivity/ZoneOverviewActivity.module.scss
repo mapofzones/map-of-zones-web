@@ -31,15 +31,15 @@
   .overviewItemsGroup {
     display: grid;
     grid-area: overviewItemsGroup;
+    grid-auto-columns: 1fr;
     grid-auto-flow: column;
     grid-template-rows: auto auto;
-    grid-template-columns: 1fr 1fr;
 
     column-gap: 24px;
 
     .detailedInfoItem {
-      margin: 0 20px;
-      padding: 12px 0;
+      margin: 0 12px;
+      padding: 12px 8px;
 
       &:first-child,
       &:nth-child(3) {
@@ -49,6 +49,8 @@
       }
 
       .additionalInfo {
+        margin-top: 2px;
+
         color: var(--grey-500);
         font-size: var(--font-secondary-size-md);
       }
