@@ -1,6 +1,12 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType, RatingDiffTriangle, ValueWithTitle, ZoneLogo } from 'components';
+import {
+  NumberFormat,
+  NumberType,
+  RatingDiffTriangle,
+  ValueWithPending,
+  ZoneLogo,
+} from 'components';
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 import { ElementSize } from 'types/ElementSize';
 
@@ -69,7 +75,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           </span>
         </div>
         <div className={styles.tokenInfoItem}>
-          <ValueWithTitle
+          <ValueWithPending
             title="Market Cap"
             value={997309120}
             numberType={NumberType.Currency}
@@ -77,7 +83,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           />
         </div>
         <div className={styles.tokenInfoItem}>
-          <ValueWithTitle
+          <ValueWithPending
             title="Volume"
             value={1530009150}
             numberType={NumberType.Currency}

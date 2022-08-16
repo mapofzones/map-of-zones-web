@@ -1,7 +1,6 @@
 import cn from 'classnames';
 
-import { Divider, NumberFormat, NumberType, TotalCard } from 'components';
-import { ValueWithTitle } from 'components/ValueWithTitle/ValueWithTitle';
+import { Divider, NumberFormat, NumberType, TotalCard, ValueWithPending } from 'components';
 import { ElementSize } from 'types/ElementSize';
 
 import styles from './ZoneOverviewParameters.module.scss';
@@ -12,7 +11,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
       <div className={styles.title}>Parameters</div>
       <div className={styles.parametersCards}>
         <TotalCard className={styles.parameterCard}>
-          <ValueWithTitle
+          <ValueWithPending
             title={'Inflation'}
             value={18.5}
             numberType={NumberType.Percent}
@@ -20,7 +19,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
           />
           <Divider />
           <div>
-            <ValueWithTitle
+            <ValueWithPending
               title={'Staking APR'}
               value={14.5}
               numberType={NumberType.Percent}
@@ -28,12 +27,12 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             />
             <div className={styles.additionalInfo}>
               {'Unbonding period: '}
-              <NumberFormat className={styles.additionalInfo_value} value={10} />
+              <span className={styles.additionalInfo_value}>{8}d</span>
             </div>
           </div>
         </TotalCard>
         <TotalCard className={styles.parameterCard}>
-          <ValueWithTitle
+          <ValueWithPending
             title={'On-Chain Supply'}
             value={205095123}
             numberType={NumberType.Number}
@@ -41,9 +40,9 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
           />
           <Divider />
           <div>
-            <ValueWithTitle title={'Total Bonded Rate'} size={ElementSize.LARGE}>
+            <ValueWithPending title={'Total Bonded Rate'} size={ElementSize.LARGE}>
               162M / 205M
-            </ValueWithTitle>
+            </ValueWithPending>
             <div className={styles.additionalInfo}>
               {'Ratio: '}
               <NumberFormat
@@ -55,14 +54,14 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
           </div>
         </TotalCard>
         <TotalCard className={styles.parameterCard}>
-          <ValueWithTitle
+          <ValueWithPending
             title={'Validators'}
             value={115}
             numberType={NumberType.Number}
             size={ElementSize.LARGE}
           />
           <Divider />
-          <ValueWithTitle
+          <ValueWithPending
             title={'Nodes'}
             value={1270}
             numberType={NumberType.Number}

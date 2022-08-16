@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { Card, ValueWithTitle } from 'components';
+import { Card, ValueWithPending } from 'components';
 import { LineChart } from 'components/ui/LineChart/LineChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
@@ -34,7 +34,7 @@ export function TotalInfoCard({
       {...props}
       loading={loading}
     >
-      <ValueWithTitle
+      <ValueWithPending
         title={`${title} (${selectedPeriod})`}
         value={value}
         pendingValue={pendingValue}
