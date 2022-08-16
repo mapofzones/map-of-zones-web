@@ -15,13 +15,13 @@
     margin-bottom: 8px;
 
     color: var(--grey-500);
-    font-size: 14px;
+    font-size: var(--font-base-size-md);
   }
 
   .volumeValue {
     grid-area: volume;
 
-    font-size: 20px;
+    font-size: var(--font-heading-size-sm);
   }
 
   .volumeLineChart {
@@ -33,13 +33,13 @@
   .volumeOutValue {
     margin-bottom: 6px;
 
-    font-size: 14px;
+    font-size: var(--font-base-size-md);
   }
 
   .volumeInPendingValue,
   .volumeOutPendingValue {
     color: var(--grey-500);
-    font-size: 12px;
+    font-size: var(--font-secondary-size-md);
   }
 
   .chart {

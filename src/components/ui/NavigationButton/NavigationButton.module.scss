@@ -8,7 +8,7 @@
 
   color: var(--grey-500);
   font-weight: 400;
-  font-size: 20px;
+  font-size: var(--font-heading-size-sm);
   font-style: normal;
   text-align: center;
 
@@ -21,7 +21,7 @@
     padding: 4px 6px;
 
     color: var(--grey-500);
-    font-size: 15px;
+    font-size: var(--font-base-size-lg);
     text-align: center;
 
     background-color: var(--black-900);

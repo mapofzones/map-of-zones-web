@@ -59,7 +59,7 @@
     }
 
     .marketCapContainer {
-      font-size: 14px;
+      font-size: var(--font-base-size-md);
 
       .marketCapTitle {
         color: var(--grey-500);

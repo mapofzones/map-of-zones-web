@@ -9,7 +9,7 @@
     &_title {
       color: var(--white);
       font-weight: 400;
-      font-size: 20px;
+      font-size: var(--font-heading-size-sm);
     }
 
     &_subtitle {
@@ -17,7 +17,7 @@
 
       color: var(--grey-500);
       font-weight: 400;
-      font-size: 13px;
+      font-size: var(--font-secondary-size-lg);
     }
   }
 

@@ -5,14 +5,14 @@
   padding: 0 16px 8px;
 
   color: var(--grey-500);
-  font-size: 11px;
+  font-size: var(--font-secondary-size-sm);
 
   .shareButtonsBlock {
     display: flex;
     flex: 1;
     flex-direction: row;
 
-    font-size: 12px;
+    font-size: var(--font-secondary-size-md);
 
     .shareBtn:first-of-type {
       margin-right: 8px;

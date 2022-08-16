@@ -34,12 +34,12 @@
 
       color: var(--grey-500);
       font-weight: 400;
-      font-size: 15px;
+      font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .zoneName {
-      font-size: 15px;
+      font-size: var(--font-base-size-lg);
     }
 
     .value {

@@ -13,7 +13,7 @@
     grid-area: activityTitle;
 
     color: var(--white);
-    font-size: 24px;
+    font-size: var(--font-heading-size-md);
   }
 
   .volumeCard {
@@ -50,7 +50,7 @@
 
       .additionalInfo {
         color: var(--grey-500);
-        font-size: 12px;
+        font-size: var(--font-secondary-size-md);
       }
 
       &.dauInfo {

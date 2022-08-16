@@ -12,7 +12,7 @@
     width: 234px;
 
     .title {
-      font-size: 15px;
+      font-size: var(--font-base-size-lg);
 
       .arrowIcon {
         margin: 0 8px;
@@ -21,7 +21,7 @@
 
     .connection {
       color: var(--orange);
-      font-size: 13px;
+      font-size: var(--font-secondary-size-lg);
     }
 
     .triangle {

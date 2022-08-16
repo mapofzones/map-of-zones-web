@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
 
-  font-size: 15px;
+  font-size: var(--font-base-size-lg);
 
   .logo {
     margin-right: 12px;

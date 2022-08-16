@@ -5,7 +5,7 @@
   padding: 5px 8px 4px;
 
   color: var(--white);
-  font-size: 12px;
+  font-size: var(--font-secondary-size-md);
   text-align: center;
 
   background-color: var(--black-600);
@@ -14,7 +14,7 @@
   cursor: pointer;
 
   &.medium {
-    font-size: 15px;
+    font-size: var(--font-base-size-lg);
   }
 
   .icon {

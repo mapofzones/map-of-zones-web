@@ -1,7 +1,7 @@
 .container {
   .title {
     color: var(--white);
-    font-size: 24px;
+    font-size: var(--font-heading-size-md);
   }
 
   .tokenInfoChart {
@@ -35,12 +35,12 @@
         margin-right: 4px;
         margin-left: 8px;
 
-        font-size: 12px;
+        font-size: var(--font-secondary-size-md);
       }
 
       .period {
         color: var(--grey-500);
-        font-size: 12px;
+        font-size: var(--font-secondary-size-md);
       }
 
       &:first-child {
@@ -54,14 +54,14 @@
         margin-bottom: 8px;
 
         color: var(--grey-500);
-        font-size: 14px;
+        font-size: var(--font-base-size-md);
       }
 
       &_data {
         display: flex;
         align-items: center;
 
-        font-size: 20px;
+        font-size: var(--font-heading-size-sm);
       }
     }
   }
