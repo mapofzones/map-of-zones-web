@@ -11,7 +11,8 @@ import { ElementSize } from 'types/ElementSize';
 export interface ButtonProps
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   children?: ReactNode;
-  Icon?: FunctionComponent<SVGProps<SVGSVGElement>>;
+  IconBefore?: FunctionComponent<SVGProps<SVGSVGElement>>;
+  IconAfter?: FunctionComponent<SVGProps<SVGSVGElement>>;
   className?: string;
   size?: ElementSize;
   buttonType?: ButtonType;

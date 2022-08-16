@@ -10,7 +10,8 @@ function Button({
   className,
   size = ElementSize.MEDIUM,
   buttonType = ButtonType.PRIMARY,
-  Icon,
+  IconBefore,
+  IconAfter,
   ...props
 }: ButtonProps): JSX.Element {
   return (
@@ -25,8 +26,9 @@ function Button({
       })}
       {...props}
     >
-      {Icon && <Icon className={styles.icon} />}
+      {IconBefore && <IconBefore className={cn(styles.icon, styles.leftIcon)} />}
       {children && <span className={styles.content}>{children}</span>}
+      {IconAfter && <IconAfter className={cn(styles.icon, styles.rightIcon)} />}
     </button>
   );
 }

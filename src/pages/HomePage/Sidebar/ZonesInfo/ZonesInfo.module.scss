@@ -35,11 +35,6 @@
   }
 
   .detailedBtn {
-    height: 40px;
-
-    color: var(--grey-500);
-    font-size: var(--font-base-size-lg);
-
     &:not(:hover) {
       background-color: var(--black-700);
     }

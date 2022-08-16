@@ -91,7 +91,7 @@ function ZonesInfo(): JSX.Element {
       <Button
         className={styles.detailedBtn}
         onClick={onDetailedBtnClick}
-        size={ElementSize.MEDIUM}
+        size={ElementSize.LARGE}
         buttonType={ButtonType.SECONDARY}
       >
         <span className={styles.btnText}>Detailed View</span>

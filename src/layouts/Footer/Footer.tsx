@@ -15,7 +15,7 @@ function Footer({ ...props }): JSX.Element {
         <Button
           onClick={shareClick}
           className={styles.shareBtn}
-          Icon={TgLogo}
+          IconBefore={TgLogo}
           size={ElementSize.SMALL}
         >
           Share
@@ -23,7 +23,7 @@ function Footer({ ...props }): JSX.Element {
         <Button
           onClick={shareClick}
           className={styles.shareBtn}
-          Icon={TwitterLogo}
+          IconBefore={TwitterLogo}
           size={ElementSize.SMALL}
         >
           Tweet
