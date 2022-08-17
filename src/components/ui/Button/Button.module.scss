@@ -1,5 +1,6 @@
 .button {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
   align-items: center;
   justify-content: center;
 
@@ -19,45 +20,24 @@
   }
 
   &.lg {
+    gap: 10px;
     padding: 12px;
 
     font-size: var(--font-base-size-md);
-
-    .leftIcon {
-      margin-right: 10px;
-    }
-
-    .rightIcon {
-      margin-left: 10px;
-    }
   }
 
   &.md {
+    gap: 8px;
     padding: 10px;
 
     font-size: var(--font-secondary-size-lg);
-
-    .leftIcon {
-      margin-right: 8px;
-    }
-
-    .rightIcon {
-      margin-left: 8px;
-    }
   }
 
   &.sm {
+    gap: 6px;
     padding: 5px 8px 4px;
 
     font-size: var(--font-secondary-size-md);
-
-    .leftIcon {
-      margin-right: 6px;
-    }
-
-    .rightIcon {
-      margin-left: 6px;
-    }
   }
 
   .icon {
