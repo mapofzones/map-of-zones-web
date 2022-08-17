@@ -18,7 +18,13 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Activity</div>
-      <IbcVolumeCard className={styles.volumeCard} data={data} loading={loading} period={period} />
+      <IbcVolumeCard
+        className={styles.volumeCard}
+        data={data}
+        loading={loading}
+        period={period}
+        vertical
+      />
       <TotalInfoCard
         className={styles.totalTxsCard}
         title={'Total Txs'}

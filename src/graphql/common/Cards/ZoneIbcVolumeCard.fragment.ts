@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 
 export const ZONE_IBC_VOLUME_CARD_FRAGMENT = gql`
   fragment ZoneIbcVolumeCard on zones_stats {
+    ibcVolumeChart: chart_cashflow
     ibcVolumeMainnet: ibc_cashflow_mainnet
     ibcVolumeInMainnet: ibc_cashflow_in_mainnet
     ibcVolumeOutMainnet: ibc_cashflow_out_mainnet
