@@ -19,16 +19,14 @@
       flex-direction: column;
 
       .zoneName {
-        font-size: 20px;
-        line-height: 25px;
+        font-size: var(--font-heading-size-sm);
       }
 
       .zoneWebsite {
         margin-top: 5px;
 
         color: var(--grey-500);
-        font-size: 13px;
-        line-height: 16px;
+        font-size: var(--font-base-size-md);
       }
     }
   }

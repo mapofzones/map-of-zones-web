@@ -2,15 +2,13 @@
   display: block;
 
   color: var(--grey-500);
-  font-size: 13px;
-  line-height: 16px;
+  font-size: var(--font-secondary-size-lg);
   white-space: nowrap;
 }
 
 .total {
   color: var(--green);
-  font-size: 13px;
-  line-height: 16px;
+  font-size: var(--font-secondary-size-lg);
   text-align: right;
 }
 
@@ -18,15 +16,13 @@
   display: block;
   margin-top: 4px;
 
-  font-size: 15px;
-  line-height: 19px;
+  font-size: var(--font-base-size-lg);
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
 .pendingValue {
   color: var(--grey-500);
-  font-size: 12px;
-  line-height: 15px;
+  font-size: var(--font-secondary-size-md);
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
@@ -44,8 +40,7 @@
   display: flex;
 
   .value {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: var(--font-heading-size-md);
   }
 }
 

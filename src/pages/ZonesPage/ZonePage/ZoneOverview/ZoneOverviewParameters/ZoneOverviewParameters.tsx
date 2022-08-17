@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
-import { Divider, NumberType, TotalCard } from 'components';
-import { ValueWithTitle } from 'components/ValueWithTitle/ValueWithTitle';
+import { Divider, NumberFormat, NumberType, TotalCard, ValueWithPending } from 'components';
+import { ElementSize } from 'types/ElementSize';
 
 import styles from './ZoneOverviewParameters.module.scss';
 
@@ -11,23 +11,62 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
       <div className={styles.title}>Parameters</div>
       <div className={styles.parametersCards}>
         <TotalCard className={styles.parameterCard}>
-          <ValueWithTitle title={'Inflation'} value={18.5} numberType={NumberType.Percent} />
+          <ValueWithPending
+            title={'Inflation'}
+            value={18.5}
+            numberType={NumberType.Percent}
+            size={ElementSize.LARGE}
+          />
           <Divider />
-          <ValueWithTitle title={'Staking APR'} value={14.5} numberType={NumberType.Percent} />
+          <div>
+            <ValueWithPending
+              title={'Staking APR'}
+              value={14.5}
+              numberType={NumberType.Percent}
+              size={ElementSize.LARGE}
+            />
+            <div className={styles.additionalInfo}>
+              {'Unbonding period: '}
+              <span className={styles.additionalInfo_value}>{8}d</span>
+            </div>
+          </div>
         </TotalCard>
         <TotalCard className={styles.parameterCard}>
-          <ValueWithTitle
+          <ValueWithPending
             title={'On-Chain Supply'}
             value={205095123}
             numberType={NumberType.Number}
+            size={ElementSize.LARGE}
           />
           <Divider />
-          <ValueWithTitle title={'Total Bonded Rate'}>162M / 205M</ValueWithTitle>
+          <div>
+            <ValueWithPending title={'Total Bonded Rate'} size={ElementSize.LARGE}>
+              162M / 205M
+            </ValueWithPending>
+            <div className={styles.additionalInfo}>
+              {'Ratio: '}
+              <NumberFormat
+                className={styles.additionalInfo_value}
+                value={90.5}
+                numberType={NumberType.Percent}
+              />
+            </div>
+          </div>
         </TotalCard>
         <TotalCard className={styles.parameterCard}>
-          <ValueWithTitle title={'Validators'} value={115} numberType={NumberType.Number} />
+          <ValueWithPending
+            title={'Validators'}
+            value={115}
+            numberType={NumberType.Number}
+            size={ElementSize.LARGE}
+          />
           <Divider />
-          <ValueWithTitle title={'Nodes'} value={1270} numberType={NumberType.Number} />
+          <ValueWithPending
+            title={'Nodes'}
+            value={1270}
+            numberType={NumberType.Number}
+            size={ElementSize.LARGE}
+          />
         </TotalCard>
       </div>
     </div>

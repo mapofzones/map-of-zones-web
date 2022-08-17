@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, Dropdown, PeriodSelector, ScrollableContainer } from 'components';
+import { ButtonType } from 'components/ui/Button/Button.props';
 import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
+import { ElementSize } from 'types/ElementSize';
 
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
 import { COLUMN_OPTIONS, METADATA } from './Types';
@@ -86,7 +88,12 @@ function ZonesInfo(): JSX.Element {
         {tableDataLoading && <ZonesInfoTableSkeleton />}
       </ScrollableContainer>
       <div className={styles.shadow}></div>
-      <Button className={styles.detailedBtn} onClick={onDetailedBtnClick}>
+      <Button
+        className={styles.detailedBtn}
+        onClick={onDetailedBtnClick}
+        size={ElementSize.LARGE}
+        buttonType={ButtonType.SECONDARY}
+      >
         <span className={styles.btnText}>Detailed View</span>
         <ArrowRight />
       </Button>

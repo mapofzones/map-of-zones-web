@@ -1,12 +1,9 @@
 .button {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
   align-items: center;
   justify-content: center;
-  padding: 5px 8px 4px;
 
-  color: var(--white);
-  font-size: 12px;
-  line-height: 15px;
   text-align: center;
 
   background-color: var(--black-600);
@@ -14,17 +11,49 @@
   border-radius: 5px;
   cursor: pointer;
 
-  .content {
-    margin-left: 6px;
+  &.primary {
+    color: var(--white);
+  }
+
+  &.secondary {
+    color: var(--grey-500);
+  }
+
+  &.lg {
+    gap: 10px;
+    padding: 12px;
+
+    font-size: var(--font-base-size-md);
+  }
+
+  &.md {
+    gap: 8px;
+    padding: 10px;
+
+    font-size: var(--font-secondary-size-lg);
+  }
+
+  &.sm {
+    gap: 6px;
+    padding: 5px 8px 4px;
+
+    font-size: var(--font-secondary-size-md);
   }
 
   .icon {
     display: flex;
 
-    line-height: 15px;
-
     fill: var(--grey-800);
     stroke: var(--grey-800);
+  }
+
+  &:disabled {
+    background-color: var(--black-500);
+
+    .icon {
+      fill: var(--grey-100);
+      stroke: var(--grey-100);
+    }
   }
 
   &:hover {
@@ -34,14 +63,14 @@
       fill: var(--white);
       stroke: var(--white);
     }
-  }
 
-  &:disabled {
-    background-color: var(--black-500);
+    &.secondary {
+      color: var(--grey-800);
 
-    .icon {
-      fill: var(--grey-100);
-      stroke: var(--grey-100);
+      .icon {
+        fill: var(--grey-800);
+        stroke: var(--grey-800);
+      }
     }
   }
 }

@@ -3,8 +3,7 @@
   align-items: center;
 
   color: var(--grey-500);
-  font-size: 12px;
-  line-height: 15px;
+  font-size: var(--font-secondary-size-md);
 
   &.rightAlign {
     justify-content: flex-end;

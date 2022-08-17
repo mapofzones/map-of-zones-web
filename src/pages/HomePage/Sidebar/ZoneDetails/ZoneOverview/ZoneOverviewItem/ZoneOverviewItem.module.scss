@@ -2,17 +2,12 @@
   display: flex;
   flex-direction: column;
 
-  &.row {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+  font-size: var(--font-base-size-md);
 
   .title {
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 
     color: var(--grey-500);
-    font-size: 13px;
-    line-height: 16.3px;
 
     .questionMark {
       margin-left: 4px;
@@ -21,7 +16,14 @@
 
   .value {
     color: var(--white);
-    font-size: 15px;
-    line-height: 18.81px;
+  }
+
+  &.rowDirection {
+    flex-direction: row;
+    justify-content: space-between;
+
+    .title {
+      margin-bottom: 0;
+    }
   }
 }

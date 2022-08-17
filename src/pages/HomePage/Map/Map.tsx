@@ -109,13 +109,13 @@ export function Map({ className }: { className: string }) {
       />
       <div className={styles.leftButtonsContainer}>
         <Button
-          Icon={ZoomIn}
+          IconBefore={ZoomIn}
           className={styles.zoomInBtn}
           disabled={isZoomInDisabled}
           onClick={onZoomIn}
         />
         <Button
-          Icon={ZoomOut}
+          IconBefore={ZoomOut}
           className={styles.zoomOutBtn}
           disabled={isZoomOutDisabled}
           onClick={onZoomOut}

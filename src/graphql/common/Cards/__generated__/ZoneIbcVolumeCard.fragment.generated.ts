@@ -8,6 +8,7 @@ import * as Types from '../../../base-types';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneIbcVolumeCardFragment = {
   __typename?: 'zones_stats';
+  ibcVolumeChart?: any | null;
   ibcVolumeMainnet?: any | null;
   ibcVolumeInMainnet?: any | null;
   ibcVolumeOutMainnet?: any | null;
@@ -27,6 +28,11 @@ export const ZoneIbcVolumeCardFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcVolumeChart' },
+            name: { kind: 'Name', value: 'chart_cashflow' },
+          },
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'ibcVolumeMainnet' },

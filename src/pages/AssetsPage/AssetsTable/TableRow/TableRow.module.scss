@@ -33,8 +33,7 @@
 
     .code {
       color: var(--grey-500);
-      font-size: 13px;
-      line-height: 16px;
+      font-size: var(--font-secondary-size-lg);
     }
 
     .chartContainer {
@@ -47,8 +46,7 @@
       .code {
         margin-right: 6px;
 
-        font-size: 15px;
-        line-height: 19px;
+        font-size: var(--font-base-size-lg);
       }
     }
 
@@ -56,16 +54,14 @@
       display: block;
 
       color: var(--grey-500);
-      font-size: 15px;
-      line-height: 19px;
+      font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .value {
       justify-content: flex-end;
 
-      font-size: 15px;
-      line-height: 19px;
+      font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }
@@ -85,8 +81,7 @@
       margin-bottom: 2px;
 
       .name {
-        font-size: 15px;
-        line-height: 19px;
+        font-size: var(--font-base-size-lg);
       }
     }
   }

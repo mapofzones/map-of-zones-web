@@ -11,5 +11,5 @@ export interface ZoneOverviewItemProps
   numberType?: NumberType;
   loading?: boolean;
   defaultLoadingValue?: string;
-  rowLoyout?: boolean;
+  rowDirection?: boolean;
 }

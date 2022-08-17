@@ -15,9 +15,8 @@
     .zoneName {
       color: var(--white);
       font-weight: 400;
-      font-size: 28px;
+      font-size: var(--font-heading-size-lg);
       font-style: normal;
-      line-height: 35px;
     }
   }
 
@@ -40,9 +39,8 @@
 
     color: var(--grey-500);
     font-weight: 400;
-    font-size: 13px;
+    font-size: var(--font-base-size-md);
     font-style: normal;
-    line-height: 16px;
     font-feature-settings: 'tnum' on, 'lnum' on;
   }
 

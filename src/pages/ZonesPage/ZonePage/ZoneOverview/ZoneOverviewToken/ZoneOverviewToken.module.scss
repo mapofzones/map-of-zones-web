@@ -1,20 +1,53 @@
 .container {
   .title {
     color: var(--white);
-    font-size: 24px;
-    line-height: 30px;
+    font-size: var(--font-heading-size-md);
   }
 
-  .tokenInfoContainer {
-    display: flex;
-    margin-top: 17px;
+  .chartContainer {
+    min-height: 200px;
+    max-height: 300px;
 
-    .tokenInfoItem {
+    margin-top: 24px;
+
+    .priceSwitcher {
+      max-width: 123px;
+    }
+  }
+
+  .detailsContainer {
+    display: flex;
+    margin-top: 24px;
+
+    .detailsItem {
       display: block;
-      padding-right: 32px;
-      padding-left: 20px;
+      padding-right: 24px;
+      padding-left: 16px;
 
       border-left: 1px solid var(--black-900);
+
+      .infoGroup {
+        display: flex;
+      }
+
+      .tokenName {
+        margin-right: 4px;
+        margin-left: 8px;
+
+        color: var(--grey-500);
+      }
+
+      .tokenPriceDiff {
+        margin-right: 4px;
+        margin-left: 8px;
+
+        font-size: var(--font-secondary-size-md);
+      }
+
+      .period {
+        color: var(--grey-500);
+        font-size: var(--font-secondary-size-md);
+      }
 
       &:first-child {
         padding-left: 0;
@@ -24,41 +57,17 @@
 
       &_title {
         display: inline-block;
-        margin-bottom: 4px;
+        margin-bottom: 8px;
 
         color: var(--grey-500);
-        font-size: 15px;
-        line-height: 19px;
+        font-size: var(--font-base-size-md);
       }
 
       &_data {
         display: flex;
         align-items: center;
 
-        font-size: 18px;
-        line-height: 23px;
-
-        .infoGroup {
-          display: flex;
-        }
-
-        .tokenName {
-          margin-right: 4px;
-          margin-left: 8px;
-
-          color: var(--grey-500);
-        }
-
-        .tokenPriceDiff {
-          margin-right: 4px;
-          margin-left: 8px;
-        }
-
-        .period {
-          color: var(--grey-500);
-          font-size: 13px;
-          line-height: 16px;
-        }
+        font-size: var(--font-heading-size-sm);
       }
     }
   }
@@ -66,10 +75,10 @@
 
 @media (max-width: 375px) {
   .container {
-    .tokenInfoContainer {
+    .detailsContainer {
       flex-direction: column;
 
-      .tokenInfoItem {
+      .detailsItem {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
