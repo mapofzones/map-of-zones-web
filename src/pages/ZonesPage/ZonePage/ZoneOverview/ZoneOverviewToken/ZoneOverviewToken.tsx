@@ -1,6 +1,9 @@
+import { useState } from 'react';
+
 import cn from 'classnames';
 
 import {
+  ButtonGroup,
   NumberFormat,
   NumberType,
   RatingDiffTriangle,
@@ -10,10 +13,15 @@ import {
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 import { ElementSize } from 'types/ElementSize';
 
+import { chartOptions, ChartType } from './Types';
 import styles from './ZoneOverviewToken.module.scss';
 
 export function ZoneOverviewToken({ className }: { className?: string }) {
-  const data = [
+  const [selectedChartType, setSelectedChartType] = useState<ChartType | undefined>(
+    ChartType.PRICE
+  );
+
+  const priceData = [
     {
       time: 1660194000,
       price: 1.22,
@@ -48,13 +56,44 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
     },
   ];
 
+  const volumeData = [
+    {
+      time: 1660194000,
+      volume: 142200,
+    },
+    {
+      time: 1660197600,
+      volume: 102500,
+    },
+    {
+      time: 1660201200,
+      volume: 103200,
+    },
+    {
+      time: 1660208400,
+      volume: 101400,
+    },
+    {
+      time: 1660212000,
+      volume: 81800,
+    },
+    {
+      time: 1660215600,
+      volume: 92800,
+    },
+    {
+      time: 1660219200,
+      volume: 123200,
+    },
+  ];
+
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Token</div>
-      <div className={styles.tokenInfoContainer}>
-        <div className={styles.tokenInfoItem}>
-          <span className={styles.tokenInfoItem_title}>Price</span>
-          <span className={styles.tokenInfoItem_data}>
+      <div className={styles.detailsContainer}>
+        <div className={styles.detailsItem}>
+          <span className={styles.detailsItem_title}>Price</span>
+          <span className={styles.detailsItem_data}>
             <div className={styles.infoGroup}>
               <ZoneLogo size="20px" />
               <span className={styles.tokenName}>INJ</span>
@@ -74,7 +113,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
             </div>
           </span>
         </div>
-        <div className={styles.tokenInfoItem}>
+        <div className={styles.detailsItem}>
           <ValueWithPending
             title="Market Cap"
             value={997309120}
@@ -82,7 +121,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
             size={ElementSize.LARGE}
           />
         </div>
-        <div className={styles.tokenInfoItem}>
+        <div className={styles.detailsItem}>
           <ValueWithPending
             title="Volume"
             value={1530009150}
@@ -91,11 +130,18 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           />
         </div>
       </div>
-      <div className={styles.tokenInfoChart}>
+      <div className={styles.chartContainer}>
+        <ButtonGroup
+          className={styles.priceSwitcher}
+          buttons={chartOptions}
+          setSelectedButton={(item) => setSelectedChartType(item.key)}
+        ></ButtonGroup>
         <AreaChart
-          data={data}
-          dataKey={'price'}
-          dataFormat={NumberType.Currency}
+          data={selectedChartType === ChartType.PRICE ? priceData : volumeData}
+          dataKey={selectedChartType === ChartType.PRICE ? 'price' : 'volume'}
+          dataFormat={
+            selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
+          }
           timeFormat={'HH:mm'}
         />
       </div>

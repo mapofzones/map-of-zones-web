@@ -4,16 +4,22 @@
     font-size: var(--font-heading-size-md);
   }
 
-  .tokenInfoChart {
+  .chartContainer {
     min-height: 200px;
     max-height: 300px;
+
+    margin-top: 24px;
+
+    .priceSwitcher {
+      max-width: 123px;
+    }
   }
 
-  .tokenInfoContainer {
+  .detailsContainer {
     display: flex;
     margin-top: 24px;
 
-    .tokenInfoItem {
+    .detailsItem {
       display: block;
       padding-right: 24px;
       padding-left: 16px;
@@ -69,10 +75,10 @@
 
 @media (max-width: 375px) {
   .container {
-    .tokenInfoContainer {
+    .detailsContainer {
       flex-direction: column;
 
-      .tokenInfoItem {
+      .detailsItem {
         display: flex;
         flex-direction: row;
         justify-content: space-between;

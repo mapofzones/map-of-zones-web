@@ -13,13 +13,14 @@ import {
 
 import { NumberFormat, NumberType } from '../NumberFormat';
 import styles from './AreaChart.module.scss';
+import { AreaChartProps } from './AreaChart.props';
 
 export function AreaChart({
   data,
   dataKey,
   dataFormat = NumberType.Number,
   timeFormat = 'DD MMM, HH:mm',
-}: any) {
+}: AreaChartProps) {
   const isChartColored = data.length > 1;
 
   const lastPointIndex = data.length - 1;
