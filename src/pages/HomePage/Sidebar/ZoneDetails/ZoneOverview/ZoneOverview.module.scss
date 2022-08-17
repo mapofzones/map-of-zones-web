@@ -2,12 +2,15 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100%;
+  margin: 0 -16px;
+  padding: 0 16px;
 
   .detailedInfo {
     display: grid;
     grid-template-rows: repeat(4, 63px);
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    margin-top: 12px;
     margin-bottom: 20px;
 
     &Item:not(:first-of-type, :nth-of-type(2)) {
@@ -21,14 +24,14 @@
       }
     }
   }
+}
 
-  .detailedBtn {
-    &:not(:hover) {
-      background-color: var(--black-700);
-    }
+.detailedBtn {
+  &:not(:hover) {
+    background-color: var(--black-700);
+  }
 
-    .btnText {
-      margin-right: 8px;
-    }
+  .btnText {
+    margin-right: 8px;
   }
 }
