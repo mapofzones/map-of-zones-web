@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 import { ColumnKeys } from 'pages/ZonesPage/ZonePage/ZonePeers/Types';
 
-import { Page, PAGE_TITLE } from './Types';
-import { trackEvent } from './useAnalytics';
+import { Page, PAGE_TITLE } from '../Types';
+import { trackEvent } from '../useAnalytics';
 
 const ZONES_PEERS_COLUMN_TITLE: Record<string, string> = {
   // total ibc volume
@@ -15,16 +15,17 @@ const ZONES_PEERS_COLUMN_TITLE: Record<string, string> = {
   [ColumnKeys.SuccessRate]: 'success rate',
 };
 
-export function useSwitchedZoneSubtabAnalytics(currentPage: Page, prevPage: Page) {
+export function useSortedZonePeersListAnalytics(currentPage: Page, prevPage: Page) {
   useEffect(() => {
-    if (!currentPage?.title) return;
+    if (currentPage?.title !== PAGE_TITLE.ZonePeers) return;
 
     if (
-      (currentPage.title === PAGE_TITLE.ZonePeers && prevPage?.title === PAGE_TITLE.ZoneOverview) ||
-      (currentPage.title === PAGE_TITLE.ZoneOverview && prevPage?.title === PAGE_TITLE.ZonePeers)
+      prevPage?.title === PAGE_TITLE.ZonePeers &&
+      currentPage.search.columnKey &&
+      prevPage?.search.columnKey &&
+      currentPage.search.columnKey !== prevPage?.search.columnKey
     ) {
-      trackEvent('switched zone subtab', {
-        zone_subtab: currentPage.title === PAGE_TITLE.ZonePeers ? 'peers' : 'overview',
+      trackEvent('sorted zone peers list', {
         param: ZONES_PEERS_COLUMN_TITLE[currentPage.search.columnKey as string],
         period: currentPage.search.period,
         zone: currentPage.pathname.split('/')[2],

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { Page, PAGE_TITLE } from './Types';
-import { trackEvent } from './useAnalytics';
+import { Page, PAGE_TITLE } from '../Types';
+import { trackEvent } from '../useAnalytics';
 
 export function useSelectedZoneAnalytics(currentPage: Page, prevPage: Page) {
   useEffect(() => {

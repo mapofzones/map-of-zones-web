@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { Page } from './Types';
-import { trackEvent } from './useAnalytics';
+import { Page } from '../Types';
+import { trackEvent } from '../useAnalytics';
 
 export function useViewedApplicationPageAnalytics(
   currentPage: Page,

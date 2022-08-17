@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react';
 
 import { init } from '@amplitude/analytics-browser';
-// import { init, track } from '@amplitude/analytics-browser';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
 import useDebounce from '../useDebounce';
+import { useSortedAssetsListAnalytics } from './assets/useSortedAssetsListAnalytics';
+import { useViewedAssetsPageAnalytics } from './assets/useViewedAssetsPageAnalytics';
+import { useChangedPeriodAnalytics } from './multipage/useChangedPeriodAnalytics';
+import { usePageScrollAnalytics } from './multipage/usePageScrollAnalytics';
+import { useViewedApplicationPageAnalytics } from './multipage/useViewedApplicationPageAnalytics';
 import { Page, PAGE_TITLE } from './Types';
-import { useChangedPeriodAnalytics } from './useChangedPeriodAnalytics';
-import { usePageScrollAnalytics } from './usePageScrollAnalytics';
-import { useSelectedZoneAnalytics } from './useSelectedZoneAnalytics';
-import { useSortedAssetsListAnalytics } from './useSortedAssetsListAnalytics';
-import { useSortedZonePeersListAnalytics } from './useSortedZonePeersListAnalytics';
-import { useSortedZonesListAnalytics } from './useSortedZonesListAnalytics';
-import { useSwitchedZoneSubtabAnalytics } from './useSwitchedZoneSubtabAnalytics';
-import { useViewedApplicationPageAnalytics } from './useViewedApplicationPageAnalytics';
-import { useViewedAssetsPageAnalytics } from './useViewedAssetsPageAnalytics';
-import { useViewedZonePeersPageAnalytics } from './useViewedZonePeersPageAnalytics';
-import { useViewedZonesListPageAnalytics } from './useViewedZonesListPageAnalytics';
+import { useSelectedZoneAnalytics } from './zone/useSelectedZoneAnalytics';
+import { useSwitchedZoneSubtabAnalytics } from './zone/useSwitchedZoneSubtabAnalytics';
+import { useSortedZonePeersListAnalytics } from './zonePeers/useSortedZonePeersListAnalytics';
+import { useViewedZonePeersPageAnalytics } from './zonePeers/useViewedZonePeersPageAnalytics';
+import { useSortedZonesListAnalytics } from './zones/useSortedZonesListAnalytics';
+import { useViewedZonesListPageAnalytics } from './zones/useViewedZonesListPageAnalytics';
 
 if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_AMPLITUDE_KEY) {
   init(process.env.REACT_APP_AMPLITUDE_KEY);
@@ -83,16 +82,25 @@ export function useAnalytics() {
     }
   }, [debouncedLocation]);
 
+  // assets
+  useSortedAssetsListAnalytics(currentPage, prevPage);
+  useViewedAssetsPageAnalytics(currentPage, prevPage);
+
+  // multipage
   useChangedPeriodAnalytics(currentPage, prevPage);
   usePageScrollAnalytics(currentPage);
-  useSelectedZoneAnalytics(currentPage, prevPage);
-  useSortedAssetsListAnalytics(currentPage, prevPage);
-  useSortedZonePeersListAnalytics(currentPage, prevPage);
-  useSortedZonesListAnalytics(currentPage, prevPage);
-  useSwitchedZoneSubtabAnalytics(currentPage, prevPage);
   useViewedApplicationPageAnalytics(currentPage, prevPage, history);
-  useViewedAssetsPageAnalytics(currentPage, prevPage);
+
+  // zone
+  useSelectedZoneAnalytics(currentPage, prevPage);
+  useSwitchedZoneSubtabAnalytics(currentPage, prevPage);
+
+  // zonePeers
+  useSortedZonePeersListAnalytics(currentPage, prevPage);
   useViewedZonePeersPageAnalytics(currentPage, prevPage);
+
+  // zones
+  useSortedZonesListAnalytics(currentPage, prevPage);
   useViewedZonesListPageAnalytics(currentPage, prevPage);
 
   return trackEvent;

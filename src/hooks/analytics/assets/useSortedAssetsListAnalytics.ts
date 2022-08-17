@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 import { ColumnKeys } from 'pages/AssetsPage/AssetsTable/Types';
 
-import { Page, PAGE_TITLE } from './Types';
-import { trackEvent } from './useAnalytics';
+import { Page, PAGE_TITLE } from '../Types';
+import { trackEvent } from '../useAnalytics';
 
 const ASSETS_PAGE_COLUMN_TITLE: Record<string, string> = {
   [ColumnKeys.MarketCap]: 'market cap',

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 import { ColumnKeys } from 'pages/ZonesPage/ZonesInfo/ZonesTable/Types';
 
-import { Page, PAGE_TITLE } from './Types';
-import { trackEvent } from './useAnalytics';
+import { Page, PAGE_TITLE } from '../Types';
+import { trackEvent } from '../useAnalytics';
 
 const ZONES_PAGE_COLUMN_TITLE: Record<string, string> = {
   [ColumnKeys.IbcActiveAddresses]: 'active users',

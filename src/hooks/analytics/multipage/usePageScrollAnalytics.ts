@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { Page, PAGE_TITLE } from './Types';
-import { trackEvent } from './useAnalytics';
+import { Page, PAGE_TITLE } from '../Types';
+import { trackEvent } from '../useAnalytics';
 
 const EVENT_FOR_SCROLL_BY_PAGE_TITLE: Record<string, string> = {
   [PAGE_TITLE.Assets]: 'scrolled assets list',
