@@ -71,8 +71,17 @@ export function AreaChart({
         <YAxis
           tickLine={false}
           axisLine={false}
-          hide={true}
           domain={[(dataMin: number) => dataMin * 0.95, (dataMax: number) => dataMax * 1.05]}
+          tickFormatter={(value) =>
+            new Intl.NumberFormat('en', {
+              notation: 'standard',
+              compactDisplay: 'short',
+              style: 'currency',
+              maximumSignificantDigits: 3,
+              currency: 'USD',
+              currencyDisplay: 'symbol',
+            }).format(value)
+          }
         />
         <CartesianGrid
           strokeDasharray="3 3"
