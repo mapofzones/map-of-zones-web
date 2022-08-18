@@ -1,5 +1,5 @@
 .container {
-  padding-top: 30px;
+  padding-top: 15px;
 
   .tooltipWrapper {
     padding: 0 !important;
@@ -9,7 +9,7 @@
 
     text-align: center;
 
-    background-color: rgb(255 255 255 / 0%) !important;
+    background-color: var(--black-100) !important;
     border: none !important;
     transform: translateX(calc(-50% - 0px));
   }

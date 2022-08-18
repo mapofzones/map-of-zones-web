@@ -3,10 +3,10 @@ import { ChartItemByString } from 'utils/helper';
 import { NumberType } from '../NumberFormat';
 
 export interface AreaChartProps {
-  data: ChartItemWithTime[];
   className?: string;
-  dataKey: string;
+  data: ChartItemWithTime[];
   dataFormat?: NumberType;
+  dataKey: string;
   timeFormat?: string;
 }
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -10,15 +10,25 @@ import {
   ValueWithPending,
   ZoneLogo,
 } from 'components';
+import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
+import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
 import { chartOptions, ChartType } from './Types';
 import styles from './ZoneOverviewToken.module.scss';
 
 export function ZoneOverviewToken({ className }: { className?: string }) {
+  const [selectedPeriod] = useSelectedPeriod();
+
   const [selectedChartType, setSelectedChartType] = useState<ChartType | undefined>(
     ChartType.PRICE
+  );
+
+  const chartTimeFormat = useMemo(
+    () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM, HH:mm'),
+    [selectedPeriod]
   );
 
   const priceData = [
@@ -136,13 +146,18 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           buttons={chartOptions}
           setSelectedButton={(item) => setSelectedChartType(item.key)}
         ></ButtonGroup>
+        <PeriodDisplay
+          className={styles.periodInfo}
+          periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
+        />
         <AreaChart
+          className={styles.priceVolumeChart}
           data={selectedChartType === ChartType.PRICE ? priceData : volumeData}
           dataKey={selectedChartType === ChartType.PRICE ? 'price' : 'volume'}
           dataFormat={
             selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
           }
-          timeFormat={'HH:mm'}
+          timeFormat={chartTimeFormat}
         />
       </div>
     </div>

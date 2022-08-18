@@ -16,9 +16,10 @@ import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
 
 export function AreaChart({
+  className,
   data,
-  dataKey,
   dataFormat = NumberType.Number,
+  dataKey,
   timeFormat = 'DD MMM, HH:mm',
 }: AreaChartProps) {
   const isChartColored = data.length > 1;
@@ -32,13 +33,18 @@ export function AreaChart({
   const gradientId = `gradient-${isNegative ? 'neg' : 'pos'}`;
 
   return (
-    <ResponsiveContainer className={styles.container} width={'99%'} height={'100%'} maxHeight={250}>
+    <ResponsiveContainer
+      className={cn(className, styles.container)}
+      width={'99%'}
+      height={'100%'}
+      maxHeight={250}
+    >
       <AreaRechart
         className={cn(styles.chart, {
           [styles.negative]: isNegative,
         })}
         data={data}
-        margin={{ top: 10, right: 15, left: 0, bottom: 0 }}
+        margin={{ top: 0, right: 3, left: 0, bottom: 0 }}
       >
         <defs>
           <linearGradient
@@ -60,6 +66,7 @@ export function AreaChart({
           tickLine={false}
           tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
           fontSize={12}
+          interval={'preserveStartEnd'}
         />
         <YAxis
           tickLine={false}
@@ -76,7 +83,7 @@ export function AreaChart({
         <Tooltip
           cursor={{ stroke: primaryColor, strokeWidth: 1, strokeOpacity: 0.5 }}
           wrapperClassName={styles.tooltipWrapper}
-          position={{ y: -26 }}
+          position={{ y: -40 }}
           offset={0}
           separator={''}
           allowEscapeViewBox={{ x: true, y: true }}
