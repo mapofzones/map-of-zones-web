@@ -27,7 +27,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
   );
 
   const chartTimeFormat = useMemo(
-    () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM, HH:mm'),
+    () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),
     [selectedPeriod]
   );
 

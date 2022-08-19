@@ -36,7 +36,7 @@ export function AreaChart({
   return (
     <ResponsiveContainer
       className={cn(className, styles.container)}
-      width={'99%'}
+      width={'100%'}
       height={'100%'}
       maxHeight={250}
     >
@@ -45,7 +45,7 @@ export function AreaChart({
           [styles.negative]: isNegative,
         })}
         data={data}
-        margin={{ top: 0, right: 3, left: 0, bottom: 0 }}
+        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
       >
         <defs>
           <linearGradient
@@ -66,15 +66,18 @@ export function AreaChart({
           axisLine={false}
           tickLine={false}
           fontSize={12}
-          interval={'preserveStartEnd'}
+          interval={'preserveEnd'}
+          padding={{ right: 3, left: 0 }}
           tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
         />
         <YAxis
           tickLine={false}
           axisLine={false}
           fontSize={12}
+          mirror={true}
+          tickSize={3}
           domain={[(dataMin: number) => dataMin * 0.95, (dataMax: number) => dataMax * 1.05]}
-          tickFormatter={(value: number) => formatNumber(value, NumberType.Currency, true)}
+          tickFormatter={(value: number) => formatNumber(value, dataFormat, true)}
         />
         <CartesianGrid
           strokeDasharray="3 3"
