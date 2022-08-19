@@ -10,6 +10,7 @@ import { PendingValueProps } from './PendingValue.props';
 export function PendingValue({
   alignRight = false,
   className,
+  compact = false,
   numberType = NumberType.Number,
   prefix,
   suffix,
@@ -29,6 +30,7 @@ export function PendingValue({
     >
       <PendingIcon />
       <NumberFormat
+        compact={compact}
         className={styles.value}
         numberType={numberType}
         prefix={prefix}

@@ -1,10 +1,14 @@
 .container {
   padding-top: 15px;
 
+  .chart {
+    margin-left: -10px;
+  }
+
   .tooltipWrapper {
     padding: 0 !important;
 
-    color: #8f8f96;
+    color: var(--grey-500);
     font-size: var(--font-secondary-size-md);
 
     text-align: center;

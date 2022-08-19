@@ -102,8 +102,7 @@ export function TableRow({
         <ValueWithPending
           alignRight={true}
           className={styles.value}
-          numberType={NumberType.Currency}
-          prefix=""
+          numberType={NumberType.Number}
           value={asset.supply}
         />
       </TableRowItem>

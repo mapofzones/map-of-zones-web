@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 
 import { NumberFormat, NumberType } from '../NumberFormat';
+import { formatNumber } from '../NumberFormat/NumberFormat';
 import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
 
@@ -64,24 +65,16 @@ export function AreaChart({
           dataKey="time"
           axisLine={false}
           tickLine={false}
-          tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
           fontSize={12}
           interval={'preserveStartEnd'}
+          tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
         />
         <YAxis
           tickLine={false}
           axisLine={false}
+          fontSize={12}
           domain={[(dataMin: number) => dataMin * 0.95, (dataMax: number) => dataMax * 1.05]}
-          tickFormatter={(value) =>
-            new Intl.NumberFormat('en', {
-              notation: 'standard',
-              compactDisplay: 'short',
-              style: 'currency',
-              maximumSignificantDigits: 3,
-              currency: 'USD',
-              currencyDisplay: 'symbol',
-            }).format(value)
-          }
+          tickFormatter={(value: number) => formatNumber(value, NumberType.Currency, true)}
         />
         <CartesianGrid
           strokeDasharray="3 3"

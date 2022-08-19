@@ -8,6 +8,7 @@ export interface ValueWithPendingProps
   alignRight?: boolean;
   children?: ReactNode;
   className?: string;
+  compact?: boolean;
   numberType?: NumberType;
   pendingValue?: number | null;
   prefix?: string;

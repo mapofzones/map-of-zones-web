@@ -41,7 +41,13 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
           <Divider />
           <div>
             <ValueWithPending title={'Total Bonded Rate'} size={ElementSize.LARGE}>
-              162M / 205M
+              <div className={styles.bondedRateValueContainer}>
+                <NumberFormat value={162000000} compact />
+                <span className={styles.secondValue}>
+                  &nbsp;/&nbsp;
+                  <NumberFormat value={205000000} compact />
+                </span>
+              </div>
             </ValueWithPending>
             <div className={styles.additionalInfo}>
               {'Ratio: '}

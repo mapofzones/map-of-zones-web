@@ -15,6 +15,14 @@
       display: grid;
       grid-template-columns: 1fr auto 1fr;
 
+      .bondedRateValueContainer {
+        display: flex;
+
+        .secondValue {
+          color: var(--grey-500);
+        }
+      }
+
       .additionalInfo {
         margin-top: 6px;
 
