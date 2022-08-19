@@ -1,6 +1,10 @@
+import { useState } from 'react';
+
 import cn from 'classnames';
 
 import { Divider, Tooltip } from 'components';
+import { trackEvent } from 'hooks/analytics/useAnalytics';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { InfoIcon, RevertedArrowsIcon } from 'icons';
 
 import styles from './ChannelInfoTooltip.module.scss';
@@ -13,8 +17,24 @@ export function ChannelInfoTooltip({
   parentZone,
   zone,
 }: ChannelInfoTooltipProps) {
+  const [isEventTracked, setIsEventTracked] = useState(false);
+
+  const [selectedPeriod] = useSelectedPeriod();
+
+  const onMouseEnter = () => {
+    if (!isEventTracked) {
+      setIsEventTracked(true);
+      trackEvent('viewed peers info', {
+        zone: parentZone.zone,
+        channel: channel.channelId,
+        peer: zone.zoneCounterpartyKey,
+        period: selectedPeriod,
+      });
+    }
+  };
+
   return (
-    <div className={cn(styles.container, className)}>
+    <div className={cn(styles.container, className)} onMouseEnter={onMouseEnter}>
       <InfoIcon />
 
       <Tooltip className={styles.tooltip}>
