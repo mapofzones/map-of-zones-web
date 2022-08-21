@@ -10,7 +10,10 @@ export { ExplanationTooltip } from './ExplanationTooltip/ExplanationTooltip';
 export { ExternalLink } from './ExternalLink/ExternalLink';
 export { Input } from './Input/Input';
 export { LineChart } from './LineChart/LineChart';
-export { LinkWithQuery } from './LinkWithQuery/LinkWithQuery';
+export {
+  LinkWithSearchParams,
+  NavLinkWithSearchParams,
+} from './LinkWithSearchParams/LinkWithSearchParams';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { PercentStackedLineChart } from './PercentStackedLineChart/PercentStackedLineChart';
 export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import { Button, Dropdown, PeriodSelector, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
@@ -21,7 +20,7 @@ import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton'
 import { ZonesInfoTitle } from './ZonesInfoTitle/ZonesInfoTitle';
 
 function ZonesInfo(): JSX.Element {
-  const navigate = useNavigate();
+  const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const [selectedPeriod] = useSelectedPeriod();
   const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
@@ -52,7 +51,7 @@ function ZonesInfo(): JSX.Element {
   };
 
   const onDetailedBtnClick = () => {
-    navigate('/zones');
+    navigateWithSearchParams('/zones');
   };
 
   return (

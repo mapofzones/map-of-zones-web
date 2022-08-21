@@ -1,7 +1,8 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
@@ -11,7 +12,7 @@ import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewItem } from './ZoneOverviewItem/ZoneOverviewItem';
 
 function ZoneOverview() {
-  const navigate = useNavigate();
+  const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const { zone } = useParams();
 
@@ -20,7 +21,7 @@ function ZoneOverview() {
   const { data, loading } = useZoneOverview();
 
   const onDetailedBtnClick = () => {
-    navigate(`/zones/${zone}/overview`);
+    navigateWithSearchParams(`/zones/${zone}/overview`);
   };
 
   return (

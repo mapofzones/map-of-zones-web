@@ -1,8 +1,6 @@
-import React from 'react';
-
 import cn from 'classnames';
 
-import { LinkWithQuery, NumberFormat, NumberType, ZoneInfoWithSearch } from 'components';
+import { LinkWithSearchParams, NumberFormat, NumberType, ZoneInfoWithSearch } from 'components';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -13,10 +11,9 @@ function ZoneInfoRow({
   searchValue,
   numberType = NumberType.Number,
   className,
-  ...props
 }: ZonesInfoRowProps): JSX.Element {
   return (
-    <LinkWithQuery to={`${zone.id}/overview`} className={cn(styles.row, className)} {...props}>
+    <LinkWithSearchParams to={`${zone.id}/overview`} className={cn(styles.row, className)}>
       <ZoneInfoWithSearch className={styles.zoneContainer} searchValue={searchValue} zone={zone} />
 
       {/* TODO: separate component */}
@@ -33,7 +30,7 @@ function ZoneInfoRow({
           </span>
         )}
       </div>
-    </LinkWithQuery>
+    </LinkWithSearchParams>
   );
 }
 

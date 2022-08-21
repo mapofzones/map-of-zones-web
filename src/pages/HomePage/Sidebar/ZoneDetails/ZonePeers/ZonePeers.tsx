@@ -1,7 +1,8 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Button, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
 
@@ -12,7 +13,7 @@ import { ZonePeersSkeleton } from './ZonePeersSkeleton';
 import { MemoizedZonePeersTable } from './ZonePeersTable/ZonePeersTable';
 
 export function ZonePeers() {
-  const navigate = useNavigate();
+  const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const { zone } = useParams();
 
@@ -23,7 +24,7 @@ export function ZonePeers() {
   const loading = peersLoading || zoneDetailsLoading;
 
   const onDetailedBtnClick = () => {
-    navigate(`/zones/${zone}/peers`);
+    navigateWithSearchParams(`/zones/${zone}/peers`);
   };
 
   return (
