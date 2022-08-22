@@ -1,22 +1,23 @@
 import cn from 'classnames';
 
-import { SkeletonTextWrapper } from 'components';
+import { ExplanationTooltip, SkeletonTextWrapper } from 'components';
 import { NumberFormat } from 'components/ui/NumberFormat/NumberFormat';
-import { QuestionMark } from 'icons';
 
 import styles from './ZoneOverviewItem.module.scss';
 import { ZoneOverviewItemProps } from './ZoneOverviewItem.props';
 
 function ZoneOverviewItem({
-  title,
-  period,
-  value,
-  loading,
-  defaultLoadingValue,
-  className,
   children,
+  className,
+  defaultLoadingValue,
+  loading,
   numberType,
+  period,
   rowDirection = false,
+  title,
+  tooltipPosition = 'left',
+  tooltipText,
+  value,
   ...props
 }: ZoneOverviewItemProps) {
   return (
@@ -29,7 +30,7 @@ function ZoneOverviewItem({
       <div className={styles.title}>
         {title}
         {period && <span> ({period})</span>}
-        <QuestionMark className={styles.questionMark} />
+        {tooltipText && <ExplanationTooltip text={tooltipText} position={tooltipPosition} />}
       </div>
       <div className={styles.value}>
         <SkeletonTextWrapper loading={loading} defaultText={defaultLoadingValue}>

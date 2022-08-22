@@ -36,6 +36,8 @@ function ZoneOverview() {
             value={data?.totalTxs}
             loading={loading}
             defaultLoadingValue={'1 156 288'}
+            tooltipText={'Total txs tooltip'}
+            tooltipPosition={'right'}
           ></ZoneOverviewItem>
 
           <ZoneOverviewItem
@@ -45,6 +47,8 @@ function ZoneOverview() {
             value={data?.ibcTransfers}
             loading={loading}
             defaultLoadingValue={'72 235'}
+            tooltipText={'Some tooltip'}
+            tooltipPosition={'left'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
@@ -52,6 +56,8 @@ function ZoneOverview() {
             value={data?.peersCountMainnet}
             loading={loading}
             defaultLoadingValue={'12'}
+            tooltipText={'Some tooltip'}
+            tooltipPosition={'right'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
@@ -59,12 +65,16 @@ function ZoneOverview() {
             value={data?.channelsCount}
             loading={loading}
             defaultLoadingValue={'250'}
+            tooltipText={'Some tooltip'}
+            tooltipPosition={'left'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'DAU'}
             loading={loading}
             value={data?.ibcDauMainnet}
+            tooltipText={'Some tooltip'}
+            tooltipPosition={'right'}
           >
             -
           </ZoneOverviewItem>
@@ -73,6 +83,8 @@ function ZoneOverview() {
             title={'IBC DAU'}
             loading={loading}
             defaultLoadingValue={'2 345 (99,8% of DAU)'}
+            tooltipText={'Some tooltip'}
+            tooltipPosition={'left'}
           >
             <NumberFormat value={data?.ibcDauMainnet} />
             <span className={styles.additionalInfo}> (99,8% of DAU)</span>
@@ -83,6 +95,8 @@ function ZoneOverview() {
             value={data?.ibcDauMainnet}
             loading={loading}
             defaultLoadingValue={'$10.45'}
+            tooltipText={'Some tooltip'}
+            tooltipPosition={'left'}
           >
             -
           </ZoneOverviewItem>
@@ -91,6 +105,8 @@ function ZoneOverview() {
             title={'Market Cap'}
             loading={loading}
             defaultLoadingValue={'$123,456,789'}
+            tooltipText={'Some tooltip'}
+            tooltipPosition={'right'}
           >
             -
           </ZoneOverviewItem>

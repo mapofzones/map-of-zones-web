@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { VolumeLineChart } from 'components';
-import { Card, LineChart, NumberFormat, NumberType } from 'components/ui';
+import { Card, ExplanationTooltip, LineChart, NumberFormat, NumberType } from 'components/ui';
 
 import styles from './IbcVolumeCard.module.scss';
 import { IbcVolumeCardProps } from './IbcVolumeCard.props';
@@ -24,7 +24,10 @@ export function IbcVolumeCard({
     >
       {data && (
         <>
-          <span className={styles.title}>IBC Volume ({period})</span>
+          <span className={styles.title}>
+            IBC Volume ({period})&nbsp;
+            <ExplanationTooltip text={'IBC Volume tooltip'} position={'center'} />
+          </span>
           <NumberFormat
             className={styles.volumeValue}
             value={data.ibcVolumeMainnet}

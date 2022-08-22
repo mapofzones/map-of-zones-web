@@ -56,6 +56,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           value={data?.peersCount}
           loading={loading}
           defaultLoadingValue={'12'}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         ></ZoneOverviewItem>
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.channelsOverviewItem)}
@@ -64,6 +66,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           value={data?.channelsCount}
           loading={loading}
           defaultLoadingValue={'250'}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         ></ZoneOverviewItem>
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.dauOverviewItem)}
@@ -71,6 +75,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           title={'DAU'}
           loading={loading}
           value={undefined}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         />
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.ibcDauOverviewItem)}
@@ -78,6 +84,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           title={'IBC DAU'}
           loading={loading}
           defaultLoadingValue={'2 345 (99,8% of DAU)'}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         >
           <div className={styles.dauValue}>
             <NumberFormat value={data?.ibcDauMainnet} />
