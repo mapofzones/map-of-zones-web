@@ -712,6 +712,4186 @@ export type Channels_Stats_Variance_Order_By = {
   ibc_tx_30d_failed_diff?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations = {
+  __typename?: 'flat_blockchain_relations';
+  /** An object relationship */
+  blockchain: Flat_Blockchains;
+  /** An object relationship */
+  blockchainByBlockchainSource: Flat_Blockchains;
+  blockchain_source: Scalars['String'];
+  blockchain_target: Scalars['String'];
+  ibc_cashflow: Scalars['bigint'];
+  ibc_cashflow_diff: Scalars['bigint'];
+  ibc_cashflow_pending: Scalars['bigint'];
+  ibc_transfers: Scalars['Int'];
+  ibc_transfers_diff: Scalars['Int'];
+  ibc_transfers_failed: Scalars['Int'];
+  ibc_transfers_pending: Scalars['Int'];
+  is_mainnet: Scalars['Boolean'];
+  source_to_target_ibc_cashflow: Scalars['bigint'];
+  source_to_target_ibc_transfers: Scalars['Int'];
+  target_to_source_ibc_cashflow: Scalars['bigint'];
+  target_to_source_ibc_transfers: Scalars['Int'];
+  timeframe: Scalars['Int'];
+  /** An object relationship */
+  timeframeByTimeframe: Flat_Timeframes;
+};
+
+/** aggregated selection of "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Aggregate = {
+  __typename?: 'flat_blockchain_relations_aggregate';
+  aggregate?: Maybe<Flat_Blockchain_Relations_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchain_Relations>;
+};
+
+/** aggregate fields of "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Aggregate_Fields = {
+  __typename?: 'flat_blockchain_relations_aggregate_fields';
+  avg?: Maybe<Flat_Blockchain_Relations_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchain_Relations_Max_Fields>;
+  min?: Maybe<Flat_Blockchain_Relations_Min_Fields>;
+  stddev?: Maybe<Flat_Blockchain_Relations_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Blockchain_Relations_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Blockchain_Relations_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Blockchain_Relations_Sum_Fields>;
+  var_pop?: Maybe<Flat_Blockchain_Relations_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Blockchain_Relations_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Blockchain_Relations_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Blockchain_Relations_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchain_Relations_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchain_Relations_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Blockchain_Relations_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Blockchain_Relations_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Blockchain_Relations_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Blockchain_Relations_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Blockchain_Relations_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Blockchain_Relations_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Blockchain_Relations_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Blockchain_Relations_Avg_Fields = {
+  __typename?: 'flat_blockchain_relations_avg_fields';
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Avg_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchain_relations". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchain_Relations_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Relations_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Relations_Bool_Exp>>>;
+  blockchain?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+  blockchainByBlockchainSource?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+  blockchain_source?: InputMaybe<String_Comparison_Exp>;
+  blockchain_target?: InputMaybe<String_Comparison_Exp>;
+  ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_diff?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_pending?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_transfers?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_failed?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_pending?: InputMaybe<Int_Comparison_Exp>;
+  is_mainnet?: InputMaybe<Boolean_Comparison_Exp>;
+  source_to_target_ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
+  source_to_target_ibc_transfers?: InputMaybe<Int_Comparison_Exp>;
+  target_to_source_ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
+  target_to_source_ibc_transfers?: InputMaybe<Int_Comparison_Exp>;
+  timeframe?: InputMaybe<Int_Comparison_Exp>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchain_Relations_Max_Fields = {
+  __typename?: 'flat_blockchain_relations_max_fields';
+  blockchain_source?: Maybe<Scalars['String']>;
+  blockchain_target?: Maybe<Scalars['String']>;
+  ibc_cashflow?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_pending?: Maybe<Scalars['bigint']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['bigint']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Int']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['bigint']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Int']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Max_Order_By = {
+  blockchain_source?: InputMaybe<Order_By>;
+  blockchain_target?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchain_Relations_Min_Fields = {
+  __typename?: 'flat_blockchain_relations_min_fields';
+  blockchain_source?: Maybe<Scalars['String']>;
+  blockchain_target?: Maybe<Scalars['String']>;
+  ibc_cashflow?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_pending?: Maybe<Scalars['bigint']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['bigint']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Int']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['bigint']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Int']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Min_Order_By = {
+  blockchain_source?: InputMaybe<Order_By>;
+  blockchain_target?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Order_By = {
+  blockchain?: InputMaybe<Flat_Blockchains_Order_By>;
+  blockchainByBlockchainSource?: InputMaybe<Flat_Blockchains_Order_By>;
+  blockchain_source?: InputMaybe<Order_By>;
+  blockchain_target?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  is_mainnet?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Pk_Columns_Input = {
+  blockchain_source: Scalars['String'];
+  blockchain_target: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+};
+
+/** select columns of table "flat.blockchain_relations" */
+export const enum Flat_Blockchain_Relations_Select_Column {
+  /** column name */
+  BlockchainSource = 'blockchain_source',
+  /** column name */
+  BlockchainTarget = 'blockchain_target',
+  /** column name */
+  IbcCashflow = 'ibc_cashflow',
+  /** column name */
+  IbcCashflowDiff = 'ibc_cashflow_diff',
+  /** column name */
+  IbcCashflowPending = 'ibc_cashflow_pending',
+  /** column name */
+  IbcTransfers = 'ibc_transfers',
+  /** column name */
+  IbcTransfersDiff = 'ibc_transfers_diff',
+  /** column name */
+  IbcTransfersFailed = 'ibc_transfers_failed',
+  /** column name */
+  IbcTransfersPending = 'ibc_transfers_pending',
+  /** column name */
+  IsMainnet = 'is_mainnet',
+  /** column name */
+  SourceToTargetIbcCashflow = 'source_to_target_ibc_cashflow',
+  /** column name */
+  SourceToTargetIbcTransfers = 'source_to_target_ibc_transfers',
+  /** column name */
+  TargetToSourceIbcCashflow = 'target_to_source_ibc_cashflow',
+  /** column name */
+  TargetToSourceIbcTransfers = 'target_to_source_ibc_transfers',
+  /** column name */
+  Timeframe = 'timeframe',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Blockchain_Relations_Stddev_Fields = {
+  __typename?: 'flat_blockchain_relations_stddev_fields';
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Stddev_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Blockchain_Relations_Stddev_Pop_Fields = {
+  __typename?: 'flat_blockchain_relations_stddev_pop_fields';
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Stddev_Pop_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Blockchain_Relations_Stddev_Samp_Fields = {
+  __typename?: 'flat_blockchain_relations_stddev_samp_fields';
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Stddev_Samp_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Blockchain_Relations_Sum_Fields = {
+  __typename?: 'flat_blockchain_relations_sum_fields';
+  ibc_cashflow?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_pending?: Maybe<Scalars['bigint']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['bigint']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Int']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['bigint']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Int']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Sum_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Blockchain_Relations_Var_Pop_Fields = {
+  __typename?: 'flat_blockchain_relations_var_pop_fields';
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Var_Pop_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Blockchain_Relations_Var_Samp_Fields = {
+  __typename?: 'flat_blockchain_relations_var_samp_fields';
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Var_Samp_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Blockchain_Relations_Variance_Fields = {
+  __typename?: 'flat_blockchain_relations_variance_fields';
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_cashflow?: Maybe<Scalars['Float']>;
+  source_to_target_ibc_transfers?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_cashflow?: Maybe<Scalars['Float']>;
+  target_to_source_ibc_transfers?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.blockchain_relations" */
+export type Flat_Blockchain_Relations_Variance_Order_By = {
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
+  source_to_target_ibc_transfers?: InputMaybe<Order_By>;
+  target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
+  target_to_source_ibc_transfers?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats = {
+  __typename?: 'flat_blockchain_stats';
+  blockchain: Scalars['String'];
+  /** An object relationship */
+  blockchainByBlockchain: Flat_Blockchains;
+  /** An array relationship */
+  blockchain_tf_charts: Array<Flat_Blockchain_Tf_Charts>;
+  /** An aggregated array relationship */
+  blockchain_tf_charts_aggregate: Flat_Blockchain_Tf_Charts_Aggregate;
+  timeframe: Scalars['Int'];
+  /** An object relationship */
+  timeframeByTimeframe: Flat_Timeframes;
+  txs: Scalars['Int'];
+  txs_diff: Scalars['Int'];
+};
+
+/** columns and relationships of "flat.blockchain_stats" */
+export type Flat_Blockchain_StatsBlockchain_Tf_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchain_stats" */
+export type Flat_Blockchain_StatsBlockchain_Tf_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** aggregated selection of "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Aggregate = {
+  __typename?: 'flat_blockchain_stats_aggregate';
+  aggregate?: Maybe<Flat_Blockchain_Stats_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchain_Stats>;
+};
+
+/** aggregate fields of "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Aggregate_Fields = {
+  __typename?: 'flat_blockchain_stats_aggregate_fields';
+  avg?: Maybe<Flat_Blockchain_Stats_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchain_Stats_Max_Fields>;
+  min?: Maybe<Flat_Blockchain_Stats_Min_Fields>;
+  stddev?: Maybe<Flat_Blockchain_Stats_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Blockchain_Stats_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Blockchain_Stats_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Blockchain_Stats_Sum_Fields>;
+  var_pop?: Maybe<Flat_Blockchain_Stats_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Blockchain_Stats_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Blockchain_Stats_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Blockchain_Stats_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchain_Stats_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchain_Stats_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Blockchain_Stats_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Blockchain_Stats_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Blockchain_Stats_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Blockchain_Stats_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Blockchain_Stats_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Blockchain_Stats_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Blockchain_Stats_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Blockchain_Stats_Avg_Fields = {
+  __typename?: 'flat_blockchain_stats_avg_fields';
+  timeframe?: Maybe<Scalars['Float']>;
+  txs?: Maybe<Scalars['Float']>;
+  txs_diff?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Avg_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchain_stats". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchain_Stats_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Stats_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Stats_Bool_Exp>>>;
+  blockchain?: InputMaybe<String_Comparison_Exp>;
+  blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+  blockchain_tf_charts?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+  timeframe?: InputMaybe<Int_Comparison_Exp>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+  txs?: InputMaybe<Int_Comparison_Exp>;
+  txs_diff?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchain_Stats_Max_Fields = {
+  __typename?: 'flat_blockchain_stats_max_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  timeframe?: Maybe<Scalars['Int']>;
+  txs?: Maybe<Scalars['Int']>;
+  txs_diff?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Max_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchain_Stats_Min_Fields = {
+  __typename?: 'flat_blockchain_stats_min_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  timeframe?: Maybe<Scalars['Int']>;
+  txs?: Maybe<Scalars['Int']>;
+  txs_diff?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Min_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Order_By>;
+  blockchain_tf_charts_aggregate?: InputMaybe<Flat_Blockchain_Tf_Charts_Aggregate_Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Pk_Columns_Input = {
+  blockchain: Scalars['String'];
+  timeframe: Scalars['Int'];
+};
+
+/** select columns of table "flat.blockchain_stats" */
+export const enum Flat_Blockchain_Stats_Select_Column {
+  /** column name */
+  Blockchain = 'blockchain',
+  /** column name */
+  Timeframe = 'timeframe',
+  /** column name */
+  Txs = 'txs',
+  /** column name */
+  TxsDiff = 'txs_diff',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Blockchain_Stats_Stddev_Fields = {
+  __typename?: 'flat_blockchain_stats_stddev_fields';
+  timeframe?: Maybe<Scalars['Float']>;
+  txs?: Maybe<Scalars['Float']>;
+  txs_diff?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Stddev_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Blockchain_Stats_Stddev_Pop_Fields = {
+  __typename?: 'flat_blockchain_stats_stddev_pop_fields';
+  timeframe?: Maybe<Scalars['Float']>;
+  txs?: Maybe<Scalars['Float']>;
+  txs_diff?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Stddev_Pop_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Blockchain_Stats_Stddev_Samp_Fields = {
+  __typename?: 'flat_blockchain_stats_stddev_samp_fields';
+  timeframe?: Maybe<Scalars['Float']>;
+  txs?: Maybe<Scalars['Float']>;
+  txs_diff?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Stddev_Samp_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Blockchain_Stats_Sum_Fields = {
+  __typename?: 'flat_blockchain_stats_sum_fields';
+  timeframe?: Maybe<Scalars['Int']>;
+  txs?: Maybe<Scalars['Int']>;
+  txs_diff?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Sum_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Blockchain_Stats_Var_Pop_Fields = {
+  __typename?: 'flat_blockchain_stats_var_pop_fields';
+  timeframe?: Maybe<Scalars['Float']>;
+  txs?: Maybe<Scalars['Float']>;
+  txs_diff?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Var_Pop_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Blockchain_Stats_Var_Samp_Fields = {
+  __typename?: 'flat_blockchain_stats_var_samp_fields';
+  timeframe?: Maybe<Scalars['Float']>;
+  txs?: Maybe<Scalars['Float']>;
+  txs_diff?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Var_Samp_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Blockchain_Stats_Variance_Fields = {
+  __typename?: 'flat_blockchain_stats_variance_fields';
+  timeframe?: Maybe<Scalars['Float']>;
+  txs?: Maybe<Scalars['Float']>;
+  txs_diff?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.blockchain_stats" */
+export type Flat_Blockchain_Stats_Variance_Order_By = {
+  timeframe?: InputMaybe<Order_By>;
+  txs?: InputMaybe<Order_By>;
+  txs_diff?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats = {
+  __typename?: 'flat_blockchain_switched_stats';
+  blockchain: Scalars['String'];
+  /** An object relationship */
+  blockchainByBlockchain: Flat_Blockchains;
+  /** An array relationship */
+  blockchain_tf_switched_charts: Array<Flat_Blockchain_Tf_Switched_Charts>;
+  /** An aggregated array relationship */
+  blockchain_tf_switched_charts_aggregate: Flat_Blockchain_Tf_Switched_Charts_Aggregate;
+  channels_cnt: Scalars['Int'];
+  ibc_active_addresses_cnt: Scalars['Int'];
+  ibc_active_addresses_cnt_diff: Scalars['Int'];
+  ibc_active_addresses_cnt_rating: Scalars['Int'];
+  ibc_active_addresses_cnt_rating_diff: Scalars['Int'];
+  ibc_active_addresses_cnt_weight: Scalars['numeric'];
+  ibc_cashflow: Scalars['bigint'];
+  ibc_cashflow_diff: Scalars['bigint'];
+  ibc_cashflow_in: Scalars['bigint'];
+  ibc_cashflow_in_diff: Scalars['bigint'];
+  ibc_cashflow_in_pending: Scalars['bigint'];
+  ibc_cashflow_in_percent: Scalars['numeric'];
+  ibc_cashflow_in_rating: Scalars['Int'];
+  ibc_cashflow_in_rating_diff: Scalars['Int'];
+  ibc_cashflow_in_weight: Scalars['numeric'];
+  ibc_cashflow_out: Scalars['bigint'];
+  ibc_cashflow_out_diff: Scalars['bigint'];
+  ibc_cashflow_out_pending: Scalars['bigint'];
+  ibc_cashflow_out_percent: Scalars['numeric'];
+  ibc_cashflow_out_rating: Scalars['Int'];
+  ibc_cashflow_out_rating_diff: Scalars['Int'];
+  ibc_cashflow_out_weight: Scalars['numeric'];
+  ibc_cashflow_pending: Scalars['bigint'];
+  ibc_cashflow_rating: Scalars['Int'];
+  ibc_cashflow_rating_diff: Scalars['Int'];
+  ibc_cashflow_weight: Scalars['numeric'];
+  ibc_peers: Scalars['Int'];
+  ibc_transfers: Scalars['Int'];
+  ibc_transfers_diff: Scalars['Int'];
+  ibc_transfers_pending: Scalars['Int'];
+  ibc_transfers_rating: Scalars['Int'];
+  ibc_transfers_rating_diff: Scalars['Int'];
+  ibc_transfers_success_rate: Scalars['numeric'];
+  ibc_transfers_weight: Scalars['numeric'];
+  is_mainnet: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+  /** An object relationship */
+  timeframeByTimeframe: Flat_Timeframes;
+  txs_rating: Scalars['Int'];
+  txs_rating_diff: Scalars['Int'];
+  txs_weight: Scalars['numeric'];
+};
+
+/** columns and relationships of "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_StatsBlockchain_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_StatsBlockchain_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** aggregated selection of "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Aggregate = {
+  __typename?: 'flat_blockchain_switched_stats_aggregate';
+  aggregate?: Maybe<Flat_Blockchain_Switched_Stats_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchain_Switched_Stats>;
+};
+
+/** aggregate fields of "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Aggregate_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_aggregate_fields';
+  avg?: Maybe<Flat_Blockchain_Switched_Stats_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchain_Switched_Stats_Max_Fields>;
+  min?: Maybe<Flat_Blockchain_Switched_Stats_Min_Fields>;
+  stddev?: Maybe<Flat_Blockchain_Switched_Stats_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Blockchain_Switched_Stats_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Blockchain_Switched_Stats_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Blockchain_Switched_Stats_Sum_Fields>;
+  var_pop?: Maybe<Flat_Blockchain_Switched_Stats_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Blockchain_Switched_Stats_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Blockchain_Switched_Stats_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Blockchain_Switched_Stats_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchain_Switched_Stats_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchain_Switched_Stats_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Blockchain_Switched_Stats_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Blockchain_Switched_Stats_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Blockchain_Switched_Stats_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Blockchain_Switched_Stats_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Blockchain_Switched_Stats_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Blockchain_Switched_Stats_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Blockchain_Switched_Stats_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Blockchain_Switched_Stats_Avg_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_avg_fields';
+  channels_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_weight?: Maybe<Scalars['Float']>;
+  ibc_peers?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_weight?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+  txs_rating?: Maybe<Scalars['Float']>;
+  txs_rating_diff?: Maybe<Scalars['Float']>;
+  txs_weight?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Avg_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchain_switched_stats". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchain_Switched_Stats_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>>>;
+  blockchain?: InputMaybe<String_Comparison_Exp>;
+  blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+  blockchain_tf_switched_charts?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+  channels_cnt?: InputMaybe<Int_Comparison_Exp>;
+  ibc_active_addresses_cnt?: InputMaybe<Int_Comparison_Exp>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Int_Comparison_Exp>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_diff?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_in?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_in_diff?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_in_pending?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_in_percent?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_cashflow_in_rating?: InputMaybe<Int_Comparison_Exp>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_cashflow_in_weight?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_cashflow_out?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_out_diff?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_out_pending?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_out_percent?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_cashflow_out_rating?: InputMaybe<Int_Comparison_Exp>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_cashflow_out_weight?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_cashflow_pending?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_rating?: InputMaybe<Int_Comparison_Exp>;
+  ibc_cashflow_rating_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_cashflow_weight?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_peers?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_pending?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_rating?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_rating_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_success_rate?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_transfers_weight?: InputMaybe<Numeric_Comparison_Exp>;
+  is_mainnet?: InputMaybe<Boolean_Comparison_Exp>;
+  timeframe?: InputMaybe<Int_Comparison_Exp>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+  txs_rating?: InputMaybe<Int_Comparison_Exp>;
+  txs_rating_diff?: InputMaybe<Int_Comparison_Exp>;
+  txs_weight?: InputMaybe<Numeric_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchain_Switched_Stats_Max_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_max_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  channels_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_out?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_weight?: Maybe<Scalars['numeric']>;
+  ibc_peers?: Maybe<Scalars['Int']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  ibc_transfers_rating?: Maybe<Scalars['Int']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['numeric']>;
+  ibc_transfers_weight?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+  txs_rating?: Maybe<Scalars['Int']>;
+  txs_rating_diff?: Maybe<Scalars['Int']>;
+  txs_weight?: Maybe<Scalars['numeric']>;
+};
+
+/** order by max() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Max_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchain_Switched_Stats_Min_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_min_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  channels_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_out?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_weight?: Maybe<Scalars['numeric']>;
+  ibc_peers?: Maybe<Scalars['Int']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  ibc_transfers_rating?: Maybe<Scalars['Int']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['numeric']>;
+  ibc_transfers_weight?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+  txs_rating?: Maybe<Scalars['Int']>;
+  txs_rating_diff?: Maybe<Scalars['Int']>;
+  txs_weight?: Maybe<Scalars['numeric']>;
+};
+
+/** order by min() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Min_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Order_By>;
+  blockchain_tf_switched_charts_aggregate?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Aggregate_Order_By>;
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  is_mainnet?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Pk_Columns_Input = {
+  blockchain: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+};
+
+/** select columns of table "flat.blockchain_switched_stats" */
+export const enum Flat_Blockchain_Switched_Stats_Select_Column {
+  /** column name */
+  Blockchain = 'blockchain',
+  /** column name */
+  ChannelsCnt = 'channels_cnt',
+  /** column name */
+  IbcActiveAddressesCnt = 'ibc_active_addresses_cnt',
+  /** column name */
+  IbcActiveAddressesCntDiff = 'ibc_active_addresses_cnt_diff',
+  /** column name */
+  IbcActiveAddressesCntRating = 'ibc_active_addresses_cnt_rating',
+  /** column name */
+  IbcActiveAddressesCntRatingDiff = 'ibc_active_addresses_cnt_rating_diff',
+  /** column name */
+  IbcActiveAddressesCntWeight = 'ibc_active_addresses_cnt_weight',
+  /** column name */
+  IbcCashflow = 'ibc_cashflow',
+  /** column name */
+  IbcCashflowDiff = 'ibc_cashflow_diff',
+  /** column name */
+  IbcCashflowIn = 'ibc_cashflow_in',
+  /** column name */
+  IbcCashflowInDiff = 'ibc_cashflow_in_diff',
+  /** column name */
+  IbcCashflowInPending = 'ibc_cashflow_in_pending',
+  /** column name */
+  IbcCashflowInPercent = 'ibc_cashflow_in_percent',
+  /** column name */
+  IbcCashflowInRating = 'ibc_cashflow_in_rating',
+  /** column name */
+  IbcCashflowInRatingDiff = 'ibc_cashflow_in_rating_diff',
+  /** column name */
+  IbcCashflowInWeight = 'ibc_cashflow_in_weight',
+  /** column name */
+  IbcCashflowOut = 'ibc_cashflow_out',
+  /** column name */
+  IbcCashflowOutDiff = 'ibc_cashflow_out_diff',
+  /** column name */
+  IbcCashflowOutPending = 'ibc_cashflow_out_pending',
+  /** column name */
+  IbcCashflowOutPercent = 'ibc_cashflow_out_percent',
+  /** column name */
+  IbcCashflowOutRating = 'ibc_cashflow_out_rating',
+  /** column name */
+  IbcCashflowOutRatingDiff = 'ibc_cashflow_out_rating_diff',
+  /** column name */
+  IbcCashflowOutWeight = 'ibc_cashflow_out_weight',
+  /** column name */
+  IbcCashflowPending = 'ibc_cashflow_pending',
+  /** column name */
+  IbcCashflowRating = 'ibc_cashflow_rating',
+  /** column name */
+  IbcCashflowRatingDiff = 'ibc_cashflow_rating_diff',
+  /** column name */
+  IbcCashflowWeight = 'ibc_cashflow_weight',
+  /** column name */
+  IbcPeers = 'ibc_peers',
+  /** column name */
+  IbcTransfers = 'ibc_transfers',
+  /** column name */
+  IbcTransfersDiff = 'ibc_transfers_diff',
+  /** column name */
+  IbcTransfersPending = 'ibc_transfers_pending',
+  /** column name */
+  IbcTransfersRating = 'ibc_transfers_rating',
+  /** column name */
+  IbcTransfersRatingDiff = 'ibc_transfers_rating_diff',
+  /** column name */
+  IbcTransfersSuccessRate = 'ibc_transfers_success_rate',
+  /** column name */
+  IbcTransfersWeight = 'ibc_transfers_weight',
+  /** column name */
+  IsMainnet = 'is_mainnet',
+  /** column name */
+  Timeframe = 'timeframe',
+  /** column name */
+  TxsRating = 'txs_rating',
+  /** column name */
+  TxsRatingDiff = 'txs_rating_diff',
+  /** column name */
+  TxsWeight = 'txs_weight',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Blockchain_Switched_Stats_Stddev_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_stddev_fields';
+  channels_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_weight?: Maybe<Scalars['Float']>;
+  ibc_peers?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_weight?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+  txs_rating?: Maybe<Scalars['Float']>;
+  txs_rating_diff?: Maybe<Scalars['Float']>;
+  txs_weight?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Stddev_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Blockchain_Switched_Stats_Stddev_Pop_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_stddev_pop_fields';
+  channels_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_weight?: Maybe<Scalars['Float']>;
+  ibc_peers?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_weight?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+  txs_rating?: Maybe<Scalars['Float']>;
+  txs_rating_diff?: Maybe<Scalars['Float']>;
+  txs_weight?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Stddev_Pop_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Blockchain_Switched_Stats_Stddev_Samp_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_stddev_samp_fields';
+  channels_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_weight?: Maybe<Scalars['Float']>;
+  ibc_peers?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_weight?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+  txs_rating?: Maybe<Scalars['Float']>;
+  txs_rating_diff?: Maybe<Scalars['Float']>;
+  txs_weight?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Stddev_Samp_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Blockchain_Switched_Stats_Sum_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_sum_fields';
+  channels_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_out?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['numeric']>;
+  ibc_cashflow_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Int']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_cashflow_weight?: Maybe<Scalars['numeric']>;
+  ibc_peers?: Maybe<Scalars['Int']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  ibc_transfers_rating?: Maybe<Scalars['Int']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['numeric']>;
+  ibc_transfers_weight?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+  txs_rating?: Maybe<Scalars['Int']>;
+  txs_rating_diff?: Maybe<Scalars['Int']>;
+  txs_weight?: Maybe<Scalars['numeric']>;
+};
+
+/** order by sum() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Sum_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Blockchain_Switched_Stats_Var_Pop_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_var_pop_fields';
+  channels_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_weight?: Maybe<Scalars['Float']>;
+  ibc_peers?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_weight?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+  txs_rating?: Maybe<Scalars['Float']>;
+  txs_rating_diff?: Maybe<Scalars['Float']>;
+  txs_weight?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Var_Pop_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Blockchain_Switched_Stats_Var_Samp_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_var_samp_fields';
+  channels_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_weight?: Maybe<Scalars['Float']>;
+  ibc_peers?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_weight?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+  txs_rating?: Maybe<Scalars['Float']>;
+  txs_rating_diff?: Maybe<Scalars['Float']>;
+  txs_weight?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Var_Samp_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Blockchain_Switched_Stats_Variance_Fields = {
+  __typename?: 'flat_blockchain_switched_stats_variance_fields';
+  channels_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow?: Maybe<Scalars['Float']>;
+  ibc_cashflow_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_percent?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_weight?: Maybe<Scalars['Float']>;
+  ibc_cashflow_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating?: Maybe<Scalars['Float']>;
+  ibc_cashflow_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_weight?: Maybe<Scalars['Float']>;
+  ibc_peers?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating?: Maybe<Scalars['Float']>;
+  ibc_transfers_rating_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_weight?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+  txs_rating?: Maybe<Scalars['Float']>;
+  txs_rating_diff?: Maybe<Scalars['Float']>;
+  txs_weight?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.blockchain_switched_stats" */
+export type Flat_Blockchain_Switched_Stats_Variance_Order_By = {
+  channels_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
+  ibc_cashflow?: InputMaybe<Order_By>;
+  ibc_cashflow_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_in_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_in_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out_percent?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_out_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_weight?: InputMaybe<Order_By>;
+  ibc_cashflow_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_rating?: InputMaybe<Order_By>;
+  ibc_cashflow_rating_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_weight?: InputMaybe<Order_By>;
+  ibc_peers?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_rating?: InputMaybe<Order_By>;
+  ibc_transfers_rating_diff?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_weight?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  txs_rating?: InputMaybe<Order_By>;
+  txs_rating_diff?: InputMaybe<Order_By>;
+  txs_weight?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type = {
+  __typename?: 'flat_blockchain_tf_chart_type';
+  /** An array relationship */
+  blockchain_tf_charts: Array<Flat_Blockchain_Tf_Charts>;
+  /** An aggregated array relationship */
+  blockchain_tf_charts_aggregate: Flat_Blockchain_Tf_Charts_Aggregate;
+  chart_type: Scalars['String'];
+};
+
+/** columns and relationships of "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_TypeBlockchain_Tf_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_TypeBlockchain_Tf_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** aggregated selection of "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Aggregate = {
+  __typename?: 'flat_blockchain_tf_chart_type_aggregate';
+  aggregate?: Maybe<Flat_Blockchain_Tf_Chart_Type_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchain_Tf_Chart_Type>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Aggregate_Fields = {
+  __typename?: 'flat_blockchain_tf_chart_type_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchain_Tf_Chart_Type_Max_Fields>;
+  min?: Maybe<Flat_Blockchain_Tf_Chart_Type_Min_Fields>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchain_tf_chart_type". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchain_Tf_Chart_Type_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>>>;
+  blockchain_tf_charts?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+  chart_type?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchain_Tf_Chart_Type_Max_Fields = {
+  __typename?: 'flat_blockchain_tf_chart_type_max_fields';
+  chart_type?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Max_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchain_Tf_Chart_Type_Min_Fields = {
+  __typename?: 'flat_blockchain_tf_chart_type_min_fields';
+  chart_type?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Min_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Order_By = {
+  blockchain_tf_charts_aggregate?: InputMaybe<Flat_Blockchain_Tf_Charts_Aggregate_Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchain_tf_chart_type" */
+export type Flat_Blockchain_Tf_Chart_Type_Pk_Columns_Input = {
+  chart_type: Scalars['String'];
+};
+
+/** select columns of table "flat.blockchain_tf_chart_type" */
+export const enum Flat_Blockchain_Tf_Chart_Type_Select_Column {
+  /** column name */
+  ChartType = 'chart_type',
+}
+
+/** columns and relationships of "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts = {
+  __typename?: 'flat_blockchain_tf_charts';
+  blockchain: Scalars['String'];
+  /** An object relationship */
+  blockchain_stat?: Maybe<Flat_Blockchain_Stats>;
+  /** An object relationship */
+  blockchain_tf_chart_type: Flat_Blockchain_Tf_Chart_Type;
+  chart_type: Scalars['String'];
+  point_index: Scalars['Int'];
+  point_value: Scalars['numeric'];
+  timeframe: Scalars['Int'];
+};
+
+/** aggregated selection of "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Aggregate = {
+  __typename?: 'flat_blockchain_tf_charts_aggregate';
+  aggregate?: Maybe<Flat_Blockchain_Tf_Charts_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchain_Tf_Charts>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Aggregate_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_aggregate_fields';
+  avg?: Maybe<Flat_Blockchain_Tf_Charts_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchain_Tf_Charts_Max_Fields>;
+  min?: Maybe<Flat_Blockchain_Tf_Charts_Min_Fields>;
+  stddev?: Maybe<Flat_Blockchain_Tf_Charts_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Blockchain_Tf_Charts_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Blockchain_Tf_Charts_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Blockchain_Tf_Charts_Sum_Fields>;
+  var_pop?: Maybe<Flat_Blockchain_Tf_Charts_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Blockchain_Tf_Charts_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Blockchain_Tf_Charts_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Blockchain_Tf_Charts_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchain_Tf_Charts_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchain_Tf_Charts_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Blockchain_Tf_Charts_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Blockchain_Tf_Charts_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Blockchain_Tf_Charts_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Blockchain_Tf_Charts_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Blockchain_Tf_Charts_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Blockchain_Tf_Charts_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Blockchain_Tf_Charts_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Blockchain_Tf_Charts_Avg_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_avg_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Avg_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchain_tf_charts". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchain_Tf_Charts_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>>>;
+  blockchain?: InputMaybe<String_Comparison_Exp>;
+  blockchain_stat?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+  blockchain_tf_chart_type?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>;
+  chart_type?: InputMaybe<String_Comparison_Exp>;
+  point_index?: InputMaybe<Int_Comparison_Exp>;
+  point_value?: InputMaybe<Numeric_Comparison_Exp>;
+  timeframe?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchain_Tf_Charts_Max_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_max_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  chart_type?: Maybe<Scalars['String']>;
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Max_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchain_Tf_Charts_Min_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_min_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  chart_type?: Maybe<Scalars['String']>;
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Min_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  blockchain_stat?: InputMaybe<Flat_Blockchain_Stats_Order_By>;
+  blockchain_tf_chart_type?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Pk_Columns_Input = {
+  blockchain: Scalars['String'];
+  chart_type: Scalars['String'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
+};
+
+/** select columns of table "flat.blockchain_tf_charts" */
+export const enum Flat_Blockchain_Tf_Charts_Select_Column {
+  /** column name */
+  Blockchain = 'blockchain',
+  /** column name */
+  ChartType = 'chart_type',
+  /** column name */
+  PointIndex = 'point_index',
+  /** column name */
+  PointValue = 'point_value',
+  /** column name */
+  Timeframe = 'timeframe',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Blockchain_Tf_Charts_Stddev_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_stddev_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Stddev_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Blockchain_Tf_Charts_Stddev_Pop_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_stddev_pop_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Stddev_Pop_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Blockchain_Tf_Charts_Stddev_Samp_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_stddev_samp_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Stddev_Samp_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Blockchain_Tf_Charts_Sum_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_sum_fields';
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Sum_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Blockchain_Tf_Charts_Var_Pop_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_var_pop_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Var_Pop_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Blockchain_Tf_Charts_Var_Samp_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_var_samp_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Var_Samp_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Blockchain_Tf_Charts_Variance_Fields = {
+  __typename?: 'flat_blockchain_tf_charts_variance_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.blockchain_tf_charts" */
+export type Flat_Blockchain_Tf_Charts_Variance_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type = {
+  __typename?: 'flat_blockchain_tf_switched_chart_type';
+  /** An array relationship */
+  blockchain_tf_switched_charts: Array<Flat_Blockchain_Tf_Switched_Charts>;
+  /** An aggregated array relationship */
+  blockchain_tf_switched_charts_aggregate: Flat_Blockchain_Tf_Switched_Charts_Aggregate;
+  chart_type: Scalars['String'];
+};
+
+/** columns and relationships of "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_TypeBlockchain_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_TypeBlockchain_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** aggregated selection of "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Aggregate = {
+  __typename?: 'flat_blockchain_tf_switched_chart_type_aggregate';
+  aggregate?: Maybe<Flat_Blockchain_Tf_Switched_Chart_Type_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchain_Tf_Switched_Chart_Type>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Aggregate_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_chart_type_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchain_Tf_Switched_Chart_Type_Max_Fields>;
+  min?: Maybe<Flat_Blockchain_Tf_Switched_Chart_Type_Min_Fields>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchain_tf_switched_chart_type". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>>>;
+  blockchain_tf_switched_charts?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+  chart_type?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Max_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_chart_type_max_fields';
+  chart_type?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Max_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Min_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_chart_type_min_fields';
+  chart_type?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Min_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Order_By = {
+  blockchain_tf_switched_charts_aggregate?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Aggregate_Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchain_tf_switched_chart_type" */
+export type Flat_Blockchain_Tf_Switched_Chart_Type_Pk_Columns_Input = {
+  chart_type: Scalars['String'];
+};
+
+/** select columns of table "flat.blockchain_tf_switched_chart_type" */
+export const enum Flat_Blockchain_Tf_Switched_Chart_Type_Select_Column {
+  /** column name */
+  ChartType = 'chart_type',
+}
+
+/** columns and relationships of "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts = {
+  __typename?: 'flat_blockchain_tf_switched_charts';
+  blockchain: Scalars['String'];
+  /** An object relationship */
+  blockchain_switched_stat?: Maybe<Flat_Blockchain_Switched_Stats>;
+  /** An object relationship */
+  blockchain_tf_switched_chart_type: Flat_Blockchain_Tf_Switched_Chart_Type;
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  point_value: Scalars['numeric'];
+  timeframe: Scalars['Int'];
+};
+
+/** aggregated selection of "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Aggregate = {
+  __typename?: 'flat_blockchain_tf_switched_charts_aggregate';
+  aggregate?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchain_Tf_Switched_Charts>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Aggregate_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_aggregate_fields';
+  avg?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Max_Fields>;
+  min?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Min_Fields>;
+  stddev?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Sum_Fields>;
+  var_pop?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Blockchain_Tf_Switched_Charts_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Avg_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_avg_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Avg_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchain_tf_switched_charts". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchain_Tf_Switched_Charts_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>>>;
+  blockchain?: InputMaybe<String_Comparison_Exp>;
+  blockchain_switched_stat?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+  blockchain_tf_switched_chart_type?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>;
+  chart_type?: InputMaybe<String_Comparison_Exp>;
+  is_mainnet?: InputMaybe<Boolean_Comparison_Exp>;
+  point_index?: InputMaybe<Int_Comparison_Exp>;
+  point_value?: InputMaybe<Numeric_Comparison_Exp>;
+  timeframe?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Max_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_max_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  chart_type?: Maybe<Scalars['String']>;
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Max_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Min_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_min_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  chart_type?: Maybe<Scalars['String']>;
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Min_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  blockchain_switched_stat?: InputMaybe<Flat_Blockchain_Switched_Stats_Order_By>;
+  blockchain_tf_switched_chart_type?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Order_By>;
+  chart_type?: InputMaybe<Order_By>;
+  is_mainnet?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Pk_Columns_Input = {
+  blockchain: Scalars['String'];
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
+};
+
+/** select columns of table "flat.blockchain_tf_switched_charts" */
+export const enum Flat_Blockchain_Tf_Switched_Charts_Select_Column {
+  /** column name */
+  Blockchain = 'blockchain',
+  /** column name */
+  ChartType = 'chart_type',
+  /** column name */
+  IsMainnet = 'is_mainnet',
+  /** column name */
+  PointIndex = 'point_index',
+  /** column name */
+  PointValue = 'point_value',
+  /** column name */
+  Timeframe = 'timeframe',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Stddev_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_stddev_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Stddev_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Stddev_Pop_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_stddev_pop_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Stddev_Pop_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Stddev_Samp_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_stddev_samp_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Stddev_Samp_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Sum_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_sum_fields';
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Sum_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Var_Pop_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_var_pop_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Var_Pop_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Var_Samp_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_var_samp_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Var_Samp_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Blockchain_Tf_Switched_Charts_Variance_Fields = {
+  __typename?: 'flat_blockchain_tf_switched_charts_variance_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.blockchain_tf_switched_charts" */
+export type Flat_Blockchain_Tf_Switched_Charts_Variance_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_Blockchains = {
+  __typename?: 'flat_blockchains';
+  /** An array relationship */
+  blockchainRelationsByBlockchainTarget: Array<Flat_Blockchain_Relations>;
+  /** An aggregated array relationship */
+  blockchainRelationsByBlockchainTarget_aggregate: Flat_Blockchain_Relations_Aggregate;
+  /** An array relationship */
+  blockchain_relations: Array<Flat_Blockchain_Relations>;
+  /** An aggregated array relationship */
+  blockchain_relations_aggregate: Flat_Blockchain_Relations_Aggregate;
+  /** An array relationship */
+  blockchain_stats: Array<Flat_Blockchain_Stats>;
+  /** An aggregated array relationship */
+  blockchain_stats_aggregate: Flat_Blockchain_Stats_Aggregate;
+  /** An array relationship */
+  blockchain_switched_stats: Array<Flat_Blockchain_Switched_Stats>;
+  /** An aggregated array relationship */
+  blockchain_switched_stats_aggregate: Flat_Blockchain_Switched_Stats_Aggregate;
+  /** An array relationship */
+  channelsStatsByCounterpartyBlockchain: Array<Flat_Channels_Stats>;
+  /** An aggregated array relationship */
+  channelsStatsByCounterpartyBlockchain_aggregate: Flat_Channels_Stats_Aggregate;
+  /** An array relationship */
+  channels_stats: Array<Flat_Channels_Stats>;
+  /** An aggregated array relationship */
+  channels_stats_aggregate: Flat_Channels_Stats_Aggregate;
+  is_mainnet: Scalars['Boolean'];
+  is_synced?: Maybe<Scalars['Boolean']>;
+  logo_url: Scalars['String'];
+  name: Scalars['String'];
+  network_id: Scalars['String'];
+  website: Scalars['String'];
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchainRelationsByBlockchainTargetArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchainRelationsByBlockchainTarget_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchain_RelationsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchain_Relations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchain_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchain_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchain_Switched_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsBlockchain_Switched_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsChannelsStatsByCounterpartyBlockchainArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsChannelsStatsByCounterpartyBlockchain_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsChannels_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.blockchains" */
+export type Flat_BlockchainsChannels_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** aggregated selection of "flat.blockchains" */
+export type Flat_Blockchains_Aggregate = {
+  __typename?: 'flat_blockchains_aggregate';
+  aggregate?: Maybe<Flat_Blockchains_Aggregate_Fields>;
+  nodes: Array<Flat_Blockchains>;
+};
+
+/** aggregate fields of "flat.blockchains" */
+export type Flat_Blockchains_Aggregate_Fields = {
+  __typename?: 'flat_blockchains_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Blockchains_Max_Fields>;
+  min?: Maybe<Flat_Blockchains_Min_Fields>;
+};
+
+/** aggregate fields of "flat.blockchains" */
+export type Flat_Blockchains_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Blockchains_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.blockchains" */
+export type Flat_Blockchains_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Blockchains_Max_Order_By>;
+  min?: InputMaybe<Flat_Blockchains_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.blockchains". All fields are combined with a logical 'AND'. */
+export type Flat_Blockchains_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Blockchains_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Blockchains_Bool_Exp>>>;
+  blockchainRelationsByBlockchainTarget?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+  blockchain_relations?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+  blockchain_stats?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+  blockchain_switched_stats?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+  channelsStatsByCounterpartyBlockchain?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+  channels_stats?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+  is_mainnet?: InputMaybe<Boolean_Comparison_Exp>;
+  is_synced?: InputMaybe<Boolean_Comparison_Exp>;
+  logo_url?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  network_id?: InputMaybe<String_Comparison_Exp>;
+  website?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Blockchains_Max_Fields = {
+  __typename?: 'flat_blockchains_max_fields';
+  logo_url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  network_id?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "flat.blockchains" */
+export type Flat_Blockchains_Max_Order_By = {
+  logo_url?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  network_id?: InputMaybe<Order_By>;
+  website?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Blockchains_Min_Fields = {
+  __typename?: 'flat_blockchains_min_fields';
+  logo_url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  network_id?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "flat.blockchains" */
+export type Flat_Blockchains_Min_Order_By = {
+  logo_url?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  network_id?: InputMaybe<Order_By>;
+  website?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.blockchains" */
+export type Flat_Blockchains_Order_By = {
+  blockchainRelationsByBlockchainTarget_aggregate?: InputMaybe<Flat_Blockchain_Relations_Aggregate_Order_By>;
+  blockchain_relations_aggregate?: InputMaybe<Flat_Blockchain_Relations_Aggregate_Order_By>;
+  blockchain_stats_aggregate?: InputMaybe<Flat_Blockchain_Stats_Aggregate_Order_By>;
+  blockchain_switched_stats_aggregate?: InputMaybe<Flat_Blockchain_Switched_Stats_Aggregate_Order_By>;
+  channelsStatsByCounterpartyBlockchain_aggregate?: InputMaybe<Flat_Channels_Stats_Aggregate_Order_By>;
+  channels_stats_aggregate?: InputMaybe<Flat_Channels_Stats_Aggregate_Order_By>;
+  is_mainnet?: InputMaybe<Order_By>;
+  is_synced?: InputMaybe<Order_By>;
+  logo_url?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  network_id?: InputMaybe<Order_By>;
+  website?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: "flat.blockchains" */
+export type Flat_Blockchains_Pk_Columns_Input = {
+  network_id: Scalars['String'];
+};
+
+/** select columns of table "flat.blockchains" */
+export const enum Flat_Blockchains_Select_Column {
+  /** column name */
+  IsMainnet = 'is_mainnet',
+  /** column name */
+  IsSynced = 'is_synced',
+  /** column name */
+  LogoUrl = 'logo_url',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  NetworkId = 'network_id',
+  /** column name */
+  Website = 'website',
+}
+
+/** columns and relationships of "flat.channels_stats" */
+export type Flat_Channels_Stats = {
+  __typename?: 'flat_channels_stats';
+  blockchain: Scalars['String'];
+  /** An object relationship */
+  blockchainByBlockchain: Flat_Blockchains;
+  /** An object relationship */
+  blockchainByCounterpartyBlockchain: Flat_Blockchains;
+  channel_id: Scalars['String'];
+  client_id: Scalars['String'];
+  connection_id: Scalars['String'];
+  counterparty_blockchain: Scalars['String'];
+  counterparty_channel_id: Scalars['String'];
+  ibc_cashflow_in: Scalars['bigint'];
+  ibc_cashflow_in_diff: Scalars['bigint'];
+  ibc_cashflow_in_pending: Scalars['bigint'];
+  ibc_cashflow_out: Scalars['bigint'];
+  ibc_cashflow_out_diff: Scalars['bigint'];
+  ibc_cashflow_out_pending: Scalars['bigint'];
+  ibc_transfers: Scalars['Int'];
+  ibc_transfers_diff: Scalars['Int'];
+  ibc_transfers_failed: Scalars['Int'];
+  ibc_transfers_failed_diff: Scalars['Int'];
+  ibc_transfers_pending: Scalars['Int'];
+  ibc_transfers_success_rate: Scalars['numeric'];
+  ibc_transfers_success_rate_diff: Scalars['numeric'];
+  is_channel_open: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+  /** An object relationship */
+  timeframeByTimeframe: Flat_Timeframes;
+};
+
+/** aggregated selection of "flat.channels_stats" */
+export type Flat_Channels_Stats_Aggregate = {
+  __typename?: 'flat_channels_stats_aggregate';
+  aggregate?: Maybe<Flat_Channels_Stats_Aggregate_Fields>;
+  nodes: Array<Flat_Channels_Stats>;
+};
+
+/** aggregate fields of "flat.channels_stats" */
+export type Flat_Channels_Stats_Aggregate_Fields = {
+  __typename?: 'flat_channels_stats_aggregate_fields';
+  avg?: Maybe<Flat_Channels_Stats_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Channels_Stats_Max_Fields>;
+  min?: Maybe<Flat_Channels_Stats_Min_Fields>;
+  stddev?: Maybe<Flat_Channels_Stats_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Channels_Stats_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Channels_Stats_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Channels_Stats_Sum_Fields>;
+  var_pop?: Maybe<Flat_Channels_Stats_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Channels_Stats_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Channels_Stats_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.channels_stats" */
+export type Flat_Channels_Stats_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Channels_Stats_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Channels_Stats_Max_Order_By>;
+  min?: InputMaybe<Flat_Channels_Stats_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Channels_Stats_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Channels_Stats_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Channels_Stats_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Channels_Stats_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Channels_Stats_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Channels_Stats_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Channels_Stats_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Channels_Stats_Avg_Fields = {
+  __typename?: 'flat_channels_stats_avg_fields';
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Avg_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.channels_stats". All fields are combined with a logical 'AND'. */
+export type Flat_Channels_Stats_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Channels_Stats_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Channels_Stats_Bool_Exp>>>;
+  blockchain?: InputMaybe<String_Comparison_Exp>;
+  blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+  blockchainByCounterpartyBlockchain?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+  channel_id?: InputMaybe<String_Comparison_Exp>;
+  client_id?: InputMaybe<String_Comparison_Exp>;
+  connection_id?: InputMaybe<String_Comparison_Exp>;
+  counterparty_blockchain?: InputMaybe<String_Comparison_Exp>;
+  counterparty_channel_id?: InputMaybe<String_Comparison_Exp>;
+  ibc_cashflow_in?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_in_diff?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_in_pending?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_out?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_out_diff?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_cashflow_out_pending?: InputMaybe<Bigint_Comparison_Exp>;
+  ibc_transfers?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_failed?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_failed_diff?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_pending?: InputMaybe<Int_Comparison_Exp>;
+  ibc_transfers_success_rate?: InputMaybe<Numeric_Comparison_Exp>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Numeric_Comparison_Exp>;
+  is_channel_open?: InputMaybe<Boolean_Comparison_Exp>;
+  timeframe?: InputMaybe<Int_Comparison_Exp>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Channels_Stats_Max_Fields = {
+  __typename?: 'flat_channels_stats_max_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  channel_id?: Maybe<Scalars['String']>;
+  client_id?: Maybe<Scalars['String']>;
+  connection_id?: Maybe<Scalars['String']>;
+  counterparty_blockchain?: Maybe<Scalars['String']>;
+  counterparty_channel_id?: Maybe<Scalars['String']>;
+  ibc_cashflow_in?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['bigint']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['numeric']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Max_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  channel_id?: InputMaybe<Order_By>;
+  client_id?: InputMaybe<Order_By>;
+  connection_id?: InputMaybe<Order_By>;
+  counterparty_blockchain?: InputMaybe<Order_By>;
+  counterparty_channel_id?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Channels_Stats_Min_Fields = {
+  __typename?: 'flat_channels_stats_min_fields';
+  blockchain?: Maybe<Scalars['String']>;
+  channel_id?: Maybe<Scalars['String']>;
+  client_id?: Maybe<Scalars['String']>;
+  connection_id?: Maybe<Scalars['String']>;
+  counterparty_blockchain?: Maybe<Scalars['String']>;
+  counterparty_channel_id?: Maybe<Scalars['String']>;
+  ibc_cashflow_in?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['bigint']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['numeric']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Min_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  channel_id?: InputMaybe<Order_By>;
+  client_id?: InputMaybe<Order_By>;
+  connection_id?: InputMaybe<Order_By>;
+  counterparty_blockchain?: InputMaybe<Order_By>;
+  counterparty_channel_id?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.channels_stats" */
+export type Flat_Channels_Stats_Order_By = {
+  blockchain?: InputMaybe<Order_By>;
+  blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Order_By>;
+  blockchainByCounterpartyBlockchain?: InputMaybe<Flat_Blockchains_Order_By>;
+  channel_id?: InputMaybe<Order_By>;
+  client_id?: InputMaybe<Order_By>;
+  connection_id?: InputMaybe<Order_By>;
+  counterparty_blockchain?: InputMaybe<Order_By>;
+  counterparty_channel_id?: InputMaybe<Order_By>;
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  is_channel_open?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Order_By>;
+};
+
+/** primary key columns input for table: "flat.channels_stats" */
+export type Flat_Channels_Stats_Pk_Columns_Input = {
+  blockchain: Scalars['String'];
+  channel_id: Scalars['String'];
+  timeframe: Scalars['Int'];
+};
+
+/** select columns of table "flat.channels_stats" */
+export const enum Flat_Channels_Stats_Select_Column {
+  /** column name */
+  Blockchain = 'blockchain',
+  /** column name */
+  ChannelId = 'channel_id',
+  /** column name */
+  ClientId = 'client_id',
+  /** column name */
+  ConnectionId = 'connection_id',
+  /** column name */
+  CounterpartyBlockchain = 'counterparty_blockchain',
+  /** column name */
+  CounterpartyChannelId = 'counterparty_channel_id',
+  /** column name */
+  IbcCashflowIn = 'ibc_cashflow_in',
+  /** column name */
+  IbcCashflowInDiff = 'ibc_cashflow_in_diff',
+  /** column name */
+  IbcCashflowInPending = 'ibc_cashflow_in_pending',
+  /** column name */
+  IbcCashflowOut = 'ibc_cashflow_out',
+  /** column name */
+  IbcCashflowOutDiff = 'ibc_cashflow_out_diff',
+  /** column name */
+  IbcCashflowOutPending = 'ibc_cashflow_out_pending',
+  /** column name */
+  IbcTransfers = 'ibc_transfers',
+  /** column name */
+  IbcTransfersDiff = 'ibc_transfers_diff',
+  /** column name */
+  IbcTransfersFailed = 'ibc_transfers_failed',
+  /** column name */
+  IbcTransfersFailedDiff = 'ibc_transfers_failed_diff',
+  /** column name */
+  IbcTransfersPending = 'ibc_transfers_pending',
+  /** column name */
+  IbcTransfersSuccessRate = 'ibc_transfers_success_rate',
+  /** column name */
+  IbcTransfersSuccessRateDiff = 'ibc_transfers_success_rate_diff',
+  /** column name */
+  IsChannelOpen = 'is_channel_open',
+  /** column name */
+  Timeframe = 'timeframe',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Channels_Stats_Stddev_Fields = {
+  __typename?: 'flat_channels_stats_stddev_fields';
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Stddev_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Channels_Stats_Stddev_Pop_Fields = {
+  __typename?: 'flat_channels_stats_stddev_pop_fields';
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Stddev_Pop_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Channels_Stats_Stddev_Samp_Fields = {
+  __typename?: 'flat_channels_stats_stddev_samp_fields';
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Stddev_Samp_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Channels_Stats_Sum_Fields = {
+  __typename?: 'flat_channels_stats_sum_fields';
+  ibc_cashflow_in?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['bigint']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['bigint']>;
+  ibc_transfers?: Maybe<Scalars['Int']>;
+  ibc_transfers_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed?: Maybe<Scalars['Int']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Int']>;
+  ibc_transfers_pending?: Maybe<Scalars['Int']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['numeric']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Sum_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Channels_Stats_Var_Pop_Fields = {
+  __typename?: 'flat_channels_stats_var_pop_fields';
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Var_Pop_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Channels_Stats_Var_Samp_Fields = {
+  __typename?: 'flat_channels_stats_var_samp_fields';
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Var_Samp_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Channels_Stats_Variance_Fields = {
+  __typename?: 'flat_channels_stats_variance_fields';
+  ibc_cashflow_in?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_in_pending?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_diff?: Maybe<Scalars['Float']>;
+  ibc_cashflow_out_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers?: Maybe<Scalars['Float']>;
+  ibc_transfers_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed?: Maybe<Scalars['Float']>;
+  ibc_transfers_failed_diff?: Maybe<Scalars['Float']>;
+  ibc_transfers_pending?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate?: Maybe<Scalars['Float']>;
+  ibc_transfers_success_rate_diff?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.channels_stats" */
+export type Flat_Channels_Stats_Variance_Order_By = {
+  ibc_cashflow_in?: InputMaybe<Order_By>;
+  ibc_cashflow_in_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_in_pending?: InputMaybe<Order_By>;
+  ibc_cashflow_out?: InputMaybe<Order_By>;
+  ibc_cashflow_out_diff?: InputMaybe<Order_By>;
+  ibc_cashflow_out_pending?: InputMaybe<Order_By>;
+  ibc_transfers?: InputMaybe<Order_By>;
+  ibc_transfers_diff?: InputMaybe<Order_By>;
+  ibc_transfers_failed?: InputMaybe<Order_By>;
+  ibc_transfers_failed_diff?: InputMaybe<Order_By>;
+  ibc_transfers_pending?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate?: InputMaybe<Order_By>;
+  ibc_transfers_success_rate_diff?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_Timeframes = {
+  __typename?: 'flat_timeframes';
+  /** An array relationship */
+  blockchain_relations: Array<Flat_Blockchain_Relations>;
+  /** An aggregated array relationship */
+  blockchain_relations_aggregate: Flat_Blockchain_Relations_Aggregate;
+  /** An array relationship */
+  blockchain_stats: Array<Flat_Blockchain_Stats>;
+  /** An aggregated array relationship */
+  blockchain_stats_aggregate: Flat_Blockchain_Stats_Aggregate;
+  /** An array relationship */
+  blockchain_switched_stats: Array<Flat_Blockchain_Switched_Stats>;
+  /** An aggregated array relationship */
+  blockchain_switched_stats_aggregate: Flat_Blockchain_Switched_Stats_Aggregate;
+  /** An array relationship */
+  channels_stats: Array<Flat_Channels_Stats>;
+  /** An aggregated array relationship */
+  channels_stats_aggregate: Flat_Channels_Stats_Aggregate;
+  timeframe_in_hours: Scalars['Int'];
+  /** An array relationship */
+  total_tf_switched_charts: Array<Flat_Total_Tf_Switched_Charts>;
+  /** An aggregated array relationship */
+  total_tf_switched_charts_aggregate: Flat_Total_Tf_Switched_Charts_Aggregate;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesBlockchain_RelationsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesBlockchain_Relations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesBlockchain_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesBlockchain_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesBlockchain_Switched_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesBlockchain_Switched_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesChannels_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesChannels_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesTotal_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.timeframes" */
+export type Flat_TimeframesTotal_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** aggregated selection of "flat.timeframes" */
+export type Flat_Timeframes_Aggregate = {
+  __typename?: 'flat_timeframes_aggregate';
+  aggregate?: Maybe<Flat_Timeframes_Aggregate_Fields>;
+  nodes: Array<Flat_Timeframes>;
+};
+
+/** aggregate fields of "flat.timeframes" */
+export type Flat_Timeframes_Aggregate_Fields = {
+  __typename?: 'flat_timeframes_aggregate_fields';
+  avg?: Maybe<Flat_Timeframes_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Timeframes_Max_Fields>;
+  min?: Maybe<Flat_Timeframes_Min_Fields>;
+  stddev?: Maybe<Flat_Timeframes_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Timeframes_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Timeframes_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Timeframes_Sum_Fields>;
+  var_pop?: Maybe<Flat_Timeframes_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Timeframes_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Timeframes_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.timeframes" */
+export type Flat_Timeframes_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Timeframes_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.timeframes" */
+export type Flat_Timeframes_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Timeframes_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Timeframes_Max_Order_By>;
+  min?: InputMaybe<Flat_Timeframes_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Timeframes_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Timeframes_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Timeframes_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Timeframes_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Timeframes_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Timeframes_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Timeframes_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Timeframes_Avg_Fields = {
+  __typename?: 'flat_timeframes_avg_fields';
+  timeframe_in_hours?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Avg_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.timeframes". All fields are combined with a logical 'AND'. */
+export type Flat_Timeframes_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Timeframes_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Timeframes_Bool_Exp>>>;
+  blockchain_relations?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+  blockchain_stats?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+  blockchain_switched_stats?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+  channels_stats?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+  timeframe_in_hours?: InputMaybe<Int_Comparison_Exp>;
+  total_tf_switched_charts?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Timeframes_Max_Fields = {
+  __typename?: 'flat_timeframes_max_fields';
+  timeframe_in_hours?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Max_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Timeframes_Min_Fields = {
+  __typename?: 'flat_timeframes_min_fields';
+  timeframe_in_hours?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Min_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.timeframes" */
+export type Flat_Timeframes_Order_By = {
+  blockchain_relations_aggregate?: InputMaybe<Flat_Blockchain_Relations_Aggregate_Order_By>;
+  blockchain_stats_aggregate?: InputMaybe<Flat_Blockchain_Stats_Aggregate_Order_By>;
+  blockchain_switched_stats_aggregate?: InputMaybe<Flat_Blockchain_Switched_Stats_Aggregate_Order_By>;
+  channels_stats_aggregate?: InputMaybe<Flat_Channels_Stats_Aggregate_Order_By>;
+  timeframe_in_hours?: InputMaybe<Order_By>;
+  total_tf_switched_charts_aggregate?: InputMaybe<Flat_Total_Tf_Switched_Charts_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: "flat.timeframes" */
+export type Flat_Timeframes_Pk_Columns_Input = {
+  timeframe_in_hours: Scalars['Int'];
+};
+
+/** select columns of table "flat.timeframes" */
+export const enum Flat_Timeframes_Select_Column {
+  /** column name */
+  TimeframeInHours = 'timeframe_in_hours',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Timeframes_Stddev_Fields = {
+  __typename?: 'flat_timeframes_stddev_fields';
+  timeframe_in_hours?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Stddev_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Timeframes_Stddev_Pop_Fields = {
+  __typename?: 'flat_timeframes_stddev_pop_fields';
+  timeframe_in_hours?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Stddev_Pop_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Timeframes_Stddev_Samp_Fields = {
+  __typename?: 'flat_timeframes_stddev_samp_fields';
+  timeframe_in_hours?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Stddev_Samp_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Timeframes_Sum_Fields = {
+  __typename?: 'flat_timeframes_sum_fields';
+  timeframe_in_hours?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Sum_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Timeframes_Var_Pop_Fields = {
+  __typename?: 'flat_timeframes_var_pop_fields';
+  timeframe_in_hours?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Var_Pop_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Timeframes_Var_Samp_Fields = {
+  __typename?: 'flat_timeframes_var_samp_fields';
+  timeframe_in_hours?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Var_Samp_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Timeframes_Variance_Fields = {
+  __typename?: 'flat_timeframes_variance_fields';
+  timeframe_in_hours?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.timeframes" */
+export type Flat_Timeframes_Variance_Order_By = {
+  timeframe_in_hours?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type = {
+  __typename?: 'flat_total_tf_switched_chart_type';
+  chart_type: Scalars['String'];
+  /** An array relationship */
+  total_tf_switched_charts: Array<Flat_Total_Tf_Switched_Charts>;
+  /** An aggregated array relationship */
+  total_tf_switched_charts_aggregate: Flat_Total_Tf_Switched_Charts_Aggregate;
+};
+
+/** columns and relationships of "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_TypeTotal_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** columns and relationships of "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_TypeTotal_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** aggregated selection of "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Aggregate = {
+  __typename?: 'flat_total_tf_switched_chart_type_aggregate';
+  aggregate?: Maybe<Flat_Total_Tf_Switched_Chart_Type_Aggregate_Fields>;
+  nodes: Array<Flat_Total_Tf_Switched_Chart_Type>;
+};
+
+/** aggregate fields of "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Aggregate_Fields = {
+  __typename?: 'flat_total_tf_switched_chart_type_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Total_Tf_Switched_Chart_Type_Max_Fields>;
+  min?: Maybe<Flat_Total_Tf_Switched_Chart_Type_Min_Fields>;
+};
+
+/** aggregate fields of "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Max_Order_By>;
+  min?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.total_tf_switched_chart_type". All fields are combined with a logical 'AND'. */
+export type Flat_Total_Tf_Switched_Chart_Type_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>>>;
+  chart_type?: InputMaybe<String_Comparison_Exp>;
+  total_tf_switched_charts?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Total_Tf_Switched_Chart_Type_Max_Fields = {
+  __typename?: 'flat_total_tf_switched_chart_type_max_fields';
+  chart_type?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Max_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Total_Tf_Switched_Chart_Type_Min_Fields = {
+  __typename?: 'flat_total_tf_switched_chart_type_min_fields';
+  chart_type?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Min_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+  total_tf_switched_charts_aggregate?: InputMaybe<Flat_Total_Tf_Switched_Charts_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: "flat.total_tf_switched_chart_type" */
+export type Flat_Total_Tf_Switched_Chart_Type_Pk_Columns_Input = {
+  chart_type: Scalars['String'];
+};
+
+/** select columns of table "flat.total_tf_switched_chart_type" */
+export const enum Flat_Total_Tf_Switched_Chart_Type_Select_Column {
+  /** column name */
+  ChartType = 'chart_type',
+}
+
+/** columns and relationships of "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts = {
+  __typename?: 'flat_total_tf_switched_charts';
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  point_value: Scalars['numeric'];
+  timeframe: Scalars['Int'];
+  /** An object relationship */
+  timeframeByTimeframe: Flat_Timeframes;
+  /** An object relationship */
+  total_tf_switched_chart_type: Flat_Total_Tf_Switched_Chart_Type;
+};
+
+/** aggregated selection of "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Aggregate = {
+  __typename?: 'flat_total_tf_switched_charts_aggregate';
+  aggregate?: Maybe<Flat_Total_Tf_Switched_Charts_Aggregate_Fields>;
+  nodes: Array<Flat_Total_Tf_Switched_Charts>;
+};
+
+/** aggregate fields of "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Aggregate_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_aggregate_fields';
+  avg?: Maybe<Flat_Total_Tf_Switched_Charts_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Flat_Total_Tf_Switched_Charts_Max_Fields>;
+  min?: Maybe<Flat_Total_Tf_Switched_Charts_Min_Fields>;
+  stddev?: Maybe<Flat_Total_Tf_Switched_Charts_Stddev_Fields>;
+  stddev_pop?: Maybe<Flat_Total_Tf_Switched_Charts_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Flat_Total_Tf_Switched_Charts_Stddev_Samp_Fields>;
+  sum?: Maybe<Flat_Total_Tf_Switched_Charts_Sum_Fields>;
+  var_pop?: Maybe<Flat_Total_Tf_Switched_Charts_Var_Pop_Fields>;
+  var_samp?: Maybe<Flat_Total_Tf_Switched_Charts_Var_Samp_Fields>;
+  variance?: Maybe<Flat_Total_Tf_Switched_Charts_Variance_Fields>;
+};
+
+/** aggregate fields of "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Aggregate_Order_By = {
+  avg?: InputMaybe<Flat_Total_Tf_Switched_Charts_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Flat_Total_Tf_Switched_Charts_Max_Order_By>;
+  min?: InputMaybe<Flat_Total_Tf_Switched_Charts_Min_Order_By>;
+  stddev?: InputMaybe<Flat_Total_Tf_Switched_Charts_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Flat_Total_Tf_Switched_Charts_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Flat_Total_Tf_Switched_Charts_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Flat_Total_Tf_Switched_Charts_Sum_Order_By>;
+  var_pop?: InputMaybe<Flat_Total_Tf_Switched_Charts_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Flat_Total_Tf_Switched_Charts_Var_Samp_Order_By>;
+  variance?: InputMaybe<Flat_Total_Tf_Switched_Charts_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Flat_Total_Tf_Switched_Charts_Avg_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_avg_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Avg_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "flat.total_tf_switched_charts". All fields are combined with a logical 'AND'. */
+export type Flat_Total_Tf_Switched_Charts_Bool_Exp = {
+  _and?: InputMaybe<Array<InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>>>;
+  _not?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+  _or?: InputMaybe<Array<InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>>>;
+  chart_type?: InputMaybe<String_Comparison_Exp>;
+  is_mainnet?: InputMaybe<Boolean_Comparison_Exp>;
+  point_index?: InputMaybe<Int_Comparison_Exp>;
+  point_value?: InputMaybe<Numeric_Comparison_Exp>;
+  timeframe?: InputMaybe<Int_Comparison_Exp>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+  total_tf_switched_chart_type?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Flat_Total_Tf_Switched_Charts_Max_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_max_fields';
+  chart_type?: Maybe<Scalars['String']>;
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Max_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Flat_Total_Tf_Switched_Charts_Min_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_min_fields';
+  chart_type?: Maybe<Scalars['String']>;
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Min_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** ordering options when selecting data from "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Order_By = {
+  chart_type?: InputMaybe<Order_By>;
+  is_mainnet?: InputMaybe<Order_By>;
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+  timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Order_By>;
+  total_tf_switched_chart_type?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Order_By>;
+};
+
+/** primary key columns input for table: "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Pk_Columns_Input = {
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
+};
+
+/** select columns of table "flat.total_tf_switched_charts" */
+export const enum Flat_Total_Tf_Switched_Charts_Select_Column {
+  /** column name */
+  ChartType = 'chart_type',
+  /** column name */
+  IsMainnet = 'is_mainnet',
+  /** column name */
+  PointIndex = 'point_index',
+  /** column name */
+  PointValue = 'point_value',
+  /** column name */
+  Timeframe = 'timeframe',
+}
+
+/** aggregate stddev on columns */
+export type Flat_Total_Tf_Switched_Charts_Stddev_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_stddev_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Stddev_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Flat_Total_Tf_Switched_Charts_Stddev_Pop_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_stddev_pop_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Stddev_Pop_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Flat_Total_Tf_Switched_Charts_Stddev_Samp_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_stddev_samp_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Stddev_Samp_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Flat_Total_Tf_Switched_Charts_Sum_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_sum_fields';
+  point_index?: Maybe<Scalars['Int']>;
+  point_value?: Maybe<Scalars['numeric']>;
+  timeframe?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Sum_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Flat_Total_Tf_Switched_Charts_Var_Pop_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_var_pop_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Var_Pop_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Flat_Total_Tf_Switched_Charts_Var_Samp_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_var_samp_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Var_Samp_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Flat_Total_Tf_Switched_Charts_Variance_Fields = {
+  __typename?: 'flat_total_tf_switched_charts_variance_fields';
+  point_index?: Maybe<Scalars['Float']>;
+  point_value?: Maybe<Scalars['Float']>;
+  timeframe?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "flat.total_tf_switched_charts" */
+export type Flat_Total_Tf_Switched_Charts_Variance_Order_By = {
+  point_index?: InputMaybe<Order_By>;
+  point_value?: InputMaybe<Order_By>;
+  timeframe?: InputMaybe<Order_By>;
+};
+
 /** columns and relationships of "ft_channel_group_stats" */
 export type Ft_Channel_Group_Stats = {
   __typename?: 'ft_channel_group_stats';
@@ -3657,6 +7837,78 @@ export type Query_Root = {
   channels_stats_aggregate: Channels_Stats_Aggregate;
   /** fetch data from the table: "channels_stats" using primary key columns */
   channels_stats_by_pk?: Maybe<Channels_Stats>;
+  /** fetch data from the table: "flat.blockchain_relations" */
+  flat_blockchain_relations: Array<Flat_Blockchain_Relations>;
+  /** fetch aggregated fields from the table: "flat.blockchain_relations" */
+  flat_blockchain_relations_aggregate: Flat_Blockchain_Relations_Aggregate;
+  /** fetch data from the table: "flat.blockchain_relations" using primary key columns */
+  flat_blockchain_relations_by_pk?: Maybe<Flat_Blockchain_Relations>;
+  /** fetch data from the table: "flat.blockchain_stats" */
+  flat_blockchain_stats: Array<Flat_Blockchain_Stats>;
+  /** fetch aggregated fields from the table: "flat.blockchain_stats" */
+  flat_blockchain_stats_aggregate: Flat_Blockchain_Stats_Aggregate;
+  /** fetch data from the table: "flat.blockchain_stats" using primary key columns */
+  flat_blockchain_stats_by_pk?: Maybe<Flat_Blockchain_Stats>;
+  /** fetch data from the table: "flat.blockchain_switched_stats" */
+  flat_blockchain_switched_stats: Array<Flat_Blockchain_Switched_Stats>;
+  /** fetch aggregated fields from the table: "flat.blockchain_switched_stats" */
+  flat_blockchain_switched_stats_aggregate: Flat_Blockchain_Switched_Stats_Aggregate;
+  /** fetch data from the table: "flat.blockchain_switched_stats" using primary key columns */
+  flat_blockchain_switched_stats_by_pk?: Maybe<Flat_Blockchain_Switched_Stats>;
+  /** fetch data from the table: "flat.blockchain_tf_chart_type" */
+  flat_blockchain_tf_chart_type: Array<Flat_Blockchain_Tf_Chart_Type>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_chart_type" */
+  flat_blockchain_tf_chart_type_aggregate: Flat_Blockchain_Tf_Chart_Type_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_chart_type" using primary key columns */
+  flat_blockchain_tf_chart_type_by_pk?: Maybe<Flat_Blockchain_Tf_Chart_Type>;
+  /** fetch data from the table: "flat.blockchain_tf_charts" */
+  flat_blockchain_tf_charts: Array<Flat_Blockchain_Tf_Charts>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_charts" */
+  flat_blockchain_tf_charts_aggregate: Flat_Blockchain_Tf_Charts_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_charts" using primary key columns */
+  flat_blockchain_tf_charts_by_pk?: Maybe<Flat_Blockchain_Tf_Charts>;
+  /** fetch data from the table: "flat.blockchain_tf_switched_chart_type" */
+  flat_blockchain_tf_switched_chart_type: Array<Flat_Blockchain_Tf_Switched_Chart_Type>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_switched_chart_type" */
+  flat_blockchain_tf_switched_chart_type_aggregate: Flat_Blockchain_Tf_Switched_Chart_Type_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_switched_chart_type" using primary key columns */
+  flat_blockchain_tf_switched_chart_type_by_pk?: Maybe<Flat_Blockchain_Tf_Switched_Chart_Type>;
+  /** fetch data from the table: "flat.blockchain_tf_switched_charts" */
+  flat_blockchain_tf_switched_charts: Array<Flat_Blockchain_Tf_Switched_Charts>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_switched_charts" */
+  flat_blockchain_tf_switched_charts_aggregate: Flat_Blockchain_Tf_Switched_Charts_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_switched_charts" using primary key columns */
+  flat_blockchain_tf_switched_charts_by_pk?: Maybe<Flat_Blockchain_Tf_Switched_Charts>;
+  /** fetch data from the table: "flat.blockchains" */
+  flat_blockchains: Array<Flat_Blockchains>;
+  /** fetch aggregated fields from the table: "flat.blockchains" */
+  flat_blockchains_aggregate: Flat_Blockchains_Aggregate;
+  /** fetch data from the table: "flat.blockchains" using primary key columns */
+  flat_blockchains_by_pk?: Maybe<Flat_Blockchains>;
+  /** fetch data from the table: "flat.channels_stats" */
+  flat_channels_stats: Array<Flat_Channels_Stats>;
+  /** fetch aggregated fields from the table: "flat.channels_stats" */
+  flat_channels_stats_aggregate: Flat_Channels_Stats_Aggregate;
+  /** fetch data from the table: "flat.channels_stats" using primary key columns */
+  flat_channels_stats_by_pk?: Maybe<Flat_Channels_Stats>;
+  /** fetch data from the table: "flat.timeframes" */
+  flat_timeframes: Array<Flat_Timeframes>;
+  /** fetch aggregated fields from the table: "flat.timeframes" */
+  flat_timeframes_aggregate: Flat_Timeframes_Aggregate;
+  /** fetch data from the table: "flat.timeframes" using primary key columns */
+  flat_timeframes_by_pk?: Maybe<Flat_Timeframes>;
+  /** fetch data from the table: "flat.total_tf_switched_chart_type" */
+  flat_total_tf_switched_chart_type: Array<Flat_Total_Tf_Switched_Chart_Type>;
+  /** fetch aggregated fields from the table: "flat.total_tf_switched_chart_type" */
+  flat_total_tf_switched_chart_type_aggregate: Flat_Total_Tf_Switched_Chart_Type_Aggregate;
+  /** fetch data from the table: "flat.total_tf_switched_chart_type" using primary key columns */
+  flat_total_tf_switched_chart_type_by_pk?: Maybe<Flat_Total_Tf_Switched_Chart_Type>;
+  /** fetch data from the table: "flat.total_tf_switched_charts" */
+  flat_total_tf_switched_charts: Array<Flat_Total_Tf_Switched_Charts>;
+  /** fetch aggregated fields from the table: "flat.total_tf_switched_charts" */
+  flat_total_tf_switched_charts_aggregate: Flat_Total_Tf_Switched_Charts_Aggregate;
+  /** fetch data from the table: "flat.total_tf_switched_charts" using primary key columns */
+  flat_total_tf_switched_charts_by_pk?: Maybe<Flat_Total_Tf_Switched_Charts>;
   /** fetch data from the table: "ft_channel_group_stats" */
   ft_channel_group_stats: Array<Ft_Channel_Group_Stats>;
   /** fetch aggregated fields from the table: "ft_channel_group_stats" */
@@ -3751,6 +8003,300 @@ export type Query_RootChannels_Stats_By_PkArgs = {
   client_id: Scalars['String'];
   connection_id: Scalars['String'];
   zone: Scalars['String'];
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_RelationsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Relations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Relations_By_PkArgs = {
+  blockchain_source: Scalars['String'];
+  blockchain_target: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Stats_By_PkArgs = {
+  blockchain: Scalars['String'];
+  timeframe: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Switched_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Switched_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Switched_Stats_By_PkArgs = {
+  blockchain: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Chart_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Chart_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Chart_Type_By_PkArgs = {
+  chart_type: Scalars['String'];
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Charts_By_PkArgs = {
+  blockchain: Scalars['String'];
+  chart_type: Scalars['String'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Switched_Chart_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Switched_Chart_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Switched_Chart_Type_By_PkArgs = {
+  chart_type: Scalars['String'];
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchain_Tf_Switched_Charts_By_PkArgs = {
+  blockchain: Scalars['String'];
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootFlat_BlockchainsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchains_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchains_Order_By>>;
+  where?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchains_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchains_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchains_Order_By>>;
+  where?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Blockchains_By_PkArgs = {
+  network_id: Scalars['String'];
+};
+
+/** query root */
+export type Query_RootFlat_Channels_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Channels_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Channels_Stats_By_PkArgs = {
+  blockchain: Scalars['String'];
+  channel_id: Scalars['String'];
+  timeframe: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootFlat_TimeframesArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Timeframes_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Timeframes_Order_By>>;
+  where?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Timeframes_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Timeframes_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Timeframes_Order_By>>;
+  where?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Timeframes_By_PkArgs = {
+  timeframe_in_hours: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootFlat_Total_Tf_Switched_Chart_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Total_Tf_Switched_Chart_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Total_Tf_Switched_Chart_Type_By_PkArgs = {
+  chart_type: Scalars['String'];
+};
+
+/** query root */
+export type Query_RootFlat_Total_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Total_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootFlat_Total_Tf_Switched_Charts_By_PkArgs = {
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
 };
 
 /** query root */
@@ -3983,6 +8529,78 @@ export type Subscription_Root = {
   channels_stats_aggregate: Channels_Stats_Aggregate;
   /** fetch data from the table: "channels_stats" using primary key columns */
   channels_stats_by_pk?: Maybe<Channels_Stats>;
+  /** fetch data from the table: "flat.blockchain_relations" */
+  flat_blockchain_relations: Array<Flat_Blockchain_Relations>;
+  /** fetch aggregated fields from the table: "flat.blockchain_relations" */
+  flat_blockchain_relations_aggregate: Flat_Blockchain_Relations_Aggregate;
+  /** fetch data from the table: "flat.blockchain_relations" using primary key columns */
+  flat_blockchain_relations_by_pk?: Maybe<Flat_Blockchain_Relations>;
+  /** fetch data from the table: "flat.blockchain_stats" */
+  flat_blockchain_stats: Array<Flat_Blockchain_Stats>;
+  /** fetch aggregated fields from the table: "flat.blockchain_stats" */
+  flat_blockchain_stats_aggregate: Flat_Blockchain_Stats_Aggregate;
+  /** fetch data from the table: "flat.blockchain_stats" using primary key columns */
+  flat_blockchain_stats_by_pk?: Maybe<Flat_Blockchain_Stats>;
+  /** fetch data from the table: "flat.blockchain_switched_stats" */
+  flat_blockchain_switched_stats: Array<Flat_Blockchain_Switched_Stats>;
+  /** fetch aggregated fields from the table: "flat.blockchain_switched_stats" */
+  flat_blockchain_switched_stats_aggregate: Flat_Blockchain_Switched_Stats_Aggregate;
+  /** fetch data from the table: "flat.blockchain_switched_stats" using primary key columns */
+  flat_blockchain_switched_stats_by_pk?: Maybe<Flat_Blockchain_Switched_Stats>;
+  /** fetch data from the table: "flat.blockchain_tf_chart_type" */
+  flat_blockchain_tf_chart_type: Array<Flat_Blockchain_Tf_Chart_Type>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_chart_type" */
+  flat_blockchain_tf_chart_type_aggregate: Flat_Blockchain_Tf_Chart_Type_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_chart_type" using primary key columns */
+  flat_blockchain_tf_chart_type_by_pk?: Maybe<Flat_Blockchain_Tf_Chart_Type>;
+  /** fetch data from the table: "flat.blockchain_tf_charts" */
+  flat_blockchain_tf_charts: Array<Flat_Blockchain_Tf_Charts>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_charts" */
+  flat_blockchain_tf_charts_aggregate: Flat_Blockchain_Tf_Charts_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_charts" using primary key columns */
+  flat_blockchain_tf_charts_by_pk?: Maybe<Flat_Blockchain_Tf_Charts>;
+  /** fetch data from the table: "flat.blockchain_tf_switched_chart_type" */
+  flat_blockchain_tf_switched_chart_type: Array<Flat_Blockchain_Tf_Switched_Chart_Type>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_switched_chart_type" */
+  flat_blockchain_tf_switched_chart_type_aggregate: Flat_Blockchain_Tf_Switched_Chart_Type_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_switched_chart_type" using primary key columns */
+  flat_blockchain_tf_switched_chart_type_by_pk?: Maybe<Flat_Blockchain_Tf_Switched_Chart_Type>;
+  /** fetch data from the table: "flat.blockchain_tf_switched_charts" */
+  flat_blockchain_tf_switched_charts: Array<Flat_Blockchain_Tf_Switched_Charts>;
+  /** fetch aggregated fields from the table: "flat.blockchain_tf_switched_charts" */
+  flat_blockchain_tf_switched_charts_aggregate: Flat_Blockchain_Tf_Switched_Charts_Aggregate;
+  /** fetch data from the table: "flat.blockchain_tf_switched_charts" using primary key columns */
+  flat_blockchain_tf_switched_charts_by_pk?: Maybe<Flat_Blockchain_Tf_Switched_Charts>;
+  /** fetch data from the table: "flat.blockchains" */
+  flat_blockchains: Array<Flat_Blockchains>;
+  /** fetch aggregated fields from the table: "flat.blockchains" */
+  flat_blockchains_aggregate: Flat_Blockchains_Aggregate;
+  /** fetch data from the table: "flat.blockchains" using primary key columns */
+  flat_blockchains_by_pk?: Maybe<Flat_Blockchains>;
+  /** fetch data from the table: "flat.channels_stats" */
+  flat_channels_stats: Array<Flat_Channels_Stats>;
+  /** fetch aggregated fields from the table: "flat.channels_stats" */
+  flat_channels_stats_aggregate: Flat_Channels_Stats_Aggregate;
+  /** fetch data from the table: "flat.channels_stats" using primary key columns */
+  flat_channels_stats_by_pk?: Maybe<Flat_Channels_Stats>;
+  /** fetch data from the table: "flat.timeframes" */
+  flat_timeframes: Array<Flat_Timeframes>;
+  /** fetch aggregated fields from the table: "flat.timeframes" */
+  flat_timeframes_aggregate: Flat_Timeframes_Aggregate;
+  /** fetch data from the table: "flat.timeframes" using primary key columns */
+  flat_timeframes_by_pk?: Maybe<Flat_Timeframes>;
+  /** fetch data from the table: "flat.total_tf_switched_chart_type" */
+  flat_total_tf_switched_chart_type: Array<Flat_Total_Tf_Switched_Chart_Type>;
+  /** fetch aggregated fields from the table: "flat.total_tf_switched_chart_type" */
+  flat_total_tf_switched_chart_type_aggregate: Flat_Total_Tf_Switched_Chart_Type_Aggregate;
+  /** fetch data from the table: "flat.total_tf_switched_chart_type" using primary key columns */
+  flat_total_tf_switched_chart_type_by_pk?: Maybe<Flat_Total_Tf_Switched_Chart_Type>;
+  /** fetch data from the table: "flat.total_tf_switched_charts" */
+  flat_total_tf_switched_charts: Array<Flat_Total_Tf_Switched_Charts>;
+  /** fetch aggregated fields from the table: "flat.total_tf_switched_charts" */
+  flat_total_tf_switched_charts_aggregate: Flat_Total_Tf_Switched_Charts_Aggregate;
+  /** fetch data from the table: "flat.total_tf_switched_charts" using primary key columns */
+  flat_total_tf_switched_charts_by_pk?: Maybe<Flat_Total_Tf_Switched_Charts>;
   /** fetch data from the table: "ft_channel_group_stats" */
   ft_channel_group_stats: Array<Ft_Channel_Group_Stats>;
   /** fetch aggregated fields from the table: "ft_channel_group_stats" */
@@ -4077,6 +8695,300 @@ export type Subscription_RootChannels_Stats_By_PkArgs = {
   client_id: Scalars['String'];
   connection_id: Scalars['String'];
   zone: Scalars['String'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_RelationsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Relations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Relations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Relations_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Relations_By_PkArgs = {
+  blockchain_source: Scalars['String'];
+  blockchain_target: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Stats_By_PkArgs = {
+  blockchain: Scalars['String'];
+  timeframe: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Switched_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Switched_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Switched_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Switched_Stats_By_PkArgs = {
+  blockchain: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  timeframe: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Chart_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Chart_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Chart_Type_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Chart_Type_By_PkArgs = {
+  chart_type: Scalars['String'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Charts_By_PkArgs = {
+  blockchain: Scalars['String'];
+  chart_type: Scalars['String'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Switched_Chart_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Switched_Chart_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Switched_Chart_Type_By_PkArgs = {
+  chart_type: Scalars['String'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchain_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchain_Tf_Switched_Charts_By_PkArgs = {
+  blockchain: Scalars['String'];
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_BlockchainsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchains_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchains_Order_By>>;
+  where?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchains_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Blockchains_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Blockchains_Order_By>>;
+  where?: InputMaybe<Flat_Blockchains_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Blockchains_By_PkArgs = {
+  network_id: Scalars['String'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Channels_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Channels_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Channels_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Channels_Stats_Order_By>>;
+  where?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Channels_Stats_By_PkArgs = {
+  blockchain: Scalars['String'];
+  channel_id: Scalars['String'];
+  timeframe: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_TimeframesArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Timeframes_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Timeframes_Order_By>>;
+  where?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Timeframes_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Timeframes_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Timeframes_Order_By>>;
+  where?: InputMaybe<Flat_Timeframes_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Timeframes_By_PkArgs = {
+  timeframe_in_hours: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Total_Tf_Switched_Chart_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Total_Tf_Switched_Chart_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Chart_Type_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Chart_Type_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Total_Tf_Switched_Chart_Type_By_PkArgs = {
+  chart_type: Scalars['String'];
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Total_Tf_Switched_ChartsArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Total_Tf_Switched_Charts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Flat_Total_Tf_Switched_Charts_Order_By>>;
+  where?: InputMaybe<Flat_Total_Tf_Switched_Charts_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootFlat_Total_Tf_Switched_Charts_By_PkArgs = {
+  chart_type: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
+  point_index: Scalars['Int'];
+  timeframe: Scalars['Int'];
 };
 
 /** subscription root */
