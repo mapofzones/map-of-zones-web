@@ -32,5 +32,17 @@ export function useZonesListZoneDetails(): {
 
   const { data, loading } = useQuery(ZonesListZoneDetailsDocument, options);
 
-  return { data: data?.zoneDetails[0], loading };
+  const zoneDetails = data?.zoneDetails[0];
+
+  return {
+    data: zoneDetails && {
+      zone: zoneDetails.zone,
+      name: zoneDetails.name,
+      logoUrl: zoneDetails.logoUrl,
+      website: zoneDetails.website,
+      isZoneUpToDate: zoneDetails.isZoneUpToDate,
+      peersCount: zoneDetails.stats[0]?.peersCount,
+    },
+    loading,
+  };
 }

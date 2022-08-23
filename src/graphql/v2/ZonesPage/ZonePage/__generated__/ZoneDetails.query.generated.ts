@@ -9,8 +9,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 import { ZoneBaseInfoV2FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZonesListZoneDetailsQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
-  timeframe: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
+  timeframe: Types.Scalars['Int'];
 }>;
 
 export type ZonesListZoneDetailsQueryResult = {
@@ -22,10 +22,7 @@ export type ZonesListZoneDetailsQueryResult = {
     zone: string;
     logoUrl: string;
     name: string;
-    blockchain_switched_stats: Array<{
-      __typename?: 'flat_blockchain_switched_stats';
-      ibc_peers: number;
-    }>;
+    stats: Array<{ __typename?: 'flat_blockchain_switched_stats'; peersCount: number }>;
   }>;
 };
 
@@ -47,18 +44,18 @@ export const ZonesListZoneDetailsDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'timeframe' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'timeframe' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
           },
         },
       ],
@@ -72,18 +69,46 @@ export const ZonesListZoneDetailsDocument = {
             arguments: [
               {
                 kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: { kind: 'IntValue', value: '1' },
-              },
-              {
-                kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
                 value: {
                   kind: 'ObjectValue',
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'blockchain_switched_stats' },
+                      name: { kind: 'Name', value: 'network_id' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV2' } },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'isZoneUpToDate' },
+                  name: { kind: 'Name', value: 'is_synced' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'website' } },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'stats' },
+                  name: { kind: 'Name', value: 'blockchain_switched_stats' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -124,40 +149,16 @@ export const ZonesListZoneDetailsDocument = {
                         ],
                       },
                     },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'network_id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
-                          },
-                        ],
-                      },
-                    },
                   ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV2' } },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'isZoneUpToDate' },
-                  name: { kind: 'Name', value: 'is_synced' },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'website' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'blockchain_switched_stats' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'ibc_peers' } }],
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'peersCount' },
+                        name: { kind: 'Name', value: 'ibc_peers' },
+                      },
+                    ],
                   },
                 },
               ],
