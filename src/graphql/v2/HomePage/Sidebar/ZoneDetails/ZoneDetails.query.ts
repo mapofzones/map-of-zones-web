@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_BASE_INFO } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment';
+import { ZONE_BASE_INFO_V1 } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment';
 
 export const ZONE_DETAILS = gql`
-  ${ZONE_BASE_INFO}
+  ${ZONE_BASE_INFO_V1}
   query ZoneDetails($zone: String!) {
     zoneDetails: zones_stats(limit: 1, where: { zone: { _eq: $zone } }) {
-      ...ZoneBaseInfo
+      ...ZoneBaseInfoV1
       website
     }
   }

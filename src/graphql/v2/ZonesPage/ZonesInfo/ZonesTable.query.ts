@@ -1,15 +1,15 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_BASE_INFO } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment';
+import { ZONE_BASE_INFO_V1 } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment';
 
 export const ZONES_TABLE = gql`
-  ${ZONE_BASE_INFO}
+  ${ZONE_BASE_INFO_V1}
   query ZonesTable($period: Int!, $orderBy: zones_stats_order_by!, $isMainnet: Boolean!) {
     zonesTable: zones_stats(
       where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
       order_by: [$orderBy]
     ) {
-      ...ZoneBaseInfo
+      ...ZoneBaseInfoV1
       channelsCount: channels_num
       ibcActiveAddressesMainnetRatingDiff: ibc_active_addresses_mainnet_rating_diff
       ibcDauMainnet: ibc_active_addresses_mainnet
