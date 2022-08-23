@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
-import { ZonesListZoneDetailsDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZoneDetails.generated';
+import { ZonesListZoneDetailsDocument } from 'graphql/v1/ZonesPage/ZonePage/__generated__/ZoneDetails.query.generated';
 
 export interface ZonesListZoneDetails {
   zone: string;

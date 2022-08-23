@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { ZoneOverviewActivityDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
+import { ZoneOverviewActivityDocument } from 'graphql/v1/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ChartItemByString, transformChartData } from 'utils/helper';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';

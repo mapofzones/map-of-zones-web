@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { ZonesTotalInfoDocument } from 'graphql/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.generated';
+import { ZonesTotalInfoDocument } from 'graphql/v1/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.query.generated';
 import { transformChartData } from 'utils/helper';
 
 export function useZonesTotalInfo(selectedPeriod: PeriodKeys, isMainnet = true) {

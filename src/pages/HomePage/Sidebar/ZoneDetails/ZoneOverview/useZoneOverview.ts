@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { SidebarZoneOverviewDocument } from 'graphql/HomePage/Sidebar/ZoneDetails/__generated__/ZoneOverview.query.generated';
+import { SidebarZoneOverviewDocument } from 'graphql/v1/HomePage/Sidebar/ZoneDetails/__generated__/ZoneOverview.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { transformChartData } from 'utils/helper';
 

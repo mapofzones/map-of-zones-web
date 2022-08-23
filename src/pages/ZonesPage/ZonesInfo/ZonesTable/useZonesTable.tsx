@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import { PERIODS_IN_HOURS_BY_KEY, PeriodKeys } from 'components';
 import { Zones_Stats_Select_Column } from 'graphql/base-types';
-import { ZonesTableDocument } from 'graphql/ZonesPage/ZonesInfo/__generated__/ZonesTable.generated';
+import { ZonesTableDocument } from 'graphql/v1/ZonesPage/ZonesInfo/__generated__/ZonesTable.query.generated';
 
 import { ZoneData } from './TableRow/TableRow.props';
 
