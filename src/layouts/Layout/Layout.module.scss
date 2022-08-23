@@ -1,7 +1,9 @@
 .wrapper {
   display: flex;
   flex-flow: column;
+  max-width: 1440px;
   height: 100%;
+  margin: auto;
 
   header {
     flex: 0 1 auto;
