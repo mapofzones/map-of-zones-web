@@ -6,18 +6,17 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneBaseInfoV1FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
+import { ZoneBaseInfoV2FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZonesDataQueryVariables = Types.Exact<{
-  period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
 }>;
 
 export type ZonesDataQueryResult = {
   __typename?: 'query_root';
   zonesData: Array<{
-    __typename?: 'zones_stats';
+    __typename?: 'flat_blockchains';
     zone: string;
-    logoUrl?: string | null;
+    logoUrl: string;
     name: string;
   }>;
 };
@@ -30,14 +29,6 @@ export const ZonesDataDocument = {
       operation: 'query',
       name: { kind: 'Name', value: 'ZonesData' },
       variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-          },
-        },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
@@ -53,7 +44,7 @@ export const ZonesDataDocument = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'zonesData' },
-            name: { kind: 'Name', value: 'zones_stats' },
+            name: { kind: 'Name', value: 'flat_blockchains' },
             arguments: [
               {
                 kind: 'Argument',
@@ -63,21 +54,7 @@ export const ZonesDataDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'timeframe' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_zone_mainnet' },
+                      name: { kind: 'Name', value: 'is_mainnet' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -96,13 +73,13 @@ export const ZonesDataDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV1' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV2' } },
               ],
             },
           },
         ],
       },
     },
-    ...ZoneBaseInfoV1FragmentDoc.definitions,
+    ...ZoneBaseInfoV2FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonesDataQueryResult, ZonesDataQueryVariables>;

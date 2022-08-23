@@ -9,7 +9,6 @@ import {
   PeriodSelector,
   ZoneLogo,
 } from 'components';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { EarthIcon } from 'icons';
 
 import { useZonesData } from './useZonesData';
@@ -22,11 +21,9 @@ export function ZonePage() {
 
   const [isSearchVisible, setSearchVisible] = useState(false);
 
-  const [selectedPeriod] = useSelectedPeriod();
-
   const { data, loading } = useZonesListZoneDetails();
 
-  const { data: zonesList } = useZonesData(selectedPeriod);
+  const { data: zonesList } = useZonesData();
 
   const toggleSearch = () => setSearchVisible((prevState) => !prevState);
 

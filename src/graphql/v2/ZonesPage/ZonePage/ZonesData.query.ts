@@ -1,14 +1,12 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_BASE_INFO_V1 } from '../../common/Zone/ZoneBaseInfo.fragment';
+import { ZONE_BASE_INFO_V2 } from '../../common/Zone/ZoneBaseInfo.fragment';
 
-export const ZONES_DATA = gql`
-  ${ZONE_BASE_INFO_V1}
-  query ZonesData($period: Int!, $isMainnet: Boolean!) {
-    zonesData: zones_stats(
-      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
-    ) {
-      ...ZoneBaseInfoV1
+export const ZONES_DATA_V2 = gql`
+  ${ZONE_BASE_INFO_V2}
+  query ZonesData($isMainnet: Boolean!) {
+    zonesData: flat_blockchains(where: { is_mainnet: { _eq: $isMainnet } }) {
+      ...ZoneBaseInfoV2
     }
   }
 `;
