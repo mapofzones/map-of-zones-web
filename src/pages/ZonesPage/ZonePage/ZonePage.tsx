@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { Outlet, useLocation } from 'react-router-dom';
 
@@ -9,8 +9,9 @@ import {
   PeriodSelector,
   ZoneLogo,
 } from 'components';
+import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { EarthIcon } from 'icons';
+import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'icons';
 
 import { useZonesData } from './useZonesData';
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';
@@ -20,7 +21,11 @@ import { ZonesSelector } from './ZonesSelector/ZonesSelector';
 export function ZonePage() {
   const location = useLocation();
 
-  const [isSearchVisible, setSearchVisible] = useState(false);
+  const {
+    ref,
+    isVisible: isSearchVisible,
+    setIsVisible: setSearchVisible,
+  } = useComponentVisible<HTMLDivElement>(false);
 
   const [selectedPeriod] = useSelectedPeriod();
 
@@ -28,15 +33,15 @@ export function ZonePage() {
 
   const { data: zonesList } = useZonesData(selectedPeriod);
 
-  const toggleSearch = () => setSearchVisible((prevState) => !prevState);
+  const toggleSearch = () => setSearchVisible(!isSearchVisible);
 
-  useEffect(() => setSearchVisible(false), [location]);
+  useEffect(() => setSearchVisible(false), [location, setSearchVisible]);
 
   return (
     <div>
       <div className={styles.header}>
-        <div>
-          <div className={styles.detailsTitle}>
+        <div ref={ref}>
+          <div className={styles.detailsTitle} onClick={toggleSearch}>
             <ZoneLogo
               logoUrl={data?.logoUrl}
               name={data?.name}
@@ -45,19 +50,23 @@ export function ZonePage() {
               className={styles.zoneLogo}
             />
             <span className={styles.zoneName}>{data?.name}</span>
-            <AnimatedArrowDown
-              className={styles.arrowContainer}
-              isReverted={isSearchVisible}
-              onClick={toggleSearch}
-            />
+            <AnimatedArrowDown className={styles.arrowContainer} isReverted={isSearchVisible} />
           </div>
-          <span className={styles.zoneWebsite}>
+          <div className={styles.zoneLinks}>
             {data?.website && (
               <ExternalLink Icon={EarthIcon} href={data.website}>
                 {data.website}
               </ExternalLink>
             )}
-          </span>
+
+            {data?.telegram && <ExternalLink Icon={TgLogo} href={data.telegram} />}
+
+            {data?.twitter && <ExternalLink Icon={TwitterLogo} href={data.twitter} />}
+
+            {data?.git && <ExternalLink Icon={GithubLogo} href={data.git} />}
+          </div>
+
+          {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
         </div>
 
         <div className={styles.navigationButtonsContainer}>
@@ -71,8 +80,6 @@ export function ZonePage() {
 
         <PeriodSelector />
       </div>
-
-      {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
 
       <Outlet />
     </div>

@@ -8,6 +8,8 @@
     display: flex;
     align-items: center;
 
+    cursor: pointer;
+
     .zoneLogo {
       margin-right: 12px;
     }
@@ -26,15 +28,16 @@
 
     margin-left: 12px;
 
-    cursor: pointer;
-
     svg {
       stroke: var(--white);
     }
   }
 
-  .zoneWebsite {
-    display: flex;
+  .zoneLinks {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 8px;
+    align-items: center;
     margin-top: 9px;
 
     color: var(--grey-500);
