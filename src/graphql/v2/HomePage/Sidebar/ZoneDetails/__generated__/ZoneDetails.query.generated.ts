@@ -6,7 +6,7 @@
 import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneBaseInfoV1FragmentDoc } from '../../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
+import { ZoneBaseInfoV2FragmentDoc } from '../../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZoneDetailsQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
 }>;
@@ -14,10 +14,10 @@ export type ZoneDetailsQueryVariables = Types.Exact<{
 export type ZoneDetailsQueryResult = {
   __typename?: 'query_root';
   zoneDetails: Array<{
-    __typename?: 'zones_stats';
-    website?: string | null;
+    __typename?: 'flat_blockchains';
+    website: string;
     zone: string;
-    logoUrl?: string | null;
+    logoUrl: string;
     name: string;
   }>;
 };
@@ -45,7 +45,7 @@ export const ZoneDetailsDocument = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'zoneDetails' },
-            name: { kind: 'Name', value: 'zones_stats' },
+            name: { kind: 'Name', value: 'flat_blockchains' },
             arguments: [
               {
                 kind: 'Argument',
@@ -60,7 +60,7 @@ export const ZoneDetailsDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'zone' },
+                      name: { kind: 'Name', value: 'network_id' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -79,7 +79,7 @@ export const ZoneDetailsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV1' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV2' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'website' } },
               ],
             },
@@ -87,6 +87,6 @@ export const ZoneDetailsDocument = {
         ],
       },
     },
-    ...ZoneBaseInfoV1FragmentDoc.definitions,
+    ...ZoneBaseInfoV2FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZoneDetailsQueryResult, ZoneDetailsQueryVariables>;

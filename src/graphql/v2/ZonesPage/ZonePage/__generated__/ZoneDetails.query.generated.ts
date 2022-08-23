@@ -6,21 +6,26 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneBaseInfoV1FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
+import { ZoneBaseInfoV2FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZonesListZoneDetailsQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
+  timeframe: Types.Scalars['Int'];
+  isMainnet: Types.Scalars['Boolean'];
 }>;
 
 export type ZonesListZoneDetailsQueryResult = {
   __typename?: 'query_root';
   zoneDetails: Array<{
-    __typename?: 'zones_stats';
-    website?: string | null;
-    zone: string;
+    __typename?: 'flat_blockchains';
+    website: string;
     isZoneUpToDate?: boolean | null;
-    peersCount?: number | null;
-    logoUrl?: string | null;
+    zone: string;
+    logoUrl: string;
     name: string;
+    blockchain_switched_stats: Array<{
+      __typename?: 'flat_blockchain_switched_stats';
+      ibc_peers: number;
+    }>;
   }>;
 };
 
@@ -40,6 +45,22 @@ export const ZonesListZoneDetailsDocument = {
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'timeframe' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+          },
+        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -47,7 +68,7 @@ export const ZonesListZoneDetailsDocument = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'zoneDetails' },
-            name: { kind: 'Name', value: 'zones_stats' },
+            name: { kind: 'Name', value: 'flat_blockchains' },
             arguments: [
               {
                 kind: 'Argument',
@@ -62,7 +83,50 @@ export const ZonesListZoneDetailsDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'zone' },
+                      name: { kind: 'Name', value: 'blockchain_switched_stats' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'is_mainnet' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'isMainnet' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'timeframe' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'timeframe' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'network_id' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -81,24 +145,27 @@ export const ZonesListZoneDetailsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV1' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV2' } },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'isZoneUpToDate' },
-                  name: { kind: 'Name', value: 'is_zone_up_to_date' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'peersCount' },
-                  name: { kind: 'Name', value: 'ibc_peers_mainnet' },
+                  name: { kind: 'Name', value: 'is_synced' },
                 },
                 { kind: 'Field', name: { kind: 'Name', value: 'website' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'blockchain_switched_stats' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'ibc_peers' } }],
+                  },
+                },
               ],
             },
           },
         ],
       },
     },
-    ...ZoneBaseInfoV1FragmentDoc.definitions,
+    ...ZoneBaseInfoV2FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonesListZoneDetailsQueryResult, ZonesListZoneDetailsQueryVariables>;
