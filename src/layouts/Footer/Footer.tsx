@@ -53,7 +53,9 @@ function Footer({ ...props }): JSX.Element {
         />
       </div>
       <div className={styles.notListedBlock}>
-        <ExternalLink>Not listed?</ExternalLink>
+        <ExternalLink href="https://docs.google.com/forms/d/e/1FAIpQLSczp-YbmECgX3_DsycgHVsZiJlQZLhB46jFfchQKPxiwFR4ig/viewform?usp=sf_link">
+          Not listed?
+        </ExternalLink>
       </div>
     </footer>
   );
