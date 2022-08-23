@@ -6,7 +6,7 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneBaseInfoFragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
+import { ZoneBaseInfoV1FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZonesTableQueryVariables = Types.Exact<{
   period: Types.Scalars['Int'];
   orderBy: Types.Zones_Stats_Order_By;
@@ -133,7 +133,7 @@ export const ZonesTableDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfo' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV1' } },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'channelsCount' },
@@ -240,6 +240,6 @@ export const ZonesTableDocument = {
         ],
       },
     },
-    ...ZoneBaseInfoFragmentDoc.definitions,
+    ...ZoneBaseInfoV1FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonesTableQueryResult, ZonesTableQueryVariables>;

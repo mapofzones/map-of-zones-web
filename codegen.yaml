@@ -8,7 +8,7 @@ definitions:
 
 schema: https://api.mapofzones.com/v1/graphql
 overwrite: true
-documents: 'src/**/!(*.generated).{graphql,tsx,ts}'
+documents: 'src/graphql/v2/**/!(*.generated).{graphql,tsx,ts}'
 hooks:
   afterAllFileWrite:
     - prettier --write

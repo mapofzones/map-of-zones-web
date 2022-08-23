@@ -6,7 +6,7 @@
 import * as Types from '../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneBaseInfoFragmentDoc } from '../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
+import { ZoneBaseInfoV1FragmentDoc } from '../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 import { ZoneIbcVolumeStatsFragmentDoc } from '../Sidebar/ZonesInfo/__generated__/ZoneIbcVolumeStats.fragment.generated';
 import { ZoneIbcTransfersStatsFragmentDoc } from '../Sidebar/ZonesInfo/__generated__/ZoneIbcTransfersStats.fragment.generated';
 import { ZoneTotalTxsStatsFragmentDoc } from '../Sidebar/ZonesInfo/__generated__/ZoneTotalTxsStats.fragment.generated';
@@ -154,7 +154,7 @@ export const ZonesTableDataDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfo' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV1' } },
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'ZoneIbcVolumeStats' },
@@ -218,7 +218,7 @@ export const ZonesTableDataDocument = {
         ],
       },
     },
-    ...ZoneBaseInfoFragmentDoc.definitions,
+    ...ZoneBaseInfoV1FragmentDoc.definitions,
     ...ZoneIbcVolumeStatsFragmentDoc.definitions,
     ...ZoneIbcTransfersStatsFragmentDoc.definitions,
     ...ZoneTotalTxsStatsFragmentDoc.definitions,

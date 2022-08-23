@@ -6,19 +6,26 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type ZoneBaseInfoFragment = {
+export type ZoneBaseInfoV1Fragment = {
   __typename?: 'zones_stats';
   zone: string;
   logoUrl?: string | null;
   name: string;
 };
 
-export const ZoneBaseInfoFragmentDoc = {
+export type ZoneBaseInfoV2Fragment = {
+  __typename?: 'flat_blockchains';
+  zone: string;
+  logoUrl: string;
+  name: string;
+};
+
+export const ZoneBaseInfoV1FragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'ZoneBaseInfo' },
+      name: { kind: 'Name', value: 'ZoneBaseInfoV1' },
       typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'zones_stats' } },
       selectionSet: {
         kind: 'SelectionSet',
@@ -38,4 +45,34 @@ export const ZoneBaseInfoFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<ZoneBaseInfoFragment, unknown>;
+} as unknown as DocumentNode<ZoneBaseInfoV1Fragment, unknown>;
+export const ZoneBaseInfoV2FragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ZoneBaseInfoV2' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'flat_blockchains' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'zone' },
+            name: { kind: 'Name', value: 'network_id' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'logoUrl' },
+            name: { kind: 'Name', value: 'logo_url' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'name' },
+            name: { kind: 'Name', value: 'name' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ZoneBaseInfoV2Fragment, unknown>;
