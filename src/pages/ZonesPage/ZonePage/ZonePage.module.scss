@@ -4,47 +4,51 @@
   justify-content: space-between;
   margin: 32px 24px 40px;
 
-  .detailsTitle {
-    display: flex;
-    align-items: center;
-
-    cursor: pointer;
-
-    .zoneLogo {
-      margin-right: 12px;
-    }
-
-    .zoneName {
-      color: var(--white);
-      font-weight: 400;
-      font-size: var(--font-heading-size-lg);
-      font-style: normal;
-    }
-  }
-
-  .arrowContainer {
+  .zoneInfoWithFilterContainer {
     position: relative;
-    top: 3px;
 
-    margin-left: 12px;
+    .detailsTitle {
+      display: flex;
+      align-items: center;
 
-    svg {
-      stroke: var(--white);
+      cursor: pointer;
+
+      .zoneLogo {
+        margin-right: 12px;
+      }
+
+      .zoneName {
+        color: var(--white);
+        font-weight: 400;
+        font-size: var(--font-heading-size-lg);
+        font-style: normal;
+      }
+
+      .arrowContainer {
+        position: relative;
+        top: 3px;
+
+        margin-left: 12px;
+
+        svg {
+          stroke: var(--white);
+        }
+      }
     }
-  }
 
-  .zoneLinks {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    gap: 8px;
-    align-items: center;
-    margin-top: 9px;
+    .zoneLinks {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 8px;
+      align-items: center;
+      margin-top: 9px;
 
-    color: var(--grey-500);
-    font-weight: 400;
-    font-size: var(--font-base-size-md);
-    font-style: normal;
-    font-feature-settings: 'tnum' on, 'lnum' on;
+      color: var(--grey-500);
+      font-weight: 400;
+      font-size: var(--font-base-size-md);
+      font-style: normal;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+    }
   }
 
   .navigationButtonsContainer {
