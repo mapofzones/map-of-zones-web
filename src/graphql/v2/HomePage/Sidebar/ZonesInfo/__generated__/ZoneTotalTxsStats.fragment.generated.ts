@@ -6,19 +6,25 @@
 import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type ZoneTotalTxsStatsFragment = {
+export type ZoneTotalTxsStatsV1Fragment = {
   __typename?: 'zones_stats';
   totalTxs?: number | null;
   totalTxsRating?: number | null;
   totalTxsRatingDiff?: number | null;
 };
 
-export const ZoneTotalTxsStatsFragmentDoc = {
+export type ZoneTotalTxsStatsV2Fragment = {
+  __typename?: 'flat_blockchain_switched_stats';
+  totalTxsRating: number;
+  totalTxsRatingDiff: number;
+};
+
+export const ZoneTotalTxsStatsV1FragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'ZoneTotalTxsStats' },
+      name: { kind: 'Name', value: 'ZoneTotalTxsStatsV1' },
       typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'zones_stats' } },
       selectionSet: {
         kind: 'SelectionSet',
@@ -42,4 +48,32 @@ export const ZoneTotalTxsStatsFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<ZoneTotalTxsStatsFragment, unknown>;
+} as unknown as DocumentNode<ZoneTotalTxsStatsV1Fragment, unknown>;
+export const ZoneTotalTxsStatsV2FragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ZoneTotalTxsStatsV2' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'flat_blockchain_switched_stats' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'totalTxsRating' },
+            name: { kind: 'Name', value: 'txs_rating' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'totalTxsRatingDiff' },
+            name: { kind: 'Name', value: 'txs_rating_diff' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ZoneTotalTxsStatsV2Fragment, unknown>;

@@ -6,7 +6,7 @@
 import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type ZoneIbcTransfersStatsFragment = {
+export type ZoneIbcTransfersStatsV1Fragment = {
   __typename?: 'zones_stats';
   ibcTransfers?: number | null;
   ibcTransfersPending?: number | null;
@@ -14,12 +14,20 @@ export type ZoneIbcTransfersStatsFragment = {
   ibcTransfersRatingDiff?: number | null;
 };
 
-export const ZoneIbcTransfersStatsFragmentDoc = {
+export type ZoneIbcTransfersStatsV2Fragment = {
+  __typename?: 'flat_blockchain_switched_stats';
+  ibcTransfers: number;
+  ibcTransfersPending: number;
+  ibcTransfersRating: number;
+  ibcTransfersRatingDiff: number;
+};
+
+export const ZoneIbcTransfersStatsV1FragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'ZoneIbcTransfersStats' },
+      name: { kind: 'Name', value: 'ZoneIbcTransfersStatsV1' },
       typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'zones_stats' } },
       selectionSet: {
         kind: 'SelectionSet',
@@ -48,4 +56,42 @@ export const ZoneIbcTransfersStatsFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<ZoneIbcTransfersStatsFragment, unknown>;
+} as unknown as DocumentNode<ZoneIbcTransfersStatsV1Fragment, unknown>;
+export const ZoneIbcTransfersStatsV2FragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ZoneIbcTransfersStatsV2' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'flat_blockchain_switched_stats' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcTransfers' },
+            name: { kind: 'Name', value: 'ibc_transfers' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcTransfersPending' },
+            name: { kind: 'Name', value: 'ibc_transfers_pending' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcTransfersRating' },
+            name: { kind: 'Name', value: 'ibc_transfers_rating' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcTransfersRatingDiff' },
+            name: { kind: 'Name', value: 'ibc_transfers_rating_diff' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ZoneIbcTransfersStatsV2Fragment, unknown>;

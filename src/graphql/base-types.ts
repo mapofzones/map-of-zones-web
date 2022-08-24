@@ -728,7 +728,6 @@ export type Flat_Blockchain_Relations = {
   ibc_transfers_diff: Scalars['Int'];
   ibc_transfers_failed: Scalars['Int'];
   ibc_transfers_pending: Scalars['Int'];
-  is_mainnet: Scalars['Boolean'];
   source_to_target_ibc_cashflow: Scalars['bigint'];
   source_to_target_ibc_transfers: Scalars['Int'];
   target_to_source_ibc_cashflow: Scalars['bigint'];
@@ -831,7 +830,6 @@ export type Flat_Blockchain_Relations_Bool_Exp = {
   ibc_transfers_diff?: InputMaybe<Int_Comparison_Exp>;
   ibc_transfers_failed?: InputMaybe<Int_Comparison_Exp>;
   ibc_transfers_pending?: InputMaybe<Int_Comparison_Exp>;
-  is_mainnet?: InputMaybe<Boolean_Comparison_Exp>;
   source_to_target_ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
   source_to_target_ibc_transfers?: InputMaybe<Int_Comparison_Exp>;
   target_to_source_ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
@@ -927,7 +925,6 @@ export type Flat_Blockchain_Relations_Order_By = {
   ibc_transfers_diff?: InputMaybe<Order_By>;
   ibc_transfers_failed?: InputMaybe<Order_By>;
   ibc_transfers_pending?: InputMaybe<Order_By>;
-  is_mainnet?: InputMaybe<Order_By>;
   source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
   source_to_target_ibc_transfers?: InputMaybe<Order_By>;
   target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
@@ -940,7 +937,6 @@ export type Flat_Blockchain_Relations_Order_By = {
 export type Flat_Blockchain_Relations_Pk_Columns_Input = {
   blockchain_source: Scalars['String'];
   blockchain_target: Scalars['String'];
-  is_mainnet: Scalars['Boolean'];
   timeframe: Scalars['Int'];
 };
 
@@ -964,8 +960,6 @@ export const enum Flat_Blockchain_Relations_Select_Column {
   IbcTransfersFailed = 'ibc_transfers_failed',
   /** column name */
   IbcTransfersPending = 'ibc_transfers_pending',
-  /** column name */
-  IsMainnet = 'is_mainnet',
   /** column name */
   SourceToTargetIbcCashflow = 'source_to_target_ibc_cashflow',
   /** column name */
@@ -1219,6 +1213,8 @@ export type Flat_Blockchain_Stats = {
   blockchain_tf_charts: Array<Flat_Blockchain_Tf_Charts>;
   /** An aggregated array relationship */
   blockchain_tf_charts_aggregate: Flat_Blockchain_Tf_Charts_Aggregate;
+  ibc_active_addresses_cnt: Scalars['Int'];
+  ibc_active_addresses_cnt_diff: Scalars['Int'];
   timeframe: Scalars['Int'];
   /** An object relationship */
   timeframeByTimeframe: Flat_Timeframes;
@@ -1291,6 +1287,8 @@ export type Flat_Blockchain_Stats_Aggregate_Order_By = {
 /** aggregate avg on columns */
 export type Flat_Blockchain_Stats_Avg_Fields = {
   __typename?: 'flat_blockchain_stats_avg_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   timeframe?: Maybe<Scalars['Float']>;
   txs?: Maybe<Scalars['Float']>;
   txs_diff?: Maybe<Scalars['Float']>;
@@ -1298,6 +1296,8 @@ export type Flat_Blockchain_Stats_Avg_Fields = {
 
 /** order by avg() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Avg_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1311,6 +1311,8 @@ export type Flat_Blockchain_Stats_Bool_Exp = {
   blockchain?: InputMaybe<String_Comparison_Exp>;
   blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Bool_Exp>;
   blockchain_tf_charts?: InputMaybe<Flat_Blockchain_Tf_Charts_Bool_Exp>;
+  ibc_active_addresses_cnt?: InputMaybe<Int_Comparison_Exp>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Int_Comparison_Exp>;
   timeframe?: InputMaybe<Int_Comparison_Exp>;
   timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Bool_Exp>;
   txs?: InputMaybe<Int_Comparison_Exp>;
@@ -1321,6 +1323,8 @@ export type Flat_Blockchain_Stats_Bool_Exp = {
 export type Flat_Blockchain_Stats_Max_Fields = {
   __typename?: 'flat_blockchain_stats_max_fields';
   blockchain?: Maybe<Scalars['String']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
   timeframe?: Maybe<Scalars['Int']>;
   txs?: Maybe<Scalars['Int']>;
   txs_diff?: Maybe<Scalars['Int']>;
@@ -1329,6 +1333,8 @@ export type Flat_Blockchain_Stats_Max_Fields = {
 /** order by max() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Max_Order_By = {
   blockchain?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1338,6 +1344,8 @@ export type Flat_Blockchain_Stats_Max_Order_By = {
 export type Flat_Blockchain_Stats_Min_Fields = {
   __typename?: 'flat_blockchain_stats_min_fields';
   blockchain?: Maybe<Scalars['String']>;
+  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
   timeframe?: Maybe<Scalars['Int']>;
   txs?: Maybe<Scalars['Int']>;
   txs_diff?: Maybe<Scalars['Int']>;
@@ -1346,6 +1354,8 @@ export type Flat_Blockchain_Stats_Min_Fields = {
 /** order by min() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Min_Order_By = {
   blockchain?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1356,6 +1366,8 @@ export type Flat_Blockchain_Stats_Order_By = {
   blockchain?: InputMaybe<Order_By>;
   blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Order_By>;
   blockchain_tf_charts_aggregate?: InputMaybe<Flat_Blockchain_Tf_Charts_Aggregate_Order_By>;
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   timeframeByTimeframe?: InputMaybe<Flat_Timeframes_Order_By>;
   txs?: InputMaybe<Order_By>;
@@ -1373,6 +1385,10 @@ export const enum Flat_Blockchain_Stats_Select_Column {
   /** column name */
   Blockchain = 'blockchain',
   /** column name */
+  IbcActiveAddressesCnt = 'ibc_active_addresses_cnt',
+  /** column name */
+  IbcActiveAddressesCntDiff = 'ibc_active_addresses_cnt_diff',
+  /** column name */
   Timeframe = 'timeframe',
   /** column name */
   Txs = 'txs',
@@ -1383,6 +1399,8 @@ export const enum Flat_Blockchain_Stats_Select_Column {
 /** aggregate stddev on columns */
 export type Flat_Blockchain_Stats_Stddev_Fields = {
   __typename?: 'flat_blockchain_stats_stddev_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   timeframe?: Maybe<Scalars['Float']>;
   txs?: Maybe<Scalars['Float']>;
   txs_diff?: Maybe<Scalars['Float']>;
@@ -1390,6 +1408,8 @@ export type Flat_Blockchain_Stats_Stddev_Fields = {
 
 /** order by stddev() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Stddev_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1398,6 +1418,8 @@ export type Flat_Blockchain_Stats_Stddev_Order_By = {
 /** aggregate stddev_pop on columns */
 export type Flat_Blockchain_Stats_Stddev_Pop_Fields = {
   __typename?: 'flat_blockchain_stats_stddev_pop_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   timeframe?: Maybe<Scalars['Float']>;
   txs?: Maybe<Scalars['Float']>;
   txs_diff?: Maybe<Scalars['Float']>;
@@ -1405,6 +1427,8 @@ export type Flat_Blockchain_Stats_Stddev_Pop_Fields = {
 
 /** order by stddev_pop() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Stddev_Pop_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1413,6 +1437,8 @@ export type Flat_Blockchain_Stats_Stddev_Pop_Order_By = {
 /** aggregate stddev_samp on columns */
 export type Flat_Blockchain_Stats_Stddev_Samp_Fields = {
   __typename?: 'flat_blockchain_stats_stddev_samp_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   timeframe?: Maybe<Scalars['Float']>;
   txs?: Maybe<Scalars['Float']>;
   txs_diff?: Maybe<Scalars['Float']>;
@@ -1420,6 +1446,8 @@ export type Flat_Blockchain_Stats_Stddev_Samp_Fields = {
 
 /** order by stddev_samp() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Stddev_Samp_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1428,6 +1456,8 @@ export type Flat_Blockchain_Stats_Stddev_Samp_Order_By = {
 /** aggregate sum on columns */
 export type Flat_Blockchain_Stats_Sum_Fields = {
   __typename?: 'flat_blockchain_stats_sum_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
   timeframe?: Maybe<Scalars['Int']>;
   txs?: Maybe<Scalars['Int']>;
   txs_diff?: Maybe<Scalars['Int']>;
@@ -1435,6 +1465,8 @@ export type Flat_Blockchain_Stats_Sum_Fields = {
 
 /** order by sum() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Sum_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1443,6 +1475,8 @@ export type Flat_Blockchain_Stats_Sum_Order_By = {
 /** aggregate var_pop on columns */
 export type Flat_Blockchain_Stats_Var_Pop_Fields = {
   __typename?: 'flat_blockchain_stats_var_pop_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   timeframe?: Maybe<Scalars['Float']>;
   txs?: Maybe<Scalars['Float']>;
   txs_diff?: Maybe<Scalars['Float']>;
@@ -1450,6 +1484,8 @@ export type Flat_Blockchain_Stats_Var_Pop_Fields = {
 
 /** order by var_pop() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Var_Pop_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1458,6 +1494,8 @@ export type Flat_Blockchain_Stats_Var_Pop_Order_By = {
 /** aggregate var_samp on columns */
 export type Flat_Blockchain_Stats_Var_Samp_Fields = {
   __typename?: 'flat_blockchain_stats_var_samp_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   timeframe?: Maybe<Scalars['Float']>;
   txs?: Maybe<Scalars['Float']>;
   txs_diff?: Maybe<Scalars['Float']>;
@@ -1465,6 +1503,8 @@ export type Flat_Blockchain_Stats_Var_Samp_Fields = {
 
 /** order by var_samp() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Var_Samp_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1473,6 +1513,8 @@ export type Flat_Blockchain_Stats_Var_Samp_Order_By = {
 /** aggregate variance on columns */
 export type Flat_Blockchain_Stats_Variance_Fields = {
   __typename?: 'flat_blockchain_stats_variance_fields';
+  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
+  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   timeframe?: Maybe<Scalars['Float']>;
   txs?: Maybe<Scalars['Float']>;
   txs_diff?: Maybe<Scalars['Float']>;
@@ -1480,6 +1522,8 @@ export type Flat_Blockchain_Stats_Variance_Fields = {
 
 /** order by variance() on columns of table "flat.blockchain_stats" */
 export type Flat_Blockchain_Stats_Variance_Order_By = {
+  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
+  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   timeframe?: InputMaybe<Order_By>;
   txs?: InputMaybe<Order_By>;
   txs_diff?: InputMaybe<Order_By>;
@@ -1496,8 +1540,6 @@ export type Flat_Blockchain_Switched_Stats = {
   /** An aggregated array relationship */
   blockchain_tf_switched_charts_aggregate: Flat_Blockchain_Tf_Switched_Charts_Aggregate;
   channels_cnt: Scalars['Int'];
-  ibc_active_addresses_cnt: Scalars['Int'];
-  ibc_active_addresses_cnt_diff: Scalars['Int'];
   ibc_active_addresses_cnt_rating: Scalars['Int'];
   ibc_active_addresses_cnt_rating_diff: Scalars['Int'];
   ibc_active_addresses_cnt_weight: Scalars['numeric'];
@@ -1604,8 +1646,6 @@ export type Flat_Blockchain_Switched_Stats_Aggregate_Order_By = {
 export type Flat_Blockchain_Switched_Stats_Avg_Fields = {
   __typename?: 'flat_blockchain_switched_stats_avg_fields';
   channels_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
@@ -1646,8 +1686,6 @@ export type Flat_Blockchain_Switched_Stats_Avg_Fields = {
 /** order by avg() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Avg_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -1694,8 +1732,6 @@ export type Flat_Blockchain_Switched_Stats_Bool_Exp = {
   blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Bool_Exp>;
   blockchain_tf_switched_charts?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Bool_Exp>;
   channels_cnt?: InputMaybe<Int_Comparison_Exp>;
-  ibc_active_addresses_cnt?: InputMaybe<Int_Comparison_Exp>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Int_Comparison_Exp>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Int_Comparison_Exp>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Int_Comparison_Exp>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Numeric_Comparison_Exp>;
@@ -1740,8 +1776,6 @@ export type Flat_Blockchain_Switched_Stats_Max_Fields = {
   __typename?: 'flat_blockchain_switched_stats_max_fields';
   blockchain?: Maybe<Scalars['String']>;
   channels_cnt?: Maybe<Scalars['Int']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['numeric']>;
@@ -1783,8 +1817,6 @@ export type Flat_Blockchain_Switched_Stats_Max_Fields = {
 export type Flat_Blockchain_Switched_Stats_Max_Order_By = {
   blockchain?: InputMaybe<Order_By>;
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -1827,8 +1859,6 @@ export type Flat_Blockchain_Switched_Stats_Min_Fields = {
   __typename?: 'flat_blockchain_switched_stats_min_fields';
   blockchain?: Maybe<Scalars['String']>;
   channels_cnt?: Maybe<Scalars['Int']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['numeric']>;
@@ -1870,8 +1900,6 @@ export type Flat_Blockchain_Switched_Stats_Min_Fields = {
 export type Flat_Blockchain_Switched_Stats_Min_Order_By = {
   blockchain?: InputMaybe<Order_By>;
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -1915,8 +1943,6 @@ export type Flat_Blockchain_Switched_Stats_Order_By = {
   blockchainByBlockchain?: InputMaybe<Flat_Blockchains_Order_By>;
   blockchain_tf_switched_charts_aggregate?: InputMaybe<Flat_Blockchain_Tf_Switched_Charts_Aggregate_Order_By>;
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -1969,10 +1995,6 @@ export const enum Flat_Blockchain_Switched_Stats_Select_Column {
   Blockchain = 'blockchain',
   /** column name */
   ChannelsCnt = 'channels_cnt',
-  /** column name */
-  IbcActiveAddressesCnt = 'ibc_active_addresses_cnt',
-  /** column name */
-  IbcActiveAddressesCntDiff = 'ibc_active_addresses_cnt_diff',
   /** column name */
   IbcActiveAddressesCntRating = 'ibc_active_addresses_cnt_rating',
   /** column name */
@@ -2051,8 +2073,6 @@ export const enum Flat_Blockchain_Switched_Stats_Select_Column {
 export type Flat_Blockchain_Switched_Stats_Stddev_Fields = {
   __typename?: 'flat_blockchain_switched_stats_stddev_fields';
   channels_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
@@ -2093,8 +2113,6 @@ export type Flat_Blockchain_Switched_Stats_Stddev_Fields = {
 /** order by stddev() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Stddev_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -2136,8 +2154,6 @@ export type Flat_Blockchain_Switched_Stats_Stddev_Order_By = {
 export type Flat_Blockchain_Switched_Stats_Stddev_Pop_Fields = {
   __typename?: 'flat_blockchain_switched_stats_stddev_pop_fields';
   channels_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
@@ -2178,8 +2194,6 @@ export type Flat_Blockchain_Switched_Stats_Stddev_Pop_Fields = {
 /** order by stddev_pop() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Stddev_Pop_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -2221,8 +2235,6 @@ export type Flat_Blockchain_Switched_Stats_Stddev_Pop_Order_By = {
 export type Flat_Blockchain_Switched_Stats_Stddev_Samp_Fields = {
   __typename?: 'flat_blockchain_switched_stats_stddev_samp_fields';
   channels_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
@@ -2263,8 +2275,6 @@ export type Flat_Blockchain_Switched_Stats_Stddev_Samp_Fields = {
 /** order by stddev_samp() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Stddev_Samp_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -2306,8 +2316,6 @@ export type Flat_Blockchain_Switched_Stats_Stddev_Samp_Order_By = {
 export type Flat_Blockchain_Switched_Stats_Sum_Fields = {
   __typename?: 'flat_blockchain_switched_stats_sum_fields';
   channels_cnt?: Maybe<Scalars['Int']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['numeric']>;
@@ -2348,8 +2356,6 @@ export type Flat_Blockchain_Switched_Stats_Sum_Fields = {
 /** order by sum() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Sum_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -2391,8 +2397,6 @@ export type Flat_Blockchain_Switched_Stats_Sum_Order_By = {
 export type Flat_Blockchain_Switched_Stats_Var_Pop_Fields = {
   __typename?: 'flat_blockchain_switched_stats_var_pop_fields';
   channels_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
@@ -2433,8 +2437,6 @@ export type Flat_Blockchain_Switched_Stats_Var_Pop_Fields = {
 /** order by var_pop() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Var_Pop_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -2476,8 +2478,6 @@ export type Flat_Blockchain_Switched_Stats_Var_Pop_Order_By = {
 export type Flat_Blockchain_Switched_Stats_Var_Samp_Fields = {
   __typename?: 'flat_blockchain_switched_stats_var_samp_fields';
   channels_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
@@ -2518,8 +2518,6 @@ export type Flat_Blockchain_Switched_Stats_Var_Samp_Fields = {
 /** order by var_samp() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Var_Samp_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -2561,8 +2559,6 @@ export type Flat_Blockchain_Switched_Stats_Var_Samp_Order_By = {
 export type Flat_Blockchain_Switched_Stats_Variance_Fields = {
   __typename?: 'flat_blockchain_switched_stats_variance_fields';
   channels_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Float']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_rating_diff?: Maybe<Scalars['Float']>;
   ibc_active_addresses_cnt_weight?: Maybe<Scalars['Float']>;
@@ -2603,8 +2599,6 @@ export type Flat_Blockchain_Switched_Stats_Variance_Fields = {
 /** order by variance() on columns of table "flat.blockchain_switched_stats" */
 export type Flat_Blockchain_Switched_Stats_Variance_Order_By = {
   channels_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt?: InputMaybe<Order_By>;
-  ibc_active_addresses_cnt_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_rating_diff?: InputMaybe<Order_By>;
   ibc_active_addresses_cnt_weight?: InputMaybe<Order_By>;
@@ -8027,7 +8021,6 @@ export type Query_RootFlat_Blockchain_Relations_AggregateArgs = {
 export type Query_RootFlat_Blockchain_Relations_By_PkArgs = {
   blockchain_source: Scalars['String'];
   blockchain_target: Scalars['String'];
-  is_mainnet: Scalars['Boolean'];
   timeframe: Scalars['Int'];
 };
 
@@ -8719,7 +8712,6 @@ export type Subscription_RootFlat_Blockchain_Relations_AggregateArgs = {
 export type Subscription_RootFlat_Blockchain_Relations_By_PkArgs = {
   blockchain_source: Scalars['String'];
   blockchain_target: Scalars['String'];
-  is_mainnet: Scalars['Boolean'];
   timeframe: Scalars['Int'];
 };
 

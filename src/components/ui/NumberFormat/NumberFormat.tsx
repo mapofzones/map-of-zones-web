@@ -27,7 +27,7 @@ export function formatNumber(
   defaultValue = '-',
   currency = 'USD'
 ): string {
-  if (value === null) {
+  if (value === null || value === undefined) {
     return defaultValue;
   }
 

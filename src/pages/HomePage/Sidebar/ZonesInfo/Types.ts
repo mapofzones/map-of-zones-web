@@ -1,5 +1,5 @@
 import { DropdownOption, NumberType } from 'components';
-import { Zones_Stats_Select_Column } from 'graphql/base-types';
+import { Flat_Blockchain_Switched_Stats_Select_Column } from 'graphql/base-types';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
 export const COLUMN_OPTIONS: DropdownOption[] = [
@@ -21,19 +21,19 @@ export const METADATA: Record<
   ColumnKeys,
   {
     numberType: NumberType;
-    sortingColumnKey: Zones_Stats_Select_Column;
+    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column;
   }
 > = {
   [ColumnKeys.IbcVolume]: {
     numberType: NumberType.Currency,
-    sortingColumnKey: Zones_Stats_Select_Column.IbcCashflowMainnetRating,
+    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.IbcCashflowRating,
   },
   [ColumnKeys.IbcTransfers]: {
     numberType: NumberType.Number,
-    sortingColumnKey: Zones_Stats_Select_Column.IbcTransfersMainnetRating,
+    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.IbcTransfersRating,
   },
   [ColumnKeys.TotalTxs]: {
     numberType: NumberType.Number,
-    sortingColumnKey: Zones_Stats_Select_Column.TotalTxsMainnetRating,
+    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.TxsRating,
   },
 };
