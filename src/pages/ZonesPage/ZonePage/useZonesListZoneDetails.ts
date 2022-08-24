@@ -7,12 +7,15 @@ import { useMainnet } from 'hooks/useMainnet';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 export interface ZonesListZoneDetails {
-  zone: string;
+  git?: string | null;
   isZoneUpToDate?: boolean | null;
   logoUrl?: string | null;
   name: string;
   peersCount?: number | null;
+  telegram?: string | null;
+  twitter?: string | null;
   website?: string | null;
+  zone: string;
 }
 
 export function useZonesListZoneDetails(): {
