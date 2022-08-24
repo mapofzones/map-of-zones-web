@@ -18,7 +18,7 @@ export const ZONES_TABLE_DATA = gql`
     $withTransfers: Boolean!
     $withTotalTxs: Boolean!
   ) {
-    zonesTable: flat_blockchains {
+    zonesTable: flat_blockchains(where: { is_mainnet: { _eq: $isMainnet } }) {
       ...ZoneBaseInfoV2
       switchedStats: blockchain_switched_stats(
         where: { timeframe: { _eq: $period }, is_mainnet: { _eq: $isMainnet } }

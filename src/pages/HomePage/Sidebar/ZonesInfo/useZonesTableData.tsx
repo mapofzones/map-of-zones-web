@@ -27,7 +27,6 @@ export function useZonesTableData(
   };
 
   const { data, loading } = useQuery(ZonesTableDataDocument, options);
-  console.log(data);
 
   return {
     data:

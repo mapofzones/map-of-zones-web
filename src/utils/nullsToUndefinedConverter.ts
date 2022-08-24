@@ -16,7 +16,6 @@ export function nullsToUndefined<T>(obj: T): RecursivelyReplaceNullWithUndefined
   if ((obj as any).constructor.name === 'Object' || Array.isArray(obj)) {
     for (const key in obj) {
       if (isWritable(obj, key)) {
-        console.log(key);
         obj[key] = nullsToUndefined(obj[key]) as never;
       }
     }

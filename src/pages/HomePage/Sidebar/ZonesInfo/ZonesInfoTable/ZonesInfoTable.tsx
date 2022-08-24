@@ -51,24 +51,21 @@ function ZonesInfoTable({
       {!!searchValue && !filteredZones?.length && (
         <div className={styles.zonesNotFoundContainer}>No zones found.</div>
       )}
-      {filteredZones?.map((zone: ZonesTableDataQueryItem) => {
-        console.log(zone[fields.valueKey] as any);
-        return (
-          <ZoneInfoRow
-            key={zone.zone}
-            numberType={numberType}
-            searchValue={searchValue}
-            zone={{
-              id: zone.zone,
-              name: zone.name,
-              logoUrl: zone.logoUrl,
-              ratingDiff: zone[fields.ratingDiffKey] as any,
-              value: zone[fields.valueKey] as any,
-              pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as any),
-            }}
-          />
-        );
-      })}
+      {filteredZones?.map((zone: ZonesTableDataQueryItem) => (
+        <ZoneInfoRow
+          key={zone.zone}
+          numberType={numberType}
+          searchValue={searchValue}
+          zone={{
+            id: zone.zone,
+            name: zone.name,
+            logoUrl: zone.logoUrl,
+            ratingDiff: zone[fields.ratingDiffKey] as any,
+            value: zone[fields.valueKey] as any,
+            pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as any),
+          }}
+        />
+      ))}
     </div>
   );
 }
