@@ -3,20 +3,18 @@ import { useCallback, useState } from 'react';
 import { NodeObject } from 'react-force-graph-2d';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
+
 import { HoveredZoneKeyType, MapNode, SelectedZoneKeyType } from './../Types';
 
 export const useClearSelectedNode = (selectedZoneKey: SelectedZoneKeyType) => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const navigateWithSearchParams = useNavigateWithSearchParams();
 
   return useCallback(() => {
     if (selectedZoneKey) {
-      navigate({
-        pathname: '',
-        search: '?' + searchParams.toString(),
-      });
+      navigateWithSearchParams('');
     }
-  }, [selectedZoneKey, searchParams, navigate]);
+  }, [selectedZoneKey, navigateWithSearchParams]);
 };
 
 export const useHoveredZone = () => {

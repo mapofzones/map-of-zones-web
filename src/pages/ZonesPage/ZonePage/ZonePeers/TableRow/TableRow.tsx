@@ -11,7 +11,9 @@ import {
   ZoneLogo,
   ZoneStatus,
 } from 'components';
+import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
 import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';
@@ -20,6 +22,8 @@ import { TableRowProps } from './TableRow.props';
 
 export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: TableRowProps) {
   const isMobile = useMediaQuery('(max-width: 375px)');
+
+  const [selectedPeriod] = useSelectedPeriod();
 
   const [channelsConfig, setChannelsConfig] = useState({
     isChannelsVisible: false,
@@ -41,10 +45,20 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
   };
 
   const toggleChannelsVisibility = () => {
-    setChannelsConfig((prevState) => ({
-      isChannelsVisible: !prevState.isChannelsVisible,
-      isMoreChannelsVisible: false,
-    }));
+    setChannelsConfig((prevState) => {
+      const newIsChannelsVisible = !prevState.isChannelsVisible;
+
+      trackEvent(newIsChannelsVisible ? 'expanded peer' : 'folded peer', {
+        zone: parentZone.zone,
+        peer: zone.zoneCounterpartyKey,
+        period: selectedPeriod,
+      });
+
+      return {
+        isChannelsVisible: newIsChannelsVisible,
+        isMoreChannelsVisible: false,
+      };
+    });
   };
 
   const showMoreChannels = () =>

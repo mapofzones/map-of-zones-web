@@ -1,5 +1,6 @@
 import { Button, ExternalLink } from 'components';
 import { GithubLogo, TgLogo, TwitterLogo } from 'icons';
+import { ElementSize } from 'types/ElementSize';
 
 import styles from './Footer.module.scss';
 
@@ -11,10 +12,20 @@ function Footer({ ...props }): JSX.Element {
   return (
     <footer className={styles.container} {...props}>
       <div className={styles.shareButtonsBlock}>
-        <Button onClick={shareClick} className={styles.shareBtn} Icon={TgLogo}>
+        <Button
+          onClick={shareClick}
+          className={styles.shareBtn}
+          IconBefore={TgLogo}
+          size={ElementSize.SMALL}
+        >
           Share
         </Button>
-        <Button onClick={shareClick} className={styles.shareBtn} Icon={TwitterLogo}>
+        <Button
+          onClick={shareClick}
+          className={styles.shareBtn}
+          IconBefore={TwitterLogo}
+          size={ElementSize.SMALL}
+        >
           Tweet
         </Button>
       </div>
@@ -42,7 +53,9 @@ function Footer({ ...props }): JSX.Element {
         />
       </div>
       <div className={styles.notListedBlock}>
-        <ExternalLink>Not listed?</ExternalLink>
+        <ExternalLink href="https://docs.google.com/forms/d/e/1FAIpQLSczp-YbmECgX3_DsycgHVsZiJlQZLhB46jFfchQKPxiwFR4ig/viewform?usp=sf_link">
+          Not listed?
+        </ExternalLink>
       </div>
     </footer>
   );

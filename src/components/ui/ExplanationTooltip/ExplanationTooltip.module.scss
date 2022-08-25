@@ -17,6 +17,18 @@
     transform: translateX(calc(-100% + 20px));
   }
 
+  &.rightPos {
+    .tooltip {
+      transform: translateX(0);
+    }
+  }
+
+  &.centerPos {
+    .tooltip {
+      transform: translateX(calc(-50% + 10px));
+    }
+  }
+
   &:hover .tooltip {
     visibility: visible;
     opacity: 1;

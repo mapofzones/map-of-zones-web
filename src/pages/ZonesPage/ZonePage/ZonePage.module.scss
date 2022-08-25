@@ -11,13 +11,14 @@
       display: flex;
       align-items: center;
 
+      cursor: pointer;
+
       .zoneLogo {
         margin-right: 12px;
       }
 
       .zoneName {
-        font-size: 28px;
-        line-height: 35px;
+        font-size: var(--font-heading-size-lg);
       }
 
       .arrowContainer {
@@ -34,15 +35,15 @@
       }
     }
 
-    .zoneWebsite {
-      display: flex;
+    .zoneLinks {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 8px;
+      align-items: center;
       margin-top: 9px;
 
       color: var(--grey-500);
-      font-weight: 400;
-      font-size: 13px;
-      font-style: normal;
-      line-height: 16px;
+      font-size: var(--font-base-size-md);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }

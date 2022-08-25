@@ -34,17 +34,14 @@
 
       color: var(--grey-500);
       font-weight: 400;
-      font-size: 15px;
-      line-height: 19px;
+      font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .zoneName {
       overflow: hidden;
 
-      font-size: 15px;
-      line-height: 19px;
-      text-overflow: ellipsis;
+      font-size: var(--font-base-size-lg);
     }
 
     .value {

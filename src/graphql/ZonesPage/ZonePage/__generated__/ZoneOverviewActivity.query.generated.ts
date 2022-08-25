@@ -22,6 +22,7 @@ export type ZoneOverviewActivityQueryResult = {
     peersCount?: number | null;
     channelsCount?: number | null;
     ibcDauMainnet?: number | null;
+    ibcVolumeChart?: any | null;
     ibcVolumeMainnet?: any | null;
     ibcVolumeInMainnet?: any | null;
     ibcVolumeOutMainnet?: any | null;

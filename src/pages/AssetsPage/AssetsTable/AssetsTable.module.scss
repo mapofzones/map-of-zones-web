@@ -4,8 +4,7 @@
     justify-content: space-between;
     margin: 24px 24px 16px;
 
-    font-size: 20px;
-    line-height: 25px;
+    font-size: var(--font-heading-size-sm);
   }
 
   .table {
@@ -50,6 +49,7 @@
 
         &:nth-child(2) {
           left: 30px; // TODO: calculate dynamically
+
           min-width: 0;
           max-width: 150px;
           padding-left: 8px;

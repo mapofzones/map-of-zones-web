@@ -1,7 +1,10 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Button, ScrollableContainer } from 'components';
+import { ButtonType } from 'components/ui/Button/Button.props';
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { ArrowRight } from 'icons';
+import { ElementSize } from 'types/ElementSize';
 
 import { useZoneDetails } from '../useZoneDetails';
 import { useZonePeers } from './useZonePeers';
@@ -10,7 +13,7 @@ import { ZonePeersSkeleton } from './ZonePeersSkeleton';
 import { MemoizedZonePeersTable } from './ZonePeersTable/ZonePeersTable';
 
 export function ZonePeers() {
-  const navigate = useNavigate();
+  const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const { zone } = useParams();
 
@@ -21,7 +24,7 @@ export function ZonePeers() {
   const loading = peersLoading || zoneDetailsLoading;
 
   const onDetailedBtnClick = () => {
-    navigate(`/zones/${zone}/peers`);
+    navigateWithSearchParams(`/zones/${zone}/peers`);
   };
 
   return (
@@ -31,7 +34,12 @@ export function ZonePeers() {
         {!loading && <MemoizedZonePeersTable peers={peers} zoneDetails={zoneDetails} />}
       </ScrollableContainer>
 
-      <Button className={styles.detailedBtn} onClick={onDetailedBtnClick}>
+      <Button
+        className={styles.detailedBtn}
+        onClick={onDetailedBtnClick}
+        size={ElementSize.LARGE}
+        buttonType={ButtonType.SECONDARY}
+      >
         <span className={styles.btnText}>Learn More</span>
         <ArrowRight />
       </Button>

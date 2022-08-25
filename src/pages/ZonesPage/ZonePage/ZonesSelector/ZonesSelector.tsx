@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
-import { LinkWithQuery, ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
+import { ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 
 import styles from './ZonesSelector.module.scss';
@@ -31,13 +32,13 @@ export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX
         )}
 
         {filteredZones.map((zone) => (
-          <LinkWithQuery
+          <Link
             className={cn(styles.zone, { [styles.activeZone]: currentZone?.zone === zone.zone })}
             key={`zone_${zone.zone}`}
             to={`/zones/${zone.zone}/overview`}
           >
             <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
-          </LinkWithQuery>
+          </Link>
         ))}
       </ScrollableContainer>
     </div>

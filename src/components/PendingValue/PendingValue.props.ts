@@ -6,6 +6,7 @@ export interface PendingValueProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   alignRight?: boolean;
   className?: string;
+  compact?: boolean;
   numberType: NumberType;
   prefix?: string;
   suffix?: string;

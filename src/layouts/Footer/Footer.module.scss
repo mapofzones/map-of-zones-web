@@ -1,19 +1,18 @@
 .container {
   display: flex;
   align-items: flex-end;
-  width: 100vw;
+  width: 100%;
   padding: 0 16px 8px;
 
   color: var(--grey-500);
-  font-size: 11px;
-  line-height: 12px;
+  font-size: var(--font-secondary-size-sm);
 
   .shareButtonsBlock {
     display: flex;
     flex: 1;
     flex-direction: row;
 
-    font-size: 12px;
+    font-size: var(--font-secondary-size-md);
 
     .shareBtn:first-of-type {
       margin-right: 8px;
@@ -49,6 +48,7 @@
   .notListedBlock {
     grid-area: notListedBlock;
     padding-right: 0;
+    padding-left: 8px;
 
     border-right: none;
   }

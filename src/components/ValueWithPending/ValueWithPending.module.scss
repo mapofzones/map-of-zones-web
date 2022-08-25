@@ -1,15 +1,37 @@
 .container {
-  display: flex;
-  flex-direction: column;
+  .title {
+    display: inline-block;
+    margin-bottom: 8px;
 
-  font-size: 15px;
-  line-height: 19px;
-
-  &.rightAlign {
-    align-items: flex-end;
+    color: var(--grey-500);
+    font-size: var(--font-base-size-md);
   }
 
-  .pendingContainer {
-    margin-top: 2px;
+  &.md {
+    font-size: var(--font-base-size-md);
+  }
+
+  &.lg {
+    font-size: var(--font-heading-size-sm);
+  }
+
+  .valueContainer {
+    display: flex;
+    flex-direction: column;
+
+    &.rightAlign {
+      align-items: flex-end;
+    }
+
+    .pendingContainer {
+      margin-top: 6px;
+    }
+
+    .additionalInfo {
+      margin-top: 6px;
+
+      color: var(--grey-500);
+      font-size: var(--font-secondary-size-md);
+    }
   }
 }

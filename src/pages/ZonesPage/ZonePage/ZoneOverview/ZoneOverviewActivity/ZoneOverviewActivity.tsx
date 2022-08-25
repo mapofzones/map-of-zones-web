@@ -5,6 +5,7 @@ import { IbcVolumeCard } from 'components/IbcVolumeCard/IbcVolumeCard';
 import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCard';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
+import { ElementSize } from 'types/ElementSize';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
@@ -17,7 +18,13 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Activity</div>
-      <IbcVolumeCard className={styles.volumeCard} data={data} loading={loading} period={period} />
+      <IbcVolumeCard
+        className={styles.volumeCard}
+        data={data}
+        loading={loading}
+        period={period}
+        vertical
+      />
       <TotalInfoCard
         className={styles.totalTxsCard}
         title={'Total Txs'}
@@ -27,6 +34,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         chartKey={'totalTxs'}
         loading={loading}
         hasBorder={false}
+        size={ElementSize.LARGE}
       />
       <TotalInfoCard
         className={styles.transfersCard}
@@ -38,37 +46,46 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         chartKey={'ibcTransfer'}
         loading={loading}
         hasBorder={false}
+        size={ElementSize.LARGE}
       />
       <div className={styles.overviewItemsGroup}>
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.peersOverviewItem)}
-          rowLoyout
+          rowDirection
           title={'Peers'}
           value={data?.peersCount}
           loading={loading}
           defaultLoadingValue={'12'}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         ></ZoneOverviewItem>
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.channelsOverviewItem)}
-          rowLoyout
+          rowDirection
           title={'Channels'}
           value={data?.channelsCount}
           loading={loading}
           defaultLoadingValue={'250'}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         ></ZoneOverviewItem>
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.dauOverviewItem)}
-          rowLoyout
+          rowDirection
           title={'DAU'}
           loading={loading}
           value={undefined}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         />
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.ibcDauOverviewItem)}
-          rowLoyout
+          rowDirection
           title={'IBC DAU'}
           loading={loading}
           defaultLoadingValue={'2 345 (99,8% of DAU)'}
+          tooltipText={'Some tooltip'}
+          tooltipPosition={'right'}
         >
           <div className={styles.dauValue}>
             <NumberFormat value={data?.ibcDauMainnet} />

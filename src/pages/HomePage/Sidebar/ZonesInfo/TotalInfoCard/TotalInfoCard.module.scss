@@ -11,24 +11,21 @@
     margin-bottom: 4px;
 
     color: var(--grey-500);
-    font-size: 13px;
-    line-height: 16.3px;
+    font-size: var(--font-secondary-size-lg);
   }
 
   &_value {
     margin-bottom: 2px;
 
     color: var(--white);
-    font-size: 15px;
-    line-height: 18.81px;
+    font-size: var(--font-base-size-lg);
   }
 
   &_pending {
     margin-left: 3px;
 
     color: var(--grey-500);
-    font-size: 12px;
-    line-height: 15.05px;
+    font-size: var(--font-secondary-size-md);
   }
 
   &_chart {

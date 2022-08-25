@@ -1,0 +1,51 @@
+.container {
+  padding-top: 15px;
+
+  .chart {
+    margin-left: -10px;
+  }
+
+  .tooltipWrapper {
+    padding: 0 !important;
+
+    color: var(--grey-500);
+    font-size: var(--font-secondary-size-md);
+
+    text-align: center;
+
+    background-color: var(--black-100) !important;
+    border: none !important;
+    transform: translateX(calc(-50% - 0px));
+  }
+}
+
+.gradient {
+  .stop {
+    &1 {
+      stop-opacity: 0.2;
+    }
+
+    &2 {
+      stop-opacity: 0;
+    }
+
+    &1,
+    &2 {
+      stop-color: #6ed15b;
+
+      .chart.negative & {
+        stop-color: #f45;
+      }
+    }
+  }
+}
+
+.dot circle {
+  fill: #6d5;
+  stroke: #1e1c25;
+  stroke-opacity: 1;
+
+  .chart.negative & {
+    fill: #f45;
+  }
+}

@@ -24,15 +24,13 @@
       top: -2px;
 
       color: var(--grey-500);
-      font-size: 10px;
-      line-height: 13px;
+      font-size: var(--font-map-size-md);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .title {
       color: var(--grey-500);
-      font-size: 13px;
-      line-height: 16px;
+      font-size: var(--font-secondary-size-lg);
 
       cursor: pointer;
 

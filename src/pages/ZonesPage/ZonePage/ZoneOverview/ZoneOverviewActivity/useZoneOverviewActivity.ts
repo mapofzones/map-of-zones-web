@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZoneOverviewActivityDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { ChartItemByString, transformChartData } from 'utils/helper';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 export type ZoneOverviewActivityQueryResult = {
   peersCount?: number;
   channelsCount?: number;
   ibcDauMainnet?: number;
+  ibcVolumeChart?: ChartItemByString[];
   ibcVolumeMainnet?: number;
   ibcVolumeInMainnet?: number;
   ibcVolumeOutMainnet?: number;
@@ -21,6 +23,8 @@ export type ZoneOverviewActivityQueryResult = {
   ibcTransfersPending?: number;
   totalTxs?: number;
 };
+
+const IBC_VOLUME_CHART_KEY = 'ibcVolumeChart';
 
 export function useZoneOverviewActivity(): {
   data: ZoneOverviewActivityQueryResult | undefined;
@@ -38,7 +42,13 @@ export function useZoneOverviewActivity(): {
   const { data, loading } = useQuery(ZoneOverviewActivityDocument, options);
 
   return {
-    data: nullsToUndefined(data?.zoneOverview[0]),
+    data: data?.zoneOverview[0] && {
+      ...nullsToUndefined(data.zoneOverview[0]),
+      [IBC_VOLUME_CHART_KEY]: transformChartData(
+        data?.zoneOverview[0][IBC_VOLUME_CHART_KEY],
+        IBC_VOLUME_CHART_KEY
+      ),
+    },
     loading,
   };
 }

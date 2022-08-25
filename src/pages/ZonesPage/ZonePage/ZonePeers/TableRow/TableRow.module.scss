@@ -45,8 +45,7 @@
     }
 
     .value {
-      font-size: 15px;
-      line-height: 19px;
+      font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }
@@ -65,8 +64,7 @@
   .channelsText {
     margin-top: 2px;
 
-    font-size: 13px;
-    line-height: 16px;
+    font-size: var(--font-secondary-size-lg);
 
     opacity: 0.5;
     font-feature-settings: 'tnum' on, 'lnum' on;

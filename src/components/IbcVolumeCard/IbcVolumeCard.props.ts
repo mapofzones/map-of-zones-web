@@ -1,3 +1,5 @@
+import { ChartItemByString } from 'utils/helper';
+
 export interface IbcVolumeCardData {
   ibcVolumeInMainnet?: number;
   ibcVolumeInPendingMainnet?: number;
@@ -6,6 +8,7 @@ export interface IbcVolumeCardData {
   ibcVolumeOutMainnet?: number;
   ibcVolumeOutPendingMainnet?: number;
   ibcVolumeOutPercent?: number;
+  ibcVolumeChart?: ChartItemByString[];
 }
 
 export interface IbcVolumeCardProps {
@@ -14,4 +17,5 @@ export interface IbcVolumeCardProps {
   hasBorder?: boolean;
   loading: boolean;
   period: string;
+  vertical?: boolean;
 }

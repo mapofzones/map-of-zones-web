@@ -16,6 +16,12 @@ import { AssetData, TableRowProps } from './TableRow.props';
 
 const ratingDiffKeysMap: Record<ColumnKeys, keyof AssetData> = {
   marketCap: 'marketCapDiffRating',
+  price: 'priceDiffRating',
+  price24hPercent: 'price24hPercentDiffRating',
+  price7dPercent: 'price7dPercentDiffRating',
+  volume24h: 'volume24hDiffRating',
+  volume24hPercent: 'volume24hPercentDiffRating',
+  supply: 'supplyDiffRating',
 };
 
 export function TableRow({
@@ -109,8 +115,7 @@ export function TableRow({
         <ValueWithPending
           alignRight={true}
           className={styles.value}
-          numberType={NumberType.Currency}
-          prefix=""
+          numberType={NumberType.Number}
           value={asset.supply}
         />
       </TableRowItem>

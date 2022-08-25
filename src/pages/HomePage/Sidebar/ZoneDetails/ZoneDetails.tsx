@@ -1,23 +1,25 @@
-import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-import { ButtonGroup, ExternalLink, ZoneLogo, SkeletonTextWrapper } from 'components';
+import {
+  ButtonGroup,
+  ExternalLink,
+  ZoneLogo,
+  SkeletonTextWrapper,
+  NavLinkWithSearchParams,
+} from 'components';
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { CloseCircleIcon, EarthIcon } from 'icons';
 
 import { useZoneDetails } from './useZoneDetails';
 import styles from './ZoneDetails.module.scss';
 
 function ZoneDetails() {
-  const navigate = useNavigate();
-
-  const [searchParams] = useSearchParams();
+  const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const { data, loading } = useZoneDetails();
 
   const closeDetails = () => {
-    navigate({
-      pathname: '/home',
-      search: '?' + searchParams.toString(),
-    });
+    navigateWithSearchParams('/home');
   };
 
   return (
@@ -55,8 +57,8 @@ function ZoneDetails() {
       </div>
 
       <ButtonGroup className={styles.pagesSwitcher}>
-        <NavLink to="overview">Overview</NavLink>
-        <NavLink to="peers">Peers</NavLink>
+        <NavLinkWithSearchParams to="overview">Overview</NavLinkWithSearchParams>
+        <NavLinkWithSearchParams to="peers">Peers</NavLinkWithSearchParams>
       </ButtonGroup>
 
       <Outlet />

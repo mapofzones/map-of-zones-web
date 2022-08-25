@@ -33,8 +33,7 @@
 
     .code {
       color: var(--grey-500);
-      font-size: 13px;
-      line-height: 16px;
+      font-size: var(--font-secondary-size-lg);
     }
 
     .chartContainer {
@@ -47,8 +46,7 @@
       .code {
         margin-right: 6px;
 
-        font-size: 15px;
-        line-height: 19px;
+        font-size: var(--font-base-size-lg);
       }
     }
 
@@ -56,16 +54,14 @@
       display: block;
 
       color: var(--grey-500);
-      font-size: 15px;
-      line-height: 19px;
+      font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .value {
       justify-content: flex-end;
 
-      font-size: 15px;
-      line-height: 19px;
+      font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }
@@ -79,21 +75,17 @@
       margin-right: 12px;
     }
 
-    .nameAndStatusContainer {
-      overflow: hidden;
+    .nameContainer {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2px;
 
-      .nameContainer {
-        display: flex;
-        align-items: center;
-        margin-bottom: 2px;
+      .name {
 
-        .name {
-          font-size: 15px;
-          line-height: 19px;
+        overflow: hidden;
 
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
+        font-size: var(--font-base-size-lg);
+        text-overflow: ellipsis;
       }
     }
   }
@@ -116,6 +108,7 @@
 
       &:nth-child(2) {
         left: 30px; // TODO: calculate dynamically
+
         min-width: 0;
         max-width: 150px;
         padding-left: 8px;
