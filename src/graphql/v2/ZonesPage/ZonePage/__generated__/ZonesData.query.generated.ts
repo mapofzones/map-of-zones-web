@@ -12,13 +12,7 @@ export type ZonesDataQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesDataQueryResult = {
-  __typename?: 'query_root';
-  zonesData: Array<{
-    __typename?: 'flat_blockchains';
-    zone: string;
-    logoUrl: string;
-    name: string;
-  }>;
+  zonesData: Array<{ zone: string; logoUrl: string; name: string }>;
 };
 
 export const ZonesDataDocument = {

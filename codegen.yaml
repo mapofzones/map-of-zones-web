@@ -32,3 +32,4 @@ config:
   constEnums: true
   preResolveTypes: true
   operationResultSuffix: 'Result'
+  skipTypename: true

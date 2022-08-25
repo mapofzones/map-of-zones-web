@@ -12,14 +12,7 @@ export type ZoneDetailsQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneDetailsQueryResult = {
-  __typename?: 'query_root';
-  zoneDetails: Array<{
-    __typename?: 'flat_blockchains';
-    website: string;
-    zone: string;
-    logoUrl: string;
-    name: string;
-  }>;
+  zoneDetails: Array<{ website: string; zone: string; logoUrl: string; name: string }>;
 };
 
 export const ZoneDetailsDocument = {

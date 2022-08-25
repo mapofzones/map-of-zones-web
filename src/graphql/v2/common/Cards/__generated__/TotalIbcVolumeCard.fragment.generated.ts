@@ -7,7 +7,6 @@ import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type TotalIbcVolumeCardFragment = {
-  __typename?: 'headers';
   ibcVolume?: any | null;
   ibcVolumePending: any;
   ibcVolumeChart?: any | null;

@@ -7,7 +7,6 @@ import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneIbcTransfersStatsV1Fragment = {
-  __typename?: 'zones_stats';
   ibcTransfers?: number | null;
   ibcTransfersPending?: number | null;
   ibcTransfersRating?: number | null;
@@ -15,7 +14,6 @@ export type ZoneIbcTransfersStatsV1Fragment = {
 };
 
 export type ZoneIbcTransfersStatsV2Fragment = {
-  __typename?: 'flat_blockchain_switched_stats';
   ibcTransfers: number;
   ibcTransfersPending: number;
   ibcTransfersRating: number;

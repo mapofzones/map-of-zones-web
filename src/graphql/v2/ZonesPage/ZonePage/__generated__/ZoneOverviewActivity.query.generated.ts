@@ -6,7 +6,7 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneIbcVolumeCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcVolumeCard.fragment.generated';
+import { ZoneIbcVolumeCardV1FragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcVolumeCard.fragment.generated';
 import { ZoneIbcTransfersCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcTransfersCard.fragment.generated';
 import { ZoneTotalTxsCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneTotalTxsCard.fragment.generated';
 export type ZoneOverviewActivityQueryVariables = Types.Exact<{
@@ -16,9 +16,7 @@ export type ZoneOverviewActivityQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneOverviewActivityQueryResult = {
-  __typename?: 'query_root';
   zoneOverview: Array<{
-    __typename?: 'zones_stats';
     peersCount?: number | null;
     channelsCount?: number | null;
     ibcDauMainnet?: number | null;
@@ -132,7 +130,7 @@ export const ZoneOverviewActivityDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcVolumeCard' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcVolumeCardV1' } },
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcTransfersCard' } },
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneTotalTxsCard' } },
                 {
@@ -156,7 +154,7 @@ export const ZoneOverviewActivityDocument = {
         ],
       },
     },
-    ...ZoneIbcVolumeCardFragmentDoc.definitions,
+    ...ZoneIbcVolumeCardV1FragmentDoc.definitions,
     ...ZoneIbcTransfersCardFragmentDoc.definitions,
     ...ZoneTotalTxsCardFragmentDoc.definitions,
   ],

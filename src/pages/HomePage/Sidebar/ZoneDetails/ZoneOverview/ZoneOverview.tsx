@@ -53,7 +53,7 @@ function ZoneOverview() {
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'Peers'}
-            value={data?.peersCountMainnet}
+            value={data?.peersCount}
             loading={loading}
             defaultLoadingValue={'12'}
             tooltipText={'Some tooltip'}
@@ -72,7 +72,7 @@ function ZoneOverview() {
             className={styles.detailedInfoItem}
             title={'DAU'}
             loading={loading}
-            value={data?.ibcDauMainnet}
+            value={data?.ibcDau}
             tooltipText={'Some tooltip'}
             tooltipPosition={'right'}
           >
@@ -86,13 +86,13 @@ function ZoneOverview() {
             tooltipText={'Some tooltip'}
             tooltipPosition={'left'}
           >
-            <NumberFormat value={data?.ibcDauMainnet} />
+            <NumberFormat value={data?.ibcDau} />
             <span className={styles.additionalInfo}> (99,8% of DAU)</span>
           </ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'Token Price'}
-            value={data?.ibcDauMainnet}
+            value={data?.ibcDau}
             loading={loading}
             defaultLoadingValue={'$10.45'}
             tooltipText={'Some tooltip'}

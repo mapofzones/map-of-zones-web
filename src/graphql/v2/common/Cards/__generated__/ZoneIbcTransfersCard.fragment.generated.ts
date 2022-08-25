@@ -7,7 +7,6 @@ import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneIbcTransfersCardFragment = {
-  __typename?: 'zones_stats';
   ibcTransfers?: number | null;
   ibcTransfersPending?: number | null;
 };

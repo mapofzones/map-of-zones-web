@@ -14,15 +14,13 @@ export type ZonesListZoneDetailsQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesListZoneDetailsQueryResult = {
-  __typename?: 'query_root';
   zoneDetails: Array<{
-    __typename?: 'flat_blockchains';
     website: string;
     isZoneUpToDate?: boolean | null;
     zone: string;
     logoUrl: string;
     name: string;
-    stats: Array<{ __typename?: 'flat_blockchain_switched_stats'; peersCount: number }>;
+    stats: Array<{ peersCount: number }>;
   }>;
 };
 

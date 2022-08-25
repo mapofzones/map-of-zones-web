@@ -12,8 +12,7 @@ export type ZonesCountQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesCountQueryResult = {
-  __typename?: 'query_root';
-  headers: Array<{ __typename?: 'headers'; allZonesCount: number; activeZonesCount: number }>;
+  headers: Array<{ allZonesCount: number; activeZonesCount: number }>;
 };
 
 export const ZonesCountDocument = {

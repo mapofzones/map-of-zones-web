@@ -7,17 +7,12 @@ import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneTotalTxsStatsV1Fragment = {
-  __typename?: 'zones_stats';
   totalTxs?: number | null;
   totalTxsRating?: number | null;
   totalTxsRatingDiff?: number | null;
 };
 
-export type ZoneTotalTxsStatsV2Fragment = {
-  __typename?: 'flat_blockchain_switched_stats';
-  totalTxsRating: number;
-  totalTxsRatingDiff: number;
-};
+export type ZoneTotalTxsStatsV2Fragment = { totalTxsRating: number; totalTxsRatingDiff: number };
 
 export const ZoneTotalTxsStatsV1FragmentDoc = {
   kind: 'Document',

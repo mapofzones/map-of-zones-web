@@ -13,9 +13,7 @@ export type ZonePeersQueryVariables = Types.Exact<{
 }>;
 
 export type ZonePeersQueryResult = {
-  __typename?: 'query_root';
   zonePeers: Array<{
-    __typename?: 'ft_channel_group_stats';
     zoneCounterpartyKey: string;
     zoneCounterpartyLogoUrl?: string | null;
     zoneCounterpartyName?: string | null;

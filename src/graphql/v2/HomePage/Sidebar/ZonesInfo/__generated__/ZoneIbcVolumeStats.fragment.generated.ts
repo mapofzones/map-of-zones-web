@@ -7,7 +7,6 @@ import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneIbcVolumeStatsV1Fragment = {
-  __typename?: 'zones_stats';
   ibcVolume?: any | null;
   ibcVolumePending?: any | null;
   ibcVolumeRating?: number | null;
@@ -15,7 +14,6 @@ export type ZoneIbcVolumeStatsV1Fragment = {
 };
 
 export type ZoneIbcVolumeStatsV2Fragment = {
-  __typename?: 'flat_blockchain_switched_stats';
   ibcVolume: any;
   ibcVolumePending: any;
   ibcVolumeRating: number;

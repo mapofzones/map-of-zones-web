@@ -14,9 +14,7 @@ export type ZonesTotalInfoQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesTotalInfoQueryResult = {
-  __typename?: 'query_root';
   headers: Array<{
-    __typename?: 'headers';
     ibcTransfersFailed: number;
     activeChannels: number;
     allChannels: number;

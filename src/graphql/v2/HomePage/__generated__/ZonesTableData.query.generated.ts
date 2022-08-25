@@ -20,14 +20,11 @@ export type ZonesTableDataQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesTableDataQueryResult = {
-  __typename?: 'query_root';
   zonesTable: Array<{
-    __typename?: 'flat_blockchains';
     zone: string;
     logoUrl: string;
     name: string;
     switchedStats: Array<{
-      __typename?: 'flat_blockchain_switched_stats';
       ibcVolume: any;
       ibcVolumePending: any;
       ibcVolumeRating: number;
@@ -39,7 +36,7 @@ export type ZonesTableDataQueryResult = {
       totalTxsRating: number;
       totalTxsRatingDiff: number;
     }>;
-    stats: Array<{ __typename?: 'flat_blockchain_stats'; totalTxs: number }>;
+    stats: Array<{ totalTxs: number }>;
   }>;
 };
 

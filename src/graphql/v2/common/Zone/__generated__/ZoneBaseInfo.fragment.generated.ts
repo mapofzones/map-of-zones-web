@@ -6,19 +6,9 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type ZoneBaseInfoV1Fragment = {
-  __typename?: 'zones_stats';
-  zone: string;
-  logoUrl?: string | null;
-  name: string;
-};
+export type ZoneBaseInfoV1Fragment = { zone: string; logoUrl?: string | null; name: string };
 
-export type ZoneBaseInfoV2Fragment = {
-  __typename?: 'flat_blockchains';
-  zone: string;
-  logoUrl: string;
-  name: string;
-};
+export type ZoneBaseInfoV2Fragment = { zone: string; logoUrl: string; name: string };
 
 export const ZoneBaseInfoV1FragmentDoc = {
   kind: 'Document',

@@ -13,9 +13,7 @@ export type ZonesMapQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesMapQueryResult = {
-  __typename?: 'query_root';
   zonesStats: Array<{
-    __typename?: 'zones_stats';
     zone: string;
     isMainnet: boolean;
     ibcVolume?: any | null;
@@ -24,12 +22,7 @@ export type ZonesMapQueryResult = {
     logoUrl?: string | null;
     name: string;
   }>;
-  zonesGraphs: Array<{
-    __typename?: 'zones_graphs';
-    source: string;
-    target: string;
-    ibcVolume?: any | null;
-  }>;
+  zonesGraphs: Array<{ source: string; target: string; ibcVolume?: any | null }>;
 };
 
 export const ZonesMapDocument = {

@@ -7,7 +7,6 @@ import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZonePeersShortInfoFragment = {
-  __typename?: 'ft_channel_group_stats';
   zoneCounterpartyKey: string;
   zoneCounterpartyLogoUrl?: string | null;
   zoneCounterpartyName?: string | null;

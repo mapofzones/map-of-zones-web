@@ -6,11 +6,7 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type TotalIbcTransfersCardFragment = {
-  __typename?: 'headers';
-  ibcTransfers: number;
-  ibcTransfersPending: number;
-};
+export type TotalIbcTransfersCardFragment = { ibcTransfers: number; ibcTransfersPending: number };
 
 export const TotalIbcTransfersCardFragmentDoc = {
   kind: 'Document',

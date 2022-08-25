@@ -14,9 +14,7 @@ export type ZonesListZonePeersQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesListZonePeersQueryResult = {
-  __typename?: 'query_root';
   zonePeers: Array<{
-    __typename?: 'ft_channel_group_stats';
     ibcTransfers: any;
     ibcTransfersPending?: number | null;
     ibcTransfersFailed: any;
@@ -31,7 +29,6 @@ export type ZonesListZonePeersQueryResult = {
     ibcVolumeOutPending: any;
   }>;
   zoneChannels: Array<{
-    __typename?: 'ft_channels_stats';
     channelId: string;
     clientId: string;
     connectionId: string;

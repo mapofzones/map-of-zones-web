@@ -14,9 +14,7 @@ export type ZonesTableQueryVariables = Types.Exact<{
 }>;
 
 export type ZonesTableQueryResult = {
-  __typename?: 'query_root';
   zonesTable: Array<{
-    __typename?: 'zones_stats';
     zone: string;
     channelsCount?: number | null;
     ibcActiveAddressesMainnetRatingDiff?: number | null;
