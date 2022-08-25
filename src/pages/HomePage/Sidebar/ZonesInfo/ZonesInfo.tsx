@@ -19,6 +19,8 @@ import { MemoizedZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
 import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton';
 import { ZonesInfoTitle } from './ZonesInfoTitle/ZonesInfoTitle';
 
+const showTotalInfo = false;
+
 function ZonesInfo(): JSX.Element {
   const navigateWithSearchParams = useNavigateWithSearchParams();
 
@@ -34,7 +36,8 @@ function ZonesInfo(): JSX.Element {
 
   const { data: totalInfo, loading: totalInfoLoading } = useTotalZonesInfo(
     selectedPeriod,
-    selectedColumnKey
+    selectedColumnKey,
+    !showTotalInfo
   );
   const { data: zones, loading: tableDataLoading } = useZonesTableData(
     selectedPeriod,
@@ -71,12 +74,14 @@ function ZonesInfo(): JSX.Element {
         <PeriodSelector />
       </div>
       <ScrollableContainer className={styles.scrollableTable}>
-        <TotalInfoCard
-          loading={totalInfoLoading}
-          className={styles.totalInfo}
-          totalInfo={totalInfo}
-          columnType={selectedColumnKey}
-        />
+        {!!showTotalInfo && (
+          <TotalInfoCard
+            loading={totalInfoLoading}
+            className={styles.totalInfo}
+            totalInfo={totalInfo}
+            columnType={selectedColumnKey}
+          />
+        )}
         {!tableDataLoading && (
           <MemoizedZonesInfoTable
             data={zones}

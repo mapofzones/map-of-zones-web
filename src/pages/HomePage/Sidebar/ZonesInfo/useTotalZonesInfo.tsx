@@ -12,8 +12,10 @@ const IBC_VOLUME_CHART_KEY = 'ibcVolumeChart';
 export function useTotalZonesInfo(
   selectedPeriod: PeriodKeys,
   selectedColumnKey: ColumnKeys,
-  isMainnet = true
+  skip = false
 ) {
+  const [isMainnet] = [true]; // TODO: use custom hook
+
   const options = {
     variables: {
       period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
@@ -21,6 +23,7 @@ export function useTotalZonesInfo(
       withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
       withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
     },
+    skip,
   };
 
   const { data, loading } = useQuery(TotalZonesInfoDocument, options);
