@@ -3,7 +3,6 @@ import cn from 'classnames';
 import { NumberFormat, NumberType } from 'components';
 import { IbcVolumeCard } from 'components/IbcVolumeCard/IbcVolumeCard';
 import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCard';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
 import { ElementSize } from 'types/ElementSize';
 
@@ -11,20 +10,12 @@ import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
 
 export function ZoneOverviewActivity({ className }: { className?: string }) {
-  const [period] = useSelectedPeriod();
-
   const { data, loading } = useZoneOverviewActivity();
 
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Activity</div>
-      <IbcVolumeCard
-        className={styles.volumeCard}
-        data={data}
-        loading={loading}
-        period={period}
-        vertical
-      />
+      <IbcVolumeCard className={styles.volumeCard} vertical />
       <TotalInfoCard
         className={styles.totalTxsCard}
         title={'Total Txs'}

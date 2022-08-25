@@ -27,7 +27,7 @@ function ZoneOverview() {
   return (
     <>
       <ScrollableContainer className={styles.container}>
-        <IbcVolumeCard data={data} period={period} loading={loading} hasBorder />
+        <IbcVolumeCard hasBorder />
         <div className={styles.detailedInfo}>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}

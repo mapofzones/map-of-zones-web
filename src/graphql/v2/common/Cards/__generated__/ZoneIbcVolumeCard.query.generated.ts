@@ -3,27 +3,35 @@
  */
 /* eslint-disable */
 
-import * as Types from '../../../../../base-types';
+import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type SidebarZoneOverviewQueryVariables = Types.Exact<{
+export type ZoneIbcVolumeCardQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
   period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
 }>;
 
-export type SidebarZoneOverviewQueryResult = {
-  switchedStats: Array<{ ibcTransfers: number; peersCount: number; channelsCount: number }>;
-  stats: Array<{ totalTxs: number; ibcDau: number }>;
+export type ZoneIbcVolumeCardQueryResult = {
+  ibcVolumeCardData: Array<{
+    ibcVolume: any;
+    ibcVolumeIn: any;
+    ibcVolumeOut: any;
+    ibcVolumeInPercent: any;
+    ibcVolumeOutPercent: any;
+    ibcVolumeInPending: any;
+    ibcVolumeOutPending: any;
+    ibcVolumeChart: Array<{ ibcVolumeChart: any }>;
+  }>;
 };
 
-export const SidebarZoneOverviewDocument = {
+export const ZoneIbcVolumeCardDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'SidebarZoneOverview' },
+      name: { kind: 'Name', value: 'ZoneIbcVolumeCard' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -55,7 +63,7 @@ export const SidebarZoneOverviewDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'switchedStats' },
+            alias: { kind: 'Name', value: 'ibcVolumeCardData' },
             name: { kind: 'Name', value: 'flat_blockchain_switched_stats' },
             arguments: [
               {
@@ -115,77 +123,69 @@ export const SidebarZoneOverviewDocument = {
               selections: [
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfers' },
-                  name: { kind: 'Name', value: 'ibc_transfers' },
+                  alias: { kind: 'Name', value: 'ibcVolume' },
+                  name: { kind: 'Name', value: 'ibc_cashflow' },
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'peersCount' },
-                  name: { kind: 'Name', value: 'ibc_peers' },
+                  alias: { kind: 'Name', value: 'ibcVolumeIn' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in' },
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'channelsCount' },
-                  name: { kind: 'Name', value: 'channels_cnt' },
+                  alias: { kind: 'Name', value: 'ibcVolumeOut' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out' },
                 },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'stats' },
-            name: { kind: 'Name', value: 'flat_blockchain_stats' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeInPercent' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in_percent' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOutPercent' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out_percent' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeInPending' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in_pending' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOutPending' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out_pending' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeChart' },
+                  name: { kind: 'Name', value: 'blockchain_tf_switched_charts' },
+                  arguments: [
                     {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'blockchain' },
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'order_by' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
                           {
                             kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'timeframe' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
+                            name: { kind: 'Name', value: 'point_index' },
+                            value: { kind: 'EnumValue', value: 'asc' },
                           },
                         ],
                       },
                     },
                   ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'totalTxs' },
-                  name: { kind: 'Name', value: 'txs' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcDau' },
-                  name: { kind: 'Name', value: 'ibc_active_addresses_cnt' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeChart' },
+                        name: { kind: 'Name', value: 'point_value' },
+                      },
+                    ],
+                  },
                 },
               ],
             },
@@ -194,4 +194,4 @@ export const SidebarZoneOverviewDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<SidebarZoneOverviewQueryResult, SidebarZoneOverviewQueryVariables>;
+} as unknown as DocumentNode<ZoneIbcVolumeCardQueryResult, ZoneIbcVolumeCardQueryVariables>;
