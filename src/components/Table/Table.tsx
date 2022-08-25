@@ -17,7 +17,7 @@ export function Table<T extends string>({
 }: TableProps<T>) {
   const tableRef = useRef<HTMLTableElement>(null);
 
-  const isTableHorizontalScrollable = useMediaQuery('(max-width: 1400px)');
+  const isTableHorizontalScrollable = useMediaQuery('(max-width: 1440px)');
 
   return (
     <div

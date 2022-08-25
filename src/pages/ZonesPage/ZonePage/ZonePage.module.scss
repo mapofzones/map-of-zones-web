@@ -27,8 +27,6 @@
 
         margin-left: 12px;
 
-        cursor: pointer;
-
         svg {
           stroke: var(--white);
         }
@@ -49,9 +47,9 @@
   }
 
   .navigationButtonsContainer {
-    grid-area: navigationButtonsContainer;
 
     display: flex;
+    grid-area: navigationButtonsContainer;
     grid-gap: 21px;
 
     border-bottom: 1px solid var(--black-900);

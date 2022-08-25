@@ -45,7 +45,7 @@ export function ZonePage() {
     <div>
       <div className={styles.header}>
         <div className={styles.zoneContainer} ref={ref}>
-          <div className={styles.detailsTitle}>
+          <div className={styles.detailsTitle} onClick={toggleSearch}>
             <ZoneLogo
               logoUrl={data?.logoUrl}
               name={data?.name}
