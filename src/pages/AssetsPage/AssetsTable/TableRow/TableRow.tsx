@@ -47,11 +47,13 @@ export function TableRow({
             logoUrl={asset.logoUrl}
             className={styles.logo}
           />
-          <div className={styles.nameContainer}>
-            <span className={styles.name}>{asset.name}</span>
-            <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} />
+          <div className={styles.nameAndStatusContainer}>
+            <div className={styles.nameContainer}>
+              <span className={styles.name}>{asset.name}</span>
+              <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} />
+            </div>
+            <span className={styles.code}>{asset.code}</span>
           </div>
-          <span className={styles.code}>{asset.code}</span>
         </div>
       </TableRowItem>
 

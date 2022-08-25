@@ -75,16 +75,20 @@
       margin-right: 12px;
     }
 
-    .nameContainer {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2px;
+    .nameAndStatusContainer {
+      overflow: hidden;
 
-      .name {
-        overflow: hidden;
+      .nameContainer {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2px;
 
-        font-size: var(--font-base-size-lg);
-        text-overflow: ellipsis;
+        .name {
+          overflow: hidden;
+
+          font-size: var(--font-base-size-lg);
+          text-overflow: ellipsis;
+        }
       }
     }
   }
