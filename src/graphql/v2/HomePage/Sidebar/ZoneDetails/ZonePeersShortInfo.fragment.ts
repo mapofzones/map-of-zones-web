@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const ZONE_PEERS_SHORT_INFO_FRAGMENT = gql`
-  fragment ZonePeersShortInfo on ft_channel_group_stats {
+export const ZONE_PEERS_SHORT_INFO_V1_FRAGMENT = gql`
+  fragment ZonePeersShortInfoV1 on ft_channel_group_stats {
     zoneCounterpartyKey: zone_counterparty
     zoneCounterpartyLogoUrl: zone_counterparty_label_url
     zoneCounterpartyName: zone_counterparty_readable_name

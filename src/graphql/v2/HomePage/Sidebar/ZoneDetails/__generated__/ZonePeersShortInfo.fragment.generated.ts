@@ -6,7 +6,7 @@
 import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type ZonePeersShortInfoFragment = {
+export type ZonePeersShortInfoV1Fragment = {
   zoneCounterpartyKey: string;
   zoneCounterpartyLogoUrl?: string | null;
   zoneCounterpartyName?: string | null;
@@ -16,12 +16,12 @@ export type ZonePeersShortInfoFragment = {
   ibcVolumeOutPending: any;
 };
 
-export const ZonePeersShortInfoFragmentDoc = {
+export const ZonePeersShortInfoV1FragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'ZonePeersShortInfo' },
+      name: { kind: 'Name', value: 'ZonePeersShortInfoV1' },
       typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ft_channel_group_stats' } },
       selectionSet: {
         kind: 'SelectionSet',
@@ -65,4 +65,4 @@ export const ZonePeersShortInfoFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<ZonePeersShortInfoFragment, unknown>;
+} as unknown as DocumentNode<ZonePeersShortInfoV1Fragment, unknown>;

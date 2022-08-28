@@ -6,7 +6,7 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZonePeersShortInfoFragmentDoc } from '../../../HomePage/Sidebar/ZoneDetails/__generated__/ZonePeersShortInfo.fragment.generated';
+import { ZonePeersShortInfoV1FragmentDoc } from '../../../HomePage/Sidebar/ZoneDetails/__generated__/ZonePeersShortInfo.fragment.generated';
 export type ZonesListZonePeersQueryVariables = Types.Exact<{
   source: Types.Scalars['String'];
   orderBy: Types.Ft_Channel_Group_Stats_Order_By;
@@ -153,7 +153,7 @@ export const ZonesListZonePeersDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZonePeersShortInfo' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZonePeersShortInfoV1' } },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcTransfers' },
@@ -318,6 +318,6 @@ export const ZonesListZonePeersDocument = {
         ],
       },
     },
-    ...ZonePeersShortInfoFragmentDoc.definitions,
+    ...ZonePeersShortInfoV1FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonesListZonePeersQueryResult, ZonesListZonePeersQueryVariables>;

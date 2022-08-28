@@ -6,7 +6,6 @@
 import * as Types from '../../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZonePeersShortInfoFragmentDoc } from './ZonePeersShortInfo.fragment.generated';
 export type ZonePeersQueryVariables = Types.Exact<{
   source: Types.Scalars['String'];
   period: Types.Scalars['Int'];
@@ -14,13 +13,12 @@ export type ZonePeersQueryVariables = Types.Exact<{
 
 export type ZonePeersQueryResult = {
   zonePeers: Array<{
-    zoneCounterpartyKey: string;
-    zoneCounterpartyLogoUrl?: string | null;
-    zoneCounterpartyName?: string | null;
     ibcVolumeIn: any;
     ibcVolumeOut: any;
     ibcVolumeInPending: any;
     ibcVolumeOutPending: any;
+    blockchain: { name: string; zone: string; logoUrl: string };
+    counterpartyBlockchain: { name: string; zone: string; logoUrl: string };
   }>;
 };
 
@@ -55,7 +53,7 @@ export const ZonePeersDocument = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'zonePeers' },
-            name: { kind: 'Name', value: 'ft_channel_group_stats' },
+            name: { kind: 'Name', value: 'flat_channels_stats' },
             arguments: [
               {
                 kind: 'Argument',
@@ -65,7 +63,7 @@ export const ZonePeersDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'zone' },
+                      name: { kind: 'Name', value: 'blockchain' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -91,20 +89,6 @@ export const ZonePeersDocument = {
                         ],
                       },
                     },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_zone_counterparty_mainnet' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'BooleanValue', value: true },
-                          },
-                        ],
-                      },
-                    },
                   ],
                 },
               },
@@ -112,13 +96,73 @@ export const ZonePeersDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZonePeersShortInfo' } },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'blockchain' },
+                  name: { kind: 'Name', value: 'blockchainByBlockchain' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'zone' },
+                        name: { kind: 'Name', value: 'network_id' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'logoUrl' },
+                        name: { kind: 'Name', value: 'logo_url' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'counterpartyBlockchain' },
+                  name: { kind: 'Name', value: 'blockchainByCounterpartyBlockchain' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'zone' },
+                        name: { kind: 'Name', value: 'network_id' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'logoUrl' },
+                        name: { kind: 'Name', value: 'logo_url' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeIn' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOut' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeInPending' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in_pending' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOutPending' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out_pending' },
+                },
               ],
             },
           },
         ],
       },
     },
-    ...ZonePeersShortInfoFragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonePeersQueryResult, ZonePeersQueryVariables>;

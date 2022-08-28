@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_PEERS_SHORT_INFO_FRAGMENT } from 'graphql/v2/HomePage/Sidebar/ZoneDetails/ZonePeersShortInfo.fragment';
+import { ZONE_PEERS_SHORT_INFO_V1_FRAGMENT } from 'graphql/v2/HomePage/Sidebar/ZoneDetails/ZonePeersShortInfo.fragment';
 
 export const ZONES_LIST_ZONE_PEERS = gql`
-  ${ZONE_PEERS_SHORT_INFO_FRAGMENT}
+  ${ZONE_PEERS_SHORT_INFO_V1_FRAGMENT}
   query ZonesListZonePeers(
     $source: String!
     $orderBy: ft_channel_group_stats_order_by!
@@ -17,7 +17,7 @@ export const ZONES_LIST_ZONE_PEERS = gql`
       }
       order_by: [$orderBy]
     ) {
-      ...ZonePeersShortInfo
+      ...ZonePeersShortInfoV1
       ibcTransfers: ibc_tx
       ibcTransfersPending: ibc_tx_pending
       ibcTransfersFailed: ibc_tx_failed

@@ -1,18 +1,24 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_PEERS_SHORT_INFO_FRAGMENT } from './ZonePeersShortInfo.fragment';
-
-export const ZONE_PEERS = gql`
-  ${ZONE_PEERS_SHORT_INFO_FRAGMENT}
+export const ZONE_PEERS_V2 = gql`
   query ZonePeers($source: String!, $period: Int!) {
-    zonePeers: ft_channel_group_stats(
-      where: {
-        zone: { _eq: $source }
-        timeframe: { _eq: $period }
-        is_zone_counterparty_mainnet: { _eq: true }
-      }
+    zonePeers: flat_channels_stats(
+      where: { blockchain: { _eq: $source }, timeframe: { _eq: $period } }
     ) {
-      ...ZonePeersShortInfo
+      blockchain: blockchainByBlockchain {
+        zone: network_id
+        name
+        logoUrl: logo_url
+      }
+      counterpartyBlockchain: blockchainByCounterpartyBlockchain {
+        zone: network_id
+        name
+        logoUrl: logo_url
+      }
+      ibcVolumeIn: ibc_cashflow_in
+      ibcVolumeOut: ibc_cashflow_out
+      ibcVolumeInPending: ibc_cashflow_in_pending
+      ibcVolumeOutPending: ibc_cashflow_out_pending
     }
   }
 `;
