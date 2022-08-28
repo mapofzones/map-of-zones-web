@@ -12,7 +12,12 @@ export type ZoneDetailsQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneDetailsQueryResult = {
-  zoneDetails: Array<{ website: string; zone: string; logoUrl: string; name: string }>;
+  zoneDetails: Array<{
+    website?: string | null;
+    zone: string;
+    logoUrl?: string | null;
+    name: string;
+  }>;
 };
 
 export const ZoneDetailsDocument = {

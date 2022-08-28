@@ -16,7 +16,10 @@ export const ZONE_IBC_VOLUME_CARD = gql`
       ibcVolumeOutPercent: ibc_cashflow_out_percent
       ibcVolumeInPending: ibc_cashflow_in_pending
       ibcVolumeOutPending: ibc_cashflow_out_pending
-      ibcVolumeChart: blockchain_tf_switched_charts(order_by: { point_index: asc }) {
+      ibcVolumeChart: blockchain_tf_switched_charts(
+        where: { chart_type: { _eq: "cashflow" } }
+        order_by: { point_index: asc }
+      ) {
         ibcVolumeChart: point_value
       }
     }

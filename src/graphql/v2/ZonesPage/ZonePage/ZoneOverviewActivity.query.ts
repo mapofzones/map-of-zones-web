@@ -1,11 +1,9 @@
 import { gql } from '@apollo/client';
 
 import { ZONE_IBC_TRANSFERS_CARD_FRAGMENT } from 'graphql/v2/common/Cards/ZoneIbcTransfersCard.fragment';
-import { ZONE_IBC_VOLUME_CARD_FRAGMENT_V1 } from 'graphql/v2/common/Cards/ZoneIbcVolumeCard.fragment';
 import { ZONE_TOTAL_TXS_CARD_FRAGMENT } from 'graphql/v2/common/Cards/ZoneTotalTxsCard.fragment';
 
 export const ZONE_OVERVIEW_ACTIVITY = gql`
-  ${ZONE_IBC_VOLUME_CARD_FRAGMENT_V1}
   ${ZONE_IBC_TRANSFERS_CARD_FRAGMENT}
   ${ZONE_TOTAL_TXS_CARD_FRAGMENT}
   query ZoneOverviewActivity($zone: String!, $period: Int!, $isMainnet: Boolean!) {
@@ -16,7 +14,6 @@ export const ZONE_OVERVIEW_ACTIVITY = gql`
         is_zone_mainnet: { _eq: $isMainnet }
       }
     ) {
-      ...ZoneIbcVolumeCardV1
       ...ZoneIbcTransfersCard
       ...ZoneTotalTxsCard
       peersCount: ibc_peers_mainnet
