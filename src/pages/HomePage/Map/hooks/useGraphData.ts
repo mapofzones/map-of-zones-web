@@ -7,7 +7,7 @@ import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import {
   ZonesMapDocument,
   ZonesMapQueryResult,
-} from 'graphql/v1/HomePage/__generated__/ZonesMap.query.generated';
+} from 'graphql/v2/HomePage/__generated__/ZonesMap.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { Link, MapNode, ZoneLink, ZoneStat } from '../Types';
@@ -41,7 +41,12 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
     return { nodes, links };
   }
 
-  let zonesStats: ZoneStat[] = JSON.parse(JSON.stringify(data.zonesStats));
+  console.log(data);
+
+  let zonesStats: ZoneStat[] = data.zonesStats.map((zoneStat) => ({
+    ...zoneStat,
+    ...zoneStat.switchedStats[0],
+  }));
   const zonesGraphsData: ZoneLink[] = JSON.parse(JSON.stringify(data.zonesGraphs));
 
   zonesStats = zonesStats.sort((a, b) =>

@@ -20,7 +20,7 @@ export type ZonesListZoneDetailsQueryResult = {
     zone: string;
     logoUrl?: string | null;
     name: string;
-    stats: Array<{ peersCount: number }>;
+    switchedStats: Array<{ peersCount: number }>;
   }>;
 };
 
@@ -101,7 +101,7 @@ export const ZonesListZoneDetailsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'website' } },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'stats' },
+                  alias: { kind: 'Name', value: 'switchedStats' },
                   name: { kind: 'Name', value: 'blockchain_switched_stats' },
                   arguments: [
                     {

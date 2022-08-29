@@ -1,25 +1,30 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_BASE_INFO_V1 } from '../common/Zone/ZoneBaseInfo.fragment';
+import { ZONE_BASE_INFO_V2 } from '../common/Zone/ZoneBaseInfo.fragment';
 
 export const ZONES_MAP = gql`
-  ${ZONE_BASE_INFO_V1}
+  ${ZONE_BASE_INFO_V2}
   query ZonesMap($period: Int!, $isMainnet: Boolean!) {
-    zonesStats: zones_stats(
-      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
-      order_by: { ibc_tx_in: asc, zone: asc }
-    ) {
-      ...ZoneBaseInfoV1
-      isMainnet: is_zone_mainnet
-      ibcVolume: ibc_cashflow_mainnet
-      ibcVolumeIn: ibc_cashflow_in_mainnet
-      ibcVolumeOut: ibc_cashflow_out_mainnet
+    zonesStats: flat_blockchains(where: { is_mainnet: { _eq: $isMainnet } }) {
+      ...ZoneBaseInfoV2
+      isMainnet: is_mainnet
+      switchedStats: blockchain_switched_stats(
+        where: { timeframe: { _eq: $period }, is_mainnet: { _eq: $isMainnet } }
+      ) {
+        ibcVolume: ibc_cashflow
+        ibcVolumeIn: ibc_cashflow_in
+        ibcVolumeOut: ibc_cashflow_out
+      }
     }
-    zonesGraphs: zones_graphs(where: { timeframe: { _eq: $period } }) {
-      # , is_mainnet: { _eq:  }
-      source
-      target
-      # ibc_transfers
+    zonesGraphs: flat_blockchain_relations(
+      where: {
+        blockchain: { is_mainnet: { _eq: $isMainnet } }
+        blockchainByBlockchainSource: { is_mainnet: { _eq: $isMainnet } }
+        timeframe: { _eq: $period }
+      }
+    ) {
+      source: blockchain_source
+      target: blockchain_target
       ibcVolume: ibc_cashflow
     }
   }

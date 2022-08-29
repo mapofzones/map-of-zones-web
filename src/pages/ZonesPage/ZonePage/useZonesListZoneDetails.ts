@@ -44,7 +44,7 @@ export function useZonesListZoneDetails(): {
       logoUrl: zoneDetails.logoUrl,
       website: zoneDetails.website,
       isZoneUpToDate: zoneDetails.isZoneUpToDate,
-      peersCount: zoneDetails.stats[0]?.peersCount,
+      ...zoneDetails.switchedStats[0],
     },
     loading,
   };

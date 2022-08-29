@@ -9,7 +9,7 @@ export const ZONES_LIST_ZONE_DETAILS = gql`
       ...ZoneBaseInfoV2
       isZoneUpToDate: is_synced
       website
-      stats: blockchain_switched_stats(
+      switchedStats: blockchain_switched_stats(
         where: { is_mainnet: { _eq: $isMainnet }, timeframe: { _eq: $timeframe } }
       ) {
         peersCount: ibc_peers
