@@ -7,6 +7,7 @@ import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 import { ZoneIbcTransfersCardV2FragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcTransfersCard.fragment.generated';
+import { ZoneTotalTxsCardV2FragmentDoc } from '../../../common/Cards/__generated__/ZoneTotalTxsCard.fragment.generated';
 export type ZoneOverviewActivityQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
   period: Types.Scalars['Int'];
@@ -21,7 +22,7 @@ export type ZoneOverviewActivityQueryResult = {
     ibcTransfersPending: number;
     ibcTransfersChart: Array<{ ibcTransfer: any }>;
   }>;
-  stats: Array<{ ibcDau: number }>;
+  stats: Array<{ ibcDau: number; totalTxs: number; totalTxsChart: Array<{ txs: any }> }>;
 };
 
 export const ZoneOverviewActivityDocument = {
@@ -180,6 +181,7 @@ export const ZoneOverviewActivityDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneTotalTxsCardV2' } },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcDau' },
@@ -192,5 +194,6 @@ export const ZoneOverviewActivityDocument = {
       },
     },
     ...ZoneIbcTransfersCardV2FragmentDoc.definitions,
+    ...ZoneTotalTxsCardV2FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZoneOverviewActivityQueryResult, ZoneOverviewActivityQueryVariables>;

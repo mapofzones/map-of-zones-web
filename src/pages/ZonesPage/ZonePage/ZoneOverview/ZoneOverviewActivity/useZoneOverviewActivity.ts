@@ -11,6 +11,7 @@ export type ZoneOverviewActivityQueryResult = {
   channelsCount?: number;
   ibcDau?: number;
   totalTxs?: number;
+  totalTxsChart: ChartItemByString[];
   ibcTransfers?: number;
   ibcTransfersPending?: number;
   ibcTransfersChart: ChartItemByString[];

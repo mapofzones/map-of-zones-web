@@ -21,8 +21,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         title={'Total Txs'}
         value={data?.totalTxs}
         numberType={NumberType.Number}
-        chartData={undefined}
-        chartKey={'totalTxs'}
+        chartData={data?.totalTxsChart}
+        chartKey={'txs'}
         loading={loading}
         hasBorder={false}
         size={ElementSize.LARGE}

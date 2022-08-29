@@ -22,7 +22,7 @@ export type ZonesTableDataQueryVariables = Types.Exact<{
 export type ZonesTableDataQueryResult = {
   zonesTable: Array<{
     zone: string;
-    logoUrl: string;
+    logoUrl?: string | null;
     name: string;
     switchedStats: Array<{
       ibcVolume: any;
