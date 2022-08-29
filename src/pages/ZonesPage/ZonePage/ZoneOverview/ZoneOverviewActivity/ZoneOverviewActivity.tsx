@@ -19,7 +19,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
       <TotalInfoCard
         className={styles.totalTxsCard}
         title={'Total Txs'}
-        value={data?.totalTxs ?? undefined}
+        value={data?.totalTxs}
         numberType={NumberType.Number}
         chartData={undefined}
         chartKey={'totalTxs'}
@@ -30,10 +30,10 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
       <TotalInfoCard
         className={styles.transfersCard}
         title={'IBC Transfers'}
-        value={data?.ibcTransfers ?? undefined}
-        pendingValue={4546}
+        value={data?.ibcTransfers}
+        pendingValue={data?.ibcTransfersPending}
         numberType={NumberType.Number}
-        chartData={undefined}
+        chartData={data?.ibcTransfersChart}
         chartKey={'ibcTransfer'}
         loading={loading}
         hasBorder={false}
@@ -79,7 +79,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           tooltipPosition={'right'}
         >
           <div className={styles.dauValue}>
-            <NumberFormat value={data?.ibcDauMainnet} />
+            <NumberFormat value={data?.ibcDau} />
             <span className={styles.additionalInfo}> (99,8% of DAU)</span>
           </div>
         </ZoneOverviewItem>

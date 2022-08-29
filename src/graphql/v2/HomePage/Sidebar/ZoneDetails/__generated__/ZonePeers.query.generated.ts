@@ -17,8 +17,8 @@ export type ZonePeersQueryResult = {
     ibcVolumeOut: any;
     ibcVolumeInPending: any;
     ibcVolumeOutPending: any;
-    blockchain: { name: string; zone: string; logoUrl?: string | null };
-    counterpartyBlockchain: { name: string; zone: string; logoUrl?: string | null };
+    blockchain: { name: string; zone: string; logoUrl: string };
+    counterpartyBlockchain: { name: string; zone: string; logoUrl: string };
   }>;
 };
 

@@ -15,10 +15,10 @@ export type ZonesListZoneDetailsQueryVariables = Types.Exact<{
 
 export type ZonesListZoneDetailsQueryResult = {
   zoneDetails: Array<{
-    website?: string | null;
+    website: string;
     isZoneUpToDate?: boolean | null;
     zone: string;
-    logoUrl?: string | null;
+    logoUrl: string;
     name: string;
     stats: Array<{ peersCount: number }>;
   }>;

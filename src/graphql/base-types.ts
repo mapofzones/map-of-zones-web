@@ -3315,10 +3315,10 @@ export type Flat_Blockchains = {
   channels_stats_aggregate: Flat_Channels_Stats_Aggregate;
   is_mainnet: Scalars['Boolean'];
   is_synced?: Maybe<Scalars['Boolean']>;
-  logo_url?: Maybe<Scalars['String']>;
+  logo_url: Scalars['String'];
   name: Scalars['String'];
   network_id: Scalars['String'];
-  website?: Maybe<Scalars['String']>;
+  website: Scalars['String'];
 };
 
 /** columns and relationships of "flat.blockchains" */

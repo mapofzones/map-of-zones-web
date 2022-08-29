@@ -6,8 +6,7 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneIbcTransfersCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcTransfersCard.fragment.generated';
-import { ZoneTotalTxsCardFragmentDoc } from '../../../common/Cards/__generated__/ZoneTotalTxsCard.fragment.generated';
+import { ZoneIbcTransfersCardV2FragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcTransfersCard.fragment.generated';
 export type ZoneOverviewActivityQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
   period: Types.Scalars['Int'];
@@ -15,14 +14,14 @@ export type ZoneOverviewActivityQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneOverviewActivityQueryResult = {
-  zoneOverview: Array<{
-    peersCount?: number | null;
-    channelsCount?: number | null;
-    ibcDauMainnet?: number | null;
-    ibcTransfers?: number | null;
-    ibcTransfersPending?: number | null;
-    totalTxs?: number | null;
+  switchedStats: Array<{
+    peersCount: number;
+    channelsCount: number;
+    ibcTransfers: number;
+    ibcTransfersPending: number;
+    ibcTransfersChart: Array<{ ibcTransfer: any }>;
   }>;
+  stats: Array<{ ibcDau: number }>;
 };
 
 export const ZoneOverviewActivityDocument = {
@@ -63,8 +62,8 @@ export const ZoneOverviewActivityDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'zoneOverview' },
-            name: { kind: 'Name', value: 'zones_stats' },
+            alias: { kind: 'Name', value: 'switchedStats' },
+            name: { kind: 'Name', value: 'flat_blockchain_switched_stats' },
             arguments: [
               {
                 kind: 'Argument',
@@ -74,7 +73,7 @@ export const ZoneOverviewActivityDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'zone' },
+                      name: { kind: 'Name', value: 'blockchain' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -102,7 +101,7 @@ export const ZoneOverviewActivityDocument = {
                     },
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_zone_mainnet' },
+                      name: { kind: 'Name', value: 'is_mainnet' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -121,22 +120,70 @@ export const ZoneOverviewActivityDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcTransfersCard' } },
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneTotalTxsCard' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcTransfersCardV2' } },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'peersCount' },
-                  name: { kind: 'Name', value: 'ibc_peers_mainnet' },
+                  name: { kind: 'Name', value: 'ibc_peers' },
                 },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'channelsCount' },
-                  name: { kind: 'Name', value: 'channels_num' },
+                  name: { kind: 'Name', value: 'channels_cnt' },
                 },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'stats' },
+            name: { kind: 'Name', value: 'flat_blockchain_stats' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'blockchain' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'timeframe' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcDauMainnet' },
-                  name: { kind: 'Name', value: 'ibc_active_addresses_mainnet' },
+                  alias: { kind: 'Name', value: 'ibcDau' },
+                  name: { kind: 'Name', value: 'ibc_active_addresses_cnt' },
                 },
               ],
             },
@@ -144,7 +191,6 @@ export const ZoneOverviewActivityDocument = {
         ],
       },
     },
-    ...ZoneIbcTransfersCardFragmentDoc.definitions,
-    ...ZoneTotalTxsCardFragmentDoc.definitions,
+    ...ZoneIbcTransfersCardV2FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZoneOverviewActivityQueryResult, ZoneOverviewActivityQueryVariables>;

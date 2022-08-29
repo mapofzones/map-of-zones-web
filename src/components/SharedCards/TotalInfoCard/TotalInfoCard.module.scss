@@ -8,13 +8,14 @@
 
   &_chart {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    bottom: 12px;
+    top: 16px;
+    right: 16px;
+    bottom: 16px;
 
     grid-row-start: 1;
     grid-row-end: 4;
+    max-width: 50%;
 
-    transform: scaleX(50%) translateX(50%);
+    max-height: calc(100% - 32px);
   }
 }

@@ -37,7 +37,7 @@ export function ValueWithPending({
         })}
       >
         {children}
-        {value && (
+        {value !== null && (
           <NumberFormat
             compact={compact}
             numberType={numberType}
