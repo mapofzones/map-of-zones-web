@@ -6,38 +6,44 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneBaseInfoV1FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
+import { ZoneBaseInfoV2FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZonesTableQueryVariables = Types.Exact<{
   period: Types.Scalars['Int'];
-  orderBy: Types.Zones_Stats_Order_By;
   isMainnet: Types.Scalars['Boolean'];
 }>;
 
 export type ZonesTableQueryResult = {
   zonesTable: Array<{
-    zone: string;
-    channelsCount?: number | null;
-    ibcActiveAddressesMainnetRatingDiff?: number | null;
-    ibcDauMainnet?: number | null;
-    ibcTransfersChart: any;
-    ibcTransfersMainnet?: number | null;
-    ibcTransfersMainnetRatingDiff?: number | null;
-    ibcTransfersPendingMainnet?: number | null;
-    ibcVolumeInMainnet?: any | null;
-    ibcVolumeInMainnetRatingDiff?: number | null;
-    ibcVolumeInPendingMainnet?: any | null;
-    ibcVolumeMainnet?: any | null;
-    ibcVolumeMainnetRatingDiff?: number | null;
-    ibcVolumeOutMainnet?: any | null;
-    ibcVolumeOutMainnetRatingDiff?: number | null;
-    ibcVolumeOutPendingMainnet?: any | null;
-    ibcVolumePendingMainnet?: any | null;
     isZoneUpToDate?: boolean | null;
-    peersCountMainnet?: number | null;
-    totalIbcTxsMainnetRatingDiff?: number | null;
-    totalTxs?: number | null;
+    zone: string;
     logoUrl?: string | null;
     name: string;
+    switchedStats: Array<{
+      channelsCount: number;
+      peersCount: number;
+      ibcTransfers: number;
+      ibcTransfersPending: number;
+      ibcTransfersRating: number;
+      ibcTransfersRatingDiff: number;
+      ibcVolume: any;
+      ibcVolumePending: any;
+      ibcVolumeRating: number;
+      ibcVolumeRatingDiff: number;
+      ibcVolumeIn: any;
+      ibcVolumeInPending: any;
+      ibcVolumeInRating: number;
+      ibcVolumeInRatingDiff: number;
+      ibcVolumeOut: any;
+      ibcVolumeOutPending: any;
+      ibcVolumeOutRating: number;
+      ibcVolumeOutRatingDiff: number;
+      totalIbcTxsRating: number;
+      totalIbcTxsRatingDiff: number;
+      ibcDauRating: number;
+      ibcDauRatingDiff: number;
+      ibcTransfersChart: Array<{ transfers: any }>;
+    }>;
+    stats: Array<{ totalTxs: number; ibcDau: number }>;
   }>;
 };
 
@@ -59,14 +65,6 @@ export const ZonesTableDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'zones_stats_order_by' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
           type: {
             kind: 'NonNullType',
@@ -80,7 +78,7 @@ export const ZonesTableDocument = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'zonesTable' },
-            name: { kind: 'Name', value: 'zones_stats' },
+            name: { kind: 'Name', value: 'flat_blockchains' },
             arguments: [
               {
                 kind: 'Argument',
@@ -90,21 +88,7 @@ export const ZonesTableDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'timeframe' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_zone_mainnet' },
+                      name: { kind: 'Name', value: 'is_mainnet' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -119,118 +103,286 @@ export const ZonesTableDocument = {
                   ],
                 },
               },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ListValue',
-                  values: [{ kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } }],
-                },
-              },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV1' } },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'channelsCount' },
-                  name: { kind: 'Name', value: 'channels_num' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcActiveAddressesMainnetRatingDiff' },
-                  name: { kind: 'Name', value: 'ibc_active_addresses_mainnet_rating_diff' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcDauMainnet' },
-                  name: { kind: 'Name', value: 'ibc_active_addresses_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfersChart' },
-                  name: { kind: 'Name', value: 'chart' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfersMainnet' },
-                  name: { kind: 'Name', value: 'ibc_transfers_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfersMainnetRatingDiff' },
-                  name: { kind: 'Name', value: 'ibc_transfers_mainnet_rating_diff' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfersPendingMainnet' },
-                  name: { kind: 'Name', value: 'ibc_transfers_pending_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeInMainnet' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_in_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeInMainnetRatingDiff' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_in_mainnet_rating_diff' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeInPendingMainnet' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_in_pending_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeMainnet' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeMainnetRatingDiff' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_mainnet_rating_diff' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeOutMainnet' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_out_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeOutMainnetRatingDiff' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_out_mainnet_rating_diff' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumeOutPendingMainnet' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_out_pending_mainnet' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcVolumePendingMainnet' },
-                  name: { kind: 'Name', value: 'ibc_cashflow_pending_mainnet' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV2' } },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'isZoneUpToDate' },
-                  name: { kind: 'Name', value: 'is_zone_up_to_date' },
+                  name: { kind: 'Name', value: 'is_synced' },
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'peersCountMainnet' },
-                  name: { kind: 'Name', value: 'ibc_peers_mainnet' },
+                  alias: { kind: 'Name', value: 'switchedStats' },
+                  name: { kind: 'Name', value: 'blockchain_switched_stats' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'is_mainnet' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'isMainnet' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'timeframe' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'period' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'channelsCount' },
+                        name: { kind: 'Name', value: 'channels_cnt' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'peersCount' },
+                        name: { kind: 'Name', value: 'ibc_peers' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcTransfers' },
+                        name: { kind: 'Name', value: 'ibc_transfers' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcTransfersPending' },
+                        name: { kind: 'Name', value: 'ibc_transfers_pending' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcTransfersRating' },
+                        name: { kind: 'Name', value: 'ibc_transfers_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcTransfersRatingDiff' },
+                        name: { kind: 'Name', value: 'ibc_transfers_rating_diff' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcTransfersChart' },
+                        name: { kind: 'Name', value: 'blockchain_tf_switched_charts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'chart_type' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: 'transfers',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'order_by' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'point_index' },
+                                  value: { kind: 'EnumValue', value: 'asc' },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'transfers' },
+                              name: { kind: 'Name', value: 'point_value' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolume' },
+                        name: { kind: 'Name', value: 'ibc_cashflow' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumePending' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_pending' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeRating' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeRatingDiff' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_rating_diff' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeIn' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_in' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeInPending' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_in_pending' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeInRating' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_in_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeInRatingDiff' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_in_rating_diff' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeOut' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_out' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeOutPending' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_out_pending' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeOutRating' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_out_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeOutRatingDiff' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_out_rating_diff' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'totalIbcTxsRating' },
+                        name: { kind: 'Name', value: 'txs_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'totalIbcTxsRatingDiff' },
+                        name: { kind: 'Name', value: 'txs_rating_diff' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcDauRating' },
+                        name: { kind: 'Name', value: 'ibc_active_addresses_cnt_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcDauRatingDiff' },
+                        name: { kind: 'Name', value: 'ibc_active_addresses_cnt_rating_diff' },
+                      },
+                    ],
+                  },
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'totalIbcTxsMainnetRatingDiff' },
-                  name: { kind: 'Name', value: 'total_ibc_txs_mainnet_rating_diff' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'totalTxs' },
-                  name: { kind: 'Name', value: 'total_txs' },
+                  alias: { kind: 'Name', value: 'stats' },
+                  name: { kind: 'Name', value: 'blockchain_stats' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'timeframe' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'period' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'totalTxs' },
+                        name: { kind: 'Name', value: 'txs' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcDau' },
+                        name: { kind: 'Name', value: 'ibc_active_addresses_cnt' },
+                      },
+                    ],
+                  },
                 },
               ],
             },
@@ -238,6 +390,6 @@ export const ZonesTableDocument = {
         ],
       },
     },
-    ...ZoneBaseInfoV1FragmentDoc.definitions,
+    ...ZoneBaseInfoV2FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonesTableQueryResult, ZonesTableQueryVariables>;

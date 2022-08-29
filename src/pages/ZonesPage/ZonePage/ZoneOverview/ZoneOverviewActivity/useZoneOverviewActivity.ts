@@ -31,7 +31,6 @@ export function useZoneOverviewActivity(): {
   };
 
   const { data, loading } = useQuery(ZoneOverviewActivityDocument, options);
-  console.log(data);
 
   return {
     data: data && {

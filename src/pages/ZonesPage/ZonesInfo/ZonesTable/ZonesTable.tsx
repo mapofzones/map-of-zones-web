@@ -1,6 +1,7 @@
 import { PeriodSelector, Table } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { useSortedTableData } from 'hooks/useSortedTableData';
 
 import { TableRow } from './TableRow/TableRow';
 import { ColumnKeys, SORTING_COLUMN_KEYS, TABLE_HEADER_CONFIG } from './Types';
@@ -19,7 +20,9 @@ export function ZonesTable() {
   const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
 
   const { data: zonesCountData } = useZonesCount(selectedPeriod);
-  const { data } = useZonesTable(selectedPeriod, sortingColumnKey);
+  const { data } = useZonesTable(selectedPeriod);
+
+  const sortedZones = useSortedTableData(data, sortingColumnKey);
 
   return (
     <div className={styles.container}>
@@ -42,7 +45,7 @@ export function ZonesTable() {
         selectedColumnKey={selectedColumnKey}
         setSelectedColumnKey={setSelectedColumnKey}
       >
-        {data.map((zone, index) => (
+        {sortedZones.map((zone, index) => (
           <TableRow
             key={`zone_${zone.zone}`}
             index={index}

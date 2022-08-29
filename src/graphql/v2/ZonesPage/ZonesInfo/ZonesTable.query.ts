@@ -4,32 +4,50 @@ import { ZONE_BASE_INFO_V1 } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment'
 
 export const ZONES_TABLE = gql`
   ${ZONE_BASE_INFO_V1}
-  query ZonesTable($period: Int!, $orderBy: zones_stats_order_by!, $isMainnet: Boolean!) {
-    zonesTable: zones_stats(
-      where: { timeframe: { _eq: $period }, is_zone_mainnet: { _eq: $isMainnet } }
-      order_by: [$orderBy]
-    ) {
-      ...ZoneBaseInfoV1
-      channelsCount: channels_num
-      ibcActiveAddressesMainnetRatingDiff: ibc_active_addresses_mainnet_rating_diff
-      ibcDauMainnet: ibc_active_addresses_mainnet
-      ibcTransfersChart: chart
-      ibcTransfersMainnet: ibc_transfers_mainnet
-      ibcTransfersMainnetRatingDiff: ibc_transfers_mainnet_rating_diff
-      ibcTransfersPendingMainnet: ibc_transfers_pending_mainnet
-      ibcVolumeInMainnet: ibc_cashflow_in_mainnet
-      ibcVolumeInMainnetRatingDiff: ibc_cashflow_in_mainnet_rating_diff
-      ibcVolumeInPendingMainnet: ibc_cashflow_in_pending_mainnet
-      ibcVolumeMainnet: ibc_cashflow_mainnet
-      ibcVolumeMainnetRatingDiff: ibc_cashflow_mainnet_rating_diff
-      ibcVolumeOutMainnet: ibc_cashflow_out_mainnet
-      ibcVolumeOutMainnetRatingDiff: ibc_cashflow_out_mainnet_rating_diff
-      ibcVolumeOutPendingMainnet: ibc_cashflow_out_pending_mainnet
-      ibcVolumePendingMainnet: ibc_cashflow_pending_mainnet
-      isZoneUpToDate: is_zone_up_to_date
-      peersCountMainnet: ibc_peers_mainnet
-      totalIbcTxsMainnetRatingDiff: total_ibc_txs_mainnet_rating_diff
-      totalTxs: total_txs
+  query ZonesTable($period: Int!, $isMainnet: Boolean!) {
+    zonesTable: flat_blockchains(where: { is_mainnet: { _eq: $isMainnet } }) {
+      ...ZoneBaseInfoV2
+      isZoneUpToDate: is_synced
+      switchedStats: blockchain_switched_stats(
+        where: { is_mainnet: { _eq: $isMainnet }, timeframe: { _eq: $period } }
+      ) {
+        channelsCount: channels_cnt
+        peersCount: ibc_peers
+        # ibc transfers
+        ibcTransfers: ibc_transfers
+        ibcTransfersPending: ibc_transfers_pending
+        ibcTransfersRating: ibc_transfers_rating
+        ibcTransfersRatingDiff: ibc_transfers_rating_diff
+        ibcTransfersChart: blockchain_tf_switched_charts(
+          where: { chart_type: { _eq: "transfers" } }
+          order_by: { point_index: asc }
+        ) {
+          transfers: point_value
+        }
+        # ibc volume
+        ibcVolume: ibc_cashflow
+        ibcVolumePending: ibc_cashflow_pending
+        ibcVolumeRating: ibc_cashflow_rating
+        ibcVolumeRatingDiff: ibc_cashflow_rating_diff
+        ibcVolumeIn: ibc_cashflow_in
+        ibcVolumeInPending: ibc_cashflow_in_pending
+        ibcVolumeInRating: ibc_cashflow_in_rating
+        ibcVolumeInRatingDiff: ibc_cashflow_in_rating_diff
+        ibcVolumeOut: ibc_cashflow_out
+        ibcVolumeOutPending: ibc_cashflow_out_pending
+        ibcVolumeOutRating: ibc_cashflow_out_rating
+        ibcVolumeOutRatingDiff: ibc_cashflow_out_rating_diff
+        # txs
+        totalIbcTxsRating: txs_rating
+        totalIbcTxsRatingDiff: txs_rating_diff
+        # dau
+        ibcDauRating: ibc_active_addresses_cnt_rating
+        ibcDauRatingDiff: ibc_active_addresses_cnt_rating_diff
+      }
+      stats: blockchain_stats(where: { timeframe: { _eq: $period } }) {
+        totalTxs: txs
+        ibcDau: ibc_active_addresses_cnt
+      }
     }
   }
 `;

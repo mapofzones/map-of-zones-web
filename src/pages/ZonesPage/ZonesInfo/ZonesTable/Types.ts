@@ -2,7 +2,8 @@ import {
   Align,
   CircleType,
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
-import { Zones_Stats_Select_Column } from 'graphql/base-types';
+
+import { ZoneData } from './TableRow/TableRow.props';
 
 export enum ColumnKeys {
   IbcActiveAddresses = 'ibcActiveAddresses',
@@ -13,13 +14,13 @@ export enum ColumnKeys {
   TotalTxs = 'totalTxs',
 }
 
-export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Zones_Stats_Select_Column> = {
-  [ColumnKeys.IbcActiveAddresses]: Zones_Stats_Select_Column.IbcActiveAddressesMainnetRating,
-  [ColumnKeys.IbcTransfers]: Zones_Stats_Select_Column.IbcTransfersMainnetRating,
-  [ColumnKeys.IbcVolume]: Zones_Stats_Select_Column.IbcCashflowMainnetRating,
-  [ColumnKeys.IbcVolumeReceived]: Zones_Stats_Select_Column.IbcCashflowInMainnetRating,
-  [ColumnKeys.IbcVolumeSent]: Zones_Stats_Select_Column.IbcCashflowOutMainnetRating,
-  [ColumnKeys.TotalTxs]: Zones_Stats_Select_Column.TotalTxsMainnetRating,
+export const SORTING_COLUMN_KEYS: Record<ColumnKeys, keyof ZoneData> = {
+  [ColumnKeys.IbcActiveAddresses]: 'ibcDauRating',
+  [ColumnKeys.IbcTransfers]: 'ibcTransfersRating',
+  [ColumnKeys.IbcVolume]: 'ibcVolumeRating',
+  [ColumnKeys.IbcVolumeReceived]: 'ibcVolumeInRating',
+  [ColumnKeys.IbcVolumeSent]: 'ibcVolumeOutRating',
+  [ColumnKeys.TotalTxs]: 'totalIbcTxsRating',
 };
 
 export const TABLE_HEADER_CONFIG = [
