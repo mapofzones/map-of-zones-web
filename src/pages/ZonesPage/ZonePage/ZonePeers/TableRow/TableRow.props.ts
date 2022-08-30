@@ -25,6 +25,7 @@ export interface ZoneChannelRowData {
 
 export interface ZoneData extends ZoneChannelRowData {
   channels: Array<ChannelData>;
+  zone?: string | null;
   zoneCounterpartyKey?: string | null;
   zoneCounterpartyLogoUrl?: string | null;
   zoneCounterpartyName?: string | null;

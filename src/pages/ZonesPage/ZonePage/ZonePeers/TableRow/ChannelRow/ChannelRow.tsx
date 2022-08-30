@@ -52,8 +52,8 @@ export function ChannelRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Currency}
-          pendingValue={channel.ibcVolumeOutPending}
-          value={channel.ibcVolumeOut}
+          pendingValue={channel.ibcVolumePending}
+          value={channel.ibcVolume}
         />
       </TableRowItem>
 

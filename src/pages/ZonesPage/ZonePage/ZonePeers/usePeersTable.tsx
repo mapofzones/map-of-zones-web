@@ -1,15 +1,12 @@
 import { useQuery } from '@apollo/client';
 import _ from 'lodash';
-import groupBy from 'lodash/groupBy';
 import { useParams } from 'react-router-dom';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components/PeriodSelector/Types';
 import { ZonesListZonePeersDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZonePeers.query.generated';
-import { SortRow } from 'hooks/useSortedTableData';
 
-import { ChannelData } from './TableRow/ChannelRow/ChannelRow.props';
 import { ZoneData } from './TableRow/TableRow.props';
-import { ColumnKeys, SORTING_COLUMN_KEYS } from './Types';
+import { ColumnKeys } from './Types';
 
 type ZoneQueryResult = {
   name: string;
@@ -45,48 +42,65 @@ export function usePeersTable(
     variables: {
       source: zone,
       period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
+      isMainnet: true,
     },
   };
 
   const { data } = useQuery(ZonesListZonePeersDocument, options);
 
-  const grouppedChannelsByZone = groupBy(data?.zoneChannels, 'zoneCounterparty.zone');
-
   return {
-    data: Object.entries(grouppedChannelsByZone).map(
-      ([_key, channels]: [string, ZoneChannelQueryResult[]]) => {
-        const volumeInSum = _.sumBy(channels, (channel) => channel.ibcVolumeIn);
-        const volumeInPendingSum = _.sumBy(channels, (channel) => channel.ibcVolumeInPending);
-        const volumeOutSum = _.sumBy(channels, (channel) => channel.ibcVolumeOut);
-        const volumeOutPendingSum = _.sumBy(channels, (channel) => channel.ibcVolumeOutPending);
+    data:
+      data?.zones
+        .filter((zone) => zone.data.zoneChannels && zone.data.zoneChannels.length > 0)
+        .map((zone) => {
+          const sumData = zone.data.aggregate?.sum;
+          const ibcVolume = sumData ? sumData?.ibcVolumeIn + sumData?.ibcVolumeOut : 0;
+          const ibcVolumePending = sumData
+            ? sumData?.ibcVolumeInPending + sumData?.ibcVolumeOutPending
+            : 0;
 
-        return {
-          zoneCounterpartyKey: channels[0]?.zoneCounterparty?.zone,
-          zoneCounterpartyLogoUrl: channels[0]?.zoneCounterparty?.logoUrl,
-          zoneCounterpartyName: channels[0]?.zoneCounterparty?.name,
-          isZoneCounterpartyUpToDate: channels[0]?.zoneCounterparty?.isUpToDate,
-          ibcVolume: volumeInSum + volumeOutSum,
-          ibcVolumePending: volumeInPendingSum + volumeOutPendingSum,
-          ibcVolumeIn: volumeInSum,
-          ibcVolumeInPending: volumeInPendingSum,
-          ibcVolumeOut: volumeOutSum,
-          ibcVolumeOutPending: volumeOutPendingSum,
-          ibcTransfers: _.sumBy(channels, (channel) => channel.ibcTransfers),
-          ibcTransfersPending: _.sumBy(channels, (channel) => channel.ibcTransfersPending),
-          ibcTransfersFailed: _.sumBy(channels, (channel) => channel.ibcTransfersFailed),
-          successRate: _.sumBy(channels, (channel) => channel.ibcTransfersSuccessRate),
-          channels: channels
-            .map(
-              (channel) =>
-                ({
-                  ...channel,
-                  ibcVolume: channel.ibcVolumeIn + channel.ibcVolumeOut,
-                  ibcVolumePending: channel.ibcVolumeInPending + channel.ibcVolumeOutPending,
-                } as ChannelData)
-            )
-            .sort((a, b) => SortRow(a, b, selectedColumnKey)),
-        };
-      }
-    ),
+          return (
+            zone?.data?.zoneChannels && {
+              zone: zone.data.zoneChannels[0].zone,
+              zoneCounterpartyKey: zone.data.zoneChannels[0].zoneCounterparty.zone,
+              zoneCounterpartyName: zone.data.zoneChannels[0].zoneCounterparty.name,
+              zoneCounterpartyLogoUrl: zone.data.zoneChannels[0].zoneCounterparty.logoUrl,
+              isZoneCounterpartyUpToDate: zone.data.zoneChannels[0].zoneCounterparty.isUpToDate,
+              ibcTransfersSuccessRate: zone.data.aggregate?.avg?.ibcTransfersSuccessRate,
+              ibcTransfers: sumData?.ibcTransfers,
+              ibcTransfersPending: sumData?.ibcTransfersPending,
+              ibcTransfersFailed: sumData?.ibcTransfersFailed,
+              ibcVolumeIn: sumData?.ibcVolumeIn,
+              ibcVolumeInPending: sumData?.ibcVolumeInPending,
+              ibcVolumeOut: sumData?.ibcVolumeOut,
+              ibcVolumeOutPending: sumData?.ibcVolumeOutPending,
+              ibcVolume: ibcVolume,
+              ibcVolumePending: ibcVolumePending,
+              channels: zone.data.zoneChannels.map((channel) => {
+                const channelVolume = channel.ibcVolumeIn + channel.ibcVolumeOut;
+                const channelVolumePending =
+                  channel.ibcVolumeInPending + channel.ibcVolumeOutPending;
+
+                return {
+                  zoneCounterpartyChannelId: channel.zoneCounterpartyChannelId,
+                  channelId: channel.channelId,
+                  clientId: channel.channelId,
+                  connectionId: channel.connectionId,
+                  isOpened: channel.isOpened,
+                  ibcTransfers: channel.ibcTransfers,
+                  ibcTransfersPending: channel.ibcTransfersPending,
+                  ibcTransfersFailed: channel.ibcTransfersFailed,
+                  ibcTransfersSuccessRate: channel.ibcTransfersSuccessRate,
+                  ibcVolumeIn: channel.ibcVolumeIn,
+                  ibcVolumeInPending: channel.ibcVolumeInPending,
+                  ibcVolumeOut: channel.ibcVolumeOut,
+                  ibcVolumeOutPending: channel.ibcVolumeOutPending,
+                  ibcVolume: channelVolume,
+                  ibcVolumePending: channelVolumePending,
+                };
+              }),
+            }
+          );
+        }) ?? [],
   };
 }
