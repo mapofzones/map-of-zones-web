@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components/PeriodSelector/Types';

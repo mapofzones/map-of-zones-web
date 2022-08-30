@@ -7,12 +7,12 @@ import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZonesCountQueryVariables = Types.Exact<{
-  period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
 }>;
 
 export type ZonesCountQueryResult = {
-  headers: Array<{ allZonesCount: number; activeZonesCount: number }>;
+  allZonesCount: { aggregate?: { count?: number | null } | null };
+  activeZonesCount: { aggregate?: { count?: number | null } | null };
 };
 
 export const ZonesCountDocument = {
@@ -23,14 +23,6 @@ export const ZonesCountDocument = {
       operation: 'query',
       name: { kind: 'Name', value: 'ZonesCount' },
       variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-          },
-        },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
@@ -45,7 +37,8 @@ export const ZonesCountDocument = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'headers' },
+            alias: { kind: 'Name', value: 'allZonesCount' },
+            name: { kind: 'Name', value: 'flat_blockchains_aggregate' },
             arguments: [
               {
                 kind: 'Argument',
@@ -55,21 +48,7 @@ export const ZonesCountDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'timeframe' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_mainnet_only' },
+                      name: { kind: 'Name', value: 'is_mainnet' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -90,13 +69,77 @@ export const ZonesCountDocument = {
               selections: [
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'allZonesCount' },
-                  name: { kind: 'Name', value: 'zones_cnt_all' },
+                  name: { kind: 'Name', value: 'aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'count' } }],
+                  },
                 },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'activeZonesCount' },
+            name: { kind: 'Name', value: 'flat_blockchains_aggregate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'is_mainnet' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'blockchain_switched_stats' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'ibc_cashflow' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_gt' },
+                                  value: { kind: 'IntValue', value: '0' },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'activeZonesCount' },
-                  name: { kind: 'Name', value: 'zones_cnt_period' },
+                  name: { kind: 'Name', value: 'aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'count' } }],
+                  },
                 },
               ],
             },
