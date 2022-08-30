@@ -16,6 +16,14 @@ export type ZonePeersShortInfoV1Fragment = {
   ibcVolumeOutPending: any;
 };
 
+export type ZonePeersShortInfoV2Fragment = {
+  ibcVolumeIn: any;
+  ibcVolumeOut: any;
+  ibcVolumeInPending: any;
+  ibcVolumeOutPending: any;
+  zoneCounterparty: { name: string; zone: string; logoUrl?: string | null };
+};
+
 export const ZonePeersShortInfoV1FragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -66,3 +74,59 @@ export const ZonePeersShortInfoV1FragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<ZonePeersShortInfoV1Fragment, unknown>;
+export const ZonePeersShortInfoV2FragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ZonePeersShortInfoV2' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'flat_channels_stats' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'zoneCounterparty' },
+            name: { kind: 'Name', value: 'blockchainByCounterpartyBlockchain' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'zone' },
+                  name: { kind: 'Name', value: 'network_id' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'logoUrl' },
+                  name: { kind: 'Name', value: 'logo_url' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcVolumeIn' },
+            name: { kind: 'Name', value: 'ibc_cashflow_in' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcVolumeOut' },
+            name: { kind: 'Name', value: 'ibc_cashflow_out' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcVolumeInPending' },
+            name: { kind: 'Name', value: 'ibc_cashflow_in_pending' },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'ibcVolumeOutPending' },
+            name: { kind: 'Name', value: 'ibc_cashflow_out_pending' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ZonePeersShortInfoV2Fragment, unknown>;

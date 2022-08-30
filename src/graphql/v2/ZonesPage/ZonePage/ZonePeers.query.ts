@@ -1,50 +1,64 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_PEERS_SHORT_INFO_V1_FRAGMENT } from 'graphql/v2/HomePage/Sidebar/ZoneDetails/ZonePeersShortInfo.fragment';
-
 export const ZONES_LIST_ZONE_PEERS = gql`
-  ${ZONE_PEERS_SHORT_INFO_V1_FRAGMENT}
-  query ZonesListZonePeers(
-    $source: String!
-    $orderBy: ft_channel_group_stats_order_by!
-    $period: Int!
-  ) {
-    zonePeers: ft_channel_group_stats(
+  query ZonesListZonePeers($source: String!, $period: Int!) {
+    # zonePeers: flat_channels_stats_aggregate(
+    #   where: {
+    #     blockchain: { _eq: $source }
+    #     timeframe: { _eq: $period }
+    #     blockchainByCounterpartyBlockchain: { is_mainnet: { _eq: true } }
+    #   }
+    #   order_by: [$orderBy]
+    # ) {
+    #   aggregate {
+    #     sum {
+    #       zoneCounterparty: blockchainByCounterpartyBlockchain {
+    #         zone: network_id
+    #         name
+    #         logoUrl: logo_url
+    #         isUpToDate: is_synced
+    #       }
+    #       # ibc transfers
+    #       ibcTransfers: ibc_transfers
+    #       ibcTransfersPending: ibc_transfers_pending
+    #       ibcTransfersFailed: ibc_transfers_failed
+    #       ibcTransfersSuccessRate: ibc_transfers_success_rate
+    #       # ibc volume
+    #       ibcVolumeIn: ibc_cashflow_in
+    #       ibcVolumeOut: ibc_cashflow_out
+    #       ibcVolumeInPending: ibc_cashflow_in_pending
+    #       ibcVolumeOutPending: ibc_cashflow_out_pending
+    #     }
+    #   }
+    # }
+    zoneChannels: flat_channels_stats(
       where: {
-        zone: { _eq: $source }
+        blockchain: { _eq: $source }
         timeframe: { _eq: $period }
-        is_zone_counterparty_mainnet: { _eq: true }
-      }
-      order_by: [$orderBy]
-    ) {
-      ...ZonePeersShortInfoV1
-      ibcTransfers: ibc_tx
-      ibcTransfersPending: ibc_tx_pending
-      ibcTransfersFailed: ibc_tx_failed
-      isZoneCounterpartyUpToDate: is_zone_counterparty_up_to_date
-      successRate: ibc_tx_success_rate
-    }
-    zoneChannels: ft_channels_stats(
-      where: {
-        zone: { _eq: $source }
-        timeframe: { _eq: $period }
-        is_zone_counterparty_mainnet: { _eq: true }
+        blockchainByCounterpartyBlockchain: { is_mainnet: { _eq: true } }
       }
     ) {
+      zoneCounterparty: blockchainByCounterpartyBlockchain {
+        zone: network_id
+        name
+        logoUrl: logo_url
+        isUpToDate: is_synced
+      }
+      zoneCounterpartyChannelId: counterparty_channel_id
       channelId: channel_id
       clientId: client_id
       connectionId: connection_id
-      ibcTransfers: ibc_tx
-      ibcTransfersFailed: ibc_tx_failed
-      ibcTransfersPending: ibc_tx_pending
+      isOpened: is_channel_open
+      # ibc transfers
+      ibcTransfers: ibc_transfers
+      ibcTransfersPending: ibc_transfers_pending
+      ibcTransfersFailed: ibc_transfers_failed
+      ibcTransfersSuccessRate: ibc_transfers_success_rate
+      # ibc volume
       ibcVolumeIn: ibc_cashflow_in
       ibcVolumeInPending: ibc_cashflow_in_pending
       ibcVolumeOut: ibc_cashflow_out
       ibcVolumeOutPending: ibc_cashflow_out_pending
-      isOpened: is_opened
-      successRate: ibc_tx_success_rate
-      zoneCounterpartyChannelId: zone_counterparty_channel_id
-      zoneCounterpartyKey: zone_counterparty
     }
   }
 `;

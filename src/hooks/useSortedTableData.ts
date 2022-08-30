@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function SortRow<T>(a: T, b: T, key: keyof T) {
+export function SortRow<T>(a: T, b: T, key: keyof T) {
   // equal items sort equally
   if (a[key] === b[key]) {
     return 0;

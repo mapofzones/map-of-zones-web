@@ -6,43 +6,32 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZonePeersShortInfoV1FragmentDoc } from '../../../HomePage/Sidebar/ZoneDetails/__generated__/ZonePeersShortInfo.fragment.generated';
 export type ZonesListZonePeersQueryVariables = Types.Exact<{
   source: Types.Scalars['String'];
-  orderBy: Types.Ft_Channel_Group_Stats_Order_By;
   period: Types.Scalars['Int'];
 }>;
 
 export type ZonesListZonePeersQueryResult = {
-  zonePeers: Array<{
-    ibcTransfers: any;
-    ibcTransfersPending?: number | null;
-    ibcTransfersFailed: any;
-    isZoneCounterpartyUpToDate?: boolean | null;
-    successRate: any;
-    zoneCounterpartyKey: string;
-    zoneCounterpartyLogoUrl?: string | null;
-    zoneCounterpartyName?: string | null;
-    ibcVolumeIn: any;
-    ibcVolumeOut: any;
-    ibcVolumeInPending: any;
-    ibcVolumeOutPending: any;
-  }>;
   zoneChannels: Array<{
+    zoneCounterpartyChannelId: string;
     channelId: string;
     clientId: string;
     connectionId: string;
-    ibcTransfers: any;
-    ibcTransfersFailed: any;
-    ibcTransfersPending?: number | null;
+    isOpened: boolean;
+    ibcTransfers: number;
+    ibcTransfersPending: number;
+    ibcTransfersFailed: number;
+    ibcTransfersSuccessRate: any;
     ibcVolumeIn: any;
     ibcVolumeInPending: any;
     ibcVolumeOut: any;
     ibcVolumeOutPending: any;
-    isOpened: boolean;
-    successRate: any;
-    zoneCounterpartyChannelId?: string | null;
-    zoneCounterpartyKey: string;
+    zoneCounterparty: {
+      name: string;
+      zone: string;
+      logoUrl?: string | null;
+      isUpToDate?: boolean | null;
+    };
   }>;
 };
 
@@ -64,17 +53,6 @@ export const ZonesListZonePeersDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ft_channel_group_stats_order_by' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
           type: {
             kind: 'NonNullType',
@@ -87,105 +65,8 @@ export const ZonesListZonePeersDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'zonePeers' },
-            name: { kind: 'Name', value: 'ft_channel_group_stats' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'zone' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'source' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'timeframe' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_zone_counterparty_mainnet' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'BooleanValue', value: true },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ListValue',
-                  values: [{ kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } }],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZonePeersShortInfoV1' } },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfers' },
-                  name: { kind: 'Name', value: 'ibc_tx' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfersPending' },
-                  name: { kind: 'Name', value: 'ibc_tx_pending' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfersFailed' },
-                  name: { kind: 'Name', value: 'ibc_tx_failed' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'isZoneCounterpartyUpToDate' },
-                  name: { kind: 'Name', value: 'is_zone_counterparty_up_to_date' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'successRate' },
-                  name: { kind: 'Name', value: 'ibc_tx_success_rate' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
             alias: { kind: 'Name', value: 'zoneChannels' },
-            name: { kind: 'Name', value: 'ft_channels_stats' },
+            name: { kind: 'Name', value: 'flat_channels_stats' },
             arguments: [
               {
                 kind: 'Argument',
@@ -195,7 +76,7 @@ export const ZonesListZonePeersDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'zone' },
+                      name: { kind: 'Name', value: 'blockchain' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -223,14 +104,23 @@ export const ZonesListZonePeersDocument = {
                     },
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_zone_counterparty_mainnet' },
+                      name: { kind: 'Name', value: 'blockchainByCounterpartyBlockchain' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
                           {
                             kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'BooleanValue', value: true },
+                            name: { kind: 'Name', value: 'is_mainnet' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: { kind: 'BooleanValue', value: true },
+                                },
+                              ],
+                            },
                           },
                         ],
                       },
@@ -242,6 +132,37 @@ export const ZonesListZonePeersDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'zoneCounterparty' },
+                  name: { kind: 'Name', value: 'blockchainByCounterpartyBlockchain' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'zone' },
+                        name: { kind: 'Name', value: 'network_id' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'logoUrl' },
+                        name: { kind: 'Name', value: 'logo_url' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'isUpToDate' },
+                        name: { kind: 'Name', value: 'is_synced' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'zoneCounterpartyChannelId' },
+                  name: { kind: 'Name', value: 'counterparty_channel_id' },
+                },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'channelId' },
@@ -259,18 +180,28 @@ export const ZonesListZonePeersDocument = {
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfers' },
-                  name: { kind: 'Name', value: 'ibc_tx' },
+                  alias: { kind: 'Name', value: 'isOpened' },
+                  name: { kind: 'Name', value: 'is_channel_open' },
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTransfersFailed' },
-                  name: { kind: 'Name', value: 'ibc_tx_failed' },
+                  alias: { kind: 'Name', value: 'ibcTransfers' },
+                  name: { kind: 'Name', value: 'ibc_transfers' },
                 },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcTransfersPending' },
-                  name: { kind: 'Name', value: 'ibc_tx_pending' },
+                  name: { kind: 'Name', value: 'ibc_transfers_pending' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcTransfersFailed' },
+                  name: { kind: 'Name', value: 'ibc_transfers_failed' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcTransfersSuccessRate' },
+                  name: { kind: 'Name', value: 'ibc_transfers_success_rate' },
                 },
                 {
                   kind: 'Field',
@@ -292,32 +223,11 @@ export const ZonesListZonePeersDocument = {
                   alias: { kind: 'Name', value: 'ibcVolumeOutPending' },
                   name: { kind: 'Name', value: 'ibc_cashflow_out_pending' },
                 },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'isOpened' },
-                  name: { kind: 'Name', value: 'is_opened' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'successRate' },
-                  name: { kind: 'Name', value: 'ibc_tx_success_rate' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'zoneCounterpartyChannelId' },
-                  name: { kind: 'Name', value: 'zone_counterparty_channel_id' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'zoneCounterpartyKey' },
-                  name: { kind: 'Name', value: 'zone_counterparty' },
-                },
               ],
             },
           },
         ],
       },
     },
-    ...ZonePeersShortInfoV1FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZonesListZonePeersQueryResult, ZonesListZonePeersQueryVariables>;

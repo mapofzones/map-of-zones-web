@@ -110,7 +110,7 @@ export function ChannelRow({
           className={styles.value}
           suffix=" %"
           numberType={NumberType.Percent}
-          value={channel.successRate}
+          value={channel.ibcTransfersSuccessRate}
         />
       </TableRowItem>
     </motion.tr>

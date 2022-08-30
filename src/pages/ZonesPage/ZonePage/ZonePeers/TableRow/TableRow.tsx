@@ -131,8 +131,8 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
             alignRight={true}
             className={styles.value}
             numberType={NumberType.Currency}
-            pendingValue={zone.ibcVolumeOutPending}
-            value={zone.ibcVolumeOut}
+            pendingValue={zone.ibcVolumePending}
+            value={zone.ibcVolume}
           />
         </TableRowItem>
 
@@ -189,7 +189,7 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
             className={styles.value}
             numberType={NumberType.Percent}
             suffix=" %"
-            value={zone.successRate}
+            value={zone.ibcTransfersSuccessRate}
           />
         </td>
       </tr>
