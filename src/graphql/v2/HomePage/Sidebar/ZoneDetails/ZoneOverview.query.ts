@@ -19,7 +19,6 @@ export const SIDEBAR_ZONE_OVERVIEW = gql`
       ibcTransfers: ibc_transfers
       peersCount: ibc_peers
       channelsCount: channels_cnt
-      # TODO: add DAU, Token Price, Market Cap
     }
     stats: flat_blockchain_stats(
       where: { blockchain: { _eq: $zone }, timeframe: { _eq: $period } }
