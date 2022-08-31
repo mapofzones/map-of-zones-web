@@ -17,6 +17,7 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
 import { chartOptions, ChartType } from './Types';
+import { useZoneOverviewToken } from './useZoneOverviewToken';
 import styles from './ZoneOverviewToken.module.scss';
 
 export function ZoneOverviewToken({ className }: { className?: string }) {
@@ -30,6 +31,8 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
     () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),
     [selectedPeriod]
   );
+
+  const { data } = useZoneOverviewToken();
 
   const priceData = [
     {
@@ -105,10 +108,10 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           <span className={styles.detailsItem_title}>Price</span>
           <span className={styles.detailsItem_data}>
             <div className={styles.infoGroup}>
-              <ZoneLogo size="20px" />
-              <span className={styles.tokenName}>INJ</span>
+              <ZoneLogo size="20px" logoUrl={data?.logoUrl} />
+              <span className={styles.tokenName}>{data?.symbol}</span>
               <NumberFormat
-                value={1.56}
+                value={data?.price}
                 numberType={NumberType.Currency}
                 className={styles.tokenPrice}
               />
@@ -117,16 +120,16 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
               <RatingDiffTriangle
                 className={styles.tokenPriceDiff}
                 numberType={NumberType.Percent}
-                ratingDiff={13.5}
+                ratingDiff={data?.priceDayDiffPercent}
               />
-              <span className={styles.period}>(24h)</span>
+              <span className={styles.period}>&nbsp;(24h)</span>
             </div>
           </span>
         </div>
         <div className={styles.detailsItem}>
           <ValueWithPending
             title="Market Cap"
-            value={997309120}
+            value={data?.marketCap}
             numberType={NumberType.Currency}
             size={ElementSize.LARGE}
           />
@@ -134,7 +137,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         <div className={styles.detailsItem}>
           <ValueWithPending
             title="Volume"
-            value={1530009150}
+            value={data?.tradingVolumeDay}
             numberType={NumberType.Currency}
             size={ElementSize.LARGE}
           />
@@ -152,7 +155,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         />
         <AreaChart
           className={styles.priceVolumeChart}
-          data={selectedChartType === ChartType.PRICE ? priceData : volumeData}
+          data={selectedChartType === ChartType.PRICE ? priceData : volumeData} // TODO: add chart data from API
           dataKey={selectedChartType === ChartType.PRICE ? 'price' : 'volume'}
           dataFormat={
             selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number

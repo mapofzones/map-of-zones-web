@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_BASE_INFO_V1 } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment';
+import { ZONE_BASE_INFO_V2 } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment';
 
 export const ZONES_TABLE = gql`
-  ${ZONE_BASE_INFO_V1}
+  ${ZONE_BASE_INFO_V2}
   query ZonesTable($period: Int!, $isMainnet: Boolean!) {
     zonesTable: flat_blockchains(where: { is_mainnet: { _eq: $isMainnet } }) {
       ...ZoneBaseInfoV2

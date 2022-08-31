@@ -14,7 +14,6 @@ export function SortRow<T>(a: T, b: T, key: keyof T) {
     return -1;
   }
 
-  // otherwise, lowest sorts first
   return a[key] < b[key] ? -1 : 1;
 }
 
