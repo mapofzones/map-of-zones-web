@@ -65,7 +65,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           rowDirection
           title={'DAU'}
           loading={loading}
-          value={undefined}
+          value={data?.dau}
           tooltipText={'Some tooltip'}
           tooltipPosition={'right'}
         />
@@ -80,7 +80,10 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         >
           <div className={styles.dauValue}>
             <NumberFormat value={data?.ibcDau} />
-            <span className={styles.additionalInfo}> (99,8% of DAU)</span>
+            <span className={styles.additionalInfo}>
+              {' '}
+              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} /> of DAU)
+            </span>
           </div>
         </ZoneOverviewItem>
       </div>

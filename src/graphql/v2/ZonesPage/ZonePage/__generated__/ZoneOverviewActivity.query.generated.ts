@@ -22,7 +22,13 @@ export type ZoneOverviewActivityQueryResult = {
     ibcTransfersPending: number;
     ibcTransfersChart: Array<{ ibcTransfer: any }>;
   }>;
-  stats: Array<{ ibcDau: number; totalTxs: number; totalTxsChart: Array<{ txs: any }> }>;
+  stats: Array<{
+    ibcDau: number;
+    dau?: number | null;
+    ibcDauPercent?: any | null;
+    totalTxs: number;
+    totalTxsChart: Array<{ txs: any }>;
+  }>;
 };
 
 export const ZoneOverviewActivityDocument = {
@@ -186,6 +192,16 @@ export const ZoneOverviewActivityDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcDau' },
                   name: { kind: 'Name', value: 'ibc_active_addresses_cnt' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'dau' },
+                  name: { kind: 'Name', value: 'active_addresses_cnt' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcDauPercent' },
+                  name: { kind: 'Name', value: 'ibc_active_addresses_percent' },
                 },
               ],
             },

@@ -9,7 +9,9 @@ import { ChartItemByString } from 'utils/helper';
 export type ZoneOverviewActivityQueryResult = {
   peersCount?: number;
   channelsCount?: number;
+  dau?: number | null;
   ibcDau?: number;
+  ibcDauPercent?: number;
   totalTxs?: number;
   totalTxsChart: ChartItemByString[];
   ibcTransfers?: number;
@@ -35,7 +37,11 @@ export function useZoneOverviewActivity(): {
   return {
     data: data && {
       ...data.switchedStats[0],
-      ...data.stats[0],
+      totalTxs: data.stats[0].totalTxs,
+      totalTxsChart: data.stats[0].totalTxsChart,
+      dau: data.stats[0].dau,
+      ibcDau: data.stats[0].ibcDau,
+      ibcDauPercent: data.stats[0].ibcDauPercent,
     },
     loading,
   };

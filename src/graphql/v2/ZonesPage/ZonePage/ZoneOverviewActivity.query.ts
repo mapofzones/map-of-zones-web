@@ -17,13 +17,14 @@ export const ZONE_OVERVIEW_ACTIVITY = gql`
       ...ZoneIbcTransfersCardV2
       peersCount: ibc_peers
       channelsCount: channels_cnt
-      # TODO: add DAU
     }
     stats: flat_blockchain_stats(
       where: { blockchain: { _eq: $zone }, timeframe: { _eq: $period } }
     ) {
       ...ZoneTotalTxsCardV2
       ibcDau: ibc_active_addresses_cnt
+      dau: active_addresses_cnt
+      ibcDauPercent: ibc_active_addresses_percent
     }
   }
 `;
