@@ -13,8 +13,16 @@ export type SidebarZoneOverviewQueryVariables = Types.Exact<{
 }>;
 
 export type SidebarZoneOverviewQueryResult = {
+  blockchain: Array<{
+    token?: { symbol?: string | null; price?: any | null; marketCap?: any | null } | null;
+  }>;
   switchedStats: Array<{ ibcTransfers: number; peersCount: number; channelsCount: number }>;
-  stats: Array<{ totalTxs: number; ibcDau: number }>;
+  stats: Array<{
+    totalTxs: number;
+    ibcDau: number;
+    dau?: number | null;
+    ibcDauPercent?: any | null;
+  }>;
 };
 
 export const SidebarZoneOverviewDocument = {
@@ -53,6 +61,57 @@ export const SidebarZoneOverviewDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'blockchain' },
+            name: { kind: 'Name', value: 'flat_blockchains' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'network_id' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'token' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'price' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'marketCap' },
+                        name: { kind: 'Name', value: 'market_cap' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'switchedStats' },
@@ -186,6 +245,16 @@ export const SidebarZoneOverviewDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcDau' },
                   name: { kind: 'Name', value: 'ibc_active_addresses_cnt' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'dau' },
+                  name: { kind: 'Name', value: 'active_addresses_cnt' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcDauPercent' },
+                  name: { kind: 'Name', value: 'ibc_active_addresses_percent' },
                 },
               ],
             },

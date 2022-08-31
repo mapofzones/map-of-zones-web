@@ -2,6 +2,13 @@ import { gql } from '@apollo/client';
 
 export const SIDEBAR_ZONE_OVERVIEW = gql`
   query SidebarZoneOverview($zone: String!, $period: Int!, $isMainnet: Boolean!) {
+    blockchain: flat_blockchains(where: { network_id: { _eq: $zone } }) {
+      token {
+        symbol
+        price
+        marketCap: market_cap
+      }
+    }
     switchedStats: flat_blockchain_switched_stats(
       where: {
         blockchain: { _eq: $zone }
@@ -19,6 +26,8 @@ export const SIDEBAR_ZONE_OVERVIEW = gql`
     ) {
       totalTxs: txs
       ibcDau: ibc_active_addresses_cnt
+      dau: active_addresses_cnt
+      ibcDauPercent: ibc_active_addresses_percent
     }
   }
 `;

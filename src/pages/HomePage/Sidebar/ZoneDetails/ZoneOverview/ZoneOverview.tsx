@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer } from 'components';
+import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer, NumberType } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
@@ -72,12 +72,10 @@ function ZoneOverview() {
             className={styles.detailedInfoItem}
             title={'DAU'}
             loading={loading}
-            value={data?.ibcDau}
+            value={data?.dau}
             tooltipText={'Some tooltip'}
             tooltipPosition={'right'}
-          >
-            -
-          </ZoneOverviewItem>
+          ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'IBC DAU'}
@@ -87,29 +85,31 @@ function ZoneOverview() {
             tooltipPosition={'left'}
           >
             <NumberFormat value={data?.ibcDau} />
-            <span className={styles.additionalInfo}> (99,8% of DAU)</span>
+            <span className={styles.additionalInfo}>
+              {' '}
+              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} /> of DAU)
+            </span>
           </ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'Token Price'}
-            value={data?.ibcDau}
             loading={loading}
             defaultLoadingValue={'$10.45'}
             tooltipText={'Some tooltip'}
             tooltipPosition={'left'}
           >
-            -
+            <NumberFormat value={data?.price} numberType={NumberType.Currency} />
+            <span className={styles.additionalInfo}> {data?.tokenSymbol}</span>
           </ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'Market Cap'}
+            value={data?.marketCap}
             loading={loading}
             defaultLoadingValue={'$123,456,789'}
             tooltipText={'Some tooltip'}
             tooltipPosition={'right'}
-          >
-            -
-          </ZoneOverviewItem>
+          ></ZoneOverviewItem>
         </div>
       </ScrollableContainer>
       <Button

@@ -11,6 +11,11 @@ export interface ZoneOverviewData {
   channelsCount: number;
   totalTxs: number;
   ibcDau: number;
+  dau?: number | null;
+  ibcDauPercent: number;
+  tokenSymbol?: string | null;
+  price: number;
+  marketCap: number;
 }
 
 export function useZoneOverview(): {
@@ -29,7 +34,13 @@ export function useZoneOverview(): {
   return {
     data: data && {
       ...data.switchedStats[0],
-      ...data.stats[0],
+      totalTxs: data.stats[0].totalTxs,
+      ibcDau: data.stats[0].ibcDau,
+      dau: data.stats[0].dau,
+      ibcDauPercent: data.stats[0].ibcDauPercent,
+      tokenSymbol: data.blockchain[0].token?.symbol,
+      price: data.blockchain[0].token?.price,
+      marketCap: data.blockchain[0].token?.marketCap,
     },
     loading,
   };
