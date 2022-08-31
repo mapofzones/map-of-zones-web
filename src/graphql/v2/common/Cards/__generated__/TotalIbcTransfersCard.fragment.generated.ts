@@ -6,14 +6,14 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type TotalIbcTransfersCardFragment = { ibcTransfers: number; ibcTransfersPending: number };
+export type TotalIbcTransfersCardV1Fragment = { ibcTransfers: number; ibcTransfersPending: number };
 
-export const TotalIbcTransfersCardFragmentDoc = {
+export const TotalIbcTransfersCardV1FragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'TotalIbcTransfersCard' },
+      name: { kind: 'Name', value: 'TotalIbcTransfersCardV1' },
       typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'headers' } },
       selectionSet: {
         kind: 'SelectionSet',
@@ -32,4 +32,4 @@ export const TotalIbcTransfersCardFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<TotalIbcTransfersCardFragment, unknown>;
+} as unknown as DocumentNode<TotalIbcTransfersCardV1Fragment, unknown>;

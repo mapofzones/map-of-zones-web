@@ -6,18 +6,18 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type TotalIbcVolumeCardFragment = {
+export type TotalIbcVolumeCardV1Fragment = {
   ibcVolume?: any | null;
   ibcVolumePending: any;
   ibcVolumeChart?: any | null;
 };
 
-export const TotalIbcVolumeCardFragmentDoc = {
+export const TotalIbcVolumeCardV1FragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'TotalIbcVolumeCard' },
+      name: { kind: 'Name', value: 'TotalIbcVolumeCardV1' },
       typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'headers' } },
       selectionSet: {
         kind: 'SelectionSet',
@@ -41,4 +41,4 @@ export const TotalIbcVolumeCardFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<TotalIbcVolumeCardFragment, unknown>;
+} as unknown as DocumentNode<TotalIbcVolumeCardV1Fragment, unknown>;
