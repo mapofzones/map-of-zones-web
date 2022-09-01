@@ -9,27 +9,26 @@ import {
   TableRowItem,
 } from 'components';
 
-import { ColumnKeys } from '../Types';
 import styles from './TableRow.module.scss';
-import { AssetData, TableRowProps } from './TableRow.props';
+import { TableRowProps } from './TableRow.props';
 
-const ratingDiffKeysMap: Record<ColumnKeys, keyof AssetData> = {
-  marketCap: 'marketCapDiffRating',
-  price: 'priceDiffRating',
-  price24hPercent: 'price24hPercentDiffRating',
-  price7dPercent: 'price7dPercentDiffRating',
-  volume24h: 'volume24hDiffRating',
-  volume24hPercent: 'volume24hPercentDiffRating',
-  supply: 'supplyDiffRating',
-};
+// const ratingDiffKeysMap: Record<ColumnKeys, keyof AssetsTableRow> = {
+//   marketCap: 'marketCapDiffRating',
+//   price: 'priceDiffRating',
+//   price24hPercent: 'price24hPercentDiffRating',
+//   price7dPercent: 'price7dPercentDiffRating',
+//   volume24h: 'volume24hDiffRating',
+//   volume24hPercent: 'volume24hPercentDiffRating',
+//   supply: 'supplyDiffRating',
+// };
 
 export function TableRow({
   asset,
   index,
   isTableHorizontalScrollable,
-  selectedColumnKey,
-}: TableRowProps) {
-  const ratingDiff = asset[ratingDiffKeysMap[selectedColumnKey]] as number;
+}: // selectedColumnKey,
+TableRowProps) {
+  // const ratingDiff = asset[ratingDiffKeysMap[selectedColumnKey]] as number;
 
   return (
     <tr className={styles.container}>
@@ -42,10 +41,10 @@ export function TableRow({
           <ZoneLogo logoUrl={asset.logoUrl} className={styles.logo} />
           <div>
             <div className={styles.nameContainer}>
-              <span className={styles.name}>{asset.name}</span>
-              <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} />
+              <span className={styles.name}>{asset.blockchain}</span>
+              {/* <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} /> */}
             </div>
-            <span className={styles.code}>{asset.code}</span>
+            <span className={styles.code}>{asset.symbol}</span>
           </div>
         </div>
       </TableRowItem>
@@ -64,7 +63,7 @@ export function TableRow({
           allowEmpty={true}
           className={styles.value}
           numberType={NumberType.Percent}
-          ratingDiff={asset.price24hPercent}
+          ratingDiff={asset.price24hDiffPercent}
         />
       </TableRowItem>
 
@@ -73,7 +72,7 @@ export function TableRow({
           allowEmpty={true}
           className={styles.value}
           numberType={NumberType.Percent}
-          ratingDiff={asset.price7dPercent}
+          ratingDiff={asset.price7dDiffPercent}
         />
       </TableRowItem>
 
@@ -100,7 +99,7 @@ export function TableRow({
           allowEmpty={true}
           className={styles.value}
           numberType={NumberType.Percent}
-          ratingDiff={asset.volume24hPercent}
+          ratingDiff={asset.volume24hDiffPercent}
         />
       </TableRowItem>
 
@@ -109,14 +108,14 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
-          value={asset.supply}
+          value={asset.onChainSupply}
         />
       </TableRowItem>
 
       <TableRowItem>
         <div className={styles.chartContainer}>
-          <span className={cn(styles.code, styles.value)}>{asset.code}</span>
-          {asset.chart && <LineChart data={asset.chart} dataKey="chart" />}
+          <span className={cn(styles.code, styles.value)}>{asset.symbol}</span>
+          {asset.priceChart && <LineChart data={asset.priceChart} dataKey="chart" />}
         </div>
       </TableRowItem>
     </tr>

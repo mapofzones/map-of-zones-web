@@ -1,5 +1,6 @@
 import { Table } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
+import { useSortedTableData } from 'hooks/useSortedTableData';
 
 import styles from './AssetsTable.module.scss';
 import { TableRow } from './TableRow/TableRow';
@@ -14,7 +15,9 @@ export function AssetsTable() {
 
   const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
 
-  const { data } = useAssetsTable(sortingColumnKey);
+  const { data } = useAssetsTable();
+
+  const sortedData = useSortedTableData(data, sortingColumnKey);
 
   return (
     <div className={styles.container}>
@@ -26,14 +29,15 @@ export function AssetsTable() {
         selectedColumnKey={selectedColumnKey}
         setSelectedColumnKey={setSelectedColumnKey}
       >
-        {data.map((asset, index) => (
-          <TableRow
-            key={`asset_${asset.code}`}
-            asset={asset}
-            index={index}
-            selectedColumnKey={selectedColumnKey}
-          />
-        ))}
+        {sortedData &&
+          sortedData.map((asset, index) => (
+            <TableRow
+              key={`asset_${asset.symbol}`}
+              asset={asset}
+              index={index}
+              selectedColumnKey={selectedColumnKey}
+            />
+          ))}
       </Table>
     </div>
   );

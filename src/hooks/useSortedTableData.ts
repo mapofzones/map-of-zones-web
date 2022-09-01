@@ -17,7 +17,7 @@ export function SortRow<T>(a: T, b: T, key: keyof T) {
   return a[key] < b[key] ? -1 : 1;
 }
 
-export function useSortedTableData<T>(data: T[], sortingColumnKey: keyof T): T[] {
+export function useSortedTableData<T>(data: T[] | undefined, sortingColumnKey: keyof T): T[] {
   const [sortedZones, setSortedZones] = useState<T[]>([]);
 
   useEffect(() => {
