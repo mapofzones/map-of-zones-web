@@ -40,7 +40,7 @@ export function ZonePage() {
   return (
     <div>
       <div className={styles.header}>
-        <div ref={ref}>
+        <div className={styles.zoneInfoWithFilterContainer} ref={ref}>
           <div className={styles.detailsTitle} onClick={toggleSearch}>
             <ZoneLogo
               logoUrl={data?.logoUrl}
