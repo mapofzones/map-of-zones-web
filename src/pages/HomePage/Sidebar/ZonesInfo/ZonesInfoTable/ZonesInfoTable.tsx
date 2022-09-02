@@ -32,6 +32,10 @@ const fieldsMap: Record<
     valueKey: 'totalTxs',
     ratingDiffKey: 'totalTxsRatingDiff',
   },
+  dau: {
+    valueKey: 'dau',
+    ratingDiffKey: 'dauRatingDiff',
+  },
 };
 
 function ZonesInfoTable({

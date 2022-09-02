@@ -25,4 +25,7 @@ export interface ZonesTableDataQueryItem {
   totalTxs?: number | null;
   totalTxsRating?: number | null;
   totalTxsRatingDiff?: number | null;
+  dau?: number | null;
+  dauRating?: number | null;
+  dauRatingDiff?: number | null;
 }

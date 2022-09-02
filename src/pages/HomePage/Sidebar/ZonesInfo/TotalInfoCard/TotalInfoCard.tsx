@@ -34,6 +34,10 @@ const metadata: Record<ColumnKeys, TotalInfoMetadata> = {
     title: 'Total Transaction',
     valueKey: 'ibcTransfers', // add total txs
   },
+  dau: {
+    title: 'DAU',
+    valueKey: 'dau',
+  },
 };
 
 export function TotalInfoCard({

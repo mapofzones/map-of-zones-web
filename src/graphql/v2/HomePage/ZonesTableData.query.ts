@@ -17,6 +17,7 @@ export const ZONES_TABLE_DATA = gql`
     $withVolume: Boolean!
     $withTransfers: Boolean!
     $withTotalTxs: Boolean!
+    $withDau: Boolean!
   ) {
     zonesTable: flat_blockchains(where: { is_mainnet: { _eq: $isMainnet } }) {
       ...ZoneBaseInfoV2
@@ -27,9 +28,12 @@ export const ZONES_TABLE_DATA = gql`
         ...ZoneIbcVolumeStatsV2 @include(if: $withVolume)
         ...ZoneIbcTransfersStatsV2 @include(if: $withTransfers)
         ...ZoneTotalTxsStatsV2 @include(if: $withTotalTxs)
+        dauRating: active_addresses_cnt_rating @include(if: $withDau)
+        dauRatingDiff: active_addresses_cnt_rating_diff @include(if: $withDau)
       }
       stats: blockchain_stats(where: { timeframe: { _eq: $period } }) {
-        totalTxs: txs
+        totalTxs: txs @include(if: $withTotalTxs)
+        dau: active_addresses_cnt @include(if: $withDau)
       }
     }
   }

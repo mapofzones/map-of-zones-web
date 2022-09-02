@@ -8,12 +8,16 @@ export const COLUMN_OPTIONS: DropdownOption[] = [
     title: 'IBC Volume',
   },
   {
+    key: ColumnKeys.TotalTxs,
+    title: 'Total Txs',
+  },
+  {
     key: ColumnKeys.IbcTransfers,
     title: 'IBC Transfers',
   },
   {
-    key: ColumnKeys.TotalTxs,
-    title: 'Total Txs',
+    key: ColumnKeys.Dau,
+    title: 'DAU',
   },
 ];
 
@@ -35,5 +39,9 @@ export const METADATA: Record<
   [ColumnKeys.TotalTxs]: {
     numberType: NumberType.Number,
     sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.TxsRating,
+  },
+  [ColumnKeys.Dau]: {
+    numberType: NumberType.Number,
+    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.ActiveAddressesCntRating,
   },
 };

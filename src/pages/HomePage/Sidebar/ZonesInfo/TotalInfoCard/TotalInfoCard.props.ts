@@ -17,5 +17,6 @@ export type TotalInfoType = {
   readonly ibcVolumePending: number;
   readonly ibcTransfers: number;
   readonly ibcTransfersPending: number;
+  readonly dau: number;
   readonly ibcVolumeChart?: ChartItemByString[];
 };

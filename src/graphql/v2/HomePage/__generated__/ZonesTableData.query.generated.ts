@@ -17,6 +17,7 @@ export type ZonesTableDataQueryVariables = Types.Exact<{
   withVolume: Types.Scalars['Boolean'];
   withTransfers: Types.Scalars['Boolean'];
   withTotalTxs: Types.Scalars['Boolean'];
+  withDau: Types.Scalars['Boolean'];
 }>;
 
 export type ZonesTableDataQueryResult = {
@@ -25,6 +26,8 @@ export type ZonesTableDataQueryResult = {
     logoUrl?: string | null;
     name: string;
     switchedStats: Array<{
+      dauRating?: number | null;
+      dauRatingDiff?: number | null;
       ibcVolume: any;
       ibcVolumePending: any;
       ibcVolumeRating: number;
@@ -36,7 +39,7 @@ export type ZonesTableDataQueryResult = {
       totalTxsRating: number;
       totalTxsRatingDiff: number;
     }>;
-    stats: Array<{ totalTxs: number }>;
+    stats: Array<{ totalTxs: number; dau?: number | null }>;
   }>;
 };
 
@@ -94,6 +97,14 @@ export const ZonesTableDataDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'withTotalTxs' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'withDau' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
@@ -256,6 +267,48 @@ export const ZonesTableDataDocument = {
                           },
                         ],
                       },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'dauRating' },
+                        name: { kind: 'Name', value: 'active_addresses_cnt_rating' },
+                        directives: [
+                          {
+                            kind: 'Directive',
+                            name: { kind: 'Name', value: 'include' },
+                            arguments: [
+                              {
+                                kind: 'Argument',
+                                name: { kind: 'Name', value: 'if' },
+                                value: {
+                                  kind: 'Variable',
+                                  name: { kind: 'Name', value: 'withDau' },
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'dauRatingDiff' },
+                        name: { kind: 'Name', value: 'active_addresses_cnt_rating_diff' },
+                        directives: [
+                          {
+                            kind: 'Directive',
+                            name: { kind: 'Name', value: 'include' },
+                            arguments: [
+                              {
+                                kind: 'Argument',
+                                name: { kind: 'Name', value: 'if' },
+                                value: {
+                                  kind: 'Variable',
+                                  name: { kind: 'Name', value: 'withDau' },
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
                     ],
                   },
                 },
@@ -298,6 +351,43 @@ export const ZonesTableDataDocument = {
                         kind: 'Field',
                         alias: { kind: 'Name', value: 'totalTxs' },
                         name: { kind: 'Name', value: 'txs' },
+                        directives: [
+                          {
+                            kind: 'Directive',
+                            name: { kind: 'Name', value: 'include' },
+                            arguments: [
+                              {
+                                kind: 'Argument',
+                                name: { kind: 'Name', value: 'if' },
+                                value: {
+                                  kind: 'Variable',
+                                  name: { kind: 'Name', value: 'withTotalTxs' },
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'dau' },
+                        name: { kind: 'Name', value: 'active_addresses_cnt' },
+                        directives: [
+                          {
+                            kind: 'Directive',
+                            name: { kind: 'Name', value: 'include' },
+                            arguments: [
+                              {
+                                kind: 'Argument',
+                                name: { kind: 'Name', value: 'if' },
+                                value: {
+                                  kind: 'Variable',
+                                  name: { kind: 'Name', value: 'withDau' },
+                                },
+                              },
+                            ],
+                          },
+                        ],
                       },
                     ],
                   },

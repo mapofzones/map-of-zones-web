@@ -23,6 +23,7 @@ export function useZonesTableData(
       withVolume: selectedColumnKey === ColumnKeys.IbcVolume,
       withTransfers: selectedColumnKey === ColumnKeys.IbcTransfers,
       withTotalTxs: selectedColumnKey === ColumnKeys.TotalTxs,
+      withDau: selectedColumnKey === ColumnKeys.Dau,
     },
   };
 
