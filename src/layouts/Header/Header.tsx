@@ -1,6 +1,9 @@
+import { useQuery } from '@apollo/client';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
+import { NumberFormat, NumberType } from 'components';
+import { NetworkMarketCapInfoDocument } from 'graphql/v2/common/__generated__/CosmosNetworkMarketCap.query.generated';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { Logo } from 'icons';
 
@@ -13,6 +16,8 @@ function Header({ ...props }): JSX.Element {
     isVisible: isMenuOpen,
     setIsVisible: setIsMenuOpen,
   } = useComponentVisible<HTMLDivElement>(false);
+
+  const { data } = useQuery(NetworkMarketCapInfoDocument);
 
   return (
     <header className={styles.container} {...props}>
@@ -35,7 +40,11 @@ function Header({ ...props }): JSX.Element {
         </nav>
         <div className={styles.marketCapContainer}>
           <span className={styles.marketCapTitle}>Cosmos Network Market Cap: </span>
-          <span className={styles.marketCapValue}>$198,308,551,250</span>
+          <NumberFormat
+            className={styles.marketCapValue}
+            value={data?.networkMarketCap.aggregate?.sum?.marketCap}
+            numberType={NumberType.Currency}
+          />
         </div>
       </div>
     </header>
