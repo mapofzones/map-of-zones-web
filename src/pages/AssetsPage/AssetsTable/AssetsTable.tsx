@@ -22,15 +22,14 @@ export function AssetsTable() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>All Tokens</div>
-
-      <Table
-        className={styles.table}
-        headerConfig={TABLE_HEADER_CONFIG}
-        selectedColumnKey={selectedColumnKey}
-        setSelectedColumnKey={setSelectedColumnKey}
-      >
-        {sortedData &&
-          sortedData.map((asset, index) => (
+      {sortedData && (
+        <Table
+          className={styles.table}
+          headerConfig={TABLE_HEADER_CONFIG}
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        >
+          {sortedData.map((asset, index) => (
             <TableRow
               key={`asset_${asset.symbol}`}
               asset={asset}
@@ -38,7 +37,8 @@ export function AssetsTable() {
               selectedColumnKey={selectedColumnKey}
             />
           ))}
-      </Table>
+        </Table>
+      )}
     </div>
   );
 }

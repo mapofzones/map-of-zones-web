@@ -30,11 +30,11 @@ export function AssetsTotalInfo(): JSX.Element {
           />
         </div>
 
-        {zonesTotalInfo.ibcVolumeChart && (
+        {zonesTotalInfo.total24hTradingVolumeChart && (
           <LineChart
             className={styles.chart}
-            data={zonesTotalInfo.ibcVolumeChart}
-            dataKey="ibcVolumeChart"
+            data={zonesTotalInfo.total24hTradingVolumeChart}
+            dataKey="volume"
           />
         )}
       </TotalCard>

@@ -23,11 +23,7 @@ export interface AssetsTableRow {
 }
 
 export function useAssetsTable(): { data: AssetsTableRow[] | undefined; loading: boolean } {
-  const options = {
-    variables: {},
-  };
-
-  const { data, loading } = useQuery(AseetsTableDocument, options);
+  const { data, loading } = useQuery(AseetsTableDocument, {});
 
   return {
     data: data?.assets,

@@ -14,14 +14,15 @@ export function SortRow<T>(a: T, b: T, key: keyof T) {
     return -1;
   }
 
-  return a[key] < b[key] ? -1 : 1;
+  return a[key] < b[key] ? 1 : -1;
 }
 
 export function useSortedTableData<T>(data: T[] | undefined, sortingColumnKey: keyof T): T[] {
   const [sortedZones, setSortedZones] = useState<T[]>([]);
 
   useEffect(() => {
-    const sortedData = data?.sort((a, b) => SortRow(a, b, sortingColumnKey)) ?? [];
+    const sortedData = data?.slice().sort((a, b) => SortRow(a, b, sortingColumnKey)) ?? [];
+    console.log(data, sortedData);
     setSortedZones(sortedData);
   }, [data, sortingColumnKey]);
 
