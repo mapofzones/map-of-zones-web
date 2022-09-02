@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+import { TokenCharts } from './../../chart-types';
+
 export const ASSETS_TABLE = gql`
   query AseetsTable {
     assets: flat_tokens {
@@ -14,7 +16,7 @@ export const ASSETS_TABLE = gql`
       volume24hDiffPercent: token_day_trading_volume_diff_percent
       onChainSupply: on_chain_supply
       priceChart: token_charts(
-        where: { chart_type: { _eq: "price" } }
+        where: { chart_type: { _eq: ${TokenCharts.price} } }
         order_by: { point_index: asc }
       ) {
         price: point_value

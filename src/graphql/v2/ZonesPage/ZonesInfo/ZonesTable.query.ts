@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+import { SwitchedCharts } from 'graphql/chart-types';
 import { ZONE_BASE_INFO_V2 } from 'graphql/v2/common/Zone/ZoneBaseInfo.fragment';
 
 export const ZONES_TABLE = gql`
@@ -19,7 +20,7 @@ export const ZONES_TABLE = gql`
         ibcTransfersRating: ibc_transfers_rating
         ibcTransfersRatingDiff: ibc_transfers_rating_diff
         ibcTransfersChart: blockchain_tf_switched_charts(
-          where: { chart_type: { _eq: "transfers" } }
+          where: { chart_type: { _eq: ${SwitchedCharts.transfers} } }
           order_by: { point_index: asc }
         ) {
           transfers: point_value

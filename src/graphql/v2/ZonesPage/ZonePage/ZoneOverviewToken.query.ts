@@ -1,3 +1,4 @@
+import { TokenCharts } from './../../../chart-types';
 import { gql } from '@apollo/client';
 
 export const ZONE_OVERVIEW_PARAMETERS = gql`
@@ -11,13 +12,13 @@ export const ZONE_OVERVIEW_PARAMETERS = gql`
       marketCap: market_cap
       tradingVolumeDay: token_day_trading_volume
       priceChart: token_charts(
-        where: { chart_type: { _eq: "price" } }
+        where: { chart_type: { _eq: ${TokenCharts.price} } }
         order_by: { point_index: asc }
       ) {
         price: point_value
       }
       volumeChart: token_charts(
-        where: { chart_type: { _eq: "volume" } }
+        where: { chart_type: { _eq: ${TokenCharts.volume} } }
         order_by: { point_index: asc }
       ) {
         volume: point_value
