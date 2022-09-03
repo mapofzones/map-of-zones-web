@@ -1,9 +1,14 @@
+import { PeriodKeys } from './../components/PeriodSelector/Types';
 interface ChartItemByNumber {
   [key: number]: number;
 }
 
 export interface ChartItemByString {
   [key: string]: number;
+}
+
+export function getDauTitleByPeriod(period: PeriodKeys) {
+  return period === PeriodKeys.WEEK ? 'WAU' : period === PeriodKeys.MONTH ? 'MAU' : 'DAU';
 }
 
 export const transformChartData = (chartData: ChartItemByNumber[], keyName: string) => {

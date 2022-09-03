@@ -3,14 +3,20 @@ import cn from 'classnames';
 import { NumberFormat, NumberType } from 'components';
 import { IbcVolumeCard } from 'components/IbcVolumeCard/IbcVolumeCard';
 import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCard';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
 import { ElementSize } from 'types/ElementSize';
+import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
 
 export function ZoneOverviewActivity({ className }: { className?: string }) {
   const { data, loading } = useZoneOverviewActivity();
+
+  const [period] = useSelectedPeriod();
+
+  const dauTittle = getDauTitleByPeriod(period);
 
   return (
     <div className={cn(className, styles.container)}>
@@ -63,7 +69,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.dauOverviewItem)}
           rowDirection
-          title={'DAU'}
+          title={dauTittle}
           loading={loading}
           value={data?.dau}
           tooltipText={'Some tooltip'}
@@ -72,9 +78,9 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.ibcDauOverviewItem)}
           rowDirection
-          title={'IBC DAU'}
+          title={`IBC ${dauTittle}`}
           loading={loading}
-          defaultLoadingValue={'2 345 (99,8% of DAU)'}
+          defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
           tooltipText={'Some tooltip'}
           tooltipPosition={'right'}
         >
@@ -82,7 +88,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
             <NumberFormat value={data?.ibcDau} />
             <span className={styles.additionalInfo}>
               {' '}
-              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} /> of DAU)
+              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} />
+              {` of ${dauTittle}`})
             </span>
           </div>
         </ZoneOverviewItem>

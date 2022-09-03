@@ -1,10 +1,10 @@
 import cn from 'classnames';
 
-import { Card, NumberFormat } from 'components';
+import { Card, NumberFormat, PeriodKeys } from 'components';
 import { LineChart } from 'components/ui/LineChart/LineChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { PendingIcon } from 'icons';
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemByString, getDauTitleByPeriod } from 'utils/helper';
 
 import { ColumnKeys } from '../../../Types';
 import { METADATA } from '../Types';
@@ -18,27 +18,29 @@ type TotalInfoMetadata = {
   chartKey?: keyof TotalInfoType;
 };
 
-const metadata: Record<ColumnKeys, TotalInfoMetadata> = {
-  ibcVolume: {
-    title: 'Total IBC Volume',
-    valueKey: 'ibcVolume',
-    pendingValueKey: 'ibcVolumePending',
-    chartKey: 'ibcVolumeChart',
-  },
-  ibcTransfers: {
-    title: 'Total IBC Transfers',
-    valueKey: 'ibcTransfers',
-    pendingValueKey: 'ibcTransfersPending',
-  },
-  totalTxs: {
-    title: 'Total Transaction',
-    valueKey: 'ibcTransfers', // add total txs
-  },
-  dau: {
-    title: 'DAU',
-    valueKey: 'dau',
-  },
-};
+export function getMetadataByPeriod(period: PeriodKeys): Record<ColumnKeys, TotalInfoMetadata> {
+  return {
+    ibcVolume: {
+      title: 'Total IBC Volume',
+      valueKey: 'ibcVolume',
+      pendingValueKey: 'ibcVolumePending',
+      chartKey: 'ibcVolumeChart',
+    },
+    ibcTransfers: {
+      title: 'Total IBC Transfers',
+      valueKey: 'ibcTransfers',
+      pendingValueKey: 'ibcTransfersPending',
+    },
+    totalTxs: {
+      title: 'Total Transaction',
+      valueKey: 'ibcTransfers', // add total txs
+    },
+    dau: {
+      title: getDauTitleByPeriod(period),
+      valueKey: 'dau',
+    },
+  };
+}
 
 export function TotalInfoCard({
   totalInfo,
@@ -49,7 +51,7 @@ export function TotalInfoCard({
 }: TotalInfoCardProps) {
   const [selectedPeriod] = useSelectedPeriod();
 
-  const meta = metadata[columnType];
+  const meta = getMetadataByPeriod(selectedPeriod)[columnType];
   const numberType = METADATA[columnType].numberType;
   const chartData =
     (meta.chartKey && totalInfo && (totalInfo[meta.chartKey] as ChartItemByString[])) || [];

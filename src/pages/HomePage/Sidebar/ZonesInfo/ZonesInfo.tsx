@@ -10,7 +10,7 @@ import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ElementSize } from 'types/ElementSize';
 
-import { COLUMN_OPTIONS, METADATA } from './Types';
+import { getColumnOptions, METADATA } from './Types';
 import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
 import { MemoizedZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
@@ -36,6 +36,8 @@ function ZonesInfo(): JSX.Element {
     metadata.sortingColumnKey
   );
 
+  const columnOptions = getColumnOptions(selectedPeriod);
+
   const onColumnChange = (option: DropdownOption) => {
     setSelectedColumnKey(option.key as ColumnKeys);
   };
@@ -58,7 +60,7 @@ function ZonesInfo(): JSX.Element {
       <div className={styles.selectorsContainer}>
         <Dropdown
           className={styles.columnDropdown}
-          options={COLUMN_OPTIONS}
+          options={columnOptions}
           initialSelectedKey={selectedColumnKey}
           onOptionSelected={onColumnChange}
         />

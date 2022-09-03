@@ -1,8 +1,9 @@
-import { DropdownOption, NumberType } from 'components';
+import { NumberType, PeriodKeys } from 'components';
 import { Flat_Blockchain_Switched_Stats_Select_Column } from 'graphql/base-types';
 import { ColumnKeys } from 'pages/HomePage/Types';
+import { getDauTitleByPeriod } from 'utils/helper';
 
-export const COLUMN_OPTIONS: DropdownOption[] = [
+export const getColumnOptions = (period: PeriodKeys) => [
   {
     key: ColumnKeys.IbcVolume,
     title: 'IBC Volume',
@@ -17,7 +18,7 @@ export const COLUMN_OPTIONS: DropdownOption[] = [
   },
   {
     key: ColumnKeys.Dau,
-    title: 'DAU',
+    title: getDauTitleByPeriod(period),
   },
 ];
 

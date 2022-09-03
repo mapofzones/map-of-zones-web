@@ -4,7 +4,7 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 
 import { TableRow } from './TableRow/TableRow';
-import { ColumnKeys, SORTING_COLUMN_KEYS, TABLE_HEADER_CONFIG } from './Types';
+import { ColumnKeys, getTableHeaderConfigByPeriod, SORTING_COLUMN_KEYS } from './Types';
 import { useZonesCount } from './useZonesCount';
 import { useZonesTable } from './useZonesTable';
 import styles from './ZonesTable.module.scss';
@@ -24,6 +24,8 @@ export function ZonesTable() {
 
   const sortedZones = useSortedTableData(data, sortingColumnKey);
 
+  const tableHeaderConfig = getTableHeaderConfigByPeriod(selectedPeriod);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -41,7 +43,7 @@ export function ZonesTable() {
 
       <Table
         className={styles.table}
-        headerConfig={TABLE_HEADER_CONFIG}
+        headerConfig={tableHeaderConfig}
         selectedColumnKey={selectedColumnKey}
         setSelectedColumnKey={setSelectedColumnKey}
       >

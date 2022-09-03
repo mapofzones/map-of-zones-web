@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -31,6 +31,10 @@ function Dropdown({
     setSelectedOption(option);
     setIsVisible(false);
   };
+
+  useEffect(() => {
+    setSelectedOption((selected) => options.find((opt) => opt.key === selected.key) ?? options[0]);
+  }, [options]);
 
   return (
     <div ref={ref} className={cn(styles.dropDownContainer, className)} {...props}>

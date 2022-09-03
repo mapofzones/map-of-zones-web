@@ -19,7 +19,6 @@ export const SIDEBAR_ZONE_OVERVIEW = gql`
       peersCountMainnet: ibc_peers_mainnet
       channelsCount: channels_num
       ibcDauMainnet: ibc_active_addresses_mainnet
-      # TODO: add DAU, Token Price, Market Cap
     }
   }
 `;

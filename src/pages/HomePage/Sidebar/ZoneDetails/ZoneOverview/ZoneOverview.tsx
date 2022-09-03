@@ -6,6 +6,7 @@ import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
+import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
@@ -23,6 +24,8 @@ function ZoneOverview() {
   const onDetailedBtnClick = () => {
     navigateWithSearchParams(`/zones/${zone}/overview`);
   };
+
+  const dauTittle = getDauTitleByPeriod(period);
 
   return (
     <>
@@ -70,7 +73,7 @@ function ZoneOverview() {
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
-            title={'DAU'}
+            title={dauTittle}
             loading={loading}
             value={data?.dau}
             tooltipText={'Some tooltip'}
@@ -78,16 +81,17 @@ function ZoneOverview() {
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
-            title={'IBC DAU'}
+            title={`IBC ${dauTittle}`}
             loading={loading}
-            defaultLoadingValue={'2 345 (99,8% of DAU)'}
+            defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
             tooltipText={'Some tooltip'}
             tooltipPosition={'left'}
           >
             <NumberFormat value={data?.ibcDau} />
             <span className={styles.additionalInfo}>
               {' '}
-              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} /> of DAU)
+              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} />
+              {` of ${dauTittle}`})
             </span>
           </ZoneOverviewItem>
           <ZoneOverviewItem
