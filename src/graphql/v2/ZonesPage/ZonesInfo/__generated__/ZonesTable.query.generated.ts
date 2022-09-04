@@ -215,11 +215,7 @@ export const ZonesTableDocument = {
                                       {
                                         kind: 'ObjectField',
                                         name: { kind: 'Name', value: '_eq' },
-                                        value: {
-                                          kind: 'StringValue',
-                                          value: 'transfers',
-                                          block: false,
-                                        },
+                                        value: { kind: 'StringValue', value: '', block: false },
                                       },
                                     ],
                                   },

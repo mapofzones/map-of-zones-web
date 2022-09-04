@@ -176,7 +176,7 @@ export const ZoneIbcVolumeCardDocument = {
                                 {
                                   kind: 'ObjectField',
                                   name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: 'cashflow', block: false },
+                                  value: { kind: 'StringValue', value: '', block: false },
                                 },
                               ],
                             },

@@ -20,7 +20,7 @@ export const ZONES_TABLE = gql`
         ibcTransfersRating: ibc_transfers_rating
         ibcTransfersRatingDiff: ibc_transfers_rating_diff
         ibcTransfersChart: blockchain_tf_switched_charts(
-          where: { chart_type: { _eq: ${SwitchedCharts.transfers} } }
+          where: { chart_type: { _eq: "${SwitchedCharts.transfers}" } }
           order_by: { point_index: asc }
         ) {
           transfers: point_value

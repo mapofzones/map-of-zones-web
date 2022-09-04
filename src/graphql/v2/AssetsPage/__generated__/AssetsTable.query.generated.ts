@@ -10,7 +10,6 @@ export type AseetsTableQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type AseetsTableQueryResult = {
   assets: Array<{
-    blockchain: string;
     symbol?: string | null;
     price?: any | null;
     logoUrl?: string | null;
@@ -20,6 +19,7 @@ export type AseetsTableQueryResult = {
     volume24h?: any | null;
     volume24hDiffPercent?: any | null;
     onChainSupply?: any | null;
+    blockchain: { name: string };
     priceChart: Array<{ price: any }>;
   }>;
 };
@@ -41,7 +41,15 @@ export const AseetsTableDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'blockchain' } },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'blockchain' },
+                  name: { kind: 'Name', value: 'blockchainByBlockchain' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
                 { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
                 {
                   kind: 'Field',
@@ -99,7 +107,7 @@ export const AseetsTableDocument = {
                                 {
                                   kind: 'ObjectField',
                                   name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: 'price', block: false },
+                                  value: { kind: 'StringValue', value: '', block: false },
                                 },
                               ],
                             },

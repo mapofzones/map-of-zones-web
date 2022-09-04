@@ -41,7 +41,7 @@ TableRowProps) {
           <ZoneLogo logoUrl={asset.logoUrl} className={styles.logo} />
           <div>
             <div className={styles.nameContainer}>
-              <span className={styles.name}>{asset.blockchain}</span>
+              <span className={styles.name}>{asset.blockchain.name}</span>
               {/* <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} /> */}
             </div>
             <span className={styles.code}>{asset.symbol}</span>

@@ -18,7 +18,7 @@ export const ZONES_TOTAL_INFO = gql`
     }
     ibcTotalVolumeChart: flat_total_tf_switched_charts(
       where: {
-        chart_type: { _eq: ${SwitchedCharts.cashflow} }
+        chart_type: { _eq: "${SwitchedCharts.cashflow}" }
         is_mainnet: { _eq: $isMainnet }
         timeframe: { _eq: $period }
       }

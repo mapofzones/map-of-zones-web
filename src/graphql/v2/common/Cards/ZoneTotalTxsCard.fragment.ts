@@ -12,7 +12,7 @@ export const ZONE_TOTAL_TXS_CARD_V2_FRAGMENT = gql`
   fragment ZoneTotalTxsCardV2 on flat_blockchain_stats {
     totalTxs: txs
     totalTxsChart: blockchain_tf_charts(
-      where: { chart_type: { _eq: ${StatCharts.txs} } }
+      where: { chart_type: { _eq: "${StatCharts.txs}" } }
       order_by: { point_index: asc }
     ) {
       txs: point_value

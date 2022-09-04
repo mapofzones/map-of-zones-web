@@ -9,7 +9,7 @@ import { AseetsTableDocument } from 'graphql/v2/AssetsPage/__generated__/AssetsT
 import { ChartItemByString } from 'utils/helper';
 
 export interface AssetsTableRow {
-  blockchain: string;
+  blockchain: { name: string };
   symbol?: string | null;
   price?: number | null;
   logoUrl?: string | null;

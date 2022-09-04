@@ -123,7 +123,7 @@ export const ZoneOverviewTokenDocument = {
                                 {
                                   kind: 'ObjectField',
                                   name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: 'price', block: false },
+                                  value: { kind: 'StringValue', value: '', block: false },
                                 },
                               ],
                             },
@@ -177,7 +177,7 @@ export const ZoneOverviewTokenDocument = {
                                 {
                                   kind: 'ObjectField',
                                   name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: 'volume', block: false },
+                                  value: { kind: 'StringValue', value: '', block: false },
                                 },
                               ],
                             },
