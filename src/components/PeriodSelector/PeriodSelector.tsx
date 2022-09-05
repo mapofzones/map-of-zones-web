@@ -28,7 +28,6 @@ export function PeriodSelector({
         className={className}
         options={Object.values(PeriodKeys).map((periodValue: PeriodKeys) => ({
           key: periodValue,
-          title: periodValue,
         }))}
         initialSelectedKey={selectedPeriod}
         onOptionSelected={(option) => {

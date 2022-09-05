@@ -23,6 +23,16 @@
 
   .table {
     th {
+      &:nth-child(2) {
+        text-align: left;
+      }
+
+      &:last-child {
+        padding-right: 24px;
+      }
+    }
+
+    th, tr td {
       &:first-child {
         min-width: 42px; // TODO: calculate dynamically
 
@@ -36,12 +46,6 @@
 
         width: 100%;
         padding-left: 16px;
-
-        text-align: left;
-      }
-
-      &:last-child {
-        padding-right: 24px;
       }
     }
   }
@@ -58,7 +62,7 @@
     }
 
     .table {
-      th {
+      th, tr td {
         &:first-child {
           min-width: 30px; // TODO: calculate dynamically
         }

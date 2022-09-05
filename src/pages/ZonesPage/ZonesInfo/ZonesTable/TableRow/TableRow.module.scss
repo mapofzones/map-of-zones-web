@@ -5,20 +5,10 @@
 
   td {
     &:first-child {
-      min-width: 42px; // TODO: calculate dynamically
-
-      padding-right: 0;
-
-      text-align: center;
       vertical-align: middle;
     }
 
     &:nth-child(2) {
-      left: 42px; // TODO: calculate dynamically
-
-      width: 100%;
-      padding-left: 16px;
-
       vertical-align: middle;
     }
 
@@ -75,13 +65,7 @@
 @media (max-width: 375px) {
   .container {
     td {
-      &:first-child {
-        min-width: 30px; // TODO: calculate dynamically
-      }
-
       &:nth-child(2) {
-        left: 30px; // TODO: calculate dynamically
-
         max-width: 156px;
       }
 

@@ -5,24 +5,7 @@
     vertical-align: middle;
 
     &:first-child {
-      min-width: 42px; // TODO: calculate dynamically
-
-      padding-right: 0;
-
       text-align: center;
-    }
-
-    &:nth-child(2) {
-      left: 42px; // TODO: calculate dynamically
-
-      width: 100%;
-
-      min-width: 260px;
-      padding-left: 16px;
-    }
-
-    &:nth-last-child(2) {
-      padding-right: 0;
     }
 
     &:last-child {
@@ -99,23 +82,5 @@
 
   &:hover > td {
     background-color: var(--black-500);
-  }
-}
-
-@media (max-width: 375px) {
-  .container {
-    td {
-      &:first-child {
-        min-width: 30px; // TODO: calculate dynamically
-      }
-
-      &:nth-child(2) {
-        left: 30px; // TODO: calculate dynamically
-
-        min-width: 0;
-        max-width: 150px;
-        padding-left: 8px;
-      }
-    }
   }
 }
