@@ -6,6 +6,7 @@
 
   .zoneContainer {
     grid-area: zoneContainer;
+    position: relative;
 
     .detailsTitle {
       display: flex;
@@ -47,7 +48,6 @@
   }
 
   .navigationButtonsContainer {
-
     display: flex;
     grid-area: navigationButtonsContainer;
     grid-gap: 21px;
