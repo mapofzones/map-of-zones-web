@@ -50,7 +50,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
                 <NumberFormat value={data?.bondedTokens} compact />
                 <span className={styles.secondValue}>
                   &nbsp;/&nbsp;
-                  <NumberFormat value={data?.bondedTokens} compact />
+                  <NumberFormat value={data?.onChainSupply} compact />
                 </span>
               </div>
             </ValueWithPending>
