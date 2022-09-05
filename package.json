@@ -4,12 +4,10 @@
   "private": true,
   "lint-staged": {
     "src/**/*.{js,ts,tsx}": [
-      "eslint . --fix",
-      "git add"
+      "eslint . --fix"
     ],
     "src/**/*.scss": [
-      "stylelint --fix",
-      "git add"
+      "stylelint --fix"
     ]
   },
   "husky": {

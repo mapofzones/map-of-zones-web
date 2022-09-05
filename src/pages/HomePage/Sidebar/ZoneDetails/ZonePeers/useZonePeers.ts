@@ -39,17 +39,15 @@ export function useZonePeers() {
 
   return useMemo(
     () => ({
-      data: data?.zonePeers
-        ?.map((peer) => {
-          const ibcVolume = peer.ibcVolumeIn + peer.ibcVolumeOut;
-          return {
-            ...peer,
-            ibcVolume,
-            volumeInPercent: (peer.ibcVolumeIn / ibcVolume) * 100,
-            volumeOutPercent: (peer.ibcVolumeOut / ibcVolume) * 100,
-          } as ZonePeer;
-        })
-        .sort((peer1, peer2) => peer2.ibcVolume - peer1.ibcVolume), // TODO: move sort to query
+      data: data?.zonePeers?.map((peer) => {
+        const volumeInPercent = (peer.ibcVolumeIn / peer.ibcVolume) * 100;
+        const volumeOutPercent = (peer.ibcVolumeOut / peer.ibcVolume) * 100;
+        return {
+          ...peer,
+          volumeInPercent,
+          volumeOutPercent,
+        } as ZonePeer;
+      }),
       loading,
     }),
     [data, loading]

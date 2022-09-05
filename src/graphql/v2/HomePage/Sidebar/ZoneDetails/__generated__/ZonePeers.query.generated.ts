@@ -13,6 +13,7 @@ export type ZonePeersQueryVariables = Types.Exact<{
 
 export type ZonePeersQueryResult = {
   zonePeers: Array<{
+    ibcVolume?: any | null;
     ibcVolumeIn: any;
     ibcVolumeOut: any;
     ibcVolumeInPending: any;
@@ -92,6 +93,20 @@ export const ZonePeersDocument = {
                   ],
                 },
               },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'ibc_cashflow' },
+                      value: { kind: 'EnumValue', value: 'asc' },
+                    },
+                  ],
+                },
+              },
             ],
             selectionSet: {
               kind: 'SelectionSet',
@@ -137,6 +152,11 @@ export const ZonePeersDocument = {
                       },
                     ],
                   },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolume' },
+                  name: { kind: 'Name', value: 'ibc_cashflow' },
                 },
                 {
                   kind: 'Field',
