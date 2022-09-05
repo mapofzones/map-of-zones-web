@@ -1,91 +1,13 @@
-.header {
+.navigationButtonsContainer {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin: 32px 24px 40px;
+  grid-area: navigationButtonsContainer;
+  grid-gap: 21px;
 
-  .zoneContainer {
-    grid-area: zoneContainer;
-
-    .detailsTitle {
-      display: flex;
-      align-items: center;
-
-      cursor: pointer;
-
-      .zoneLogo {
-        margin-right: 12px;
-      }
-
-      .zoneName {
-        font-size: var(--font-heading-size-lg);
-      }
-
-      .arrowContainer {
-        position: relative;
-        top: 3px;
-
-        margin-left: 12px;
-
-        svg {
-          stroke: var(--white);
-        }
-      }
-    }
-
-    .zoneLinks {
-      display: grid;
-      grid-template-columns: repeat(4, auto);
-      gap: 8px;
-      align-items: center;
-      margin-top: 9px;
-
-      color: var(--grey-500);
-      font-size: var(--font-base-size-md);
-      font-feature-settings: 'tnum' on, 'lnum' on;
-    }
-  }
-
-  .navigationButtonsContainer {
-
-    display: flex;
-    grid-area: navigationButtonsContainer;
-    grid-gap: 21px;
-
-    border-bottom: 1px solid var(--black-900);
-  }
-
-  .pagesSwitcher {
-    grid-area: pagesSwitcher;
-
-    margin: 33px 0 8px;
-  }
-
-  .periodContainer {
-    grid-area: periodContainer;
-  }
+  border-bottom: 1px solid var(--black-900);
 }
 
-@media (max-width: 375px) {
-  .header {
-    display: grid;
-    grid-template-areas:
-      'zoneContainer periodContainer'
-      'pagesSwitcher pagesSwitcher';
+.pagesSwitcher {
+  grid-area: pagesSwitcher;
 
-    margin: 24px 12px 40px;
-
-    .zoneContainer {
-      .detailsTitle {
-        .zoneName {
-          font-size: 20px;
-          line-height: 25px;
-        }
-
-        .arrowContainer {
-          top: 0;
-        }
-      }
-    }
-  }
+  margin: 33px 0 8px;
 }
