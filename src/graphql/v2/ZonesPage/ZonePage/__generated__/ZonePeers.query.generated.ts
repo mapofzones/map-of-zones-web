@@ -16,11 +16,12 @@ export type ZonesListZonePeersQueryResult = {
   zones: Array<{
     data: {
       aggregate?: {
-        avg?: { ibcTransfersSuccessRate?: number | null } | null;
         sum?: {
           ibcTransfers?: number | null;
           ibcTransfersPending?: number | null;
           ibcTransfersFailed?: number | null;
+          ibcVolume?: any | null;
+          ibcVolumePending?: any | null;
           ibcVolumeIn?: any | null;
           ibcVolumeInPending?: any | null;
           ibcVolumeOut?: any | null;
@@ -38,6 +39,8 @@ export type ZonesListZonePeersQueryResult = {
         ibcTransfersPending: number;
         ibcTransfersFailed: number;
         ibcTransfersSuccessRate: any;
+        ibcVolume?: any | null;
+        ibcVolumePending?: any | null;
         ibcVolumeIn: any;
         ibcVolumeInPending: any;
         ibcVolumeOut: any;
@@ -128,6 +131,32 @@ export const ZonesListZonePeersDocument = {
                         ],
                       },
                     },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'channelsStatsByCounterpartyBlockchain' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'blockchain' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'source' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
               },
@@ -195,20 +224,6 @@ export const ZonesListZonePeersDocument = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'avg' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    alias: { kind: 'Name', value: 'ibcTransfersSuccessRate' },
-                                    name: { kind: 'Name', value: 'ibc_transfers_success_rate' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
                               name: { kind: 'Name', value: 'sum' },
                               selectionSet: {
                                 kind: 'SelectionSet',
@@ -227,6 +242,16 @@ export const ZonesListZonePeersDocument = {
                                     kind: 'Field',
                                     alias: { kind: 'Name', value: 'ibcTransfersFailed' },
                                     name: { kind: 'Name', value: 'ibc_transfers_failed' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    alias: { kind: 'Name', value: 'ibcVolume' },
+                                    name: { kind: 'Name', value: 'ibc_cashflow' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    alias: { kind: 'Name', value: 'ibcVolumePending' },
+                                    name: { kind: 'Name', value: 'ibc_cashflow_pending' },
                                   },
                                   {
                                     kind: 'Field',
@@ -336,6 +361,16 @@ export const ZonesListZonePeersDocument = {
                               kind: 'Field',
                               alias: { kind: 'Name', value: 'ibcTransfersSuccessRate' },
                               name: { kind: 'Name', value: 'ibc_transfers_success_rate' },
+                            },
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'ibcVolume' },
+                              name: { kind: 'Name', value: 'ibc_cashflow' },
+                            },
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'ibcVolumePending' },
+                              name: { kind: 'Name', value: 'ibc_cashflow_pending' },
                             },
                             {
                               kind: 'Field',

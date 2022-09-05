@@ -6,6 +6,25 @@ import {
 import { ZonesListZoneDetails } from '../useZonesListZoneDetails';
 import { ZoneChannelRowData } from './TableRow/TableRow.props';
 
+export interface BlockchainChannel {
+  zone: string;
+  zoneCounterpartyChannelId: string;
+  channelId: string;
+  clientId: string;
+  connectionId: string;
+  isOpened: boolean;
+  ibcTransfers: number;
+  ibcTransfersPending: number;
+  ibcTransfersFailed: number;
+  ibcTransfersSuccessRate: number;
+  ibcVolume?: number | null;
+  ibcVolumePending?: number | null;
+  ibcVolumeIn: number;
+  ibcVolumeInPending: number;
+  ibcVolumeOut: number;
+  ibcVolumeOutPending: number;
+}
+
 export enum ColumnKeys {
   IbcVolumeTotal = 'ibcVolume',
   IbcVolumeReceived = 'ibcVolumeIn',

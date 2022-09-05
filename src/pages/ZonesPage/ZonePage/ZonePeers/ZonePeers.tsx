@@ -16,7 +16,7 @@ export function ZonePeers() {
     ColumnKeys.IbcVolumeReceived
   );
 
-  const { data } = usePeersTable(selectedPeriod, selectedColumnKey);
+  const { data } = usePeersTable(selectedPeriod);
   const { data: parentZoneData } = useZonesListZoneDetails();
 
   if (!parentZoneData) {

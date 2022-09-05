@@ -5,7 +5,7 @@ import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components/PeriodSelector/T
 import { ZonesListZonePeersDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZonePeers.query.generated';
 
 import { ZoneData } from './TableRow/TableRow.props';
-import { ColumnKeys } from './Types';
+import { BlockchainChannel } from './Types';
 
 type ZoneQueryResult = {
   name: string;
@@ -31,10 +31,7 @@ export type ZoneChannelQueryResult = {
   ibcVolumeOutPending: number;
 };
 
-export function usePeersTable(
-  selectedPeriod: PeriodKeys,
-  selectedColumnKey: ColumnKeys
-): { data: ZoneData[] } {
+export function usePeersTable(selectedPeriod: PeriodKeys): { data: ZoneData[] } {
   const { zone = '' } = useParams();
 
   const options = {
@@ -53,10 +50,10 @@ export function usePeersTable(
         .filter((zone) => zone.data.zoneChannels && zone.data.zoneChannels.length > 0)
         .map((zone) => {
           const sumData = zone.data.aggregate?.sum;
-          const ibcVolume = sumData ? sumData?.ibcVolumeIn + sumData?.ibcVolumeOut : 0;
-          const ibcVolumePending = sumData
-            ? sumData?.ibcVolumeInPending + sumData?.ibcVolumeOutPending
-            : 0;
+          const successRate =
+            sumData?.ibcTransfers != null && sumData?.ibcTransfersFailed != null
+              ? sumData?.ibcTransfers / (sumData?.ibcTransfers + sumData?.ibcTransfersFailed)
+              : 0;
 
           return (
             zone?.data?.zoneChannels && {
@@ -65,7 +62,7 @@ export function usePeersTable(
               zoneCounterpartyName: zone.data.zoneChannels[0].zoneCounterparty.name,
               zoneCounterpartyLogoUrl: zone.data.zoneChannels[0].zoneCounterparty.logoUrl,
               isZoneCounterpartyUpToDate: zone.data.zoneChannels[0].zoneCounterparty.isUpToDate,
-              ibcTransfersSuccessRate: zone.data.aggregate?.avg?.ibcTransfersSuccessRate,
+              ibcTransfersSuccessRate: successRate,
               ibcTransfers: sumData?.ibcTransfers,
               ibcTransfersPending: sumData?.ibcTransfersPending,
               ibcTransfersFailed: sumData?.ibcTransfersFailed,
@@ -73,33 +70,31 @@ export function usePeersTable(
               ibcVolumeInPending: sumData?.ibcVolumeInPending,
               ibcVolumeOut: sumData?.ibcVolumeOut,
               ibcVolumeOutPending: sumData?.ibcVolumeOutPending,
-              ibcVolume: ibcVolume,
-              ibcVolumePending: ibcVolumePending,
-              channels: zone.data.zoneChannels.map((channel) => {
-                const channelVolume = channel.ibcVolumeIn + channel.ibcVolumeOut;
-                const channelVolumePending =
-                  channel.ibcVolumeInPending + channel.ibcVolumeOutPending;
-
-                return {
-                  zoneCounterpartyChannelId: channel.zoneCounterpartyChannelId,
-                  channelId: channel.channelId,
-                  clientId: channel.channelId,
-                  connectionId: channel.connectionId,
-                  isOpened: channel.isOpened,
-                  ibcTransfers: channel.ibcTransfers,
-                  ibcTransfersPending: channel.ibcTransfersPending,
-                  ibcTransfersFailed: channel.ibcTransfersFailed,
-                  ibcTransfersSuccessRate: channel.ibcTransfersSuccessRate,
-                  ibcVolumeIn: channel.ibcVolumeIn,
-                  ibcVolumeInPending: channel.ibcVolumeInPending,
-                  ibcVolumeOut: channel.ibcVolumeOut,
-                  ibcVolumeOutPending: channel.ibcVolumeOutPending,
-                  ibcVolume: channelVolume,
-                  ibcVolumePending: channelVolumePending,
-                };
-              }),
+              ibcVolume: sumData?.ibcVolume,
+              ibcVolumePending: sumData?.ibcVolumePending,
+              channels: zone.data.zoneChannels.map(mapChannel),
             }
           );
         }) ?? [],
+  };
+}
+
+function mapChannel(channel: BlockchainChannel) {
+  return {
+    zoneCounterpartyChannelId: channel.zoneCounterpartyChannelId,
+    channelId: channel.channelId,
+    clientId: channel.channelId,
+    connectionId: channel.connectionId,
+    isOpened: channel.isOpened,
+    ibcTransfers: channel.ibcTransfers,
+    ibcTransfersPending: channel.ibcTransfersPending,
+    ibcTransfersFailed: channel.ibcTransfersFailed,
+    ibcTransfersSuccessRate: channel.ibcTransfersSuccessRate,
+    ibcVolumeIn: channel.ibcVolumeIn,
+    ibcVolumeInPending: channel.ibcVolumeInPending,
+    ibcVolumeOut: channel.ibcVolumeOut,
+    ibcVolumeOutPending: channel.ibcVolumeOutPending,
+    ibcVolume: channel.ibcVolume,
+    ibcVolumePending: channel.ibcVolumePending,
   };
 }
