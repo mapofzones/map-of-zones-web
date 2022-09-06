@@ -51,9 +51,11 @@ export function usePeersTable(selectedPeriod: PeriodKeys): { data: ZoneData[] } 
         .map((zone) => {
           const sumData = zone.data.aggregate?.sum;
           const successRate =
-            sumData?.ibcTransfers != null && sumData?.ibcTransfersFailed != null
-              ? sumData?.ibcTransfers / (sumData?.ibcTransfers + sumData?.ibcTransfersFailed)
-              : 0;
+            sumData?.ibcTransfers == null ||
+            sumData?.ibcTransfersFailed == null ||
+            sumData.ibcTransfers + sumData.ibcTransfersFailed === 0
+              ? 0
+              : (sumData.ibcTransfers / (sumData.ibcTransfers + sumData.ibcTransfersFailed)) * 100;
 
           return (
             zone?.data?.zoneChannels && {
