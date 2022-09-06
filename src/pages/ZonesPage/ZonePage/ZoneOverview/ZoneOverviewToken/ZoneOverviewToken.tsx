@@ -123,22 +123,20 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
             </div>
           </span>
         </div>
-        <div className={styles.detailsItem}>
-          <ValueWithPending
-            title="Market Cap"
-            value={997309120}
-            numberType={NumberType.Currency}
-            size={ElementSize.LARGE}
-          />
-        </div>
-        <div className={styles.detailsItem}>
-          <ValueWithPending
-            title="Volume"
-            value={1530009150}
-            numberType={NumberType.Currency}
-            size={ElementSize.LARGE}
-          />
-        </div>
+        <ValueWithPending
+          className={styles.detailsItem}
+          title="Market Cap"
+          value={997309120}
+          numberType={NumberType.Currency}
+          size={ElementSize.LARGE}
+        />
+        <ValueWithPending
+          className={styles.detailsItem}
+          title="Volume"
+          value={1530009150}
+          numberType={NumberType.Currency}
+          size={ElementSize.LARGE}
+        />
       </div>
       <div className={styles.chartContainer}>
         <ButtonGroup

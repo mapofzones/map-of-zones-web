@@ -32,7 +32,7 @@ export function ValueWithPending({
     >
       {title && <span className={styles.title}>{title}</span>}
       <span
-        className={cn(className, styles.valueContainer, {
+        className={cn(styles.valueContainer, {
           [styles.rightAlign]: alignRight,
         })}
       >

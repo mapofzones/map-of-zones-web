@@ -40,8 +40,27 @@
 
       border-left: 1px solid var(--black-900);
 
+      &_title {
+        display: inline-block;
+        margin-bottom: 8px;
+
+        color: var(--grey-500);
+        font-size: var(--font-base-size-md);
+      }
+
+      &_data {
+        display: flex;
+        flex-direction: column;
+
+        font-size: var(--font-heading-size-sm);
+      }
+
       .infoGroup {
         display: flex;
+
+        &:first-child {
+          margin-bottom: 4px;
+        }
       }
 
       .tokenName {
@@ -53,7 +72,6 @@
 
       .tokenPriceDiff {
         margin-right: 4px;
-        margin-left: 8px;
 
         font-size: var(--font-secondary-size-md);
       }
@@ -68,26 +86,11 @@
 
         border-left: none;
       }
-
-      &_title {
-        display: inline-block;
-        margin-bottom: 8px;
-
-        color: var(--grey-500);
-        font-size: var(--font-base-size-md);
-      }
-
-      &_data {
-        display: flex;
-        align-items: center;
-
-        font-size: var(--font-heading-size-sm);
-      }
     }
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 630px) {
   .container {
     .detailsContainer {
       flex-direction: column;
