@@ -22,22 +22,24 @@ export function useAssetsTotalInfo(): {
 } {
   const { data } = useQuery(AseetsTotalInfoDocument, {});
 
+  const aggregatedData = data?.aggregatedData?.aggregate;
+
   return {
     data: data && {
-      assetsCount: data.aggregatedData.aggregate?.count,
-      marketCap: data.aggregatedData.aggregate?.sum?.marketCap,
-      volume24h: data.aggregatedData.aggregate?.sum?.volume24h,
+      assetsCount: aggregatedData?.count,
+      marketCap: aggregatedData?.sum?.marketCap,
+      volume24h: aggregatedData?.sum?.volume24h,
       topMarketDominance: calculateMarketDominance(
-        data.marketCapDominance[0].marketCap,
-        data.aggregatedData.aggregate?.sum?.marketCap
+        data.marketCapDominance[0]?.marketCap,
+        aggregatedData?.sum?.marketCap
       ),
-      topMarketLogo: data.marketCapDominance[0].blockchain.logoUrl,
-      topMarketName: data.marketCapDominance[0].blockchain.name,
-      topMoverLogo: data.topMover[0].blockchain.logoUrl,
-      topMoverName: data.topMover[0].blockchain.name,
-      topMoverRating: data.topMover[0].price24hDiffPercent,
-      topMoverValue: data.topMover[0].price,
-      total24hTradingVolumeChart: data.total24hTradingVolumeChart,
+      topMarketLogo: data.marketCapDominance[0]?.blockchain?.logoUrl,
+      topMarketName: data.marketCapDominance[0]?.blockchain?.name,
+      topMoverLogo: data.topMover[0]?.blockchain?.logoUrl,
+      topMoverName: data.topMover[0]?.blockchain?.name,
+      topMoverRating: data.topMover[0]?.price24hDiffPercent,
+      topMoverValue: data.topMover[0]?.price,
+      total24hTradingVolumeChart: data?.total24hTradingVolumeChart,
     },
   };
 }
