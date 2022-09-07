@@ -83,8 +83,8 @@ export function Map({ className }: { className: string }) {
   return (
     <div className={cn(styles.container, className)}>
       <div className={styles.legend}>
-        <span className={cn(styles.circle, styles.sendCircle)}></span>Mainly Sends
-        <span className={cn(styles.circle, styles.receiveCircle)}></span>Mainly Receives
+        <span className={cn(styles.circle, styles.sendCircle)}></span>Mainly Sends, $
+        <span className={cn(styles.circle, styles.receiveCircle)}></span>Mainly Receives, $
       </div>
       <ForceGraph2D
         ref={graphRef}
