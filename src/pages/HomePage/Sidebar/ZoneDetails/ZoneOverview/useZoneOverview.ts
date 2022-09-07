@@ -33,14 +33,16 @@ export function useZoneOverview(): {
 
   return {
     data: data && {
-      ...data.switchedStats[0],
-      totalTxs: data.stats[0].totalTxs,
-      ibcDau: data.stats[0].ibcDau,
-      dau: data.stats[0].dau,
-      ibcDauPercent: data.stats[0].ibcDauPercent,
-      tokenSymbol: data.blockchain[0].token?.symbol,
-      price: data.blockchain[0].token?.price,
-      marketCap: data.blockchain[0].token?.marketCap,
+      ibcTransfers: data.switchedStats[0]?.ibcTransfers,
+      peersCount: data.switchedStats[0]?.peersCount,
+      channelsCount: data.switchedStats[0]?.channelsCount,
+      totalTxs: data.stats[0]?.totalTxs,
+      ibcDau: data.stats[0]?.ibcDau,
+      dau: data.stats[0]?.dau,
+      ibcDauPercent: data.stats[0]?.ibcDauPercent,
+      tokenSymbol: data.blockchain[0]?.token?.symbol,
+      price: data.blockchain[0]?.token?.price,
+      marketCap: data.blockchain[0]?.token?.marketCap,
     },
     loading,
   };

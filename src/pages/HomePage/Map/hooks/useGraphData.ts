@@ -41,8 +41,6 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
     return { nodes, links };
   }
 
-  console.log(data);
-
   let zonesStats: ZoneStat[] = data.zonesStats.map((zoneStat) => ({
     ...zoneStat,
     ...zoneStat.switchedStats[0],

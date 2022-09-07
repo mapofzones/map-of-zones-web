@@ -22,7 +22,6 @@ export function useSortedTableData<T>(data: T[] | undefined, sortingColumnKey: k
 
   useEffect(() => {
     const sortedData = data?.slice().sort((a, b) => SortRow(a, b, sortingColumnKey)) ?? [];
-    console.log(data, sortedData);
     setSortedZones(sortedData);
   }, [data, sortingColumnKey]);
 

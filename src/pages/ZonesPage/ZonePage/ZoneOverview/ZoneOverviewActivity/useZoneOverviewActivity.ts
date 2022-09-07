@@ -36,12 +36,16 @@ export function useZoneOverviewActivity(): {
 
   return {
     data: data && {
-      ...data.switchedStats[0],
-      totalTxs: data.stats[0].totalTxs,
-      totalTxsChart: data.stats[0].totalTxsChart,
-      dau: data.stats[0].dau,
-      ibcDau: data.stats[0].ibcDau,
-      ibcDauPercent: data.stats[0].ibcDauPercent,
+      ibcTransfers: data.switchedStats[0]?.ibcTransfers,
+      peersCount: data.switchedStats[0]?.peersCount,
+      channelsCount: data.switchedStats[0]?.channelsCount,
+      ibcTransfersPending: data.switchedStats[0]?.ibcTransfersPending,
+      ibcTransfersChart: data.switchedStats[0]?.ibcTransfersChart,
+      totalTxs: data.stats[0]?.totalTxs,
+      totalTxsChart: data.stats[0]?.totalTxsChart,
+      dau: data.stats[0]?.dau,
+      ibcDau: data.stats[0]?.ibcDau,
+      ibcDauPercent: data.stats[0]?.ibcDauPercent,
     },
     loading,
   };
