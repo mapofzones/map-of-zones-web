@@ -1,3 +1,10 @@
+.emptyContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .peerCard {
   display: block;
   min-height: 160px;

@@ -8,8 +8,8 @@ import styles from './ZonePeersTable.module.scss';
 import { ZonePeersTableProps } from './ZonePeersTableProps';
 
 function ZonePeersTable({ peers }: ZonePeersTableProps) {
-  if (!peers) {
-    return <>Peers for zone not found.</>;
+  if (!peers || !peers.length) {
+    return <div className={styles.emptyContainer}>Peers for zone not found.</div>;
   }
 
   return (
