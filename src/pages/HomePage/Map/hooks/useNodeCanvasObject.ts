@@ -120,7 +120,7 @@ function drawTitle(
 
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = `${FONT_WEIGHT} ${fontSize}px Roboto Mono`;
+  ctx.font = `${FONT_WEIGHT} ${fontSize}px Roboto`;
   ctx.fillStyle = textColor;
   ctx.fillText(name, x, y + deltaY);
 }
