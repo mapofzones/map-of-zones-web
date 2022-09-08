@@ -19,6 +19,7 @@ export function PeerLineChart({
       <PercentStackedLineChart
         leftValue={counterparty.volumeOutPercent}
         rightValue={counterparty.volumeInPercent}
+        rightCustomColor={`#EE11CC80`}
       />
       <ZoneLogo
         logoUrl={counterparty.zoneCounterpartyLogoUrl}
