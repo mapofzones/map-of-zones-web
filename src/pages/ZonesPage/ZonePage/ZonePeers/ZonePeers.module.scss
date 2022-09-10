@@ -10,13 +10,24 @@
         text-align: left;
       }
     }
+
+    tr td {
+      &:first-child {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-width: 460px;
+        padding-left: 0;
+      }
+    }
   }
 }
 
 @media (max-width: 375px) {
   .container {
     .table {
-      th {
+      th,
+      tr td {
         &:first-child {
           min-width: 188px;
           overflow: hidden;

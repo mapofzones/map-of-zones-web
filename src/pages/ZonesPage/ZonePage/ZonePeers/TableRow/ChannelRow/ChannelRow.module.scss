@@ -5,12 +5,6 @@
     padding: 7.5px 12px 7.5px 28px;
 
     &:first-child {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      min-width: 460px;
-      padding-left: 0;
-
       vertical-align: middle;
     }
 
@@ -85,12 +79,6 @@
 @media (max-width: 375px) {
   .container {
     td {
-      &:first-child {
-        min-width: 0;
-        max-width: 188px;
-        overflow: hidden;
-      }
-
       &:last-child {
         padding-right: 12px;
       }
