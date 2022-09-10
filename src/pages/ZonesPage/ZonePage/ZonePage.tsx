@@ -67,7 +67,7 @@ export function ZonePage() {
           {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
         </div>
 
-        <ZoneNavigation data={data} />
+        <ZoneNavigation peersCount={data?.peersCount} />
 
         <PeriodSelector className={styles.periodContainer} useDropdown={isMobile} />
       </div>

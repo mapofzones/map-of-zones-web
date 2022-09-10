@@ -6,7 +6,7 @@ import { useMediaQuery } from 'hooks/useMediaQuery';
 import styles from './ZoneNavigation.module.scss';
 import { ZoneNavigationProps } from './ZoneNavigation.props';
 
-export function ZoneNavigation({ data }: ZoneNavigationProps) {
+export function ZoneNavigation({ peersCount }: ZoneNavigationProps) {
   const isMobile = useMediaQuery('(max-width: 375px)');
 
   return (
@@ -14,14 +14,14 @@ export function ZoneNavigation({ data }: ZoneNavigationProps) {
       {isMobile && (
         <ButtonGroup className={styles.pagesSwitcher}>
           <NavLink to="overview">Overview</NavLink>
-          <NavLink to="peers">{`Peers ${data?.peersCount ? `(${data.peersCount})` : ''}`}</NavLink>
+          <NavLink to="peers">{`Peers ${peersCount ? `(${peersCount})` : ''}`}</NavLink>
         </ButtonGroup>
       )}
 
       {!isMobile && (
         <div className={styles.navigationButtonsContainer}>
           <NavigationButton to="overview">Overview</NavigationButton>
-          <NavigationButton to="peers" count={data?.peersCount}>
+          <NavigationButton to="peers" count={peersCount}>
             Peers
           </NavigationButton>
         </div>
