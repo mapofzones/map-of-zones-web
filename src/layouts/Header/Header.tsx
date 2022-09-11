@@ -16,6 +16,7 @@ function Header({ ...props }): JSX.Element {
 
   return (
     <header className={styles.container} {...props}>
+      <div className={styles.backdrop}></div>
       <BurgerWithRef
         ref={ref}
         className={styles.burgerIcon}
@@ -23,8 +24,9 @@ function Header({ ...props }): JSX.Element {
         setIsOpened={setIsMenuOpen}
       />
       <div className={styles.logoContainer}>
-        <Logo />
-        <span className={styles.tagline}>Cosmos network explorer</span>
+        <NavLink to="/home">
+          <Logo />
+        </NavLink>
       </div>
       <div className={styles.headerContent}>
         <nav className={cn(styles.menu, { [styles.opened]: isMenuOpen })}>
