@@ -6,8 +6,11 @@ import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
-import { tooltips } from 'types/Tooltips';
+<<<<<<< HEAD
 import { getDauTitleByPeriod } from 'utils/helper';
+=======
+import { tooltips } from 'types/Tooltips';
+>>>>>>> dd95582... MOZ_v2: added tooltips to Overview
 
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
@@ -76,16 +79,26 @@ function ZoneOverview() {
             className={styles.detailedInfoItem}
             title={dauTittle}
             loading={loading}
+<<<<<<< HEAD
             value={data?.dau}
+            tooltipText={'Some tooltip'}
+=======
+            value={data?.ibcDauMainnet}
             tooltipText={tooltips['dau'](period)}
+>>>>>>> dd95582... MOZ_v2: added tooltips to Overview
             tooltipPosition={'right'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={`IBC ${dauTittle}`}
             loading={loading}
+<<<<<<< HEAD
             defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
+            tooltipText={'Some tooltip'}
+=======
+            defaultLoadingValue={'2 345 (99,8% of DAU)'}
             tooltipText={tooltips['ibcDau'](period)}
+>>>>>>> dd95582... MOZ_v2: added tooltips to Overview
             tooltipPosition={'left'}
           >
             <NumberFormat value={data?.ibcDau} />

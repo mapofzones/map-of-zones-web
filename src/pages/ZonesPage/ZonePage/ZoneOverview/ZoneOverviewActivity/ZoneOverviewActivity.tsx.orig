@@ -6,8 +6,11 @@ import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCar
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
 import { ElementSize } from 'types/ElementSize';
-import { tooltips } from 'types/Tooltips';
+<<<<<<< HEAD
 import { getDauTitleByPeriod } from 'utils/helper';
+=======
+import { tooltips } from 'types/Tooltips';
+>>>>>>> dd95582... MOZ_v2: added tooltips to Overview
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
@@ -72,8 +75,13 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           rowDirection
           title={dauTittle}
           loading={loading}
+<<<<<<< HEAD
           value={data?.dau}
+          tooltipText={'Some tooltip'}
+=======
+          value={undefined}
           tooltipText={tooltips['dau'](period)}
+>>>>>>> dd95582... MOZ_v2: added tooltips to Overview
           tooltipPosition={'right'}
         />
         <ZoneOverviewItem
@@ -81,8 +89,13 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           rowDirection
           title={`IBC ${dauTittle}`}
           loading={loading}
+<<<<<<< HEAD
           defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
+          tooltipText={'Some tooltip'}
+=======
+          defaultLoadingValue={'2 345 (99,8% of DAU)'}
           tooltipText={tooltips['ibcDau'](period)}
+>>>>>>> dd95582... MOZ_v2: added tooltips to Overview
           tooltipPosition={'right'}
         >
           <div className={styles.dauValue}>

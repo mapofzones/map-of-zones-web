@@ -38,10 +38,11 @@
 
     cursor: pointer;
 
-    stroke: var(--black-900);
+    fill: var(--black-900);
+    stroke: var(--white);
 
     :hover {
-      stroke: var(--grey-300);
+      fill: var(--grey-100);
     }
   }
 
