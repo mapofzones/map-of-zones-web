@@ -98,7 +98,7 @@ function ZonesInfo(): JSX.Element {
         size={ElementSize.LARGE}
         buttonType={ButtonType.SECONDARY}
       >
-        <span className={styles.btnText}>Detailed View</span>
+        <span className={styles.btnText}>Learn More</span>
         <ArrowRight />
       </Button>
     </div>
