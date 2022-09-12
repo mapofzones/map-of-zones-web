@@ -116,3 +116,23 @@ th {
     border-right: 1px solid transparent;
   }
 }
+
+@media (max-width: 375px) {
+  th {
+    &:first-child {
+      padding-left: 12px;
+
+      &::before {
+        width: 12px;
+      }
+    }
+
+    &:last-child {
+      padding-right: 12px;
+
+      &::after {
+        width: 12px;
+      }
+    }
+  }
+}

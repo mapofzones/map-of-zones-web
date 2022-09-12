@@ -5,24 +5,7 @@
     vertical-align: middle;
 
     &:first-child {
-      min-width: 42px; // TODO: calculate dynamically
-
-      padding-right: 0;
-
       text-align: center;
-    }
-
-    &:nth-child(2) {
-      left: 42px; // TODO: calculate dynamically
-
-      width: 100%;
-
-      min-width: 260px;
-      padding-left: 16px;
-    }
-
-    &:nth-last-child(2) {
-      padding-right: 0;
     }
 
     &:last-child {
@@ -75,13 +58,20 @@
       margin-right: 12px;
     }
 
-    .nameContainer {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2px;
+    .nameAndStatusContainer {
+      overflow: hidden;
 
-      .name {
-        font-size: var(--font-base-size-lg);
+      .nameContainer {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2px;
+
+        .name {
+          overflow: hidden;
+
+          font-size: var(--font-base-size-lg);
+          text-overflow: ellipsis;
+        }
       }
     }
   }
