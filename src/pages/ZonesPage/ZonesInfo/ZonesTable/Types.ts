@@ -3,6 +3,7 @@ import {
   Align,
   CircleType,
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
+import { tooltips } from 'types/Tooltips';
 import { getDauTitleByPeriod } from 'utils/helper';
 
 import { ZoneData } from './TableRow/TableRow.props';
@@ -31,50 +32,45 @@ export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
     {
       title: 'IBC Volume',
       columnKey: ColumnKeys.IbcVolume,
-      explanationText:
-        'USD value of tokens successfully relayed via IBC transfer with pertinent volume in progress',
+      explanationText: tooltips['ibcVolume'](),
     },
     {
       title: 'IBC Volume In',
       columnKey: ColumnKeys.IbcVolumeReceived,
-      explanationText:
-        'USD value of tokens successfully received from other Zones with pertinent volume in progress',
+      explanationText: tooltips['ibcVolumeIn'](),
       circleType: CircleType.Target,
     },
     {
       title: 'IBC Volume Out',
       columnKey: ColumnKeys.IbcVolumeSent,
-      explanationText:
-        'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
+      explanationText: tooltips['ibcVolumeOut'](),
       circleType: CircleType.Source,
       withBorder: true,
     },
     {
       title: 'Total Txs',
       columnKey: ColumnKeys.TotalTxs,
-      explanationText: 'All transactions in a specified zone',
+      explanationText: tooltips['totalTxs'](),
     },
     {
       title: 'IBC Transfers',
       columnKey: ColumnKeys.IbcTransfers,
-      explanationText:
-        'Number of successfully relayed IBC transfers with pertinent quantity in progress',
+      explanationText: tooltips['ibcTransfers'](),
       withBorder: true,
     },
     {
       title: 'Peers',
-      explanationText:
-        'Number of counterparties of a particular Zone with established IBC connectors',
+      explanationText: tooltips['peersCount'](),
     },
     {
       title: 'Channels',
-      explanationText: 'Number of channels that connect a particular Zone to its counterparties',
+      explanationText: tooltips['channelsCount'](),
       withBorder: true,
     },
     {
       title: getDauTitleByPeriod(period),
       columnKey: ColumnKeys.IbcActiveAddresses,
-      explanationText: 'Number of Zone’s unique addresses initiated outward IBC transfer(s)',
+      explanationText: tooltips['ibcDau'](period),
       withBorder: true,
     },
     {

@@ -2,6 +2,7 @@ import {
   Align,
   CircleType,
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
+import { tooltips } from 'types/Tooltips';
 
 import { ZonesListZoneDetails } from '../useZonesListZoneDetails';
 import { ZoneChannelRowData } from './TableRow/TableRow.props';
@@ -44,20 +45,20 @@ export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
   {
     title: 'Total IBC Volume',
     columnKey: ColumnKeys.IbcVolumeTotal,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcVolume'](),
     withBorder: true,
   },
   {
     title: `${zone.name} Receives`,
     columnKey: ColumnKeys.IbcVolumeReceived,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcVolumeIn'](),
     circleType: CircleType.Target,
     withBorder: true,
   },
   {
     title: `${zone.name} Sends`,
     columnKey: ColumnKeys.IbcVolumeSent,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcVolumeOut'](),
     circleType: CircleType.Source,
   },
   {

@@ -40,7 +40,7 @@ function ZoneOverview() {
             value={data?.totalTxs}
             loading={loading}
             defaultLoadingValue={'1 156 288'}
-            tooltipText={'Total txs tooltip'}
+            tooltipText={tooltips['totalTxs']()}
             tooltipPosition={'right'}
           ></ZoneOverviewItem>
 
@@ -51,7 +51,7 @@ function ZoneOverview() {
             value={data?.ibcTransfers}
             loading={loading}
             defaultLoadingValue={'72 235'}
-            tooltipText={'Some tooltip'}
+            tooltipText={tooltips['ibcTransfers']()}
             tooltipPosition={'left'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
@@ -100,8 +100,8 @@ function ZoneOverview() {
             title={'Token Price'}
             loading={loading}
             defaultLoadingValue={'$10.45'}
-            tooltipText={'Some tooltip'}
-            tooltipPosition={'left'}
+            tooltipText={'Some tooltip'} // TODO: use real tooltip
+            tooltipPosition={'right'}
           >
             <NumberFormat value={data?.price} numberType={NumberType.Currency} />
             <span className={styles.additionalInfo}> {data?.tokenSymbol}</span>
@@ -113,7 +113,7 @@ function ZoneOverview() {
             loading={loading}
             defaultLoadingValue={'$123,456,789'}
             tooltipText={tooltips['marketCap']()}
-            tooltipPosition={'right'}
+            tooltipPosition={'left'}
           ></ZoneOverviewItem>
         </div>
       </ScrollableContainer>

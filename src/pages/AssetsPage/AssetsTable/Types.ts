@@ -1,4 +1,5 @@
 import { Align } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
+import { tooltips } from 'types/Tooltips';
 
 import { AssetsTableRow } from './useAssetsTable';
 
@@ -48,7 +49,7 @@ export const TABLE_HEADER_CONFIG = [
   {
     title: 'Market Cap',
     columnKey: ColumnKeys.MarketCap,
-    explanationText: 'Test text',
+    explanationText: tooltips['marketCap'](),
   },
   {
     title: '24h Volume',
@@ -59,8 +60,8 @@ export const TABLE_HEADER_CONFIG = [
     columnKey: ColumnKeys.Volume24hPercent,
   },
   {
-    title: 'Supply',
-    explanationText: 'Test text',
+    title: 'On-Chain Supply',
+    explanationText: tooltips['supply'](),
     columnKey: ColumnKeys.Supply,
   },
   {
