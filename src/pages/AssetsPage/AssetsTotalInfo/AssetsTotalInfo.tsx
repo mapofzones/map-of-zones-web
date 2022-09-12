@@ -40,7 +40,7 @@ export function AssetsTotalInfo(): JSX.Element {
       </TotalCard>
 
       <TotalCard>
-        <div className={styles.title}>Cosmos Network Mkt Cap</div>
+        <div className={styles.title}>Cosmos Network Market Cap</div>
         <ValueWithPending
           className={styles.value}
           numberType={NumberType.Currency}
