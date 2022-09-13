@@ -1,7 +1,8 @@
 import { NumberType, PeriodKeys } from 'components';
-import { Flat_Blockchain_Switched_Stats_Select_Column } from 'graphql/base-types';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { getDauTitleByPeriod } from 'utils/helper';
+
+import { ZonesTableDataQueryItem } from './ZonesInfoTable/ZonesInfoTable.props';
 
 export const getColumnOptions = (period: PeriodKeys) => [
   {
@@ -26,23 +27,23 @@ export const METADATA: Record<
   ColumnKeys,
   {
     numberType: NumberType;
-    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column;
+    sortingColumnKey: keyof ZonesTableDataQueryItem;
   }
 > = {
   [ColumnKeys.IbcVolume]: {
     numberType: NumberType.Currency,
-    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.IbcCashflowRating,
+    sortingColumnKey: 'ibcVolumeRating',
   },
   [ColumnKeys.IbcTransfers]: {
     numberType: NumberType.Number,
-    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.IbcTransfersRating,
+    sortingColumnKey: 'ibcTransfersRating',
   },
   [ColumnKeys.TotalTxs]: {
     numberType: NumberType.Number,
-    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.TxsRating,
+    sortingColumnKey: 'totalTxsRating',
   },
   [ColumnKeys.Dau]: {
     numberType: NumberType.Number,
-    sortingColumnKey: Flat_Blockchain_Switched_Stats_Select_Column.ActiveAddressesCntRating,
+    sortingColumnKey: 'dauRating',
   },
 };

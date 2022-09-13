@@ -6,6 +6,7 @@ import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { useSortedTableData } from 'hooks/useSortedTableData';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ElementSize } from 'types/ElementSize';
@@ -32,9 +33,10 @@ function ZonesInfo(): JSX.Element {
 
   const { data: zones, loading: tableDataLoading } = useZonesTableData(
     selectedPeriod,
-    selectedColumnKey,
-    metadata.sortingColumnKey
+    selectedColumnKey
   );
+
+  const sortedZones = useSortedTableData(zones, metadata.sortingColumnKey, 'asc');
 
   const columnOptions = getColumnOptions(selectedPeriod);
 
@@ -69,7 +71,7 @@ function ZonesInfo(): JSX.Element {
       <ScrollableContainer className={styles.scrollableTable}>
         {!tableDataLoading && (
           <MemoizedZonesInfoTable
-            data={zones}
+            data={sortedZones}
             searchValue={searchValue}
             columnType={selectedColumnKey}
           />

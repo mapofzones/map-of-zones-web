@@ -22,7 +22,7 @@ export function ZonesTable() {
   const { data: zonesCountData } = useZonesCount(selectedPeriod);
   const { data } = useZonesTable(selectedPeriod);
 
-  const sortedZones = useSortedTableData(data, sortingColumnKey);
+  const sortedZones = useSortedTableData(data, sortingColumnKey, 'asc');
 
   const tableHeaderConfig = getTableHeaderConfigByPeriod(selectedPeriod);
 

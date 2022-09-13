@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { Table } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSortedTableData } from 'hooks/useSortedTableData';
@@ -13,11 +15,14 @@ export function AssetsTable() {
     ColumnKeys.MarketCap
   );
 
-  const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
+  const sortingColumnKey = useMemo(
+    () => SORTING_COLUMN_KEYS[selectedColumnKey],
+    [selectedColumnKey]
+  );
 
   const { data } = useAssetsTable();
 
-  const sortedData = useSortedTableData(data, sortingColumnKey);
+  const sortedData = useSortedTableData(data, sortingColumnKey, 'desc');
 
   return (
     <div className={styles.container}>
@@ -31,7 +36,7 @@ export function AssetsTable() {
         >
           {sortedData.map((asset, index) => (
             <TableRow
-              key={`asset_${asset.symbol}`}
+              key={`asset_${asset.symbol}_${index}`}
               asset={asset}
               index={index}
               selectedColumnKey={selectedColumnKey}

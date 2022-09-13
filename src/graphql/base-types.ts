@@ -5089,8 +5089,8 @@ export type Flat_Tokens = {
   blockchains_aggregate: Flat_Blockchains_Aggregate;
   denom: Scalars['String'];
   logo_url?: Maybe<Scalars['String']>;
-  market_cap?: Maybe<Scalars['bigint']>;
-  on_chain_supply?: Maybe<Scalars['bigint']>;
+  market_cap?: Maybe<Scalars['numeric']>;
+  on_chain_supply?: Maybe<Scalars['numeric']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
   price_month_diff_percent?: Maybe<Scalars['numeric']>;
@@ -5100,7 +5100,7 @@ export type Flat_Tokens = {
   token_charts: Array<Flat_Token_Charts>;
   /** An aggregated array relationship */
   token_charts_aggregate: Flat_Token_Charts_Aggregate;
-  token_day_trading_volume?: Maybe<Scalars['bigint']>;
+  token_day_trading_volume?: Maybe<Scalars['numeric']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['numeric']>;
 };
 
@@ -5216,15 +5216,15 @@ export type Flat_Tokens_Bool_Exp = {
   blockchains?: InputMaybe<Flat_Blockchains_Bool_Exp>;
   denom?: InputMaybe<String_Comparison_Exp>;
   logo_url?: InputMaybe<String_Comparison_Exp>;
-  market_cap?: InputMaybe<Bigint_Comparison_Exp>;
-  on_chain_supply?: InputMaybe<Bigint_Comparison_Exp>;
+  market_cap?: InputMaybe<Numeric_Comparison_Exp>;
+  on_chain_supply?: InputMaybe<Numeric_Comparison_Exp>;
   price?: InputMaybe<Numeric_Comparison_Exp>;
   price_day_diff_percent?: InputMaybe<Numeric_Comparison_Exp>;
   price_month_diff_percent?: InputMaybe<Numeric_Comparison_Exp>;
   price_week_diff_percent?: InputMaybe<Numeric_Comparison_Exp>;
   symbol?: InputMaybe<String_Comparison_Exp>;
   token_charts?: InputMaybe<Flat_Token_Charts_Bool_Exp>;
-  token_day_trading_volume?: InputMaybe<Bigint_Comparison_Exp>;
+  token_day_trading_volume?: InputMaybe<Numeric_Comparison_Exp>;
   token_day_trading_volume_diff_percent?: InputMaybe<Numeric_Comparison_Exp>;
 };
 
@@ -5233,14 +5233,14 @@ export type Flat_Tokens_Max_Fields = {
   blockchain?: Maybe<Scalars['String']>;
   denom?: Maybe<Scalars['String']>;
   logo_url?: Maybe<Scalars['String']>;
-  market_cap?: Maybe<Scalars['bigint']>;
-  on_chain_supply?: Maybe<Scalars['bigint']>;
+  market_cap?: Maybe<Scalars['numeric']>;
+  on_chain_supply?: Maybe<Scalars['numeric']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
   price_month_diff_percent?: Maybe<Scalars['numeric']>;
   price_week_diff_percent?: Maybe<Scalars['numeric']>;
   symbol?: Maybe<Scalars['String']>;
-  token_day_trading_volume?: Maybe<Scalars['bigint']>;
+  token_day_trading_volume?: Maybe<Scalars['numeric']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['numeric']>;
 };
 
@@ -5265,14 +5265,14 @@ export type Flat_Tokens_Min_Fields = {
   blockchain?: Maybe<Scalars['String']>;
   denom?: Maybe<Scalars['String']>;
   logo_url?: Maybe<Scalars['String']>;
-  market_cap?: Maybe<Scalars['bigint']>;
-  on_chain_supply?: Maybe<Scalars['bigint']>;
+  market_cap?: Maybe<Scalars['numeric']>;
+  on_chain_supply?: Maybe<Scalars['numeric']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
   price_month_diff_percent?: Maybe<Scalars['numeric']>;
   price_week_diff_percent?: Maybe<Scalars['numeric']>;
   symbol?: Maybe<Scalars['String']>;
-  token_day_trading_volume?: Maybe<Scalars['bigint']>;
+  token_day_trading_volume?: Maybe<Scalars['numeric']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['numeric']>;
 };
 
@@ -5419,13 +5419,13 @@ export type Flat_Tokens_Stddev_Samp_Order_By = {
 
 /** aggregate sum on columns */
 export type Flat_Tokens_Sum_Fields = {
-  market_cap?: Maybe<Scalars['bigint']>;
-  on_chain_supply?: Maybe<Scalars['bigint']>;
+  market_cap?: Maybe<Scalars['numeric']>;
+  on_chain_supply?: Maybe<Scalars['numeric']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
   price_month_diff_percent?: Maybe<Scalars['numeric']>;
   price_week_diff_percent?: Maybe<Scalars['numeric']>;
-  token_day_trading_volume?: Maybe<Scalars['bigint']>;
+  token_day_trading_volume?: Maybe<Scalars['numeric']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['numeric']>;
 };
 

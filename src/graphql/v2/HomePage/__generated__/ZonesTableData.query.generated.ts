@@ -13,7 +13,6 @@ import { ZoneTotalTxsStatsV2FragmentDoc } from '../Sidebar/ZonesInfo/__generated
 export type ZonesTableDataQueryVariables = Types.Exact<{
   period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
-  orderBy: Types.Flat_Blockchain_Switched_Stats_Order_By;
   withVolume: Types.Scalars['Boolean'];
   withTransfers: Types.Scalars['Boolean'];
   withTotalTxs: Types.Scalars['Boolean'];
@@ -65,17 +64,6 @@ export const ZonesTableDataDocument = {
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'flat_blockchain_switched_stats_order_by' },
-            },
           },
         },
         {
@@ -193,14 +181,6 @@ export const ZonesTableDataDocument = {
                             },
                           },
                         ],
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'order_by' },
-                      value: {
-                        kind: 'ListValue',
-                        values: [{ kind: 'Variable', name: { kind: 'Name', value: 'orderBy' } }],
                       },
                     },
                   ],
