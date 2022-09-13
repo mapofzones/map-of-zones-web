@@ -26,6 +26,7 @@ export function ZonePeers() {
   const { data: parentZoneData } = useZonesListZoneDetails();
 
   useEffect(() => {
+    console.log('use effect');
     const sortedColumn = SORTING_COLUMN_KEYS[selectedColumnKey];
     const sortedPeers = peers
       ?.map((peer) => {

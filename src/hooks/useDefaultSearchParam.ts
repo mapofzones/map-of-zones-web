@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
@@ -6,7 +6,10 @@ export function useDefaultSearchParam<T extends string>(key: string, defaultValu
   const [search, setSearch] = useSearchParams();
   const columnKey = search.get(key);
 
-  const selectedColumnKey: T = (columnKey as T) ?? defaultValue;
+  const selectedColumnKey: T = useMemo(
+    () => (columnKey as T) ?? defaultValue,
+    [columnKey, defaultValue]
+  );
 
   const setSelectedColumnKey = useCallback(
     (value: T) => {

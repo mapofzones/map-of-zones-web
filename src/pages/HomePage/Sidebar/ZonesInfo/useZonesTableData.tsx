@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { useQuery } from '@apollo/client';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
@@ -24,15 +26,18 @@ export function useZonesTableData(
 
   const { data, loading } = useQuery(ZonesTableDataDocument, options);
 
-  return {
-    data:
-      data?.zonesTable.map((zone) => ({
-        name: zone.name,
-        zone: zone.zone,
-        logoUrl: zone.logoUrl,
-        ...zone.switchedStats[0],
-        ...zone.stats[0],
-      })) ?? [],
-    loading,
-  };
+  return useMemo(
+    () => ({
+      data:
+        data?.zonesTable.map((zone) => ({
+          name: zone.name,
+          zone: zone.zone,
+          logoUrl: zone.logoUrl,
+          ...zone.switchedStats[0],
+          ...zone.stats[0],
+        })) ?? [],
+      loading,
+    }),
+    [data?.zonesTable, loading]
+  );
 }

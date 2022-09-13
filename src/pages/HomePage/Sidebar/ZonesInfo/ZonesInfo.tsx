@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Button, Dropdown, PeriodSelector, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
@@ -38,7 +38,7 @@ function ZonesInfo(): JSX.Element {
 
   const sortedZones = useSortedTableData(zones, metadata.sortingColumnKey, 'asc');
 
-  const columnOptions = getColumnOptions(selectedPeriod);
+  const columnOptions = useMemo(() => getColumnOptions(selectedPeriod), [selectedPeriod]);
 
   const onColumnChange = (option: DropdownOption) => {
     setSelectedColumnKey(option.key as ColumnKeys);
