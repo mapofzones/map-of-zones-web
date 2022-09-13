@@ -9,7 +9,7 @@ import { getDauTitleByPeriod } from 'utils/helper';
 import { ZoneData } from './TableRow/TableRow.props';
 
 export enum ColumnKeys {
-  IbcActiveAddresses = 'ibcActiveAddresses',
+  ActiveAddresses = 'activeAddresses',
   IbcTransfers = 'ibcTransfers',
   IbcVolume = 'ibcVolume',
   IbcVolumeReceived = 'ibcVolumeReceived',
@@ -69,8 +69,8 @@ export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
     },
     {
       title: getDauTitleByPeriod(period),
-      columnKey: ColumnKeys.IbcActiveAddresses,
-      explanationText: tooltips['ibcDau'](period),
+      columnKey: ColumnKeys.ActiveAddresses,
+      explanationText: tooltips['dau'](period),
       withBorder: true,
     },
     {
@@ -80,7 +80,7 @@ export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
 }
 
 export const SORTING_COLUMN_KEYS: Record<ColumnKeys, keyof ZoneData> = {
-  [ColumnKeys.IbcActiveAddresses]: 'ibcDauRating',
+  [ColumnKeys.ActiveAddresses]: 'dauRating',
   [ColumnKeys.IbcTransfers]: 'ibcTransfersRating',
   [ColumnKeys.IbcVolume]: 'ibcVolumeRating',
   [ColumnKeys.IbcVolumeReceived]: 'ibcVolumeInRating',

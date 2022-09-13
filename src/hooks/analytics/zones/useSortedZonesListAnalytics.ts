@@ -6,7 +6,7 @@ import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
 
 const ZONES_PAGE_COLUMN_TITLE: Record<string, string> = {
-  [ColumnKeys.IbcActiveAddresses]: 'active users',
+  [ColumnKeys.ActiveAddresses]: 'active users',
   [ColumnKeys.IbcTransfers]: 'ibc transfers',
   [ColumnKeys.IbcVolume]: 'ibc volume',
   [ColumnKeys.IbcVolumeReceived]: 'volume in',

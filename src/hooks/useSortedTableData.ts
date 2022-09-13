@@ -14,7 +14,7 @@ export function SortRow<T>(a: T, b: T, key: keyof T) {
     return -1;
   }
 
-  return a[key] < b[key] ? 1 : -1;
+  return a[key] < b[key] ? -1 : 1;
 }
 
 export function useSortedTableData<T>(data: T[] | undefined, sortingColumnKey: keyof T): T[] {

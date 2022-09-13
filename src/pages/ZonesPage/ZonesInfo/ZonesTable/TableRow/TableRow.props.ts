@@ -46,8 +46,9 @@ export interface ZoneData {
   totalIbcTxsRating: number;
   totalIbcTxsRatingDiff: number;
 
-  ibcDauRating: number;
+  dauRating?: number | null;
+  dauRatingDiff?: number | null;
 
   totalTxs: number;
-  ibcDau: number;
+  dau?: number | null;
 }

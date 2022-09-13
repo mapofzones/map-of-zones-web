@@ -30,7 +30,7 @@ export type ZonesListZonePeersQueryResult = {
       } | null;
       zoneChannels: Array<{
         zone: string;
-        zoneCounterpartyChannelId: string;
+        zoneCounterpartyChannelId?: string | null;
         channelId: string;
         clientId: string;
         connectionId: string;

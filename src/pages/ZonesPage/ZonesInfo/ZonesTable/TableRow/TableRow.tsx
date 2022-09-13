@@ -15,7 +15,7 @@ import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
 
 const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
-  ibcActiveAddresses: 'ibcVolumeInRatingDiff',
+  activeAddresses: 'dauRatingDiff',
   ibcVolumeReceived: 'ibcVolumeInRatingDiff',
   ibcVolumeSent: 'ibcVolumeOutRatingDiff',
   ibcVolume: 'ibcVolumeRatingDiff',
@@ -124,7 +124,7 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
-          value={zone.ibcDau}
+          value={zone.dau}
         />
       </TableRowItem>
 

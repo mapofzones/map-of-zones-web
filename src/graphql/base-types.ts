@@ -3821,7 +3821,7 @@ export type Flat_Channels_Stats = {
   client_id: Scalars['String'];
   connection_id: Scalars['String'];
   counterparty_blockchain: Scalars['String'];
-  counterparty_channel_id: Scalars['String'];
+  counterparty_channel_id?: Maybe<Scalars['String']>;
   ibc_cashflow?: Maybe<Scalars['bigint']>;
   ibc_cashflow_diff?: Maybe<Scalars['bigint']>;
   ibc_cashflow_in: Scalars['bigint'];
@@ -5093,6 +5093,7 @@ export type Flat_Tokens = {
   on_chain_supply?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
+  price_month_diff_percent?: Maybe<Scalars['numeric']>;
   price_week_diff_percent?: Maybe<Scalars['numeric']>;
   symbol?: Maybe<Scalars['String']>;
   /** An array relationship */
@@ -5187,6 +5188,7 @@ export type Flat_Tokens_Avg_Fields = {
   on_chain_supply?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   price_day_diff_percent?: Maybe<Scalars['Float']>;
+  price_month_diff_percent?: Maybe<Scalars['Float']>;
   price_week_diff_percent?: Maybe<Scalars['Float']>;
   token_day_trading_volume?: Maybe<Scalars['Float']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['Float']>;
@@ -5198,6 +5200,7 @@ export type Flat_Tokens_Avg_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;
@@ -5217,6 +5220,7 @@ export type Flat_Tokens_Bool_Exp = {
   on_chain_supply?: InputMaybe<Bigint_Comparison_Exp>;
   price?: InputMaybe<Numeric_Comparison_Exp>;
   price_day_diff_percent?: InputMaybe<Numeric_Comparison_Exp>;
+  price_month_diff_percent?: InputMaybe<Numeric_Comparison_Exp>;
   price_week_diff_percent?: InputMaybe<Numeric_Comparison_Exp>;
   symbol?: InputMaybe<String_Comparison_Exp>;
   token_charts?: InputMaybe<Flat_Token_Charts_Bool_Exp>;
@@ -5233,6 +5237,7 @@ export type Flat_Tokens_Max_Fields = {
   on_chain_supply?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
+  price_month_diff_percent?: Maybe<Scalars['numeric']>;
   price_week_diff_percent?: Maybe<Scalars['numeric']>;
   symbol?: Maybe<Scalars['String']>;
   token_day_trading_volume?: Maybe<Scalars['bigint']>;
@@ -5248,6 +5253,7 @@ export type Flat_Tokens_Max_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   symbol?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
@@ -5263,6 +5269,7 @@ export type Flat_Tokens_Min_Fields = {
   on_chain_supply?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
+  price_month_diff_percent?: Maybe<Scalars['numeric']>;
   price_week_diff_percent?: Maybe<Scalars['numeric']>;
   symbol?: Maybe<Scalars['String']>;
   token_day_trading_volume?: Maybe<Scalars['bigint']>;
@@ -5278,6 +5285,7 @@ export type Flat_Tokens_Min_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   symbol?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
@@ -5295,6 +5303,7 @@ export type Flat_Tokens_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   symbol?: InputMaybe<Order_By>;
   token_charts_aggregate?: InputMaybe<Flat_Token_Charts_Aggregate_Order_By>;
@@ -5325,6 +5334,8 @@ export const enum Flat_Tokens_Select_Column {
   /** column name */
   PriceDayDiffPercent = 'price_day_diff_percent',
   /** column name */
+  PriceMonthDiffPercent = 'price_month_diff_percent',
+  /** column name */
   PriceWeekDiffPercent = 'price_week_diff_percent',
   /** column name */
   Symbol = 'symbol',
@@ -5340,6 +5351,7 @@ export type Flat_Tokens_Stddev_Fields = {
   on_chain_supply?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   price_day_diff_percent?: Maybe<Scalars['Float']>;
+  price_month_diff_percent?: Maybe<Scalars['Float']>;
   price_week_diff_percent?: Maybe<Scalars['Float']>;
   token_day_trading_volume?: Maybe<Scalars['Float']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['Float']>;
@@ -5351,6 +5363,7 @@ export type Flat_Tokens_Stddev_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;
@@ -5362,6 +5375,7 @@ export type Flat_Tokens_Stddev_Pop_Fields = {
   on_chain_supply?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   price_day_diff_percent?: Maybe<Scalars['Float']>;
+  price_month_diff_percent?: Maybe<Scalars['Float']>;
   price_week_diff_percent?: Maybe<Scalars['Float']>;
   token_day_trading_volume?: Maybe<Scalars['Float']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['Float']>;
@@ -5373,6 +5387,7 @@ export type Flat_Tokens_Stddev_Pop_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;
@@ -5384,6 +5399,7 @@ export type Flat_Tokens_Stddev_Samp_Fields = {
   on_chain_supply?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   price_day_diff_percent?: Maybe<Scalars['Float']>;
+  price_month_diff_percent?: Maybe<Scalars['Float']>;
   price_week_diff_percent?: Maybe<Scalars['Float']>;
   token_day_trading_volume?: Maybe<Scalars['Float']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['Float']>;
@@ -5395,6 +5411,7 @@ export type Flat_Tokens_Stddev_Samp_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;
@@ -5406,6 +5423,7 @@ export type Flat_Tokens_Sum_Fields = {
   on_chain_supply?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
   price_day_diff_percent?: Maybe<Scalars['numeric']>;
+  price_month_diff_percent?: Maybe<Scalars['numeric']>;
   price_week_diff_percent?: Maybe<Scalars['numeric']>;
   token_day_trading_volume?: Maybe<Scalars['bigint']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['numeric']>;
@@ -5417,6 +5435,7 @@ export type Flat_Tokens_Sum_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;
@@ -5428,6 +5447,7 @@ export type Flat_Tokens_Var_Pop_Fields = {
   on_chain_supply?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   price_day_diff_percent?: Maybe<Scalars['Float']>;
+  price_month_diff_percent?: Maybe<Scalars['Float']>;
   price_week_diff_percent?: Maybe<Scalars['Float']>;
   token_day_trading_volume?: Maybe<Scalars['Float']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['Float']>;
@@ -5439,6 +5459,7 @@ export type Flat_Tokens_Var_Pop_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;
@@ -5450,6 +5471,7 @@ export type Flat_Tokens_Var_Samp_Fields = {
   on_chain_supply?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   price_day_diff_percent?: Maybe<Scalars['Float']>;
+  price_month_diff_percent?: Maybe<Scalars['Float']>;
   price_week_diff_percent?: Maybe<Scalars['Float']>;
   token_day_trading_volume?: Maybe<Scalars['Float']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['Float']>;
@@ -5461,6 +5483,7 @@ export type Flat_Tokens_Var_Samp_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;
@@ -5472,6 +5495,7 @@ export type Flat_Tokens_Variance_Fields = {
   on_chain_supply?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   price_day_diff_percent?: Maybe<Scalars['Float']>;
+  price_month_diff_percent?: Maybe<Scalars['Float']>;
   price_week_diff_percent?: Maybe<Scalars['Float']>;
   token_day_trading_volume?: Maybe<Scalars['Float']>;
   token_day_trading_volume_diff_percent?: Maybe<Scalars['Float']>;
@@ -5483,6 +5507,7 @@ export type Flat_Tokens_Variance_Order_By = {
   on_chain_supply?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   price_day_diff_percent?: InputMaybe<Order_By>;
+  price_month_diff_percent?: InputMaybe<Order_By>;
   price_week_diff_percent?: InputMaybe<Order_By>;
   token_day_trading_volume?: InputMaybe<Order_By>;
   token_day_trading_volume_diff_percent?: InputMaybe<Order_By>;

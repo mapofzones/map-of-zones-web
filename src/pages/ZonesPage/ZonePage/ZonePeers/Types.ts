@@ -9,7 +9,7 @@ import { ZoneChannelRowData } from './TableRow/TableRow.props';
 
 export interface BlockchainChannel {
   zone: string;
-  zoneCounterpartyChannelId: string;
+  zoneCounterpartyChannelId?: string | null;
   channelId: string;
   clientId: string;
   connectionId: string;
