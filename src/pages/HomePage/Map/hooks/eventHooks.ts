@@ -1,8 +1,12 @@
 import { useCallback, useState } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
+import {
+  SelectedZoneSourceView,
+  useHomePageSelectedZoneAnalytics,
+} from 'hooks/analytics/home/useHomePageSelectedZoneAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 
 import { HoveredZoneKeyType, MapNode, SelectedZoneKeyType } from './../Types';
@@ -34,18 +38,18 @@ export const useHoveredZone = () => {
 export const useSelectedZone = () => {
   const { zone: selectedZoneKey = undefined } = useParams<string>();
 
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const navigateWithSearchParams = useNavigateWithSearchParams();
+  const trackSelectedZone = useHomePageSelectedZoneAnalytics(SelectedZoneSourceView.Map);
 
   const onZoneClick = useCallback(
     (node: NodeObject) => {
       const zone = node as MapNode;
-      navigate({
-        pathname: `${zone.zone}/overview`,
-        search: '?' + searchParams.toString(),
+      navigateWithSearchParams(`${zone.zone}/overview`, {
+        state: { source: SelectedZoneSourceView.Map },
       });
+      trackSelectedZone(zone.zone);
     },
-    [searchParams, navigate]
+    [navigateWithSearchParams, trackSelectedZone]
   );
 
   return [selectedZoneKey, onZoneClick] as const;

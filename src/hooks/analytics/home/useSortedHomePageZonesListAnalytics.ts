@@ -1,0 +1,25 @@
+import { useEffect } from 'react';
+
+import { ColumnKeys } from 'pages/HomePage/Types';
+
+import { Page, PAGE_TITLE } from '../Types';
+import { trackEvent } from '../useAnalytics';
+import { HOME_PAGE_TABLE_COLUMN_TITLE } from './useViewedHomePageAnalytics';
+
+export function useSortedHomePageZonesListAnalytics(currentPage: Page, prevPage: Page) {
+  useEffect(() => {
+    if (currentPage?.title !== PAGE_TITLE.Home) return;
+
+    if (
+      prevPage?.title === PAGE_TITLE.Home &&
+      currentPage?.search.columnKey &&
+      prevPage?.search.columnKey &&
+      currentPage.search.columnKey !== prevPage?.search.columnKey
+    ) {
+      trackEvent('sorted sidebar', {
+        param: HOME_PAGE_TABLE_COLUMN_TITLE[currentPage.search.columnKey as ColumnKeys],
+        period: currentPage.search.period,
+      });
+    }
+  }, [currentPage, prevPage]);
+}

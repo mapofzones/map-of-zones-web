@@ -7,6 +7,12 @@ import { useLocation } from 'react-router-dom';
 import useDebounce from '../useDebounce';
 import { useSortedAssetsListAnalytics } from './assets/useSortedAssetsListAnalytics';
 import { useViewedAssetsPageAnalytics } from './assets/useViewedAssetsPageAnalytics';
+import { useChosenDetailsClickAnalytics } from './home/useChosenDetailsClickAnalytics';
+import { useClosedZoneSidebarAnalytics } from './home/useClosedZoneSidebarAnalytics';
+import { useSortedHomePageZonesListAnalytics } from './home/useSortedHomePageZonesListAnalytics';
+import { useViewedHomePageAnalytics } from './home/useViewedHomePageAnalytics';
+import { useViewedZoneOverviewSidebarAnalytics } from './home/useViewedZoneOverviewSidebarAnalytics';
+import { useViewedZonePeersSidebarAnalytics } from './home/useViewedZonePeersSidebarAnalytics';
 import { useChangedPeriodAnalytics } from './multipage/useChangedPeriodAnalytics';
 import { usePageScrollAnalytics } from './multipage/usePageScrollAnalytics';
 import { useViewedApplicationPageAnalytics } from './multipage/useViewedApplicationPageAnalytics';
@@ -81,6 +87,14 @@ export function useAnalytics() {
       });
     }
   }, [debouncedLocation]);
+
+  // home
+  useViewedHomePageAnalytics(currentPage, prevPage);
+  useSortedHomePageZonesListAnalytics(currentPage, prevPage);
+  useViewedZoneOverviewSidebarAnalytics(currentPage, prevPage);
+  useViewedZonePeersSidebarAnalytics(currentPage, prevPage);
+  useChosenDetailsClickAnalytics(currentPage, prevPage);
+  useClosedZoneSidebarAnalytics(currentPage, prevPage);
 
   // assets
   useSortedAssetsListAnalytics(currentPage, prevPage);

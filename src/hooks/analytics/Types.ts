@@ -6,6 +6,8 @@ export interface Page {
     period?: string;
   };
   title: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  state?: any;
 }
 
 export const PAGE_TITLE: Record<string, string> = {
