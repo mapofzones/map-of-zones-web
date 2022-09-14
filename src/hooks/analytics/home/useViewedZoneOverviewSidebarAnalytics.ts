@@ -7,7 +7,7 @@ export type ZoneOverviewSidebarSource =
   | 'sidebar view'
   | 'map view'
   | 'direct link'
-  | 'share link' // TODO: added shared link to analytics
+  | 'share link'
   | 'zone peers sidebar'
   | 'unknown';
 
@@ -34,6 +34,9 @@ function getZoneOverviewSource(
   currentPage: Page
 ): ZoneOverviewSidebarSource | undefined {
   if (!prevPage) {
+    if (currentPage.search.utm_source) {
+      return 'share link';
+    }
     return 'direct link';
   } else if (prevPage.title === PAGE_TITLE.HomePeers) {
     return 'zone peers sidebar';

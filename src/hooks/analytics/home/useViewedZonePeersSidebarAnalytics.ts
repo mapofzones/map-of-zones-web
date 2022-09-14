@@ -14,7 +14,7 @@ export function useViewedZonePeersSidebarAnalytics(currentPage: Page, prevPage: 
       zone: currentPage.pathname.split('/')[2],
     };
 
-    const source = getZonePeersSource(prevPage);
+    const source = getZonePeersSource(prevPage, currentPage);
     trackEvent('viewed zone peers sidebar', {
       referrer_url: prevPage?.title,
       source,
@@ -23,8 +23,11 @@ export function useViewedZonePeersSidebarAnalytics(currentPage: Page, prevPage: 
   }, [currentPage, prevPage]);
 }
 
-function getZonePeersSource(prevPage: Page): ZonePeersSidebarSource | undefined {
+function getZonePeersSource(prevPage: Page, currentPage: Page): ZonePeersSidebarSource | undefined {
   if (!prevPage) {
+    if (currentPage.search.utm_source) {
+      return 'share link';
+    }
     return 'direct link';
   } else if (prevPage.title === PAGE_TITLE.HomeOverview) {
     return 'zone overview sidebar';

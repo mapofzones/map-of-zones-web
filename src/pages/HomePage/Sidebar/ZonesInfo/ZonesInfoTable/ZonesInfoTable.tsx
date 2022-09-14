@@ -2,6 +2,7 @@ import { memo } from 'react';
 
 import cn from 'classnames';
 
+import { useSearchSidebarAnalytics } from 'hooks/analytics/home/useSearchSidebarAnalytics';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 
 import { ZoneInfoRow } from '../../../index';
@@ -45,6 +46,8 @@ function ZonesInfoTable({
   const numberType = METADATA[columnType].numberType;
 
   const filteredZones = useFilteredZones(data || [], searchValue);
+
+  useSearchSidebarAnalytics(filteredZones, searchValue);
 
   return (
     <div className={cn(styles.zonesInfoTable, className)} {...props}>

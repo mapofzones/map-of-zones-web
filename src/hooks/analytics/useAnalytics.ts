@@ -10,6 +10,7 @@ import { useViewedAssetsPageAnalytics } from './assets/useViewedAssetsPageAnalyt
 import { useChosenDetailsClickAnalytics } from './home/useChosenDetailsClickAnalytics';
 import { useClosedZoneSidebarAnalytics } from './home/useClosedZoneSidebarAnalytics';
 import { useSortedHomePageZonesListAnalytics } from './home/useSortedHomePageZonesListAnalytics';
+import { useSwitchedSidebarSubtabAnalytics } from './home/useSwitchedSidebarSubtabAnalytics';
 import { useViewedHomePageAnalytics } from './home/useViewedHomePageAnalytics';
 import { useViewedZoneOverviewSidebarAnalytics } from './home/useViewedZoneOverviewSidebarAnalytics';
 import { useViewedZonePeersSidebarAnalytics } from './home/useViewedZonePeersSidebarAnalytics';
@@ -95,6 +96,7 @@ export function useAnalytics() {
   useViewedZonePeersSidebarAnalytics(currentPage, prevPage);
   useChosenDetailsClickAnalytics(currentPage, prevPage);
   useClosedZoneSidebarAnalytics(currentPage, prevPage);
+  useSwitchedSidebarSubtabAnalytics(currentPage, prevPage);
 
   // assets
   useSortedAssetsListAnalytics(currentPage, prevPage);
