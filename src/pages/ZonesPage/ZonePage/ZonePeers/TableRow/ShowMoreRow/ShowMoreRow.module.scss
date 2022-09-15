@@ -3,12 +3,6 @@
     padding: 12px 12px 31px 28px;
 
     &:first-child {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      min-width: 460px;
-      padding-left: 0;
-
       vertical-align: middle;
     }
 
@@ -49,6 +43,16 @@
   &.emptyContainer {
     .columnContainer {
       padding: 0 0 19px;
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    td {
+      .arrowContainer {
+        width: 34px;
+      }
     }
   }
 }

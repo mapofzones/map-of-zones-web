@@ -12,6 +12,7 @@ import {
   ZoneStatus,
 } from 'components';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
@@ -20,6 +21,8 @@ import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
 export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: TableRowProps) {
+  const isMobile = useMediaQuery('(max-width: 375px)');
+
   const [selectedPeriod] = useSelectedPeriod();
 
   const [channelsConfig, setChannelsConfig] = useState({
@@ -32,7 +35,11 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
     : [...zone.channels].splice(0, 3);
 
   const animationConfig = {
-    animate: channelsConfig.isChannelsVisible ? 'channelsHidden' : 'channelsVisible',
+    animate: isMobile
+      ? false
+      : channelsConfig.isChannelsVisible
+      ? 'channelsHidden'
+      : 'channelsVisible',
     initial: 'channelsVisible',
     transition: { duration: 0.5 },
   };
@@ -66,8 +73,8 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
         >
           <AnimatedArrowDown
             className={styles.arrowContainer}
-            isReverted={!channelsConfig.isChannelsVisible}
-            initial={false}
+            isReverted={channelsConfig.isChannelsVisible}
+            initial={true}
           />
 
           <div className={styles.zonesInfoContainer}>

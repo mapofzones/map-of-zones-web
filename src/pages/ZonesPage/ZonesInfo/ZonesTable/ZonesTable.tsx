@@ -1,5 +1,6 @@
 import { PeriodSelector, Table } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 
@@ -11,6 +12,8 @@ import styles from './ZonesTable.module.scss';
 
 export function ZonesTable() {
   const [selectedPeriod] = useSelectedPeriod();
+
+  const isMobile = useMediaQuery('(max-width: 375px)');
 
   const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
     'columnKey',
@@ -38,7 +41,7 @@ export function ZonesTable() {
           </div>
         )}
 
-        <PeriodSelector />
+        <PeriodSelector useDropdown={isMobile} />
       </div>
 
       <Table

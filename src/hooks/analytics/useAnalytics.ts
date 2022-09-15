@@ -7,12 +7,21 @@ import { useLocation } from 'react-router-dom';
 import useDebounce from '../useDebounce';
 import { useSortedAssetsListAnalytics } from './assets/useSortedAssetsListAnalytics';
 import { useViewedAssetsPageAnalytics } from './assets/useViewedAssetsPageAnalytics';
+import { useChosenDetailsClickAnalytics } from './home/useChosenDetailsClickAnalytics';
+import { useClosedZoneSidebarAnalytics } from './home/useClosedZoneSidebarAnalytics';
+import { useSortedHomePageZonesListAnalytics } from './home/useSortedHomePageZonesListAnalytics';
+import { useSwitchedSidebarSubtabAnalytics } from './home/useSwitchedSidebarSubtabAnalytics';
+import { useViewedHomePageAnalytics } from './home/useViewedHomePageAnalytics';
+import { useViewedZoneOverviewSidebarAnalytics } from './home/useViewedZoneOverviewSidebarAnalytics';
+import { useViewedZonePeersSidebarAnalytics } from './home/useViewedZonePeersSidebarAnalytics';
 import { useChangedPeriodAnalytics } from './multipage/useChangedPeriodAnalytics';
+import { useChangedZoneAnalytics } from './multipage/useChangedZoneAnalytics';
 import { usePageScrollAnalytics } from './multipage/usePageScrollAnalytics';
 import { useViewedApplicationPageAnalytics } from './multipage/useViewedApplicationPageAnalytics';
 import { Page, PAGE_TITLE } from './Types';
 import { useSelectedZoneAnalytics } from './zone/useSelectedZoneAnalytics';
 import { useSwitchedZoneSubtabAnalytics } from './zone/useSwitchedZoneSubtabAnalytics';
+import { useViewedZoneOverviewPageAnalytics } from './zoneOverview/useViewedZoneOverviewPageAnalytics';
 import { useSortedZonePeersListAnalytics } from './zonePeers/useSortedZonePeersListAnalytics';
 import { useViewedZonePeersPageAnalytics } from './zonePeers/useViewedZonePeersPageAnalytics';
 import { useSortedZonesListAnalytics } from './zones/useSortedZonesListAnalytics';
@@ -82,6 +91,15 @@ export function useAnalytics() {
     }
   }, [debouncedLocation]);
 
+  // home
+  useViewedHomePageAnalytics(currentPage, prevPage);
+  useSortedHomePageZonesListAnalytics(currentPage, prevPage);
+  useViewedZoneOverviewSidebarAnalytics(currentPage, prevPage);
+  useViewedZonePeersSidebarAnalytics(currentPage, prevPage);
+  useChosenDetailsClickAnalytics(currentPage, prevPage);
+  useClosedZoneSidebarAnalytics(currentPage, prevPage);
+  useSwitchedSidebarSubtabAnalytics(currentPage, prevPage);
+
   // assets
   useSortedAssetsListAnalytics(currentPage, prevPage);
   useViewedAssetsPageAnalytics(currentPage, prevPage);
@@ -90,10 +108,14 @@ export function useAnalytics() {
   useChangedPeriodAnalytics(currentPage, prevPage);
   usePageScrollAnalytics(currentPage);
   useViewedApplicationPageAnalytics(currentPage, prevPage, history);
+  useChangedZoneAnalytics(currentPage, prevPage);
 
   // zone
   useSelectedZoneAnalytics(currentPage, prevPage);
   useSwitchedZoneSubtabAnalytics(currentPage, prevPage);
+
+  // zoneOverview
+  useViewedZoneOverviewPageAnalytics(currentPage, prevPage);
 
   // zonePeers
   useSortedZonePeersListAnalytics(currentPage, prevPage);

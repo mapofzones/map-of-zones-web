@@ -13,6 +13,7 @@ import {
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
+import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/zoneOverview/useSwitchedTokenInfoChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
@@ -33,6 +34,12 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
   );
 
   const { data } = useZoneOverviewToken();
+  const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
+
+  const onChartSelected = (item: { key?: ChartType }) => {
+    setSelectedChartType(item.key);
+    trackSelectedChart(item.key);
+  };
 
   const priceData = [
     {
@@ -126,22 +133,20 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
             </div>
           </span>
         </div>
-        <div className={styles.detailsItem}>
-          <ValueWithPending
-            title="Market Cap"
-            value={data?.marketCap}
-            numberType={NumberType.Currency}
-            size={ElementSize.LARGE}
-          />
-        </div>
-        <div className={styles.detailsItem}>
-          <ValueWithPending
-            title="Volume"
-            value={data?.tradingVolumeDay}
-            numberType={NumberType.Currency}
-            size={ElementSize.LARGE}
-          />
-        </div>
+        <ValueWithPending
+          className={styles.detailsItem}
+          title="Market Cap"
+          value={data?.marketCap}
+          numberType={NumberType.Currency}
+          size={ElementSize.LARGE}
+        />
+        <ValueWithPending
+          className={styles.detailsItem}
+          title="Volume"
+          value={data?.tradingVolumeDay}
+          numberType={NumberType.Currency}
+          size={ElementSize.LARGE}
+        />
       </div>
       <div className={styles.chartContainer}>
         <ButtonGroup

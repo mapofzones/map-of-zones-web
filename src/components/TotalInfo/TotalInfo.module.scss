@@ -16,3 +16,9 @@
     grid-template-columns: 1fr 1fr 1.6fr 1.6fr;
   }
 }
+
+@media (max-width: 375px) {
+  .container {
+    grid-template-columns: none;
+  }
+}

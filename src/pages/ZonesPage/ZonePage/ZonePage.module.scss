@@ -4,53 +4,75 @@
   justify-content: space-between;
   margin: 32px 24px 40px;
 
-  .detailsTitle {
-    display: flex;
-    align-items: center;
-
-    cursor: pointer;
-
-    .zoneLogo {
-      margin-right: 12px;
-    }
-
-    .zoneName {
-      color: var(--white);
-      font-weight: 400;
-      font-size: var(--font-heading-size-lg);
-      font-style: normal;
-    }
-  }
-
-  .arrowContainer {
+  .zoneContainer {
     position: relative;
-    top: 3px;
 
-    margin-left: 12px;
+    grid-area: zoneContainer;
 
-    svg {
-      stroke: var(--white);
+    .detailsTitle {
+      display: flex;
+      align-items: center;
+
+      cursor: pointer;
+
+      .zoneLogo {
+        margin-right: 12px;
+      }
+
+      .zoneName {
+        font-size: var(--font-heading-size-lg);
+      }
+
+      .arrowContainer {
+        position: relative;
+        top: 3px;
+
+        margin-left: 12px;
+
+        svg {
+          stroke: var(--white);
+        }
+      }
+    }
+
+    .zoneLinks {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 8px;
+      align-items: center;
+      margin-top: 9px;
+
+      color: var(--grey-500);
+      font-size: var(--font-base-size-md);
+      font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }
 
-  .zoneLinks {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    gap: 8px;
-    align-items: center;
-    margin-top: 9px;
-
-    color: var(--grey-500);
-    font-weight: 400;
-    font-size: var(--font-base-size-md);
-    font-style: normal;
-    font-feature-settings: 'tnum' on, 'lnum' on;
+  .periodContainer {
+    grid-area: periodContainer;
   }
+}
 
-  .navigationButtonsContainer {
-    display: flex;
-    grid-gap: 21px;
+@media (max-width: 375px) {
+  .header {
+    display: grid;
+    grid-template-areas:
+      'zoneContainer periodContainer'
+      'pagesSwitcher pagesSwitcher';
 
-    border-bottom: 1px solid var(--black-900);
+    margin: 24px 12px 40px;
+
+    .zoneContainer {
+      .detailsTitle {
+        .zoneName {
+          font-size: 20px;
+          line-height: 25px;
+        }
+
+        .arrowContainer {
+          top: 0;
+        }
+      }
+    }
   }
 }

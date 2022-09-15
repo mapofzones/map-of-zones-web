@@ -8,6 +8,7 @@ import {
   ZoneLogo,
   TableRowItem,
 } from 'components';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
@@ -28,7 +29,7 @@ export function TableRow({
   isTableHorizontalScrollable,
 }: // selectedColumnKey,
 TableRowProps) {
-  // const ratingDiff = asset[ratingDiffKeysMap[selectedColumnKey]] as number;
+  const isMobile = useMediaQuery('(max-width: 375px)');
 
   return (
     <tr className={styles.container}>
@@ -38,8 +39,12 @@ TableRowProps) {
 
       <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
         <div className={styles.assetInfoContainer}>
-          <ZoneLogo logoUrl={asset.logoUrl} className={styles.logo} />
-          <div>
+          <ZoneLogo
+            size={isMobile ? '28px' : '32px'}
+            logoUrl={asset.logoUrl}
+            className={styles.logo}
+          />
+          <div className={styles.nameAndStatusContainer}>
             <div className={styles.nameContainer}>
               <span className={styles.name}>{asset.blockchain.name}</span>
               {/* <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} /> */}

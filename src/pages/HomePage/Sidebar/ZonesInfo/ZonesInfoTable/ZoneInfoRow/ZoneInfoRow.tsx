@@ -1,6 +1,10 @@
 import cn from 'classnames';
 
 import { LinkWithSearchParams, NumberFormat, NumberType, ZoneInfoWithSearch } from 'components';
+import {
+  SelectedZoneSourceView,
+  useHomePageSelectedZoneAnalytics,
+} from 'hooks/analytics/home/useHomePageSelectedZoneAnalytics';
 import { PendingIcon } from 'icons';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -12,8 +16,19 @@ function ZoneInfoRow({
   numberType = NumberType.Number,
   className,
 }: ZonesInfoRowProps): JSX.Element {
+  const trackSelectedZone = useHomePageSelectedZoneAnalytics(SelectedZoneSourceView.Sidebar);
+
+  const onZoneInfoRowClick = () => {
+    trackSelectedZone(zone.id);
+  };
+
   return (
-    <LinkWithSearchParams to={`${zone.id}/overview`} className={cn(styles.row, className)}>
+    <LinkWithSearchParams
+      to={`${zone.id}/overview`}
+      state={{ source: SelectedZoneSourceView.Sidebar }}
+      className={cn(styles.row, className)}
+      onClick={onZoneInfoRowClick}
+    >
       <ZoneInfoWithSearch className={styles.zoneContainer} searchValue={searchValue} zone={zone} />
 
       {/* TODO: separate component */}

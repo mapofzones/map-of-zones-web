@@ -2,7 +2,7 @@ import React, { ReactNode, useRef } from 'react';
 
 import cn from 'classnames';
 
-import { useWindowSize } from 'hooks/useWindowSize';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './Table.module.scss';
 import { TableProps } from './Table.props';
@@ -17,10 +17,7 @@ export function Table<T extends string>({
 }: TableProps<T>) {
   const tableRef = useRef<HTMLTableElement>(null);
 
-  const { width: windowWidth } = useWindowSize();
-
-  const isTableHorizontalScrollable =
-    !!tableRef.current?.offsetWidth && tableRef.current.offsetWidth > windowWidth;
+  const isTableHorizontalScrollable = useMediaQuery('(max-width: 1440px)');
 
   return (
     <div

@@ -36,14 +36,6 @@
   }
 
   td {
-    &:first-child {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      min-width: 460px;
-      padding-left: 0;
-    }
-
     .value {
       font-size: var(--font-base-size-lg);
       font-feature-settings: 'tnum' on, 'lnum' on;
@@ -81,6 +73,15 @@
           border: 2px solid var(--black-500);
         }
       }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    .arrowContainer {
+      width: 34px;
+      margin-right: 12px;
     }
   }
 }
