@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { Button, Dropdown, PeriodSelector, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
@@ -10,6 +10,7 @@ import { useSortedTableData } from 'hooks/useSortedTableData';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ElementSize } from 'types/ElementSize';
+import { debounce } from 'utils/timer';
 
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
 import { getColumnOptions, METADATA } from './Types';
@@ -31,7 +32,10 @@ function ZonesInfo(): JSX.Element {
     ColumnKeys.IbcVolume
   );
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useDefaultSearchParam<string | undefined>(
+    'searchZone',
+    undefined
+  );
 
   const metadata = METADATA[selectedColumnKey];
 
