@@ -17,7 +17,7 @@ export const tooltips = {
   ibcVolumeOut: () =>
     'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
   marketCap: () =>
-    `The total market value of a cryptocurrency's on-chain supply./n/nMarket Cap = Current Price x On-chain Supply`,
+    `The total market value of a cryptocurrency's on-chain supply.\n\nMarket Cap = Current Price x On-chain Supply`,
   peersCount: () => 'Number of counterparties of a particular Zone with established IBC connectors',
   successRate: () =>
     'Ratio of successfully completed transfers to all transfers with the final status (i.e. success and failed)',

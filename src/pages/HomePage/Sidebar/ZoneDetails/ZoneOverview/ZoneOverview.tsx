@@ -100,7 +100,6 @@ function ZoneOverview() {
             title={'Token Price'}
             loading={loading}
             defaultLoadingValue={'$10.45'}
-            tooltipText={'Some tooltip'} // TODO: use real tooltip
             tooltipPosition={'right'}
           >
             <NumberFormat value={data?.price} numberType={NumberType.Currency} />
