@@ -19,6 +19,7 @@ export function useHomePageSelectedZoneAnalytics(
 
   const period = searchParams.get('period');
   const columnKey = searchParams.get('columnKey') as ColumnKeys;
+  const searchZone = searchParams.get('searchZone');
 
   const trackSelectedZone = useCallback(
     (selectedZone: string | undefined) => {
@@ -27,9 +28,10 @@ export function useHomePageSelectedZoneAnalytics(
         zone: selectedZone,
         param: columnKey ? HOME_PAGE_TABLE_COLUMN_TITLE[columnKey] : '',
         source,
+        searchZone,
       });
     },
-    [columnKey, period, source]
+    [columnKey, period, searchZone, source]
   );
 
   return trackSelectedZone;
