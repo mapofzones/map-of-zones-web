@@ -64,23 +64,23 @@ export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
   {
     title: 'IBC Success',
     columnKey: ColumnKeys.IbcTransfers,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcTransfers'](),
   },
   {
     title: 'IBC Pending',
     columnKey: ColumnKeys.IbcTransfersPending,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcTransfersPending'](),
   },
   {
     title: 'IBC Failed',
     columnKey: ColumnKeys.IbcTransfersFailed,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcTransfersFailed'](),
     withBorder: true,
   },
   {
     title: 'Success Rate',
     columnKey: ColumnKeys.SuccessRate,
-    explanationText: 'Test text',
+    explanationText: tooltips['successRate'](),
   },
 ];
 
