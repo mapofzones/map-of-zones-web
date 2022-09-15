@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { AnimatedArrowDown, ExternalLink, PeriodSelector, ZoneLogo } from 'components';
+import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
@@ -33,6 +34,8 @@ export function ZonePage() {
 
   const toggleSearch = () => setSearchVisible(!isSearchVisible);
 
+  const trackZoneLinksAnalytics = useZoneLinksAnalytics();
+
   useEffect(() => setSearchVisible(false), [location, setSearchVisible]);
 
   return (
@@ -52,16 +55,38 @@ export function ZonePage() {
           </div>
           <div className={styles.zoneLinks}>
             {data?.website && (
-              <ExternalLink Icon={EarthIcon} href={data.website}>
+              <ExternalLink
+                Icon={EarthIcon}
+                href={data.website}
+                onClick={() => trackZoneLinksAnalytics('website')}
+              >
                 {data.website}
               </ExternalLink>
             )}
 
-            {data?.telegram && <ExternalLink Icon={TgLogo} href={data.telegram} />}
+            {data?.telegram && (
+              <ExternalLink
+                Icon={TgLogo}
+                href={data.telegram}
+                onClick={() => trackZoneLinksAnalytics('telegram')}
+              />
+            )}
 
-            {data?.twitter && <ExternalLink Icon={TwitterLogo} href={data.twitter} />}
+            {data?.twitter && (
+              <ExternalLink
+                Icon={TwitterLogo}
+                href={data.twitter}
+                onClick={() => trackZoneLinksAnalytics('twitter')}
+              />
+            )}
 
-            {data?.git && <ExternalLink Icon={GithubLogo} href={data.git} />}
+            {data?.git && (
+              <ExternalLink
+                Icon={GithubLogo}
+                href={data.git}
+                onClick={() => trackZoneLinksAnalytics('git')}
+              />
+            )}
           </div>
 
           {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}

@@ -13,6 +13,7 @@ import {
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
+import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/zoneOverview/useSwitchedTokenInfoChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
@@ -30,6 +31,13 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
     () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),
     [selectedPeriod]
   );
+
+  const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
+
+  const onChartSelected = (item: { key?: ChartType }) => {
+    setSelectedChartType(item.key);
+    trackSelectedChart(item.key);
+  };
 
   const priceData = [
     {
@@ -142,7 +150,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         <ButtonGroup
           className={styles.priceSwitcher}
           buttons={chartOptions}
-          setSelectedButton={(item) => setSelectedChartType(item.key)}
+          setSelectedButton={onChartSelected}
         ></ButtonGroup>
         <PeriodDisplay
           className={styles.periodInfo}

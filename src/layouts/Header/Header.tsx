@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
+import { useHeaderMenuClicksAnalytics } from 'hooks/analytics/multipage/useHeaderMenuClicksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { Logo } from 'icons';
 
@@ -13,6 +14,8 @@ function Header({ ...props }): JSX.Element {
     isVisible: isMenuOpen,
     setIsVisible: setIsMenuOpen,
   } = useComponentVisible<HTMLDivElement>(false);
+
+  const trackHeaderTabClick = useHeaderMenuClicksAnalytics();
 
   return (
     <header className={styles.container} {...props}>
@@ -30,9 +33,15 @@ function Header({ ...props }): JSX.Element {
       </div>
       <div className={styles.headerContent}>
         <nav className={cn(styles.menu, { [styles.opened]: isMenuOpen })}>
-          <NavLink to="/home">Home</NavLink>
-          <NavLink to="/zones">Zones</NavLink>
-          <NavLink to="/assets">Assets</NavLink>
+          <NavLink to="/home" onClick={() => trackHeaderTabClick('home')}>
+            Home
+          </NavLink>
+          <NavLink to="/zones" onClick={() => trackHeaderTabClick('zones')}>
+            Zones
+          </NavLink>
+          <NavLink to="/assets" onClick={() => trackHeaderTabClick('assets')}>
+            Assets
+          </NavLink>
           <NavLink to="/about">About</NavLink>
         </nav>
         <div className={styles.marketCapContainer}>

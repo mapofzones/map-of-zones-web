@@ -7,6 +7,7 @@ import {
   SkeletonTextWrapper,
   NavLinkWithSearchParams,
 } from 'components';
+import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { CloseCircleIcon, EarthIcon } from 'icons';
 
@@ -17,6 +18,8 @@ function ZoneDetails() {
   const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const { data, loading } = useZoneDetails();
+
+  const trackZoneLinksAnalytics = useZoneLinksAnalytics();
 
   const closeDetails = () => {
     navigateWithSearchParams('/home');
@@ -48,7 +51,11 @@ function ZoneDetails() {
             className={styles.zoneWebsite}
           >
             {data?.website && (
-              <ExternalLink Icon={EarthIcon} href={data.website}>
+              <ExternalLink
+                Icon={EarthIcon}
+                href={data.website}
+                onClick={() => trackZoneLinksAnalytics('website')}
+              >
                 {data.website}
               </ExternalLink>
             )}

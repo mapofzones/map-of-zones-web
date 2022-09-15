@@ -1,19 +1,28 @@
 import { Button, ExternalLink } from 'components';
+import { useShareLinksAnalytics } from 'hooks/analytics/multipage/useShareLinksAnalytics';
 import { GithubLogo, TgLogo, TwitterLogo } from 'icons';
 import { ElementSize } from 'types/ElementSize';
 
 import styles from './Footer.module.scss';
 
 function Footer({ ...props }): JSX.Element {
-  const shareClick = () => {
+  const trackShareLinkAnalytics = useShareLinksAnalytics();
+
+  const tgShareClick = () => {
     console.log('share/tweet click');
+    trackShareLinkAnalytics('telegram');
+  };
+
+  const twitterShareClick = () => {
+    console.log('share/tweet click');
+    trackShareLinkAnalytics('twitter');
   };
 
   return (
     <footer className={styles.container} {...props}>
       <div className={styles.shareButtonsBlock}>
         <Button
-          onClick={shareClick}
+          onClick={tgShareClick}
           className={styles.shareBtn}
           IconBefore={TgLogo}
           size={ElementSize.SMALL}
@@ -21,7 +30,7 @@ function Footer({ ...props }): JSX.Element {
           Share
         </Button>
         <Button
-          onClick={shareClick}
+          onClick={twitterShareClick}
           className={styles.shareBtn}
           IconBefore={TwitterLogo}
           size={ElementSize.SMALL}

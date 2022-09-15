@@ -15,11 +15,13 @@ import { useViewedHomePageAnalytics } from './home/useViewedHomePageAnalytics';
 import { useViewedZoneOverviewSidebarAnalytics } from './home/useViewedZoneOverviewSidebarAnalytics';
 import { useViewedZonePeersSidebarAnalytics } from './home/useViewedZonePeersSidebarAnalytics';
 import { useChangedPeriodAnalytics } from './multipage/useChangedPeriodAnalytics';
+import { useChangedZoneAnalytics } from './multipage/useChangedZoneAnalytics';
 import { usePageScrollAnalytics } from './multipage/usePageScrollAnalytics';
 import { useViewedApplicationPageAnalytics } from './multipage/useViewedApplicationPageAnalytics';
 import { Page, PAGE_TITLE } from './Types';
 import { useSelectedZoneAnalytics } from './zone/useSelectedZoneAnalytics';
 import { useSwitchedZoneSubtabAnalytics } from './zone/useSwitchedZoneSubtabAnalytics';
+import { useViewedZoneOverviewPageAnalytics } from './zoneOverview/useViewedZoneOverviewPageAnalytics';
 import { useSortedZonePeersListAnalytics } from './zonePeers/useSortedZonePeersListAnalytics';
 import { useViewedZonePeersPageAnalytics } from './zonePeers/useViewedZonePeersPageAnalytics';
 import { useSortedZonesListAnalytics } from './zones/useSortedZonesListAnalytics';
@@ -106,10 +108,14 @@ export function useAnalytics() {
   useChangedPeriodAnalytics(currentPage, prevPage);
   usePageScrollAnalytics(currentPage);
   useViewedApplicationPageAnalytics(currentPage, prevPage, history);
+  useChangedZoneAnalytics(currentPage, prevPage);
 
   // zone
   useSelectedZoneAnalytics(currentPage, prevPage);
   useSwitchedZoneSubtabAnalytics(currentPage, prevPage);
+
+  // zoneOverview
+  useViewedZoneOverviewPageAnalytics(currentPage, prevPage);
 
   // zonePeers
   useSortedZonePeersListAnalytics(currentPage, prevPage);
