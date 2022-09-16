@@ -81,7 +81,10 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
 
   const d = {
     nodes,
-    links: JSON.parse(JSON.stringify(zonesGraphs)) as Link[],
+    links: JSON.parse(JSON.stringify(zonesGraphs)).map((link: Link) => ({
+      ...link,
+      isActive: !!link.ibcVolume,
+    })) as Link[],
   } as GraphData;
 
   return d;

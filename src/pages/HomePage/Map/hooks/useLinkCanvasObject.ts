@@ -19,19 +19,17 @@ export const useLinkCanvasObject = (
 ) =>
   useCallback(
     (value: LinkObject, ctx: CanvasRenderingContext2D, globalScale: number) =>
-      drawLinkCanvasObject(value, ctx, globalScale, selectedNodeKey, hoveredNodeKey),
+      drawLinkCanvasObject(value as Link, ctx, globalScale, selectedNodeKey, hoveredNodeKey),
     [selectedNodeKey, hoveredNodeKey]
   );
 
 function drawLinkCanvasObject(
-  value: LinkObject,
+  link: Link,
   ctx: CanvasRenderingContext2D,
   _: number,
   selectedNodeKey: SelectedZoneKeyType,
   hoveredNodeKey: HoveredZoneKeyType
 ) {
-  const link = value as Link;
-
   if (!link) {
     return;
   }
@@ -47,7 +45,9 @@ function drawLinkCanvasObject(
 
   drawLine(ctx, link, isRalatedToActiveZone);
 
-  drawCommet(ctx, link);
+  if (link.isActive) {
+    drawCommet(ctx, link);
+  }
 }
 
 function drawLine(ctx: CanvasRenderingContext2D, link: Link, isRalatedToActiveZone: boolean) {
