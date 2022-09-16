@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import { Divider, NumberFormat, NumberType, TotalCard, ValueWithPending } from 'components';
+import { SECONDS_IN_DAY } from 'types/constants';
 import { ElementSize } from 'types/ElementSize';
 
 import { useZoneOverviewParameters } from './useZoneOverviewParameters';
@@ -31,7 +32,10 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             <div className={styles.additionalInfo}>
               {'Unbonding period: '}
               <span className={styles.additionalInfo_value}>
-                <NumberFormat value={data?.unbondingPeriod} />d
+                <NumberFormat
+                  value={data?.unbondingPeriod ? data.unbondingPeriod / SECONDS_IN_DAY : undefined}
+                />
+                d
               </span>
             </div>
           </div>
