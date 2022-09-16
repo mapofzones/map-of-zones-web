@@ -17,7 +17,7 @@ import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/zoneOverview
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
-import { chartOptions, ChartType } from './Types';
+import { chartOptions, ChartType, priceDiffKeyByPeriod } from './Types';
 import { useZoneOverviewToken } from './useZoneOverviewToken';
 import styles from './ZoneOverviewToken.module.scss';
 
@@ -127,9 +127,9 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
               <RatingDiffTriangle
                 className={styles.tokenPriceDiff}
                 numberType={NumberType.Percent}
-                ratingDiff={data?.priceDayDiffPercent}
+                ratingDiff={data?.[priceDiffKeyByPeriod[selectedPeriod]] as number}
               />
-              <span className={styles.period}>&nbsp;(24h)</span>
+              <span className={styles.period}>&nbsp;({selectedPeriod})</span>
             </div>
           </span>
         </div>
@@ -152,7 +152,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         <ButtonGroup
           className={styles.priceSwitcher}
           buttons={chartOptions}
-          setSelectedButton={(item) => setSelectedChartType(item.key)}
+          setSelectedButton={onChartSelected}
         ></ButtonGroup>
         <PeriodDisplay
           className={styles.periodInfo}

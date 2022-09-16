@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { ZoneOverviewTokenDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewToken.query.generated';
 import { ChartItemByString } from 'utils/helper';
+import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 export interface ZoneOverviewTokenData {
   symbol?: string | null;
@@ -10,6 +11,7 @@ export interface ZoneOverviewTokenData {
   logoUrl?: string | null;
   priceDayDiffPercent?: number | null;
   priceWeekDiffPercent?: number | null;
+  priceMonthDiffPercent?: number | null;
   marketCap?: number | null;
   tradingVolumeDay?: number | null;
   priceChart: ChartItemByString[];
@@ -30,7 +32,7 @@ export function useZoneOverviewToken(): {
   const { data, loading } = useQuery(ZoneOverviewTokenDocument, options);
 
   return {
-    data: data?.overviewToken[0],
+    data: nullsToUndefined(data?.overviewBlockchain[0]?.token),
     loading,
   };
 }

@@ -11,16 +11,19 @@ export type ZoneOverviewTokenQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneOverviewTokenQueryResult = {
-  overviewToken: Array<{
-    symbol?: string | null;
-    price?: any | null;
-    logoUrl?: string | null;
-    priceDayDiffPercent?: any | null;
-    priceWeekDiffPercent?: any | null;
-    marketCap?: any | null;
-    tradingVolumeDay?: any | null;
-    priceChart: Array<{ price: any }>;
-    volumeChart: Array<{ volume: any }>;
+  overviewBlockchain: Array<{
+    token?: {
+      symbol?: string | null;
+      price?: any | null;
+      logoUrl?: string | null;
+      priceDayDiffPercent?: any | null;
+      priceWeekDiffPercent?: any | null;
+      priceMonthDiffPercent?: any | null;
+      marketCap?: any | null;
+      tradingVolumeDay?: any | null;
+      priceChart: Array<{ price: any }>;
+      volumeChart: Array<{ volume: any }>;
+    } | null;
   }>;
 };
 
@@ -46,8 +49,8 @@ export const ZoneOverviewTokenDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'overviewToken' },
-            name: { kind: 'Name', value: 'flat_tokens' },
+            alias: { kind: 'Name', value: 'overviewBlockchain' },
+            name: { kind: 'Name', value: 'flat_blockchains' },
             arguments: [
               {
                 kind: 'Argument',
@@ -57,7 +60,7 @@ export const ZoneOverviewTokenDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'blockchain' },
+                      name: { kind: 'Name', value: 'network_id' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -76,137 +79,151 @@ export const ZoneOverviewTokenDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'logoUrl' },
-                  name: { kind: 'Name', value: 'logo_url' },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'price' } },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'priceDayDiffPercent' },
-                  name: { kind: 'Name', value: 'price_day_diff_percent' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'priceWeekDiffPercent' },
-                  name: { kind: 'Name', value: 'price_week_diff_percent' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'marketCap' },
-                  name: { kind: 'Name', value: 'market_cap' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'tradingVolumeDay' },
-                  name: { kind: 'Name', value: 'token_day_trading_volume' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'priceChart' },
-                  name: { kind: 'Name', value: 'token_charts' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
+                  name: { kind: 'Name', value: 'token' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'logoUrl' },
+                        name: { kind: 'Name', value: 'logo_url' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'price' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'priceDayDiffPercent' },
+                        name: { kind: 'Name', value: 'price_day_diff_percent' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'priceWeekDiffPercent' },
+                        name: { kind: 'Name', value: 'price_week_diff_percent' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'priceMonthDiffPercent' },
+                        name: { kind: 'Name', value: 'price_month_diff_percent' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'marketCap' },
+                        name: { kind: 'Name', value: 'market_cap' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'tradingVolumeDay' },
+                        name: { kind: 'Name', value: 'token_day_trading_volume' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'priceChart' },
+                        name: { kind: 'Name', value: 'token_charts' },
+                        arguments: [
                           {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'chart_type' },
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
                             value: {
                               kind: 'ObjectValue',
                               fields: [
                                 {
                                   kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: '', block: false },
+                                  name: { kind: 'Name', value: 'chart_type' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: { kind: 'StringValue', value: '', block: false },
+                                      },
+                                    ],
+                                  },
                                 },
                               ],
                             },
                           },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'order_by' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
                           {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'point_index' },
-                            value: { kind: 'EnumValue', value: 'asc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'price' },
-                        name: { kind: 'Name', value: 'point_value' },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'volumeChart' },
-                  name: { kind: 'Name', value: 'token_charts' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'chart_type' },
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'order_by' },
                             value: {
                               kind: 'ObjectValue',
                               fields: [
                                 {
                                   kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: '', block: false },
+                                  name: { kind: 'Name', value: 'point_index' },
+                                  value: { kind: 'EnumValue', value: 'asc' },
                                 },
                               ],
                             },
                           },
                         ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'price' },
+                              name: { kind: 'Name', value: 'point_value' },
+                            },
+                          ],
+                        },
                       },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'order_by' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'point_index' },
-                            value: { kind: 'EnumValue', value: 'asc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
                       {
                         kind: 'Field',
-                        alias: { kind: 'Name', value: 'volume' },
-                        name: { kind: 'Name', value: 'point_value' },
+                        alias: { kind: 'Name', value: 'volumeChart' },
+                        name: { kind: 'Name', value: 'token_charts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'chart_type' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: { kind: 'StringValue', value: '', block: false },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'order_by' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'point_index' },
+                                  value: { kind: 'EnumValue', value: 'asc' },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'volume' },
+                              name: { kind: 'Name', value: 'point_value' },
+                            },
+                          ],
+                        },
                       },
                     ],
                   },
