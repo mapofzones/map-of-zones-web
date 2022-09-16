@@ -19,6 +19,34 @@
 
 @media (max-width: 375px) {
   .container {
-    grid-template-columns: none;
+    display: initial;
+    padding-bottom: 10px;
+
+    :global(.carousel) {
+      padding-bottom: 5px;
+
+      :global(.slide) {
+        text-align: initial;
+      }
+
+      /* stylelint-disable */
+      :global(.control-dots) {
+        bottom: -10px;
+  
+        :global(.dot) {
+          width: 4px;
+          height: 4px;
+          background-color: #33333D;
+          opacity: 1;
+          margin: 0 4px;
+        }
+  
+        :global(.dot.selected) {
+          width: 6px;
+          height: 6px;
+          background-color: #BFBFC3;
+        }
+      }
+    }
   }
 }
