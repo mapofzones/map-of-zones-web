@@ -62,6 +62,7 @@
     font-feature-settings: 'tnum' on, 'lnum' on;
   }
 
+  &.active,
   &:hover {
     td {
       background-color: var(--black-500);
