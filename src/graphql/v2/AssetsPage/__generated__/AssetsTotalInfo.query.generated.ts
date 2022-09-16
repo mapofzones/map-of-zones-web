@@ -90,7 +90,7 @@ export const AseetsTotalInfoDocument = {
                     {
                       kind: 'ObjectField',
                       name: { kind: 'Name', value: 'market_cap' },
-                      value: { kind: 'EnumValue', value: 'desc' },
+                      value: { kind: 'EnumValue', value: 'desc_nulls_last' },
                     },
                   ],
                 },
@@ -142,7 +142,7 @@ export const AseetsTotalInfoDocument = {
                     {
                       kind: 'ObjectField',
                       name: { kind: 'Name', value: 'price_day_diff_percent' },
-                      value: { kind: 'EnumValue', value: 'desc' },
+                      value: { kind: 'EnumValue', value: 'desc_nulls_last' },
                     },
                   ],
                 },
@@ -201,7 +201,7 @@ export const AseetsTotalInfoDocument = {
                           {
                             kind: 'ObjectField',
                             name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'StringValue', value: 'trading24hVolume', block: false },
+                            value: { kind: 'StringValue', value: '', block: false },
                           },
                         ],
                       },

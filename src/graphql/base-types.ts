@@ -713,6 +713,7 @@ export type Flat_Blockchain_Relations = {
   ibc_transfers_diff: Scalars['Int'];
   ibc_transfers_failed: Scalars['Int'];
   ibc_transfers_pending: Scalars['Int'];
+  is_mainnet: Scalars['Boolean'];
   source_to_target_ibc_cashflow: Scalars['bigint'];
   source_to_target_ibc_transfers: Scalars['Int'];
   target_to_source_ibc_cashflow: Scalars['bigint'];
@@ -812,6 +813,7 @@ export type Flat_Blockchain_Relations_Bool_Exp = {
   ibc_transfers_diff?: InputMaybe<Int_Comparison_Exp>;
   ibc_transfers_failed?: InputMaybe<Int_Comparison_Exp>;
   ibc_transfers_pending?: InputMaybe<Int_Comparison_Exp>;
+  is_mainnet?: InputMaybe<Boolean_Comparison_Exp>;
   source_to_target_ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
   source_to_target_ibc_transfers?: InputMaybe<Int_Comparison_Exp>;
   target_to_source_ibc_cashflow?: InputMaybe<Bigint_Comparison_Exp>;
@@ -905,6 +907,7 @@ export type Flat_Blockchain_Relations_Order_By = {
   ibc_transfers_diff?: InputMaybe<Order_By>;
   ibc_transfers_failed?: InputMaybe<Order_By>;
   ibc_transfers_pending?: InputMaybe<Order_By>;
+  is_mainnet?: InputMaybe<Order_By>;
   source_to_target_ibc_cashflow?: InputMaybe<Order_By>;
   source_to_target_ibc_transfers?: InputMaybe<Order_By>;
   target_to_source_ibc_cashflow?: InputMaybe<Order_By>;
@@ -917,6 +920,7 @@ export type Flat_Blockchain_Relations_Order_By = {
 export type Flat_Blockchain_Relations_Pk_Columns_Input = {
   blockchain_source: Scalars['String'];
   blockchain_target: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
   timeframe: Scalars['Int'];
 };
 
@@ -940,6 +944,8 @@ export const enum Flat_Blockchain_Relations_Select_Column {
   IbcTransfersFailed = 'ibc_transfers_failed',
   /** column name */
   IbcTransfersPending = 'ibc_transfers_pending',
+  /** column name */
+  IsMainnet = 'is_mainnet',
   /** column name */
   SourceToTargetIbcCashflow = 'source_to_target_ibc_cashflow',
   /** column name */
@@ -8932,6 +8938,7 @@ export type Query_RootFlat_Blockchain_Relations_AggregateArgs = {
 export type Query_RootFlat_Blockchain_Relations_By_PkArgs = {
   blockchain_source: Scalars['String'];
   blockchain_target: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
   timeframe: Scalars['Int'];
 };
 
@@ -9713,6 +9720,7 @@ export type Subscription_RootFlat_Blockchain_Relations_AggregateArgs = {
 export type Subscription_RootFlat_Blockchain_Relations_By_PkArgs = {
   blockchain_source: Scalars['String'];
   blockchain_target: Scalars['String'];
+  is_mainnet: Scalars['Boolean'];
   timeframe: Scalars['Int'];
 };
 

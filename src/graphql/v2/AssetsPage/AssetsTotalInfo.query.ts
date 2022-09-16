@@ -13,14 +13,14 @@ export const ASSETS_TOTAL_INFO = gql`
         }
       }
     }
-    marketCapDominance: flat_tokens(order_by: { market_cap: desc }, limit: 1) {
+    marketCapDominance: flat_tokens(order_by: { market_cap: desc_nulls_last }, limit: 1) {
       blockchain: blockchainByBlockchain {
         name
         logoUrl: logo_url
       }
       marketCap: market_cap
     }
-    topMover: flat_tokens(order_by: { price_day_diff_percent: desc }, limit: 1) {
+    topMover: flat_tokens(order_by: { price_day_diff_percent: desc_nulls_last }, limit: 1) {
       blockchain: blockchainByBlockchain {
         name
         logoUrl: logo_url
@@ -29,7 +29,7 @@ export const ASSETS_TOTAL_INFO = gql`
       price24hDiffPercent: price_day_diff_percent
     }
     total24hTradingVolumeChart: flat_total_tf_switched_charts(
-      where: { chart_type: { _eq: ${TotalCharts.tradingVolume}' } }
+      where: { chart_type: { _eq: "${TotalCharts.tradingVolume}" } }
       order_by: { point_index: asc }
     ) {
       volume: point_value
