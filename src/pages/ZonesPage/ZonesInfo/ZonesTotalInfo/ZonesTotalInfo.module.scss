@@ -2,21 +2,21 @@
   display: block;
 
   color: var(--grey-500);
-  font-size: var(--font-secondary-size-lg);
+  font-size: var(--font-secondary-size-md);
   white-space: nowrap;
 }
 
 .total {
   color: var(--green);
-  font-size: var(--font-secondary-size-lg);
+  font-size: var(--font-secondary-size-md);
   text-align: right;
 }
 
 .value {
   display: block;
-  margin-top: 4px;
+  margin-top: 8px;
 
-  font-size: var(--font-base-size-lg);
+  font-size: var(--font-base-size-md);
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
@@ -50,7 +50,7 @@
 
   .pendingValue {
     justify-content: flex-end;
-    margin-top: 4px;
+    margin-top: 6px;
   }
 }
 
