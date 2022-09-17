@@ -104,7 +104,7 @@ export function Map({ className }: { className: string }) {
           return zone.radius * 2;
         }, [])}
         cooldownTime={Infinity}
-        enableZoomInteraction={false}
+        enableZoomInteraction={true}
         enableNodeDrag={false}
       />
       <div className={styles.leftButtonsContainer}>
