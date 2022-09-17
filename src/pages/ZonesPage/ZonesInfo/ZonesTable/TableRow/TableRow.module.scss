@@ -23,15 +23,14 @@
       display: block;
 
       color: var(--grey-500);
-      font-weight: 400;
-      font-size: var(--font-base-size-lg);
+      font-size: var(--font-base-size-md);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .zoneName {
       overflow: hidden;
 
-      font-size: var(--font-base-size-lg);
+      font-size: var(--font-base-size-md);
     }
 
     .value {
