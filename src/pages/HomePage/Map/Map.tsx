@@ -90,7 +90,7 @@ export function Map({ className }: { className: string }) {
         ref={graphRef}
         nodeId="zone"
         nodeLabel={''}
-        height={windowSize.height}
+        height={windowSize.height - 8}
         width={windowSize.width - 376}
         graphData={graphData}
         nodeCanvasObject={nodeCanvasObject}
