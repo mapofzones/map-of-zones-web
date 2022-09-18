@@ -6,7 +6,5 @@ export interface NumberFormatProps {
   currency?: string;
   defaultValue?: string;
   numberType?: NumberType;
-  prefix?: string;
-  suffix?: string;
   value?: number | null;
 }

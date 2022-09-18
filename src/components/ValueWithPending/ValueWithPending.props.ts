@@ -11,9 +11,7 @@ export interface ValueWithPendingProps
   compact?: boolean;
   numberType?: NumberType;
   pendingValue?: number | null;
-  prefix?: string;
   size?: ElementSize;
-  suffix?: string;
   title?: string;
   value?: number | null;
 }

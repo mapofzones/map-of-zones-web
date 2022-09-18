@@ -195,7 +195,6 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
             alignRight={true}
             className={styles.value}
             numberType={NumberType.Percent}
-            suffix=" %"
             value={zone.ibcTransfersSuccessRate}
           />
         </td>

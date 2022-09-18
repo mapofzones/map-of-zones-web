@@ -12,8 +12,6 @@ export function PendingValue({
   className,
   compact = false,
   numberType = NumberType.Number,
-  prefix,
-  suffix,
   value,
   ...props
 }: PendingValueProps) {
@@ -33,8 +31,6 @@ export function PendingValue({
         compact={compact}
         className={styles.value}
         numberType={numberType}
-        prefix={prefix}
-        suffix={suffix}
         value={value}
       />
     </span>

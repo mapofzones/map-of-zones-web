@@ -14,9 +14,7 @@ export function ValueWithPending({
   compact = false,
   numberType = NumberType.Number,
   pendingValue,
-  prefix,
   size = ElementSize.MEDIUM,
-  suffix,
   title,
   value,
   ...props
@@ -37,22 +35,12 @@ export function ValueWithPending({
         })}
       >
         {children}
-        {!children && (
-          <NumberFormat
-            compact={compact}
-            numberType={numberType}
-            prefix={prefix}
-            suffix={suffix}
-            value={value}
-          />
-        )}
+        {!children && <NumberFormat compact={compact} numberType={numberType} value={value} />}
         {pendingValue != null && (
           <PendingValue
             className={styles.pendingContainer}
             compact={compact}
             numberType={numberType}
-            prefix={prefix}
-            suffix={suffix}
             value={pendingValue}
           />
         )}
