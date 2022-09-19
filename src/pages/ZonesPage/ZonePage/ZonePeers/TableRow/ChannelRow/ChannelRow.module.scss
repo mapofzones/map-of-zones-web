@@ -2,7 +2,9 @@
   height: 48px;
 
   td {
-    padding: 7.5px 12px 7.5px 28px;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+    padding-left: 28px;
 
     &:first-child {
       vertical-align: middle;
