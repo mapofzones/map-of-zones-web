@@ -11,6 +11,11 @@ export function getDauTitleByPeriod(period: PeriodKeys) {
   return period === PeriodKeys.WEEK ? 'WAU' : period === PeriodKeys.MONTH ? 'MAU' : 'DAU';
 }
 
+export function openInNewTab(url: string): void {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+  if (newWindow) newWindow.opener = null;
+}
+
 export const transformChartData = (chartData: ChartItemByNumber[], keyName: string) => {
   if (!chartData) {
     return undefined;

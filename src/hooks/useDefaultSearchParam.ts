@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 
 import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
-export function useDefaultSearchParam<T extends string | undefined>(key: string, defaultValue: T) {
+export function useDefaultSearchParam<T extends string>(key: string, defaultValue?: T | undefined) {
   const [search] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,8 +14,8 @@ export function useDefaultSearchParam<T extends string | undefined>(key: string,
   );
 
   const setSelectedColumnKey = useCallback(
-    (value: T, replace = false) => {
-      if (value !== undefined) {
+    (value: T | undefined, replace = false) => {
+      if (!!value) {
         search.set(key, value);
       } else {
         search.delete(key);
@@ -30,11 +30,11 @@ export function useDefaultSearchParam<T extends string | undefined>(key: string,
         }
       );
     },
-    [search, key, navigate, location.pathname]
+    [navigate, location.pathname, search, key]
   );
 
   useEffect(() => {
-    if (!search.get(key)) {
+    if (!search.get(key) && defaultValue) {
       setSelectedColumnKey(defaultValue, true);
     }
   }, [search, key, defaultValue, setSelectedColumnKey]);

@@ -10,7 +10,6 @@ import { useSortedTableData } from 'hooks/useSortedTableData';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ElementSize } from 'types/ElementSize';
-import { debounce } from 'utils/timer';
 
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
 import { getColumnOptions, METADATA } from './Types';
@@ -32,10 +31,7 @@ function ZonesInfo(): JSX.Element {
     ColumnKeys.IbcVolume
   );
 
-  const [searchValue, setSearchValue] = useDefaultSearchParam<string | undefined>(
-    'searchZone',
-    undefined
-  );
+  const [searchValue, setSearchValue] = useDefaultSearchParam('searchZone');
 
   const metadata = METADATA[selectedColumnKey];
 
