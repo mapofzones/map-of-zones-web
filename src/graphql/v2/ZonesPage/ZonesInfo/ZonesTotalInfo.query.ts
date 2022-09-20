@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client';
 
-import { SwitchedCharts } from './../../../chart-types';
-
 export const ZONES_TOTAL_INFO = gql`
   query ZonesTotalInfo($period: Int!, $isMainnet: Boolean!) {
     totalStats: flat_blockchain_switched_stats_aggregate(
@@ -18,7 +16,7 @@ export const ZONES_TOTAL_INFO = gql`
     }
     ibcTotalVolumeChart: flat_total_tf_switched_charts(
       where: {
-        chart_type: { _eq: "${SwitchedCharts.cashflow}" }
+        chart_type: { _eq: "cashflow" }
         is_mainnet: { _eq: $isMainnet }
         timeframe: { _eq: $period }
       }

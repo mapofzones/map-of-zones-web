@@ -107,7 +107,11 @@ export const AseetsTableDocument = {
                                 {
                                   kind: 'ObjectField',
                                   name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: '', block: false },
+                                  value: {
+                                    kind: 'StringValue',
+                                    value: 'price_weekly',
+                                    block: false,
+                                  },
                                 },
                               ],
                             },

@@ -10,7 +10,7 @@ export type ZoneOverviewActivityQueryResult = {
   peersCount?: number;
   channelsCount?: number;
   dau?: number | null;
-  ibcDau?: number;
+  ibcDau?: number | null;
   ibcDauPercent?: number;
   totalTxs?: number;
   totalTxsChart: ChartItemByString[];

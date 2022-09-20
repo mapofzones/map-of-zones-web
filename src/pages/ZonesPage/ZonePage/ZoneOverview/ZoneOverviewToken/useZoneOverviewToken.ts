@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { ZoneOverviewTokenDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewToken.query.generated';
-import { ChartItemByString } from 'utils/helper';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 export interface ZoneOverviewTokenData {
@@ -14,8 +13,6 @@ export interface ZoneOverviewTokenData {
   priceMonthDiffPercent?: number | null;
   marketCap?: number | null;
   tradingVolumeDay?: number | null;
-  priceChart: ChartItemByString[];
-  volumeChart: ChartItemByString[];
 }
 
 export function useZoneOverviewToken(): {

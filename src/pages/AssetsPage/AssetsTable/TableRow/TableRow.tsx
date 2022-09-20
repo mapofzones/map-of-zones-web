@@ -120,7 +120,7 @@ TableRowProps) {
       <TableRowItem>
         <div className={styles.chartContainer}>
           <span className={cn(styles.code, styles.value)}>{asset.symbol}</span>
-          {asset.priceChart && <LineChart data={asset.priceChart} dataKey="chart" />}
+          {asset.priceChart && <LineChart data={asset.priceChart} dataKey="price" />}
         </div>
       </TableRowItem>
     </tr>

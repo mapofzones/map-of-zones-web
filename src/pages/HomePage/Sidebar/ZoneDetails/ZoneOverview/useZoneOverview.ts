@@ -10,7 +10,7 @@ export interface ZoneOverviewData {
   peersCount: number;
   channelsCount: number;
   totalTxs: number;
-  ibcDau: number;
+  ibcDau?: number | null;
   dau?: number | null;
   ibcDauPercent: number;
   tokenSymbol?: string | null;

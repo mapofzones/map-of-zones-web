@@ -74,7 +74,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           loading={loading}
           value={data?.dau}
           tooltipText={tooltips['dau'](period)}
-          tooltipPosition={'right'}
+          tooltipPosition={'left'}
         />
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.ibcDauOverviewItem)}
@@ -83,7 +83,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           loading={loading}
           defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
           tooltipText={tooltips['ibcDau'](period)}
-          tooltipPosition={'right'}
+          tooltipPosition={'left'}
         >
           <div className={styles.dauValue}>
             <NumberFormat value={data?.ibcDau} />

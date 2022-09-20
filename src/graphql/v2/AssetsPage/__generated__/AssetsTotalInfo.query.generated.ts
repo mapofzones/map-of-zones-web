@@ -201,7 +201,7 @@ export const AseetsTotalInfoDocument = {
                           {
                             kind: 'ObjectField',
                             name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'StringValue', value: '', block: false },
+                            value: { kind: 'StringValue', value: 'volume_daily', block: false },
                           },
                         ],
                       },

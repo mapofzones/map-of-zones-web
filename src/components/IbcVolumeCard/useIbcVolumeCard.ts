@@ -29,7 +29,11 @@ export function useIbcVolumeCard(): {
   const [isMainnet] = useMainnet();
 
   const options = {
-    variables: { zone, period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet },
+    variables: {
+      zone,
+      period: PERIODS_IN_HOURS_BY_KEY[period],
+      isMainnet,
+    },
     skip: !zone,
   };
 
