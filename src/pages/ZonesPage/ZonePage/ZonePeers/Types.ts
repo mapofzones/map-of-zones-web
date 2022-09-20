@@ -53,13 +53,13 @@ export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
     columnKey: ColumnKeys.IbcVolumeReceived,
     explanationText: tooltips['ibcVolumeIn'](),
     circleType: CircleType.Target,
-    withBorder: true,
   },
   {
     title: `${zone.name} Sends`,
     columnKey: ColumnKeys.IbcVolumeSent,
     explanationText: tooltips['ibcVolumeOut'](),
     circleType: CircleType.Source,
+    withBorder: true,
   },
   {
     title: 'IBC Success',
