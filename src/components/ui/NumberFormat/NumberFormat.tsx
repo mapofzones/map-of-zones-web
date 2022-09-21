@@ -5,7 +5,7 @@ export function NumberFormat({
   className,
   compact = false,
   currency = 'USD',
-  defaultValue = '-',
+  defaultValue,
   numberType = NumberType.Number,
   value,
   ...props
@@ -24,7 +24,7 @@ export function formatNumber(
   value?: number | null,
   numberType: NumberType = NumberType.Number,
   compact = false,
-  defaultValue = '-',
+  defaultValue = '—',
   currency = 'USD'
 ): string {
   if (value === null || value === undefined) {
