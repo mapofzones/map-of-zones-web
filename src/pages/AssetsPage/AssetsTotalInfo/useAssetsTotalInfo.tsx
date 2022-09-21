@@ -8,9 +8,11 @@ export interface AssetsTotalData {
   marketCap: number;
   volume24h: number;
   topMarketDominance?: number;
-  topMarketLogo?: string | null;
+  topMarketTokenLogo?: string | null;
+  topMarketTokenSymbol?: string | null;
   topMarketName: string;
-  topMoverLogo?: string | null;
+  topMoverTokenLogo?: string | null;
+  topMoverTokenSymbol?: string | null;
   topMoverName: string;
   topMoverRating: number;
   topMoverValue: number;
@@ -33,9 +35,11 @@ export function useAssetsTotalInfo(): {
         data.marketCapDominance[0]?.marketCap,
         aggregatedData?.sum?.marketCap
       ),
-      topMarketLogo: data.marketCapDominance[0]?.blockchain?.logoUrl,
+      topMarketTokenLogo: data.marketCapDominance[0]?.blockchain?.token?.logoUrl,
+      topMarketTokenSymbol: data.marketCapDominance[0]?.blockchain?.token?.symbol,
       topMarketName: data.marketCapDominance[0]?.blockchain?.name,
-      topMoverLogo: data.topMover[0]?.blockchain?.logoUrl,
+      topMoverTokenLogo: data.topMover[0]?.blockchain?.token?.logoUrl,
+      topMoverTokenSymbol: data.topMover[0]?.blockchain?.token?.symbol,
       topMoverName: data.topMover[0]?.blockchain?.name,
       topMoverRating: data.topMover[0]?.price24hDiffPercent,
       topMoverValue: data.topMover[0]?.price,

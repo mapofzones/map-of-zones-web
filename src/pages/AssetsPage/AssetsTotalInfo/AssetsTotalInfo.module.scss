@@ -23,6 +23,14 @@
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
+.additianalValue {
+  margin-top: 6px;
+
+  color: var(--grey-500);
+  font-size: var(--font-secondary-size-md);
+  font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
 .zoneInfoContainer {
   display: flex;
   margin-right: 8px;

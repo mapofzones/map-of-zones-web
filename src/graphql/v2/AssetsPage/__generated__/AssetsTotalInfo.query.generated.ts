@@ -17,12 +17,18 @@ export type AseetsTotalInfoQueryResult = {
   };
   marketCapDominance: Array<{
     marketCap?: any | null;
-    blockchain: { name: string; logoUrl?: string | null };
+    blockchain: {
+      name: string;
+      token?: { symbol?: string | null; logoUrl?: string | null } | null;
+    };
   }>;
   topMover: Array<{
     price?: any | null;
     price24hDiffPercent?: any | null;
-    blockchain: { name: string; logoUrl?: string | null };
+    blockchain: {
+      name: string;
+      token?: { symbol?: string | null; logoUrl?: string | null } | null;
+    };
   }>;
   total24hTradingVolumeChart: Array<{ volume: any }>;
 };
@@ -114,8 +120,18 @@ export const AseetsTotalInfoDocument = {
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       {
                         kind: 'Field',
-                        alias: { kind: 'Name', value: 'logoUrl' },
-                        name: { kind: 'Name', value: 'logo_url' },
+                        name: { kind: 'Name', value: 'token' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'logoUrl' },
+                              name: { kind: 'Name', value: 'logo_url' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                          ],
+                        },
                       },
                     ],
                   },
@@ -166,8 +182,18 @@ export const AseetsTotalInfoDocument = {
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       {
                         kind: 'Field',
-                        alias: { kind: 'Name', value: 'logoUrl' },
-                        name: { kind: 'Name', value: 'logo_url' },
+                        name: { kind: 'Name', value: 'token' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'logoUrl' },
+                              name: { kind: 'Name', value: 'logo_url' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                          ],
+                        },
                       },
                     ],
                   },
