@@ -29,6 +29,7 @@ export function PeriodSelector({
         options={Object.values(PeriodKeys).map((periodValue: PeriodKeys) => ({
           key: periodValue,
         }))}
+        size={ElementSize.LARGE}
         initialSelectedKey={selectedPeriod}
         onOptionSelected={(option) => {
           onPeriodChange(option.key as PeriodKeys);
@@ -45,7 +46,7 @@ export function PeriodSelector({
       {Object.values(PeriodKeys).map((periodValue: PeriodKeys) => (
         <Button
           key={periodValue}
-          size={ElementSize.MEDIUM}
+          size={ElementSize.LARGE}
           buttonType={selectedPeriod === periodValue ? ButtonType.PRIMARY : ButtonType.SECONDARY}
           onClick={() => onPeriodChange(periodValue)}
         >

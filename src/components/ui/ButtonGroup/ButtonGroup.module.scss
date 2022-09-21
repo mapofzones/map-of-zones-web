@@ -11,12 +11,29 @@
   border-radius: 5px;
   cursor: pointer;
 
+  &.lg {
+    .item {
+      padding: 7px 20px;
+    }
+  }
+
+  &.md {
+    .item {
+      padding: 6px 16px;
+    }
+  }
+
+  &.sm {
+    .item {
+      padding: 5px 12px;
+    }
+  }
+
   .item {
     display: flex;
     flex: 1;
     justify-content: center;
     height: 100%;
-    padding: 5px 10px;
 
     border-radius: 5px;
 

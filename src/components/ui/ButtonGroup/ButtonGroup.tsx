@@ -15,6 +15,7 @@ export function ButtonGroup<T extends string>({
   children,
   isActive,
   setSelectedButton,
+  size = ElementSize.MEDIUM,
   ...props
 }: ButtonGroupProps<T>): JSX.Element {
   const [selectedItemKey, setSelectedItemKey] = useState(
@@ -27,7 +28,14 @@ export function ButtonGroup<T extends string>({
   };
 
   return (
-    <div className={cn(className, styles.container)} {...props}>
+    <div
+      className={cn(className, styles.container, {
+        [styles.sm]: size === ElementSize.SMALL,
+        [styles.md]: size === ElementSize.MEDIUM,
+        [styles.lg]: size === ElementSize.LARGE,
+      })}
+      {...props}
+    >
       {buttons &&
         buttons.map((buttonGroupItem: ButtonGroupItem<T>) => {
           const itemKey = buttonGroupItem?.key ? buttonGroupItem?.key : buttonGroupItem.title;
@@ -39,7 +47,7 @@ export function ButtonGroup<T extends string>({
                 [styles.active]: active,
               })}
               key={itemKey}
-              size={ElementSize.MEDIUM}
+              size={size}
               buttonType={active ? ButtonType.PRIMARY : ButtonType.SECONDARY}
               onClick={() => onButtonItemClick(buttonGroupItem)}
             >

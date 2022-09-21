@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { ArrowDown, ArrowUp, TickIcon } from 'icons';
+import { ElementSize } from 'types/ElementSize';
 
 import styles from './Dropdown.module.scss';
 import { DropdownProps } from './Dropdown.props';
@@ -14,6 +15,7 @@ function Dropdown({
   options,
   onOptionSelected,
   className,
+  size = ElementSize.MEDIUM,
   ...props
 }: DropdownProps) {
   const { ref, isVisible, setIsVisible } = useComponentVisible<HTMLDivElement>(false);
@@ -37,7 +39,15 @@ function Dropdown({
   }, [options]);
 
   return (
-    <div ref={ref} className={cn(styles.dropDownContainer, className)} {...props}>
+    <div
+      ref={ref}
+      className={cn(styles.dropDownContainer, className, {
+        [styles.sm]: size === ElementSize.SMALL,
+        [styles.md]: size === ElementSize.MEDIUM,
+        [styles.lg]: size === ElementSize.LARGE,
+      })}
+      {...props}
+    >
       <div className={cn(styles.dropDownHeader, { [styles.active]: isVisible })} onClick={toggle}>
         <div className={styles.itemTitle}>{getTitle(selectedOption)}</div>
         {isVisible ? (

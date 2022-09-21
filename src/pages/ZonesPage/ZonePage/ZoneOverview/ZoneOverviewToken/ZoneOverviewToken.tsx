@@ -77,7 +77,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         />
         <ValueWithPending
           className={styles.detailsItem}
-          title="Volume"
+          title="Trading Volume"
           value={data?.tradingVolumeDay}
           numberType={NumberType.Currency}
           size={ElementSize.LARGE}
@@ -86,6 +86,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
       <div className={styles.chartContainer}>
         <ButtonGroup
           className={styles.priceSwitcher}
+          size={ElementSize.SMALL}
           buttons={chartOptions}
           setSelectedButton={onChartSelected}
         ></ButtonGroup>
