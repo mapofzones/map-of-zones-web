@@ -18,12 +18,6 @@ export const ZONES_TABLE = gql`
         ibcTransfersPending: ibc_transfers_pending
         ibcTransfersRating: ibc_transfers_rating
         ibcTransfersRatingDiff: ibc_transfers_rating_diff
-        ibcTransfersChart: blockchain_tf_switched_charts(
-          where: { chart_type: { _eq: "cashflow" } }
-          order_by: { point_index: asc }
-        ) {
-          transfers: point_value
-        }
         # ibc volume
         ibcVolume: ibc_cashflow
         ibcVolumePending: ibc_cashflow_pending
@@ -37,6 +31,12 @@ export const ZONES_TABLE = gql`
         ibcVolumeOutPending: ibc_cashflow_out_pending
         ibcVolumeOutRating: ibc_cashflow_out_rating
         ibcVolumeOutRatingDiff: ibc_cashflow_out_rating_diff
+        ibcVolumeChart: blockchain_tf_switched_charts(
+          where: { chart_type: { _eq: "cashflow" } }
+          order_by: { point_index: asc }
+        ) {
+          volume: point_value
+        }
         # txs
         totalIbcTxsRating: txs_rating
         totalIbcTxsRatingDiff: txs_rating_diff

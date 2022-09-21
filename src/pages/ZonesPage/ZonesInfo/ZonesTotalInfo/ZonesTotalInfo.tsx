@@ -41,7 +41,7 @@ export function ZonesTotalInfo(): JSX.Element {
           <LineChart
             className={styles.chart}
             data={zonesTotalInfo.ibcTotalVolumeChart}
-            dataKey="ibcVolumeChart"
+            dataKey="volume"
           />
         )}
       </TotalCard>

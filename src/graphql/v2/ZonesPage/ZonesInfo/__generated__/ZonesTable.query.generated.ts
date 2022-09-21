@@ -41,7 +41,7 @@ export type ZonesTableQueryResult = {
       totalIbcTxsRatingDiff: number;
       dauRating?: number | null;
       dauRatingDiff?: number | null;
-      ibcTransfersChart: Array<{ transfers: any }>;
+      ibcVolumeChart: Array<{ volume: any }>;
     }>;
     stats: Array<{ totalTxs: number; dau?: number | null }>;
   }>;
@@ -197,64 +197,6 @@ export const ZonesTableDocument = {
                       },
                       {
                         kind: 'Field',
-                        alias: { kind: 'Name', value: 'ibcTransfersChart' },
-                        name: { kind: 'Name', value: 'blockchain_tf_switched_charts' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'where' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: 'chart_type' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: { kind: 'Name', value: '_eq' },
-                                        value: {
-                                          kind: 'StringValue',
-                                          value: 'cashflow',
-                                          block: false,
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'order_by' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: 'point_index' },
-                                  value: { kind: 'EnumValue', value: 'asc' },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'transfers' },
-                              name: { kind: 'Name', value: 'point_value' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         alias: { kind: 'Name', value: 'ibcVolume' },
                         name: { kind: 'Name', value: 'ibc_cashflow' },
                       },
@@ -312,6 +254,64 @@ export const ZonesTableDocument = {
                         kind: 'Field',
                         alias: { kind: 'Name', value: 'ibcVolumeOutRatingDiff' },
                         name: { kind: 'Name', value: 'ibc_cashflow_out_rating_diff' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeChart' },
+                        name: { kind: 'Name', value: 'blockchain_tf_switched_charts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'chart_type' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: 'cashflow',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'order_by' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'point_index' },
+                                  value: { kind: 'EnumValue', value: 'asc' },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'volume' },
+                              name: { kind: 'Name', value: 'point_value' },
+                            },
+                          ],
+                        },
                       },
                       {
                         kind: 'Field',

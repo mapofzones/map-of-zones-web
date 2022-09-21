@@ -22,7 +22,7 @@ export const ZONES_TOTAL_INFO = gql`
       }
       order_by: { point_index: asc }
     ) {
-      ibcTotalVolumeChart: point_value
+      volume: point_value
     }
     allChannels: flat_channels_stats_aggregate(where: { timeframe: { _eq: $period } }) {
       aggregate {

@@ -129,7 +129,7 @@ export function TableRow({
       </TableRowItem>
 
       <TableRowItem>
-        {zone.ibcTransfersChart && <LineChart data={zone.ibcTransfersChart} dataKey="transfers" />}
+        {zone.ibcVolumeChart && <LineChart data={zone.ibcVolumeChart} dataKey="volume" />}
       </TableRowItem>
     </tr>
   );

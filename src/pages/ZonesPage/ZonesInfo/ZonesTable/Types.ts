@@ -74,7 +74,7 @@ export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
       withBorder: true,
     },
     {
-      title: 'IBC Transfers Activity',
+      title: 'IBC Volume Activity',
     },
   ];
 }

@@ -22,7 +22,7 @@ export type ZonesTotalInfoQueryResult = {
       } | null;
     } | null;
   };
-  ibcTotalVolumeChart: Array<{ ibcTotalVolumeChart: any }>;
+  ibcTotalVolumeChart: Array<{ volume: any }>;
   allChannels: {
     aggregate?: {
       count?: number | null;
@@ -235,7 +235,7 @@ export const ZonesTotalInfoDocument = {
               selections: [
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcTotalVolumeChart' },
+                  alias: { kind: 'Name', value: 'volume' },
                   name: { kind: 'Name', value: 'point_value' },
                 },
               ],

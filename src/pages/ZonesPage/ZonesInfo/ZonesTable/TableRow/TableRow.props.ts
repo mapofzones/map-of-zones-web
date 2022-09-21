@@ -26,8 +26,8 @@ export interface ZoneData {
   ibcTransfersPending: number;
   ibcTransfersRating: number;
   ibcTransfersRatingDiff: number;
-  ibcTransfersChart: ChartItemByString[];
 
+  ibcVolumeChart: ChartItemByString[];
   ibcVolume: number;
   ibcVolumePending: number;
   ibcVolumeRating: number;
