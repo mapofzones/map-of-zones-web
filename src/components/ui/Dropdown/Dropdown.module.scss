@@ -35,16 +35,11 @@
 
     border-radius: 5px;
 
-    &:hover {
-      color: var(--grey-800);
-
-      background-color: var(--black-900);
-    }
-
+    &:hover,
     &.active {
       color: var(--grey-800);
 
-      background-color: var(--black-700);
+      background-color: var(--black-900);
     }
 
     .itemTitle {

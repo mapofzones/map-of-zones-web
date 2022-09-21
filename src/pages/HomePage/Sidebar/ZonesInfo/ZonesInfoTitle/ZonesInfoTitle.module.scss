@@ -5,6 +5,10 @@
 
   column-gap: 8px;
 
+  .zonesCountInfo {
+    font-size: var(--font-heading-size-sm);
+  }
+
   &.expanded {
     grid-template-columns: 1fr;
 
