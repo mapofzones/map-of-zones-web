@@ -16,19 +16,17 @@ export type AseetsTotalInfoQueryResult = {
     } | null;
   };
   marketCapDominance: Array<{
+    symbol?: string | null;
+    logoUrl?: string | null;
     marketCap?: any | null;
-    blockchain: {
-      name: string;
-      token?: { symbol?: string | null; logoUrl?: string | null } | null;
-    };
+    blockchain: { name: string };
   }>;
   topMover: Array<{
+    symbol?: string | null;
     price?: any | null;
+    logoUrl?: string | null;
     price24hDiffPercent?: any | null;
-    blockchain: {
-      name: string;
-      token?: { symbol?: string | null; logoUrl?: string | null } | null;
-    };
+    blockchain: { name: string };
   }>;
   total24hTradingVolumeChart: Array<{ volume: any }>;
 };
@@ -112,28 +110,17 @@ export const AseetsTotalInfoDocument = {
               selections: [
                 {
                   kind: 'Field',
+                  alias: { kind: 'Name', value: 'logoUrl' },
+                  name: { kind: 'Name', value: 'logo_url' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                {
+                  kind: 'Field',
                   alias: { kind: 'Name', value: 'blockchain' },
                   name: { kind: 'Name', value: 'blockchainByBlockchain' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'token' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'logoUrl' },
-                              name: { kind: 'Name', value: 'logo_url' },
-                            },
-                            { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
-                          ],
-                        },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
                   },
                 },
                 {
@@ -174,28 +161,17 @@ export const AseetsTotalInfoDocument = {
               selections: [
                 {
                   kind: 'Field',
+                  alias: { kind: 'Name', value: 'logoUrl' },
+                  name: { kind: 'Name', value: 'logo_url' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                {
+                  kind: 'Field',
                   alias: { kind: 'Name', value: 'blockchain' },
                   name: { kind: 'Name', value: 'blockchainByBlockchain' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'token' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'logoUrl' },
-                              name: { kind: 'Name', value: 'logo_url' },
-                            },
-                            { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
-                          ],
-                        },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
                   },
                 },
                 { kind: 'Field', name: { kind: 'Name', value: 'price' } },

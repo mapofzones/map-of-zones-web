@@ -12,22 +12,18 @@ export const ASSETS_TOTAL_INFO = gql`
       }
     }
     marketCapDominance: flat_tokens(order_by: { market_cap: desc_nulls_last }, limit: 1) {
+      logoUrl: logo_url
+      symbol
       blockchain: blockchainByBlockchain {
         name
-        token {
-          logoUrl: logo_url
-          symbol
-        }
       }
       marketCap: market_cap
     }
     topMover: flat_tokens(order_by: { price_day_diff_percent: desc_nulls_last }, limit: 1) {
+      logoUrl: logo_url
+      symbol
       blockchain: blockchainByBlockchain {
         name
-        token {
-          logoUrl: logo_url
-          symbol
-        }
       }
       price
       price24hDiffPercent: price_day_diff_percent

@@ -85,7 +85,7 @@ export function AssetsTotalInfo(): JSX.Element {
         <div className={styles.zoneInfoContainer}>
           <ZoneLogo logoUrl={zonesTotalInfo.topMoverTokenLogo} className={styles.logo} />
           <div>
-            <div className={styles.title}>Top Mover</div>
+            <div className={styles.title}>Top Mover (24h)</div>
             <div className={styles.value}>
               {zonesTotalInfo.topMoverName}{' '}
               <span className={styles.additianalValue}>({zonesTotalInfo.topMoverTokenSymbol})</span>
