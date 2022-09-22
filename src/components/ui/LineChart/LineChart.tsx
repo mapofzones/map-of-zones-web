@@ -1,5 +1,11 @@
 import cn from 'classnames';
-import { Line, LineChart as LineChartRechart, ResponsiveContainer, ReferenceDot } from 'recharts';
+import {
+  Line,
+  LineChart as LineChartRechart,
+  ResponsiveContainer,
+  ReferenceDot,
+  YAxis,
+} from 'recharts';
 
 import styles from './LineChart.module.scss';
 import { LineChartProps } from './LineChart.props';
@@ -49,6 +55,12 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
           </defs>
         )}
         <Line stroke={`url(#${gradientId})`} dataKey={dataKey} dot={false} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          hide={true}
+          domain={[(dataMin: number) => dataMin, (dataMax: number) => dataMax]}
+        />
         {referencePoint && (
           <ReferenceDot
             x={lastPointIndex}
