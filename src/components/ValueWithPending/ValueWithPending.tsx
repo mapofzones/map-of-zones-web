@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { NumberFormat, PendingValue } from 'components';
+import { ExplanationTooltip, NumberFormat, PendingValue } from 'components';
 import { NumberType } from 'components/ui/NumberFormat/NumberType';
 import { ElementSize } from 'types/ElementSize';
 
@@ -17,6 +17,8 @@ export function ValueWithPending({
   size = ElementSize.MEDIUM,
   title,
   value,
+  tooltipPosition = 'left',
+  tooltipText,
   ...props
 }: ValueWithPendingProps) {
   return (
@@ -29,6 +31,8 @@ export function ValueWithPending({
       {...props}
     >
       {title && <span className={styles.title}>{title}</span>}
+      {tooltipText && <ExplanationTooltip text={tooltipText} position={tooltipPosition} />}
+
       <span
         className={cn(styles.valueContainer, {
           [styles.rightAlign]: alignRight,

@@ -1,6 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 import { NumberType } from 'components';
+import { TooltipPosition } from 'components/ui/ExplanationTooltip/ExplanationTooltip.props';
 import { ElementSize } from 'types/ElementSize';
 
 export interface ValueWithPendingProps
@@ -14,4 +15,6 @@ export interface ValueWithPendingProps
   size?: ElementSize;
   title?: string;
   value?: number | null;
+  tooltipPosition?: TooltipPosition;
+  tooltipText?: string;
 }

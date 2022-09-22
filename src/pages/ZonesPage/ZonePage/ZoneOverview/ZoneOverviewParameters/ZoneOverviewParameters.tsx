@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { Divider, NumberFormat, NumberType, TotalCard, ValueWithPending } from 'components';
 import { SECONDS_IN_DAY } from 'types/constants';
 import { ElementSize } from 'types/ElementSize';
+import { tooltips } from 'types/Tooltips';
 
 import { useZoneOverviewParameters } from './useZoneOverviewParameters';
 import styles from './ZoneOverviewParameters.module.scss';
@@ -80,6 +81,8 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             title={'Nodes'}
             value={data?.nodesCnt}
             numberType={NumberType.Number}
+            tooltipText={tooltips['nodesCount']()}
+            tooltipPosition={'left'}
             size={ElementSize.LARGE}
           />
         </TotalCard>
