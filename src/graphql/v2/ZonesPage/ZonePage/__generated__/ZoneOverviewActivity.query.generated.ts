@@ -20,14 +20,14 @@ export type ZoneOverviewActivityQueryResult = {
     channelsCount: number;
     ibcTransfers: number;
     ibcTransfersPending: number;
-    ibcTransfersChart: Array<{ ibcTransfer: any }>;
+    ibcTransfersChart: Array<{ ibcTransfer?: any | null }>;
   }>;
   stats: Array<{
-    ibcDau: number;
+    ibcDau?: number | null;
     dau?: number | null;
     ibcDauPercent?: any | null;
     totalTxs: number;
-    totalTxsChart: Array<{ txs: any }>;
+    totalTxsChart: Array<{ txs?: any | null }>;
   }>;
 };
 

@@ -13,7 +13,7 @@ export type ZoneTokenChartQueryVariables = Types.Exact<{
 
 export type ZoneTokenChartQueryResult = {
   overviewBlockchainCharts: Array<{
-    token?: { chart: Array<{ value: any; time: number }> } | null;
+    token?: { chart: Array<{ value?: any | null; time: number }> } | null;
   }>;
 };
 

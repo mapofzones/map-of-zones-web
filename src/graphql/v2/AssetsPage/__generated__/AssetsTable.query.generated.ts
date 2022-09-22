@@ -20,7 +20,7 @@ export type AseetsTableQueryResult = {
     volume24hDiffPercent?: any | null;
     onChainSupply?: any | null;
     blockchain: { name: string };
-    priceChart: Array<{ price: any }>;
+    priceChart: Array<{ price?: any | null }>;
   }>;
 };
 

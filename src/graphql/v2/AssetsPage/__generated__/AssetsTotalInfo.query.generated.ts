@@ -28,7 +28,7 @@ export type AseetsTotalInfoQueryResult = {
     price24hDiffPercent?: any | null;
     blockchain: { name: string };
   }>;
-  total24hTradingVolumeChart: Array<{ volume: any }>;
+  total24hTradingVolumeChart: Array<{ volume?: any | null }>;
 };
 
 export const AseetsTotalInfoDocument = {
@@ -203,7 +203,7 @@ export const AseetsTotalInfoDocument = {
                           {
                             kind: 'ObjectField',
                             name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'StringValue', value: 'volume_daily', block: false },
+                            value: { kind: 'StringValue', value: 'trading_volume', block: false },
                           },
                         ],
                       },

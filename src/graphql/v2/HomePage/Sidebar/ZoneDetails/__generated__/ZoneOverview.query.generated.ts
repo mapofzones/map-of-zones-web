@@ -19,7 +19,7 @@ export type SidebarZoneOverviewQueryResult = {
   switchedStats: Array<{ ibcTransfers: number; peersCount: number; channelsCount: number }>;
   stats: Array<{
     totalTxs: number;
-    ibcDau: number;
+    ibcDau?: number | null;
     dau?: number | null;
     ibcDauPercent?: any | null;
   }>;

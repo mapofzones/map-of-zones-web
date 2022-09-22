@@ -29,7 +29,7 @@ export const ASSETS_TOTAL_INFO = gql`
       price24hDiffPercent: price_day_diff_percent
     }
     total24hTradingVolumeChart: flat_total_tf_switched_charts(
-      where: { chart_type: { _eq: "volume_daily" } }
+      where: { chart_type: { _eq: "trading_volume" } }
       order_by: { point_index: asc }
     ) {
       volume: point_value
