@@ -6,8 +6,8 @@ import { HoveredZoneKeyType, Link, SelectedZoneKeyType } from '../Types';
 
 const COMET_SPEED = 0.001;
 const COMET_LENGTH = 14;
-const ACTIVE_LINE_COLOR = '#4f4f5a';
-const NORMAL_LINE_COLOR = '#212129';
+const ACTIVE_LINE_COLOR = '#ffffff64';
+const NORMAL_LINE_COLOR = '#ffffff1E';
 
 function isLinkRelatedToNode(nodeKey: SelectedZoneKeyType | HoveredZoneKeyType, link: Link) {
   return !!nodeKey && (nodeKey === link.source.zone || nodeKey === link.target.zone);
@@ -52,7 +52,7 @@ function drawLinkCanvasObject(
 
 function drawLine(ctx: CanvasRenderingContext2D, link: Link, isRalatedToActiveZone: boolean) {
   if (link.source.x && link.source.y && link.target.x && link.target.y) {
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 0.5;
     ctx.strokeStyle = isRalatedToActiveZone ? ACTIVE_LINE_COLOR : NORMAL_LINE_COLOR;
 
     ctx.beginPath();
