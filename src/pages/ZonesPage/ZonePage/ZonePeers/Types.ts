@@ -36,7 +36,7 @@ export enum ColumnKeys {
   SuccessRate = 'ibcTransfersSuccessRate',
 }
 
-export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
+export const getTableHeaderConfig = (zone?: ZonesListZoneDetails) => [
   {
     title: 'Peer',
     isSticky: true,
@@ -49,13 +49,13 @@ export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
     withBorder: true,
   },
   {
-    title: `${zone.name} Receives`,
+    title: `${zone?.name} Receives`,
     columnKey: ColumnKeys.IbcVolumeReceived,
     explanationText: tooltips['ibcVolumeIn'](),
     circleType: CircleType.Target,
   },
   {
-    title: `${zone.name} Sends`,
+    title: `${zone?.name} Sends`,
     columnKey: ColumnKeys.IbcVolumeSent,
     explanationText: tooltips['ibcVolumeOut'](),
     circleType: CircleType.Source,

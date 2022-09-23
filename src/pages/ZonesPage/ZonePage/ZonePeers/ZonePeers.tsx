@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { ScrollUpButton, Table } from 'components';
+import { ScrollUpButton, Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { SortRow } from 'hooks/useSortedTableData';
@@ -22,8 +22,8 @@ export function ZonePeers() {
 
   const [sortedPeers, setSortedPeers] = useState<ZoneData[]>([]);
 
-  const { data: peers } = usePeersTable(selectedPeriod);
-  const { data: parentZoneData } = useZonesListZoneDetails();
+  const { data: peers, loading: peersLoading } = usePeersTable(selectedPeriod);
+  const { data: parentZoneData, loading: parentZoneDataLoading } = useZonesListZoneDetails();
 
   useEffect(() => {
     const sortedColumn = SORTING_COLUMN_KEYS[selectedColumnKey];
@@ -42,28 +42,28 @@ export function ZonePeers() {
     setSortedPeers(sortedPeers);
   }, [selectedColumnKey, peers]);
 
-  if (!parentZoneData) {
-    return <></>;
-  }
-
   const headerConfig = getTableHeaderConfig(parentZoneData);
 
   return (
     <div className={styles.container}>
-      <Table
-        className={styles.table}
-        headerConfig={headerConfig}
-        selectedColumnKey={selectedColumnKey}
-        setSelectedColumnKey={setSelectedColumnKey}
-      >
-        {sortedPeers.map((zone) => (
-          <TableRow
-            key={`zone_${zone.zoneCounterpartyKey}`}
-            parentZone={parentZoneData}
-            zone={zone}
-          />
-        ))}
-      </Table>
+      {!!parentZoneData && !parentZoneDataLoading && !peersLoading && (
+        <Table
+          className={styles.table}
+          headerConfig={headerConfig}
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        >
+          {sortedPeers.map((zone) => (
+            <TableRow
+              key={`zone_${zone.zoneCounterpartyKey}`}
+              parentZone={parentZoneData}
+              zone={zone}
+            />
+          ))}
+        </Table>
+      )}
+
+      {(parentZoneDataLoading || peersLoading) && <TableSkeleton forPeers={true} />}
 
       <ScrollUpButton />
     </div>

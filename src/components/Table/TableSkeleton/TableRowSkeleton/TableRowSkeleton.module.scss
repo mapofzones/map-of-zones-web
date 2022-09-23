@@ -1,4 +1,6 @@
 .container {
+  position: relative;
+
   display: flex;
   align-items: center;
   margin: 28px 0;
@@ -8,17 +10,35 @@
   width: 17px;
   height: 16px;
   margin-right: 12px;
+
+  &.forPeers {
+    width: 12px;
+    margin-right: 22px;
+  }
+}
+
+.smallLogo {
+  position: absolute;
+  left: 21px;
+  z-index: 1;
+
+  width: 18px;
+  height: 18px;
 }
 
 .logo {
+  z-index: 2;
+
   width: 32px;
   height: 32px;
   margin-right: 12px;
+
+  border: 2px solid var(--black-100);
 }
 
 .name {
-  height: 16px;
   width: 100px;
+  height: 16px;
 
   &.wide {
     width: 132px;
@@ -26,8 +46,8 @@
 }
 
 .info {
-  height: 16px;
   width: calc(100% - 393px);
+  height: 16px;
 
   margin-left: auto;
 
