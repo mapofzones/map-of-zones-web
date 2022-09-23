@@ -7,7 +7,6 @@ import {
   NumberType,
   PendingValue,
   TotalCard,
-  TotalCardSkeleton,
   TotalInfo,
   ValueWithPending,
 } from 'components';
@@ -25,50 +24,38 @@ export function ZonesTotalInfo(): JSX.Element {
 
   const { data: zonesTotalInfo } = useZonesTotalInfo(selectedPeriod);
 
-  if (!zonesTotalInfo) {
-    return (
-      <TotalInfo>
-        <TotalCardSkeleton className={cn(styles.card, styles.withChart)} />
-        <TotalCardSkeleton className={styles.card} />
-        {!isLaptopMedium && <TotalCardSkeleton className={cn(styles.card, styles.doubleItem)} />}
-        <TotalCardSkeleton className={cn(styles.card, styles.topItem)} />
-        <TotalCardSkeleton className={cn(styles.card, styles.topItem)} />
-      </TotalInfo>
-    );
-  }
-
   return (
     <TotalInfo>
-      <TotalCard className={cn(styles.card, styles.withChart)}>
+      <TotalCard className={cn(styles.card, styles.withChart)} loading={!zonesTotalInfo}>
         <div>
           <span className={styles.title}>Total IBC Volume ({selectedPeriod})</span>
           <ValueWithPending
             className={styles.value}
             numberType={NumberType.Currency}
-            pendingValue={zonesTotalInfo.ibcVolumePending}
-            value={zonesTotalInfo.ibcVolume}
+            pendingValue={zonesTotalInfo?.ibcVolumePending}
+            value={zonesTotalInfo?.ibcVolume}
           />
         </div>
 
-        {zonesTotalInfo.ibcTotalVolumeChart && (
-          <LineChart data={zonesTotalInfo.ibcTotalVolumeChart} dataKey="volume" />
+        {zonesTotalInfo?.ibcTotalVolumeChart && (
+          <LineChart data={zonesTotalInfo?.ibcTotalVolumeChart} dataKey="volume" />
         )}
       </TotalCard>
 
-      <TotalCard className={styles.card}>
+      <TotalCard className={styles.card} loading={!zonesTotalInfo}>
         <span className={styles.title}>Total IBC Transfers ({selectedPeriod})</span>
         <div className={styles.additionalDataContainer}>
           <ValueWithPending
             className={styles.value}
             numberType={NumberType.Number}
-            pendingValue={zonesTotalInfo.ibcTransfersPending}
-            value={zonesTotalInfo.ibcTransfers}
+            pendingValue={zonesTotalInfo?.ibcTransfersPending}
+            value={zonesTotalInfo?.ibcTransfers}
           />
 
           <span className={styles.pendingValue}>
             Failed:&nbsp;
             <NumberFormat
-              value={zonesTotalInfo.ibcTransfersFailed}
+              value={zonesTotalInfo?.ibcTransfersFailed}
               numberType={NumberType.Number}
             />
           </span>
@@ -76,12 +63,12 @@ export function ZonesTotalInfo(): JSX.Element {
       </TotalCard>
 
       {!isLaptopMedium && (
-        <TotalCard className={cn(styles.card, styles.doubleItem)}>
+        <TotalCard className={cn(styles.card, styles.doubleItem)} loading={!zonesTotalInfo}>
           <div>
             <span className={styles.title}>All Channels</span>
             <NumberFormat
               className={cn(styles.value, styles.doublevalue)}
-              value={zonesTotalInfo.allChannels}
+              value={zonesTotalInfo?.allChannels}
               numberType={NumberType.Number}
             />
           </div>
@@ -90,28 +77,28 @@ export function ZonesTotalInfo(): JSX.Element {
             <span className={styles.title}>Active</span>
             <NumberFormat
               className={cn(styles.value, styles.doublevalue)}
-              value={zonesTotalInfo.activeChannels}
+              value={zonesTotalInfo?.activeChannels}
               numberType={NumberType.Number}
             />
           </div>
         </TotalCard>
       )}
 
-      <TotalCard className={cn(styles.card, styles.topItem)}>
-        {zonesTotalInfo.ibcTransfersTopPair && (
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={!zonesTotalInfo}>
+        {zonesTotalInfo?.ibcTransfersTopPair && (
           <>
             <div className={styles.zonesPairContainer}>
               <span className={styles.title}>Most Active Pair ({selectedPeriod})</span>
               <ZonesConnection
                 circlesTypes={['source', 'target']}
-                source={zonesTotalInfo.ibcTransfersTopPair.source?.name}
-                target={zonesTotalInfo.ibcTransfersTopPair.target?.name}
+                source={zonesTotalInfo.ibcTransfersTopPair?.source?.name}
+                target={zonesTotalInfo.ibcTransfersTopPair?.target?.name}
               />
             </div>
             <div>
               <span className={styles.total}>
                 <NumberFormat
-                  value={zonesTotalInfo.ibcTransfersTopPair.ibcTransfers}
+                  value={zonesTotalInfo.ibcTransfersTopPair?.ibcTransfers}
                   numberType={NumberType.Number}
                 />
                 &nbsp;Transfers
@@ -119,34 +106,34 @@ export function ZonesTotalInfo(): JSX.Element {
               <PendingValue
                 className={styles.pendingValue}
                 numberType={NumberType.Number}
-                value={zonesTotalInfo.ibcTransfersTopPair.ibcTransfersPending}
+                value={zonesTotalInfo.ibcTransfersTopPair?.ibcTransfersPending}
               />
             </div>
           </>
         )}
       </TotalCard>
 
-      <TotalCard className={cn(styles.card, styles.topItem)}>
-        {zonesTotalInfo.ibcVolumeTopPair && (
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={!zonesTotalInfo}>
+        {zonesTotalInfo?.ibcVolumeTopPair && (
           <>
             <div className={styles.zonesPairContainer}>
               <span className={styles.title}>Biggest Volume Pair ({selectedPeriod})</span>
               <ZonesConnection
                 circlesTypes={['source', 'volume']}
-                source={zonesTotalInfo.ibcVolumeTopPair.source?.name}
-                target={zonesTotalInfo.ibcVolumeTopPair.target?.name}
+                source={zonesTotalInfo.ibcVolumeTopPair?.source?.name}
+                target={zonesTotalInfo.ibcVolumeTopPair?.target?.name}
               />
             </div>
             <div>
               <NumberFormat
                 className={styles.total}
-                value={zonesTotalInfo.ibcVolumeTopPair.ibcVolume}
+                value={zonesTotalInfo.ibcVolumeTopPair?.ibcVolume}
                 numberType={NumberType.Currency}
               />
               <PendingValue
                 className={styles.pendingValue}
                 numberType={NumberType.Currency}
-                value={zonesTotalInfo.ibcVolumeTopPair.ibcVolumePending}
+                value={zonesTotalInfo.ibcVolumeTopPair?.ibcVolumePending}
               />
             </div>
           </>
