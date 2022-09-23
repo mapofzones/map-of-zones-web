@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { ExplanationTooltip, NumberFormat, PendingValue } from 'components';
+import { ExplanationTooltip, NumberFormat, PendingValue, SkeletonTextWrapper } from 'components';
 import { NumberType } from 'components/ui/NumberFormat/NumberType';
 import { ElementSize } from 'types/ElementSize';
 
@@ -19,6 +19,8 @@ export function ValueWithPending({
   value,
   tooltipPosition = 'left',
   tooltipText,
+  loading = false,
+  defaultSkeletonText,
   ...props
 }: ValueWithPendingProps) {
   return (
@@ -38,8 +40,11 @@ export function ValueWithPending({
           [styles.rightAlign]: alignRight,
         })}
       >
-        {children}
-        {!children && <NumberFormat compact={compact} numberType={numberType} value={value} />}
+        <SkeletonTextWrapper loading={loading} defaultText={defaultSkeletonText}>
+          {children}
+          {!children && <NumberFormat compact={compact} numberType={numberType} value={value} />}
+        </SkeletonTextWrapper>
+
         {pendingValue != null && (
           <PendingValue
             className={styles.pendingContainer}

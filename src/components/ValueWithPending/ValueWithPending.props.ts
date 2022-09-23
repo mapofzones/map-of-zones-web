@@ -17,4 +17,6 @@ export interface ValueWithPendingProps
   value?: number | null;
   tooltipPosition?: TooltipPosition;
   tooltipText?: string;
+  defaultSkeletonText?: string;
+  loading?: boolean;
 }

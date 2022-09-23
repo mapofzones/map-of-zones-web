@@ -86,6 +86,7 @@ function ZonesInfo(): JSX.Element {
             columnType={selectedColumnKey}
           />
         )}
+        {tableDataLoading && <ZonesInfoTableSkeleton />}
         {!tableDataLoading && (
           <MemoizedZonesInfoTable
             data={sortedZones}
@@ -93,7 +94,6 @@ function ZonesInfo(): JSX.Element {
             columnType={selectedColumnKey}
           />
         )}
-        {tableDataLoading && <ZonesInfoTableSkeleton />}
       </ScrollableContainer>
       <div className={styles.shadow}></div>
       <Button

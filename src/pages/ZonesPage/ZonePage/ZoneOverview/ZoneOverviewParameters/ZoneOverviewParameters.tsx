@@ -9,13 +9,13 @@ import { useZoneOverviewParameters } from './useZoneOverviewParameters';
 import styles from './ZoneOverviewParameters.module.scss';
 
 export function ZoneOverviewParameters({ className }: { className?: string }) {
-  const { data } = useZoneOverviewParameters();
+  const { data, loading } = useZoneOverviewParameters();
 
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Parameters</div>
       <div className={styles.parametersCards}>
-        <TotalCard className={styles.parameterCard}>
+        <TotalCard className={styles.parameterCard} loading={loading}>
           <ValueWithPending
             title={'Inflation'}
             value={data?.inflation}
@@ -41,7 +41,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             </div>
           </div>
         </TotalCard>
-        <TotalCard className={styles.parameterCard}>
+        <TotalCard className={styles.parameterCard} loading={loading}>
           <ValueWithPending
             title={'On-Chain Supply'}
             value={data?.onChainSupply}
@@ -69,7 +69,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             </div>
           </div>
         </TotalCard>
-        <TotalCard className={styles.parameterCard}>
+        <TotalCard className={styles.parameterCard} loading={loading}>
           <ValueWithPending
             title={'Validators'}
             value={data?.validatorsCnt}

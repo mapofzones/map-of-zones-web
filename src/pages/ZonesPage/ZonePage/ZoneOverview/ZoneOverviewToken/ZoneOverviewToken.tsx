@@ -7,6 +7,8 @@ import {
   NumberFormat,
   NumberType,
   RatingDiffTriangle,
+  SkeletonRectangle,
+  SkeletonTextWrapper,
   ValueWithPending,
   ZoneLogo,
 } from 'components';
@@ -32,8 +34,8 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
     [selectedPeriod]
   );
 
-  const { data } = useZoneOverviewToken();
-  const { data: chartData } = useZoneTokenChart(selectedChartType);
+  const { data, loading } = useZoneOverviewToken();
+  const { data: chartData, loading: chartLoading } = useZoneTokenChart(selectedChartType);
 
   const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
 
@@ -50,20 +52,34 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           <span className={styles.detailsItem_title}>Price</span>
           <span className={styles.detailsItem_data}>
             <div className={styles.infoGroup}>
-              <ZoneLogo size="20px" logoUrl={data?.logoUrl} />
-              <span className={styles.tokenName}>{data?.symbol}</span>
-              <NumberFormat
-                value={data?.price}
-                numberType={NumberType.Currency}
+              <ZoneLogo size="20px" logoUrl={data?.logoUrl} loading={loading} />
+              <SkeletonTextWrapper
+                className={styles.tokenName}
+                loading={loading}
+                defaultText={'ATOM'}
+              >
+                {data?.symbol}
+              </SkeletonTextWrapper>
+              <SkeletonTextWrapper
+                loading={loading}
                 className={styles.tokenPrice}
-              />
+                defaultText={'$1.2228'}
+              >
+                <NumberFormat value={data?.price} numberType={NumberType.Currency} />
+              </SkeletonTextWrapper>
             </div>
             <div className={styles.infoGroup}>
-              <RatingDiffTriangle
+              <SkeletonTextWrapper
                 className={styles.tokenPriceDiff}
-                numberType={NumberType.Percent}
-                ratingDiff={data?.[priceDiffKeyByPeriod[selectedPeriod]] as number}
-              />
+                loading={loading}
+                defaultText={'18.98 %'}
+              >
+                <RatingDiffTriangle
+                  numberType={NumberType.Percent}
+                  allowEmpty={true}
+                  ratingDiff={data?.[priceDiffKeyByPeriod[selectedPeriod]] as number | undefined}
+                />
+              </SkeletonTextWrapper>
               <span className={styles.period}>&nbsp;({selectedPeriod})</span>
             </div>
           </span>
@@ -74,6 +90,8 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           value={data?.marketCap}
           numberType={NumberType.Currency}
           size={ElementSize.LARGE}
+          loading={loading}
+          defaultSkeletonText={'$418 940 000'}
         />
         <ValueWithPending
           className={styles.detailsItem}
@@ -81,6 +99,8 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           value={data?.tradingVolumeDay}
           numberType={NumberType.Currency}
           size={ElementSize.LARGE}
+          loading={loading}
+          defaultSkeletonText={'$418 940 000'}
         />
       </div>
       <div className={styles.chartContainer}>
@@ -94,6 +114,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           className={styles.periodInfo}
           periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
         />
+        {chartLoading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
         {data && (
           <AreaChart
             className={styles.priceVolumeChart}

@@ -7,6 +7,7 @@ import {
   ExternalLink,
   NavigationButton,
   PeriodSelector,
+  SkeletonTextWrapper,
   ZoneLogo,
 } from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
@@ -56,7 +57,11 @@ export function ZonePage() {
             <span className={styles.zoneName}>{data?.name}</span>
             <AnimatedArrowDown className={styles.arrowContainer} isReverted={isSearchVisible} />
           </div>
-          <div className={styles.zoneLinks}>
+          <SkeletonTextWrapper
+            className={styles.zoneLinks}
+            loading={loading}
+            defaultText={'https://cosmos.network'}
+          >
             {data?.website && (
               <ExternalLink
                 Icon={EarthIcon}
@@ -90,7 +95,7 @@ export function ZonePage() {
                 onClick={() => trackZoneLinksAnalytics('git')}
               />
             )}
-          </div>
+          </SkeletonTextWrapper>
 
           {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
         </div>
