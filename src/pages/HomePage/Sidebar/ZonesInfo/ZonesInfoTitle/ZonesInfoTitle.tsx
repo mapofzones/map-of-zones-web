@@ -16,12 +16,12 @@ export function ZonesInfoTitle({
 
   return (
     <div className={cn(styles.container, { [styles.expanded]: searchExpanded })}>
-      <span className={styles.zonesCountInfo}>
+      <div className={styles.zonesCountInfo}>
         <SkeletonTextWrapper loading={loading} defaultText={'00'}>
           {zonesCount}
         </SkeletonTextWrapper>
-        {' Zones'}
-      </span>
+        &nbsp;Zones
+      </div>
 
       <Search
         className={styles.search}

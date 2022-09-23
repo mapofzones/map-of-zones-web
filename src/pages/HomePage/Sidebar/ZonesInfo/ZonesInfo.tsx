@@ -74,6 +74,7 @@ function ZonesInfo(): JSX.Element {
           options={columnOptions}
           initialSelectedKey={selectedColumnKey}
           onOptionSelected={onColumnChange}
+          size={ElementSize.LARGE}
         />
         <PeriodSelector />
       </div>

@@ -1,10 +1,7 @@
 import { useMemo } from 'react';
 
-import cn from 'classnames';
-
 import { SkeletonRectangle } from 'components';
 
-import styles from './SkeletonTextWrapper.module.scss';
 import { SkeletonTextWrapperProps } from './SkeletonTextWrapper.props';
 
 function getTextwithSize(minLength: number, maxLength: number) {
@@ -29,7 +26,7 @@ export function SkeletonTextWrapper({
   );
 
   return (
-    <span className={cn(className, styles.container)} {...props}>
+    <span className={className} {...props}>
       {!loading && <>{children}</>}
       {loading && (
         <SkeletonRectangle>{<span style={{ opacity: 0 }}>{defaultValue}</span>}</SkeletonRectangle>

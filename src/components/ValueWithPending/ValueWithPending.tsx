@@ -32,8 +32,12 @@ export function ValueWithPending({
       })}
       {...props}
     >
-      {title && <span className={styles.title}>{title}</span>}
-      {tooltipText && <ExplanationTooltip text={tooltipText} position={tooltipPosition} />}
+      {title && (
+        <span className={styles.title}>
+          {title}
+          {tooltipText && <ExplanationTooltip text={tooltipText} position={tooltipPosition} />}
+        </span>
+      )}
 
       <span
         className={cn(styles.valueContainer, {

@@ -6,7 +6,13 @@
   column-gap: 8px;
 
   .zonesCountInfo {
+    display: flex;
+    align-items: center;
     font-size: var(--font-heading-size-sm);
+  }
+
+  .search input {
+    font-size: var(--font-base-size-md);
   }
 
   &.expanded {

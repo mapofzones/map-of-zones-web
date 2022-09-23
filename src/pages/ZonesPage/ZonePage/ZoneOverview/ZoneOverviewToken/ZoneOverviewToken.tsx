@@ -115,7 +115,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
         />
         {chartLoading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
-        {data && (
+        {!chartLoading && chartData && (
           <AreaChart
             className={styles.priceVolumeChart}
             data={chartData}
