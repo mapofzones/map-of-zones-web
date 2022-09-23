@@ -7,4 +7,5 @@ export interface ZoneLogoProps
   size?: string;
   loading?: boolean;
   className?: string;
+  withOuterShadow?: boolean;
 }

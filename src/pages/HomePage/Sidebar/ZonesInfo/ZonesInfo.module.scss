@@ -24,8 +24,9 @@
   .shadow {
     position: absolute;
     bottom: 40px;
+    margin-left: -16px;
 
-    width: 100%;
+    width: calc(100% + 32px);
     height: 33px;
 
     background: linear-gradient(0deg, #1e1c25 0%, rgb(30 28 37 / 0%) 100%);

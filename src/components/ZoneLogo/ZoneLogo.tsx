@@ -11,6 +11,7 @@ export function ZoneLogo({
   size = '32px',
   className,
   loading = false,
+  withOuterShadow = false,
   ...props
 }: ZoneLogoProps) {
   const style = { width: size, height: size };
@@ -24,7 +25,11 @@ export function ZoneLogo({
           {logoUrl && (
             <>
               <img src={logoUrl} style={style} alt={`${name} logo`} />
-              <div className={styles.shadow} />
+              <div
+                className={cn(styles.shadow, {
+                  [styles.withOuterShadow]: withOuterShadow,
+                })}
+              />
             </>
           )}
         </div>

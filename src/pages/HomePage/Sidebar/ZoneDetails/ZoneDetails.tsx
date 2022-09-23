@@ -36,6 +36,7 @@ function ZoneDetails() {
           size={'60px'}
           loading={loading}
           className={styles.zoneLogo}
+          withOuterShadow={true}
         />
         <div className={styles.zoneBaseInfo}>
           <SkeletonTextWrapper
