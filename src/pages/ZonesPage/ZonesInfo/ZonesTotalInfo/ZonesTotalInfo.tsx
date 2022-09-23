@@ -7,6 +7,7 @@ import {
   NumberType,
   PendingValue,
   TotalCard,
+  TotalCardSkeleton,
   TotalInfo,
   ValueWithPending,
 } from 'components';
@@ -23,8 +24,17 @@ export function ZonesTotalInfo(): JSX.Element {
   const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
 
   const { data: zonesTotalInfo } = useZonesTotalInfo(selectedPeriod);
+
   if (!zonesTotalInfo) {
-    return <></>;
+    return (
+      <TotalInfo>
+        <TotalCardSkeleton className={cn(styles.card, styles.withChart)} />
+        <TotalCardSkeleton className={styles.card} />
+        {!isLaptopMedium && <TotalCardSkeleton className={cn(styles.card, styles.doubleItem)} />}
+        <TotalCardSkeleton className={cn(styles.card, styles.topItem)} />
+        <TotalCardSkeleton className={cn(styles.card, styles.topItem)} />
+      </TotalInfo>
+    );
   }
 
   return (
@@ -41,17 +51,13 @@ export function ZonesTotalInfo(): JSX.Element {
         </div>
 
         {zonesTotalInfo.ibcVolumeChart && (
-          <LineChart
-            className={styles.chart}
-            data={zonesTotalInfo.ibcVolumeChart}
-            dataKey="ibcVolumeChart"
-          />
+          <LineChart data={zonesTotalInfo.ibcVolumeChart} dataKey="ibcVolumeChart" />
         )}
       </TotalCard>
 
       <TotalCard className={styles.card}>
         <span className={styles.title}>Total IBC Transfers ({selectedPeriod})</span>
-        <div className={styles.withAdditionalData}>
+        <div className={styles.additionalDataContainer}>
           <ValueWithPending
             className={styles.value}
             numberType={NumberType.Number}

@@ -17,6 +17,7 @@ import { ZonesSelector } from './ZonesSelector/ZonesSelector';
 
 export function ZonePage() {
   const isMobile = useMediaQuery('(max-width: 375px)');
+  const isTabletMedium = useMediaQuery('(max-width: 880px)');
 
   const location = useLocation();
 
@@ -92,7 +93,7 @@ export function ZonePage() {
           {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
         </div>
 
-        <ZoneNavigation peersCount={data?.peersCount} />
+        <ZoneNavigation peersCount={data?.peersCount} useSmallView={isTabletMedium} />
 
         <PeriodSelector className={styles.periodContainer} useDropdown={isMobile} />
       </div>

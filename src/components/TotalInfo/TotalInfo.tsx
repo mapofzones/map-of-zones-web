@@ -15,9 +15,9 @@ export function TotalInfo({
   className?: string;
   children: ReactNode;
 }): JSX.Element {
-  const isMobile = useMediaQuery('(max-width: 375px)');
+  const isTabletSmall = useMediaQuery('(max-width: 630px)');
 
-  if (isMobile) {
+  if (isTabletSmall) {
     const childrenToRender: ReactElement[] = (children && Array.isArray(children)
       ? children
       : [children]

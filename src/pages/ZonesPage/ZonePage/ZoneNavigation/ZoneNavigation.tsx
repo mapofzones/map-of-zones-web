@@ -1,24 +1,21 @@
 import { NavLink } from 'react-router-dom';
 
 import { ButtonGroup, NavigationButton } from 'components';
-import { useMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './ZoneNavigation.module.scss';
 import { ZoneNavigationProps } from './ZoneNavigation.props';
 
-export function ZoneNavigation({ peersCount }: ZoneNavigationProps) {
-  const isMobile = useMediaQuery('(max-width: 375px)');
-
+export function ZoneNavigation({ peersCount, useSmallView }: ZoneNavigationProps) {
   return (
     <>
-      {isMobile && (
+      {useSmallView && (
         <ButtonGroup className={styles.pagesSwitcher}>
           <NavLink to="overview">Overview</NavLink>
           <NavLink to="peers">{`Peers ${peersCount ? `(${peersCount})` : ''}`}</NavLink>
         </ButtonGroup>
       )}
 
-      {!isMobile && (
+      {!useSmallView && (
         <div className={styles.navigationButtonsContainer}>
           <NavigationButton to="overview">Overview</NavigationButton>
           <NavigationButton to="peers" count={peersCount}>

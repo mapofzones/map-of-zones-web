@@ -32,28 +32,30 @@
   }
 }
 
-.doubleItem {
-  .value {
-    font-size: var(--font-heading-size-md);
+.card {
+  &.doubleItem {
+    .value {
+      font-size: var(--font-heading-size-md);
+    }
+  }
+
+  &.topItem {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &.withChart {
+    display: flex;
   }
 }
 
-.topItem {
-  display: flex;
-  justify-content: space-between;
-}
-
-.withChart {
-  display: flex;
-}
-
-@media (max-width: 980px) {
-  .chart {
-    display: none;
+@media (max-width: 1280px) {
+  .card {
+    min-width: 300px;
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 630px) {
   .card {
     margin: 16px;
   }

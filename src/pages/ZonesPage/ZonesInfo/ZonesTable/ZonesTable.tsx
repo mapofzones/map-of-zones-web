@@ -1,4 +1,6 @@
-import { PeriodSelector, Table } from 'components';
+import cn from 'classnames';
+
+import { PeriodSelector, SkeletonRectangle, Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
@@ -28,32 +30,42 @@ export function ZonesTable() {
     <div className={styles.container}>
       <div className={styles.header}>
         {!!zonesCountData?.allZonesCount && (
-          <div>
-            <span className={styles.header_title}>{zonesCountData?.allZonesCount} Zones</span>
-            <span className={styles.header_subtitle}>
+          <div className={styles.titleContainer}>
+            <span className={styles.title}>{zonesCountData?.allZonesCount} Zones</span>
+            <span className={styles.subtitle}>
               {zonesCountData?.activeZonesCount} Active ({selectedPeriod})
             </span>
           </div>
         )}
 
-        <PeriodSelector useDropdown={isMobile} />
+        {!zonesCountData?.allZonesCount && (
+          <div className={styles.titleContainer}>
+            <SkeletonRectangle className={cn(styles.title, styles.skeleton)} />
+          </div>
+        )}
+
+        {!!zonesCountData?.allZonesCount && <PeriodSelector useDropdown={isMobile} />}
       </div>
 
-      <Table
-        className={styles.table}
-        headerConfig={TABLE_HEADER_CONFIG}
-        selectedColumnKey={selectedColumnKey}
-        setSelectedColumnKey={setSelectedColumnKey}
-      >
-        {data.map((zone, index) => (
-          <TableRow
-            key={`zone_${zone.zone}`}
-            index={index}
-            selectedColumnKey={selectedColumnKey}
-            zone={zone}
-          />
-        ))}
-      </Table>
+      {!!data.length && (
+        <Table
+          className={styles.table}
+          headerConfig={TABLE_HEADER_CONFIG}
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        >
+          {data.map((zone, index) => (
+            <TableRow
+              key={`zone_${zone.zone}`}
+              index={index}
+              selectedColumnKey={selectedColumnKey}
+              zone={zone}
+            />
+          ))}
+        </Table>
+      )}
+
+      {!data.length && <TableSkeleton />}
     </div>
   );
 }

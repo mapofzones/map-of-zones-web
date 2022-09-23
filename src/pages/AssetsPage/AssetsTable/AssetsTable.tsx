@@ -1,4 +1,6 @@
-import { Table } from 'components';
+import cn from 'classnames';
+
+import { SkeletonRectangle, Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 
 import styles from './AssetsTable.module.scss';
@@ -18,23 +20,27 @@ export function AssetsTable() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>All Tokens</div>
+      {!!data.length && <div className={styles.header}>All Tokens</div>}
+      {!data.length && <SkeletonRectangle className={cn(styles.header, styles.skeleton)} />}
 
-      <Table
-        className={styles.table}
-        headerConfig={TABLE_HEADER_CONFIG}
-        selectedColumnKey={selectedColumnKey}
-        setSelectedColumnKey={setSelectedColumnKey}
-      >
-        {data.map((asset, index) => (
-          <TableRow
-            key={`asset_${asset.code}`}
-            asset={asset}
-            index={index}
-            selectedColumnKey={selectedColumnKey}
-          />
-        ))}
-      </Table>
+      {!!data.length && (
+        <Table
+          className={styles.table}
+          headerConfig={TABLE_HEADER_CONFIG}
+          selectedColumnKey={selectedColumnKey}
+          setSelectedColumnKey={setSelectedColumnKey}
+        >
+          {data.map((asset, index) => (
+            <TableRow
+              key={`asset_${asset.code}`}
+              asset={asset}
+              index={index}
+              selectedColumnKey={selectedColumnKey}
+            />
+          ))}
+        </Table>
+      )}
+      {!data.length && <TableSkeleton />}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import {
   NumberType,
   RatingDiffTriangle,
   TotalCard,
+  TotalCardSkeleton,
   TotalInfo,
   ValueWithPending,
   ZoneLogo,
@@ -20,7 +21,15 @@ export function AssetsTotalInfo(): JSX.Element {
   const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
 
   if (!zonesTotalInfo) {
-    return <></>;
+    return (
+      <TotalInfo>
+        <TotalCardSkeleton className={cn(styles.card, styles.withChart)} />
+        <TotalCardSkeleton className={styles.card} />
+        {!isLaptopMedium && <TotalCardSkeleton className={cn(styles.card, styles.doubleItem)} />}
+        <TotalCardSkeleton className={cn(styles.card, styles.topItem)} />
+        <TotalCardSkeleton className={cn(styles.card, styles.topItem)} />
+      </TotalInfo>
+    );
   }
 
   return (
@@ -36,11 +45,7 @@ export function AssetsTotalInfo(): JSX.Element {
         </div>
 
         {zonesTotalInfo.ibcVolumeChart && (
-          <LineChart
-            className={styles.chart}
-            data={zonesTotalInfo.ibcVolumeChart}
-            dataKey="ibcVolumeChart"
-          />
+          <LineChart data={zonesTotalInfo.ibcVolumeChart} dataKey="ibcVolumeChart" />
         )}
       </TotalCard>
 
