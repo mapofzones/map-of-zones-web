@@ -37,7 +37,7 @@
 
   td {
     .value {
-      font-size: var(--font-base-size-lg);
+      font-size: var(--font-base-size-md);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }
@@ -56,7 +56,7 @@
   .channelsText {
     margin-top: 2px;
 
-    font-size: var(--font-secondary-size-lg);
+    font-size: var(--font-secondary-size-md);
 
     opacity: 0.5;
     font-feature-settings: 'tnum' on, 'lnum' on;

@@ -37,7 +37,7 @@
         width: 80px;
         overflow: hidden;
 
-        font-size: var(--font-secondary-size-lg);
+        font-size: var(--font-secondary-size-md);
         text-overflow: ellipsis;
         font-feature-settings: 'tnum' on, 'lnum' on;
       }
@@ -69,7 +69,7 @@
     .value {
       font-feature-settings: 'tnum' on, 'lnum' on;
 
-      font-size: var(--font-secondary-size-lg);
+      font-size: var(--font-secondary-size-md);
     }
   }
 

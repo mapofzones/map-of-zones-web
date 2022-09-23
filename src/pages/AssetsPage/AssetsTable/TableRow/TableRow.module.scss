@@ -16,7 +16,7 @@
 
     .code {
       color: var(--grey-500);
-      font-size: var(--font-secondary-size-lg);
+      font-size: var(--font-secondary-size-md);
     }
 
     .chartContainer {
@@ -29,7 +29,7 @@
       .code {
         margin-right: 6px;
 
-        font-size: var(--font-base-size-lg);
+        font-size: var(--font-base-size-md);
       }
     }
 
@@ -37,14 +37,14 @@
       display: block;
 
       color: var(--grey-500);
-      font-size: var(--font-base-size-lg);
+      font-size: var(--font-base-size-md);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
 
     .value {
       justify-content: flex-end;
 
-      font-size: var(--font-base-size-lg);
+      font-size: var(--font-base-size-md);
       font-feature-settings: 'tnum' on, 'lnum' on;
     }
   }
@@ -69,7 +69,7 @@
         .name {
           overflow: hidden;
 
-          font-size: var(--font-base-size-lg);
+          font-size: var(--font-base-size-md);
           text-overflow: ellipsis;
         }
       }
