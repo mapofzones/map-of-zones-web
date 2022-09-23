@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 
-import cn from 'classnames';
-
-import { SkeletonRectangle, Table, TableSkeleton } from 'components';
+import { SkeletonTextWrapper, Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 
@@ -28,8 +26,9 @@ export function AssetsTable() {
 
   return (
     <div className={styles.container}>
-      {!!sortedData.length && <div className={styles.header}>All Tokens</div>}
-      {!sortedData.length && <SkeletonRectangle className={cn(styles.header, styles.skeleton)} />}
+      <SkeletonTextWrapper className={styles.header} loading={!sortedData.length}>
+        All Tokens
+      </SkeletonTextWrapper>
 
       {!!sortedData.length && (
         <Table
