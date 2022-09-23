@@ -21,8 +21,8 @@ import styles from './ZonePage.module.scss';
 import { ZonesSelector } from './ZonesSelector/ZonesSelector';
 
 export function ZonePage() {
-  const isMobile = useMediaQuery('(max-width: 375px)');
   const isTabletMedium = useMediaQuery('(max-width: 880px)');
+  const isTabletSmall = useMediaQuery('(max-width: 630px)');
 
   const location = useLocation();
 
@@ -102,7 +102,7 @@ export function ZonePage() {
 
         <ZoneNavigation peersCount={data?.peersCount} useSmallView={isTabletMedium} />
 
-        <PeriodSelector className={styles.periodContainer} useDropdown={isMobile} />
+        <PeriodSelector className={styles.periodContainer} useDropdown={isTabletSmall} />
       </div>
 
       <Outlet />

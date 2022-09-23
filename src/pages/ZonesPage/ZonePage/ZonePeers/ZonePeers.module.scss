@@ -23,15 +23,15 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 630px) {
   .container {
     .table {
       th,
       tr td {
         &:first-child {
           min-width: 188px;
-          overflow: hidden;
           max-width: 188px;
+          overflow: hidden;
         }
       }
     }

@@ -13,9 +13,9 @@ import { useZonesTable } from './useZonesTable';
 import styles from './ZonesTable.module.scss';
 
 export function ZonesTable() {
-  const [selectedPeriod] = useSelectedPeriod();
+  const isTabletSmall = useMediaQuery('(max-width: 630px)');
 
-  const isMobile = useMediaQuery('(max-width: 375px)');
+  const [selectedPeriod] = useSelectedPeriod();
 
   const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
     'columnKey',
@@ -49,7 +49,7 @@ export function ZonesTable() {
           </div>
         )}
 
-        {!!zonesCountData?.allZonesCount && <PeriodSelector useDropdown={isMobile} />}
+        {!!zonesCountData?.allZonesCount && <PeriodSelector useDropdown={isTabletSmall} />}
       </div>
 
       {!!sortedZones.length && (

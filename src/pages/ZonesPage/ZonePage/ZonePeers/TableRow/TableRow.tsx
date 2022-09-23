@@ -22,7 +22,7 @@ import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
 export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: TableRowProps) {
-  const isMobile = useMediaQuery('(max-width: 375px)');
+  const isTabletSmall = useMediaQuery('(max-width: 630px)');
 
   const [selectedPeriod] = useSelectedPeriod();
 
@@ -36,7 +36,7 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
     : [...zone.channels].splice(0, 3);
 
   const animationConfig = {
-    animate: isMobile
+    animate: isTabletSmall
       ? false
       : channelsConfig.isChannelsVisible
       ? 'channelsHidden'
