@@ -2,18 +2,22 @@ import cn from 'classnames';
 
 import { VolumeLineChart } from 'components';
 import { Card, ExplanationTooltip, LineChart, NumberFormat, NumberType } from 'components/ui';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { tooltips } from 'types/Tooltips';
 
 import styles from './IbcVolumeCard.module.scss';
 import { IbcVolumeCardProps } from './IbcVolumeCard.props';
+import { useIbcVolumeCard } from './useIbcVolumeCard';
 
 export function IbcVolumeCard({
   className,
-  data,
   hasBorder = false,
-  loading,
-  period,
   vertical = false,
 }: IbcVolumeCardProps): JSX.Element {
+  const [period] = useSelectedPeriod();
+
+  const { data, loading } = useIbcVolumeCard();
+
   return (
     <Card
       className={cn(styles.container, className, {
@@ -22,49 +26,45 @@ export function IbcVolumeCard({
       hasBorder={hasBorder}
       loading={loading}
     >
-      {data && (
-        <>
-          <span className={styles.title}>
-            IBC Volume ({period})&nbsp;
-            <ExplanationTooltip text={'IBC Volume tooltip'} position={'center'} />
-          </span>
-          <NumberFormat
-            className={styles.volumeValue}
-            value={data.ibcVolumeMainnet}
-            numberType={NumberType.Currency}
-          />
-          <div className={styles.chart}>
-            {data.ibcVolumeChart && (
-              <LineChart data={data.ibcVolumeChart} dataKey={'ibcVolumeChart'} />
-            )}
-          </div>
-          <VolumeLineChart
-            className={styles.volumeLineChart}
-            volumeInPercent={data.ibcVolumeInPercent ?? 0}
-            volumeOutPercent={data.ibcVolumeOutPercent ?? 0}
-          />
-          <NumberFormat
-            className={styles.volumeInValue}
-            value={data.ibcVolumeInMainnet}
-            numberType={NumberType.Currency}
-          />
-          <NumberFormat
-            className={cn(styles.volumeOutValue, 'alignRight')}
-            value={data.ibcVolumeOutMainnet}
-            numberType={NumberType.Currency}
-          />
-          <NumberFormat
-            className={styles.volumeInPendingValue}
-            value={data.ibcVolumeInPendingMainnet}
-            numberType={NumberType.Currency}
-          />
-          <NumberFormat
-            className={cn(styles.volumeOutPendingValue, 'alignRight')}
-            value={data.ibcVolumeOutPendingMainnet}
-            numberType={NumberType.Currency}
-          />
-        </>
-      )}
+      <span className={styles.title}>
+        IBC Volume ({period})&nbsp;
+        <ExplanationTooltip text={tooltips['ibcVolume']()} position={'center'} />
+      </span>
+      <NumberFormat
+        className={styles.volumeValue}
+        value={data?.ibcVolume}
+        numberType={NumberType.Currency}
+      />
+      <div className={styles.chart}>
+        {data?.ibcVolumeChart && (
+          <LineChart data={data.ibcVolumeChart} dataKey={'ibcVolumeChart'} />
+        )}
+      </div>
+      <VolumeLineChart
+        className={styles.volumeLineChart}
+        volumeInPercent={data?.ibcVolumeInPercent ?? 0}
+        volumeOutPercent={data?.ibcVolumeOutPercent ?? 0}
+      />
+      <NumberFormat
+        className={styles.volumeInValue}
+        value={data?.ibcVolumeIn}
+        numberType={NumberType.Currency}
+      />
+      <NumberFormat
+        className={cn(styles.volumeOutValue, 'alignRight')}
+        value={data?.ibcVolumeOut}
+        numberType={NumberType.Currency}
+      />
+      <NumberFormat
+        className={styles.volumeInPendingValue}
+        value={data?.ibcVolumeInPending}
+        numberType={NumberType.Currency}
+      />
+      <NumberFormat
+        className={cn(styles.volumeOutPendingValue, 'alignRight')}
+        value={data?.ibcVolumeOutPending}
+        numberType={NumberType.Currency}
+      />
     </Card>
   );
 }

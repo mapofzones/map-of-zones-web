@@ -16,6 +16,10 @@
     background-color: var(--black-100) !important;
     border: none !important;
     transform: translateX(calc(-50% - 0px));
+
+    .tooltipValue {
+      color: var(--white);
+    }
   }
 }
 

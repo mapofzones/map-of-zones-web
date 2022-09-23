@@ -2,6 +2,6 @@ import { PeriodKeys } from 'components';
 
 import { useDefaultSearchParam } from './useDefaultSearchParam';
 
-export function useSelectedPeriod() {
-  return useDefaultSearchParam<PeriodKeys>('period', PeriodKeys.DAY);
+export function useSelectedPeriod(withDefaultValue = true) {
+  return useDefaultSearchParam<PeriodKeys>('period', withDefaultValue ? PeriodKeys.DAY : undefined);
 }

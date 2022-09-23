@@ -1,11 +1,13 @@
 import { useParams } from 'react-router-dom';
 
-import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer } from 'components';
+import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer, NumberType } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
+import { tooltips } from 'types/Tooltips';
+import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
@@ -24,10 +26,12 @@ function ZoneOverview() {
     navigateWithSearchParams(`/zones/${zone}/overview`);
   };
 
+  const dauTittle = getDauTitleByPeriod(period);
+
   return (
     <>
       <ScrollableContainer className={styles.container}>
-        <IbcVolumeCard data={data} period={period} loading={loading} hasBorder />
+        <IbcVolumeCard hasBorder />
         <div className={styles.detailedInfo}>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
@@ -36,7 +40,7 @@ function ZoneOverview() {
             value={data?.totalTxs}
             loading={loading}
             defaultLoadingValue={'1 156 288'}
-            tooltipText={'Total txs tooltip'}
+            tooltipText={tooltips['totalTxs']()}
             tooltipPosition={'right'}
           ></ZoneOverviewItem>
 
@@ -47,16 +51,16 @@ function ZoneOverview() {
             value={data?.ibcTransfers}
             loading={loading}
             defaultLoadingValue={'72 235'}
-            tooltipText={'Some tooltip'}
+            tooltipText={tooltips['ibcTransfers']()}
             tooltipPosition={'left'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'Peers'}
-            value={data?.peersCountMainnet}
+            value={data?.peersCount}
             loading={loading}
             defaultLoadingValue={'12'}
-            tooltipText={'Some tooltip'}
+            tooltipText={tooltips['peersCount']()}
             tooltipPosition={'right'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
@@ -65,51 +69,51 @@ function ZoneOverview() {
             value={data?.channelsCount}
             loading={loading}
             defaultLoadingValue={'250'}
-            tooltipText={'Some tooltip'}
+            tooltipText={tooltips['channelsCount']()}
             tooltipPosition={'left'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
-            title={'DAU'}
+            title={dauTittle}
             loading={loading}
-            value={data?.ibcDauMainnet}
-            tooltipText={'Some tooltip'}
+            value={data?.dau}
+            tooltipText={tooltips['dau'](period)}
             tooltipPosition={'right'}
-          >
-            -
-          </ZoneOverviewItem>
+          ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
-            title={'IBC DAU'}
+            title={`IBC ${dauTittle}`}
             loading={loading}
-            defaultLoadingValue={'2 345 (99,8% of DAU)'}
-            tooltipText={'Some tooltip'}
+            defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
+            tooltipText={tooltips['ibcDau'](period)}
             tooltipPosition={'left'}
           >
-            <NumberFormat value={data?.ibcDauMainnet} />
-            <span className={styles.additionalInfo}> (99,8% of DAU)</span>
+            <NumberFormat value={data?.ibcDau} />
+            <span className={styles.additionalInfo}>
+              {' '}
+              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} />
+              {` of ${dauTittle}`})
+            </span>
           </ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'Token Price'}
-            value={data?.ibcDauMainnet}
             loading={loading}
             defaultLoadingValue={'$10.45'}
-            tooltipText={'Some tooltip'}
-            tooltipPosition={'left'}
+            tooltipPosition={'right'}
           >
-            -
+            <NumberFormat value={data?.price} numberType={NumberType.Currency} />
+            <span className={styles.additionalInfo}> {data?.tokenSymbol}</span>
           </ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
             title={'Market Cap'}
+            value={data?.marketCap}
             loading={loading}
             defaultLoadingValue={'$123,456,789'}
-            tooltipText={'Some tooltip'}
-            tooltipPosition={'right'}
-          >
-            -
-          </ZoneOverviewItem>
+            tooltipText={tooltips['marketCap']()}
+            tooltipPosition={'left'}
+          ></ZoneOverviewItem>
         </div>
       </ScrollableContainer>
       <Button

@@ -7,6 +7,8 @@ import {
   NumberFormat,
   NumberType,
   RatingDiffTriangle,
+  SkeletonRectangle,
+  SkeletonTextWrapper,
   ValueWithPending,
   ZoneLogo,
 } from 'components';
@@ -17,93 +19,30 @@ import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/zoneOverview
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
-import { chartOptions, ChartType } from './Types';
+import { chartOptions, ChartType, priceDiffKeyByPeriod } from './Types';
+import { useZoneOverviewToken } from './useZoneOverviewToken';
+import { useZoneTokenChart } from './useZoneTokenChart';
 import styles from './ZoneOverviewToken.module.scss';
 
 export function ZoneOverviewToken({ className }: { className?: string }) {
   const [selectedPeriod] = useSelectedPeriod();
 
-  const [selectedChartType, setSelectedChartType] = useState<ChartType | undefined>(
-    ChartType.PRICE
-  );
+  const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.PRICE);
 
   const chartTimeFormat = useMemo(
     () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),
     [selectedPeriod]
   );
 
+  const { data, loading } = useZoneOverviewToken();
+  const { data: chartData, loading: chartLoading } = useZoneTokenChart(selectedChartType);
+
   const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
 
   const onChartSelected = (item: { key?: ChartType }) => {
-    setSelectedChartType(item.key);
+    item?.key && setSelectedChartType(item.key);
     trackSelectedChart(item.key);
   };
-
-  const priceData = [
-    {
-      time: 1660194000,
-      price: 1.22,
-    },
-    {
-      time: 1660197600,
-      price: 1.25,
-    },
-    {
-      time: 1660201200,
-      price: 1.32,
-    },
-    {
-      time: 1660204800,
-      price: 1.12,
-    },
-    {
-      time: 1660208400,
-      price: 1.14,
-    },
-    {
-      time: 1660212000,
-      price: 1.18,
-    },
-    {
-      time: 1660215600,
-      price: 1.28,
-    },
-    {
-      time: 1660219200,
-      price: 1.32,
-    },
-  ];
-
-  const volumeData = [
-    {
-      time: 1660194000,
-      volume: 142200,
-    },
-    {
-      time: 1660197600,
-      volume: 102500,
-    },
-    {
-      time: 1660201200,
-      volume: 103200,
-    },
-    {
-      time: 1660208400,
-      volume: 101400,
-    },
-    {
-      time: 1660212000,
-      volume: 81800,
-    },
-    {
-      time: 1660215600,
-      volume: 92800,
-    },
-    {
-      time: 1660219200,
-      volume: 123200,
-    },
-  ];
 
   return (
     <div className={cn(className, styles.container)}>
@@ -113,42 +52,61 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           <span className={styles.detailsItem_title}>Price</span>
           <span className={styles.detailsItem_data}>
             <div className={styles.infoGroup}>
-              <ZoneLogo size="20px" />
-              <span className={styles.tokenName}>INJ</span>
-              <NumberFormat
-                value={1.56}
-                numberType={NumberType.Currency}
+              <ZoneLogo size="20px" logoUrl={data?.logoUrl} loading={loading} />
+              <SkeletonTextWrapper
+                className={styles.tokenName}
+                loading={loading}
+                defaultText={'ATOM'}
+              >
+                {data?.symbol}
+              </SkeletonTextWrapper>
+              <SkeletonTextWrapper
+                loading={loading}
                 className={styles.tokenPrice}
-              />
+                defaultText={'$1.2228'}
+              >
+                <NumberFormat value={data?.price} numberType={NumberType.Currency} />
+              </SkeletonTextWrapper>
             </div>
             <div className={styles.infoGroup}>
-              <RatingDiffTriangle
+              <SkeletonTextWrapper
                 className={styles.tokenPriceDiff}
-                numberType={NumberType.Percent}
-                ratingDiff={13.5}
-              />
-              <span className={styles.period}>(24h)</span>
+                loading={loading}
+                defaultText={'18.98 %'}
+              >
+                <RatingDiffTriangle
+                  numberType={NumberType.Percent}
+                  allowEmpty={true}
+                  ratingDiff={data?.[priceDiffKeyByPeriod[selectedPeriod]] as number | undefined}
+                />
+              </SkeletonTextWrapper>
+              <span className={styles.period}>&nbsp;({selectedPeriod})</span>
             </div>
           </span>
         </div>
         <ValueWithPending
           className={styles.detailsItem}
           title="Market Cap"
-          value={997309120}
+          value={data?.marketCap}
           numberType={NumberType.Currency}
           size={ElementSize.LARGE}
+          loading={loading}
+          defaultSkeletonText={'$418 940 000'}
         />
         <ValueWithPending
           className={styles.detailsItem}
-          title="Volume"
-          value={1530009150}
+          title="Trading Volume"
+          value={data?.tradingVolumeDay}
           numberType={NumberType.Currency}
           size={ElementSize.LARGE}
+          loading={loading}
+          defaultSkeletonText={'$418 940 000'}
         />
       </div>
       <div className={styles.chartContainer}>
         <ButtonGroup
           className={styles.priceSwitcher}
+          size={ElementSize.SMALL}
           buttons={chartOptions}
           setSelectedButton={onChartSelected}
         ></ButtonGroup>
@@ -156,15 +114,18 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           className={styles.periodInfo}
           periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
         />
-        <AreaChart
-          className={styles.priceVolumeChart}
-          data={selectedChartType === ChartType.PRICE ? priceData : volumeData}
-          dataKey={selectedChartType === ChartType.PRICE ? 'price' : 'volume'}
-          dataFormat={
-            selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
-          }
-          timeFormat={chartTimeFormat}
-        />
+        {chartLoading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
+        {data && (
+          <AreaChart
+            className={styles.priceVolumeChart}
+            data={chartData}
+            dataKey={'value'}
+            dataFormat={
+              selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
+            }
+            timeFormat={chartTimeFormat}
+          />
+        )}
       </div>
     </div>
   );

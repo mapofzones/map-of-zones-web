@@ -1,13 +1,15 @@
 import { NumberType } from 'components';
 import { LinkProps } from 'components/ui/ExternalLink/ExternalLink.props';
 
-export interface ZoneInfoData {
+export interface ZoneInfoData extends ZoneInfoValues {
   id: string;
   name: string;
   logoUrl?: string | null;
-  ratingDiff: number;
-  value: number;
-  pendingValue?: number;
+}
+export interface ZoneInfoValues {
+  ratingDiff?: number | null;
+  value?: number | null;
+  pendingValue?: number | null;
 }
 
 export interface ZonesInfoRowProps extends LinkProps {

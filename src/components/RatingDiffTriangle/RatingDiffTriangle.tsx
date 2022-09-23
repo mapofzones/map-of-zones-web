@@ -19,6 +19,8 @@ export function RatingDiffTriangle({
     return <></>;
   }
 
+  const value = ratingDiff != null ? Math.abs(ratingDiff) : undefined;
+
   return (
     <div
       className={cn(
@@ -31,7 +33,7 @@ export function RatingDiffTriangle({
       )}
     >
       <div className={styles.triangle} />
-      <NumberFormat value={Math.abs(ratingDiff as number)} numberType={numberType} />
+      <NumberFormat value={value} numberType={numberType} />
     </div>
   );
 }

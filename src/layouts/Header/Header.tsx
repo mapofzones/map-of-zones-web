@@ -1,6 +1,9 @@
+import { useQuery } from '@apollo/client';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
+import { NumberFormat, NumberType } from 'components';
+import { NetworkMarketCapInfoDocument } from 'graphql/v2/common/__generated__/CosmosNetworkMarketCap.query.generated';
 import { useHeaderMenuClicksAnalytics } from 'hooks/analytics/multipage/useHeaderMenuClicksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { Logo } from 'icons';
@@ -15,6 +18,7 @@ function Header({ ...props }): JSX.Element {
     setIsVisible: setIsMenuOpen,
   } = useComponentVisible<HTMLDivElement>(false);
 
+  const { data } = useQuery(NetworkMarketCapInfoDocument);
   const trackHeaderTabClick = useHeaderMenuClicksAnalytics();
 
   return (
@@ -42,11 +46,15 @@ function Header({ ...props }): JSX.Element {
           <NavLink to="/assets" onClick={() => trackHeaderTabClick('assets')}>
             Assets
           </NavLink>
-          <NavLink to="/about">About</NavLink>
+          {/* <NavLink to="/about">About</NavLink> */}
         </nav>
         <div className={styles.marketCapContainer}>
           <span className={styles.marketCapTitle}>Cosmos Network Market Cap: </span>
-          <span className={styles.marketCapValue}>$198,308,551,250</span>
+          <NumberFormat
+            className={styles.marketCapValue}
+            value={data?.networkMarketCap.aggregate?.sum?.marketCap}
+            numberType={NumberType.Currency}
+          />
         </div>
       </div>
     </header>

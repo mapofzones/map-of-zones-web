@@ -3,11 +3,17 @@
   align-items: center;
   height: 50px;
   padding: 7px 0px 7px 16px;
+  justify-content: space-between;
 
   font-size: var(--font-base-size-lg);
 
   cursor: pointer;
   row-gap: 2px;
+
+  .zoneBaseInfoContainer {
+    display: flex;
+    align-items: center;
+  }
 
   .zoneContainer {
     flex-grow: 1;
@@ -15,26 +21,5 @@
 
   &:hover {
     background-color: var(--black-600);
-  }
-
-  .valueContainer {
-    display: flex;
-    flex-direction: column;
-
-    .value {
-      text-align: right;
-    }
-
-    .pendingValueContainer {
-      margin-top: 2px;
-
-      color: var(--grey-500);
-      font-size: var(--font-secondary-size-md);
-      text-align: right;
-
-      .pendingValue {
-        margin-left: 3px;
-      }
-    }
   }
 }

@@ -2,17 +2,38 @@ import {
   Align,
   CircleType,
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
-import { Ft_Channel_Group_Stats_Select_Column } from 'graphql/base-types';
+import { tooltips } from 'types/Tooltips';
 
 import { ZonesListZoneDetails } from '../useZonesListZoneDetails';
+import { ZoneChannelRowData } from './TableRow/TableRow.props';
+
+export interface BlockchainChannel {
+  zone: string;
+  zoneCounterpartyChannelId?: string | null;
+  channelId: string;
+  clientId: string;
+  connectionId: string;
+  isOpened: boolean;
+  ibcTransfers: number;
+  ibcTransfersPending: number;
+  ibcTransfersFailed: number;
+  ibcTransfersSuccessRate: number;
+  ibcVolume?: number | null;
+  ibcVolumePending?: number | null;
+  ibcVolumeIn: number;
+  ibcVolumeInPending: number;
+  ibcVolumeOut: number;
+  ibcVolumeOutPending: number;
+}
 
 export enum ColumnKeys {
+  IbcVolumeTotal = 'ibcVolume',
   IbcVolumeReceived = 'ibcVolumeIn',
   IbcVolumeSent = 'ibcVolumeOut',
   IbcTransfers = 'ibcTransfers',
   IbcTransfersPending = 'ibcTransfersPending',
   IbcTransfersFailed = 'ibcTransfersFailed',
-  SuccessRate = 'successRate',
+  SuccessRate = 'ibcTransfersSuccessRate',
 }
 
 export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
@@ -23,51 +44,52 @@ export const getTableHeaderConfig = (zone: ZonesListZoneDetails) => [
   },
   {
     title: 'Total IBC Volume',
-    columnKey: ColumnKeys.IbcVolumeSent,
-    explanationText: 'Test text',
+    columnKey: ColumnKeys.IbcVolumeTotal,
+    explanationText: tooltips['ibcVolume'](),
     withBorder: true,
   },
   {
     title: `${zone.name} Receives`,
     columnKey: ColumnKeys.IbcVolumeReceived,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcVolumeIn'](),
     circleType: CircleType.Target,
   },
   {
     title: `${zone.name} Sends`,
     columnKey: ColumnKeys.IbcVolumeSent,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcVolumeOut'](),
     circleType: CircleType.Source,
     withBorder: true,
   },
   {
     title: 'IBC Success',
     columnKey: ColumnKeys.IbcTransfers,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcTransfers'](),
   },
   {
     title: 'IBC Pending',
     columnKey: ColumnKeys.IbcTransfersPending,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcTransfersPending'](),
   },
   {
     title: 'IBC Failed',
     columnKey: ColumnKeys.IbcTransfersFailed,
-    explanationText: 'Test text',
+    explanationText: tooltips['ibcTransfersFailed'](),
     withBorder: true,
   },
   {
     title: 'Success Rate',
     columnKey: ColumnKeys.SuccessRate,
-    explanationText: 'Test text',
+    explanationText: tooltips['successRate'](),
   },
 ];
 
-export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Ft_Channel_Group_Stats_Select_Column> = {
-  [ColumnKeys.IbcVolumeReceived]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowIn,
-  [ColumnKeys.IbcVolumeSent]: Ft_Channel_Group_Stats_Select_Column.IbcCashflowOut,
-  [ColumnKeys.IbcTransfers]: Ft_Channel_Group_Stats_Select_Column.IbcTx,
-  [ColumnKeys.IbcTransfersPending]: Ft_Channel_Group_Stats_Select_Column.IbcTxPending,
-  [ColumnKeys.IbcTransfersFailed]: Ft_Channel_Group_Stats_Select_Column.IbcTxFailed,
-  [ColumnKeys.SuccessRate]: Ft_Channel_Group_Stats_Select_Column.IbcTxSuccessRate,
+export const SORTING_COLUMN_KEYS: Record<ColumnKeys, keyof ZoneChannelRowData> = {
+  [ColumnKeys.IbcVolumeTotal]: 'ibcVolume',
+  [ColumnKeys.IbcVolumeReceived]: 'ibcVolumeIn',
+  [ColumnKeys.IbcVolumeSent]: 'ibcVolumeOut',
+  [ColumnKeys.IbcTransfers]: 'ibcTransfers',
+  [ColumnKeys.IbcTransfersPending]: 'ibcTransfersPending',
+  [ColumnKeys.IbcTransfersFailed]: 'ibcTransfersFailed',
+  [ColumnKeys.SuccessRate]: 'ibcTransfersSuccessRate',
 };

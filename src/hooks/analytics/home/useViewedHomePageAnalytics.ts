@@ -12,7 +12,7 @@ export const HOME_PAGE_TABLE_COLUMN_TITLE: Record<ColumnKeys, HomePageParam> = {
   [ColumnKeys.IbcVolume]: 'ibc volume',
   [ColumnKeys.IbcTransfers]: 'ibc transfers',
   [ColumnKeys.TotalTxs]: 'total txs',
-  // [ColumnKeys.Dau]: 'active users', // TODO: uncomment
+  [ColumnKeys.Dau]: 'active users',
 };
 
 export function useViewedHomePageAnalytics(currentPage: Page, prevPage: Page) {

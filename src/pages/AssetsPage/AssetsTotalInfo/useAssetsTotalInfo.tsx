@@ -1,37 +1,65 @@
-// TODO: add query
-// import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
-// import { ZonesTotalInfoDocument } from 'graphql/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.generated';
-// import { transformChartData } from 'utils/helper';
+import { AseetsTotalInfoDocument } from 'graphql/v2/AssetsPage/__generated__/AssetsTotalInfo.query.generated';
+import { ChartItemByString } from 'utils/helper';
 
-export function useAssetsTotalInfo() {
-  // export function useAssetsTotalInfo(isMainnet = true) {
-  // const options = {
-  //   variables: {
-  //     isMainnet: isMainnet,
-  //   },
-  // };
+export interface AssetsTotalData {
+  assetsCount?: number | null;
+  marketCap: number;
+  volume24h: number;
+  topMarketDominance?: number;
+  topMarketTokenLogo?: string | null;
+  topMarketTokenSymbol?: string | null;
+  topMarketName: string;
+  topMoverTokenLogo?: string | null;
+  topMoverTokenSymbol?: string | null;
+  topMoverName: string;
+  topMoverRating: number;
+  topMoverValue: number;
+  total24hTradingVolumeChart: ChartItemByString[];
+}
 
-  // const { data } = useQuery(ZonesTotalInfoDocument, options);
+export function useAssetsTotalInfo(): {
+  data: AssetsTotalData | undefined;
+} {
+  const { data } = useQuery(AseetsTotalInfoDocument, {});
 
-  // return {
-  //   data: data?.headers[0] && {
-  //     ibcVolumeChart: transformChartData(data.headers[0].ibcVolumeChart, 'ibcVolumeChart'),
-  //   },
-  // };
+  const aggregatedData = data?.aggregatedData?.aggregate;
+
   return {
-    data: {
-      assetsCount: 35,
-      ibcVolumeChart: [],
-      marketCap: 198308551250,
-      topMarketDominance: 35,
-      topMarketLogo: 'https://storage.mapofzones.com/frontend/labels/Cosmos40.svg',
-      topMarketName: 'Cosmos',
-      topMoverLogo: 'https://storage.mapofzones.com/frontend/labels/Cosmos40.svg',
-      topMoverName: 'Desmos',
-      topMoverRating: 1.54,
-      topMoverValue: 760644271905,
-      volume24h: 995345645124,
+    data: data && {
+      assetsCount: aggregatedData?.count,
+      marketCap: aggregatedData?.sum?.marketCap,
+      volume24h: aggregatedData?.sum?.volume24h,
+      topMarketDominance: calculateMarketDominance(
+        data.marketCapDominance[0]?.marketCap,
+        aggregatedData?.sum?.marketCap
+      ),
+      topMarketTokenLogo: data.marketCapDominance[0]?.logoUrl,
+      topMarketTokenSymbol: data.marketCapDominance[0]?.symbol,
+      topMarketName: data.marketCapDominance[0]?.blockchain?.name,
+      topMoverTokenLogo: data.topMover[0]?.logoUrl,
+      topMoverTokenSymbol: data.topMover[0]?.symbol,
+      topMoverName: data.topMover[0]?.blockchain?.name,
+      topMoverRating: data.topMover[0]?.price24hDiffPercent,
+      topMoverValue: data.topMover[0]?.price,
+      total24hTradingVolumeChart: data?.total24hTradingVolumeChart,
     },
   };
+}
+
+function calculateMarketDominance(
+  blockchainMarketcap: number | undefined,
+  totalMarketCap: number | undefined
+) {
+  if (
+    blockchainMarketcap === null ||
+    blockchainMarketcap === undefined ||
+    totalMarketCap === null ||
+    totalMarketCap === undefined
+  ) {
+    return undefined;
+  }
+
+  return (blockchainMarketcap / totalMarketCap) * 100;
 }

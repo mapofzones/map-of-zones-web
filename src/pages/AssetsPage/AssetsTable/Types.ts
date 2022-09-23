@@ -1,4 +1,7 @@
 import { Align } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
+import { tooltips } from 'types/Tooltips';
+
+import { AssetsTableRow } from './useAssetsTable';
 
 export enum ColumnKeys {
   MarketCap = 'marketCap',
@@ -10,14 +13,14 @@ export enum ColumnKeys {
   Supply = 'supply',
 }
 
-export const SORTING_COLUMN_KEYS: Record<ColumnKeys, string> = {
+export const SORTING_COLUMN_KEYS: Record<ColumnKeys, keyof AssetsTableRow> = {
   [ColumnKeys.MarketCap]: 'marketCap',
   [ColumnKeys.Price]: 'price',
-  [ColumnKeys.Price24hPercent]: '24h % price',
-  [ColumnKeys.Price7dPercent]: '7d % price',
-  [ColumnKeys.Volume24h]: '24h volume',
-  [ColumnKeys.Volume24hPercent]: '24h % volume',
-  [ColumnKeys.Supply]: 'supply',
+  [ColumnKeys.Price24hPercent]: 'price24hDiffPercent',
+  [ColumnKeys.Price7dPercent]: 'price7dDiffPercent',
+  [ColumnKeys.Volume24h]: 'volume24h',
+  [ColumnKeys.Volume24hPercent]: 'volume24hDiffPercent',
+  [ColumnKeys.Supply]: 'onChainSupply',
 };
 
 export const TABLE_HEADER_CONFIG = [
@@ -46,7 +49,7 @@ export const TABLE_HEADER_CONFIG = [
   {
     title: 'Market Cap',
     columnKey: ColumnKeys.MarketCap,
-    explanationText: 'Test text',
+    explanationText: tooltips['marketCap'](),
   },
   {
     title: '24h Volume',
@@ -57,8 +60,8 @@ export const TABLE_HEADER_CONFIG = [
     columnKey: ColumnKeys.Volume24hPercent,
   },
   {
-    title: 'Supply',
-    explanationText: 'Test text',
+    title: 'On-Chain Supply',
+    explanationText: tooltips['supply'](),
     columnKey: ColumnKeys.Supply,
   },
   {

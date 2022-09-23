@@ -6,7 +6,6 @@ import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
 
-import { useZoneDetails } from '../useZoneDetails';
 import { useZonePeers } from './useZonePeers';
 import styles from './ZonePeers.module.scss';
 import { ZonePeersSkeleton } from './ZonePeersSkeleton';
@@ -17,11 +16,9 @@ export function ZonePeers() {
 
   const { zone } = useParams();
 
-  const { data: peers, loading: peersLoading } = useZonePeers();
+  const { data: peers, loading: peersLoading } = useZonePeers(); // move to ZonePeersTable component
 
-  const { data: zoneDetails, loading: zoneDetailsLoading } = useZoneDetails();
-
-  const loading = peersLoading || zoneDetailsLoading;
+  const loading = peersLoading;
 
   const onDetailedBtnClick = () => {
     navigateWithSearchParams(`/zones/${zone}/peers`);
@@ -31,7 +28,7 @@ export function ZonePeers() {
     <>
       <ScrollableContainer className={styles.container}>
         {loading && <ZonePeersSkeleton />}
-        {!loading && <MemoizedZonePeersTable peers={peers} zoneDetails={zoneDetails} />}
+        {!loading && <MemoizedZonePeersTable peers={peers} />}
       </ScrollableContainer>
 
       <Button

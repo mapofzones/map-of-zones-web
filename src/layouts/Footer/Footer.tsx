@@ -1,20 +1,37 @@
+import { useQuery } from '@apollo/client';
+
 import { Button, ExternalLink } from 'components';
+import { ZoneNameDocument } from 'graphql/v2/common/Zone/__generated__/ZoneName.query.generated';
 import { useShareLinksAnalytics } from 'hooks/analytics/multipage/useShareLinksAnalytics';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { useTelegramShareText, useTwitterShareText } from 'hooks/useShareLink';
 import { GithubLogo, TgLogo, TwitterLogo } from 'icons';
+import { useSelectedZone } from 'pages/HomePage/Map/hooks/eventHooks';
 import { ElementSize } from 'types/ElementSize';
+import { openInNewTab } from 'utils/helper';
 
 import styles from './Footer.module.scss';
 
 function Footer({ ...props }): JSX.Element {
   const trackShareLinkAnalytics = useShareLinksAnalytics();
 
+  const [zone = ''] = useSelectedZone();
+  const { data } = useQuery(ZoneNameDocument, {
+    variables: { zone },
+    skip: !zone,
+  });
+  const [selectedPeriod] = useSelectedPeriod(false);
+
+  const twitterShareText = useTwitterShareText(selectedPeriod, data?.blockchain[0].name);
+  const telegramShareLink = useTelegramShareText(selectedPeriod, data?.blockchain[0].name);
+
   const tgShareClick = () => {
-    console.log('share/tweet click');
+    openInNewTab(telegramShareLink);
     trackShareLinkAnalytics('telegram');
   };
 
   const twitterShareClick = () => {
-    console.log('share/tweet click');
+    openInNewTab(twitterShareText);
     trackShareLinkAnalytics('twitter');
   };
 

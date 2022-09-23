@@ -33,6 +33,10 @@ const fieldsMap: Record<
     valueKey: 'totalTxs',
     ratingDiffKey: 'totalTxsRatingDiff',
   },
+  dau: {
+    valueKey: 'dau',
+    ratingDiffKey: 'dauRatingDiff',
+  },
 };
 
 function ZonesInfoTable({
@@ -63,9 +67,9 @@ function ZonesInfoTable({
             id: zone.zone,
             name: zone.name,
             logoUrl: zone.logoUrl,
-            ratingDiff: zone[fields.ratingDiffKey] as number,
-            value: zone[fields.valueKey] as number,
-            pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as number),
+            ratingDiff: zone[fields.ratingDiffKey] as any,
+            value: zone[fields.valueKey] as any,
+            pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as any),
           }}
         />
       ))}

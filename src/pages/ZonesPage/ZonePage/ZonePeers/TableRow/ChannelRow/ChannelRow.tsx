@@ -52,8 +52,8 @@ export function ChannelRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Currency}
-          pendingValue={channel.ibcVolumeOutPending}
-          value={channel.ibcVolumeOut}
+          pendingValue={channel.ibcVolumePending}
+          value={channel.ibcVolume}
         />
       </TableRowItem>
 
@@ -108,9 +108,8 @@ export function ChannelRow({
         <ValueWithPending
           alignRight={true}
           className={styles.value}
-          suffix=" %"
           numberType={NumberType.Percent}
-          value={channel.successRate}
+          value={channel.ibcTransfersSuccessRate}
         />
       </TableRowItem>
     </motion.tr>

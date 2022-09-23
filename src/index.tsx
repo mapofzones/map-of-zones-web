@@ -8,7 +8,7 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const link = new HttpLink({ uri: 'https://api.mapofzones.com/v1/graphql' });
+const link = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_HTTP_URI });
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),

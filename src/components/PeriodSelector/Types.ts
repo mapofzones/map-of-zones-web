@@ -15,3 +15,9 @@ export const PERIODS_IN_HOURS_BY_KEY: Record<PeriodKeys, number> = {
   [PeriodKeys.WEEK]: 24 * 7,
   [PeriodKeys.MONTH]: 24 * 30,
 };
+
+export const PERIODS_IN_STRING: Record<PeriodKeys, string> = {
+  [PeriodKeys.DAY]: 'Daily',
+  [PeriodKeys.WEEK]: 'Weekly',
+  [PeriodKeys.MONTH]: 'Monthly',
+};

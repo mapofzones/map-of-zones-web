@@ -1,10 +1,14 @@
+import { useEffect, useState } from 'react';
+
 import { ScrollUpButton, Table } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { SortRow } from 'hooks/useSortedTableData';
 
 import { useZonesListZoneDetails } from '../useZonesListZoneDetails';
 import { TableRow } from './TableRow/TableRow';
-import { ColumnKeys, getTableHeaderConfig } from './Types';
+import { ZoneData } from './TableRow/TableRow.props';
+import { ColumnKeys, getTableHeaderConfig, SORTING_COLUMN_KEYS } from './Types';
 import { usePeersTable } from './usePeersTable';
 import styles from './ZonePeers.module.scss';
 
@@ -16,8 +20,27 @@ export function ZonePeers() {
     ColumnKeys.IbcVolumeReceived
   );
 
-  const { data } = usePeersTable(selectedPeriod, selectedColumnKey);
+  const [sortedPeers, setSortedPeers] = useState<ZoneData[]>([]);
+
+  const { data: peers } = usePeersTable(selectedPeriod);
   const { data: parentZoneData } = useZonesListZoneDetails();
+
+  useEffect(() => {
+    const sortedColumn = SORTING_COLUMN_KEYS[selectedColumnKey];
+    const sortedPeers = peers
+      ?.map((peer) => {
+        const sortedChannels = peer.channels
+          .slice()
+          .sort((a, b) => SortRow(a, b, sortedColumn, 'desc'));
+        return {
+          ...peer,
+          channels: sortedChannels,
+        };
+      })
+      .slice()
+      .sort((a, b) => SortRow(a, b, sortedColumn, 'desc'));
+    setSortedPeers(sortedPeers);
+  }, [selectedColumnKey, peers]);
 
   if (!parentZoneData) {
     return <></>;
@@ -33,7 +56,7 @@ export function ZonePeers() {
         selectedColumnKey={selectedColumnKey}
         setSelectedColumnKey={setSelectedColumnKey}
       >
-        {data.map((zone) => (
+        {sortedPeers.map((zone) => (
           <TableRow
             key={`zone_${zone.zoneCounterpartyKey}`}
             parentZone={parentZoneData}

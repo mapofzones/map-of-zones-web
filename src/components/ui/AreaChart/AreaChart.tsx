@@ -93,7 +93,12 @@ export function AreaChart({
           separator={''}
           allowEscapeViewBox={{ x: true, y: true }}
           formatter={(value: number) => [
-            <NumberFormat value={value} key={`Tooltip_chart`} numberType={dataFormat} />,
+            <NumberFormat
+              value={value}
+              className={styles.tooltipValue}
+              key={`Tooltip_chart`}
+              numberType={dataFormat}
+            />,
             '',
           ]}
           labelFormatter={(label: number) => moment.unix(label).format('DD MMM, HH:mm')}

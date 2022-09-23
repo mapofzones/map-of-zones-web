@@ -1,11 +1,15 @@
+import { PeriodKeys } from 'components';
 import {
   Align,
   CircleType,
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
-import { Zones_Stats_Select_Column } from 'graphql/base-types';
+import { tooltips } from 'types/Tooltips';
+import { getDauTitleByPeriod } from 'utils/helper';
+
+import { ZoneData } from './TableRow/TableRow.props';
 
 export enum ColumnKeys {
-  IbcActiveAddresses = 'ibcActiveAddresses',
+  ActiveAddresses = 'activeAddresses',
   IbcTransfers = 'ibcTransfers',
   IbcVolume = 'ibcVolume',
   IbcVolumeReceived = 'ibcVolumeReceived',
@@ -13,76 +17,73 @@ export enum ColumnKeys {
   TotalTxs = 'totalTxs',
 }
 
-export const SORTING_COLUMN_KEYS: Record<ColumnKeys, Zones_Stats_Select_Column> = {
-  [ColumnKeys.IbcActiveAddresses]: Zones_Stats_Select_Column.IbcActiveAddressesMainnetRating,
-  [ColumnKeys.IbcTransfers]: Zones_Stats_Select_Column.IbcTransfersMainnetRating,
-  [ColumnKeys.IbcVolume]: Zones_Stats_Select_Column.IbcCashflowMainnetRating,
-  [ColumnKeys.IbcVolumeReceived]: Zones_Stats_Select_Column.IbcCashflowInMainnetRating,
-  [ColumnKeys.IbcVolumeSent]: Zones_Stats_Select_Column.IbcCashflowOutMainnetRating,
-  [ColumnKeys.TotalTxs]: Zones_Stats_Select_Column.TotalTxsMainnetRating,
-};
+export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
+  return [
+    {
+      title: '#',
+      align: Align.Center,
+      isSticky: true,
+    },
+    {
+      title: 'Name',
+      align: Align.Left,
+      isSticky: true,
+    },
+    {
+      title: 'IBC Volume',
+      columnKey: ColumnKeys.IbcVolume,
+      explanationText: tooltips['ibcVolume'](),
+    },
+    {
+      title: 'IBC Volume In',
+      columnKey: ColumnKeys.IbcVolumeReceived,
+      explanationText: tooltips['ibcVolumeIn'](),
+      circleType: CircleType.Target,
+    },
+    {
+      title: 'IBC Volume Out',
+      columnKey: ColumnKeys.IbcVolumeSent,
+      explanationText: tooltips['ibcVolumeOut'](),
+      circleType: CircleType.Source,
+      withBorder: true,
+    },
+    {
+      title: 'Total Txs',
+      columnKey: ColumnKeys.TotalTxs,
+      explanationText: tooltips['totalTxs'](),
+    },
+    {
+      title: 'IBC Transfers',
+      columnKey: ColumnKeys.IbcTransfers,
+      explanationText: tooltips['ibcTransfers'](),
+      withBorder: true,
+    },
+    {
+      title: 'Peers',
+      explanationText: tooltips['peersCount'](),
+    },
+    {
+      title: 'Channels',
+      explanationText: tooltips['channelsCount'](),
+      withBorder: true,
+    },
+    {
+      title: getDauTitleByPeriod(period),
+      columnKey: ColumnKeys.ActiveAddresses,
+      explanationText: tooltips['dau'](period),
+      withBorder: true,
+    },
+    {
+      title: 'IBC Volume Activity',
+    },
+  ];
+}
 
-export const TABLE_HEADER_CONFIG = [
-  {
-    title: '#',
-    align: Align.Center,
-    isSticky: true,
-  },
-  {
-    title: 'Name',
-    align: Align.Left,
-    isSticky: true,
-  },
-  {
-    title: 'IBC Volume',
-    columnKey: ColumnKeys.IbcVolume,
-    explanationText:
-      'USD value of tokens successfully relayed via IBC transfer with pertinent volume in progress',
-  },
-  {
-    title: 'IBC Volume In',
-    columnKey: ColumnKeys.IbcVolumeReceived,
-    explanationText:
-      'USD value of tokens successfully received from other Zones with pertinent volume in progress',
-    circleType: CircleType.Target,
-  },
-  {
-    title: 'IBC Volume Out',
-    columnKey: ColumnKeys.IbcVolumeSent,
-    explanationText:
-      'USD value of tokens successfully transferred to other Zones with pertinent volume in progress',
-    circleType: CircleType.Source,
-    withBorder: true,
-  },
-  {
-    title: 'Total Txs',
-    columnKey: ColumnKeys.TotalTxs,
-    explanationText: 'All transactions in a specified zone',
-  },
-  {
-    title: 'IBC Transfers',
-    columnKey: ColumnKeys.IbcTransfers,
-    explanationText:
-      'Number of successfully relayed IBC transfers with pertinent quantity in progress',
-    withBorder: true,
-  },
-  {
-    title: 'Peers',
-    explanationText:
-      'Number of counterparties of a particular Zone with established IBC connectors',
-  },
-  {
-    title: 'Channels',
-    explanationText: 'Number of channels that connect a particular Zone to its counterparties',
-    withBorder: true,
-  },
-  {
-    title: 'DAU',
-    columnKey: ColumnKeys.IbcActiveAddresses,
-    explanationText: 'Number of Zone’s unique addresses initiated outward IBC transfer(s)',
-    withBorder: true,
-  },
-  {
-    title: 'IBC Transfers Activity',
-  },
-];
+export const SORTING_COLUMN_KEYS: Record<ColumnKeys, keyof ZoneData> = {
+  [ColumnKeys.ActiveAddresses]: 'dauRating',
+  [ColumnKeys.IbcTransfers]: 'ibcTransfersRating',
+  [ColumnKeys.IbcVolume]: 'ibcVolumeRating',
+  [ColumnKeys.IbcVolumeReceived]: 'ibcVolumeInRating',
+  [ColumnKeys.IbcVolumeSent]: 'ibcVolumeOutRating',
+  [ColumnKeys.TotalTxs]: 'totalIbcTxsRating',
+};

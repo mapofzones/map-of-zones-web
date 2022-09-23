@@ -1,10 +1,43 @@
 import { useQuery } from '@apollo/client';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { ZonesTotalInfoDocument } from 'graphql/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.generated';
-import { transformChartData } from 'utils/helper';
+import { ZonesTotalInfoDocument } from 'graphql/v2/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.query.generated';
+import { ChartItemByString } from 'utils/helper';
 
-export function useZonesTotalInfo(selectedPeriod: PeriodKeys, isMainnet = true) {
+interface TopPairZone {
+  name: string;
+}
+export interface TransfersTopPair {
+  source: TopPairZone;
+  target: TopPairZone;
+  ibcTransfers: number;
+  ibcTransfersPending: number;
+}
+
+export interface VolumeTopPair {
+  source: TopPairZone;
+  target: TopPairZone;
+  ibcVolume?: number;
+  ibcVolumePending: number;
+}
+
+export interface ZonesTotalInfoData {
+  ibcVolume?: number | null;
+  ibcVolumePending?: number | null;
+  ibcTransfers?: number | null;
+  ibcTransfersPending?: number | null;
+  ibcTotalVolumeChart?: ChartItemByString[];
+  allChannels?: number | null;
+  ibcTransfersFailed?: number | null;
+  activeChannels?: number | null;
+  ibcVolumeTopPair?: VolumeTopPair;
+  ibcTransfersTopPair?: TransfersTopPair;
+}
+
+export function useZonesTotalInfo(
+  selectedPeriod: PeriodKeys,
+  isMainnet = true
+): { data: ZonesTotalInfoData } {
   const options = {
     variables: {
       period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
@@ -15,11 +48,17 @@ export function useZonesTotalInfo(selectedPeriod: PeriodKeys, isMainnet = true) 
   const { data } = useQuery(ZonesTotalInfoDocument, options);
 
   return {
-    data: data?.headers[0] && {
-      ...data.headers[0],
-      ibcTransfersTopPair: data.headers[0].ibcTransfersTopPair[0],
-      ibcVolumeChart: transformChartData(data.headers[0].ibcVolumeChart, 'ibcVolumeChart'),
-      ibcVolumeTopPair: data.headers[0].ibcVolumeTopPair[0],
+    data: {
+      ibcVolume: data?.totalStats.aggregate?.sum?.ibcVolume,
+      ibcVolumePending: data?.totalStats.aggregate?.sum?.ibcVolumePending,
+      ibcTotalVolumeChart: data?.ibcTotalVolumeChart,
+      ibcTransfers: data?.totalStats.aggregate?.sum?.ibcTransfers,
+      ibcTransfersPending: data?.totalStats.aggregate?.sum?.ibcTransfersPending,
+      ibcTransfersFailed: data?.allChannels.aggregate?.sum?.ibcTransfersFailed,
+      allChannels: data?.allChannels.aggregate?.count,
+      activeChannels: data?.activeChannels.aggregate?.count,
+      ibcTransfersTopPair: data?.ibcTransfersTopPair[0],
+      ibcVolumeTopPair: data?.ibcVolumeTopPair[0],
     },
   };
 }

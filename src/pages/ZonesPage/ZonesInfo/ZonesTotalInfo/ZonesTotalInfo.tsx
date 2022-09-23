@@ -50,8 +50,8 @@ export function ZonesTotalInfo(): JSX.Element {
           />
         </div>
 
-        {zonesTotalInfo.ibcVolumeChart && (
-          <LineChart data={zonesTotalInfo.ibcVolumeChart} dataKey="ibcVolumeChart" />
+        {zonesTotalInfo.ibcTotalVolumeChart && (
+          <LineChart data={zonesTotalInfo.ibcTotalVolumeChart} dataKey="volume" />
         )}
       </TotalCard>
 
@@ -98,51 +98,59 @@ export function ZonesTotalInfo(): JSX.Element {
       )}
 
       <TotalCard className={cn(styles.card, styles.topItem)}>
-        <div className={styles.zonesPairContainer}>
-          <span className={styles.title}>Most Active Pair ({selectedPeriod})</span>
-          <ZonesConnection
-            circlesTypes={['source', 'target']}
-            source={zonesTotalInfo.ibcTransfersTopPair.source}
-            target={zonesTotalInfo.ibcTransfersTopPair.target}
-          />
-        </div>
-        <div>
-          <span className={styles.total}>
-            <NumberFormat
-              value={zonesTotalInfo.ibcTransfersTopPair.txs}
-              numberType={NumberType.Number}
-            />
-            &nbsp;Transfers
-          </span>
-          <PendingValue
-            className={styles.pendingValue}
-            numberType={NumberType.Number}
-            value={zonesTotalInfo.ibcTransfersTopPair.txs_pending}
-          />
-        </div>
+        {zonesTotalInfo.ibcTransfersTopPair && (
+          <>
+            <div className={styles.zonesPairContainer}>
+              <span className={styles.title}>Most Active Pair ({selectedPeriod})</span>
+              <ZonesConnection
+                circlesTypes={['source', 'target']}
+                source={zonesTotalInfo.ibcTransfersTopPair.source?.name}
+                target={zonesTotalInfo.ibcTransfersTopPair.target?.name}
+              />
+            </div>
+            <div>
+              <span className={styles.total}>
+                <NumberFormat
+                  value={zonesTotalInfo.ibcTransfersTopPair.ibcTransfers}
+                  numberType={NumberType.Number}
+                />
+                &nbsp;Transfers
+              </span>
+              <PendingValue
+                className={styles.pendingValue}
+                numberType={NumberType.Number}
+                value={zonesTotalInfo.ibcTransfersTopPair.ibcTransfersPending}
+              />
+            </div>
+          </>
+        )}
       </TotalCard>
 
       <TotalCard className={cn(styles.card, styles.topItem)}>
-        <div className={styles.zonesPairContainer}>
-          <span className={styles.title}>Biggest Volume Pair ({selectedPeriod})</span>
-          <ZonesConnection
-            circlesTypes={['source', 'volume']}
-            source={zonesTotalInfo.ibcVolumeTopPair.source}
-            target={zonesTotalInfo.ibcVolumeTopPair.target}
-          />
-        </div>
-        <div>
-          <NumberFormat
-            className={styles.total}
-            value={zonesTotalInfo.ibcVolumeTopPair.cashflow}
-            numberType={NumberType.Currency}
-          />
-          <PendingValue
-            className={styles.pendingValue}
-            numberType={NumberType.Currency}
-            value={zonesTotalInfo.ibcVolumeTopPair.cashflow_pending}
-          />
-        </div>
+        {zonesTotalInfo.ibcVolumeTopPair && (
+          <>
+            <div className={styles.zonesPairContainer}>
+              <span className={styles.title}>Biggest Volume Pair ({selectedPeriod})</span>
+              <ZonesConnection
+                circlesTypes={['source', 'volume']}
+                source={zonesTotalInfo.ibcVolumeTopPair.source?.name}
+                target={zonesTotalInfo.ibcVolumeTopPair.target?.name}
+              />
+            </div>
+            <div>
+              <NumberFormat
+                className={styles.total}
+                value={zonesTotalInfo.ibcVolumeTopPair.ibcVolume}
+                numberType={NumberType.Currency}
+              />
+              <PendingValue
+                className={styles.pendingValue}
+                numberType={NumberType.Currency}
+                value={zonesTotalInfo.ibcVolumeTopPair.ibcVolumePending}
+              />
+            </div>
+          </>
+        )}
       </TotalCard>
     </TotalInfo>
   );

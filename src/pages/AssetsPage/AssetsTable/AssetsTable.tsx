@@ -1,7 +1,10 @@
+import { useMemo } from 'react';
+
 import cn from 'classnames';
 
 import { SkeletonRectangle, Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
+import { useSortedTableData } from 'hooks/useSortedTableData';
 
 import styles from './AssetsTable.module.scss';
 import { TableRow } from './TableRow/TableRow';
@@ -14,25 +17,30 @@ export function AssetsTable() {
     ColumnKeys.MarketCap
   );
 
-  const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
+  const sortingColumnKey = useMemo(
+    () => SORTING_COLUMN_KEYS[selectedColumnKey],
+    [selectedColumnKey]
+  );
 
-  const { data } = useAssetsTable(sortingColumnKey);
+  const { data } = useAssetsTable();
+
+  const sortedData = useSortedTableData(data, sortingColumnKey, 'desc');
 
   return (
     <div className={styles.container}>
-      {!!data.length && <div className={styles.header}>All Tokens</div>}
-      {!data.length && <SkeletonRectangle className={cn(styles.header, styles.skeleton)} />}
+      {!!sortedData.length && <div className={styles.header}>All Tokens</div>}
+      {!sortedData.length && <SkeletonRectangle className={cn(styles.header, styles.skeleton)} />}
 
-      {!!data.length && (
+      {!!sortedData.length && (
         <Table
           className={styles.table}
           headerConfig={TABLE_HEADER_CONFIG}
           selectedColumnKey={selectedColumnKey}
           setSelectedColumnKey={setSelectedColumnKey}
         >
-          {data.map((asset, index) => (
+          {sortedData.map((asset, index) => (
             <TableRow
-              key={`asset_${asset.code}`}
+              key={`asset_${asset.symbol}_${index}`}
               asset={asset}
               index={index}
               selectedColumnKey={selectedColumnKey}
@@ -40,7 +48,7 @@ export function AssetsTable() {
           ))}
         </Table>
       )}
-      {!data.length && <TableSkeleton />}
+      {!sortedData.length && <TableSkeleton />}
     </div>
   );
 }

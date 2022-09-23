@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 
-import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { ZonesDataDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZonesData.query.generated';
+import { ZonesDataDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZonesData.query.generated';
 
 export interface ZoneData {
   logoUrl?: string | null;
@@ -9,16 +8,12 @@ export interface ZoneData {
   zone: string;
 }
 
-export function useZonesData(
-  selectedPeriod: PeriodKeys,
-  isMainnet = true
-): {
+export function useZonesData(isMainnet = true): {
   data: ZoneData[];
   loading: boolean;
 } {
   const options = {
     variables: {
-      period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
       isMainnet: isMainnet,
     },
   };

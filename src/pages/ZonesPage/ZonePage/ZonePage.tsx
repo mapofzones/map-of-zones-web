@@ -2,11 +2,16 @@ import { useEffect } from 'react';
 
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { AnimatedArrowDown, ExternalLink, PeriodSelector, ZoneLogo } from 'components';
+import {
+  AnimatedArrowDown,
+  ExternalLink,
+  PeriodSelector,
+  SkeletonTextWrapper,
+  ZoneLogo,
+} from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useMediaQuery } from 'hooks/useMediaQuery';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'icons';
 
 import { useZonesData } from './useZonesData';
@@ -27,11 +32,9 @@ export function ZonePage() {
     setIsVisible: setSearchVisible,
   } = useComponentVisible<HTMLDivElement>(false);
 
-  const [selectedPeriod] = useSelectedPeriod();
-
   const { data, loading } = useZonesListZoneDetails();
 
-  const { data: zonesList } = useZonesData(selectedPeriod);
+  const { data: zonesList } = useZonesData();
 
   const toggleSearch = () => setSearchVisible(!isSearchVisible);
 
@@ -54,7 +57,11 @@ export function ZonePage() {
             <span className={styles.zoneName}>{data?.name}</span>
             <AnimatedArrowDown className={styles.arrowContainer} isReverted={isSearchVisible} />
           </div>
-          <div className={styles.zoneLinks}>
+          <SkeletonTextWrapper
+            className={styles.zoneLinks}
+            loading={loading}
+            defaultText={'https://cosmos.network'}
+          >
             {data?.website && (
               <ExternalLink
                 Icon={EarthIcon}
@@ -88,7 +95,7 @@ export function ZonePage() {
                 onClick={() => trackZoneLinksAnalytics('git')}
               />
             )}
-          </div>
+          </SkeletonTextWrapper>
 
           {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
         </div>

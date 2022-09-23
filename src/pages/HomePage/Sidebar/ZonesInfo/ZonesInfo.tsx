@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 
 import { Button, Dropdown, PeriodSelector, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
@@ -6,12 +6,13 @@ import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { useSortedTableData } from 'hooks/useSortedTableData';
 import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ElementSize } from 'types/ElementSize';
 
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
-import { COLUMN_OPTIONS, METADATA } from './Types';
+import { getColumnOptions, METADATA } from './Types';
 import { useTotalZonesInfo } from './useTotalZonesInfo';
 import { useZonesTableData } from './useZonesTableData';
 import styles from './ZonesInfo.module.scss';
@@ -30,7 +31,7 @@ function ZonesInfo(): JSX.Element {
     ColumnKeys.IbcVolume
   );
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useDefaultSearchParam('searchZone');
 
   const metadata = METADATA[selectedColumnKey];
 
@@ -41,9 +42,12 @@ function ZonesInfo(): JSX.Element {
   );
   const { data: zones, loading: tableDataLoading } = useZonesTableData(
     selectedPeriod,
-    selectedColumnKey,
-    metadata.sortingColumnKey
+    selectedColumnKey
   );
+
+  const sortedZones = useSortedTableData(zones, metadata.sortingColumnKey, 'asc');
+
+  const columnOptions = useMemo(() => getColumnOptions(selectedPeriod), [selectedPeriod]);
 
   const onColumnChange = (option: DropdownOption) => {
     setSelectedColumnKey(option.key as ColumnKeys);
@@ -67,7 +71,7 @@ function ZonesInfo(): JSX.Element {
       <div className={styles.selectorsContainer}>
         <Dropdown
           className={styles.columnDropdown}
-          options={COLUMN_OPTIONS}
+          options={columnOptions}
           initialSelectedKey={selectedColumnKey}
           onOptionSelected={onColumnChange}
         />
@@ -82,14 +86,14 @@ function ZonesInfo(): JSX.Element {
             columnType={selectedColumnKey}
           />
         )}
+        {tableDataLoading && <ZonesInfoTableSkeleton />}
         {!tableDataLoading && (
           <MemoizedZonesInfoTable
-            data={zones}
+            data={sortedZones}
             searchValue={searchValue}
             columnType={selectedColumnKey}
           />
         )}
-        {tableDataLoading && <ZonesInfoTableSkeleton />}
       </ScrollableContainer>
       <div className={styles.shadow}></div>
       <Button

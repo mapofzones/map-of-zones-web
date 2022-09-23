@@ -2,29 +2,22 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { ZoneOverviewActivityDocument } from 'graphql/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
+import { ZoneOverviewActivityDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { ChartItemByString, transformChartData } from 'utils/helper';
-import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
+import { ChartItemByString } from 'utils/helper';
 
 export type ZoneOverviewActivityQueryResult = {
   peersCount?: number;
   channelsCount?: number;
-  ibcDauMainnet?: number;
-  ibcVolumeChart?: ChartItemByString[];
-  ibcVolumeMainnet?: number;
-  ibcVolumeInMainnet?: number;
-  ibcVolumeOutMainnet?: number;
-  ibcVolumeInPercent?: number;
-  ibcVolumeOutPercent?: number;
-  ibcVolumeInPendingMainnet?: number;
-  ibcVolumeOutPendingMainnet?: number;
+  dau?: number | null;
+  ibcDau?: number | null;
+  ibcDauPercent?: number;
+  totalTxs?: number;
+  totalTxsChart: ChartItemByString[];
   ibcTransfers?: number;
   ibcTransfersPending?: number;
-  totalTxs?: number;
+  ibcTransfersChart: ChartItemByString[];
 };
-
-const IBC_VOLUME_CHART_KEY = 'ibcVolumeChart';
 
 export function useZoneOverviewActivity(): {
   data: ZoneOverviewActivityQueryResult | undefined;
@@ -42,12 +35,17 @@ export function useZoneOverviewActivity(): {
   const { data, loading } = useQuery(ZoneOverviewActivityDocument, options);
 
   return {
-    data: data?.zoneOverview[0] && {
-      ...nullsToUndefined(data.zoneOverview[0]),
-      [IBC_VOLUME_CHART_KEY]: transformChartData(
-        data?.zoneOverview[0][IBC_VOLUME_CHART_KEY],
-        IBC_VOLUME_CHART_KEY
-      ),
+    data: data && {
+      ibcTransfers: data.switchedStats[0]?.ibcTransfers,
+      peersCount: data.switchedStats[0]?.peersCount,
+      channelsCount: data.switchedStats[0]?.channelsCount,
+      ibcTransfersPending: data.switchedStats[0]?.ibcTransfersPending,
+      ibcTransfersChart: data.switchedStats[0]?.ibcTransfersChart,
+      totalTxs: data.stats[0]?.totalTxs,
+      totalTxsChart: data.stats[0]?.totalTxsChart,
+      dau: data.stats[0]?.dau,
+      ibcDau: data.stats[0]?.ibcDau,
+      ibcDauPercent: data.stats[0]?.ibcDauPercent,
     },
     loading,
   };

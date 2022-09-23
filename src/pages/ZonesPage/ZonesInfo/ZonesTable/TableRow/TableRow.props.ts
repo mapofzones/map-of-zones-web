@@ -14,27 +14,41 @@ export interface TableRowProps
 }
 
 export interface ZoneData {
-  channelsCount?: number | null;
-  ibcActiveAddressesMainnetRatingDiff?: number | null;
-  ibcDauMainnet?: number | null;
-  ibcTransfersChart?: ChartItemByString[];
-  ibcTransfersMainnet?: number | null;
-  ibcTransfersMainnetRatingDiff?: number | null;
-  ibcTransfersPendingMainnet?: number | null;
-  ibcVolumeInMainnet?: number | null;
-  ibcVolumeInMainnetRatingDiff?: number | null;
-  ibcVolumeInPendingMainnet?: number | null;
-  ibcVolumeMainnet?: number | null;
-  ibcVolumeMainnetRatingDiff?: number | null;
-  ibcVolumeOutMainnet?: number | null;
-  ibcVolumeOutMainnetRatingDiff?: number | null;
-  ibcVolumeOutPendingMainnet?: number | null;
-  ibcVolumePendingMainnet?: number | null;
-  isZoneUpToDate?: boolean | null;
-  logoUrl?: string | null;
-  name: string;
-  peersCountMainnet?: number | null;
-  totalIbcTxsMainnetRatingDiff?: number | null;
-  totalTxs?: number | null;
   zone: string;
+  name: string;
+  logoUrl?: string | null;
+  isZoneUpToDate?: boolean | null;
+
+  channelsCount: number;
+  peersCount: number;
+
+  ibcTransfers: number;
+  ibcTransfersPending: number;
+  ibcTransfersRating: number;
+  ibcTransfersRatingDiff: number;
+
+  ibcVolumeChart: ChartItemByString[];
+  ibcVolume: number;
+  ibcVolumePending: number;
+  ibcVolumeRating: number;
+  ibcVolumeRatingDiff: number;
+
+  ibcVolumeIn: number;
+  ibcVolumeInPending: number;
+  ibcVolumeInRating: number;
+  ibcVolumeInRatingDiff: number;
+
+  ibcVolumeOut: number;
+  ibcVolumeOutPending: number;
+  ibcVolumeOutRating: number;
+  ibcVolumeOutRatingDiff: number;
+
+  totalIbcTxsRating: number;
+  totalIbcTxsRatingDiff: number;
+
+  dauRating?: number | null;
+  dauRatingDiff?: number | null;
+
+  totalTxs: number;
+  dau?: number | null;
 }

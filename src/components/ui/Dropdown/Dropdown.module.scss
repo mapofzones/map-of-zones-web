@@ -2,7 +2,6 @@
   position: relative;
 
   color: var(--grey-500);
-  font-size: var(--font-base-size-lg);
 
   background-color: var(--black-600);
   border-radius: 5px;
@@ -16,6 +15,18 @@
                       supported by Chrome, Edge, Opera and Firefox */
   -webkit-touch-callout: none; /* iOS Safari */
 
+  &.lg {
+    font-size: var(--font-base-size-md);
+  }
+
+  &.md {
+    font-size: var(--font-secondary-size-lg);
+  }
+
+  &.sm {
+    font-size: var(--font-secondary-size-md);
+  }
+
   .dropDownHeader {
     display: flex;
     align-items: center;
@@ -24,16 +35,11 @@
 
     border-radius: 5px;
 
-    &:hover {
-      color: var(--grey-800);
-
-      background-color: var(--black-900);
-    }
-
+    &:hover,
     &.active {
       color: var(--grey-800);
 
-      background-color: var(--black-700);
+      background-color: var(--black-900);
     }
 
     .itemTitle {

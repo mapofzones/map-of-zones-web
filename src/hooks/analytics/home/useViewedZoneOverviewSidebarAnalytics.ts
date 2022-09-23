@@ -41,7 +41,7 @@ function getZoneOverviewSource(
   } else if (prevPage.title === PAGE_TITLE.HomePeers) {
     return 'zone peers sidebar';
   } else if (prevPage.title === PAGE_TITLE.Home) {
-    return (currentPage.state.source as ZoneOverviewSidebarSource) ?? 'unknown';
+    return (currentPage.state?.source as ZoneOverviewSidebarSource) ?? 'unknown';
   }
   return undefined;
 }

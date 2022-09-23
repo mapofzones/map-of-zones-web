@@ -4,9 +4,10 @@ import { PeriodSelector, SkeletonRectangle, Table, TableSkeleton } from 'compone
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { useSortedTableData } from 'hooks/useSortedTableData';
 
 import { TableRow } from './TableRow/TableRow';
-import { ColumnKeys, SORTING_COLUMN_KEYS, TABLE_HEADER_CONFIG } from './Types';
+import { ColumnKeys, getTableHeaderConfigByPeriod, SORTING_COLUMN_KEYS } from './Types';
 import { useZonesCount } from './useZonesCount';
 import { useZonesTable } from './useZonesTable';
 import styles from './ZonesTable.module.scss';
@@ -24,7 +25,11 @@ export function ZonesTable() {
   const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
 
   const { data: zonesCountData } = useZonesCount(selectedPeriod);
-  const { data } = useZonesTable(selectedPeriod, sortingColumnKey);
+  const { data } = useZonesTable(selectedPeriod);
+
+  const sortedZones = useSortedTableData(data, sortingColumnKey, 'asc');
+
+  const tableHeaderConfig = getTableHeaderConfigByPeriod(selectedPeriod);
 
   return (
     <div className={styles.container}>
@@ -47,14 +52,14 @@ export function ZonesTable() {
         {!!zonesCountData?.allZonesCount && <PeriodSelector useDropdown={isMobile} />}
       </div>
 
-      {!!data.length && (
+      {!!sortedZones.length && (
         <Table
           className={styles.table}
-          headerConfig={TABLE_HEADER_CONFIG}
+          headerConfig={tableHeaderConfig}
           selectedColumnKey={selectedColumnKey}
           setSelectedColumnKey={setSelectedColumnKey}
         >
-          {data.map((zone, index) => (
+          {sortedZones.map((zone, index) => (
             <TableRow
               key={`zone_${zone.zone}`}
               index={index}
@@ -65,7 +70,7 @@ export function ZonesTable() {
         </Table>
       )}
 
-      {!data.length && <TableSkeleton />}
+      {!sortedZones.length && <TableSkeleton />}
     </div>
   );
 }

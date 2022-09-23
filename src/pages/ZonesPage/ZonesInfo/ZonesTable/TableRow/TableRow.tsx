@@ -15,12 +15,12 @@ import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
 
 const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
-  ibcActiveAddresses: 'ibcActiveAddressesMainnetRatingDiff',
-  ibcVolumeReceived: 'ibcVolumeInMainnetRatingDiff',
-  ibcVolumeSent: 'ibcVolumeOutMainnetRatingDiff',
-  ibcVolume: 'ibcVolumeMainnetRatingDiff',
-  ibcTransfers: 'ibcTransfersMainnetRatingDiff',
-  totalTxs: 'totalIbcTxsMainnetRatingDiff',
+  activeAddresses: 'dauRatingDiff',
+  ibcVolumeReceived: 'ibcVolumeInRatingDiff',
+  ibcVolumeSent: 'ibcVolumeOutRatingDiff',
+  ibcVolume: 'ibcVolumeRatingDiff',
+  ibcTransfers: 'ibcTransfersRatingDiff',
+  totalTxs: 'totalIbcTxsRatingDiff',
 };
 
 export function TableRow({
@@ -57,8 +57,8 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Currency}
-          pendingValue={zone.ibcVolumePendingMainnet}
-          value={zone.ibcVolumeMainnet}
+          pendingValue={zone.ibcVolumePending}
+          value={zone.ibcVolume}
         />
       </TableRowItem>
 
@@ -67,8 +67,8 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Currency}
-          pendingValue={zone.ibcVolumeInPendingMainnet}
-          value={zone.ibcVolumeInMainnet}
+          pendingValue={zone.ibcVolumeInPending}
+          value={zone.ibcVolumeIn}
         />
       </TableRowItem>
 
@@ -77,8 +77,8 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Currency}
-          pendingValue={zone.ibcVolumeOutPendingMainnet}
-          value={zone.ibcVolumeOutMainnet}
+          pendingValue={zone.ibcVolumeOutPending}
+          value={zone.ibcVolumeOut}
         />
       </TableRowItem>
 
@@ -96,8 +96,8 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
-          pendingValue={zone.ibcTransfersPendingMainnet}
-          value={zone.ibcTransfersMainnet}
+          pendingValue={zone.ibcTransfersPending}
+          value={zone.ibcTransfers}
         />
       </TableRowItem>
 
@@ -106,7 +106,7 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
-          value={zone.peersCountMainnet}
+          value={zone.peersCount}
         />
       </TableRowItem>
 
@@ -124,12 +124,12 @@ export function TableRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
-          value={zone.ibcDauMainnet}
+          value={zone.dau}
         />
       </TableRowItem>
 
       <TableRowItem>
-        {zone.ibcTransfersChart && <LineChart data={zone.ibcTransfersChart} dataKey="txs" />}
+        {zone.ibcVolumeChart && <LineChart data={zone.ibcVolumeChart} dataKey="volume" />}
       </TableRowItem>
     </tr>
   );

@@ -10,6 +10,8 @@ const LOGO_SIZE = '32px';
 export function PeerLineChart({
   zone,
   counterparty,
+  volumeInPercent,
+  volumeOutPercent,
   className,
   ...props
 }: PeerLineChartProps): JSX.Element {
@@ -17,15 +19,11 @@ export function PeerLineChart({
     <div className={cn(styles.chartContainer, className)} {...props}>
       <ZoneLogo logoUrl={zone?.logoUrl} name={zone?.name} size={LOGO_SIZE} />
       <PercentStackedLineChart
-        leftValue={counterparty.volumeOutPercent}
-        rightValue={counterparty.volumeInPercent}
+        leftValue={volumeOutPercent}
+        rightValue={volumeInPercent}
         rightCustomColor={`#EE11CC80`}
       />
-      <ZoneLogo
-        logoUrl={counterparty.zoneCounterpartyLogoUrl}
-        name={counterparty.zoneCounterpartyName}
-        size={LOGO_SIZE}
-      />
+      <ZoneLogo logoUrl={counterparty?.logoUrl} name={counterparty?.name} size={LOGO_SIZE} />
     </div>
   );
 }

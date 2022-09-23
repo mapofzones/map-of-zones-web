@@ -10,11 +10,9 @@ export interface TableRowProps
   parentZone: ZonesListZoneDetails;
   zone: ZoneData;
 }
-export interface ZoneData {
-  channels: Array<ChannelData>;
-  zoneCounterpartyKey?: string | null;
-  zoneCounterpartyLogoUrl?: string | null;
-  zoneCounterpartyName?: string | null;
+export interface ZoneChannelRowData {
+  ibcVolume?: number | null;
+  ibcVolumePending?: number | null;
   ibcVolumeIn?: number | null;
   ibcVolumeInPending?: number | null;
   ibcVolumeOut?: number | null;
@@ -22,6 +20,14 @@ export interface ZoneData {
   ibcTransfers?: number | null;
   ibcTransfersPending?: number | null;
   ibcTransfersFailed?: number | null;
+  ibcTransfersSuccessRate?: number | null;
+}
+
+export interface ZoneData extends ZoneChannelRowData {
+  channels: Array<ChannelData>;
+  zone?: string | null;
+  zoneCounterpartyKey?: string | null;
+  zoneCounterpartyLogoUrl?: string | null;
+  zoneCounterpartyName?: string | null;
   isZoneCounterpartyUpToDate?: boolean | null;
-  successRate?: number | null;
 }

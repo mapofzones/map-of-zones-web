@@ -11,6 +11,7 @@ export interface Link extends LinkObject {
   source: MapNode;
   target: MapNode;
   ibcVolume?: number | null;
+  isActive: boolean;
 }
 
 export interface MapNode extends NodeObject {

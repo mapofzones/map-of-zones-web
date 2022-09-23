@@ -6,32 +6,30 @@ import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCar
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
 import { ElementSize } from 'types/ElementSize';
+import { tooltips } from 'types/Tooltips';
+import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
 
 export function ZoneOverviewActivity({ className }: { className?: string }) {
+  const { data, loading } = useZoneOverviewActivity();
+
   const [period] = useSelectedPeriod();
 
-  const { data, loading } = useZoneOverviewActivity();
+  const dauTittle = getDauTitleByPeriod(period);
 
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.title}>Activity</div>
-      <IbcVolumeCard
-        className={styles.volumeCard}
-        data={data}
-        loading={loading}
-        period={period}
-        vertical
-      />
+      <IbcVolumeCard className={styles.volumeCard} vertical />
       <TotalInfoCard
         className={styles.totalTxsCard}
         title={'Total Txs'}
-        value={data?.totalTxs ?? undefined}
+        value={data?.totalTxs}
         numberType={NumberType.Number}
-        chartData={undefined}
-        chartKey={'totalTxs'}
+        chartData={data?.totalTxsChart}
+        chartKey={'txs'}
         loading={loading}
         hasBorder={false}
         size={ElementSize.LARGE}
@@ -39,10 +37,10 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
       <TotalInfoCard
         className={styles.transfersCard}
         title={'IBC Transfers'}
-        value={data?.ibcTransfers ?? undefined}
-        pendingValue={4546}
+        value={data?.ibcTransfers}
+        pendingValue={data?.ibcTransfersPending}
         numberType={NumberType.Number}
-        chartData={undefined}
+        chartData={data?.ibcTransfersChart}
         chartKey={'ibcTransfer'}
         loading={loading}
         hasBorder={false}
@@ -56,7 +54,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           value={data?.peersCount}
           loading={loading}
           defaultLoadingValue={'12'}
-          tooltipText={'Some tooltip'}
+          tooltipText={tooltips['peersCount']()}
           tooltipPosition={'right'}
         ></ZoneOverviewItem>
         <ZoneOverviewItem
@@ -66,30 +64,34 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           value={data?.channelsCount}
           loading={loading}
           defaultLoadingValue={'250'}
-          tooltipText={'Some tooltip'}
+          tooltipText={tooltips['channelsCount']()}
           tooltipPosition={'right'}
         ></ZoneOverviewItem>
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.dauOverviewItem)}
           rowDirection
-          title={'DAU'}
+          title={dauTittle}
           loading={loading}
-          value={undefined}
-          tooltipText={'Some tooltip'}
-          tooltipPosition={'right'}
+          value={data?.dau}
+          tooltipText={tooltips['dau'](period)}
+          tooltipPosition={'left'}
         />
         <ZoneOverviewItem
           className={cn(styles.detailedInfoItem, styles.ibcDauOverviewItem)}
           rowDirection
-          title={'IBC DAU'}
+          title={`IBC ${dauTittle}`}
           loading={loading}
-          defaultLoadingValue={'2 345 (99,8% of DAU)'}
-          tooltipText={'Some tooltip'}
-          tooltipPosition={'right'}
+          defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
+          tooltipText={tooltips['ibcDau'](period)}
+          tooltipPosition={'left'}
         >
           <div className={styles.dauValue}>
-            <NumberFormat value={data?.ibcDauMainnet} />
-            <span className={styles.additionalInfo}> (99,8% of DAU)</span>
+            <NumberFormat value={data?.ibcDau} />
+            <span className={styles.additionalInfo}>
+              {' '}
+              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} />
+              {` of ${dauTittle}`})
+            </span>
           </div>
         </ZoneOverviewItem>
       </div>
