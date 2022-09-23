@@ -22,11 +22,11 @@ export function ZonesTotalInfo(): JSX.Element {
 
   const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
 
-  const { data: zonesTotalInfo } = useZonesTotalInfo(selectedPeriod);
+  const { data: zonesTotalInfo, loading } = useZonesTotalInfo(selectedPeriod);
 
   return (
     <TotalInfo>
-      <TotalCard className={cn(styles.card, styles.withChart)} loading={!zonesTotalInfo}>
+      <TotalCard className={cn(styles.card, styles.withChart)} loading={loading}>
         <div>
           <span className={styles.title}>Total IBC Volume ({selectedPeriod})</span>
           <ValueWithPending
@@ -42,7 +42,7 @@ export function ZonesTotalInfo(): JSX.Element {
         )}
       </TotalCard>
 
-      <TotalCard className={styles.card} loading={!zonesTotalInfo}>
+      <TotalCard className={styles.card} loading={loading}>
         <span className={styles.title}>Total IBC Transfers ({selectedPeriod})</span>
         <div className={styles.additionalDataContainer}>
           <ValueWithPending
@@ -63,7 +63,7 @@ export function ZonesTotalInfo(): JSX.Element {
       </TotalCard>
 
       {!isLaptopMedium && (
-        <TotalCard className={cn(styles.card, styles.doubleItem)} loading={!zonesTotalInfo}>
+        <TotalCard className={cn(styles.card, styles.doubleItem)} loading={loading}>
           <div>
             <span className={styles.title}>All Channels</span>
             <NumberFormat
@@ -84,7 +84,7 @@ export function ZonesTotalInfo(): JSX.Element {
         </TotalCard>
       )}
 
-      <TotalCard className={cn(styles.card, styles.topItem)} loading={!zonesTotalInfo}>
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={loading}>
         {zonesTotalInfo?.ibcTransfersTopPair && (
           <>
             <div className={styles.zonesPairContainer}>
@@ -113,7 +113,7 @@ export function ZonesTotalInfo(): JSX.Element {
         )}
       </TotalCard>
 
-      <TotalCard className={cn(styles.card, styles.topItem)} loading={!zonesTotalInfo}>
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={loading}>
         {zonesTotalInfo?.ibcVolumeTopPair && (
           <>
             <div className={styles.zonesPairContainer}>

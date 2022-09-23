@@ -17,11 +17,11 @@ import { useAssetsTotalInfo } from './useAssetsTotalInfo';
 export function AssetsTotalInfo(): JSX.Element {
   const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
 
-  const { data: zonesTotalInfo } = useAssetsTotalInfo();
+  const { data: zonesTotalInfo, loading } = useAssetsTotalInfo();
 
   return (
     <TotalInfo>
-      <TotalCard className={cn(styles.card, styles.withChart)} loading={!zonesTotalInfo}>
+      <TotalCard className={cn(styles.card, styles.withChart)} loading={loading}>
         <div>
           <div className={styles.title}>24h Trading Volume</div>
           <ValueWithPending
@@ -36,7 +36,7 @@ export function AssetsTotalInfo(): JSX.Element {
         )}
       </TotalCard>
 
-      <TotalCard className={styles.card} loading={!zonesTotalInfo}>
+      <TotalCard className={styles.card} loading={loading}>
         <div className={styles.title}>Cosmos Network Market Cap</div>
         <ValueWithPending
           className={styles.value}
@@ -46,7 +46,7 @@ export function AssetsTotalInfo(): JSX.Element {
       </TotalCard>
 
       {!isLaptopMedium && (
-        <TotalCard className={cn(styles.card, styles.doubleItem)} loading={!zonesTotalInfo}>
+        <TotalCard className={cn(styles.card, styles.doubleItem)} loading={loading}>
           {zonesTotalInfo && (
             <>
               <div className={styles.title}>All Assets</div>
@@ -60,7 +60,7 @@ export function AssetsTotalInfo(): JSX.Element {
         </TotalCard>
       )}
 
-      <TotalCard className={cn(styles.card, styles.topItem)} loading={!zonesTotalInfo}>
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={loading}>
         <div className={styles.zoneInfoContainer}>
           <ZoneLogo logoUrl={zonesTotalInfo?.topMarketTokenLogo} className={styles.logo} />
           <div>
@@ -84,7 +84,7 @@ export function AssetsTotalInfo(): JSX.Element {
         </div>
       </TotalCard>
 
-      <TotalCard className={cn(styles.card, styles.topItem)} loading={!zonesTotalInfo}>
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={loading}>
         <div className={styles.zoneInfoContainer}>
           <ZoneLogo logoUrl={zonesTotalInfo?.topMoverTokenLogo} className={styles.logo} />
           <div>

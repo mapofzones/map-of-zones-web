@@ -37,7 +37,7 @@ export interface ZonesTotalInfoData {
 export function useZonesTotalInfo(
   selectedPeriod: PeriodKeys,
   isMainnet = true
-): { data: ZonesTotalInfoData | null } {
+): { data: ZonesTotalInfoData | null; loading: boolean } {
   const options = {
     variables: {
       period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
@@ -45,7 +45,7 @@ export function useZonesTotalInfo(
     },
   };
 
-  const { data } = useQuery(ZonesTotalInfoDocument, options);
+  const { data, loading } = useQuery(ZonesTotalInfoDocument, options);
 
   return {
     data: data
@@ -62,5 +62,6 @@ export function useZonesTotalInfo(
           ibcVolumeTopPair: data.ibcVolumeTopPair?.[0],
         }
       : null,
+    loading,
   };
 }
