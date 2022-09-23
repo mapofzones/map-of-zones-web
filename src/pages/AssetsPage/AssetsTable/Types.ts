@@ -65,6 +65,6 @@ export const TABLE_HEADER_CONFIG = [
     columnKey: ColumnKeys.Supply,
   },
   {
-    title: 'Last 7 Days',
+    title: 'Price (7d)',
   },
 ];
