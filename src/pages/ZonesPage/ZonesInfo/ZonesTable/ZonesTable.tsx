@@ -49,7 +49,7 @@ export function ZonesTable() {
           </div>
         )}
 
-        {!!zonesCountData?.allZonesCount && <PeriodSelector useDropdown={isTabletSmall} />}
+        <PeriodSelector useDropdown={isTabletSmall} />
       </div>
 
       {!!sortedZones.length && (
