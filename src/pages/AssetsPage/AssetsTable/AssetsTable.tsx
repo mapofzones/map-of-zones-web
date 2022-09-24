@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { SkeletonTextWrapper, Table, TableSkeleton } from 'components';
+import { Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 
@@ -26,9 +26,7 @@ export function AssetsTable() {
 
   return (
     <div className={styles.container}>
-      <SkeletonTextWrapper className={styles.header} loading={!sortedData.length}>
-        All Tokens
-      </SkeletonTextWrapper>
+      <div className={styles.header}>All Tokens</div>
 
       {!!sortedData.length && (
         <Table
