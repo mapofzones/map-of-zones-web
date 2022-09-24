@@ -29,7 +29,7 @@ export function TableRow({
   isTableHorizontalScrollable,
 }: // selectedColumnKey,
 TableRowProps) {
-  const isMobile = useMediaQuery('(max-width: 375px)');
+  const isTabletSmall = useMediaQuery('(max-width: 630px)');
 
   return (
     <tr className={styles.container}>
@@ -40,7 +40,7 @@ TableRowProps) {
       <TableRowItem isSticky={true} withBorder={isTableHorizontalScrollable}>
         <div className={styles.assetInfoContainer}>
           <ZoneLogo
-            size={isMobile ? '28px' : '32px'}
+            size={isTabletSmall ? '28px' : '32px'}
             logoUrl={asset.logoUrl}
             className={styles.logo}
           />

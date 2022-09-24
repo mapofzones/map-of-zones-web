@@ -17,7 +17,7 @@ export function TotalCard({
 }): JSX.Element {
   return (
     <>
-      {loading && <SkeletonRectangle className={className} />}
+      {loading && <SkeletonRectangle className={cn(styles.container, className)} />}
       {!loading && <div className={cn(styles.container, className)}>{children}</div>}
     </>
   );

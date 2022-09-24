@@ -15,87 +15,84 @@ import styles from './AssetsTotalInfo.module.scss';
 import { useAssetsTotalInfo } from './useAssetsTotalInfo';
 
 export function AssetsTotalInfo(): JSX.Element {
-  const { data: zonesTotalInfo } = useAssetsTotalInfo();
-
   const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
 
-  if (!zonesTotalInfo) {
-    return <></>;
-  }
+  const { data: zonesTotalInfo, loading } = useAssetsTotalInfo();
 
   return (
     <TotalInfo>
-      <TotalCard className={cn(styles.card, styles.withChart)}>
+      <TotalCard className={cn(styles.card, styles.withChart)} loading={loading}>
         <div>
           <div className={styles.title}>24h Trading Volume</div>
           <ValueWithPending
             className={styles.value}
             numberType={NumberType.Currency}
-            value={zonesTotalInfo.volume24h}
+            value={zonesTotalInfo?.volume24h}
           />
         </div>
 
-        {zonesTotalInfo.total24hTradingVolumeChart && (
-          <LineChart
-            className={styles.chart}
-            data={zonesTotalInfo.total24hTradingVolumeChart}
-            dataKey="volume"
-          />
+        {zonesTotalInfo?.total24hTradingVolumeChart && (
+          <LineChart data={zonesTotalInfo.total24hTradingVolumeChart} dataKey="volume" />
         )}
       </TotalCard>
 
-      <TotalCard className={styles.card}>
+      <TotalCard className={styles.card} loading={loading}>
         <div className={styles.title}>Cosmos Network Market Cap</div>
         <ValueWithPending
           className={styles.value}
           numberType={NumberType.Currency}
-          value={zonesTotalInfo.marketCap}
+          value={zonesTotalInfo?.marketCap}
         />
       </TotalCard>
 
       {!isLaptopMedium && (
-        <TotalCard className={cn(styles.card, styles.doubleItem)}>
-          <div className={styles.title}>All Assets</div>
-          <ValueWithPending
-            className={styles.value}
-            numberType={NumberType.Number}
-            value={zonesTotalInfo.assetsCount}
-          />
+        <TotalCard className={cn(styles.card, styles.doubleItem)} loading={loading}>
+          {zonesTotalInfo && (
+            <>
+              <div className={styles.title}>All Assets</div>
+              <ValueWithPending
+                className={styles.value}
+                numberType={NumberType.Number}
+                value={zonesTotalInfo.assetsCount}
+              />
+            </>
+          )}
         </TotalCard>
       )}
 
-      <TotalCard className={cn(styles.card, styles.topItem)}>
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={loading}>
         <div className={styles.zoneInfoContainer}>
-          <ZoneLogo logoUrl={zonesTotalInfo.topMarketTokenLogo} className={styles.logo} />
+          <ZoneLogo logoUrl={zonesTotalInfo?.topMarketTokenLogo} className={styles.logo} />
           <div>
             <div className={styles.title}>Atom Market Cap Dominance</div>
             <div className={styles.value}>
-              {zonesTotalInfo.topMarketName}{' '}
-              <span className={styles.additianalValue}>
-                ({zonesTotalInfo.topMarketTokenSymbol})
+              {zonesTotalInfo?.topMarketName}{' '}
+              <span className={styles.additionalValue}>
+                ({zonesTotalInfo?.topMarketTokenSymbol})
               </span>
             </div>
-            {/* <div className={styles.additianalValue}>{zonesTotalInfo.topMarketTokenSymbol}</div> */}
           </div>
         </div>
 
         <div className={styles.totalContainer}>
           <ValueWithPending
             className={styles.total}
-            value={zonesTotalInfo.topMarketDominance}
+            value={zonesTotalInfo?.topMarketDominance}
             numberType={NumberType.Percent}
           />
         </div>
       </TotalCard>
 
-      <TotalCard className={cn(styles.card, styles.topItem)}>
+      <TotalCard className={cn(styles.card, styles.topItem)} loading={loading}>
         <div className={styles.zoneInfoContainer}>
-          <ZoneLogo logoUrl={zonesTotalInfo.topMoverTokenLogo} className={styles.logo} />
+          <ZoneLogo logoUrl={zonesTotalInfo?.topMoverTokenLogo} className={styles.logo} />
           <div>
             <div className={styles.title}>Top Mover (24h)</div>
             <div className={styles.value}>
-              {zonesTotalInfo.topMoverName}{' '}
-              <span className={styles.additianalValue}>({zonesTotalInfo.topMoverTokenSymbol})</span>
+              {zonesTotalInfo?.topMoverName}{' '}
+              <span className={styles.additionalValue}>
+                ({zonesTotalInfo?.topMoverTokenSymbol})
+              </span>
             </div>
           </div>
         </div>
@@ -104,12 +101,12 @@ export function AssetsTotalInfo(): JSX.Element {
           <RatingDiffTriangle
             className={styles.total}
             numberType={NumberType.Percent}
-            ratingDiff={zonesTotalInfo.topMoverRating}
+            ratingDiff={zonesTotalInfo?.topMoverRating}
           />
           <ValueWithPending
             className={styles.value}
             numberType={NumberType.Currency}
-            value={zonesTotalInfo.topMoverValue}
+            value={zonesTotalInfo?.topMoverValue}
           />
         </div>
       </TotalCard>

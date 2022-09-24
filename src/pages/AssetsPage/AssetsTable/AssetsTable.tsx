@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Table } from 'components';
+import { Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 
@@ -20,14 +20,15 @@ export function AssetsTable() {
     [selectedColumnKey]
   );
 
-  const { data } = useAssetsTable();
+  const { data, loading } = useAssetsTable();
 
   const sortedData = useSortedTableData(data, sortingColumnKey, 'desc');
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>All Tokens</div>
-      {sortedData && (
+
+      {!loading && (
         <Table
           className={styles.table}
           headerConfig={TABLE_HEADER_CONFIG}
@@ -44,6 +45,8 @@ export function AssetsTable() {
           ))}
         </Table>
       )}
+
+      {loading && <TableSkeleton />}
     </div>
   );
 }

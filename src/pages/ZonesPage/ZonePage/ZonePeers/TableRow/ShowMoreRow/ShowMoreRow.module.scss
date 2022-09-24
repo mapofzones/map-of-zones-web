@@ -24,7 +24,7 @@
 
     .title {
       color: var(--grey-500);
-      font-size: var(--font-secondary-size-lg);
+      font-size: var(--font-secondary-size-md);
 
       cursor: pointer;
 
@@ -41,13 +41,13 @@
   }
 
   &.emptyContainer {
-    .columnContainer {
+    td {
       padding: 0 0 19px;
     }
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 630px) {
   .container {
     td {
       .arrowContainer {

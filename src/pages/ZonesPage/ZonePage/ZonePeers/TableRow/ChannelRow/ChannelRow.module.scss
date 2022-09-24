@@ -1,5 +1,5 @@
 .container {
-  height: 48px;
+  height: 50px;
 
   td {
     padding-top: 7.5px;
@@ -37,7 +37,7 @@
         width: 80px;
         overflow: hidden;
 
-        font-size: var(--font-secondary-size-lg);
+        font-size: var(--font-secondary-size-md);
         text-overflow: ellipsis;
         font-feature-settings: 'tnum' on, 'lnum' on;
       }
@@ -69,7 +69,7 @@
     .value {
       font-feature-settings: 'tnum' on, 'lnum' on;
 
-      font-size: var(--font-secondary-size-lg);
+      font-size: var(--font-secondary-size-md);
     }
   }
 
@@ -78,7 +78,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 630px) {
   .container {
     td {
       &:last-child {

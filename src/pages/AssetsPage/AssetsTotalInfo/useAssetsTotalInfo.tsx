@@ -21,8 +21,9 @@ export interface AssetsTotalData {
 
 export function useAssetsTotalInfo(): {
   data: AssetsTotalData | undefined;
+  loading: boolean;
 } {
-  const { data } = useQuery(AseetsTotalInfoDocument, {});
+  const { data, loading } = useQuery(AseetsTotalInfoDocument, {});
 
   const aggregatedData = data?.aggregatedData?.aggregate;
 
@@ -45,6 +46,7 @@ export function useAssetsTotalInfo(): {
       topMoverValue: data.topMover[0]?.price,
       total24hTradingVolumeChart: data?.total24hTradingVolumeChart,
     },
+    loading,
   };
 }
 

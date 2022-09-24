@@ -37,7 +37,7 @@ export interface ZonesTotalInfoData {
 export function useZonesTotalInfo(
   selectedPeriod: PeriodKeys,
   isMainnet = true
-): { data: ZonesTotalInfoData } {
+): { data: ZonesTotalInfoData | null; loading: boolean } {
   const options = {
     variables: {
       period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
@@ -45,20 +45,23 @@ export function useZonesTotalInfo(
     },
   };
 
-  const { data } = useQuery(ZonesTotalInfoDocument, options);
+  const { data, loading } = useQuery(ZonesTotalInfoDocument, options);
 
   return {
-    data: {
-      ibcVolume: data?.totalStats.aggregate?.sum?.ibcVolume,
-      ibcVolumePending: data?.totalStats.aggregate?.sum?.ibcVolumePending,
-      ibcTotalVolumeChart: data?.ibcTotalVolumeChart,
-      ibcTransfers: data?.totalStats.aggregate?.sum?.ibcTransfers,
-      ibcTransfersPending: data?.totalStats.aggregate?.sum?.ibcTransfersPending,
-      ibcTransfersFailed: data?.allChannels.aggregate?.sum?.ibcTransfersFailed,
-      allChannels: data?.allChannels.aggregate?.count,
-      activeChannels: data?.activeChannels.aggregate?.count,
-      ibcTransfersTopPair: data?.ibcTransfersTopPair[0],
-      ibcVolumeTopPair: data?.ibcVolumeTopPair[0],
-    },
+    data: data
+      ? {
+          ibcVolume: data.totalStats?.aggregate?.sum?.ibcVolume,
+          ibcVolumePending: data.totalStats?.aggregate?.sum?.ibcVolumePending,
+          ibcTotalVolumeChart: data.ibcTotalVolumeChart,
+          ibcTransfers: data.totalStats?.aggregate?.sum?.ibcTransfers,
+          ibcTransfersPending: data.totalStats?.aggregate?.sum?.ibcTransfersPending,
+          ibcTransfersFailed: data.allChannels?.aggregate?.sum?.ibcTransfersFailed,
+          allChannels: data.allChannels?.aggregate?.count,
+          activeChannels: data.activeChannels?.aggregate?.count,
+          ibcTransfersTopPair: data.ibcTransfersTopPair?.[0],
+          ibcVolumeTopPair: data.ibcVolumeTopPair?.[0],
+        }
+      : null,
+    loading,
   };
 }

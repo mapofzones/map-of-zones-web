@@ -10,11 +10,12 @@
   .table {
     th {
       &:last-child {
-        min-width: 235px;
+        min-width: 201px;
         padding-left: 96px;
       }
     }
 
+    /* stylelint-disable */
     th, tr td {
       &:first-child {
         min-width: 42px; // TODO: calculate dynamically
@@ -26,7 +27,7 @@
 
         width: 100%;
 
-        min-width: 260px;
+        min-width: 220px;
         padding-left: 16px;
       }
 
@@ -37,7 +38,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 630px) {
   .container {
     .header {
       margin: 20px 12px 16px;

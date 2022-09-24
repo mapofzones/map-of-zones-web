@@ -33,7 +33,7 @@ export type ZoneChannelQueryResult = {
   ibcVolumeOutPending: number;
 };
 
-export function usePeersTable(selectedPeriod: PeriodKeys): { data: ZoneData[] } {
+export function usePeersTable(selectedPeriod: PeriodKeys): { data: ZoneData[]; loading: boolean } {
   const { zone = '' } = useParams();
 
   const options = {
@@ -44,7 +44,7 @@ export function usePeersTable(selectedPeriod: PeriodKeys): { data: ZoneData[] } 
     },
   };
 
-  const { data } = useQuery(ZonesListZonePeersDocument, options);
+  const { data, loading } = useQuery(ZonesListZonePeersDocument, options);
 
   return useMemo(
     () => ({
@@ -82,8 +82,9 @@ export function usePeersTable(selectedPeriod: PeriodKeys): { data: ZoneData[] } 
               }
             );
           }) ?? [],
+      loading,
     }),
-    [data?.zones]
+    [data?.zones, loading]
   );
 }
 

@@ -7,7 +7,10 @@ import { ZonesTableDocument } from 'graphql/v2/ZonesPage/ZonesInfo/__generated__
 
 import { ZoneData } from './TableRow/TableRow.props';
 
-export function useZonesTable(selectedPeriod: PeriodKeys, isMainnet = true): { data: ZoneData[] } {
+export function useZonesTable(
+  selectedPeriod: PeriodKeys,
+  isMainnet = true
+): { data: ZoneData[]; loading: boolean } {
   const options = {
     variables: {
       period: PERIODS_IN_HOURS_BY_KEY[selectedPeriod],
@@ -15,7 +18,7 @@ export function useZonesTable(selectedPeriod: PeriodKeys, isMainnet = true): { d
     },
   };
 
-  const { data } = useQuery(ZonesTableDocument, options);
+  const { data, loading } = useQuery(ZonesTableDocument, options);
 
   return useMemo(
     () => ({
@@ -25,7 +28,8 @@ export function useZonesTable(selectedPeriod: PeriodKeys, isMainnet = true): { d
           ...zone.switchedStats[0],
           ...zone.stats[0],
         })) ?? [],
+      loading,
     }),
-    [data]
+    [data, loading]
   );
 }
