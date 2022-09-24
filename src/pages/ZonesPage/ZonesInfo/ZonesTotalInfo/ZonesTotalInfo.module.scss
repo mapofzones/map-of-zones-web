@@ -20,6 +20,11 @@
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
+.cardNumbers {
+  display: flex;
+  flex-direction: column;
+}
+
 .pendingValue {
   color: var(--grey-500);
   font-size: var(--font-secondary-size-md);

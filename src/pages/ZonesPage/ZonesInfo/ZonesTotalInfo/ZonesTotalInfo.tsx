@@ -95,7 +95,7 @@ export function ZonesTotalInfo(): JSX.Element {
                 target={zonesTotalInfo.ibcTransfersTopPair?.target?.name}
               />
             </div>
-            <div>
+            <div className={styles.cardNumbers}>
               <span className={styles.total}>
                 <NumberFormat
                   value={zonesTotalInfo.ibcTransfersTopPair?.ibcTransfers}
@@ -124,7 +124,7 @@ export function ZonesTotalInfo(): JSX.Element {
                 target={zonesTotalInfo.ibcVolumeTopPair?.target?.name}
               />
             </div>
-            <div>
+            <div className={styles.cardNumbers}>
               <NumberFormat
                 className={styles.total}
                 value={zonesTotalInfo.ibcVolumeTopPair?.ibcVolume}
