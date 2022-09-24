@@ -154,7 +154,8 @@ const getItemsInLevel = (index: number, size: number) => {
 
 function getCoordinates(itemsInLevel: number, index: number, level: number, radiusConst: number) {
   const angleConst = (2 * Math.PI) / itemsInLevel;
-  const zoneAngle = index * angleConst;
+  const offsetAngle = level === 2 ? angleConst / 2 : 0;
+  const zoneAngle = index * angleConst + offsetAngle;
 
   const r = level * radiusConst;
   const x = r * Math.cos(zoneAngle);
