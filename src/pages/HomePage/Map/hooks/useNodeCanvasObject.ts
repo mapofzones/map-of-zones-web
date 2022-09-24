@@ -64,6 +64,10 @@ function drawNodeCanvasObject(
 
   drawNode(ctx, currentNode, isFaded, isFocusedZone);
 
+  if (isFaded) {
+    return;
+  }
+
   drawTitle(ctx, currentNode, isFaded, isNormal);
 }
 
@@ -91,6 +95,11 @@ function drawNode(
     ctx.fill();
   }
 
+  if (isFocusedZone) {
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 25;
+  }
+
   if (logoUrl && logoRadius) {
     if (isFaded) {
       ctx.globalAlpha = 0.2;
@@ -101,6 +110,11 @@ function drawNode(
     if (isFaded) {
       ctx.globalAlpha = 1;
     }
+  }
+
+  if (isFocusedZone) {
+    ctx.shadowColor = null as any;
+    ctx.shadowBlur = null as any;
   }
 }
 
