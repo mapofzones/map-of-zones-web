@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { init } from '@amplitude/analytics-browser';
+import * as amplitude from '@amplitude/analytics-browser';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
@@ -27,14 +27,12 @@ import { useViewedZonePeersPageAnalytics } from './zonePeers/useViewedZonePeersP
 import { useSortedZonesListAnalytics } from './zones/useSortedZonesListAnalytics';
 import { useViewedZonesListPageAnalytics } from './zones/useViewedZonesListPageAnalytics';
 
-if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_AMPLITUDE_KEY) {
-  init(process.env.REACT_APP_AMPLITUDE_KEY);
-}
-
 export const trackEvent = (event: string, data?: object) => {
   if (process.env.NODE_ENV === 'production') {
-    // track(event, data);
-    console.log('event:', event, data);
+    if (process.env.REACT_APP_AMPLITUDE_KEY) {
+      amplitude.init(process.env.REACT_APP_AMPLITUDE_KEY);
+      amplitude.logEvent(event, data);
+    }
   } else {
     console.log('event:', event, data);
   }
