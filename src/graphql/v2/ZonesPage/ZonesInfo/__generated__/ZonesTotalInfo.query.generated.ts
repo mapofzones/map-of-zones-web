@@ -22,7 +22,7 @@ export type ZonesTotalInfoQueryResult = {
       } | null;
     } | null;
   };
-  ibcTotalVolumeChart: Array<{ volume?: any | null }>;
+  ibcTotalVolumeChart: Array<{ volume: any }>;
   allChannels: {
     aggregate?: {
       count?: number | null;

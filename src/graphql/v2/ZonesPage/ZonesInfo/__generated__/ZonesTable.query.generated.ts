@@ -41,7 +41,7 @@ export type ZonesTableQueryResult = {
       totalIbcTxsRatingDiff: number;
       dauRating?: number | null;
       dauRatingDiff?: number | null;
-      ibcVolumeChart: Array<{ volume?: any | null }>;
+      ibcVolumeChart: Array<{ volume: any }>;
     }>;
     stats: Array<{ totalTxs: number; dau?: number | null }>;
   }>;

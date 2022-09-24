@@ -14,6 +14,10 @@ export const ZONES_MAP = gql`
         ibcVolume: ibc_cashflow
         ibcVolumeIn: ibc_cashflow_in
         ibcVolumeOut: ibc_cashflow_out
+        ibcVolumeRating: ibc_cashflow_rating
+        ibcTransfersRating: ibc_transfers_rating
+        dauRating: active_addresses_cnt_rating
+        totalTxsRating: txs_rating
       }
     }
     zonesGraphs: flat_blockchain_relations(

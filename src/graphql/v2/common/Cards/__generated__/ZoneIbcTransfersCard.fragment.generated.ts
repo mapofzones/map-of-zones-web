@@ -14,7 +14,7 @@ export type ZoneIbcTransfersCardV1Fragment = {
 export type ZoneIbcTransfersCardV2Fragment = {
   ibcTransfers: number;
   ibcTransfersPending: number;
-  ibcTransfersChart: Array<{ ibcTransfer?: any | null }>;
+  ibcTransfersChart: Array<{ ibcTransfer: any }>;
 };
 
 export const ZoneIbcTransfersCardV1FragmentDoc = {

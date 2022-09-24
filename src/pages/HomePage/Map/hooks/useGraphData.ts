@@ -8,12 +8,23 @@ import {
   ZonesMapDocument,
   ZonesMapQueryResult,
 } from 'graphql/v2/HomePage/__generated__/ZonesMap.query.generated';
+import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { SortRow } from 'hooks/useSortedTableData';
+import { ColumnKeys } from 'pages/HomePage/Types';
 
 import { Link, MapNode, ZoneLink, ZoneStat } from '../Types';
 
+const sortingKeyByColumnKey: Record<ColumnKeys, keyof ZoneStat> = {
+  [ColumnKeys.IbcVolume]: 'ibcVolumeRating',
+  [ColumnKeys.IbcTransfers]: 'ibcTransfersRating',
+  [ColumnKeys.TotalTxs]: 'totalTxsRating',
+  [ColumnKeys.Dau]: 'dauRating',
+};
+
 export const useGraphData = () => {
   const [selectedPeriod] = useSelectedPeriod();
+  const [selectedColumnKey] = useDefaultSearchParam<ColumnKeys>('columnKey');
 
   const [graphData, setGraphData] = useState<GraphData>({ nodes: [], links: [] });
   const options = {
@@ -26,14 +37,14 @@ export const useGraphData = () => {
   const { data, loading } = useQuery(ZonesMapDocument, options);
 
   useEffect(() => {
-    const newData = transformMapData(data);
+    const newData = transformMapData(data, sortingKeyByColumnKey[selectedColumnKey]);
     setGraphData(newData);
-  }, [data]);
+  }, [data, selectedColumnKey]);
 
   return { graphData, loading };
 };
 
-function transformMapData(data: ZonesMapQueryResult | undefined) {
+function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyof ZoneStat) {
   const nodes: MapNode[] = [];
   const links: Link[] = [];
 
@@ -47,9 +58,7 @@ function transformMapData(data: ZonesMapQueryResult | undefined) {
   }));
   const zonesGraphsData: ZoneLink[] = JSON.parse(JSON.stringify(data.zonesGraphs));
 
-  zonesStats = zonesStats.sort((a, b) =>
-    a.ibcVolume === null ? -1 : b.ibcVolume === null ? 1 : b.ibcVolume - a.ibcVolume
-  );
+  zonesStats = zonesStats.sort((a, b) => SortRow(a, b, columnKey, 'asc'));
 
   const nodesKeySet = new Set(zonesStats.map((node) => node.zone));
 

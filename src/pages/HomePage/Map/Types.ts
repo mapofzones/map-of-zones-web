@@ -44,6 +44,10 @@ export interface ZoneStat {
   ibcVolume: number | null;
   ibcVolumeIn: number | null;
   ibcVolumeOut: number | null;
+  ibcVolumeRating: number;
+  ibcTransfersRating: number;
+  dauRating?: number | null;
+  totalTxsRating: number;
   isMainnet: boolean;
   logoUrl?: string | null;
   name: string;

@@ -18,7 +18,15 @@ export type ZonesMapQueryResult = {
     zone: string;
     logoUrl?: string | null;
     name: string;
-    switchedStats: Array<{ ibcVolume: any; ibcVolumeIn: any; ibcVolumeOut: any }>;
+    switchedStats: Array<{
+      ibcVolume: any;
+      ibcVolumeIn: any;
+      ibcVolumeOut: any;
+      ibcVolumeRating: number;
+      ibcTransfersRating: number;
+      dauRating?: number | null;
+      totalTxsRating: number;
+    }>;
   }>;
   zonesGraphs: Array<{ source: string; target: string; ibcVolume: any }>;
 };
@@ -155,6 +163,26 @@ export const ZonesMapDocument = {
                         kind: 'Field',
                         alias: { kind: 'Name', value: 'ibcVolumeOut' },
                         name: { kind: 'Name', value: 'ibc_cashflow_out' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcVolumeRating' },
+                        name: { kind: 'Name', value: 'ibc_cashflow_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcTransfersRating' },
+                        name: { kind: 'Name', value: 'ibc_transfers_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'dauRating' },
+                        name: { kind: 'Name', value: 'active_addresses_cnt_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'totalTxsRating' },
+                        name: { kind: 'Name', value: 'txs_rating' },
                       },
                     ],
                   },

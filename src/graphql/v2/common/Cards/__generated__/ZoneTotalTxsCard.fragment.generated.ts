@@ -8,10 +8,7 @@ import * as Types from '../../../../base-types';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneTotalTxsCardV1Fragment = { totalTxs?: number | null };
 
-export type ZoneTotalTxsCardV2Fragment = {
-  totalTxs: number;
-  totalTxsChart: Array<{ txs?: any | null }>;
-};
+export type ZoneTotalTxsCardV2Fragment = { totalTxs: number; totalTxsChart: Array<{ txs: any }> };
 
 export const ZoneTotalTxsCardV1FragmentDoc = {
   kind: 'Document',

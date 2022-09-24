@@ -1193,8 +1193,8 @@ export type Flat_Blockchain_Stats = {
   blockchain_tf_charts: Array<Flat_Blockchain_Tf_Charts>;
   /** An aggregated array relationship */
   blockchain_tf_charts_aggregate: Flat_Blockchain_Tf_Charts_Aggregate;
-  ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
-  ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
+  ibc_active_addresses_cnt: Scalars['Int'];
+  ibc_active_addresses_cnt_diff: Scalars['Int'];
   ibc_active_addresses_percent?: Maybe<Scalars['numeric']>;
   timeframe: Scalars['Int'];
   /** An object relationship */
@@ -2672,7 +2672,7 @@ export type Flat_Blockchain_Tf_Charts = {
   blockchain_tf_chart_type: Flat_Blockchain_Tf_Chart_Type;
   chart_type: Scalars['String'];
   point_index: Scalars['Int'];
-  point_value?: Maybe<Scalars['numeric']>;
+  point_value: Scalars['numeric'];
   timeframe: Scalars['Int'];
 };
 
@@ -3022,7 +3022,7 @@ export type Flat_Blockchain_Tf_Switched_Charts = {
   chart_type: Scalars['String'];
   is_mainnet: Scalars['Boolean'];
   point_index: Scalars['Int'];
-  point_value?: Maybe<Scalars['numeric']>;
+  point_value: Scalars['numeric'];
   timeframe: Scalars['Int'];
 };
 
@@ -4856,7 +4856,7 @@ export type Flat_Token_Charts = {
   chart_type: Scalars['String'];
   denom: Scalars['String'];
   point_index: Scalars['Int'];
-  point_value?: Maybe<Scalars['numeric']>;
+  point_value: Scalars['numeric'];
   /** An object relationship */
   token?: Maybe<Flat_Tokens>;
   /** An object relationship */
@@ -5623,7 +5623,7 @@ export type Flat_Total_Tf_Switched_Charts = {
   chart_type: Scalars['String'];
   is_mainnet: Scalars['Boolean'];
   point_index: Scalars['Int'];
-  point_value?: Maybe<Scalars['numeric']>;
+  point_value: Scalars['numeric'];
   timeframe: Scalars['Int'];
   /** An object relationship */
   timeframeByTimeframe: Flat_Timeframes;
