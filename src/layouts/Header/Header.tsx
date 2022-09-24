@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-import { NumberFormat, NumberType } from 'components';
+import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { NetworkMarketCapInfoDocument } from 'graphql/v2/common/__generated__/CosmosNetworkMarketCap.query.generated';
 import { useHeaderMenuClicksAnalytics } from 'hooks/analytics/multipage/useHeaderMenuClicksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
@@ -18,7 +18,7 @@ function Header({ ...props }): JSX.Element {
     setIsVisible: setIsMenuOpen,
   } = useComponentVisible<HTMLDivElement>(false);
 
-  const { data } = useQuery(NetworkMarketCapInfoDocument);
+  const { data, loading } = useQuery(NetworkMarketCapInfoDocument);
   const trackHeaderTabClick = useHeaderMenuClicksAnalytics();
 
   return (
@@ -50,11 +50,13 @@ function Header({ ...props }): JSX.Element {
         </nav>
         <div className={styles.marketCapContainer}>
           <span className={styles.marketCapTitle}>Cosmos Network Market Cap: </span>
-          <NumberFormat
-            className={styles.marketCapValue}
-            value={data?.networkMarketCap.aggregate?.sum?.marketCap}
-            numberType={NumberType.Currency}
-          />
+          <SkeletonTextWrapper loading={loading} defaultText={'$13 686 000 000'}>
+            <NumberFormat
+              className={styles.marketCapValue}
+              value={data?.networkMarketCap.aggregate?.sum?.marketCap}
+              numberType={NumberType.Currency}
+            />
+          </SkeletonTextWrapper>
         </div>
       </div>
     </header>
