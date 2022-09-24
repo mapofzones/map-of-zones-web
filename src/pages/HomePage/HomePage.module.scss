@@ -1,6 +1,8 @@
 .pageContainer {
   display: grid;
   grid-template-columns: 1fr 376px;
+
+  background: url('./../../assets/stars-bg.svg') center/contain var(--black-100);
 }
 
 @media (max-width: 630px) {
