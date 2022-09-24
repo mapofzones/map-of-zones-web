@@ -78,7 +78,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
           />
           <Divider />
           <ValueWithPending
-            title={'Nodes'}
+            title={'Nodes (RPC/REST)'}
             value={data?.nodesCnt}
             numberType={NumberType.Number}
             tooltipText={tooltips['nodesCount']()}
