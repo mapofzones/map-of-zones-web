@@ -71,7 +71,6 @@ export function AssetsTotalInfo(): JSX.Element {
                 ({zonesTotalInfo?.topMarketTokenSymbol})
               </span>
             </div>
-            {/* <div className={styles.additionalValue}>{zonesTotalInfo.topMarketTokenSymbol}</div> */}
           </div>
         </div>
 

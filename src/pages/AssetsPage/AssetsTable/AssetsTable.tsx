@@ -20,7 +20,7 @@ export function AssetsTable() {
     [selectedColumnKey]
   );
 
-  const { data } = useAssetsTable();
+  const { data, loading } = useAssetsTable();
 
   const sortedData = useSortedTableData(data, sortingColumnKey, 'desc');
 
@@ -28,7 +28,7 @@ export function AssetsTable() {
     <div className={styles.container}>
       <div className={styles.header}>All Tokens</div>
 
-      {!!sortedData.length && (
+      {!loading && (
         <Table
           className={styles.table}
           headerConfig={TABLE_HEADER_CONFIG}
@@ -45,7 +45,8 @@ export function AssetsTable() {
           ))}
         </Table>
       )}
-      {!sortedData.length && <TableSkeleton />}
+
+      {loading && <TableSkeleton />}
     </div>
   );
 }

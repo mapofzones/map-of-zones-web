@@ -24,8 +24,8 @@ export function ZonesTable() {
 
   const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
 
-  const { data: zonesCountData } = useZonesCount(selectedPeriod);
-  const { data } = useZonesTable(selectedPeriod);
+  const { data: zonesCountData, loading: zonesCountLoading } = useZonesCount(selectedPeriod);
+  const { data, loading: zonesLoading } = useZonesTable(selectedPeriod);
 
   const sortedZones = useSortedTableData(data, sortingColumnKey, 'asc');
 
@@ -34,7 +34,7 @@ export function ZonesTable() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        {!!zonesCountData?.allZonesCount && (
+        {!zonesCountLoading && (
           <div className={styles.titleContainer}>
             <span className={styles.title}>{zonesCountData?.allZonesCount} Zones</span>
             <span className={styles.subtitle}>
@@ -43,7 +43,7 @@ export function ZonesTable() {
           </div>
         )}
 
-        {!zonesCountData?.allZonesCount && (
+        {zonesCountLoading && (
           <div className={styles.titleContainer}>
             <SkeletonRectangle className={cn(styles.title, styles.skeleton)} />
           </div>
@@ -52,7 +52,7 @@ export function ZonesTable() {
         <PeriodSelector useDropdown={isTabletSmall} />
       </div>
 
-      {!!sortedZones.length && (
+      {!zonesLoading && (
         <Table
           className={styles.table}
           headerConfig={tableHeaderConfig}
@@ -70,7 +70,7 @@ export function ZonesTable() {
         </Table>
       )}
 
-      {!sortedZones.length && <TableSkeleton />}
+      {zonesLoading && <TableSkeleton />}
     </div>
   );
 }

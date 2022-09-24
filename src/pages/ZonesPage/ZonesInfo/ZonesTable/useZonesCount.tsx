@@ -11,12 +11,13 @@ export function useZonesCount(selectedPeriod: PeriodKeys, isMainnet = true) {
     },
   };
 
-  const { data } = useQuery(ZonesCountDocument, options);
+  const { data, loading } = useQuery(ZonesCountDocument, options);
 
   return {
     data: data && {
       allZonesCount: data.allZonesCount.aggregate?.count,
       activeZonesCount: data.activeZonesCount.aggregate?.count,
     },
+    loading,
   };
 }
