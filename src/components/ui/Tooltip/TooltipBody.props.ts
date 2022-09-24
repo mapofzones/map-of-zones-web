@@ -1,11 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
-export interface TooltipProps
+export interface TooltipBodyProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children: ReactNode;
   className?: string;
-  text?: string;
-  width?: number;
-  margin?: number;
-  hoverElement?: ReactNode;
+  isFixed?: boolean;
 }

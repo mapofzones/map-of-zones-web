@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
-import { Divider, Tooltip } from 'components';
+import { Divider } from 'components';
+import { TooltipBody } from 'components/ui/Tooltip/TooltipBody';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { InfoIcon, RevertedArrowsIcon } from 'icons';
@@ -37,7 +38,7 @@ export function ChannelInfoTooltip({
     <div className={cn(styles.container, className)} onMouseEnter={onMouseEnter}>
       <InfoIcon />
 
-      <Tooltip className={styles.tooltip}>
+      <TooltipBody className={styles.tooltip} isFixed={false}>
         <div className={styles.title}>
           {parentZone.name}
           <RevertedArrowsIcon className={styles.arrowIcon} />
@@ -66,7 +67,7 @@ export function ChannelInfoTooltip({
         )}
 
         <div className={styles.triangle} />
-      </Tooltip>
+      </TooltipBody>
     </div>
   );
 }

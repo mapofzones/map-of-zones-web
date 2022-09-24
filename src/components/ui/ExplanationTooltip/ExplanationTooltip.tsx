@@ -9,20 +9,15 @@ import { ExplanationTooltipProps } from './ExplanationTooltip.props';
 export function ExplanationTooltip({
   className,
   text = '',
-  position = 'left',
   ...props
 }: ExplanationTooltipProps): JSX.Element {
   return (
-    <div
-      className={cn(styles.container, className, {
-        [styles.leftPos]: position === 'left',
-        [styles.rightPos]: position === 'right',
-        [styles.centerPos]: position === 'center',
-      })}
+    <Tooltip
+      className={cn(styles.container, className)}
+      hoverElement={<QuestionMark className={styles.questionMark} />}
       {...props}
     >
-      <QuestionMark className={styles.questionMark} />
-      <Tooltip className={styles.tooltip}>{text}</Tooltip>
-    </div>
+      {text}
+    </Tooltip>
   );
 }

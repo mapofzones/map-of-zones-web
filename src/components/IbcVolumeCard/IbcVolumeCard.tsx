@@ -28,7 +28,7 @@ export function IbcVolumeCard({
     >
       <span className={styles.title}>
         IBC Volume ({period})&nbsp;
-        <ExplanationTooltip text={tooltips['ibcVolume']()} position={'center'} />
+        <ExplanationTooltip text={tooltips['ibcVolume']()} />
       </span>
       <NumberFormat
         className={styles.volumeValue}

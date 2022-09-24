@@ -11,6 +11,9 @@
 
     width: 234px;
 
+    visibility: hidden;
+    opacity: 0;
+
     .title {
       font-size: var(--font-base-size-lg);
 

@@ -16,7 +16,9 @@ export {
 } from './LinkWithSearchParams/LinkWithSearchParams';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { PercentStackedLineChart } from './PercentStackedLineChart/PercentStackedLineChart';
+export { Portal } from './Portal/Portal';
 export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
 export { ScrollUpButton } from './ScrollUpButton/ScrollUpButton';
 export { Search } from './Search/Search';
 export { Tooltip } from './Tooltip/Tooltip';
+export { TooltipBody } from './Tooltip/TooltipBody';

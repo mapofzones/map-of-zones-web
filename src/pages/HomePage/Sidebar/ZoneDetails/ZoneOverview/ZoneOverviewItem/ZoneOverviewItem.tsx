@@ -15,7 +15,6 @@ function ZoneOverviewItem({
   period,
   rowDirection = false,
   title,
-  tooltipPosition = 'left',
   tooltipText,
   value,
   ...props
@@ -30,7 +29,7 @@ function ZoneOverviewItem({
       <div className={styles.title}>
         {title}
         {period && <span> ({period})</span>}
-        {tooltipText && <ExplanationTooltip text={tooltipText} position={tooltipPosition} />}
+        {tooltipText && <ExplanationTooltip text={tooltipText} />}
       </div>
       <div className={styles.value}>
         <SkeletonTextWrapper loading={loading} defaultText={defaultLoadingValue}>

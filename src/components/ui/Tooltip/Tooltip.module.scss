@@ -1,22 +1,3 @@
 .container {
-  position: absolute;
-  z-index: 1000;
-
-  width: max-content;
-  max-width: 240px;
-  padding: 12px;
-
-  color: var(--grey-800);
-  font-size: var(--font-secondary-size-md);
-  white-space: pre-wrap;
-  text-align: left;
-
-  background-color: var(--black-400);
-  border: 1px solid var(--black-600);
-  border-radius: 4px;
-  box-shadow: 0 8px 30px rgb(0 0 0 / 70%);
-  visibility: hidden;
-  opacity: 0;
-
-  transition: 0.2s;
+  cursor: pointer;
 }

@@ -20,19 +20,24 @@ const STATUS_TITLE_BY_ZONE: Record<string, string> = {
 export function ZoneStatus({ className, status }: ZoneStatusProps) {
   const parsedStatus = typeof status === 'boolean' ? `${status}` : 'default';
 
+  const statusCircle = (
+    <div className={cn(styles.status, className)}>
+      <div
+        style={{ backgroundColor: STATUS_ICON_COLOR_BY_ZONE[parsedStatus] }}
+        className={styles.iconBackground}
+      />
+      <div
+        style={{ backgroundColor: STATUS_ICON_COLOR_BY_ZONE[parsedStatus] }}
+        className={styles.icon}
+      />
+    </div>
+  );
+
   return (
     <div className={styles.container}>
-      <div className={cn(styles.status, className)}>
-        <div
-          style={{ backgroundColor: STATUS_ICON_COLOR_BY_ZONE[parsedStatus] }}
-          className={styles.iconBackground}
-        />
-        <div
-          style={{ backgroundColor: STATUS_ICON_COLOR_BY_ZONE[parsedStatus] }}
-          className={styles.icon}
-        />
-      </div>
-      <Tooltip className={styles.tooltip}>{STATUS_TITLE_BY_ZONE[parsedStatus]}</Tooltip>
+      <Tooltip className={styles.tooltip} hoverElement={statusCircle} width={160}>
+        {STATUS_TITLE_BY_ZONE[parsedStatus]}
+      </Tooltip>
     </div>
   );
 }

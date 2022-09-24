@@ -17,7 +17,6 @@ export function ValueWithPending({
   size = ElementSize.MEDIUM,
   title,
   value,
-  tooltipPosition = 'left',
   tooltipText,
   loading = false,
   defaultSkeletonText,
@@ -35,7 +34,7 @@ export function ValueWithPending({
       {title && (
         <span className={styles.title}>
           {title}
-          {tooltipText && <ExplanationTooltip text={tooltipText} position={tooltipPosition} />}
+          {tooltipText && <ExplanationTooltip text={tooltipText} />}
         </span>
       )}
 

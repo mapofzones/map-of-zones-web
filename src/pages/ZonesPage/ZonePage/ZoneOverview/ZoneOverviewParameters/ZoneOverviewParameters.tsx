@@ -82,7 +82,6 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             value={data?.nodesCnt}
             numberType={NumberType.Number}
             tooltipText={tooltips['nodesCount']()}
-            tooltipPosition={'left'}
             size={ElementSize.LARGE}
           />
         </TotalCard>

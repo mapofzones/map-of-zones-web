@@ -41,7 +41,6 @@ function ZoneOverview() {
             loading={loading}
             defaultLoadingValue={'1 156 288'}
             tooltipText={tooltips['totalTxs']()}
-            tooltipPosition={'right'}
           ></ZoneOverviewItem>
 
           <ZoneOverviewItem
@@ -52,7 +51,6 @@ function ZoneOverview() {
             loading={loading}
             defaultLoadingValue={'72 235'}
             tooltipText={tooltips['ibcTransfers']()}
-            tooltipPosition={'left'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
@@ -61,7 +59,6 @@ function ZoneOverview() {
             loading={loading}
             defaultLoadingValue={'12'}
             tooltipText={tooltips['peersCount']()}
-            tooltipPosition={'right'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
@@ -70,7 +67,6 @@ function ZoneOverview() {
             loading={loading}
             defaultLoadingValue={'250'}
             tooltipText={tooltips['channelsCount']()}
-            tooltipPosition={'left'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
@@ -78,7 +74,6 @@ function ZoneOverview() {
             loading={loading}
             value={data?.dau}
             tooltipText={tooltips['dau'](period)}
-            tooltipPosition={'right'}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
@@ -86,7 +81,6 @@ function ZoneOverview() {
             loading={loading}
             defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
             tooltipText={tooltips['ibcDau'](period)}
-            tooltipPosition={'left'}
           >
             <NumberFormat value={data?.ibcDau} />
             <span className={styles.additionalInfo}>
@@ -100,7 +94,6 @@ function ZoneOverview() {
             title={'Token Price'}
             loading={loading}
             defaultLoadingValue={'$10.45'}
-            tooltipPosition={'right'}
           >
             <NumberFormat value={data?.price} numberType={NumberType.Currency} />
             <span className={styles.additionalInfo}> {data?.tokenSymbol}</span>
@@ -112,7 +105,6 @@ function ZoneOverview() {
             loading={loading}
             defaultLoadingValue={'$123,456,789'}
             tooltipText={tooltips['marketCap']()}
-            tooltipPosition={'left'}
           ></ZoneOverviewItem>
         </div>
       </ScrollableContainer>

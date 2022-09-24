@@ -3,16 +3,6 @@
 
   cursor: pointer;
 
-  .tooltip {
-    top: -50px;
-    left: -25px;
-  }
-
-  &:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-  }
-
   .status {
     position: relative;
 
