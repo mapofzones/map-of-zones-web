@@ -113,8 +113,10 @@
         flex-direction: column;
         margin-left: 0;
         padding-top: 10px;
+        opacity: 0;
 
         background-color: #0e0e16;
+        transition: opacity 0.5s linear;
 
         &.opened {
           top: 62px;
@@ -122,6 +124,7 @@
 
           width: 100%;
           height: auto;
+          opacity: 1;
 
           a {
             margin: 0 24px;
