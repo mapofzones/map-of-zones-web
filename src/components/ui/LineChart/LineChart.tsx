@@ -17,14 +17,16 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
 
   const lastPointIndex = data.length - 1;
   const colorBreakPointPercentage = isChartColored ? (1 - 1 / lastPointIndex) * 100 : undefined;
-  const referencePoint = getReferencePoint(data, dataKey);
+  const isPositive =
+    isChartColored && data[lastPointIndex][dataKey] != null
+      ? data[lastPointIndex - 1][dataKey] < data[lastPointIndex][dataKey]
+      : false;
+  const isNegative =
+    isChartColored && data[lastPointIndex][dataKey] != null
+      ? data[lastPointIndex - 1][dataKey] > data[lastPointIndex][dataKey]
+      : false;
 
-  const isPositive = isChartColored
-    ? data[lastPointIndex - 1][dataKey] < data[lastPointIndex][dataKey]
-    : false;
-  const isNegative = isChartColored
-    ? data[lastPointIndex - 1][dataKey] > data[lastPointIndex][dataKey]
-    : false;
+  const referencePoint = getReferencePoint(data, dataKey);
 
   const gradientId = `gradient-${
     isPositive ? 'pos' : isNegative ? 'neg' : 'neutral'
@@ -82,7 +84,7 @@ function getReferencePoint(data: ChartItemByString[], dataKey: string) {
   }
 
   const referencePoint = data[data.length - 1];
-  if (referencePoint[dataKey] === null) {
+  if (referencePoint && referencePoint[dataKey] === null) {
     const significantData = data.filter((point) => point[dataKey] != null);
     return significantData[significantData.length - 1];
   }
