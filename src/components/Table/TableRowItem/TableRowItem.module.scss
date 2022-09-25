@@ -8,6 +8,8 @@ td {
   white-space: nowrap;
   vertical-align: top;
 
+  z-index: 10;
+
   &:first-child {
     padding-left: 24px;
   }
