@@ -7,6 +7,8 @@ import {
   YAxis,
 } from 'recharts';
 
+import { ChartItemByString } from 'utils/helper';
+
 import styles from './LineChart.module.scss';
 import { LineChartProps } from './LineChart.props';
 
@@ -14,8 +16,8 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
   const isChartColored = data.length > 1;
 
   const lastPointIndex = data.length - 1;
-  const referencePoint = isChartColored ? data[lastPointIndex] : undefined;
   const colorBreakPointPercentage = isChartColored ? (1 - 1 / lastPointIndex) * 100 : undefined;
+  const referencePoint = getReferencePoint(data, dataKey);
 
   const isPositive = isChartColored
     ? data[lastPointIndex - 1][dataKey] < data[lastPointIndex][dataKey]
@@ -72,4 +74,17 @@ export function LineChart({ data, dataKey, className }: LineChartProps) {
       </LineChartRechart>
     </ResponsiveContainer>
   );
+}
+
+function getReferencePoint(data: ChartItemByString[], dataKey: string) {
+  if (data.length < 2) {
+    return undefined;
+  }
+
+  const referencePoint = data[data.length - 1];
+  if (referencePoint[dataKey] === null) {
+    const significantData = data.filter((point) => point[dataKey] != null);
+    return significantData[significantData.length - 1];
+  }
+  return referencePoint;
 }
