@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZoneOverviewActivityDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
 import { ChartItemByString } from 'utils/helper';
 
 export type ZoneOverviewActivityQueryResult = {
@@ -40,9 +41,13 @@ export function useZoneOverviewActivity(): {
       peersCount: data.switchedStats[0]?.peersCount,
       channelsCount: data.switchedStats[0]?.channelsCount,
       ibcTransfersPending: data.switchedStats[0]?.ibcTransfersPending,
-      ibcTransfersChart: data.switchedStats[0]?.ibcTransfersChart,
+      ibcTransfersChart: handleChartByPeriod(
+        data.switchedStats[0]?.ibcTransfersChart?.slice(),
+        period,
+        'ibcTransfer'
+      ),
       totalTxs: data.stats[0]?.totalTxs,
-      totalTxsChart: data.stats[0]?.totalTxsChart,
+      totalTxsChart: handleChartByPeriod(data.stats[0]?.totalTxsChart?.slice(), period, 'txs'),
       dau: data.stats[0]?.dau,
       ibcDau: data.stats[0]?.ibcDau,
       ibcDauPercent: data.stats[0]?.ibcDauPercent,

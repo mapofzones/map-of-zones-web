@@ -20,7 +20,7 @@ export const ZONE_IBC_VOLUME_CARD = gql`
         where: { chart_type: { _eq: "cashflow" } }
         order_by: { point_index: asc }
       ) {
-        ibcVolumeChart: point_value
+        volume: point_value
       }
     }
   }

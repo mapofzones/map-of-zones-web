@@ -1,5 +1,3 @@
-import { useQuery } from '@apollo/client';
-
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { transformChartData } from 'utils/helper';

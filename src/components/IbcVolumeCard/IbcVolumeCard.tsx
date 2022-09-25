@@ -36,9 +36,7 @@ export function IbcVolumeCard({
         numberType={NumberType.Currency}
       />
       <div className={styles.chart}>
-        {data?.ibcVolumeChart && (
-          <LineChart data={data.ibcVolumeChart} dataKey={'ibcVolumeChart'} />
-        )}
+        {data?.ibcVolumeChart && <LineChart data={data.ibcVolumeChart} dataKey={'volume'} />}
       </div>
       <VolumeLineChart
         className={styles.volumeLineChart}

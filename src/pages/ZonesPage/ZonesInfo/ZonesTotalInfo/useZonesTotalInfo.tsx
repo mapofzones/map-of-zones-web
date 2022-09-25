@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZonesTotalInfoDocument } from 'graphql/v2/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.query.generated';
+import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
 import { ChartItemByString } from 'utils/helper';
 
 interface TopPairZone {
@@ -51,8 +52,12 @@ export function useZonesTotalInfo(
     data: data
       ? {
           ibcVolume: data.totalStats?.aggregate?.sum?.ibcVolume,
+          ibcTotalVolumeChart: handleChartByPeriod(
+            data?.ibcTotalVolumeChart?.slice(),
+            selectedPeriod,
+            'volume'
+          ),
           ibcVolumePending: data.totalStats?.aggregate?.sum?.ibcVolumePending,
-          ibcTotalVolumeChart: data.ibcTotalVolumeChart,
           ibcTransfers: data.totalStats?.aggregate?.sum?.ibcTransfers,
           ibcTransfersPending: data.totalStats?.aggregate?.sum?.ibcTransfersPending,
           ibcTransfersFailed: data.allChannels?.aggregate?.sum?.ibcTransfersFailed,

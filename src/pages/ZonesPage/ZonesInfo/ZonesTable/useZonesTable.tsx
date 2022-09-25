@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import { PERIODS_IN_HOURS_BY_KEY, PeriodKeys } from 'components';
 import { ZonesTableDocument } from 'graphql/v2/ZonesPage/ZonesInfo/__generated__/ZonesTable.query.generated';
+import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
 
 import { ZoneData } from './TableRow/TableRow.props';
 
@@ -26,10 +27,15 @@ export function useZonesTable(
         data?.zonesTable.map((zone) => ({
           ...zone,
           ...zone.switchedStats[0],
+          ibcVolumeChart: handleChartByPeriod(
+            zone.switchedStats[0].ibcVolumeChart?.slice(),
+            selectedPeriod,
+            'volume'
+          ),
           ...zone.stats[0],
         })) ?? [],
       loading,
     }),
-    [data, loading]
+    [data?.zonesTable, loading, selectedPeriod]
   );
 }

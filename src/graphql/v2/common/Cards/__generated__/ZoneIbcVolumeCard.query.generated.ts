@@ -21,7 +21,7 @@ export type ZoneIbcVolumeCardQueryResult = {
     ibcVolumeOutPercent: any;
     ibcVolumeInPending: any;
     ibcVolumeOutPending: any;
-    ibcVolumeChart: Array<{ ibcVolumeChart: any }>;
+    ibcVolumeChart: Array<{ volume: any }>;
   }>;
 };
 
@@ -204,7 +204,7 @@ export const ZoneIbcVolumeCardDocument = {
                     selections: [
                       {
                         kind: 'Field',
-                        alias: { kind: 'Name', value: 'ibcVolumeChart' },
+                        alias: { kind: 'Name', value: 'volume' },
                         name: { kind: 'Name', value: 'point_value' },
                       },
                     ],
