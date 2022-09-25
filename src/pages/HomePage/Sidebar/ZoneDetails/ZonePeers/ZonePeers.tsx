@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Button, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
+import { useSortedTableData } from 'hooks/useSortedTableData';
 import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
 
@@ -17,6 +18,7 @@ export function ZonePeers() {
   const { zone } = useParams();
 
   const { data: peers, loading: peersLoading } = useZonePeers(); // move to ZonePeersTable component
+  const sortedPeers = useSortedTableData(peers, 'ibcVolume', 'desc');
 
   const loading = peersLoading;
 
@@ -28,7 +30,7 @@ export function ZonePeers() {
     <>
       <ScrollableContainer className={styles.container}>
         {loading && <ZonePeersSkeleton />}
-        {!loading && <MemoizedZonePeersTable peers={peers} />}
+        {!loading && <MemoizedZonePeersTable peers={sortedPeers} />}
       </ScrollableContainer>
 
       <Button
