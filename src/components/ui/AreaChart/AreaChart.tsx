@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 import { NumberFormat, NumberType } from '../NumberFormat';
-import { formatNumber } from '../NumberFormat/NumberFormat';
+import { formatNumberToString } from '../NumberFormat/NumberFormat';
 import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
 
@@ -77,7 +77,7 @@ export function AreaChart({
           mirror={true}
           tickSize={3}
           domain={[(dataMin: number) => dataMin * 0.95, (dataMax: number) => dataMax * 1.05]}
-          tickFormatter={(value: number) => formatNumber(value, dataFormat, true)}
+          tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
         />
         <CartesianGrid
           strokeDasharray="3 3"
