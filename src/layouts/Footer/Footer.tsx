@@ -22,8 +22,8 @@ function Footer({ ...props }): JSX.Element {
   });
   const [selectedPeriod] = useSelectedPeriod(false);
 
-  const twitterShareText = useTwitterShareText(selectedPeriod, data?.blockchain[0].name);
-  const telegramShareLink = useTelegramShareText(selectedPeriod, data?.blockchain[0].name);
+  const twitterShareText = useTwitterShareText(selectedPeriod, data?.blockchain[0]?.name);
+  const telegramShareLink = useTelegramShareText(selectedPeriod, data?.blockchain[0]?.name);
 
   const tgShareClick = () => {
     openInNewTab(telegramShareLink);
