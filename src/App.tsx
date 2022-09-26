@@ -6,6 +6,7 @@ import { AboutPage } from 'pages/AboutPage/AboutPage';
 import { AssetsPage } from 'pages/AssetsPage/AssetsPage';
 import { HomePage, Sidebar, ZoneDetails, ZonePeers, ZoneOverview, ZonesInfo } from 'pages/HomePage';
 import { RedirectFromOldVersionToHomePage } from 'pages/Redirect/RedirectFromOldVersionToHomePage';
+import { RedirectFromOldVersionToZonePage } from 'pages/Redirect/RedirectFromOldVersionToZonePage';
 import {
   ZonesInfo as ZonesListZonesInfo,
   ZonesPage,
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="*" element={<div>Not found.</div>} />
           </Route>
         </Route>
+        <Route path="zone" element={<RedirectFromOldVersionToZonePage />} />
         <Route path="zones" element={<ZonesPage />}>
           <Route index element={<ZonesListZonesInfo />} />
           <Route path=":zone" element={<ZonesListZonePage />}>
