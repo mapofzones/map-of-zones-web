@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 24px 16px;
+
+  .titleContainer {
+    display: flex;
+    align-items: flex-end;
+
+    .title {
+      color: var(--white);
+      font-size: var(--font-heading-size-sm);
+
+      &.skeleton {
+        width: 90px;
+        height: 24px;
+      }
+    }
+
+    .subtitle {
+      margin-left: 8px;
+
+      color: var(--grey-500);
+      font-size: var(--font-base-size-md);
+    }
+  }
+}

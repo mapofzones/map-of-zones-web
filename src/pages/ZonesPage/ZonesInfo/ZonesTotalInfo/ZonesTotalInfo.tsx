@@ -18,7 +18,7 @@ import { ZonesConnection } from './ZonesConnection/ZonesConnection';
 import styles from './ZonesTotalInfo.module.scss';
 
 export function ZonesTotalInfo(): JSX.Element {
-  const [selectedPeriod] = useSelectedPeriod();
+  const [selectedPeriod] = useSelectedPeriod(undefined);
 
   const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
 

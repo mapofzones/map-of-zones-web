@@ -1,34 +1,6 @@
 .container {
   width: 100%;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    margin: 24px 24px 16px;
-
-    .titleContainer {
-      display: flex;
-      align-items: flex-end;
-
-      .title {
-        color: var(--white);
-        font-size: var(--font-heading-size-sm);
-
-        &.skeleton {
-          width: 90px;
-          height: 24px;
-        }
-      }
-
-      .subtitle {
-        margin-left: 8px;
-
-        color: var(--grey-500);
-        font-size: var(--font-base-size-md);
-      }
-    }
-  }
-
   .table {
     th {
       &:nth-child(2) {
@@ -41,7 +13,8 @@
     }
 
     /* stylelint-disable */
-    th, tr td {
+    th,
+    tr td {
       &:first-child {
         min-width: 42px; // TODO: calculate dynamically
 
@@ -75,7 +48,8 @@
     }
 
     .table {
-      th, tr td {
+      th,
+      tr td {
         &:first-child {
           min-width: 30px; // TODO: calculate dynamically
         }
