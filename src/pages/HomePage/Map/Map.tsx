@@ -108,18 +108,12 @@ export function Map({ className }: { className: string }) {
         enableNodeDrag={false}
       />
       <div className={styles.leftButtonsContainer}>
-        <Button
-          IconBefore={ZoomIn}
-          className={styles.zoomInBtn}
-          disabled={isZoomInDisabled}
-          onClick={onZoomIn}
-        />
-        <Button
-          IconBefore={ZoomOut}
-          className={styles.zoomOutBtn}
-          disabled={isZoomOutDisabled}
-          onClick={onZoomOut}
-        />
+        <Button className={styles.zoomInBtn} disabled={isZoomInDisabled} onClick={onZoomIn}>
+          <ZoomIn className={styles.icon} />
+        </Button>
+        <Button className={styles.zoomOutBtn} disabled={isZoomOutDisabled} onClick={onZoomOut}>
+          <ZoomOut className={styles.icon} />
+        </Button>
       </div>
     </div>
   );

@@ -48,6 +48,16 @@
       justify-content: center;
       width: 32px;
       height: 32px;
+      padding: 10px;
+
+      .icon {
+        display: flex;
+        align-items: center;
+
+        stroke: var(--white);
+        width: 12px;
+        height: 12px;
+      }
     }
 
     .zoomInBtn {
