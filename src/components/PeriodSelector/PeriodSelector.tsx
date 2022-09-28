@@ -16,7 +16,7 @@ export function PeriodSelector({
   className?: string;
   useDropdown?: boolean;
 }) {
-  const [selectedPeriod, setSelectedPeriod] = useSelectedPeriod();
+  const [selectedPeriod, setSelectedPeriod] = useSelectedPeriod(true);
 
   const onPeriodChange = (period: PeriodKeys) => {
     setSelectedPeriod(period);

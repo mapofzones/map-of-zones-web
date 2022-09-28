@@ -17,7 +17,7 @@ export function useZoneTokenChart(chartType: ChartType): {
   loading: boolean;
 } {
   const { zone = '' } = useParams();
-  const [period] = useSelectedPeriod(false);
+  const [period] = useSelectedPeriod();
 
   const type = getChartType(period, chartType);
 

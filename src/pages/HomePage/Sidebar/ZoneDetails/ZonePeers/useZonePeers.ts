@@ -32,7 +32,7 @@ export function useZonePeers(): {
   loading: boolean;
 } {
   const { zone = '' } = useParams();
-  const [selectedPeriod] = useSelectedPeriod();
+  const [selectedPeriod] = useSelectedPeriod(true);
   const [isMainnet] = useMainnet();
 
   const options = {

@@ -20,7 +20,7 @@ function Footer({ ...props }): JSX.Element {
     variables: { zone },
     skip: !zone,
   });
-  const [selectedPeriod] = useSelectedPeriod(false);
+  const [selectedPeriod] = useSelectedPeriod();
 
   const twitterShareText = useTwitterShareText(selectedPeriod, data?.blockchain[0]?.name);
   const telegramShareLink = useTelegramShareText(selectedPeriod, data?.blockchain[0]?.name);

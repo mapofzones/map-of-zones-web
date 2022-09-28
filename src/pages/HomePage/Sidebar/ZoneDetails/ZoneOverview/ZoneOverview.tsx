@@ -18,7 +18,7 @@ function ZoneOverview() {
 
   const { zone } = useParams();
 
-  const [period] = useSelectedPeriod();
+  const [period] = useSelectedPeriod(true);
 
   const { data, loading } = useZoneOverview();
 
