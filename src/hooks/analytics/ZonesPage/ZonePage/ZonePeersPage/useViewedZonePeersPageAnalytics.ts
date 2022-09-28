@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { Page, PAGE_TITLE } from '../Types';
-import { trackEvent } from '../useAnalytics';
+import { Page, PAGE_TITLE } from 'hooks/analytics/Types';
+import { trackEvent } from 'hooks/analytics/useAnalytics';
 
 export function useViewedZonePeersPageAnalytics(currentPage: Page, prevPage: Page) {
   useEffect(() => {

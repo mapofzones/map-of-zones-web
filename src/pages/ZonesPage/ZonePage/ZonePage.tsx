@@ -10,7 +10,7 @@ import {
   SkeletonTextWrapper,
   ZoneLogo,
 } from 'components';
-import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
+import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useTabletMediumMediaQuery, useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 

@@ -8,7 +8,7 @@ import {
   SkeletonTextWrapper,
   NavLinkWithSearchParams,
 } from 'components';
-import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
+import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 
 import { useZoneDetails } from './useZoneDetails';

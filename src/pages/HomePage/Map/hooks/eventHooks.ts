@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import {
   SelectedZoneSourceView,
   useHomePageSelectedZoneAnalytics,
-} from 'hooks/analytics/home/useHomePageSelectedZoneAnalytics';
+} from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 
 import { HoveredZoneKeyType, MapNode, SelectedZoneKeyType } from './../Types';

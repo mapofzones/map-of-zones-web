@@ -2,9 +2,8 @@ import { useCallback } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
+import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useSelectedZone } from 'pages/HomePage/Map/hooks/eventHooks';
-
-import { trackEvent } from '../useAnalytics';
 
 export function useSwitchedTokenInfoChartAnalytics() {
   const [searchParams] = useSearchParams();

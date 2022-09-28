@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import cn from 'classnames';
 
-import { useSearchSidebarAnalytics } from 'hooks/analytics/home/useSearchSidebarAnalytics';
+import { useSearchSidebarAnalytics } from 'hooks/analytics/HomePage/useSearchSidebarAnalytics';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 
 import { ZoneInfoRow } from '../../../index';

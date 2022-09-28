@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
+import { Page, PAGE_TITLE } from 'hooks/analytics/Types';
+import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { ColumnKeys } from 'pages/ZonesPage/ZonePage/ZonePeers/Types';
-
-import { Page, PAGE_TITLE } from '../Types';
-import { trackEvent } from '../useAnalytics';
 
 const ZONES_PEERS_COLUMN_TITLE: Record<string, string> = {
   // total ibc volume

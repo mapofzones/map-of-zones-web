@@ -15,7 +15,7 @@ import {
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
-import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/zoneOverview/useSwitchedTokenInfoChart';
+import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 

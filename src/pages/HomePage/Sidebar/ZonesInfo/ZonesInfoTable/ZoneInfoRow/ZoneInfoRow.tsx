@@ -4,7 +4,7 @@ import { LinkWithSearchParams, NumberType, ValueWithPending, ZoneInfoWithSearch 
 import {
   SelectedZoneSourceView,
   useHomePageSelectedZoneAnalytics,
-} from 'hooks/analytics/home/useHomePageSelectedZoneAnalytics';
+} from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
 
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
