@@ -3,8 +3,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import cn from 'classnames';
 import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
+import { ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
-import { ZoomIn, ZoomOut } from 'icons';
 import { debounce } from 'utils/timer';
 
 import { useClearSelectedNode, useHoveredZone, useSelectedZone } from './hooks/eventHooks';

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { ArrowRight } from 'assets/icons';
 import { Button, Dropdown, PeriodSelector, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
@@ -7,7 +8,6 @@ import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useSortedTableData } from 'hooks/useSortedTableData';
-import { ArrowRight } from 'icons';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { ElementSize } from 'types/ElementSize';
 

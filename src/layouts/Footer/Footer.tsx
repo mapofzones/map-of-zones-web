@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 
+import { GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
 import { Button, ExternalLink } from 'components';
 import { ZoneNameDocument } from 'graphql/v2/common/Zone/__generated__/ZoneName.query.generated';
 import { useShareLinksAnalytics } from 'hooks/analytics/multipage/useShareLinksAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useTelegramShareText, useTwitterShareText } from 'hooks/useShareLink';
-import { GithubLogo, TgLogo, TwitterLogo } from 'icons';
 import { useSelectedZone } from 'pages/HomePage/Map/hooks/eventHooks';
 import { ElementSize } from 'types/ElementSize';
 import { openInNewTab } from 'utils/helper';

@@ -2,8 +2,8 @@ import { ChangeEvent, FocusEvent, useState } from 'react';
 
 import cn from 'classnames';
 
+import { SearchIcon } from 'assets/icons';
 import { Input } from 'components/ui/Input/Input';
-import { SearchIcon } from 'icons';
 
 import styles from './Search.module.scss';
 import { SearchProps } from './Search.props';

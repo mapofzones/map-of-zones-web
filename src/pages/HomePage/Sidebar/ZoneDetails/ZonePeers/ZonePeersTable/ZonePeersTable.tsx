@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
+import { CircularArrows } from 'assets/icons';
 import { Card, NumberFormat, NumberType, PeerLineChart, ValueWithPending } from 'components';
-import { CircularArrows } from 'icons';
 
 import { ZonePeer } from '../useZonePeers';
 import styles from './ZonePeersTable.module.scss';

@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
+import { CloseCircleIcon, EarthIcon } from 'assets/icons';
 import {
   ButtonGroup,
   ExternalLink,
@@ -9,7 +10,6 @@ import {
 } from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
-import { CloseCircleIcon, EarthIcon } from 'icons';
 
 import { useZoneDetails } from './useZoneDetails';
 import styles from './ZoneDetails.module.scss';

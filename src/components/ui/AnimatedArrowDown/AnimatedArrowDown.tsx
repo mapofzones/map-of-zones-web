@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import { ArrowDown } from 'icons';
+import { ArrowDown } from 'assets/icons';
 
 import { AnimatedArrowDownProps } from './AnimatedArrowDown.props';
 

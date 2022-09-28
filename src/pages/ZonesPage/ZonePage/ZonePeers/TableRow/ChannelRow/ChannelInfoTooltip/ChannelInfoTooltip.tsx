@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
+import { InfoIcon, RevertedArrowsIcon } from 'assets/icons';
 import { Divider } from 'components';
 import { TooltipBody } from 'components/ui/Tooltip/TooltipBody';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { InfoIcon, RevertedArrowsIcon } from 'icons';
 
 import styles from './ChannelInfoTooltip.module.scss';
 import { ChannelInfoTooltipProps } from './ChannelInfoTooltip.props';

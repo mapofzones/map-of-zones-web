@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import cn from 'classnames';
 
+import { ArrowDown, ArrowUp, TickIcon } from 'assets/icons';
 import { useComponentVisible } from 'hooks/useComponentVisible';
-import { ArrowDown, ArrowUp, TickIcon } from 'icons';
 import { ElementSize } from 'types/ElementSize';
 
 import styles from './Dropdown.module.scss';

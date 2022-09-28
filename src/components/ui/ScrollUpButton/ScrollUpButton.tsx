@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { ScrollUpIcon } from 'icons';
+import { ScrollUpIcon } from 'assets/icons';
 
 import styles from './ScrollUpButton.module.scss';
 

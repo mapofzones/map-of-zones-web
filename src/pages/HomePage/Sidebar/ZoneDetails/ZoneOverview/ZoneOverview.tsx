@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 
+import { ArrowRight } from 'assets/icons';
 import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer, NumberType } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 import { getDauTitleByPeriod } from 'utils/helper';

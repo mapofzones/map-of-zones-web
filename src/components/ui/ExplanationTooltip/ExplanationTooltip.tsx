@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { QuestionMark } from 'icons';
+import { QuestionMark } from 'assets/icons';
 
 import { Tooltip } from '../Tooltip/Tooltip';
 import styles from './ExplanationTooltip.module.scss';

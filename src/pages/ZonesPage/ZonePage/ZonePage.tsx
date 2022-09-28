@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Outlet, useLocation } from 'react-router-dom';
 
+import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
 import {
   AnimatedArrowDown,
   ExternalLink,
@@ -12,7 +13,6 @@ import {
 import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useTabletMediumMediaQuery, useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
-import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'icons';
 
 import { useZonesData } from './useZonesData';
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';

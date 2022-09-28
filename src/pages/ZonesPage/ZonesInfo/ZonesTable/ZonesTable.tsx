@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import { Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';

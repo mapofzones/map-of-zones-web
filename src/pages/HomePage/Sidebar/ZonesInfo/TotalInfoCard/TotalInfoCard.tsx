@@ -1,9 +1,9 @@
 import cn from 'classnames';
 
+import { PendingIcon } from 'assets/icons';
 import { Card, NumberFormat, PeriodKeys } from 'components';
 import { LineChart } from 'components/ui/LineChart/LineChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { PendingIcon } from 'icons';
 import { ChartItemByString, getDauTitleByPeriod } from 'utils/helper';
 
 import { ColumnKeys } from '../../../Types';

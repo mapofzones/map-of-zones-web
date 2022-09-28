@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 
+import { ArrowDown } from 'assets/icons';
 import { TableRowItem } from 'components';
-import { ArrowDown } from 'icons';
 
 import styles from './ShowMoreRow.module.scss';
 import { ShowMoreRowProps } from './ShowMoreRow.props';

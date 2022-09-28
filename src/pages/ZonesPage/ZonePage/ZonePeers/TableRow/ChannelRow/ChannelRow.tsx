@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 
+import { ChannelClosedIcon } from 'assets/icons';
 import { NumberType, PendingValue, TableRowItem, ValueWithPending } from 'components';
-import { ChannelClosedIcon } from 'icons';
 
 import { ChannelInfoTooltip } from './ChannelInfoTooltip/ChannelInfoTooltip';
 import styles from './ChannelRow.module.scss';

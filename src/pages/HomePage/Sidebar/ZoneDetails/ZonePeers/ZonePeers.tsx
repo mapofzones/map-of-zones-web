@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 
+import { ArrowRight } from 'assets/icons';
 import { Button, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSortedTableData } from 'hooks/useSortedTableData';
-import { ArrowRight } from 'icons';
 import { ElementSize } from 'types/ElementSize';
 
 import { useZonePeers } from './useZonePeers';
