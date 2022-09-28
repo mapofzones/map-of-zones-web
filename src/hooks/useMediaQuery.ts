@@ -31,3 +31,26 @@ export function useMediaQuery(query: string): boolean {
 
   return matches;
 }
+
+export function useMobileMediaQuery() {
+  return useMediaQuery('(max-width: 375px');
+}
+
+export function useTabletSmallMediaQuery() {
+  return useMediaQuery('(max-width: 630px)');
+}
+
+// eslint-disable-next-line sort-exports/sort-exports
+export function useTabletMediumMediaQuery() {
+  return useMediaQuery('(max-width: 880px)');
+}
+
+// eslint-disable-next-line sort-exports/sort-exports
+export function useLaptopMediumMediaQuery() {
+  return useMediaQuery('(max-width: 1280px)');
+}
+
+// eslint-disable-next-line sort-exports/sort-exports
+export function useLaptopLargeMediaQuery() {
+  return useMediaQuery('(max-width: 1440px)');
+}

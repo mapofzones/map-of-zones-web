@@ -10,7 +10,7 @@ import {
   TotalInfo,
   ValueWithPending,
 } from 'components';
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useLaptopMediumMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { useZonesTotalInfo } from './useZonesTotalInfo';
@@ -20,7 +20,7 @@ import styles from './ZonesTotalInfo.module.scss';
 export function ZonesTotalInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod(undefined);
 
-  const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
+  const isLaptopMedium = useLaptopMediumMediaQuery();
 
   const { data: zonesTotalInfo, loading } = useZonesTotalInfo(selectedPeriod);
 

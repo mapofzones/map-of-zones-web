@@ -13,7 +13,7 @@ import {
   ZoneStatus,
 } from 'components';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
@@ -22,7 +22,7 @@ import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
 
 export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: TableRowProps) {
-  const isTabletSmall = useMediaQuery('(max-width: 630px)');
+  const isTabletSmall = useTabletSmallMediaQuery();
 
   const [selectedPeriod] = useSelectedPeriod();
 

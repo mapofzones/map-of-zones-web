@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './TotalInfo.module.scss';
 
@@ -15,7 +15,7 @@ export function TotalInfo({
   className?: string;
   children: ReactNode;
 }): JSX.Element {
-  const isTabletSmall = useMediaQuery('(max-width: 630px)');
+  const isTabletSmall = useTabletSmallMediaQuery();
 
   if (isTabletSmall) {
     const childrenToRender: ReactElement[] = (children && Array.isArray(children)

@@ -9,13 +9,13 @@ import {
   ValueWithPending,
   ZoneLogo,
 } from 'components';
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useLaptopMediumMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './AssetsTotalInfo.module.scss';
 import { useAssetsTotalInfo } from './useAssetsTotalInfo';
 
 export function AssetsTotalInfo(): JSX.Element {
-  const isLaptopMedium = useMediaQuery('(max-width: 1280px)');
+  const isLaptopMedium = useLaptopMediumMediaQuery();
 
   const { data: zonesTotalInfo, loading } = useAssetsTotalInfo();
 

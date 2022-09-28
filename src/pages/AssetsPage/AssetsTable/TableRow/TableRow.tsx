@@ -8,7 +8,7 @@ import {
   ZoneLogo,
   TableRowItem,
 } from 'components';
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';
@@ -29,7 +29,7 @@ export function TableRow({
   isTableHorizontalScrollable,
 }: // selectedColumnKey,
 TableRowProps) {
-  const isTabletSmall = useMediaQuery('(max-width: 630px)');
+  const isTabletSmall = useTabletSmallMediaQuery();
 
   return (
     <tr className={styles.container}>

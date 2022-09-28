@@ -2,7 +2,7 @@ import React, { ReactNode, useRef } from 'react';
 
 import cn from 'classnames';
 
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useLaptopLargeMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './Table.module.scss';
 import { TableProps } from './Table.props';
@@ -17,7 +17,7 @@ export function Table<T extends string>({
 }: TableProps<T>) {
   const tableRef = useRef<HTMLTableElement>(null);
 
-  const isTableHorizontalScrollable = useMediaQuery('(max-width: 1440px)');
+  const isTableHorizontalScrollable = useLaptopLargeMediaQuery();
 
   return (
     <div

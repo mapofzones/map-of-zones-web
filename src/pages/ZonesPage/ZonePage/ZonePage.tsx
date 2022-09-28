@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/multipage/useZoneLinksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletMediumMediaQuery, useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'icons';
 
 import { useZonesData } from './useZonesData';
@@ -21,8 +21,8 @@ import styles from './ZonePage.module.scss';
 import { ZonesSelector } from './ZonesSelector/ZonesSelector';
 
 export function ZonePage() {
-  const isTabletMedium = useMediaQuery('(max-width: 880px)');
-  const isTabletSmall = useMediaQuery('(max-width: 630px)');
+  const isTabletMedium = useTabletMediumMediaQuery();
+  const isTabletSmall = useTabletSmallMediaQuery();
 
   const location = useLocation();
 

@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { PeriodSelector, SkeletonRectangle } from 'components';
-import { useMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { useZonesCount } from '../ZonesTable/useZonesCount';
@@ -10,7 +10,7 @@ import styles from './ZonesPageTitle.module.scss';
 export function ZonesPageTitle() {
   const [selectedPeriod] = useSelectedPeriod(undefined);
 
-  const isSmallTablet = useMediaQuery('(max-width: 630px)');
+  const isSmallTablet = useTabletSmallMediaQuery();
 
   const { data: zonesCountData, loading: zonesCountLoading } = useZonesCount(selectedPeriod);
 
