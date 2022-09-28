@@ -7,8 +7,10 @@
   }
 
   .parametersCards {
+    --columns: 3;
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(var(--columns), 1fr);
     gap: 24px;
     min-height: 101px;
 
@@ -41,7 +43,8 @@
 @media (max-width: 980px) {
   .container {
     .parametersCards {
-      grid-template-columns: repeat(2, 1fr);
+      --columns: 2;
+
       gap: 24px;
     }
   }
@@ -50,7 +53,8 @@
 @media (max-width: 630px) {
   .container {
     .parametersCards {
-      grid-template-columns: 1fr;
+      --columns: 1;
+
       gap: 24px;
     }
   }
