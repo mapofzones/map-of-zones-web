@@ -5,6 +5,7 @@ export * from './TotalInfo';
 
 export * from './ui';
 
+export { Analytics } from './Analytics/Analytics';
 export { IbcVolumeCard } from './IbcVolumeCard/IbcVolumeCard';
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';
 export { PendingValue } from './PendingValue/PendingValue';
