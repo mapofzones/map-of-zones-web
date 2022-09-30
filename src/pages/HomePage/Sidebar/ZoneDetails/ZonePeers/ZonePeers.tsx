@@ -5,6 +5,7 @@ import { Button, ScrollableContainer } from 'components';
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSortedTableData } from 'hooks/useSortedTableData';
+import { getZonesPeersPath } from 'routing';
 import { ElementSize } from 'types/ElementSize';
 
 import { useZonePeers } from './useZonePeers';
@@ -23,7 +24,7 @@ export function ZonePeers() {
   const loading = peersLoading;
 
   const onDetailedBtnClick = () => {
-    navigateWithSearchParams(`/zones/${zone}/peers`);
+    navigateWithSearchParams(`/${getZonesPeersPath(zone)}`);
   };
 
   return (

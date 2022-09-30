@@ -5,6 +5,7 @@ import {
   SelectedZoneSourceView,
   useHomePageSelectedZoneAnalytics,
 } from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
+import { overviewPath } from 'routing';
 
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
@@ -23,7 +24,7 @@ function ZoneInfoRow({
 
   return (
     <LinkWithSearchParams
-      to={`${zone.id}/overview`}
+      to={`${zone.id}/${overviewPath}`}
       state={{ source: SelectedZoneSourceView.Sidebar }}
       className={cn(styles.row, className)}
       onClick={onZoneInfoRowClick}

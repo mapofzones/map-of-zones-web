@@ -1,22 +1,23 @@
 import { matchPath, useLocation, useSearchParams } from 'react-router-dom';
 
 import { PeriodKeys } from 'components';
+import * as path from 'routing';
 
 const pageTexts = [
   {
-    path: 'assets',
+    path: path.assetsPath,
     text: 'assets list',
   },
   {
-    path: 'zones',
+    path: path.zonesPath,
     text: 'inter-connection activity metrics',
   },
   {
-    path: 'zones/:zone/overview',
+    path: path.getZonesOverviewPath(),
     text: 'detailed set of metrics',
   },
   {
-    path: 'zones/:zone/peers',
+    path: path.getZonesPeersPath(),
     text: 'detailed set of peers with pertinent inter-connection activity stats',
   },
   {

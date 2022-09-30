@@ -4,6 +4,8 @@ import * as amplitude from '@amplitude/analytics-browser';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
+import { homePath, assetsPath, overviewPath, peersPath, zonesPath } from 'routing';
+
 import useDebounce from '../useDebounce';
 import { useAssetsPageAnalytics } from './AssetsPage/useAssetsPageAnalytics';
 import { useHomePageAnalytics } from './HomePage/useHomePageAnalytics';
@@ -25,21 +27,21 @@ export const trackEvent = (event: string, data?: object) => {
 const getPageTitle = (pathname: string | null) => {
   if (!pathname) return '';
 
-  if (pathname.includes('/home')) {
-    if (pathname.includes('/overview')) return PAGE_TITLE.HomeOverview;
-    if (pathname.includes('/peers')) return PAGE_TITLE.HomePeers;
+  if (pathname.includes(`/${homePath}`)) {
+    if (pathname.includes(`/${overviewPath}`)) return PAGE_TITLE.HomeOverview;
+    if (pathname.includes(`/${peersPath}`)) return PAGE_TITLE.HomePeers;
 
     return PAGE_TITLE.Home;
   }
 
-  if (pathname.includes('/zones')) {
-    if (pathname.includes('/overview')) return PAGE_TITLE.ZoneOverview;
-    if (pathname.includes('/peers')) return PAGE_TITLE.ZonePeers;
+  if (pathname.includes(`/${zonesPath}`)) {
+    if (pathname.includes(`/${overviewPath}`)) return PAGE_TITLE.ZoneOverview;
+    if (pathname.includes(`/${peersPath}`)) return PAGE_TITLE.ZonePeers;
 
     return PAGE_TITLE.ZonesList;
   }
 
-  if (pathname === '/assets') return PAGE_TITLE.Assets;
+  if (pathname === `/${assetsPath}`) return PAGE_TITLE.Assets;
 
   return '';
 };

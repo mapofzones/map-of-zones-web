@@ -9,6 +9,7 @@ import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 import { ColumnKeys } from 'pages/HomePage/Types';
+import { zonesPath } from 'routing';
 import { ElementSize } from 'types/ElementSize';
 
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
@@ -58,7 +59,7 @@ function ZonesInfo(): JSX.Element {
   };
 
   const onDetailedBtnClick = () => {
-    navigateWithSearchParams('/zones');
+    navigateWithSearchParams(`/${zonesPath}`);
   };
 
   return (

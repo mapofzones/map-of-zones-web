@@ -5,6 +5,7 @@ import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer, NumberType } 
 import { ButtonType } from 'components/ui/Button/Button.props';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { getZonesOverviewPath } from 'routing';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 import { getDauTitleByPeriod } from 'utils/helper';
@@ -23,7 +24,7 @@ function ZoneOverview() {
   const { data, loading } = useZoneOverview();
 
   const onDetailedBtnClick = () => {
-    navigateWithSearchParams(`/zones/${zone}/overview`);
+    navigateWithSearchParams(`/${getZonesOverviewPath(zone)}`);
   };
 
   const dauTittle = getDauTitleByPeriod(period);

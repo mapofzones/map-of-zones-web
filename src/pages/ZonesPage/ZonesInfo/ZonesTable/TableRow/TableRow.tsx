@@ -9,6 +9,7 @@ import {
   ZoneStatus,
   TableRowItem,
 } from 'components';
+import { overviewPath } from 'routing';
 
 import { ColumnKeys } from '../Types';
 import styles from './TableRow.module.scss';
@@ -34,7 +35,7 @@ export function TableRow({
   const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
 
   const onClick = () => {
-    navigate(`${zone.zone}/overview`);
+    navigate(`${zone.zone}/${overviewPath}`);
   };
 
   return (

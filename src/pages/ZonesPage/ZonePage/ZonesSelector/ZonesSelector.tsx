@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
 import { useFilteredZones } from 'hooks/useFilteredZones';
+import { getZonesOverviewPath } from 'routing';
 
 import styles from './ZonesSelector.module.scss';
 import { ZonesSearchProps } from './ZonesSelector.props';
@@ -35,7 +36,7 @@ export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX
           <Link
             className={cn(styles.zone, { [styles.activeZone]: currentZone?.zone === zone.zone })}
             key={`zone_${zone.zone}`}
-            to={`/zones/${zone.zone}/overview`}
+            to={`/${getZonesOverviewPath(zone.zone)}`}
           >
             <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
           </Link>

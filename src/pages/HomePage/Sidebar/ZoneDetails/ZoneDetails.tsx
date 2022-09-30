@@ -10,6 +10,7 @@ import {
 } from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
+import { homePath, overviewPath, peersPath } from 'routing';
 
 import { useZoneDetails } from './useZoneDetails';
 import styles from './ZoneDetails.module.scss';
@@ -22,7 +23,7 @@ function ZoneDetails() {
   const trackZoneLinksAnalytics = useZoneLinksAnalytics();
 
   const closeDetails = () => {
-    navigateWithSearchParams('/home');
+    navigateWithSearchParams(`/${homePath}`);
   };
 
   return (
@@ -65,8 +66,8 @@ function ZoneDetails() {
       </div>
 
       <ButtonGroup className={styles.pagesSwitcher}>
-        <NavLinkWithSearchParams to="overview">Overview</NavLinkWithSearchParams>
-        <NavLinkWithSearchParams to="peers">Peers</NavLinkWithSearchParams>
+        <NavLinkWithSearchParams to={overviewPath}>Overview</NavLinkWithSearchParams>
+        <NavLinkWithSearchParams to={peersPath}>Peers</NavLinkWithSearchParams>
       </ButtonGroup>
 
       <Outlet />

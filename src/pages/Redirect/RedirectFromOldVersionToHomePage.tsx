@@ -7,6 +7,7 @@ import {
 
 import { PeriodKeys } from 'components';
 import { ColumnKeys } from 'pages/HomePage/Types';
+import { getHomeZoneOverviewPath, homePath } from 'routing';
 
 import { periodMapping } from './mappings';
 
@@ -31,7 +32,7 @@ export function RedirectFromOldVersionToHomePage(): JSX.Element {
   const newSearchParamsStr = newSearchParams.toString();
 
   if (zone) {
-    return <Navigate to={`home/${zone}/overview?${newSearchParamsStr}`} />;
+    return <Navigate to={`${getHomeZoneOverviewPath(zone)}?${newSearchParamsStr}`} />;
   }
-  return <Navigate to={`home?${newSearchParamsStr}`} />;
+  return <Navigate to={`${homePath}?${newSearchParamsStr}`} />;
 }

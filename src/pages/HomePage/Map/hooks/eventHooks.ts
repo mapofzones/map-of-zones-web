@@ -8,6 +8,7 @@ import {
   useHomePageSelectedZoneAnalytics,
 } from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
+import { overviewPath } from 'routing';
 
 import { HoveredZoneKeyType, MapNode, SelectedZoneKeyType } from './../Types';
 
@@ -44,7 +45,7 @@ export const useSelectedZone = () => {
   const onZoneClick = useCallback(
     (node: NodeObject) => {
       const zone = node as MapNode;
-      navigateWithSearchParams(`${zone.zone}/overview`, {
+      navigateWithSearchParams(`${zone.zone}/${overviewPath}`, {
         state: { source: SelectedZoneSourceView.Map },
       });
       trackSelectedZone(zone.zone);

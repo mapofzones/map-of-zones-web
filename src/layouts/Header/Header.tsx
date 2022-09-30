@@ -7,6 +7,7 @@ import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { NetworkMarketCapInfoDocument } from 'graphql/v2/common/__generated__/CosmosNetworkMarketCap.query.generated';
 import { useHeaderMenuClicksAnalytics } from 'hooks/analytics/Multipage/useHeaderMenuClicksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
+import { assetsPath, homePath, zonesPath } from 'routing';
 
 import { BurgerWithRef } from './Burger/Burger';
 import styles from './Header.module.scss';
@@ -31,22 +32,22 @@ function Header({ ...props }): JSX.Element {
         setIsOpened={setIsMenuOpen}
       />
       <div className={styles.logoContainer}>
-        <NavLink to="/home">
+        <NavLink to={`/${homePath}`}>
           <Logo />
         </NavLink>
       </div>
       <div className={styles.headerContent}>
         <nav className={cn(styles.menu, { [styles.opened]: isMenuOpen })}>
-          <NavLink to="/home" onClick={() => trackHeaderTabClick('home')}>
+          <NavLink to={`/${homePath}`} onClick={() => trackHeaderTabClick('home')}>
             Home
           </NavLink>
-          <NavLink to="/zones" onClick={() => trackHeaderTabClick('zones')}>
+          <NavLink to={`/${zonesPath}`} onClick={() => trackHeaderTabClick('zones')}>
             Zones
           </NavLink>
-          <NavLink to="/assets" onClick={() => trackHeaderTabClick('assets')}>
+          <NavLink to={`/${assetsPath}`} onClick={() => trackHeaderTabClick('assets')}>
             Assets
           </NavLink>
-          {/* <NavLink to="/about">About</NavLink> */}
+          {/* <NavLink to={`/${aboutPath}`}>About</NavLink> */}
         </nav>
         <div className={styles.marketCapContainer}>
           <span className={styles.marketCapTitle}>Cosmos Network Market Cap: </span>

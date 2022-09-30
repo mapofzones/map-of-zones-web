@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { matchPath, useLocation, useSearchParams } from 'react-router-dom';
 
 import { useSelectedZone } from 'pages/HomePage/Map/hooks/eventHooks';
+import * as path from 'routing';
 
 import { trackEvent } from '../useAnalytics';
 
@@ -10,28 +11,28 @@ export type ShareLinkDestination = 'twitter' | 'telegram';
 
 const pageSourcesByPath = [
   {
-    path: 'home',
+    path: path.homePath,
     source: 'home page',
   },
   {
-    path: 'home/:zone/overview',
-    source: 'zone overview sidebar',
+    path: path.getHomeZoneOverviewPath(),
+    source: `zone overview sidebar`,
   },
   {
-    path: 'home/:zone/peers',
-    source: 'zone peers sidebar',
+    path: path.getHomeZonePeersPath(),
+    source: `zone peers sidebar`,
   },
   {
-    path: 'zones/:zone/overview',
-    source: 'zone overview page',
+    path: path.getZonesOverviewPath(),
+    source: `zone overview page`,
   },
   {
-    path: 'zones/:zone/peers',
-    source: 'zone peers page',
+    path: path.getZonesPeersPath(),
+    source: `zone peers page`,
   },
   {
-    path: 'assets',
-    source: 'assets page',
+    path: path.assetsPath,
+    source: `assets page`,
   },
 ];
 

@@ -8,6 +8,7 @@ import {
 import { PeriodKeys } from 'components';
 import { ColumnKeys as ZoneColumnKeys } from 'pages/ZonesPage/ZonePage/ZonePeers/Types';
 import { ColumnKeys as ZonesColumnKeys } from 'pages/ZonesPage/ZonesInfo/ZonesTable/Types';
+import { getZonesPeersPath, zonesPath } from 'routing';
 
 import { periodMapping } from './mappings';
 
@@ -45,12 +46,12 @@ export function RedirectFromOldVersionToZonePage(): JSX.Element {
       period,
     } as URLSearchParamsInit);
 
-    return <Navigate to={`/zones/${source}/peers?${newSearchParams.toString()}`} />;
+    return <Navigate to={`/${getZonesPeersPath(source)}?${newSearchParams.toString()}`} />;
   }
   const newSearchParams = createSearchParams({
     columnKey:
       (tableOrder && zonesSortingMapping[tableOrder.toString()]) ?? ZonesColumnKeys.IbcVolume,
     period,
   } as URLSearchParamsInit);
-  return <Navigate to={`/zones?${newSearchParams.toString()}`} />;
+  return <Navigate to={`/${zonesPath}?${newSearchParams.toString()}`} />;
 }
