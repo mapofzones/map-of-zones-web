@@ -70,10 +70,10 @@ function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyo
     const level = getLevel(index);
     const itemsInLevel = getItemsInLevel(arr.length, level);
     const { x, y } = getCoordinates(itemsInLevel, index, level, radiusConst);
-    const radius = getZoneRadius(level);
-    const logoRadius = getZoneLogoRadius(level);
+    const radius = getZoneRadiusByLevel(level);
+    const logoRadius = getZoneLogoRadiusByLevel(level);
     const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
-    const fontSize = getFontSize(level);
+    const fontSize = getFontSizeByLevel(level);
 
     const node: MapNode = {
       ...zone,
@@ -99,42 +99,10 @@ function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyo
   return d;
 }
 
-function getZoneRadius(level: number) {
-  if (level === 1) {
-    return 30;
-  } else if (level === 2) {
-    return 23;
-  }
-  return 16;
-}
-
-function getZoneLogoRadius(level: number) {
-  if (level === 1) {
-    return 23;
-  } else if (level === 2) {
-    return 17;
-  }
-  return 11;
-}
-
-function getFontSize(level: number) {
-  if (level === 1) {
-    return 11;
-  } else if (level === 2) {
-    return 10;
-  }
-  return 8;
-}
-
-function getZoneColor(valueIn: number | null, valueOut: number | null) {
-  return valueOut === null || valueIn === null || valueIn === valueOut
-    ? '#ffffff'
-    : valueOut > valueIn
-    ? '#ee11cc'
-    : '#22aaff';
-}
-
 const levelLimits = [10, 30];
+const zoneRadiuses = [25, 16, 11.5];
+const zoneLogoRadiuses = [18, 10, 6.5];
+const fontSizes = [11, 10, 8];
 
 function getLevel(nodeIndex: number) {
   for (let i = 0; i < levelLimits.length; i++) {
@@ -151,6 +119,30 @@ function getItemsInLevel(size: number, level: number) {
     return levelLimits[level - 1] - (levelLimits[level - 2] ?? 0);
   }
   return size - levelLimits[levelLimits.length - 1];
+}
+
+function getValueByLevel(values: number[], level: number) {
+  return values[level - 1] ?? values[values.length - 1];
+}
+
+function getZoneRadiusByLevel(level: number) {
+  return getValueByLevel(zoneRadiuses, level);
+}
+
+function getZoneLogoRadiusByLevel(level: number) {
+  return getValueByLevel(zoneLogoRadiuses, level);
+}
+
+function getFontSizeByLevel(level: number) {
+  return getValueByLevel(fontSizes, level);
+}
+
+function getZoneColor(valueIn: number | null, valueOut: number | null) {
+  return valueOut === null || valueIn === null || valueIn === valueOut
+    ? '#ffffff'
+    : valueOut > valueIn
+    ? '#ee11cc'
+    : '#22aaff';
 }
 
 function getCoordinates(itemsInLevel: number, index: number, level: number, radiusConst: number) {
