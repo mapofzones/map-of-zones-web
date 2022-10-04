@@ -5,7 +5,7 @@ import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2
 
 import { ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
-import { debounce } from 'utils/timer';
+import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
 
 import { useClearSelectedNode, useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useGraphData } from './hooks/useGraphData';
@@ -22,30 +22,13 @@ export function Map({ className }: { className: string }) {
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
   const { graphData } = useGraphData();
   const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
-
-  const [windowSize, setWindowSize] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
-  });
+  const { windowSize } = useWindowSizeWithDebounce(100);
 
   const imgUrls = useMemo(
     () => graphData.nodes.map((node) => (node as MapNode)?.logoUrl ?? '').filter((url) => !!url),
     [graphData.nodes]
   );
   const { images } = useImagePreloader(imgUrls);
-
-  useEffect(() => {
-    const withDebounce = debounce(
-      () => setWindowSize({ height: window.innerHeight, width: window.innerWidth }),
-      100
-    );
-
-    window.addEventListener('resize', withDebounce);
-
-    return () => {
-      window.removeEventListener('resize', withDebounce);
-    };
-  }, []);
 
   const graphRef = useRef<ForceGraphMethods>();
   useEffect(() => {
