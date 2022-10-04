@@ -15,7 +15,7 @@ import { useNodeCanvasObject } from './hooks/useNodeCanvasObject';
 import styles from './Map.module.scss';
 import { Link, MapNode } from './Types';
 
-const ZOOM_VALUES = [0.75, 1, 1.5, 2.25];
+const ZOOM_VALUES = [0.75, 1, 1.5, 2.25, 4];
 
 export function Map({ className }: { className: string }) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
@@ -94,6 +94,8 @@ export function Map({ className }: { className: string }) {
           const zone = data as MapNode;
           return zone.radius * 2;
         }, [])}
+        maxZoom={4}
+        minZoom={0.75}
         cooldownTime={Infinity}
         enableZoomInteraction={true}
         enableNodeDrag={false}
