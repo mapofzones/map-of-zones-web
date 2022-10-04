@@ -26,7 +26,7 @@ export const useLinkCanvasObject = (
 function drawLinkCanvasObject(
   link: Link,
   ctx: CanvasRenderingContext2D,
-  _: number,
+  scale: number,
   selectedNodeKey: SelectedZoneKeyType,
   hoveredNodeKey: HoveredZoneKeyType
 ) {
@@ -43,16 +43,21 @@ function drawLinkCanvasObject(
     return;
   }
 
-  drawLine(ctx, link, isRalatedToActiveZone);
+  drawLine(ctx, link, isRalatedToActiveZone, scale);
 
   if (link.isActive) {
     drawCommet(ctx, link);
   }
 }
 
-function drawLine(ctx: CanvasRenderingContext2D, link: Link, isRalatedToActiveZone: boolean) {
+function drawLine(
+  ctx: CanvasRenderingContext2D,
+  link: Link,
+  isRalatedToActiveZone: boolean,
+  scale: number
+) {
   if (link.source.x && link.source.y && link.target.x && link.target.y) {
-    ctx.lineWidth = 0.5;
+    ctx.lineWidth = 0.5 / scale;
     ctx.strokeStyle = isRalatedToActiveZone ? ACTIVE_LINE_COLOR : NORMAL_LINE_COLOR;
 
     ctx.beginPath();

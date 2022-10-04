@@ -37,7 +37,7 @@ export const useNodeCanvasObject = (
 function drawNodeCanvasObject(
   node: NodeObject,
   ctx: CanvasRenderingContext2D,
-  _: number,
+  globalScale: number,
   selectedZoneKey: SelectedZoneKeyType,
   hoveredZoneKey: HoveredZoneKeyType,
   links: Link[],
@@ -65,7 +65,7 @@ function drawNodeCanvasObject(
   const isFaded = !isNormal && !isFocusedZone && !isActive; // FADED style -- opacity: border=0.2 (33) background=0.05 (0D)
 
   const image = currentNode.logoUrl ? images[currentNode.logoUrl] : null;
-  drawNode(ctx, currentNode, isFaded, isFocusedZone, image);
+  drawNode(ctx, currentNode, isFaded, isFocusedZone, globalScale, image);
 
   if (isFaded) {
     return;
@@ -79,6 +79,7 @@ function drawNode(
   currentNode: MapNode,
   isFaded: boolean,
   isFocusedZone: boolean,
+  globalScale: number,
   image: HTMLImageElement | null
 ) {
   const { x, y, radius, color, logoRadius } = currentNode;
@@ -92,7 +93,7 @@ function drawNode(
     ctx.strokeStyle = `${color}${borderStyleOpacity}`;
     ctx.fillStyle = `${color}${fillStyleOpecity}`;
     ctx.beginPath();
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 1 / globalScale;
     ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
     ctx.closePath();
     ctx.stroke();
@@ -101,7 +102,7 @@ function drawNode(
 
   if (isFocusedZone) {
     ctx.shadowColor = color;
-    ctx.shadowBlur = 25;
+    ctx.shadowBlur = 25 * globalScale;
   }
 
   if (image && logoRadius) {
