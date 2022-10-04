@@ -6,6 +6,8 @@ export interface Comet {
 
 export type HoveredZoneKeyType = string | undefined;
 
+export type ImagesMap = { [imgUrl: string]: HTMLImageElement };
+
 export interface Link extends LinkObject {
   __comet?: Comet;
   source: MapNode;

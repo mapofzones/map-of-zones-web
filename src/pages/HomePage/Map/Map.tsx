@@ -9,6 +9,7 @@ import { debounce } from 'utils/timer';
 
 import { useClearSelectedNode, useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useGraphData } from './hooks/useGraphData';
+import { useImagePreloader } from './hooks/useImagePreloader';
 import { useLinkCanvasObject } from './hooks/useLinkCanvasObject';
 import { useNodeCanvasObject } from './hooks/useNodeCanvasObject';
 import styles from './Map.module.scss';
@@ -26,6 +27,12 @@ export function Map({ className }: { className: string }) {
     height: window.innerHeight,
     width: window.innerWidth,
   });
+
+  const imgUrls = useMemo(
+    () => graphData.nodes.map((node) => (node as MapNode)?.logoUrl ?? '').filter((url) => !!url),
+    [graphData.nodes]
+  );
+  const { images } = useImagePreloader(imgUrls);
 
   useEffect(() => {
     const withDebounce = debounce(
@@ -50,7 +57,8 @@ export function Map({ className }: { className: string }) {
   const nodeCanvasObject = useNodeCanvasObject(
     selectedZoneKey,
     hoveredZoneKey,
-    graphData.links as Link[]
+    graphData.links as Link[],
+    images
   );
 
   const linkCanvasObject = useLinkCanvasObject(selectedZoneKey, hoveredZoneKey);

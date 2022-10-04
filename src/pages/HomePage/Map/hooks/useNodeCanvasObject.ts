@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
 
-import { HoveredZoneKeyType, Link, MapNode, SelectedZoneKeyType } from '../Types';
+import { HoveredZoneKeyType, Link, MapNode, SelectedZoneKeyType, ImagesMap } from './../Types';
 
 const TEXT_PADDING_TOP = 3;
 const FONT_WEIGHT = 400;
@@ -25,12 +25,13 @@ function isNeighbor(
 export const useNodeCanvasObject = (
   selectedZoneKey: SelectedZoneKeyType,
   hoveredZoneKey: HoveredZoneKeyType,
-  links: Link[]
+  links: Link[],
+  images: ImagesMap
 ) =>
   useCallback(
     (node: NodeObject, ctx: CanvasRenderingContext2D, globalScale: number): void =>
-      drawNodeCanvasObject(node, ctx, globalScale, selectedZoneKey, hoveredZoneKey, links),
-    [hoveredZoneKey, selectedZoneKey, links]
+      drawNodeCanvasObject(node, ctx, globalScale, selectedZoneKey, hoveredZoneKey, links, images),
+    [selectedZoneKey, hoveredZoneKey, links, images]
   );
 
 function drawNodeCanvasObject(
@@ -39,7 +40,8 @@ function drawNodeCanvasObject(
   _: number,
   selectedZoneKey: SelectedZoneKeyType,
   hoveredZoneKey: HoveredZoneKeyType,
-  links: Link[]
+  links: Link[],
+  images: ImagesMap
 ): void {
   const currentNode = node as MapNode;
   if (!currentNode || currentNode.x === undefined || currentNode.y === undefined) {
@@ -62,7 +64,8 @@ function drawNodeCanvasObject(
   const isActive = !!isSelectedNeighbor || isHoveredNeighbor; // ACTIVE style -- opacity: border=0.6 (9A) background=0.1 (1A)
   const isFaded = !isNormal && !isFocusedZone && !isActive; // FADED style -- opacity: border=0.2 (33) background=0.05 (0D)
 
-  drawNode(ctx, currentNode, isFaded, isFocusedZone);
+  const image = currentNode.logoUrl ? images[currentNode.logoUrl] : null;
+  drawNode(ctx, currentNode, isFaded, isFocusedZone, image);
 
   if (isFaded) {
     return;
@@ -75,9 +78,10 @@ function drawNode(
   ctx: CanvasRenderingContext2D,
   currentNode: MapNode,
   isFaded: boolean,
-  isFocusedZone: boolean
+  isFocusedZone: boolean,
+  image: HTMLImageElement | null
 ) {
-  const { x, y, radius, color, logoUrl, logoRadius } = currentNode;
+  const { x, y, radius, color, logoRadius } = currentNode;
   if (x === undefined || y === undefined) {
     return;
   }
@@ -100,13 +104,13 @@ function drawNode(
     ctx.shadowBlur = 25;
   }
 
-  if (logoUrl && logoRadius) {
+  if (image && logoRadius) {
     if (isFaded) {
       ctx.globalAlpha = 0.2;
     }
-    const img = new Image();
-    img.src = logoUrl;
-    ctx.drawImage(img, x - logoRadius, y - logoRadius, logoRadius * 2, logoRadius * 2);
+
+    ctx.drawImage(image, x - logoRadius, y - logoRadius, logoRadius * 2, logoRadius * 2);
+
     if (isFaded) {
       ctx.globalAlpha = 1;
     }
