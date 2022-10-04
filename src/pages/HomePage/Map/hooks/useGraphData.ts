@@ -68,7 +68,7 @@ function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyo
 
   zonesStats.forEach((zone: ZoneStat, index: number, arr: ZoneStat[]) => {
     const level = getLevel(index);
-    const itemsInLevel = getItemsInLevel(index, arr.length);
+    const itemsInLevel = getItemsInLevel(arr.length, level);
     const { x, y } = getCoordinates(itemsInLevel, index, level, radiusConst);
     const radius = getZoneRadius(level);
     const logoRadius = getZoneLogoRadius(level);
@@ -101,20 +101,20 @@ function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyo
 
 function getZoneRadius(level: number) {
   if (level === 1) {
-    return 25;
+    return 30;
   } else if (level === 2) {
-    return 14;
+    return 23;
   }
-  return 5;
+  return 16;
 }
 
 function getZoneLogoRadius(level: number) {
   if (level === 1) {
-    return 18;
+    return 23;
   } else if (level === 2) {
-    return 8;
+    return 17;
   }
-  return undefined;
+  return 11;
 }
 
 function getFontSize(level: number) {
@@ -134,33 +134,41 @@ function getZoneColor(valueIn: number | null, valueOut: number | null) {
     : '#22aaff';
 }
 
-const getLevel = (index: number) => {
-  if (index < 10) {
-    return 1;
-  } else if (index < 30) {
-    return 2;
-  }
-  return 3;
-};
+const levelLimits = [10, 30];
 
-const getItemsInLevel = (index: number, size: number) => {
-  if (index < 10) {
-    return Math.min(10, size);
-  } else if (index < 30) {
-    return Math.min(20, size - 10);
+function getLevel(nodeIndex: number) {
+  for (let i = 0; i < levelLimits.length; i++) {
+    const levelLimit = levelLimits[i];
+    if (nodeIndex < levelLimit) {
+      return i + 1;
+    }
   }
-  return size - 30;
-};
+  return levelLimits.length + 1;
+}
+
+function getItemsInLevel(size: number, level: number) {
+  if (level - 1 < levelLimits.length) {
+    return levelLimits[level - 1] - (levelLimits[level - 2] ?? 0);
+  }
+  return size - levelLimits[levelLimits.length - 1];
+}
 
 function getCoordinates(itemsInLevel: number, index: number, level: number, radiusConst: number) {
   const angleConst = (2 * Math.PI) / itemsInLevel;
   const offsetAngle = level === 2 ? angleConst / 2 : 0;
   const zoneAngle = index * angleConst + offsetAngle;
-
-  const r = level * radiusConst;
+  const factor = getRadiusFactor(level, index);
+  const r = factor * radiusConst;
   const x = r * Math.cos(zoneAngle);
   const y = r * Math.sin(zoneAngle);
   return { x, y };
+}
+
+function getRadiusFactor(level: number, index: number) {
+  if (level === 1) {
+    return 1;
+  }
+  return index % 2 === 0 ? level * 1.1 : level;
 }
 
 function filterLinksWithoutNodes(link: ZoneLink, nodesSet: Set<string>) {
