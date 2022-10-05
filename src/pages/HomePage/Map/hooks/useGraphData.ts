@@ -100,8 +100,8 @@ function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyo
 }
 
 const levelLimits = [10, 30];
-const zoneRadiuses = [25, 16, 11.5];
-const zoneLogoRadiuses = [18, 10, 6.5];
+const zoneRadiuses = [26, 16, 11.5];
+const zoneLogoRadiuses = [19, 10, 6.5];
 const fontSizes = [11, 10, 8];
 
 function getLevel(nodeIndex: number) {
