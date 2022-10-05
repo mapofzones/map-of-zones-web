@@ -157,6 +157,7 @@ function getCoordinates(itemsInLevel: number, index: number, level: number, radi
 }
 
 function getRadiusFactor(level: number, index: number) {
+  return level;
   if (level === 1) {
     return 1;
   }
