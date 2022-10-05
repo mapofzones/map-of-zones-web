@@ -21,7 +21,7 @@ export type ZoneIbcVolumeCardQueryResult = {
     ibcVolumeOutPercent: any;
     ibcVolumeInPending: any;
     ibcVolumeOutPending: any;
-    ibcVolumeChart: Array<{ volume: any }>;
+    ibcVolumeChart: Array<{ volume?: any | null }>;
   }>;
 };
 

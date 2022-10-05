@@ -8,7 +8,7 @@ export const ZONES_TOTAL_INFO = gql`
       aggregate {
         sum {
           ibcVolume: ibc_cashflow
-          ibcVolumePending: ibc_cashflow
+          ibcVolumePending: ibc_cashflow_pending
           ibcTransfers: ibc_transfers
           ibcTransfersPending: ibc_transfers_pending
         }

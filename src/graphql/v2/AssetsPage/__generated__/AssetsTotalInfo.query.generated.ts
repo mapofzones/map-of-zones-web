@@ -28,7 +28,7 @@ export type AseetsTotalInfoQueryResult = {
     price24hDiffPercent?: any | null;
     blockchain: { name: string };
   }>;
-  total24hTradingVolumeChart: Array<{ volume: any }>;
+  total24hTradingVolumeChart: Array<{ volume?: any | null }>;
 };
 
 export const AseetsTotalInfoDocument = {

@@ -22,7 +22,7 @@ export type ZonesTotalInfoQueryResult = {
       } | null;
     } | null;
   };
-  ibcTotalVolumeChart: Array<{ volume: any }>;
+  ibcTotalVolumeChart: Array<{ volume?: any | null }>;
   allChannels: {
     aggregate?: {
       count?: number | null;
@@ -138,7 +138,7 @@ export const ZonesTotalInfoDocument = {
                             {
                               kind: 'Field',
                               alias: { kind: 'Name', value: 'ibcVolumePending' },
-                              name: { kind: 'Name', value: 'ibc_cashflow' },
+                              name: { kind: 'Name', value: 'ibc_cashflow_pending' },
                             },
                             {
                               kind: 'Field',
