@@ -62,8 +62,8 @@ export function ChannelRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Currency}
-          pendingValue={channel.ibcVolumeOutPending}
-          value={channel.ibcVolumeOut}
+          pendingValue={channel.ibcVolumeInPending}
+          value={channel.ibcVolumeIn}
         />
       </TableRowItem>
 
@@ -72,8 +72,8 @@ export function ChannelRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Currency}
-          pendingValue={channel.ibcVolumeInPending}
-          value={channel.ibcVolumeIn}
+          pendingValue={channel.ibcVolumeOutPending}
+          value={channel.ibcVolumeOut}
         />
       </TableRowItem>
 
@@ -91,7 +91,7 @@ export function ChannelRow({
           alignRight={true}
           className={styles.value}
           numberType={NumberType.Number}
-          value={zone.ibcTransfersPending}
+          value={channel.ibcTransfersPending}
         />
       </TableRowItem>
 
