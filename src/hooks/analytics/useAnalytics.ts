@@ -14,7 +14,6 @@ import { Page, PAGE_TITLE } from './Types';
 import { useZonesPageAnalytics } from './ZonesPage/useZonesPageAnalytics';
 
 export const trackEvent = (event: string, data?: object) => {
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'production') {
     if (process.env.REACT_APP_AMPLITUDE_KEY) {
       amplitude.init(process.env.REACT_APP_AMPLITUDE_KEY);
