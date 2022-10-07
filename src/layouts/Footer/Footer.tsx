@@ -8,6 +8,7 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useTelegramShareText, useTwitterShareText } from 'hooks/useShareLink';
 import { useSelectedZone } from 'pages/HomePage/Map/hooks/eventHooks';
 import { ElementSize } from 'types/ElementSize';
+import { ExternalLinks } from 'types/external-links';
 import { openInNewTab } from 'utils/helper';
 
 import styles from './Footer.module.scss';
@@ -57,31 +58,29 @@ function Footer({ ...props }): JSX.Element {
       </div>
       <div className={styles.externalLinksBlock}>
         {'© '}
-        <ExternalLink href="https://bitquasar.com">Bitquasar.com</ExternalLink>
+        <ExternalLink href={ExternalLinks.bitquasar}>Bitquasar.com</ExternalLink>
         {' & '}
-        <ExternalLink href="https://ztake.org">Ztake.org</ExternalLink>
+        <ExternalLink href={ExternalLinks.ztake}>Ztake.org</ExternalLink>
       </div>
       <div className={styles.emailLinkBlock}>
-        <ExternalLink href="mailto:support@mapofzones.com">support@mapofzones.com</ExternalLink>
+        <ExternalLink href={ExternalLinks.mozEmail}>support@mapofzones.com</ExternalLink>
       </div>
       <div className={styles.socialsBlock}>
         <span>Our Socials:</span>
         <ExternalLink
-          href="https://github.com/mapofzones"
+          href={ExternalLinks.mozGitHub}
           className={styles.socialLink}
           Icon={GithubLogo}
         />
-        <ExternalLink href="https://t.me/MapOfZones" className={styles.socialLink} Icon={TgLogo} />
+        <ExternalLink href={ExternalLinks.mozTg} className={styles.socialLink} Icon={TgLogo} />
         <ExternalLink
-          href="https://twitter.com/mapofzones"
+          href={ExternalLinks.mozTwitter}
           className={styles.socialLink}
           Icon={TwitterLogo}
         />
       </div>
       <div className={styles.notListedBlock}>
-        <ExternalLink href="https://docs.google.com/forms/d/e/1FAIpQLSczp-YbmECgX3_DsycgHVsZiJlQZLhB46jFfchQKPxiwFR4ig/viewform?usp=sf_link">
-          Not listed?
-        </ExternalLink>
+        <ExternalLink href={ExternalLinks.listingForm}>Not listed?</ExternalLink>
       </div>
     </footer>
   );
