@@ -57,6 +57,7 @@ export function ZonePage() {
             <span className={styles.zoneName}>{data?.name}</span>
             <AnimatedArrowDown className={styles.arrowContainer} isReverted={isSearchVisible} />
           </div>
+
           <SkeletonTextWrapper
             className={styles.zoneLinks}
             loading={loading}
