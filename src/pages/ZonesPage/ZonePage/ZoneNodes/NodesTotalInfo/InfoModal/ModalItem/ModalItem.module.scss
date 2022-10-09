@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 34px;
+  margin-top: 2px;
+
+  .progress {
+    position: absolute;
+    background-color: var(--green);
+    height: 100%;
+    opacity: 0.15;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 16px;
+    font-size: var(--font-base-size-md);
+
+    .titleContainer {
+      display: flex;
+      align-items: center;
+      margin-right: auto;
+
+      .country {
+        margin-right: 8px;
+      }
+    }
+
+    .percentValue {
+      font-size: var(--font-base-size-md);
+      width: 45px;
+    }
+  }
+}

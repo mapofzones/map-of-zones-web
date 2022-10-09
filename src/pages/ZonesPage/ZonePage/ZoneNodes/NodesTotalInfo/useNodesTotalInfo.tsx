@@ -1,8 +1,8 @@
-import { CountryData, IspData } from './Types';
+import { InfoData } from './Types';
 
 export function useNodesTotalInfo(): {
-  countries: Array<CountryData>;
-  isp: Array<IspData>;
+  countries: Array<InfoData>;
+  isp: Array<InfoData>;
   indexedNodes: {
     percent: number;
     value: number;
@@ -33,28 +33,64 @@ export function useNodesTotalInfo(): {
     ],
     countries: [
       {
-        country: {
-          code: 'US',
-          name: 'United States',
-        },
+        code: 'US',
+        name: 'United States',
         value: 84,
-        percent: 73,
+        percent: 54.8,
       },
       {
-        country: {
-          code: 'PL',
-          name: 'Poland',
-        },
-        value: 15,
-        percent: 12,
+        code: 'PL',
+        name: 'Poland',
+        value: 18,
+        percent: 13.4,
       },
       {
-        country: {
-          code: 'MD',
-          name: 'Moldova',
-        },
+        code: 'MD',
+        name: 'Moldova',
+        value: 13,
+        percent: 5.7,
+      },
+      {
+        code: 'NL',
+        name: 'Netherlands',
+        value: 11,
+        percent: 4.8,
+      },
+      {
+        code: 'FI',
+        name: 'Finland',
+        value: 10,
+        percent: 3.9,
+      },
+      {
+        code: 'AU',
+        name: 'Australia',
+        value: 8,
+        percent: 3.8,
+      },
+      {
+        code: 'BR',
+        name: 'Brazil',
+        value: 7,
+        percent: 3.5,
+      },
+      {
+        code: 'BY',
+        name: 'Belarus',
+        value: 5,
+        percent: 2.5,
+      },
+      {
+        code: 'UA',
+        name: 'Ukraine',
         value: 4,
-        percent: 8,
+        percent: 2.2,
+      },
+      {
+        code: 'RU',
+        name: 'Russia',
+        value: 1,
+        percent: 1,
       },
     ],
     indexedNodes: {

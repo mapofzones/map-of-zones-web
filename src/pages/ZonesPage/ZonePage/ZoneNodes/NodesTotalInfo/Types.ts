@@ -1,13 +1,5 @@
-export interface CountryData {
-  country: {
-    code: string;
-    name: string;
-  };
-  percent: number;
-  value: number;
-}
-
-export interface IspData {
+export interface InfoData {
+  code?: string;
   name: string;
   percent: number;
   value: number;

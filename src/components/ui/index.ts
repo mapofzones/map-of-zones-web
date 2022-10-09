@@ -14,6 +14,7 @@ export {
   LinkWithSearchParams,
   NavLinkWithSearchParams,
 } from './LinkWithSearchParams/LinkWithSearchParams';
+export { Modal } from './Modal/Modal';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { PercentStackedLineChart } from './PercentStackedLineChart/PercentStackedLineChart';
 export { Portal } from './Portal/Portal';
