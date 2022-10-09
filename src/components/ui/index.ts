@@ -20,5 +20,6 @@ export { Portal } from './Portal/Portal';
 export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
 export { ScrollUpButton } from './ScrollUpButton/ScrollUpButton';
 export { Search } from './Search/Search';
+export { StatusCircle } from './StatusCircle/StatusCircle';
 export { Tooltip } from './Tooltip/Tooltip';
 export { TooltipBody } from './Tooltip/TooltipBody';
