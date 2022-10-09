@@ -1,0 +1,9 @@
+.container {
+  font-size: var(--font-base-size-md);
+
+  .percentContainer {
+    font-size: var(--font-secondary-size-md);
+    margin-left: 8px;
+    color: #8F8F96; // TODO: add color to colors
+  }
+}
