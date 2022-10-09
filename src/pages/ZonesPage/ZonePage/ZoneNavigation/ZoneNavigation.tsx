@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import { ButtonGroup, NavigationButton } from 'components';
-import { overviewPath, peersPath } from 'routing';
+import { nodesPath, overviewPath, peersPath } from 'routing';
 
 import styles from './ZoneNavigation.module.scss';
 import { ZoneNavigationProps } from './ZoneNavigation.props';
@@ -13,6 +13,7 @@ export function ZoneNavigation({ peersCount, useSmallView }: ZoneNavigationProps
         <ButtonGroup className={styles.pagesSwitcher}>
           <NavLink to={overviewPath}>Overview</NavLink>
           <NavLink to={peersPath}>{`Peers ${peersCount ? `(${peersCount})` : ''}`}</NavLink>
+          <NavLink to={nodesPath}>Nodes</NavLink>
         </ButtonGroup>
       )}
 
@@ -22,6 +23,7 @@ export function ZoneNavigation({ peersCount, useSmallView }: ZoneNavigationProps
           <NavigationButton to={peersPath} count={peersCount}>
             Peers
           </NavigationButton>
+          <NavigationButton to={nodesPath}>Nodes</NavigationButton>
         </div>
       )}
     </>
