@@ -22,6 +22,8 @@ export function ValueWithPercent({
           className={styles.percentContainer}
           decimalSeparator=","
           fractionOpacity={1}
+          maxSignificantDigits={0}
+          minFractionDigits={1}
           numberType={NumberType.Percent}
           value={percentValue}
         />

@@ -11,6 +11,8 @@ export function NumberFormat({
   decimalSeparator = '.',
   defaultValue,
   fractionOpacity = 0.7,
+  maxSignificantDigits,
+  minFractionDigits,
   numberType = NumberType.Number,
   value,
   ...props
@@ -21,6 +23,8 @@ export function NumberFormat({
     decimalSeparator,
     defaultValue,
     fractionOpacity,
+    maxSignificantDigits,
+    minFractionDigits,
     numberType,
     value,
   });
@@ -38,6 +42,8 @@ export function formatNumberToJSX({
   decimalSeparator = '.',
   defaultValue = '—',
   fractionOpacity = 0.7,
+  maxSignificantDigits,
+  minFractionDigits,
   numberType = NumberType.Number,
   value,
 }: {
@@ -46,6 +52,8 @@ export function formatNumberToJSX({
   decimalSeparator?: string;
   defaultValue?: string;
   fractionOpacity?: number;
+  maxSignificantDigits?: number;
+  minFractionDigits?: number;
   numberType: NumberType;
   value?: number | null;
 }): JSX.Element {
@@ -53,6 +61,8 @@ export function formatNumberToJSX({
     compact,
     currency,
     decimalSeparator,
+    maxSignificantDigits,
+    minFractionDigits,
     numberType,
     value,
   });
@@ -100,12 +110,16 @@ function getNumberFormatParts({
   compact = false,
   currency = 'USD',
   decimalSeparator = '.',
+  maxSignificantDigits,
+  minFractionDigits,
   numberType = NumberType.Number,
   value,
 }: {
   compact?: boolean;
   currency?: string;
   decimalSeparator?: string;
+  maxSignificantDigits?: number;
+  minFractionDigits?: number;
   numberType?: NumberType;
   value?: number | null;
 }): Intl.NumberFormatPart[] | undefined {
@@ -120,7 +134,8 @@ function getNumberFormatParts({
   const formatter = new Intl.NumberFormat('en', {
     style: NUMBER_STYLE_MAP[numberType],
     notation,
-    maximumSignificantDigits,
+    maximumSignificantDigits: maxSignificantDigits === 0 ? undefined : maximumSignificantDigits,
+    minimumFractionDigits: minFractionDigits,
     currency,
     currencyDisplay: 'symbol',
   });

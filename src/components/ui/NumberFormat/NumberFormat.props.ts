@@ -7,6 +7,8 @@ export interface NumberFormatProps {
   decimalSeparator?: string;
   defaultValue?: string;
   fractionOpacity?: number;
+  maxSignificantDigits?: number;
+  minFractionDigits?: number;
   numberType?: NumberType;
   value?: number | null;
 }
