@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-import { Outlet, useLocation } from 'react-router-dom';
+import cn from 'classnames';
+import { matchPath, Outlet, useLocation } from 'react-router-dom';
 
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
 import {
@@ -13,6 +14,7 @@ import {
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useTabletMediumMediaQuery, useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
+import { getZonesNodesPath } from 'routing';
 
 import { useZonesData } from './useZonesData';
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';
@@ -35,6 +37,8 @@ export function ZonePage() {
   const { data, loading } = useZonesListZoneDetails();
 
   const { data: zonesList } = useZonesData();
+
+  const isPeriodSelectorVisible = !matchPath(getZonesNodesPath(), location.pathname);
 
   const toggleSearch = () => setSearchVisible(!isSearchVisible);
 
@@ -102,7 +106,10 @@ export function ZonePage() {
 
         <ZoneNavigation peersCount={data?.peersCount} useSmallView={isTabletMedium} />
 
-        <PeriodSelector className={styles.periodContainer} useDropdown={isTabletSmall} />
+        <PeriodSelector
+          className={cn(styles.periodContainer, { [styles.hidden]: !isPeriodSelectorVisible })}
+          useDropdown={isTabletSmall}
+        />
       </div>
 
       <Outlet />

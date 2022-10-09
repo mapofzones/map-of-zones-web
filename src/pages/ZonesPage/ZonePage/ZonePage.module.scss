@@ -50,6 +50,10 @@
 
   .periodContainer {
     grid-area: periodContainer;
+
+    &.hidden {
+      visibility: hidden;
+    }
   }
 }
 
