@@ -4,6 +4,8 @@ export { ReactComponent as ArrowUp } from './arrow-up.svg';
 export { ReactComponent as ChannelClosedIcon } from './channel-closed.svg';
 export { ReactComponent as CircularArrows } from './circular-arrows.svg';
 export { ReactComponent as CloseCircleIcon } from './close-circle.svg';
+export { ReactComponent as CopyIcon } from './copy.svg';
+export { ReactComponent as CrossIcon } from './cross.svg';
 export { ReactComponent as EarthIcon } from './earth.svg';
 export { ReactComponent as GithubLogo } from './github-logo.svg';
 export { ReactComponent as InfoIcon } from './info.svg';
