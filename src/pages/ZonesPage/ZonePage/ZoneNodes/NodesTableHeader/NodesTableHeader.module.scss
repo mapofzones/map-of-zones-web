@@ -20,24 +20,26 @@
 
   .filtersContainer {
     display: grid;
-    gap: 16px;
     grid-template-columns: repeat(3, 140px);
+    gap: 16px;
 
     align-items: center;
+    height: 32px;
 
     .dropdown {
-      cursor: pointer;
+      display: flex;
+      align-items: center;
 
-      background-color: var(--black-700);
-      border-radius: 5px;
-      font-size: var(--font-base-size-md);
-      color: var(--grey-500);
+      justify-content: space-between;
 
       padding: 8px 12px;
 
-      justify-content: space-between;
-      display: flex;
-      align-items: center;
+      color: var(--grey-500);
+      font-size: var(--font-base-size-md);
+
+      background-color: var(--black-700);
+      border-radius: 5px;
+      cursor: pointer;
 
       &:hover {
         color: var(--grey-800);
@@ -52,8 +54,19 @@
 
     .search {
       height: 100%;
+
       border: 1px solid var(--black-700);
       border-radius: 5px;
+    }
+
+    &.expanded {
+      .dropdown {
+        display: none;
+      }
+
+      .search {
+        width: 452px;
+      }
     }
   }
 }

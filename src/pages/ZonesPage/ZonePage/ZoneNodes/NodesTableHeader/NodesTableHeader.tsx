@@ -9,6 +9,8 @@ import styles from './NodesTableHeader.module.scss';
 import { useNodesCount } from './useNodesCount';
 
 export function NodesTableHeader() {
+  const [searchExpanded, setSearchExpanded] = useState(false);
+
   const [searchValue, setSearchValue] = useState('');
 
   const onSearchChange = (value: string) => {
@@ -31,7 +33,7 @@ export function NodesTableHeader() {
         </div>
       )}
 
-      <div className={styles.filtersContainer}>
+      <div className={cn(styles.filtersContainer, { [styles.expanded]: searchExpanded })}>
         <div className={styles.dropdown}>
           All ISPs
           {false ? (
@@ -40,6 +42,7 @@ export function NodesTableHeader() {
             <ArrowDown className={styles.arrowIcon} />
           )}
         </div>
+
         <div className={styles.dropdown}>
           All Countries
           {false ? (
@@ -48,7 +51,14 @@ export function NodesTableHeader() {
             <ArrowDown className={styles.arrowIcon} />
           )}
         </div>
-        <Search className={styles.search} onSearchChange={onSearchChange} placeholder="Search" />
+
+        <Search
+          className={styles.search}
+          onSearchChange={onSearchChange}
+          onFocus={() => setSearchExpanded(true)}
+          onBlur={() => setSearchExpanded(false)}
+          placeholder="Search"
+        />
       </div>
     </div>
   );
