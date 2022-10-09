@@ -8,12 +8,22 @@ export function NumberFormat({
   className,
   compact = false,
   currency = 'USD',
+  decimalSeparator = '.',
   defaultValue,
+  fractionOpacity = 0.7,
   numberType = NumberType.Number,
   value,
   ...props
 }: NumberFormatProps) {
-  const formattedNumber = formatNumberToJSX(value, numberType, compact, defaultValue, currency);
+  const formattedNumber = formatNumberToJSX({
+    compact,
+    currency,
+    decimalSeparator,
+    defaultValue,
+    fractionOpacity,
+    numberType,
+    value,
+  });
 
   return (
     <span className={className} {...props}>
@@ -22,14 +32,31 @@ export function NumberFormat({
   );
 }
 
-export function formatNumberToJSX(
-  value?: number | null,
-  numberType: NumberType = NumberType.Number,
+export function formatNumberToJSX({
   compact = false,
+  currency = 'USD',
+  decimalSeparator = '.',
   defaultValue = '—',
-  currency = 'USD'
-): JSX.Element {
-  const parts = getNumberFormatParts(value, numberType, compact, currency);
+  fractionOpacity = 0.7,
+  numberType = NumberType.Number,
+  value,
+}: {
+  compact?: boolean;
+  currency?: string;
+  decimalSeparator?: string;
+  defaultValue?: string;
+  fractionOpacity?: number;
+  numberType: NumberType;
+  value?: number | null;
+}): JSX.Element {
+  const parts = getNumberFormatParts({
+    compact,
+    currency,
+    decimalSeparator,
+    numberType,
+    value,
+  });
+
   if (!parts) {
     return <>{defaultValue}</>;
   }
@@ -37,13 +64,14 @@ export function formatNumberToJSX(
   const jsxParts = parts.map(({ type, value }) => {
     if (type === 'fraction') {
       return (
-        <span key={'fraction'} style={{ opacity: 0.7 }}>
+        <span key={'fraction'} style={{ opacity: fractionOpacity }}>
           {value}
         </span>
       );
     }
     return value;
   });
+
   return <>{jsxParts}</>;
 }
 
@@ -54,28 +82,37 @@ export function formatNumberToString(
   defaultValue = '—',
   currency = 'USD'
 ): string {
-  const parts = getNumberFormatParts(value, numberType, compact, currency);
+  const parts = getNumberFormatParts({
+    compact,
+    currency,
+    numberType,
+    value,
+  });
+
   if (!parts) {
     return defaultValue;
   }
+
   return parts.reduce((result, part) => result + part.value, '');
 }
 
-function getNumberFormatParts(
-  value?: number | null,
-  numberType: NumberType = NumberType.Number,
+function getNumberFormatParts({
   compact = false,
-  currency = 'USD'
-): Intl.NumberFormatPart[] | undefined {
+  currency = 'USD',
+  decimalSeparator = '.',
+  numberType = NumberType.Number,
+  value,
+}: {
+  compact?: boolean;
+  currency?: string;
+  decimalSeparator?: string;
+  numberType?: NumberType;
+  value?: number | null;
+}): Intl.NumberFormatPart[] | undefined {
   if (value === null || value === undefined) {
     return undefined;
   }
 
-  const integerValue = value | 0;
-  if (integerValue === 0) {
-  }
-
-  const decimalSeparator = '.';
   const thousandSeparator = ' ';
   const notation = compact ? 'compact' : 'standard';
   const maximumSignificantDigits = compact ? 3 : numberType === NumberType.Percent ? 3 : 5;
