@@ -1,0 +1,68 @@
+.container {
+  display: table-row;
+
+  td {
+    font-size: var(--font-base-size-md);
+
+    &:nth-child(1) {
+      .content {
+        color: var(--grey-500);
+      }
+    }
+
+    &:nth-child(2), &:nth-child(7) {
+      .content {
+        max-width: 174px;
+        white-space: break-spaces;
+      }
+    }
+
+    &:nth-child(3) {
+      .content {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &:nth-child(8) {
+      .content {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &:nth-child(9) {
+      .content {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.statusCircle {
+  margin-right: 6px;
+}
+
+.subValue {
+  color: var(--grey-500);
+}
+
+.copyIcon {
+  cursor: pointer;
+
+  margin-left: 6px;
+  color: var(--grey-500);
+
+  &:hover {
+    color: var(--white);
+  }
+}
+
+.tickIcon {
+  stroke: var(--green);
+}
+
+.crossIcon {
+  stroke: var(--red);
+}
