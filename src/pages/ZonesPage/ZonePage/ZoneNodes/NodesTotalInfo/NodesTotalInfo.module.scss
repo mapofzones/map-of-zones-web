@@ -7,6 +7,8 @@
   gap: 8px;
 
   font-size: var(--font-base-size-md);
+
+  height: 126px;
 }
 
 .itemContainer {
@@ -56,7 +58,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: var(--grey-500); 
+  color: var(--grey-500);
   margin-top: 4px;
   justify-self: flex-start;
 

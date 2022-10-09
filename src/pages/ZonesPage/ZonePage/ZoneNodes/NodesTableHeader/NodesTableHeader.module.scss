@@ -20,7 +20,7 @@
 
   .filtersContainer {
     display: grid;
-    grid-template-columns: repeat(3, 140px);
+    grid-template-columns: repeat(3, minmax(106px, 140px));
     gap: 16px;
 
     align-items: center;
