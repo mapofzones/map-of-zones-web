@@ -1,11 +1,13 @@
+import cn from 'classnames';
+
 import { SkeletonTextWrapper, SkeletonCircle } from 'components';
 
-import styles from './ZoneInfoRow.module.scss';
+import styles from '../ZoneInfoRow/ZoneInfoRow.module.scss';
 
 export function ZoneInfoRowSkeleton() {
   return (
     <div className={styles.row}>
-      <div className={styles.zoneBaseInfoContainer}>
+      <div className={cn(styles.zoneBaseInfoContainer, styles.cell)}>
         <SkeletonCircle size={'32px'} />
         <SkeletonTextWrapper
           style={{ marginLeft: '16px' }}
@@ -14,7 +16,7 @@ export function ZoneInfoRowSkeleton() {
           defaultTextMaxLength={15}
         />
       </div>
-      <div className={styles.valueContainer}>
+      <div className={cn(styles.valueContainer, styles.cell)} style={{ width: '100px' }}>
         <SkeletonTextWrapper loading={true} defaultText={'$123,456,789'} />
       </div>
     </div>

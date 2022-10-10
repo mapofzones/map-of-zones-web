@@ -1,14 +1,24 @@
 .row {
-  display: flex;
-  align-items: center;
-  height: 50px;
-  padding: 7px 0px 7px 16px;
-  justify-content: space-between;
+  display: table-row;
 
   font-size: var(--font-base-size-lg);
 
   cursor: pointer;
-  row-gap: 2px;
+
+  .cell {
+    display: table-cell;
+    height: 50px;
+
+    vertical-align: middle;
+
+    &:first-child {
+      padding-left: 16px;
+    }
+  }
+
+  .zoneRating {
+    padding-right: 6px;
+  }
 
   .zoneBaseInfoContainer {
     display: flex;

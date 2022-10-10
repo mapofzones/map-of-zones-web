@@ -1,10 +1,11 @@
 import cn from 'classnames';
 
-import { LinkWithSearchParams, NumberType, ValueWithPending, ZoneInfoWithSearch } from 'components';
+import { NumberType, ValueWithPending, ZoneInfoWithSearch } from 'components';
 import {
   SelectedZoneSourceView,
   useHomePageSelectedZoneAnalytics,
 } from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { overviewPath } from 'routing';
 
 import styles from './ZoneInfoRow.module.scss';
@@ -18,27 +19,32 @@ function ZoneInfoRow({
 }: ZonesInfoRowProps): JSX.Element {
   const trackSelectedZone = useHomePageSelectedZoneAnalytics(SelectedZoneSourceView.Sidebar);
 
+  const navigateWithSearchParams = useNavigateWithSearchParams();
+
   const onZoneInfoRowClick = () => {
+    navigateWithSearchParams(`${zone.id}/${overviewPath}`, {
+      state: { source: SelectedZoneSourceView.Sidebar },
+    });
     trackSelectedZone(zone.id);
   };
 
   return (
-    <LinkWithSearchParams
-      to={`${zone.id}/${overviewPath}`}
-      state={{ source: SelectedZoneSourceView.Sidebar }}
-      className={cn(styles.row, className)}
-      onClick={onZoneInfoRowClick}
-    >
-      <ZoneInfoWithSearch className={styles.zoneContainer} searchValue={searchValue} zone={zone} />
+    <div className={cn(styles.row, className)} onClick={onZoneInfoRowClick}>
+      <div className={cn(styles.zoneRating, styles.cell)}>{zone.rating}</div>
 
-      <ValueWithPending
-        alignRight={true}
-        className={styles.value}
-        numberType={numberType}
-        value={zone.value}
-        pendingValue={zone.pendingValue}
-      />
-    </LinkWithSearchParams>
+      <div className={cn(styles.zoneContainer, styles.cell)}>
+        <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
+      </div>
+      <div className={cn(styles.valueContainer, styles.cell)}>
+        <ValueWithPending
+          alignRight={true}
+          className={styles.value}
+          numberType={numberType}
+          value={zone.value}
+          pendingValue={zone.pendingValue}
+        />
+      </div>
+    </div>
   );
 }
 

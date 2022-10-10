@@ -7,6 +7,7 @@ export interface ZoneInfoData extends ZoneInfoValues {
   logoUrl?: string | null;
 }
 export interface ZoneInfoValues {
+  rating?: number | null;
   ratingDiff?: number | null;
   value?: number | null;
   pendingValue?: number | null;
