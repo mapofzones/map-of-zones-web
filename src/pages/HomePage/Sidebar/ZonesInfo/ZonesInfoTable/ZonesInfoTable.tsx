@@ -16,25 +16,30 @@ const fieldsMap: Record<
   {
     valueKey: keyof ZonesTableDataQueryItem;
     pendingValueKey?: keyof ZonesTableDataQueryItem;
+    ratingKey: keyof ZonesTableDataQueryItem;
     ratingDiffKey: keyof ZonesTableDataQueryItem;
   }
 > = {
   ibcVolume: {
     valueKey: 'ibcVolume',
     pendingValueKey: 'ibcVolumePending',
+    ratingKey: 'ibcVolumeRating',
     ratingDiffKey: 'ibcVolumeRatingDiff',
   },
   ibcTransfers: {
     valueKey: 'ibcTransfers',
     pendingValueKey: 'ibcTransfersPending',
+    ratingKey: 'ibcTransfersRating',
     ratingDiffKey: 'ibcTransfersRatingDiff',
   },
   totalTxs: {
     valueKey: 'totalTxs',
+    ratingKey: 'totalTxsRating',
     ratingDiffKey: 'totalTxsRatingDiff',
   },
   dau: {
     valueKey: 'dau',
+    ratingKey: 'dauRating',
     ratingDiffKey: 'dauRatingDiff',
   },
 };
@@ -67,6 +72,7 @@ function ZonesInfoTable({
             id: zone.zone,
             name: zone.name,
             logoUrl: zone.logoUrl,
+            rating: zone[fields.ratingKey] as any,
             ratingDiff: zone[fields.ratingDiffKey] as any,
             value: zone[fields.valueKey] as any,
             pendingValue: fields.pendingValueKey && (zone[fields.pendingValueKey] as any),
