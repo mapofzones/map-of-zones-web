@@ -2,7 +2,7 @@
   display: block;
 
   color: var(--grey-500);
-  font-size: var(--font-secondary-size-md);
+  font-size: var(--font-base-size-md);
   white-space: nowrap;
 }
 
@@ -35,12 +35,17 @@
   margin-right: 8px;
 }
 
+.chart {
+  height: 40px !important;
+  margin-left: 24px;
+}
+
 .card {
   &.doubleItem {
     display: flex;
 
     .value {
-      font-size: var(--font-heading-size-md);
+      font-size: var(--font-heading-size-sm);
     }
   }
 

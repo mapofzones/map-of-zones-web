@@ -9,10 +9,11 @@ import styles from './Search.module.scss';
 import { SearchProps } from './Search.props';
 
 export function Search({
-  onSearchChange,
-  onFocus,
-  onBlur,
+  autoFocus = false,
   className,
+  onBlur,
+  onFocus,
+  onSearchChange,
   placeholder = 'Search',
   ...props
 }: SearchProps): JSX.Element {
@@ -34,6 +35,7 @@ export function Search({
   return (
     <div className={cn(styles.searchContainer, className)} {...props}>
       <Input
+        autoFocus={autoFocus}
         className={styles.searchInput}
         type="search"
         placeholder={placeholder}
