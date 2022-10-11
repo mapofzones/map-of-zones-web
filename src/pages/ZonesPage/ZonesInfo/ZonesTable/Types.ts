@@ -4,17 +4,18 @@ import {
   CircleType,
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
 import { tooltips } from 'types/Tooltips';
-import { getDauTitleByPeriod } from 'utils/helper';
+import { getDauTitleByPeriod, getIbcDauTitleByPeriod } from 'utils/helper';
 
 import { ZoneData } from './TableRow/TableRow.props';
 
 export enum ColumnKeys {
-  ActiveAddresses = 'activeAddresses',
   IbcTransfers = 'ibcTransfers',
   IbcVolume = 'ibcVolume',
   IbcVolumeReceived = 'ibcVolumeReceived',
   IbcVolumeSent = 'ibcVolumeSent',
   TotalTxs = 'totalTxs',
+  ActiveAddresses = 'activeAddresses', // dau
+  IbcDau = 'ibcDau',
 }
 
 export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
@@ -71,6 +72,11 @@ export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
       title: getDauTitleByPeriod(period),
       columnKey: ColumnKeys.ActiveAddresses,
       explanationText: tooltips['dau'](period),
+    },
+    {
+      title: getIbcDauTitleByPeriod(period),
+      columnKey: ColumnKeys.IbcDau,
+      explanationText: tooltips['ibcDau'](period),
       withBorder: true,
     },
     {
@@ -80,10 +86,11 @@ export function getTableHeaderConfigByPeriod(period: PeriodKeys) {
 }
 
 export const SORTING_COLUMN_KEYS: Record<ColumnKeys, keyof ZoneData> = {
-  [ColumnKeys.ActiveAddresses]: 'dauRating',
   [ColumnKeys.IbcTransfers]: 'ibcTransfersRating',
   [ColumnKeys.IbcVolume]: 'ibcVolumeRating',
   [ColumnKeys.IbcVolumeReceived]: 'ibcVolumeInRating',
   [ColumnKeys.IbcVolumeSent]: 'ibcVolumeOutRating',
   [ColumnKeys.TotalTxs]: 'totalIbcTxsRating',
+  [ColumnKeys.ActiveAddresses]: 'dauRating',
+  [ColumnKeys.IbcDau]: 'ibcDauRating',
 };

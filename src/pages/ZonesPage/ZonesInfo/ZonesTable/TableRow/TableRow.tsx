@@ -16,12 +16,13 @@ import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
 
 const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
-  activeAddresses: 'dauRatingDiff',
   ibcVolumeReceived: 'ibcVolumeInRatingDiff',
   ibcVolumeSent: 'ibcVolumeOutRatingDiff',
   ibcVolume: 'ibcVolumeRatingDiff',
   ibcTransfers: 'ibcTransfersRatingDiff',
   totalTxs: 'totalIbcTxsRatingDiff',
+  activeAddresses: 'dauRatingDiff',
+  ibcDau: 'ibcDauRatingDiff',
 };
 
 export function TableRow({
@@ -126,6 +127,15 @@ export function TableRow({
           className={styles.value}
           numberType={NumberType.Number}
           value={zone.dau}
+        />
+      </TableRowItem>
+
+      <TableRowItem>
+        <ValueWithPending
+          alignRight={true}
+          className={styles.value}
+          numberType={NumberType.Number}
+          value={zone.ibcDau}
         />
       </TableRowItem>
 

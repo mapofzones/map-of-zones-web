@@ -49,6 +49,10 @@ export interface ZoneData {
   dauRating?: number | null;
   dauRatingDiff?: number | null;
 
+  ibcDauRating: number;
+  ibcDauRatingDiff: number;
+
   totalTxs: number;
   dau?: number | null;
+  ibcDau?: number | null;
 }

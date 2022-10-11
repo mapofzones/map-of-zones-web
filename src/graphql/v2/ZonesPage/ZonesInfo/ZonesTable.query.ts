@@ -43,10 +43,13 @@ export const ZONES_TABLE = gql`
         # dau
         dauRating: active_addresses_cnt_rating
         dauRatingDiff: active_addresses_cnt_rating_diff
+        ibcDauRating: ibc_active_addresses_cnt_rating
+        ibcDauRatingDiff: ibc_active_addresses_cnt_rating_diff
       }
       stats: blockchain_stats(where: { timeframe: { _eq: $period } }) {
         totalTxs: txs
         dau: active_addresses_cnt
+        ibcDau: ibc_active_addresses_cnt
       }
     }
   }
