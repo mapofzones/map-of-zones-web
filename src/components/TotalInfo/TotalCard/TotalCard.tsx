@@ -1,24 +1,24 @@
-import { ReactNode } from 'react';
-
 import cn from 'classnames';
 
 import { SkeletonRectangle } from 'components/Skeleton';
 
 import styles from './TotalCard.module.scss';
+import { TotalCardProps } from './TotalCard.props';
 
 export function TotalCard({
   children,
   className,
   loading = false,
-}: {
-  children: ReactNode;
-  className?: string;
-  loading?: boolean;
-}): JSX.Element {
+  ...props
+}: TotalCardProps): JSX.Element {
   return (
     <>
       {loading && <SkeletonRectangle className={cn(styles.container, className)} />}
-      {!loading && <div className={cn(styles.container, className)}>{children}</div>}
+      {!loading && (
+        <div className={cn(styles.container, className)} {...props}>
+          {children}
+        </div>
+      )}
     </>
   );
 }

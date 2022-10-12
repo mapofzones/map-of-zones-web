@@ -53,17 +53,25 @@ export function NodesTotalInfo(): JSX.Element {
   return (
     <>
       <TotalInfo className={styles.container}>
-        <TotalCard className={styles.card} loading={loading}>
+        <TotalCard
+          className={cn(styles.card, styles.clickable)}
+          loading={loading}
+          onClick={openIspModal}
+        >
           {isp.slice(0, 3).map(renderItem)}
-          <div className={styles.showAllButton} onClick={openIspModal}>
+          <div className={styles.showAllButton}>
             Show all ISP
             <ArrowRight className={styles.arrow} />
           </div>
         </TotalCard>
 
-        <TotalCard className={styles.card} loading={loading}>
+        <TotalCard
+          className={cn(styles.card, styles.clickable)}
+          loading={loading}
+          onClick={openCountriesModal}
+        >
           {countries.slice(0, 3).map(renderItem)}
-          <div className={styles.showAllButton} onClick={openCountriesModal}>
+          <div className={styles.showAllButton}>
             Show all countries
             <ArrowRight className={styles.arrow} />
           </div>

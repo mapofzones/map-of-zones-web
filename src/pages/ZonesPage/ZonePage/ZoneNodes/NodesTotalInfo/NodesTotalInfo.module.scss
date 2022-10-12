@@ -2,6 +2,18 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.showAllButton {
+  display: flex;
+  align-items: center;
+  color: var(--grey-500);
+  margin-top: 4px;
+  justify-self: flex-start;
+
+  .arrow {
+    margin-left: 8px;
+  }
+}
+
 .card {
   display: grid;
   gap: 8px;
@@ -9,6 +21,20 @@
   font-size: var(--font-base-size-md);
 
   height: 126px;
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      .showAllButton {
+        color: var(--white);
+
+        .arrow {
+          stroke: var(--white);
+        }
+      }
+    }
+  }
 }
 
 .itemContainer {
@@ -52,27 +78,6 @@
 .infoContainer {
   display: flex;
   justify-content: space-between;
-}
-
-.showAllButton {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: var(--grey-500);
-  margin-top: 4px;
-  justify-self: flex-start;
-
-  .arrow {
-    margin-left: 8px;
-  }
-
-  &:hover {
-    color: var(--white);
-
-    .arrow {
-      stroke: var(--white);
-    }
-  }
 }
 
 @media (max-width: 1280px) {
