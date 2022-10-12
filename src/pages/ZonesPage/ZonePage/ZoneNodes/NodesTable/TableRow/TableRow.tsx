@@ -1,5 +1,5 @@
-import { CopyIcon, CrossIcon, TickIcon } from 'assets/icons';
-import { StatusCircle, TableRowItem } from 'components';
+import { CrossIcon, TickIcon } from 'assets/icons';
+import { ClipboardIcon, StatusCircle, TableRowItem } from 'components';
 import { trimText } from 'utils/helper';
 
 import styles from './TableRow.module.scss';
@@ -19,7 +19,7 @@ export function TableRow({ index, node }: TableRowProps) {
       <TableRowItem>
         <div className={styles.content}>
           {trimText(node.id, 15)}
-          <CopyIcon className={styles.copyIcon} />
+          <ClipboardIcon text={node.id} />
         </div>
       </TableRowItem>
 
@@ -50,7 +50,7 @@ export function TableRow({ index, node }: TableRowProps) {
         <div className={styles.content}>
           <span className={styles.subValue}>{trimText(node.apiType + ':', 28)}&nbsp;</span>
           {trimText(node.apiUrl, 26 - node.apiType.length)}
-          <CopyIcon className={styles.copyIcon} />
+          <ClipboardIcon text={`${node.apiType}: ${node.apiUrl}`} />
         </div>
       </TableRowItem>
 

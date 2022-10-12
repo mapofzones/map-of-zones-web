@@ -8,4 +8,5 @@ export interface TooltipProps
   width?: number;
   margin?: number;
   hoverElement?: ReactNode;
+  onTooltipHide?: () => void;
 }
