@@ -33,33 +33,35 @@ export function NodesTableHeader() {
         </div>
       )}
 
-      <div className={cn(styles.filtersContainer, { [styles.expanded]: searchExpanded })}>
-        <div className={styles.dropdown}>
-          All ISPs
-          {false ? (
-            <ArrowUp className={styles.arrowIcon} />
-          ) : (
-            <ArrowDown className={styles.arrowIcon} />
-          )}
-        </div>
+      {!zonesCountLoading && (
+        <div className={cn(styles.filtersContainer, { [styles.expanded]: searchExpanded })}>
+          <div className={styles.dropdown}>
+            All ISPs
+            {false ? (
+              <ArrowUp className={styles.arrowIcon} />
+            ) : (
+              <ArrowDown className={styles.arrowIcon} />
+            )}
+          </div>
 
-        <div className={styles.dropdown}>
-          All Countries
-          {false ? (
-            <ArrowUp className={styles.arrowIcon} />
-          ) : (
-            <ArrowDown className={styles.arrowIcon} />
-          )}
-        </div>
+          <div className={styles.dropdown}>
+            All Countries
+            {false ? (
+              <ArrowUp className={styles.arrowIcon} />
+            ) : (
+              <ArrowDown className={styles.arrowIcon} />
+            )}
+          </div>
 
-        <Search
-          className={styles.search}
-          onSearchChange={onSearchChange}
-          onFocus={() => setSearchExpanded(true)}
-          onBlur={() => setSearchExpanded(false)}
-          placeholder="Search"
-        />
-      </div>
+          <Search
+            className={styles.search}
+            onSearchChange={onSearchChange}
+            onFocus={() => setSearchExpanded(true)}
+            onBlur={() => setSearchExpanded(false)}
+            placeholder="Search"
+          />
+        </div>
+      )}
     </div>
   );
 }
