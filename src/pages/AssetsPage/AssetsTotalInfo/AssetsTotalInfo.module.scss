@@ -1,6 +1,6 @@
 .title {
   color: var(--grey-500);
-  font-size: var(--font-secondary-size-md);
+  font-size: var(--font-base-size-md);
   white-space: nowrap;
 }
 
@@ -31,6 +31,11 @@
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
+.chart {
+  height: 40px !important;
+  margin-left: 24px;
+}
+
 .zoneInfoContainer {
   display: flex;
   margin-right: 8px;
@@ -43,7 +48,7 @@
 .card {
   &.doubleItem {
     .value {
-      font-size: var(--font-heading-size-md);
+      font-size: var(--font-heading-size-sm);
     }
   }
 

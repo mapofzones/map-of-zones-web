@@ -19,6 +19,8 @@
     width: 100%;
     overflow: hidden;
 
+    font-size: var(--font-base-size-md);
+
     white-space: nowrap;
     text-overflow: ellipsis;
   }
