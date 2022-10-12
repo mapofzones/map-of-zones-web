@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { useCallback } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
@@ -48,7 +49,7 @@ function drawNodeCanvasObject(
     return;
   }
 
-  const isSelectedZone = selectedZoneKey && currentNode.zone === selectedZoneKey;
+  const isSelectedZone = !!selectedZoneKey && currentNode.zone === selectedZoneKey;
   const isHoveredZone = !!hoveredZoneKey && currentNode.zone === hoveredZoneKey;
   const isFocusedZone = isSelectedZone || isHoveredZone; // SELECTED style -- opacity: border=1 (FF) background=0.1 (1A)
   const isNormal = !selectedZoneKey && !hoveredZoneKey; // NORMAL style -- opacity: border=0.6 (9A) background=0.1 (1A)
@@ -65,7 +66,7 @@ function drawNodeCanvasObject(
   const isFaded = !isNormal && !isFocusedZone && !isActive; // FADED style -- opacity: border=0.2 (33) background=0.05 (0D)
 
   const image = currentNode.logoUrl ? images[currentNode.logoUrl] : null;
-  drawNode(ctx, currentNode, isFaded, isFocusedZone, globalScale, image);
+  drawNode(ctx, currentNode, isFaded, isFocusedZone, isSelectedZone, globalScale, image);
 
   if (isFaded) {
     return;
@@ -79,12 +80,22 @@ function drawNode(
   currentNode: MapNode,
   isFaded: boolean,
   isFocusedZone: boolean,
+  isSelectedZone: boolean,
   globalScale: number,
   image: HTMLImageElement | null
 ) {
-  const { x, y, radius, color, logoRadius } = currentNode;
+  let { x, y } = currentNode;
+  const { radius, color, logoUrl, logoRadius } = currentNode;
   if (x === undefined || y === undefined) {
     return;
+  }
+
+  if (isSelectedZone && !(currentNode as any).__newPos) {
+    const dx = currentNode?.x ?? 0 / 10;
+    const dy = currentNode?.y ?? 0 / 10;
+    (currentNode as any).__newPos = { x: 0, y: 0, dx, dy };
+    // x = 0;
+    // y = 0;
   }
 
   const fillStyleOpecity = isFaded ? '0D' : '1A';
@@ -94,6 +105,20 @@ function drawNode(
     ctx.fillStyle = `${color}${fillStyleOpecity}`;
     ctx.beginPath();
     ctx.lineWidth = 1 / globalScale;
+    const newPos = (currentNode as any).__newPos;
+    if (newPos && (newPos.x !== x || newPos.y !== y)) {
+      const diffX = newPos.x - x;
+      const diffY = newPos.y - y;
+      const speed = 3;
+      x += diffX > speed ? speed : diffX < -speed ? -speed : diffX;
+      y += diffY > speed ? speed : diffY < -speed ? -speed : diffY;
+      // y -= Math.abs(diffY) > 10 ? 10 : diffY;
+      // x -= newPos.dx;
+      // y -= newPos.dy;
+      currentNode.x = x;
+      currentNode.y = y;
+      console.log(currentNode.x, currentNode.y);
+    }
     ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
     ctx.closePath();
     ctx.stroke();

@@ -8,7 +8,7 @@ import { Button } from 'components';
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
 
 import { useClearSelectedNode, useHoveredZone, useSelectedZone } from './hooks/eventHooks';
-import { useGraphData } from './hooks/useGraphData';
+import { useGraphData, useZonesAdditionalInfo } from './hooks/useGraphData';
 import { useImagePreloader } from './hooks/useImagePreloader';
 import { useLinkCanvasObject } from './hooks/useLinkCanvasObject';
 import { useNodeCanvasObject } from './hooks/useNodeCanvasObject';
@@ -20,7 +20,8 @@ const ZOOM_VALUES = [0.75, 1, 1.5, 2.25, 4];
 export function Map({ className }: { className: string }) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
-  const { graphData } = useGraphData();
+  const { graphData: graphData2 } = useGraphData();
+  const graphData = useZonesAdditionalInfo(graphData2 as any, selectedZoneKey);
   const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
   const { windowSize } = useWindowSizeWithDebounce(100);
 

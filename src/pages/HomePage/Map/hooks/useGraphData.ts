@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useQuery } from '@apollo/client';
 import { GraphData } from 'react-force-graph-2d';
@@ -13,7 +13,7 @@ import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { SortRow } from 'hooks/useSortedTableData';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-import { Link, MapNode, ZoneLink, ZoneStat } from '../Types';
+import { Link, MapNode, ZoneLink, ZoneStat, SelectedZoneKeyType } from '../Types';
 
 const sortingKeyByColumnKey: Record<ColumnKeys, keyof ZoneStat> = {
   [ColumnKeys.IbcVolume]: 'ibcVolumeRating',
@@ -64,32 +64,32 @@ function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyo
 
   const zonesGraphs = zonesGraphsData.filter((link) => filterLinksWithoutNodes(link, nodesKeySet));
 
-  const radiusConst = 100;
+  // const radiusConst = 100;
 
-  zonesStats.forEach((zone: ZoneStat, index: number, arr: ZoneStat[]) => {
-    const level = getLevel(index);
-    const itemsInLevel = getItemsInLevel(arr.length, level);
-    const { x, y } = getCoordinates(itemsInLevel, index, level, radiusConst);
-    const radius = getZoneRadiusByLevel(level);
-    const logoRadius = getZoneLogoRadiusByLevel(level);
-    const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
-    const fontSize = getFontSizeByLevel(level);
+  // zonesStats.forEach((zone: ZoneStat, index: number, arr: ZoneStat[]) => {
+  //   const level = getLevel(index);
+  //   const itemsInLevel = getItemsInLevel(index, arr.length);
+  //   const { x, y } = getCoordinates(itemsInLevel, index, level, radiusConst);
+  //   const radius = getZoneRadius(level);
+  //   const logoRadius = getZoneLogoRadius(level);
+  //   const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
+  //   const fontSize = getFontSize(level);
 
-    const node: MapNode = {
-      ...zone,
-      level,
-      x,
-      y,
-      radius,
-      logoRadius,
-      color,
-      fontSize,
-    } as MapNode;
-    nodes.push(node);
-  });
+  //   const node: MapNode = {
+  //     ...zone,
+  //     level,
+  //     x,
+  //     y,
+  //     radius,
+  //     logoRadius,
+  //     color,
+  //     fontSize,
+  //   } as MapNode;
+  //   nodes.push(node);
+  // });
 
   const d = {
-    nodes,
+    nodes: zonesStats,
     links: JSON.parse(JSON.stringify(zonesGraphs)).map((link: Link) => ({
       ...link,
       isActive: !!link.ibcVolume,
@@ -97,6 +97,49 @@ function transformMapData(data: ZonesMapQueryResult | undefined, columnKey: keyo
   } as GraphData;
 
   return d;
+}
+
+export function useZonesAdditionalInfo(
+  data: { nodes: ZoneStat[]; links: Link[] },
+  selectedZoneKey: SelectedZoneKeyType
+) {
+  const radiusConst = 100;
+
+  return useMemo(() => {
+    const nodes = data.nodes.map((zone: ZoneStat, index: number, arr: ZoneStat[]) => {
+      const level = getLevel(index);
+      const itemsInLevel = getItemsInLevel(arr.length, level);
+      const { x, y } =
+        selectedZoneKey === zone.zone
+          ? { x: 0, y: 0 }
+          : getCoordinates(itemsInLevel, index, level, radiusConst);
+      const radius = getZoneRadiusByLevel(level);
+      const logoRadius = getZoneLogoRadiusByLevel(level);
+      const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
+      const fontSize = getFontSizeByLevel(level);
+
+      const node: MapNode = {
+        ...zone,
+        level,
+        x,
+        y,
+        radius,
+        logoRadius,
+        color,
+        fontSize,
+      } as MapNode;
+      return node;
+    });
+
+    return {
+      nodes,
+      links: data.links.map((link) => ({
+        ...link,
+        source: link.source,
+        target: link.target,
+      })),
+    };
+  }, [data.links, data.nodes, selectedZoneKey]);
 }
 
 const levelLimits = [10, 30];

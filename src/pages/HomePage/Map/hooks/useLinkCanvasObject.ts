@@ -43,6 +43,18 @@ function drawLinkCanvasObject(
     return;
   }
 
+  // if (link.target.zone === 'umee-1' || link.source.zone === 'umee-1') {
+  //   console.log(link);
+  // }
+  // if (link.target.zone && selectedNodeKey === link.target.zone) {
+  //   link.target.x = 0;
+  //   link.target.y = 0;
+  // }
+  // if (link.source.zone && selectedNodeKey === link.source.zone) {
+  //   link.source.x = 0;
+  //   link.source.y = 0;
+  // }
+
   drawLine(ctx, link, isRalatedToActiveZone, scale);
 
   if (link.isActive) {
@@ -56,7 +68,12 @@ function drawLine(
   isRalatedToActiveZone: boolean,
   scale: number
 ) {
-  if (link.source.x && link.source.y && link.target.x && link.target.y) {
+  if (
+    link.source.x != null &&
+    link.source.y != null &&
+    link.target.x != null &&
+    link.target.y != null
+  ) {
     ctx.lineWidth = 0.5 / scale;
     ctx.strokeStyle = isRalatedToActiveZone ? ACTIVE_LINE_COLOR : NORMAL_LINE_COLOR;
 
