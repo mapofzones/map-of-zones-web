@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  cursor: pointer;
+  width: 100%;
+  padding: 0 16px;
+  font-size: var(--font-base-size-md);
+
+  .country {
+    font-size: var(--font-heading-size-md);
+    margin-right: 12px;
+  }
+
+  .value {
+    margin-left: 6px;
+    color: var(--grey-500);
+  }
+
+  &:hover {
+    background-color: var(--black-700);
+  }
+}

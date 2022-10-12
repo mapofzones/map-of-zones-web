@@ -26,32 +26,6 @@
     align-items: center;
     height: 32px;
 
-    .dropdown {
-      display: flex;
-      align-items: center;
-
-      justify-content: space-between;
-
-      padding: 8px 12px;
-
-      color: var(--grey-500);
-      font-size: var(--font-base-size-md);
-
-      background-color: var(--black-700);
-      border-radius: 5px;
-      cursor: pointer;
-
-      &:hover {
-        color: var(--grey-800);
-
-        background-color: var(--black-900);
-
-        .arrowIcon {
-          stroke: var(--grey-800);
-        }
-      }
-    }
-
     .search {
       height: 100%;
 

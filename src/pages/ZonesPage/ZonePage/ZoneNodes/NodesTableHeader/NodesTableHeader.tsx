@@ -2,9 +2,10 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
-import { ArrowDown, ArrowUp } from 'assets/icons';
 import { Search, SkeletonRectangle } from 'components';
 
+import { useNodesTotalInfo } from '../NodesTotalInfo/useNodesTotalInfo';
+import { FilterModal } from './FilterModal/FilterModal';
 import styles from './NodesTableHeader.module.scss';
 import { useNodesCount } from './useNodesCount';
 
@@ -18,6 +19,7 @@ export function NodesTableHeader() {
   };
 
   const { data: nodesCount, loading: zonesCountLoading } = useNodesCount();
+  const { isp, countries } = useNodesTotalInfo();
 
   return (
     <div className={styles.header}>
@@ -35,23 +37,9 @@ export function NodesTableHeader() {
 
       {!zonesCountLoading && (
         <div className={cn(styles.filtersContainer, { [styles.expanded]: searchExpanded })}>
-          <div className={styles.dropdown}>
-            All ISPs
-            {false ? (
-              <ArrowUp className={styles.arrowIcon} />
-            ) : (
-              <ArrowDown className={styles.arrowIcon} />
-            )}
-          </div>
+          <FilterModal title="All ISPs" items={isp} />
 
-          <div className={styles.dropdown}>
-            All Countries
-            {false ? (
-              <ArrowUp className={styles.arrowIcon} />
-            ) : (
-              <ArrowDown className={styles.arrowIcon} />
-            )}
-          </div>
+          <FilterModal title="All Countries" items={countries} />
 
           <Search
             className={styles.search}

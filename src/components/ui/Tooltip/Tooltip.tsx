@@ -22,7 +22,6 @@ export function Tooltip({
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   const calculateStyle = useCallback(() => {
-    console.log('calculateStyle');
     const style: React.CSSProperties = { maxWidth: width };
     const hoverRect = tooltipRef.current?.getBoundingClientRect();
 
