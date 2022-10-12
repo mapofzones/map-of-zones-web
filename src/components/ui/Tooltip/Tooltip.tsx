@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -21,7 +21,30 @@ export function Tooltip({
 
   const tooltipRef = useRef<HTMLDivElement>(null);
 
+  const calculateStyle = useCallback(() => {
+    console.log('calculateStyle');
+    const style: React.CSSProperties = { maxWidth: width };
+    const hoverRect = tooltipRef.current?.getBoundingClientRect();
+
+    if (!hoverRect) {
+      return;
+    }
+
+    style.left = getLeftCoordinate(hoverRect, width, margin);
+    const isHoverrInTopHalf = hoverRect.top < window.innerHeight / 2;
+
+    if (isHoverrInTopHalf) {
+      style.top = hoverRect.top + hoverRect.height + margin;
+    } else {
+      style.bottom = window.innerHeight - hoverRect.top + margin / 2;
+    }
+
+    setStyle(style);
+  }, [margin, width]);
+
   const showTooltip = () => {
+    // UI bouncing when calculate styles after setVisible(true)
+    calculateStyle();
     setVisible(true);
   };
 
@@ -33,27 +56,14 @@ export function Tooltip({
     }
   };
 
+  // recalculate position when some of position props changed (margin or width)
   useEffect(() => {
     if (visible) {
-      const style: React.CSSProperties = { maxWidth: width };
-      const hoverRect = tooltipRef.current?.getBoundingClientRect();
-
-      if (!hoverRect) {
-        return;
-      }
-
-      style.left = getLeftCoordinate(hoverRect, width, margin);
-      const isHoverrInTopHalf = hoverRect.top < window.innerHeight / 2;
-
-      if (isHoverrInTopHalf) {
-        style.top = hoverRect.top + hoverRect.height + margin;
-      } else {
-        style.bottom = window.innerHeight - hoverRect.top + margin / 2;
-      }
-
-      setStyle(style);
+      calculateStyle();
     }
-  }, [margin, visible, width]);
+    // to reduce recalculation on visible change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calculateStyle]);
 
   return (
     <span
