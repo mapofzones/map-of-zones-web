@@ -8,15 +8,25 @@ export type HoveredZoneKeyType = string | undefined;
 
 export type ImagesMap = { [imgUrl: string]: HTMLImageElement };
 
-export interface Link extends LinkObject {
+export interface MapData {
+  links: MapLink[];
+  nodes: MapNode[];
+}
+
+export interface MapLink extends LinkObject {
   __comet?: Comet;
-  source: MapNode;
-  target: MapNode;
+  source: MapLinkNode | string;
+  target: MapLinkNode | string;
   ibcVolume?: number | null;
   isActive: boolean;
 }
 
+export interface MapLinkNode extends NodeObject {
+  zone: string;
+}
+
 export interface MapNode extends NodeObject {
+  __animatedPos: Position[];
   zone: string;
   isMainnet: boolean;
   logoUrl?: string | null;
@@ -31,17 +41,26 @@ export interface MapNode extends NodeObject {
   fontSize: number;
 }
 
+export interface Position {
+  x: number;
+  y: number;
+}
+
 export type SelectedZoneKeyType = string | undefined;
 
-export interface ZoneLink {
-  __typename?: 'zones_graphs';
+// eslint-disable-next-line sort-exports/sort-exports
+export interface GraphDataApi {
+  links: ZoneLinkApi[];
+  nodes: ZoneStatApi[];
+}
+
+export interface ZoneLinkApi {
   source: string;
   target: string;
   ibcVolume?: number | null;
 }
 
-export interface ZoneStat {
-  __typename?: 'zones_stats';
+export interface ZoneStatApi {
   zone: string;
   ibcVolume: number | null;
   ibcVolumeIn: number | null;
@@ -53,4 +72,8 @@ export interface ZoneStat {
   isMainnet: boolean;
   logoUrl?: string | null;
   name: string;
+}
+
+export function getZoneKey(link: MapLinkNode | string) {
+  return typeof link === 'string' ? link : link.zone;
 }

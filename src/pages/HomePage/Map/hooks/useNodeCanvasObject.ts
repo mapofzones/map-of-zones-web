@@ -1,9 +1,15 @@
-/* eslint-disable prefer-const */
 import { useCallback } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
 
-import { HoveredZoneKeyType, Link, MapNode, SelectedZoneKeyType, ImagesMap } from './../Types';
+import {
+  HoveredZoneKeyType,
+  MapLink,
+  MapNode,
+  SelectedZoneKeyType,
+  ImagesMap,
+  getZoneKey,
+} from './../Types';
 
 const TEXT_PADDING_TOP = 3;
 const FONT_WEIGHT = 400;
@@ -11,22 +17,32 @@ const FONT_WEIGHT = 400;
 function isNeighbor(
   activeZoneKey: string | undefined,
   currentZoneKey: string,
-  links: Link[]
+  links: MapLink[]
 ): boolean {
   return (
     !!activeZoneKey &&
     links.some(
       (link) =>
-        (link.source.zone === activeZoneKey && link.target.zone === currentZoneKey) ||
-        (link.source.zone === currentZoneKey && link.target.zone === activeZoneKey)
+        checkIfZoneNeighbor(link, activeZoneKey, currentZoneKey) ||
+        checkIfZoneNeighbor(link, currentZoneKey, activeZoneKey)
     )
   );
+}
+
+function checkIfZoneNeighbor(
+  link: MapLink,
+  activeZoneKey: string,
+  currentZoneKey: string
+): unknown {
+  const sourceZoneKey = getZoneKey(link.source);
+  const targetZoneKey = getZoneKey(link.target);
+  return sourceZoneKey === activeZoneKey && targetZoneKey === currentZoneKey;
 }
 
 export const useNodeCanvasObject = (
   selectedZoneKey: SelectedZoneKeyType,
   hoveredZoneKey: HoveredZoneKeyType,
-  links: Link[],
+  links: MapLink[],
   images: ImagesMap
 ) =>
   useCallback(
@@ -41,7 +57,7 @@ function drawNodeCanvasObject(
   globalScale: number,
   selectedZoneKey: SelectedZoneKeyType,
   hoveredZoneKey: HoveredZoneKeyType,
-  links: Link[],
+  links: MapLink[],
   images: ImagesMap
 ): void {
   const currentNode = node as MapNode;
@@ -85,17 +101,9 @@ function drawNode(
   image: HTMLImageElement | null
 ) {
   let { x, y } = currentNode;
-  const { radius, color, logoUrl, logoRadius } = currentNode;
+  const { radius, color, logoRadius } = currentNode;
   if (x === undefined || y === undefined) {
     return;
-  }
-
-  if (isSelectedZone && !(currentNode as any).__newPos) {
-    const dx = currentNode?.x ?? 0 / 10;
-    const dy = currentNode?.y ?? 0 / 10;
-    (currentNode as any).__newPos = { x: 0, y: 0, dx, dy };
-    // x = 0;
-    // y = 0;
   }
 
   const fillStyleOpecity = isFaded ? '0D' : '1A';
@@ -105,20 +113,15 @@ function drawNode(
     ctx.fillStyle = `${color}${fillStyleOpecity}`;
     ctx.beginPath();
     ctx.lineWidth = 1 / globalScale;
-    const newPos = (currentNode as any).__newPos;
-    if (newPos && (newPos.x !== x || newPos.y !== y)) {
-      const diffX = newPos.x - x;
-      const diffY = newPos.y - y;
-      const speed = 3;
-      x += diffX > speed ? speed : diffX < -speed ? -speed : diffX;
-      y += diffY > speed ? speed : diffY < -speed ? -speed : diffY;
-      // y -= Math.abs(diffY) > 10 ? 10 : diffY;
-      // x -= newPos.dx;
-      // y -= newPos.dy;
-      currentNode.x = x;
-      currentNode.y = y;
-      console.log(currentNode.x, currentNode.y);
+
+    const animatedPos = currentNode.__animatedPos;
+    if (animatedPos && animatedPos.length > 0) {
+      const coord = animatedPos.splice(0, 1);
+      currentNode.__animatedPos = animatedPos;
+      currentNode.x = x = coord[0].x as number;
+      currentNode.y = y = coord[0].y as number;
     }
+
     ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
     ctx.closePath();
     ctx.stroke();
