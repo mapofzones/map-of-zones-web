@@ -51,7 +51,7 @@ function getNewNodes(
     const x = oldNode?.x ?? 0; // use 0 to show initial animation from center
     const y = oldNode?.y ?? 0;
 
-    const newPosArr = getAnimationCoordinates(100, newPos.x, newPos.y, x, y);
+    const newPosArr = getAnimationCoordinates(50, newPos.x, newPos.y, x, y);
 
     const radius = getZoneRadiusByLevel(level);
     const logoRadius = getZoneLogoRadiusByLevel(level);
