@@ -84,17 +84,17 @@ function getAnimationCoordinates(
   startX: number,
   startY: number
 ): Position[] {
-  const dx = (endX - startX) / iterations;
-  const dy = (endY - startY) / iterations;
-
   const newPosArr = [];
   for (let i = 0; i < iterations - 1; i++) {
-    const posX = (i + 1) * dx + startX;
-    const posY = (i + 1) * dy + startY;
+    const posX = animationFunction(i + 1, startX, endX, iterations);
+    const posY = animationFunction(i + 1, startY, endY, iterations);
     newPosArr.push({ x: posX, y: posY });
   }
-  newPosArr.push({ x: endX, y: endY });
   return newPosArr;
+}
+
+function animationFunction(index: number, start: number, end: number, iterations: number) {
+  return start + ((end - start) / iterations) * index;
 }
 
 function getLevel(nodeIndex: number) {
