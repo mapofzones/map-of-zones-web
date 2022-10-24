@@ -94,7 +94,14 @@ function getAnimationCoordinates(
 }
 
 function animationFunction(index: number, start: number, end: number, iterations: number) {
-  return start + ((end - start) / iterations) * index;
+  return easeInOutQuint(index, start, end - start, iterations);
+}
+
+function easeInOutQuint(index: number, start: number, distance: number, count: number) {
+  if ((index /= count / 2) < 1) {
+    return (distance / 2) * Math.pow(index, 5) + start;
+  }
+  return (distance / 2) * ((index -= 2) * Math.pow(index, 4) + 2) + start;
 }
 
 function getLevel(nodeIndex: number) {
