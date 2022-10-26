@@ -36,7 +36,8 @@ export function Map({ className }: { className: string }) {
   useEffect(() => {
     const fg = graphRef.current;
     fg?.d3Force('link', null as never);
-    fg?.d3Force('charge')?.strength(-10);
+    fg?.d3Force('charge')?.strength(0);
+    fg?.d3Force('center')?.strength(0);
   }, []);
 
   const nodeCanvasObject = useNodeCanvasObject(
