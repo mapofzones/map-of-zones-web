@@ -40,9 +40,15 @@ export function useGraphData(): {
   const { data, loading } = useQuery(ZonesMapDocument, options);
 
   useEffect(() => {
+    // prevent setting undefined graph data while loading new data (period switcher as an example)
+    // it helps to show animation between layers
+    if (loading) {
+      return;
+    }
+
     const newData = transformMapData(data, sortingKeyByColumnKey[selectedColumnKey]);
     setGraphData(newData);
-  }, [data, selectedColumnKey]);
+  }, [data, selectedColumnKey, loading]);
 
   return { data: graphData, loading };
 }
