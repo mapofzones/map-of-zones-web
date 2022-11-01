@@ -26,7 +26,7 @@ export interface MapLinkNode extends NodeObject {
 }
 
 export interface MapNode extends NodeObject {
-  __animatedPos: Position[];
+  __animatedPos?: Position[];
   zone: string;
   isMainnet: boolean;
   logoUrl?: string | null;

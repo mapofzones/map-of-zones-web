@@ -39,43 +39,71 @@ function getNewNodes(
 ): MapNode[] {
   const radiusConst = 100;
 
-  return nodes.map((zone: ZoneStatApi, index: number, arr: ZoneStatApi[]) => {
-    const level = getLevel(index);
-    const itemsInLevel = getItemsInLevel(arr.length, level);
-    const newPos =
-      selectedZoneKey === zone.zone
-        ? { x: 0, y: 0 }
-        : getCoordinates(itemsInLevel, index, level, radiusConst);
+  const mapNodes = nodes.map((zone: ZoneStatApi, index: number) =>
+    enrichNodeWithVisualProperties(index, zone)
+  );
 
-    const oldNode = oldNodes.find((node) => node.zone === zone.zone);
-    const x = oldNode?.x ?? 0; // use 0 to show initial animation from center
-    const y = oldNode?.y ?? 0;
+  const sortedNodes = mapNodes.sort(
+    (node1, node2) => node1.level - node2.level || node1.zone.localeCompare(node2.zone)
+  );
 
-    const newPosArr = getAnimationCoordinates(50, newPos.x, newPos.y, x, y);
-
-    const radius = getZoneRadiusByLevel(level);
-    const logoRadius = getZoneLogoRadiusByLevel(level);
-    const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
-    const fontSize = getFontSizeByLevel(level);
-    const node: MapNode = {
-      ...zone,
-      __animatedPos: newPosArr,
-      level,
-      x,
-      y,
-      radius,
-      logoRadius,
-      color,
-      fontSize,
-    } as MapNode;
-    return node;
-  });
+  const nodesWithAnimation = sortedNodes.map((node: MapNode, index: number, arr: MapNode[]) =>
+    enrichNodeWithAnimation(arr, node, selectedZoneKey, index, radiusConst, oldNodes)
+  );
+  return nodesWithAnimation;
 }
 
 const levelLimits = [10, 30];
 const zoneRadiuses = [26, 16, 11.5];
 const zoneLogoRadiuses = [19, 10, 6.5];
 const fontSizes = [11, 10, 8];
+
+function enrichNodeWithVisualProperties(index: number, zone: ZoneStatApi) {
+  const level = getLevel(index);
+  const radius = getZoneRadiusByLevel(level);
+  const logoRadius = getZoneLogoRadiusByLevel(level);
+  const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
+  const fontSize = getFontSizeByLevel(level);
+
+  const node: MapNode = {
+    ...zone,
+    level,
+    radius,
+    logoRadius,
+    color,
+    fontSize,
+  } as MapNode;
+  return node;
+}
+
+function enrichNodeWithAnimation(
+  arr: MapNode[],
+  node: MapNode,
+  selectedZoneKey: SelectedZoneKeyType,
+  index: number,
+  radiusConst: number,
+  oldNodes: MapNode[]
+) {
+  const itemsInLevel = getItemsInLevel(arr.length, node.level);
+  const centerCoordinates = getCoordinatesOfCenter();
+  const newPos =
+    selectedZoneKey === node.zone
+      ? centerCoordinates
+      : getCoordinatesByLevel(itemsInLevel, index, node.level, radiusConst);
+
+  const oldNode = oldNodes.find((oldNode) => oldNode.zone === node.zone);
+  const x = oldNode?.x ?? centerCoordinates.x; // use 0 to show initial animation from center
+  const y = oldNode?.y ?? centerCoordinates.y;
+
+  const animatedPos = getAnimationCoordinates(50, newPos.x, newPos.y, x, y);
+
+  return {
+    ...node,
+    __animatedPos: animatedPos,
+    x,
+    y,
+  } as MapNode;
+}
 
 function getAnimationCoordinates(
   iterations: number,
@@ -145,7 +173,12 @@ function getZoneColor(valueIn: number | null, valueOut: number | null) {
     : '#22aaff';
 }
 
-function getCoordinates(itemsInLevel: number, index: number, level: number, radiusConst: number) {
+function getCoordinatesByLevel(
+  itemsInLevel: number,
+  index: number,
+  level: number,
+  radiusConst: number
+) {
   const angleConst = (2 * Math.PI) / itemsInLevel;
   const offsetAngle = level === 2 ? angleConst / 2 : 0;
   const zoneAngle = index * angleConst + offsetAngle;
@@ -154,6 +187,10 @@ function getCoordinates(itemsInLevel: number, index: number, level: number, radi
   const x = r * Math.cos(zoneAngle);
   const y = r * Math.sin(zoneAngle);
   return { x, y };
+}
+
+function getCoordinatesOfCenter() {
+  return { x: 0, y: 0 };
 }
 
 function getRadiusFactor(level: number, index: number) {
