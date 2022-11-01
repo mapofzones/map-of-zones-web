@@ -1,13 +1,11 @@
 import { useParams } from 'react-router-dom';
 
-import { ArrowRight } from 'assets/icons';
-import { Button, ScrollableContainer } from 'components';
-import { ButtonType } from 'components/ui/Button/Button.props';
+import { ScrollableContainer } from 'components';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 import { getZonesPeersPath } from 'routing';
-import { ElementSize } from 'types/ElementSize';
 
+import { LearnMoreButton } from '../../LearnMoreButton';
 import { useZonePeers } from './useZonePeers';
 import styles from './ZonePeers.module.scss';
 import { ZonePeersSkeleton } from './ZonePeersSkeleton';
@@ -34,15 +32,7 @@ export function ZonePeers() {
         {!loading && <MemoizedZonePeersTable peers={sortedPeers} />}
       </ScrollableContainer>
 
-      <Button
-        className={styles.detailedBtn}
-        onClick={onDetailedBtnClick}
-        size={ElementSize.LARGE}
-        buttonType={ButtonType.SECONDARY}
-      >
-        <span className={styles.btnText}>Learn More</span>
-        <ArrowRight />
-      </Button>
+      <LearnMoreButton onClick={onDetailedBtnClick} />
     </>
   );
 }

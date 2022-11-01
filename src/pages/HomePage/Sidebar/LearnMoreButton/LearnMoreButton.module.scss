@@ -1,0 +1,13 @@
+.wrapper {
+  &:not(:hover) {
+    background-color: var(--grey-100);
+  }
+
+  .btnText {
+    margin-right: 8px;
+  }
+
+  .arrowRight {
+    stroke: var(--white);
+  }
+}
