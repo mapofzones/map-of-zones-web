@@ -6,6 +6,8 @@ export * from './TotalInfo';
 export * from './ui';
 
 export { Analytics } from './Analytics/Analytics';
+export { ClipboardIcon } from './ClipboardIcon/ClipboardIcon';
+export { CountryFlag } from './CountryFlag/CountryFlag';
 export { IbcVolumeCard } from './IbcVolumeCard/IbcVolumeCard';
 export { PeerLineChart } from './PeerLineChart/PeerLineChart';
 export { PendingValue } from './PendingValue/PendingValue';

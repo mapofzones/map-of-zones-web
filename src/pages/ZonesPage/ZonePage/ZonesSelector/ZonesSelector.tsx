@@ -22,6 +22,7 @@ export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX
   return (
     <div className={styles.container}>
       <Search
+        autoFocus={true}
         className={styles.searchContainer}
         onSearchChange={onSearchChange}
         placeholder={zonesList.length + ' Zones'}

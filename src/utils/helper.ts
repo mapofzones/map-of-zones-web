@@ -32,3 +32,7 @@ export const transformChartData = (chartData: ChartItemByNumber[], keyName: stri
   }, [] as ChartItemByString[]);
   return data;
 };
+
+export const trimText = (string: string, maxLength: number) => {
+  return string.length > maxLength ? string.slice(0, Math.max(0, maxLength)) + '...' : string;
+};

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -14,13 +14,14 @@ export function Tooltip({
   children,
   width = 240,
   margin = 16,
+  onTooltipHide,
 }: TooltipProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [style, setStyle] = useState<React.CSSProperties>();
 
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const showTooltip = () => {
+  const calculateStyle = useCallback(() => {
     const style: React.CSSProperties = { maxWidth: width };
     const hoverRect = tooltipRef.current?.getBoundingClientRect();
 
@@ -34,23 +35,41 @@ export function Tooltip({
     if (isHoverrInTopHalf) {
       style.top = hoverRect.top + hoverRect.height + margin;
     } else {
-      style.bottom = window.innerHeight - hoverRect.top;
+      style.bottom = window.innerHeight - hoverRect.top + margin / 2;
     }
 
-    setVisible(true);
     setStyle(style);
+  }, [margin, width]);
+
+  const showTooltip = () => {
+    // UI bouncing when calculate styles after setVisible(true)
+    calculateStyle();
+    setVisible(true);
   };
 
   const hideTooltip = () => {
     setVisible(false);
+
+    if (onTooltipHide) {
+      onTooltipHide();
+    }
   };
+
+  // recalculate position when some of position props changed (margin or width)
+  useEffect(() => {
+    if (visible) {
+      calculateStyle();
+    }
+    // to reduce recalculation on visible change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calculateStyle]);
 
   return (
     <span
       ref={tooltipRef}
       className={cn(styles.container, className)}
-      onMouseOver={showTooltip}
-      onMouseOut={hideTooltip}
+      onMouseEnter={showTooltip}
+      onMouseLeave={hideTooltip}
     >
       {hoverElement}
       {visible && (

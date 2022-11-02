@@ -6,6 +6,7 @@ export { Button } from './Button/Button';
 export { ButtonGroup } from './ButtonGroup/ButtonGroup';
 export { Card } from './Card/Card';
 export { Divider } from './Divider/Divider';
+export { DropdownWithModal } from './DropdownWithModal/DropdownWithModal';
 export { ExplanationTooltip } from './ExplanationTooltip/ExplanationTooltip';
 export { ExternalLink } from './ExternalLink/ExternalLink';
 export { Input } from './Input/Input';
@@ -14,11 +15,13 @@ export {
   LinkWithSearchParams,
   NavLinkWithSearchParams,
 } from './LinkWithSearchParams/LinkWithSearchParams';
+export { Modal } from './Modal/Modal';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { PercentStackedLineChart } from './PercentStackedLineChart/PercentStackedLineChart';
 export { Portal } from './Portal/Portal';
 export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
 export { ScrollUpButton } from './ScrollUpButton/ScrollUpButton';
 export { Search } from './Search/Search';
+export { StatusCircle } from './StatusCircle/StatusCircle';
 export { Tooltip } from './Tooltip/Tooltip';
 export { TooltipBody } from './Tooltip/TooltipBody';

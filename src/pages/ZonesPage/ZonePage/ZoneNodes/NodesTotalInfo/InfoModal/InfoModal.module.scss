@@ -1,0 +1,39 @@
+.header {
+  position: relative;
+
+  padding: 16px;
+
+  border-bottom: 1px solid var(--black-900);
+
+  .title {
+    margin-bottom: 4px;
+
+    font-size: var(--font-heading-size-sm);
+  }
+
+  .subtitle {
+    color: var(--grey-500);
+    font-size: var(--font-base-size-md);
+  }
+
+  .closeIcon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    cursor: pointer;
+
+    fill: var(--black-900);
+
+    stroke: var(--white);
+
+    &:hover {
+      fill: var(--grey-100);
+    }
+  }
+}
+
+.list {
+  max-height: 65vh;
+  overflow-y: scroll;
+}

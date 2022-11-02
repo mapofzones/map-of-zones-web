@@ -1,0 +1,26 @@
+.status {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+
+  .icon {
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+  }
+
+  .iconBackground {
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+}

@@ -1,0 +1,15 @@
+.tooltip {
+  margin-left: 6px;
+}
+
+.copyIcon {
+  color: var(--grey-500);
+
+  &:hover {
+    color: var(--white);
+  }
+}
+
+.copied {
+  color: var(--green);
+}

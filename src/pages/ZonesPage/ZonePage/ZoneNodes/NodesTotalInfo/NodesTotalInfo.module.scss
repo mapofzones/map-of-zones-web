@@ -1,0 +1,94 @@
+.container {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.showAllButton {
+  display: flex;
+  align-items: center;
+  color: var(--grey-500);
+  margin-top: 4px;
+  justify-self: flex-start;
+
+  .arrow {
+    margin-left: 8px;
+  }
+}
+
+.card {
+  display: grid;
+  gap: 8px;
+
+  font-size: var(--font-base-size-md);
+
+  height: 126px;
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      .showAllButton {
+        color: var(--white);
+
+        .arrow {
+          stroke: var(--white);
+        }
+      }
+    }
+  }
+}
+
+.itemContainer {
+  display: flex;
+  align-items: center;
+
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+
+    .country {
+      margin-right: 8px;
+    }
+  }
+}
+
+.value {
+  margin-right: 2px;
+  text-align: right;
+  width: 20px;
+}
+
+.progressContainer {
+  height: 2px;
+  width: 68px;
+  background-color: var(--grey-100);
+  margin-right: 16px;
+
+  &.wide {
+    width: 100%;
+    margin: 12px 0 10px;
+  }
+
+  .progressContent {
+    background-color: var(--green);
+    height: 100%;
+  }
+}
+
+.infoContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1280px) {
+  .card {
+    min-width: 400px;
+  }
+}
+
+@media (max-width: 630px) {
+  .card {
+    min-width: auto;
+    margin: 16px;
+  }
+}

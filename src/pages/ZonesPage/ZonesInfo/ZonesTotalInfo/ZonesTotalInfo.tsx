@@ -38,7 +38,11 @@ export function ZonesTotalInfo(): JSX.Element {
         </div>
 
         {zonesTotalInfo?.ibcTotalVolumeChart && (
-          <LineChart data={zonesTotalInfo?.ibcTotalVolumeChart} dataKey="volume" />
+          <LineChart
+            className={styles.chart}
+            data={zonesTotalInfo?.ibcTotalVolumeChart}
+            dataKey="volume"
+          />
         )}
       </TotalCard>
 
