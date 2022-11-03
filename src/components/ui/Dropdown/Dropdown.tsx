@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 
 import cn from 'classnames';
 
-import { ArrowDown, ArrowUp, TickIcon } from 'assets/icons';
+import { ArrowDown, ArrowUp } from 'assets/icons';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { ElementSize } from 'types/ElementSize';
 
 import styles from './Dropdown.module.scss';
 import { DropdownProps } from './Dropdown.props';
+import { DropdownItem } from './DropdownItem';
 import { DropdownOption } from './DropdownOption';
 
 function Dropdown({
@@ -59,16 +60,13 @@ function Dropdown({
       {isVisible && (
         <ul className={styles.dropDownList}>
           {options.map((option: DropdownOption) => (
-            <li
-              onClick={onOptionClicked(option)}
+            <DropdownItem
               key={option.key}
-              className={cn(styles.listItem, {
-                [styles.active]: option.key === selectedOption.key,
-              })}
-            >
-              <div className={styles.itemTitle}>{getTitle(option)}</div>
-              <TickIcon className={styles.tickIcon} />
-            </li>
+              option={option}
+              isActive={option.key === selectedOption.key}
+              getTitle={getTitle}
+              onOptionClicked={onOptionClicked}
+            />
           ))}
         </ul>
       )}

@@ -1,0 +1,59 @@
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 12px;
+  padding: 0 12px;
+
+  list-style: none;
+  background: var(--black-700);
+
+  .tickIcon {
+    display: none;
+    margin-left: 4px;
+
+    stroke: var(--grey-500);
+  }
+
+  .itemTitle {
+    width: 100%;
+    padding: 12px 0;
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &:not(:last-of-type) {
+    .itemTitle {
+      border-bottom: 1px solid var(--black-900);
+    }
+  }
+
+  &:first-child {
+    border-radius: 5px 5px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 5px 5px;
+  }
+
+  &:hover {
+    color: var(--grey-800);
+
+    background-color: var(--black-900);
+  }
+
+  &.active {
+    .tickIcon {
+      display: block;
+    }
+
+    &:hover {
+      .tickIcon {
+        stroke: var(--grey-800);
+      }
+    }
+  }
+}
