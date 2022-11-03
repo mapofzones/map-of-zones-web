@@ -1,6 +1,8 @@
 .wrapper {
-  &:not(:hover) {
-    background-color: var(--grey-100);
+  background-color: var(--grey-100);
+
+  &:hover {
+    background-color: var(--grey-300);
   }
 
   .btnText {
