@@ -15,19 +15,24 @@ export function DropdownItem({ option, isActive, getTitle, onOptionClicked }: Dr
         [styles.active]: isActive,
       })}
     >
-      <div className={styles.itemTitle}>{getTitle(option)}</div>
-      <TickIcon className={styles.tickIcon} />
+      <div className={styles.itemTitle}>
+        {getTitle(option)}
+        <TickIcon className={styles.tickIcon} />
+      </div>
     </li>
   );
 
+  if (!option.description) {
+    return <span className={styles.itemContainer}>{item}</span>;
+  }
+
   return (
-    <>
-      {!option.description && item}
-      {option.description && (
-        <Tooltip className={styles.tooltip} hoverElement={item} width={220}>
-          {option.description}
-        </Tooltip>
-      )}
-    </>
+    <Tooltip
+      className={cn(styles.tooltip, styles.itemContainer)}
+      body={option.description}
+      width={220}
+    >
+      {item}
+    </Tooltip>
   );
 }

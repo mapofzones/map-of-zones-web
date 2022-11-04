@@ -8,13 +8,7 @@ import styles from './Tooltip.module.scss';
 import { TooltipProps } from './Tooltip.props';
 import { TooltipBody } from './TooltipBody';
 
-export function Tooltip({
-  className,
-  hoverElement,
-  children,
-  width = 240,
-  margin = 16,
-}: TooltipProps) {
+export function Tooltip({ className, body, children, width = 240, margin = 16 }: TooltipProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [style, setStyle] = useState<React.CSSProperties>();
 
@@ -52,10 +46,10 @@ export function Tooltip({
       onMouseOver={showTooltip}
       onMouseOut={hideTooltip}
     >
-      {hoverElement}
+      {children}
       {visible && (
         <Portal>
-          <TooltipBody style={style}>{children}</TooltipBody>
+          <TooltipBody style={style}>{body}</TooltipBody>
         </Portal>
       )}
     </span>

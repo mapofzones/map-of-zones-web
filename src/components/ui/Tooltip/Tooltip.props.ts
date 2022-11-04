@@ -7,5 +7,5 @@ export interface TooltipProps
   text?: string;
   width?: number;
   margin?: number;
-  hoverElement?: ReactNode;
+  body: ReactNode;
 }

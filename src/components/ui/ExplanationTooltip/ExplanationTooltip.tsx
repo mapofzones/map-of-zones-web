@@ -12,12 +12,8 @@ export function ExplanationTooltip({
   ...props
 }: ExplanationTooltipProps): JSX.Element {
   return (
-    <Tooltip
-      className={cn(styles.container, className)}
-      hoverElement={<QuestionMark className={styles.questionMark} />}
-      {...props}
-    >
-      {text}
+    <Tooltip className={cn(styles.container, className)} body={text} {...props}>
+      <QuestionMark className={styles.questionMark} />
     </Tooltip>
   );
 }

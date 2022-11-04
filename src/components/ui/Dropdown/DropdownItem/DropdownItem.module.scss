@@ -17,6 +17,8 @@
   }
 
   .itemTitle {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     padding: 12px 0;
     overflow: hidden;
@@ -25,17 +27,17 @@
     text-overflow: ellipsis;
   }
 
-  &:not(:last-of-type) {
+  .itemContainer:not(:last-of-type) & {
     .itemTitle {
       border-bottom: 1px solid var(--black-900);
     }
   }
 
-  &:first-child {
+  .itemContainer:first-child & {
     border-radius: 5px 5px 0 0;
   }
 
-  &:last-child {
+  .itemContainer:last-child & {
     border-radius: 0 0 5px 5px;
   }
 
