@@ -32,7 +32,7 @@ export function DropdownItem({ option, isActive, getTitle, onOptionClicked }: Dr
       body={option.description}
       showTriangle={true}
       isVertical={false}
-      maxWidth={220}
+      maxWidth={176}
     >
       {item}
     </Tooltip>
