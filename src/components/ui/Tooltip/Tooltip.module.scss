@@ -1,3 +1,47 @@
 .container {
   cursor: pointer;
 }
+
+.triangle {
+  position: absolute;
+
+  width: var(--size);
+  height: var(--size);
+
+  background-color: var(--black-400);
+
+  transform: rotate(45deg);
+
+  --size: 18px;
+  --border: 1px solid var(--black-600);
+  --centerOffset: calc(50% - var(--size) / 2);
+  --offset: -10px;
+
+  &.left {
+    top: var(--centerOffset);
+    left: var(--offset);
+    border-bottom: var(--border);
+    border-left: var(--border);
+  }
+
+  &.right {
+    top: var(--centerOffset);
+    right: var(--offset);
+    border-top: var(--border);
+    border-right: var(--border);
+  }
+
+  &.top {
+    left: var(--centerOffset);
+    top: var(--offset);
+    border-top: var(--border);
+    border-left: var(--border);
+  }
+
+  &.bottom {
+    left: var(--centerOffset);
+    bottom: var(--offset);
+    border-bottom: var(--border);
+    border-right: var(--border);
+  }
+}

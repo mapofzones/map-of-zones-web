@@ -22,7 +22,7 @@ export function ZoneStatus({ className, status }: ZoneStatusProps) {
 
   return (
     <div className={styles.container}>
-      <Tooltip className={styles.tooltip} body={STATUS_TITLE_BY_ZONE[parsedStatus]} width={160}>
+      <Tooltip className={styles.tooltip} body={STATUS_TITLE_BY_ZONE[parsedStatus]} maxWidth={160}>
         <div className={cn(styles.status, className)}>
           <div
             style={{ backgroundColor: STATUS_ICON_COLOR_BY_ZONE[parsedStatus] }}

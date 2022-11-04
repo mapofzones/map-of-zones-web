@@ -2,10 +2,12 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export interface TooltipProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  body: ReactNode;
   children: ReactNode;
   className?: string;
-  text?: string;
-  width?: number;
+  isVertical?: boolean;
   margin?: number;
-  body: ReactNode;
+  maxWidth?: number;
+  showTriangle?: boolean;
+  text?: string;
 }

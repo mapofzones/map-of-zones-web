@@ -30,7 +30,9 @@ export function DropdownItem({ option, isActive, getTitle, onOptionClicked }: Dr
     <Tooltip
       className={cn(styles.tooltip, styles.itemContainer)}
       body={option.description}
-      width={220}
+      showTriangle={true}
+      isVertical={false}
+      maxWidth={220}
     >
       {item}
     </Tooltip>
