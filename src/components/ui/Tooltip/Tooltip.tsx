@@ -18,6 +18,7 @@ export function Tooltip({
   margin = 16,
   maxWidth = 240,
   showTriangle = false,
+  ...props
 }: TooltipProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [trianglePosition, setTrianglePosition] = useState<TrianglePosition | undefined>(undefined);
@@ -82,6 +83,7 @@ export function Tooltip({
       className={cn(styles.container, className)}
       onMouseOver={showTooltip}
       onMouseOut={hideTooltip}
+      {...props}
     >
       {children}
       {visible && (

@@ -3,8 +3,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { InfoIcon, RevertedArrowsIcon } from 'assets/icons';
-import { Divider } from 'components';
-import { TooltipBody } from 'components/ui/Tooltip/TooltipBody';
+import { Divider, Tooltip } from 'components';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
@@ -34,40 +33,46 @@ export function ChannelInfoTooltip({
     }
   };
 
+  const body = (
+    <>
+      <div className={styles.title}>
+        {parentZone.name}
+        <RevertedArrowsIcon className={styles.arrowIcon} />
+        {zone.zoneCounterpartyName}
+      </div>
+
+      <Divider horizontal />
+
+      {!channel.isOpened && <div className={styles.connection}>Poor connection</div>}
+
+      {channel.clientId && <TooltipValue title="Client ID" subtitle={channel.clientId} />}
+
+      {channel.connectionId && (
+        <TooltipValue title="Connection ID" subtitle={channel.connectionId} />
+      )}
+
+      <TooltipValue title="State" subtitle={channel.isOpened ? 'Opened' : 'Closed'} />
+
+      {channel.channelId && <TooltipValue title="Channel ID" subtitle={channel.channelId} />}
+
+      {channel.zoneCounterpartyChannelId && (
+        <TooltipValue
+          title="Counterparty Channel ID"
+          subtitle={channel.zoneCounterpartyChannelId}
+        />
+      )}
+    </>
+  );
+
   return (
-    <div className={cn(styles.container, className)} onMouseEnter={onMouseEnter}>
+    <Tooltip
+      className={cn(styles.container, className)}
+      body={body}
+      isVertical={false}
+      showTriangle={true}
+      onMouseEnter={onMouseEnter}
+    >
       <InfoIcon />
-
-      <TooltipBody className={styles.tooltip} isFixed={false}>
-        <div className={styles.title}>
-          {parentZone.name}
-          <RevertedArrowsIcon className={styles.arrowIcon} />
-          {zone.zoneCounterpartyName}
-        </div>
-
-        <Divider horizontal />
-
-        {!channel.isOpened && <div className={styles.connection}>Poor connection</div>}
-
-        {channel.clientId && <TooltipValue title="Client ID" subtitle={channel.clientId} />}
-
-        {channel.connectionId && (
-          <TooltipValue title="Connection ID" subtitle={channel.connectionId} />
-        )}
-
-        <TooltipValue title="State" subtitle={channel.isOpened ? 'Opened' : 'Closed'} />
-
-        {channel.channelId && <TooltipValue title="Channel ID" subtitle={channel.channelId} />}
-
-        {channel.zoneCounterpartyChannelId && (
-          <TooltipValue
-            title="Counterparty Channel ID"
-            subtitle={channel.zoneCounterpartyChannelId}
-          />
-        )}
-
-        <div className={styles.triangle} />
-      </TooltipBody>
-    </div>
+    </Tooltip>
   );
 }
