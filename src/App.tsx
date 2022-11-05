@@ -2,14 +2,18 @@ import './App.scss';
 
 import { AppRouting } from 'AppRouting';
 import { Analytics } from 'components';
+import { MaintenancePage } from 'pages/MaintenancePage';
 
-const App = () => {
+function App() {
+  const maintenance = process.env.REACT_APP_MAINTENANCE_MODE?.toUpperCase() === 'TRUE';
+
   return (
     <>
       <Analytics />
-      <AppRouting />
+      {maintenance && <MaintenancePage />}
+      {!maintenance && <AppRouting />}
     </>
   );
-};
+}
 
 export default App;

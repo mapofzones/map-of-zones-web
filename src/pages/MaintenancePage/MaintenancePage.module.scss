@@ -1,0 +1,26 @@
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  align-items: center;
+  height: 100%;
+
+  .logo {
+    margin-top: 10px;
+  }
+
+  .maintenanceInfo {
+    text-align: center;
+    margin-bottom: 50px;
+
+    .mainTitle {
+      margin-top: 24px;
+      color: var(--white);
+    }
+
+    .additionalTitle {
+      margin-top: 4px;
+      color: var(--grey-500);
+    }
+  }
+}
