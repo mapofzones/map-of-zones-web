@@ -1,17 +1,22 @@
 import cn from 'classnames';
 
 import { TickIcon } from 'assets/icons';
-import { Tooltip } from 'components/ui/Tooltip/Tooltip';
 
+import { DropdownTooltip } from '../DropdownTooltip';
 import styles from './DropdownItem.module.scss';
+import { DropdownItemProps } from './DropdownItem.props';
 
-import { DropdownItemProps } from '.';
-
-export function DropdownItem({ option, isActive, getTitle, onOptionClicked }: DropdownItemProps) {
+export function DropdownItem({
+  option,
+  isActive,
+  getTitle,
+  onOptionClicked,
+  className,
+}: DropdownItemProps) {
   const item = (
     <li
-      onClick={onOptionClicked(option)}
-      className={cn(styles.listItem, {
+      onClick={onOptionClicked?.(option)}
+      className={cn(className, styles.listItem, {
         [styles.active]: isActive,
       })}
     >
@@ -27,14 +32,8 @@ export function DropdownItem({ option, isActive, getTitle, onOptionClicked }: Dr
   }
 
   return (
-    <Tooltip
-      className={cn(styles.tooltip, styles.itemContainer)}
-      body={option.description}
-      showTriangle={true}
-      isVertical={false}
-      maxWidth={176}
-    >
+    <DropdownTooltip className={styles.itemContainer} body={option.description}>
       {item}
-    </Tooltip>
+    </DropdownTooltip>
   );
 }

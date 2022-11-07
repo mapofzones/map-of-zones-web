@@ -78,25 +78,30 @@ export function Tooltip({
   }, [visible, isVertical, margin, maxWidth, showTriangle]);
 
   return (
-    <span
-      ref={tooltipRef}
-      className={cn(styles.container, className)}
-      onMouseOver={showTooltip}
-      onMouseOut={hideTooltip}
-      {...props}
-    >
-      {children}
-      {visible && (
-        <Portal>
-          <TooltipBody innerRef={bodyRef} style={style}>
-            {body}
-            {showTriangle && (
-              <div className={cn(styles.triangle, styles[trianglePosition ?? 'top'])} />
-            )}
-          </TooltipBody>
-        </Portal>
+    <>
+      {!body && children}
+      {body && (
+        <span
+          ref={tooltipRef}
+          className={cn(styles.container, className)}
+          onMouseOver={showTooltip}
+          onMouseOut={hideTooltip}
+          {...props}
+        >
+          {children}
+          {visible && (
+            <Portal>
+              <TooltipBody innerRef={bodyRef} style={style}>
+                {body}
+                {showTriangle && (
+                  <div className={cn(styles.triangle, styles[trianglePosition ?? 'top'])} />
+                )}
+              </TooltipBody>
+            </Portal>
+          )}
+        </span>
       )}
-    </span>
+    </>
   );
 }
 

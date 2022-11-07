@@ -10,6 +10,7 @@ import styles from './Dropdown.module.scss';
 import { DropdownProps } from './Dropdown.props';
 import { DropdownItem } from './DropdownItem';
 import { DropdownOption } from './DropdownOption';
+import { DropdownTooltip } from './DropdownTooltip';
 
 function Dropdown({
   initialSelectedKey,
@@ -49,14 +50,16 @@ function Dropdown({
       })}
       {...props}
     >
-      <div className={cn(styles.dropDownHeader, { [styles.active]: isVisible })} onClick={toggle}>
-        <div className={styles.itemTitle}>{getTitle(selectedOption)}</div>
-        {isVisible ? (
-          <ArrowUp className={styles.arrowIcon} />
-        ) : (
-          <ArrowDown className={styles.arrowIcon} />
-        )}
-      </div>
+      <DropdownTooltip body={selectedOption.description}>
+        <div className={cn(styles.dropDownHeader, { [styles.active]: isVisible })} onClick={toggle}>
+          <div className={styles.itemTitle}>{getTitle(selectedOption)}</div>
+          {isVisible ? (
+            <ArrowUp className={styles.arrowIcon} />
+          ) : (
+            <ArrowDown className={styles.arrowIcon} />
+          )}
+        </div>
+      </DropdownTooltip>
       {isVisible && (
         <ul className={styles.dropDownList}>
           {options.map((option: DropdownOption) => (
