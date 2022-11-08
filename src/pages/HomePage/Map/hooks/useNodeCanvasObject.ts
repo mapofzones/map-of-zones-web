@@ -82,6 +82,7 @@ function drawNodeCanvasObject(
   const isFaded = !isNormal && !isFocusedZone && !isActive; // FADED style -- opacity: border=0.2 (33) background=0.05 (0D)
 
   const image = currentNode.logoUrl ? images[currentNode.logoUrl] : null;
+  console.log('drawNode', currentNode);
   drawNode(ctx, currentNode, isFaded, isFocusedZone, isSelectedZone, globalScale, image);
 
   if (isFaded) {
