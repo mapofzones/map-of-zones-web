@@ -49,6 +49,7 @@
 
   &:disabled {
     background-color: var(--black-500);
+    cursor: not-allowed;
 
     .icon {
       fill: var(--grey-100);

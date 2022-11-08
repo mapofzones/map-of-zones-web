@@ -43,7 +43,7 @@ export function MapContainer({ className }: MapContainerProps) {
 
   return (
     <div className={cn(styles.container, className)}>
-      <Map mapType={mapType} />
+      <Map mapType={mapType} forceZoom={ZOOM_VALUES[currentZoomIndex]} />
       <div className={styles.leftButtonsContainer}>
         <Button className={styles.zoomInBtn} disabled={isZoomInDisabled} onClick={onZoomIn}>
           <ZoomIn className={styles.icon} />

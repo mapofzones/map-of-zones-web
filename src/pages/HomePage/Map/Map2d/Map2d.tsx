@@ -5,21 +5,24 @@ import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { useLinkCanvasObject } from '../hooks/useLinkCanvasObject';
+import { useZonesAdditionalInfo } from '../hooks/useMapAdditionalData';
 import { useNodeCanvasObject } from '../hooks/useNodeCanvasObject';
 import { MapLink, MapNode } from '../Types';
 import styles from './Map2d.module.scss';
 import { Map2dProps } from './Map2d.props';
 
 export function Map2d({
-  mapData,
+  data,
   hoveredZoneKey,
   selectedZoneKey,
   onZoneClick,
   onZoneHover,
   windowSize,
+  forceZoom,
   images,
 }: Map2dProps) {
-  console.log('redraw map 2d', mapData);
+  const mapData = useZonesAdditionalInfo(data, selectedZoneKey);
+
   const graphRef = useRef<ForceGraphMethods>();
 
   useEffect(() => {
@@ -40,12 +43,17 @@ export function Map2d({
 
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);
 
+  useEffect(() => {
+    graphRef.current?.zoom(forceZoom, 500);
+  }, [forceZoom]);
+
   return (
     <>
       <div className={styles.legend}>
         <span className={cn(styles.circle, styles.sendCircle)}></span>Mainly Sends, $
         <span className={cn(styles.circle, styles.receiveCircle)}></span>Mainly Receives, $
       </div>
+
       <ForceGraph2D
         ref={graphRef}
         nodeId="zone"
