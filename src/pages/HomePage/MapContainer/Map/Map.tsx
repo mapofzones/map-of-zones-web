@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
 
-import { MapType } from '../MapContainer';
+import { MapType } from '..';
 import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useGraphData } from './hooks/useGraphData';
 import { useImagePreloader } from './hooks/useImagePreloader';

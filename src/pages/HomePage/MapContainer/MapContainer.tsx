@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
 
-import { Map } from '../Map/Map';
+import { Map } from './Map/Map';
 import styles from './MapContainer.module.scss';
 import { MapContainerProps } from './MapContainer.props';
 

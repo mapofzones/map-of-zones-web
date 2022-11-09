@@ -9,7 +9,7 @@ import {
   SelectedZoneKeyType,
   ImagesMap,
   getZoneKey,
-} from './../Types';
+} from '../Types';
 
 const TEXT_PADDING_TOP = 3;
 const FONT_WEIGHT = 400;

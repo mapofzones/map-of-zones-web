@@ -10,7 +10,7 @@ import {
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { overviewPath } from 'routing';
 
-import { HoveredZoneKeyType, MapNode, SelectedZoneKeyType } from './../Types';
+import { HoveredZoneKeyType, MapNode, SelectedZoneKeyType } from '../Types';
 
 export const useClearSelectedNode = (selectedZoneKey: SelectedZoneKeyType) => {
   const navigateWithSearchParams = useNavigateWithSearchParams();
