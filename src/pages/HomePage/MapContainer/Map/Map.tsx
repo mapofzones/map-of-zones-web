@@ -7,6 +7,7 @@ import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useGraphData } from './hooks/useGraphData';
 import { useImagePreloader } from './hooks/useImagePreloader';
 import { Map2d } from './Map2d';
+import { Map3d } from './Map3d';
 
 export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: number }) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
@@ -34,7 +35,16 @@ export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: numbe
           images={images}
         />
       ) : (
-        <>3d map</>
+        <Map3d
+          data={data}
+          selectedZoneKey={selectedZoneKey}
+          hoveredZoneKey={hoveredZoneKey}
+          onZoneClick={onZoneClick}
+          onZoneHover={onZoneHover}
+          windowSize={windowSize}
+          forceZoom={forceZoom}
+          images={images}
+        />
       )}
     </>
   );
