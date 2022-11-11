@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -21,8 +21,8 @@ export function Tooltip({
   ...props
 }: TooltipProps) {
   const [visible, setVisible] = useState<boolean>(false);
+  const [posStyle, setPosStyle] = useState<React.CSSProperties>();
   const [trianglePosition, setTrianglePosition] = useState<TrianglePosition | undefined>(undefined);
-  const [style, setStyle] = useState<React.CSSProperties>();
 
   const tooltipRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -35,13 +35,42 @@ export function Tooltip({
     setVisible(false);
   };
 
+  const getTooltipPositionStyle = useCallback(
+    (
+      hoverRect: DOMRect,
+      bodyClientRect: DOMRect | undefined,
+      isHoverInTopHalf: boolean,
+      isHoverInLeftHalf: boolean
+    ) => {
+      const style: React.CSSProperties = {};
+      if (isVertical) {
+        style.left = getLeftCoordinate(hoverRect, bodyClientRect?.width ?? maxWidth, margin);
+
+        if (isHoverInTopHalf) {
+          style.top = hoverRect.top + hoverRect.height + margin;
+        } else {
+          style.bottom = window.innerHeight - hoverRect.top + margin;
+        }
+      } else {
+        style.top = getTopCoordinate(hoverRect, bodyClientRect?.height ?? 0, margin);
+
+        if (isHoverInLeftHalf) {
+          style.left = hoverRect.left + hoverRect.width + margin;
+        } else {
+          style.right = window.innerWidth - hoverRect.left + margin;
+        }
+      }
+      return style;
+    },
+    [isVertical, margin, maxWidth]
+  );
+
   useEffect(() => {
     if (!visible) {
       return;
     }
 
     const bodyClientRect = bodyRef.current?.getBoundingClientRect();
-    const style: React.CSSProperties = { maxWidth };
     const hoverRect = tooltipRef.current?.getBoundingClientRect();
 
     if (!hoverRect) {
@@ -51,31 +80,20 @@ export function Tooltip({
     const isHoverInTopHalf = hoverRect.top < window.innerHeight / 2;
     const isHoverInLeftHalf = hoverRect.left < window.innerWidth / 2;
 
-    if (isVertical) {
-      style.left = getLeftCoordinate(hoverRect, bodyClientRect?.width ?? maxWidth, margin);
-
-      if (isHoverInTopHalf) {
-        style.top = hoverRect.top + hoverRect.height + margin;
-      } else {
-        style.bottom = window.innerHeight - hoverRect.top + margin;
-      }
-    } else {
-      style.top = getTopCoordinate(hoverRect, bodyClientRect?.height ?? 0, margin);
-
-      if (isHoverInLeftHalf) {
-        style.left = hoverRect.left + hoverRect.width + margin;
-      } else {
-        style.right = window.innerWidth - hoverRect.left + margin;
-      }
-    }
+    const style: React.CSSProperties = getTooltipPositionStyle(
+      hoverRect,
+      bodyClientRect,
+      isHoverInTopHalf,
+      isHoverInLeftHalf
+    );
 
     if (showTriangle) {
       const trianglePosition = getTrianglePosition(isVertical, isHoverInTopHalf, isHoverInLeftHalf);
       setTrianglePosition(trianglePosition);
     }
 
-    setStyle(style);
-  }, [visible, isVertical, margin, maxWidth, showTriangle]);
+    setPosStyle(style);
+  }, [visible, showTriangle, isVertical, getTooltipPositionStyle]);
 
   return (
     <>
@@ -91,7 +109,7 @@ export function Tooltip({
           {children}
           {visible && (
             <Portal>
-              <TooltipBody innerRef={bodyRef} style={style}>
+              <TooltipBody innerRef={bodyRef} style={{ ...posStyle, maxWidth }}>
                 {body}
                 {showTriangle && (
                   <div className={cn(styles.triangle, styles[trianglePosition ?? 'top'])} />
