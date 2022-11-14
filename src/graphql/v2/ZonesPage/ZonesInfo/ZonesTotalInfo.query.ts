@@ -41,7 +41,7 @@ export const ZONES_TOTAL_INFO = gql`
     }
     ibcVolumeTopPair: flat_channels_stats(
       limit: 1
-      where: { timeframe: { _eq: $period } }
+      where: {timeframe: {_eq: $period}, blockchainByBlockchain: {is_mainnet: {_eq: true}}, blockchainByCounterpartyBlockchain: {is_mainnet: {_eq: true}}}
       order_by: { ibc_cashflow: desc_nulls_last }
     ) {
       source: blockchainByBlockchain {
@@ -55,7 +55,7 @@ export const ZONES_TOTAL_INFO = gql`
     }
     ibcTransfersTopPair: flat_channels_stats(
       limit: 1
-      where: { timeframe: { _eq: $period } }
+      where: {timeframe: {_eq: $period}, blockchainByBlockchain: {is_mainnet: {_eq: true}}, blockchainByCounterpartyBlockchain: {is_mainnet: {_eq: true}}}
       order_by: { ibc_transfers: desc_nulls_last }
     ) {
       source: blockchainByBlockchain {
