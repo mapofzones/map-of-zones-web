@@ -1,0 +1,30 @@
+.legend {
+  position: absolute;
+  top: 73px;
+  right: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  font-size: var(--font-secondary-size-lg);
+  color: var(--grey-500);
+
+  .circle {
+    width: 7px;
+    height: 7px;
+    margin-right: 5px;
+
+    border-radius: 50%;
+  }
+
+  .sendCircle {
+    background-color: var(--pink);
+  }
+
+  .receiveCircle {
+    margin-left: 12px;
+
+    background-color: var(--blue);
+  }
+}
