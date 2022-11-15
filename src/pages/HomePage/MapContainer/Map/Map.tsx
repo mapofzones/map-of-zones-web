@@ -15,6 +15,9 @@ export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: numbe
   const { data } = useGraphData();
   const { windowSize } = useWindowSizeWithDebounce(100);
 
+  const height = windowSize.height - 8;
+  const width = windowSize.width - 376;
+
   const imgUrls = useMemo(
     () => data.nodes.map((node) => node?.logoUrl ?? '').filter((url) => !!url),
     [data.nodes]
@@ -30,7 +33,8 @@ export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: numbe
           hoveredZoneKey={hoveredZoneKey}
           onZoneClick={onZoneClick}
           onZoneHover={onZoneHover}
-          windowSize={windowSize}
+          height={height}
+          width={width}
           forceZoom={forceZoom}
           images={images}
         />
@@ -41,7 +45,8 @@ export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: numbe
           hoveredZoneKey={hoveredZoneKey}
           onZoneClick={onZoneClick}
           onZoneHover={onZoneHover}
-          windowSize={windowSize}
+          height={height}
+          width={width}
           forceZoom={forceZoom}
           images={images}
         />

@@ -14,7 +14,8 @@ export function Map3d({
   selectedZoneKey,
   onZoneClick,
   onZoneHover,
-  windowSize,
+  height,
+  width,
   forceZoom,
   images,
 }: Map3dProps) {
@@ -40,8 +41,8 @@ export function Map3d({
       ref={graphRef}
       nodeId="zone"
       nodeLabel={''}
-      height={windowSize.height - 8}
-      width={windowSize.width - 376}
+      height={height}
+      width={width}
       nodeRelSize={4}
       nodeVal={(data: NodeObject) => {
         const zone = data as MapNode;

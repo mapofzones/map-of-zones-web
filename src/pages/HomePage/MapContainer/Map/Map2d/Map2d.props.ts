@@ -8,7 +8,8 @@ export interface Map2dProps {
   selectedZoneKey: SelectedZoneKeyType;
   onZoneClick: (node: NodeObject) => void;
   onZoneHover: (node: NodeObject | null) => void;
-  windowSize: { height: number; width: number };
+  height: number;
+  width: number;
   forceZoom: number;
   images: ImagesMap;
 }

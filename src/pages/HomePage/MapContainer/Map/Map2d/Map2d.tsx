@@ -17,7 +17,8 @@ export function Map2d({
   selectedZoneKey,
   onZoneClick,
   onZoneHover,
-  windowSize,
+  height,
+  width,
   forceZoom,
   images,
 }: Map2dProps) {
@@ -58,8 +59,8 @@ export function Map2d({
         ref={graphRef}
         nodeId="zone"
         nodeLabel={''}
-        height={windowSize.height - 8}
-        width={windowSize.width - 376}
+        height={height}
+        width={width}
         graphData={mapData}
         nodeCanvasObject={nodeCanvasObject}
         linkCanvasObject={linkCanvasObject}
