@@ -6,7 +6,7 @@ definitions:
        */
       /* eslint-disable */
 
-schema: https://api.mapofzones.com/v1/graphql
+schema: https://api2.mapofzones.com/v1/graphql
 overwrite: true
 documents: 'src/graphql/v2/**/!(*.generated).{graphql,tsx,ts}'
 hooks:

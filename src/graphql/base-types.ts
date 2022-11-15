@@ -3287,7 +3287,7 @@ export type Flat_Blockchains = {
   blockchain_switched_stats: Array<Flat_Blockchain_Switched_Stats>;
   /** An aggregated array relationship */
   blockchain_switched_stats_aggregate: Flat_Blockchain_Switched_Stats_Aggregate;
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['numeric']>;
   bonded_tokens_percent?: Maybe<Scalars['numeric']>;
   /** An array relationship */
   channelsStatsByCounterpartyBlockchain: Array<Flat_Channels_Stats>;
@@ -3516,7 +3516,7 @@ export type Flat_Blockchains_Bool_Exp = {
   blockchain_relations?: InputMaybe<Flat_Blockchain_Relations_Bool_Exp>;
   blockchain_stats?: InputMaybe<Flat_Blockchain_Stats_Bool_Exp>;
   blockchain_switched_stats?: InputMaybe<Flat_Blockchain_Switched_Stats_Bool_Exp>;
-  bonded_tokens?: InputMaybe<Bigint_Comparison_Exp>;
+  bonded_tokens?: InputMaybe<Numeric_Comparison_Exp>;
   bonded_tokens_percent?: InputMaybe<Numeric_Comparison_Exp>;
   channelsStatsByCounterpartyBlockchain?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
   channels_stats?: InputMaybe<Flat_Channels_Stats_Bool_Exp>;
@@ -3538,7 +3538,7 @@ export type Flat_Blockchains_Bool_Exp = {
 /** aggregate max on columns */
 export type Flat_Blockchains_Max_Fields = {
   base_token?: Maybe<Scalars['String']>;
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['numeric']>;
   bonded_tokens_percent?: Maybe<Scalars['numeric']>;
   inflation?: Maybe<Scalars['numeric']>;
   logo_url?: Maybe<Scalars['String']>;
@@ -3570,7 +3570,7 @@ export type Flat_Blockchains_Max_Order_By = {
 /** aggregate min on columns */
 export type Flat_Blockchains_Min_Fields = {
   base_token?: Maybe<Scalars['String']>;
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['numeric']>;
   bonded_tokens_percent?: Maybe<Scalars['numeric']>;
   inflation?: Maybe<Scalars['numeric']>;
   logo_url?: Maybe<Scalars['String']>;
@@ -3730,7 +3730,7 @@ export type Flat_Blockchains_Stddev_Samp_Order_By = {
 
 /** aggregate sum on columns */
 export type Flat_Blockchains_Sum_Fields = {
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['numeric']>;
   bonded_tokens_percent?: Maybe<Scalars['numeric']>;
   inflation?: Maybe<Scalars['numeric']>;
   nodes_cnt?: Maybe<Scalars['Int']>;
