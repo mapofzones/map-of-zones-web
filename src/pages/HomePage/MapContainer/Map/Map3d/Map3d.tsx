@@ -1,11 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { useZonesAdditionalInfo } from '../hooks/useMapAdditionalData';
-import { MapNode } from '../Types';
-import { useNodeThreeObject } from './hooks/hooks';
+import { getZoneKey, MapData, MapLink, MapNode, SelectedZoneKeyType } from '../Types';
+import { useLinkThreeObject } from './hooks/useLinkThreeObject';
+import { useNodeThreeObject } from './hooks/useNodeThreeObject';
 import { Map3dProps } from './Map3d.props';
 
 export function Map3d({
@@ -22,7 +23,13 @@ export function Map3d({
   const graphRef = useRef<ForceGraphMethods>();
   const mapData = useZonesAdditionalInfo(data, selectedZoneKey);
 
-  const nodeThreeObject = useNodeThreeObject(selectedZoneKey, null);
+  const neighbours: Set<string> = useMemo(
+    () => getNeighboursForSelectedZone(selectedZoneKey, mapData),
+    [mapData, selectedZoneKey]
+  );
+
+  const nodeThreeObject = useNodeThreeObject(selectedZoneKey, neighbours);
+  const linkThreeObject = useLinkThreeObject(selectedZoneKey);
 
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);
 
@@ -51,15 +58,32 @@ export function Map3d({
       graphData={mapData}
       onNodeHover={onZoneHover}
       nodeThreeObject={nodeThreeObject}
-      nodeThreeObjectExtend
+      linkThreeObject={linkThreeObject}
       onNodeClick={onZoneClick}
       onLinkHover={onZoneHover}
       linkColor={'rgb(255, 255, 255)'}
-      linkThreeObjectExtend
       d3AlphaDecay={0.02}
       d3VelocityDecay={0.3}
-      showNavInfo={true}
+      showNavInfo={false}
       onBackgroundClick={clearSelectedNode}
     />
   );
+}
+
+function getNeighboursForSelectedZone(selectedZoneKey: SelectedZoneKeyType, mapData: MapData) {
+  const neighbours: Set<string> = new Set();
+  if (selectedZoneKey) {
+    for (let index = 0; index < mapData.links.length; index++) {
+      const link = mapData.links[index];
+      const linkSource = getZoneKey(link.source);
+      const linkTarget = getZoneKey(link.target);
+      if (linkSource === selectedZoneKey) {
+        neighbours.add(linkTarget);
+      }
+      if (linkTarget === selectedZoneKey) {
+        neighbours.add(linkSource);
+      }
+    }
+  }
+  return neighbours;
 }
