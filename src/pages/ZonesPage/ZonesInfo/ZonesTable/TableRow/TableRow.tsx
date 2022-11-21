@@ -121,7 +121,7 @@ export function TableRow({
         />
       </TableRowItem>
 
-      <TableRowItem withBorder={true}>
+      <TableRowItem>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
@@ -130,7 +130,7 @@ export function TableRow({
         />
       </TableRowItem>
 
-      <TableRowItem>
+      <TableRowItem withBorder={true}>
         <ValueWithPending
           alignRight={true}
           className={styles.value}
