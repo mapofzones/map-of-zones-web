@@ -2,7 +2,14 @@ import { useCallback } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
 
-import { HoveredZoneKeyType, Link, MapNode, SelectedZoneKeyType, ImagesMap } from './../Types';
+import {
+  HoveredZoneKeyType,
+  MapLink,
+  MapNode,
+  SelectedZoneKeyType,
+  ImagesMap,
+  getZoneKey,
+} from './../Types';
 
 const TEXT_PADDING_TOP = 3;
 const FONT_WEIGHT = 400;
@@ -10,22 +17,32 @@ const FONT_WEIGHT = 400;
 function isNeighbor(
   activeZoneKey: string | undefined,
   currentZoneKey: string,
-  links: Link[]
+  links: MapLink[]
 ): boolean {
   return (
     !!activeZoneKey &&
     links.some(
       (link) =>
-        (link.source.zone === activeZoneKey && link.target.zone === currentZoneKey) ||
-        (link.source.zone === currentZoneKey && link.target.zone === activeZoneKey)
+        checkIfZoneNeighbor(link, activeZoneKey, currentZoneKey) ||
+        checkIfZoneNeighbor(link, currentZoneKey, activeZoneKey)
     )
   );
+}
+
+function checkIfZoneNeighbor(
+  link: MapLink,
+  activeZoneKey: string,
+  currentZoneKey: string
+): unknown {
+  const sourceZoneKey = getZoneKey(link.source);
+  const targetZoneKey = getZoneKey(link.target);
+  return sourceZoneKey === activeZoneKey && targetZoneKey === currentZoneKey;
 }
 
 export const useNodeCanvasObject = (
   selectedZoneKey: SelectedZoneKeyType,
   hoveredZoneKey: HoveredZoneKeyType,
-  links: Link[],
+  links: MapLink[],
   images: ImagesMap
 ) =>
   useCallback(
@@ -40,7 +57,7 @@ function drawNodeCanvasObject(
   globalScale: number,
   selectedZoneKey: SelectedZoneKeyType,
   hoveredZoneKey: HoveredZoneKeyType,
-  links: Link[],
+  links: MapLink[],
   images: ImagesMap
 ): void {
   const currentNode = node as MapNode;
@@ -48,7 +65,7 @@ function drawNodeCanvasObject(
     return;
   }
 
-  const isSelectedZone = selectedZoneKey && currentNode.zone === selectedZoneKey;
+  const isSelectedZone = !!selectedZoneKey && currentNode.zone === selectedZoneKey;
   const isHoveredZone = !!hoveredZoneKey && currentNode.zone === hoveredZoneKey;
   const isFocusedZone = isSelectedZone || isHoveredZone; // SELECTED style -- opacity: border=1 (FF) background=0.1 (1A)
   const isNormal = !selectedZoneKey && !hoveredZoneKey; // NORMAL style -- opacity: border=0.6 (9A) background=0.1 (1A)
@@ -65,7 +82,7 @@ function drawNodeCanvasObject(
   const isFaded = !isNormal && !isFocusedZone && !isActive; // FADED style -- opacity: border=0.2 (33) background=0.05 (0D)
 
   const image = currentNode.logoUrl ? images[currentNode.logoUrl] : null;
-  drawNode(ctx, currentNode, isFaded, isFocusedZone, globalScale, image);
+  drawNode(ctx, currentNode, isFaded, isFocusedZone, isSelectedZone, globalScale, image);
 
   if (isFaded) {
     return;
@@ -79,10 +96,12 @@ function drawNode(
   currentNode: MapNode,
   isFaded: boolean,
   isFocusedZone: boolean,
+  isSelectedZone: boolean,
   globalScale: number,
   image: HTMLImageElement | null
 ) {
-  const { x, y, radius, color, logoRadius } = currentNode;
+  let { x, y } = currentNode;
+  const { radius, color, logoRadius } = currentNode;
   if (x === undefined || y === undefined) {
     return;
   }
@@ -94,6 +113,15 @@ function drawNode(
     ctx.fillStyle = `${color}${fillStyleOpecity}`;
     ctx.beginPath();
     ctx.lineWidth = 1 / globalScale;
+
+    const animatedPos = currentNode.__animatedPos;
+    if (animatedPos && animatedPos.length > 0) {
+      const coord = animatedPos.splice(0, 1);
+      currentNode.__animatedPos = animatedPos;
+      currentNode.x = x = coord[0].x as number;
+      currentNode.y = y = coord[0].y as number;
+    }
+
     ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
     ctx.closePath();
     ctx.stroke();

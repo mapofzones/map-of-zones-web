@@ -1,15 +1,13 @@
 import { useParams } from 'react-router-dom';
 
-import { ArrowRight } from 'assets/icons';
-import { Button, NumberFormat, IbcVolumeCard, ScrollableContainer, NumberType } from 'components';
-import { ButtonType } from 'components/ui/Button/Button.props';
+import { NumberFormat, IbcVolumeCard, ScrollableContainer, NumberType } from 'components';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { getZonesOverviewPath } from 'routing';
-import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 import { getDauTitleByPeriod } from 'utils/helper';
 
+import { LearnMoreButton } from '../../LearnMoreButton';
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewItem } from './ZoneOverviewItem/ZoneOverviewItem';
@@ -27,7 +25,7 @@ function ZoneOverview() {
     navigateWithSearchParams(`/${getZonesOverviewPath(zone)}`);
   };
 
-  const dauTittle = getDauTitleByPeriod(period);
+  const dauTitle = getDauTitleByPeriod(period);
 
   return (
     <>
@@ -71,23 +69,23 @@ function ZoneOverview() {
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
-            title={dauTittle}
+            title={dauTitle}
             loading={loading}
             value={data?.dau}
             tooltipText={tooltips['dau'](period)}
           ></ZoneOverviewItem>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}
-            title={`IBC ${dauTittle}`}
+            title={`IBC ${dauTitle}`}
             loading={loading}
-            defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
+            defaultLoadingValue={`2 345 (99,8% of ${dauTitle})`}
             tooltipText={tooltips['ibcDau'](period)}
           >
             <NumberFormat value={data?.ibcDau} />
             <span className={styles.additionalInfo}>
               {' '}
               (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} />
-              {` of ${dauTittle}`})
+              {` of ${dauTitle}`})
             </span>
           </ZoneOverviewItem>
           <ZoneOverviewItem
@@ -109,15 +107,8 @@ function ZoneOverview() {
           ></ZoneOverviewItem>
         </div>
       </ScrollableContainer>
-      <Button
-        className={styles.detailedBtn}
-        onClick={onDetailedBtnClick}
-        size={ElementSize.LARGE}
-        buttonType={ButtonType.SECONDARY}
-      >
-        <span className={styles.btnText}>Learn More</span>
-        <ArrowRight />
-      </Button>
+
+      <LearnMoreButton onClick={onDetailedBtnClick} />
     </>
   );
 }

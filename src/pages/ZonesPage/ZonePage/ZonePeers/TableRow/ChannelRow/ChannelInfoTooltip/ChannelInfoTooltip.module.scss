@@ -1,49 +1,12 @@
-.container {
-  position: relative;
+.title {
+  font-size: var(--font-base-size-md);
 
-  display: flex;
-  align-items: center;
-
-  cursor: pointer;
-
-  .tooltip {
-    left: 46px;
-
-    width: 234px;
-
-    visibility: hidden;
-    opacity: 0;
-
-    .title {
-      font-size: var(--font-base-size-md);
-
-      .arrowIcon {
-        margin: 0 8px;
-      }
-    }
-
-    .connection {
-      color: var(--orange);
-      font-size: var(--font-secondary-size-md);
-    }
-
-    .triangle {
-      position: absolute;
-      top: calc(50% - 9px);
-      left: -10px;
-
-      width: 18px;
-      height: 18px;
-
-      background-color: var(--black-400);
-      border-bottom: 1px solid var(--black-600);
-      border-left: 1px solid var(--black-600);
-      transform: rotate(45deg);
-    }
+  .arrowIcon {
+    margin: 0 8px;
   }
+}
 
-  &:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-  }
+.connection {
+  color: var(--orange);
+  font-size: var(--font-secondary-size-md);
 }

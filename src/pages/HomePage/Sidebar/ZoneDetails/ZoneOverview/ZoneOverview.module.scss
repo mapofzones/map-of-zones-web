@@ -23,13 +23,3 @@
     }
   }
 }
-
-.detailedBtn {
-  &:not(:hover) {
-    background-color: var(--black-700);
-  }
-
-  .btnText {
-    margin-right: 8px;
-  }
-}

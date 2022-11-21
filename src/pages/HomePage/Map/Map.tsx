@@ -11,22 +11,24 @@ import { useClearSelectedNode, useHoveredZone, useSelectedZone } from './hooks/e
 import { useGraphData } from './hooks/useGraphData';
 import { useImagePreloader } from './hooks/useImagePreloader';
 import { useLinkCanvasObject } from './hooks/useLinkCanvasObject';
+import { useZonesAdditionalInfo } from './hooks/useMapAdditionalData';
 import { useNodeCanvasObject } from './hooks/useNodeCanvasObject';
 import styles from './Map.module.scss';
-import { Link, MapNode } from './Types';
+import { MapLink, MapNode } from './Types';
 
 const ZOOM_VALUES = [0.75, 1, 1.5, 2.25, 4];
 
 export function Map({ className }: { className: string }) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
-  const { graphData } = useGraphData();
+  const { data } = useGraphData();
+  const mapData = useZonesAdditionalInfo(data, selectedZoneKey);
   const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
   const { windowSize } = useWindowSizeWithDebounce(100);
 
   const imgUrls = useMemo(
-    () => graphData.nodes.map((node) => (node as MapNode)?.logoUrl ?? '').filter((url) => !!url),
-    [graphData.nodes]
+    () => mapData.nodes.map((node) => node?.logoUrl ?? '').filter((url) => !!url),
+    [mapData.nodes]
   );
   const { images } = useImagePreloader(imgUrls);
 
@@ -34,13 +36,14 @@ export function Map({ className }: { className: string }) {
   useEffect(() => {
     const fg = graphRef.current;
     fg?.d3Force('link', null as never);
-    fg?.d3Force('charge')?.strength(-10);
+    fg?.d3Force('charge')?.strength(0);
+    fg?.d3Force('center')?.strength(0);
   }, []);
 
   const nodeCanvasObject = useNodeCanvasObject(
     selectedZoneKey,
     hoveredZoneKey,
-    graphData.links as Link[],
+    mapData.links as MapLink[],
     images
   );
 
@@ -83,7 +86,7 @@ export function Map({ className }: { className: string }) {
         nodeLabel={''}
         height={windowSize.height - 8}
         width={windowSize.width - 376}
-        graphData={graphData}
+        graphData={mapData}
         nodeCanvasObject={nodeCanvasObject}
         linkCanvasObject={linkCanvasObject}
         onNodeClick={onZoneClick}

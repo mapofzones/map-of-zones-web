@@ -41,9 +41,11 @@ export type ZonesTableQueryResult = {
       totalIbcTxsRatingDiff: number;
       dauRating?: number | null;
       dauRatingDiff?: number | null;
+      ibcDauRating: number;
+      ibcDauRatingDiff: number;
       ibcVolumeChart: Array<{ volume?: any | null }>;
     }>;
-    stats: Array<{ totalTxs: number; dau?: number | null }>;
+    stats: Array<{ totalTxs: number; dau?: number | null; ibcDau?: number | null }>;
   }>;
 };
 
@@ -333,6 +335,16 @@ export const ZonesTableDocument = {
                         alias: { kind: 'Name', value: 'dauRatingDiff' },
                         name: { kind: 'Name', value: 'active_addresses_cnt_rating_diff' },
                       },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcDauRating' },
+                        name: { kind: 'Name', value: 'ibc_active_addresses_cnt_rating' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcDauRatingDiff' },
+                        name: { kind: 'Name', value: 'ibc_active_addresses_cnt_rating_diff' },
+                      },
                     ],
                   },
                 },
@@ -380,6 +392,11 @@ export const ZonesTableDocument = {
                         kind: 'Field',
                         alias: { kind: 'Name', value: 'dau' },
                         name: { kind: 'Name', value: 'active_addresses_cnt' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'ibcDau' },
+                        name: { kind: 'Name', value: 'ibc_active_addresses_cnt' },
                       },
                     ],
                   },

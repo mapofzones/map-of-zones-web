@@ -2,15 +2,15 @@ import { useCallback } from 'react';
 
 import { LinkObject } from 'react-force-graph-2d';
 
-import { HoveredZoneKeyType, Link, SelectedZoneKeyType } from '../Types';
+import { getZoneKey, HoveredZoneKeyType, MapLink, SelectedZoneKeyType } from '../Types';
 
 const COMET_SPEED = 0.001;
 const COMET_LENGTH = 14;
 const ACTIVE_LINE_COLOR = '#ffffff64';
 const NORMAL_LINE_COLOR = '#ffffff1E';
 
-function isLinkRelatedToNode(nodeKey: SelectedZoneKeyType | HoveredZoneKeyType, link: Link) {
-  return !!nodeKey && (nodeKey === link.source.zone || nodeKey === link.target.zone);
+function isLinkRelatedToNode(nodeKey: SelectedZoneKeyType | HoveredZoneKeyType, link: MapLink) {
+  return !!nodeKey && (nodeKey === getZoneKey(link.source) || nodeKey === getZoneKey(link.target));
 }
 
 export const useLinkCanvasObject = (
@@ -19,12 +19,12 @@ export const useLinkCanvasObject = (
 ) =>
   useCallback(
     (value: LinkObject, ctx: CanvasRenderingContext2D, globalScale: number) =>
-      drawLinkCanvasObject(value as Link, ctx, globalScale, selectedNodeKey, hoveredNodeKey),
+      drawLinkCanvasObject(value as MapLink, ctx, globalScale, selectedNodeKey, hoveredNodeKey),
     [selectedNodeKey, hoveredNodeKey]
   );
 
 function drawLinkCanvasObject(
-  link: Link,
+  link: MapLink,
   ctx: CanvasRenderingContext2D,
   scale: number,
   selectedNodeKey: SelectedZoneKeyType,
@@ -52,11 +52,20 @@ function drawLinkCanvasObject(
 
 function drawLine(
   ctx: CanvasRenderingContext2D,
-  link: Link,
+  link: MapLink,
   isRalatedToActiveZone: boolean,
   scale: number
 ) {
-  if (link.source.x && link.source.y && link.target.x && link.target.y) {
+  if (typeof link.source === 'string' || typeof link.target === 'string') {
+    return;
+  }
+
+  if (
+    link.source.x != null &&
+    link.source.y != null &&
+    link.target.x != null &&
+    link.target.y != null
+  ) {
     ctx.lineWidth = 0.5 / scale;
     ctx.strokeStyle = isRalatedToActiveZone ? ACTIVE_LINE_COLOR : NORMAL_LINE_COLOR;
 
@@ -67,7 +76,11 @@ function drawLine(
   }
 }
 
-function drawCommet(ctx: CanvasRenderingContext2D, link: Link) {
+function drawCommet(ctx: CanvasRenderingContext2D, link: MapLink) {
+  if (typeof link.source === 'string' || typeof link.target === 'string') {
+    return;
+  }
+
   const { x: sourceX, y: sourceY } = link.source;
   const { x: targetX, y: targetY } = link.target;
 

@@ -1,0 +1,15 @@
+.wrapper {
+  background-color: var(--grey-100);
+
+  &:hover {
+    background-color: var(--grey-300);
+  }
+
+  .btnText {
+    margin-right: 8px;
+  }
+
+  .arrowRight {
+    stroke: var(--white);
+  }
+}

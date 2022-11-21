@@ -11,6 +11,10 @@ export function getDauTitleByPeriod(period: PeriodKeys) {
   return period === PeriodKeys.WEEK ? 'WAU' : period === PeriodKeys.MONTH ? 'MAU' : 'DAU';
 }
 
+export function getIbcDauTitleByPeriod(period: PeriodKeys) {
+  return `IBC ${getDauTitleByPeriod(period)}`;
+}
+
 export function openInNewTab(url: string): void {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
   if (newWindow) newWindow.opener = null;
