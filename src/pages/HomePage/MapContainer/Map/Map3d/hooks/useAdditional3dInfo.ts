@@ -32,17 +32,13 @@ export function useZonesAdditional3dInfo(
         const targetZone = getZoneKey(link.target);
         const source = {
           zone: link.source,
-          x: positions[sourceZone].position.x,
-          y: positions[sourceZone].position.y,
-          z: positions[sourceZone].position.z,
+          ...positions[sourceZone],
         };
         const target = {
           zone: link.target,
-          x: positions[targetZone].position.x,
-          y: positions[targetZone].position.y,
-          z: positions[targetZone].position.z,
+          ...positions[targetZone],
         };
-        console.log(source, target);
+
         return {
           isActive: !!link.ibcVolume,
           source,
@@ -58,7 +54,7 @@ function getNewNodes(
   nodes: ZoneStatApi[],
   oldNodes: MapNode[],
   selectedZoneKey: SelectedZoneKeyType,
-  positions: { [key: string]: Object3D }
+  positions: { [key: string]: Vector3 }
 ): MapNode[] {
   const radiusConst = 100;
 
@@ -102,32 +98,28 @@ function enrichNodeWithAnimation(
   index: number,
   radiusConst: number,
   oldNodes: MapNode[],
-  positions: { [key: string]: Object3D }
+  positions: { [key: string]: Vector3 }
 ) {
   const pos = positions[node.zone];
   return {
     ...node,
-    x: pos.position.x,
-    y: pos.position.y,
-    z: pos.position.z,
+    ...pos,
   } as MapNode;
 }
 
 function getPositions(arr: ZoneStatApi[]) {
   const vector = new Vector3();
-  const targets: { [key: string]: Object3D } = {};
+  const targets: { [key: string]: Vector3 } = {};
 
   for (let i = 0, l = arr.length; i < l; i++) {
     const phi = Math.acos(-1 + (2 * i) / l);
     const theta = Math.sqrt(l * Math.PI) * phi;
 
     const object = new Object3D();
-
-    object.position.setFromSphericalCoords(300, phi, theta);
-
+    object.position.setFromSphericalCoords(220, phi, theta);
     object.lookAt(vector);
 
-    targets[arr[i].zone] = object;
+    targets[arr[i].zone] = new Vector3(object.position.x, object.position.z, -object.position.y);
   }
   return targets;
 }
