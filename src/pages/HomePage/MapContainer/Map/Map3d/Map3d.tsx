@@ -3,8 +3,8 @@ import { useEffect, useMemo, useRef } from 'react';
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
-import { useZonesAdditionalInfo } from '../hooks/useMapAdditionalData';
-import { getZoneKey, MapData, MapLink, MapNode, SelectedZoneKeyType } from '../Types';
+import { getZoneKey, MapData, MapNode, SelectedZoneKeyType } from '../Types';
+import { useZonesAdditional3dInfo } from './hooks/useAdditional3dInfo';
 import { useLinkThreeObject } from './hooks/useLinkThreeObject';
 import { useNodeThreeObject } from './hooks/useNodeThreeObject';
 import { Map3dProps } from './Map3d.props';
@@ -21,7 +21,7 @@ export function Map3d({
   images,
 }: Map3dProps) {
   const graphRef = useRef<ForceGraphMethods>();
-  const mapData = useZonesAdditionalInfo(data, selectedZoneKey);
+  const mapData = useZonesAdditional3dInfo(data, selectedZoneKey);
 
   const neighbours: Set<string> = useMemo(
     () => getNeighboursForSelectedZone(selectedZoneKey, mapData),
@@ -35,12 +35,9 @@ export function Map3d({
 
   useEffect(() => {
     const fg = graphRef.current;
-
-    // links
-    fg?.d3Force('link')?.distance(() => Math.random() * 100 + 150);
-
-    // charge
-    fg?.d3Force('charge')?.distanceMax(200);
+    fg?.d3Force('link', null as never);
+    fg?.d3Force('charge')?.strength(0);
+    fg?.d3Force('center')?.strength(0);
   }, []);
 
   return (
@@ -65,6 +62,7 @@ export function Map3d({
       d3AlphaDecay={0.02}
       d3VelocityDecay={0.3}
       showNavInfo={false}
+      enableNodeDrag={false}
       onBackgroundClick={clearSelectedNode}
     />
   );
