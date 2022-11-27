@@ -9,6 +9,7 @@ function preloadImagePromise(src: string): Promise<HTMLImageElement> {
     img.onload = () => resolve(img);
     img.onerror = img.onabort = () => reject();
     img.src = src;
+    img.crossOrigin = 'anonymous';
   });
 }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import THREE, { Object3D, Vector3 } from 'three';
+import THREE, { Object3D, Texture, Vector3 } from 'three';
 
 import {
   getZoneKey,
@@ -101,9 +101,30 @@ function enrichNodeWithAnimation(
   positions: { [key: string]: Vector3 }
 ) {
   const pos = positions[node.zone];
+  //create image
+  const bitmap = document.createElement('canvas');
+  const g = bitmap.getContext('2d');
+  bitmap.width = 100;
+  bitmap.height = 100;
+  if (g) {
+    // g.font = 'Bold 20px Arial';
+
+    g.fillStyle = 'red';
+    // g.fillText(node.name, 0, 20);
+    g.strokeStyle = 'red';
+    g.arc(50, 50, 50, 0, Math.PI * 2);
+    // g.strokeText(node.name, 0, 20);
+  }
+
+  // canvas contents will be used for a texture
+  // const texture = new Texture(bitmap);
+  // texture.needsUpdate = true;
+  const texture = bitmap.toDataURL('image/png');
+
   return {
     ...node,
     ...pos,
+    texture: bitmap,
   } as MapNode;
 }
 
