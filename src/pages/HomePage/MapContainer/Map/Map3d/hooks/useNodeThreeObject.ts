@@ -282,13 +282,13 @@ function drawMyShadowCircle(node: any, images: any) {
       ctx.fillStyle = createGradient(ctx, circle, light, lights.ambient, light.lum);
       ctx.globalCompositeOperation = light.comp;
       light.draw(ctx, circle);
-      // if (j === 2) {
-      //   ctx.globalCompositeOperation = 'multiply';
-      //   ctx.drawImage(images[node.logoUrl], 20, 20, 60, 60);
-      // }
+      if (j === 2) {
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
+      }
     }
-    ctx.globalCompositeOperation = 'multiply';
-    ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
+    // ctx.globalCompositeOperation = 'multiply';
+    // ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
     // ctx.globalCompositeOperation = 'source-in';
   }
   return bitmap;
@@ -414,14 +414,15 @@ function createGradient(ctx: any, circle: any, light: any, ambient: any, amount:
 
 function getLights() {
   return {
-    ambient: [10, 30, 50],
+    ambient: [10, 50, 100],
     sources: [
       {
         x: 0, // position of light
         y: 0,
         col: [R(255), R(255), R(255)], // RGB intensities can be any value
-        lum: 1, // total lumanance for this light
-        comp: 'source-over' as GlobalCompositeOperation, // composite opperation
+        lum: 0.8, // total lumanance for this light
+        // comp: 'source-over' as GlobalCompositeOperation, // composite opperation
+        comp: 'hard-light' as GlobalCompositeOperation, // composite opperation
         spec: false, // if true then use a pretend specular falloff
         draw: drawCircle,
         useAmbient: true,
@@ -442,6 +443,7 @@ function getLights() {
       {
         x: 100,
         y: 100,
+        // col: [R(1255), R(1255), R(1255)],
         col: [R(1255), R(1255), R(1255)],
         lum: R(0.5),
         comp: 'lighter' as GlobalCompositeOperation,
@@ -451,7 +453,7 @@ function getLights() {
       },
       // {
       //   x: 50,
-      //   y: 75,
+      //   y: 50,
       //   col: [R(155), R(155), R(155)],
       //   lum: R(1),
       //   comp: 'lighter' as GlobalCompositeOperation,

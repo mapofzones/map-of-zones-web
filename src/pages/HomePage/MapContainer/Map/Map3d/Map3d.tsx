@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
+import { PerspectiveCamera, Scene } from 'three';
+import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { getZoneKey, MapData, MapNode, SelectedZoneKeyType } from '../Types';
@@ -28,7 +30,7 @@ export function Map3d({
     [mapData, selectedZoneKey]
   );
 
-  const nodeThreeObject = useNodeThreeObject(selectedZoneKey, neighbours);
+  const nodeThreeObject = useNodeThreeObject(selectedZoneKey, neighbours, images);
   const linkThreeObject = useLinkThreeObject(selectedZoneKey);
 
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);
@@ -40,31 +42,91 @@ export function Map3d({
     fg?.d3Force('center')?.strength(0);
   }, []);
 
+  // useEffect(() => {
+  //   if (!mapData?.nodes.length) {
+  //     return;
+  //   }
+  //   const scene = new Scene();
+  //   const aspect = window.innerWidth / window.innerHeight;
+  //   const cam = new PerspectiveCamera(45, aspect, 0.1, 1000);
+  //   cam.position.set(0, 0, 800);
+  //   const labelRenderer = new CSS2DRenderer();
+  //   labelRenderer.setSize(window.innerWidth, window.innerHeight);
+  //   labelRenderer.domElement.style.position = 'absolute';
+  //   labelRenderer.domElement.style.top = '0px';
+  //   labelRenderer.domElement.style.pointerEvents = 'none';
+  //   //   const renderer = new WebGLRenderer({ antialias: true });
+  //   //   renderer.setPixelRatio(window.devicePixelRatio);
+  //   //   renderer.setSize(window.innerWidth, window.innerHeight);
+  //   document.getElementById('labelContainer')?.appendChild(labelRenderer.domElement);
+
+  //   for (let index = 0; index < mapData.nodes.length; index++) {
+  //     const node = mapData.nodes[index] as any;
+  //     // console.log(node);
+  //     const earthDiv = document.createElement('div');
+  //     earthDiv.className = 'lable1';
+  //     earthDiv.textContent = node.name;
+  //     earthDiv.style.marginTop = '-1em';
+  //     earthDiv.style.zIndex = '1000';
+  //     const earthLabel = new CSS2DObject(earthDiv);
+  //     // scene.position.set(0, 0, 0);
+  //     scene.position.set(node.x, node.y, node.z);
+  //     scene.add(earthLabel);
+
+  //     // const sphereGeometry = new SphereGeometry(node.radius, 20, 20);
+  //     // const sphereMaterial = new MeshLambertMaterial({
+  //     //   color: node.color,
+  //     //   opacity: 0.7,
+  //     //   transparent: true,
+  //     // });
+  //     // const sphereMaterial = new MeshMatcapMaterial({ color: node.color });
+  //     // const sphereMaterial = new MeshPhongMaterial({ color: node.color });
+  //     // const sphereMaterial = new MeshPhysicalMaterial({ color: node.color });
+  //     // const sphere = new Mesh(sphereGeometry, sphereMaterial);
+  //     // sphere.position.set(node.x, node.y, node.z);
+  //     // scene.add(sphere);
+  //     //
+  //   }
+  //   labelRenderer.render(scene, cam);
+  //   //   // const earthDiv = document.createElement('div');
+  //   //   // earthDiv.className = 'lable1';
+  //   //   // earthDiv.textContent = node.name;
+  //   //   // // document.getElementById('labelContainer')?.appendChild(earthDiv);
+  //   //   // earthDiv.style.marginTop = '-1em';
+  //   //   // earthDiv.style.zIndex = '1000';
+  //   //   // const earthLabel = new CSS2DObject(earthDiv);
+  //   //   // scene.add(earthLabel);
+  //   //   // earthLabel.position.set(0, 50, 0);
+  // }, [mapData.nodes]);
+
   return (
-    <ForceGraph3D
-      ref={graphRef}
-      nodeId="zone"
-      nodeLabel={''}
-      height={height}
-      width={width}
-      nodeRelSize={4}
-      nodeVal={(data: NodeObject) => {
-        const zone = data as MapNode;
-        return zone.radius * 2;
-      }}
-      graphData={mapData}
-      onNodeHover={onZoneHover}
-      nodeThreeObject={nodeThreeObject}
-      linkThreeObject={linkThreeObject}
-      onNodeClick={onZoneClick}
-      onLinkHover={onZoneHover}
-      linkColor={'rgb(255, 255, 255)'}
-      d3AlphaDecay={0.02}
-      d3VelocityDecay={0.3}
-      showNavInfo={false}
-      enableNodeDrag={false}
-      onBackgroundClick={clearSelectedNode}
-    />
+    <>
+      <div id="labelContainer"></div>
+      <ForceGraph3D
+        ref={graphRef}
+        nodeId="zone"
+        nodeLabel={''}
+        height={height}
+        width={width}
+        nodeRelSize={4}
+        nodeVal={(data: NodeObject) => {
+          const zone = data as MapNode;
+          return zone.radius * 2;
+        }}
+        graphData={mapData}
+        onNodeHover={onZoneHover}
+        nodeThreeObject={nodeThreeObject}
+        linkThreeObject={linkThreeObject}
+        onNodeClick={onZoneClick}
+        onLinkHover={onZoneHover}
+        linkColor={'rgb(255, 255, 255)'}
+        d3AlphaDecay={0.02}
+        d3VelocityDecay={0.3}
+        showNavInfo={false}
+        enableNodeDrag={false}
+        onBackgroundClick={clearSelectedNode}
+      />
+    </>
   );
 }
 
