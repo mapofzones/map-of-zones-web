@@ -266,6 +266,25 @@ function drawMyShadowCircle(node: any, images: any) {
 
     // drawShadowShadow(ctx, circle, lights.sources[0]);
 
+    ctx.fillStyle = node.color;
+    ctx.globalCompositeOperation = 'source-over';
+    drawCircle(ctx, { x: 50, y: 50, r: 50 });
+
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
+
+    const grd = ctx.createLinearGradient(0, 0, 100, 100);
+    grd.addColorStop(0, '#ffffff');
+    grd.addColorStop(0.7, '#333333');
+    grd.addColorStop(1, 'black');
+    ctx.fillStyle = grd;
+    // ctx.globalCompositeOperation = 'hard-light';
+    // ctx.globalCompositeOperation = 'overlay';
+    // drawCircle(ctx, { x: 50, y: 50, r: 50 });
+
+    ctx.globalCompositeOperation = 'hard-light';
+    drawCircle(ctx, { x: 50, y: 50, r: 50 });
+
     // const image = new Image();
     // image.src = node.logoUrl;
     // image.onload = function () {
@@ -282,10 +301,10 @@ function drawMyShadowCircle(node: any, images: any) {
       ctx.fillStyle = createGradient(ctx, circle, light, lights.ambient, light.lum);
       ctx.globalCompositeOperation = light.comp;
       light.draw(ctx, circle);
-      if (j === 2) {
-        ctx.globalCompositeOperation = 'multiply';
-        ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
-      }
+      // if (j === 2) {
+      //   ctx.globalCompositeOperation = 'multiply';
+      //   ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
+      // }
     }
     // ctx.globalCompositeOperation = 'multiply';
     // ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
@@ -416,41 +435,42 @@ function getLights() {
   return {
     ambient: [10, 50, 100],
     sources: [
-      {
-        x: 0, // position of light
-        y: 0,
-        col: [R(255), R(255), R(255)], // RGB intensities can be any value
-        lum: 0.8, // total lumanance for this light
-        // comp: 'source-over' as GlobalCompositeOperation, // composite opperation
-        comp: 'hard-light' as GlobalCompositeOperation, // composite opperation
-        spec: false, // if true then use a pretend specular falloff
-        draw: drawCircle,
-        useAmbient: true,
-      },
+      // {
+      //   x: 0, // position of light
+      //   y: 0,
+      //   col: [R(255), R(255), R(255)], // RGB intensities can be any value
+      //   lum: 0.8, // total lumanance for this light
+      //   // comp: 'source-over' as GlobalCompositeOperation, // composite opperation
+      //   comp: 'hard-light' as GlobalCompositeOperation, // composite opperation
+      //   spec: false, // if true then use a pretend specular falloff
+      //   draw: drawCircle,
+      //   useAmbient: true,
+      // },
       {
         // this light is for a little accent and is at 180 degree from the light
         x: 0,
         y: 0,
         // col: [255, 0, 0],
         col: [R(255), R(255), R(255)],
-        lum: R(1),
-        comp: 'lighter' as GlobalCompositeOperation,
+        lum: R(0.3),
+        // comp: 'hard-light' as GlobalCompositeOperation,
+        comp: 'hard-light' as GlobalCompositeOperation,
         spec: true, // if true then you MUST inclue spec power
-        specPower: R(3.2),
+        specPower: R(2),
         draw: drawCircle,
         useAmbient: false,
       },
-      {
-        x: 100,
-        y: 100,
-        // col: [R(1255), R(1255), R(1255)],
-        col: [R(1255), R(1255), R(1255)],
-        lum: R(0.5),
-        comp: 'lighter' as GlobalCompositeOperation,
-        spec: false,
-        draw: drawCircle,
-        useAmbient: false,
-      },
+      // {
+      //   x: 100,
+      //   y: 100,
+      //   // col: [R(1255), R(1255), R(1255)],
+      //   col: [R(1255), R(1255), R(1255)],
+      //   lum: R(0.5),
+      //   comp: 'lighter' as GlobalCompositeOperation,
+      //   spec: false,
+      //   draw: drawCircle,
+      //   useAmbient: false,
+      // },
       // {
       //   x: 50,
       //   y: 50,
@@ -462,23 +482,25 @@ function getLights() {
       //   draw: drawCircle,
       //   useAmbient: false,
       // },
-      {
-        x: 33.33,
-        y: 33.33,
-        col: [R(1255), R(1255), R(1255)],
-        lum: R(0.2),
-        comp: 'multiply' as GlobalCompositeOperation,
-        spec: false,
-        draw: drawCircle,
-        useAmbient: false,
-      },
+      // {
+      //   x: 33.33,
+      //   y: 33.33,
+      //   col: [R(1255), R(1255), R(1255)],
+      //   lum: R(0.2),
+      //   comp: 'multiply' as GlobalCompositeOperation,
+      //   spec: false,
+      //   draw: drawCircle,
+      //   useAmbient: false,
+      // },
       {
         x: 50,
         y: -100,
         col: [R(2255), R(2555), R(2255)],
-        lum: R(0.3),
-        comp: 'lighter' as GlobalCompositeOperation,
-        spec: false,
+        lum: R(0.2),
+        // comp: 'exclusion' as GlobalCompositeOperation,
+        comp: 'screen' as GlobalCompositeOperation,
+        spec: true,
+        specPower: 1.3,
         draw: drawCircle1,
         useAmbient: false,
       },
