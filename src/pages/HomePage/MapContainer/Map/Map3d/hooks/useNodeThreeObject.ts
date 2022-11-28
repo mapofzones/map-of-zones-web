@@ -258,8 +258,8 @@ function getBallCanvas2(node: any) {
 function drawMyShadowCircle(node: any, images: any) {
   const bitmap = document.createElement('canvas');
   const ctx = bitmap.getContext('2d');
-  bitmap.width = 100;
-  bitmap.height = 100;
+  bitmap.width = 150;
+  bitmap.height = 150;
   if (ctx) {
     const circle = { x: 50, y: 50, r: 50 };
     const lights = getLights();
@@ -268,10 +268,18 @@ function drawMyShadowCircle(node: any, images: any) {
 
     ctx.fillStyle = node.color;
     ctx.globalCompositeOperation = 'source-over';
+    ctx.shadowColor = node.color;
+    ctx.shadowBlur = 35;
     drawCircle(ctx, { x: 50, y: 50, r: 50 });
+    ctx.shadowColor = null as any;
+    ctx.shadowBlur = null as any;
 
+    ctx.shadowColor = 'black';
+    ctx.shadowBlur = 25;
     ctx.globalCompositeOperation = 'source-over';
     ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
+    ctx.shadowColor = null as any;
+    ctx.shadowBlur = null as any;
 
     const grd = ctx.createLinearGradient(0, 0, 100, 100);
     grd.addColorStop(0, '#ffffff');
@@ -453,8 +461,8 @@ function getLights() {
         // col: [255, 0, 0],
         col: [R(255), R(255), R(255)],
         lum: R(0.3),
-        // comp: 'hard-light' as GlobalCompositeOperation,
         comp: 'hard-light' as GlobalCompositeOperation,
+        // comp: 'lighter' as GlobalCompositeOperation,
         spec: true, // if true then you MUST inclue spec power
         specPower: R(2),
         draw: drawCircle,
