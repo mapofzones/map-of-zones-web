@@ -292,12 +292,16 @@ function drawMyShadowCircle(node: any, images: any) {
     grd.addColorStop(0, '#ffffff');
     grd.addColorStop(1, 'black');
     ctx.fillStyle = grd;
-    // ctx.globalCompositeOperation = 'hard-light';
-    // ctx.globalCompositeOperation = 'overlay';
-    // drawCircle(ctx, { x: 50, y: 50, r: 50 });
-
-    // ctx.globalCompositeOperation = 'overlay';
     ctx.globalCompositeOperation = 'hard-light';
+    drawCircle(ctx, circle);
+
+    const gradient = ctx.createRadialGradient(50, 50, 10, 75, 75, 50);
+
+    // Add three color stops
+    gradient.addColorStop(0, '#ffffff99');
+    gradient.addColorStop(1, '#33333D');
+    ctx.fillStyle = gradient;
+    ctx.globalCompositeOperation = 'overlay';
     drawCircle(ctx, circle);
 
     // const image = new Image();
@@ -311,16 +315,16 @@ function drawMyShadowCircle(node: any, images: any) {
 
     //do each sphere
     // for each sphere do the each light
-    for (let j = 0; j < lights.sources.length; j++) {
-      const light = lights.sources[j];
-      ctx.fillStyle = createGradient(ctx, circle, light, lights.ambient, light.lum);
-      ctx.globalCompositeOperation = light.comp;
-      light.draw(ctx, circle);
-      // if (j === 2) {
-      //   ctx.globalCompositeOperation = 'multiply';
-      //   ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
-      // }
-    }
+    // for (let j = 0; j < lights.sources.length; j++) {
+    //   const light = lights.sources[j];
+    //   ctx.fillStyle = createGradient(ctx, circle, light, lights.ambient, light.lum);
+    //   ctx.globalCompositeOperation = light.comp;
+    //   light.draw(ctx, circle);
+    //   // if (j === 2) {
+    //   //   ctx.globalCompositeOperation = 'multiply';
+    //   //   ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
+    //   // }
+    // }
     // ctx.globalCompositeOperation = 'multiply';
     // ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
     // ctx.globalCompositeOperation = 'source-in';
@@ -345,23 +349,6 @@ function drawCircle1(ctx: any, c: any) {
   ctx.quadraticCurveTo(x - r * 0.8, y - r, x, y - r);
   ctx.fill();
 }
-function drawShadowShadow(ctx: any, circle: any, light: any) {
-  const x = light.x; // get the light position as we will modify it
-  const y = light.y;
-  const r = circle.r * 1.1;
-  const vX = x - circle.x; // get the vector to the light source
-  const vY = y - circle.y;
-  const dist = -Math.sqrt(vX * vX + vY * vY) * 0.3;
-  const dir = Math.atan2(vY, vX);
-  const lx = Math.cos(dir) * dist + circle.x; // light canb not go past radius
-  const ly = Math.sin(dir) * dist + circle.y;
-  const grd = ctx.createRadialGradient(lx, ly, (r * 1) / 4, lx, ly, r);
-  grd.addColorStop(0, 'rgba(0,0,0,1)');
-  grd.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = grd;
-  drawCircle(ctx, { x: lx, y: ly, r: r });
-}
-
 // 2D light simulation. This is just an approximation and does not match real world stuff
 // based on Phong shading.
 // x,y,r descript the imagined sphere
