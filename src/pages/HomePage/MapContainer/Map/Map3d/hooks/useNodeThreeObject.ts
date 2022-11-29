@@ -261,7 +261,7 @@ function drawMyShadowCircle(node: any, images: any) {
   bitmap.width = 150;
   bitmap.height = 150;
   if (ctx) {
-    const circle = { x: 50, y: 50, r: 50 };
+    const circle = { x: 75, y: 75, r: 50 };
     const lights = getLights();
 
     // drawShadowShadow(ctx, circle, lights.sources[0]);
@@ -270,28 +270,35 @@ function drawMyShadowCircle(node: any, images: any) {
     ctx.globalCompositeOperation = 'source-over';
     ctx.shadowColor = node.color;
     ctx.shadowBlur = 35;
-    drawCircle(ctx, { x: 50, y: 50, r: 50 });
+    drawCircle(ctx, circle);
     ctx.shadowColor = null as any;
     ctx.shadowBlur = null as any;
 
-    ctx.shadowColor = 'black';
-    ctx.shadowBlur = 25;
+    // ctx.shadowColor = 'black';
+    // ctx.shadowBlur = 25;
     ctx.globalCompositeOperation = 'source-over';
-    ctx.drawImage(images[node.logoUrl], 25, 25, 50, 50);
+    const r = 0;
+    ctx.drawImage(
+      images[node.logoUrl],
+      circle.x - circle.r + r,
+      circle.y - circle.r + r,
+      circle.r * 2 - 2 * r,
+      circle.r * 2 - 2 * r
+    );
     ctx.shadowColor = null as any;
     ctx.shadowBlur = null as any;
 
-    const grd = ctx.createLinearGradient(0, 0, 100, 100);
+    const grd = ctx.createLinearGradient(0, 0, 150, 150);
     grd.addColorStop(0, '#ffffff');
-    grd.addColorStop(0.7, '#333333');
     grd.addColorStop(1, 'black');
     ctx.fillStyle = grd;
     // ctx.globalCompositeOperation = 'hard-light';
     // ctx.globalCompositeOperation = 'overlay';
     // drawCircle(ctx, { x: 50, y: 50, r: 50 });
 
+    // ctx.globalCompositeOperation = 'overlay';
     ctx.globalCompositeOperation = 'hard-light';
-    drawCircle(ctx, { x: 50, y: 50, r: 50 });
+    drawCircle(ctx, circle);
 
     // const image = new Image();
     // image.src = node.logoUrl;
@@ -464,7 +471,7 @@ function getLights() {
         comp: 'hard-light' as GlobalCompositeOperation,
         // comp: 'lighter' as GlobalCompositeOperation,
         spec: true, // if true then you MUST inclue spec power
-        specPower: R(2),
+        specPower: R(1.5),
         draw: drawCircle,
         useAmbient: false,
       },
