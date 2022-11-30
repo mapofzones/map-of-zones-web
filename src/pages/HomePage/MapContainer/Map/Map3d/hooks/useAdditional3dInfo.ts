@@ -69,7 +69,7 @@ function getNewNodes(
 }
 
 const levelLimits = [10, 30];
-const zoneRadiuses = [26, 16, 11.5];
+const zoneRadiuses = [50, 45, 40];
 const zoneLogoRadiuses = [19, 10, 6.5];
 const fontSizes = [11, 10, 8];
 

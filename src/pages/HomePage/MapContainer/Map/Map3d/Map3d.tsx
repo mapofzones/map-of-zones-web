@@ -30,7 +30,17 @@ export function Map3d({
     [mapData, selectedZoneKey]
   );
 
-  const nodeThreeObject = useNodeThreeObject(selectedZoneKey, neighbours, images);
+  const zoneCanvases = useMemo(() => {
+    const canvases: { [key: string]: HTMLCanvasElement } = {};
+    for (let index = 0; index < mapData.nodes.length; index++) {
+      const node = mapData.nodes[index];
+      const canvas = drawNode3d(node, images);
+      canvases[node.zone] = canvas;
+    }
+    return canvases;
+  }, [images, mapData.nodes]);
+
+  const nodeThreeObject = useNodeThreeObject(selectedZoneKey, neighbours, zoneCanvases);
   const linkThreeObject = useLinkThreeObject(selectedZoneKey);
 
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);
@@ -41,63 +51,6 @@ export function Map3d({
     fg?.d3Force('charge')?.strength(0);
     fg?.d3Force('center')?.strength(0);
   }, []);
-
-  // useEffect(() => {
-  //   if (!mapData?.nodes.length) {
-  //     return;
-  //   }
-  //   const scene = new Scene();
-  //   const aspect = window.innerWidth / window.innerHeight;
-  //   const cam = new PerspectiveCamera(45, aspect, 0.1, 1000);
-  //   cam.position.set(0, 0, 800);
-  //   const labelRenderer = new CSS2DRenderer();
-  //   labelRenderer.setSize(window.innerWidth, window.innerHeight);
-  //   labelRenderer.domElement.style.position = 'absolute';
-  //   labelRenderer.domElement.style.top = '0px';
-  //   labelRenderer.domElement.style.pointerEvents = 'none';
-  //   //   const renderer = new WebGLRenderer({ antialias: true });
-  //   //   renderer.setPixelRatio(window.devicePixelRatio);
-  //   //   renderer.setSize(window.innerWidth, window.innerHeight);
-  //   document.getElementById('labelContainer')?.appendChild(labelRenderer.domElement);
-
-  //   for (let index = 0; index < mapData.nodes.length; index++) {
-  //     const node = mapData.nodes[index] as any;
-  //     // console.log(node);
-  //     const earthDiv = document.createElement('div');
-  //     earthDiv.className = 'lable1';
-  //     earthDiv.textContent = node.name;
-  //     earthDiv.style.marginTop = '-1em';
-  //     earthDiv.style.zIndex = '1000';
-  //     const earthLabel = new CSS2DObject(earthDiv);
-  //     // scene.position.set(0, 0, 0);
-  //     scene.position.set(node.x, node.y, node.z);
-  //     scene.add(earthLabel);
-
-  //     // const sphereGeometry = new SphereGeometry(node.radius, 20, 20);
-  //     // const sphereMaterial = new MeshLambertMaterial({
-  //     //   color: node.color,
-  //     //   opacity: 0.7,
-  //     //   transparent: true,
-  //     // });
-  //     // const sphereMaterial = new MeshMatcapMaterial({ color: node.color });
-  //     // const sphereMaterial = new MeshPhongMaterial({ color: node.color });
-  //     // const sphereMaterial = new MeshPhysicalMaterial({ color: node.color });
-  //     // const sphere = new Mesh(sphereGeometry, sphereMaterial);
-  //     // sphere.position.set(node.x, node.y, node.z);
-  //     // scene.add(sphere);
-  //     //
-  //   }
-  //   labelRenderer.render(scene, cam);
-  //   //   // const earthDiv = document.createElement('div');
-  //   //   // earthDiv.className = 'lable1';
-  //   //   // earthDiv.textContent = node.name;
-  //   //   // // document.getElementById('labelContainer')?.appendChild(earthDiv);
-  //   //   // earthDiv.style.marginTop = '-1em';
-  //   //   // earthDiv.style.zIndex = '1000';
-  //   //   // const earthLabel = new CSS2DObject(earthDiv);
-  //   //   // scene.add(earthLabel);
-  //   //   // earthLabel.position.set(0, 50, 0);
-  // }, [mapData.nodes]);
 
   return (
     <>
@@ -146,4 +99,71 @@ function getNeighboursForSelectedZone(selectedZoneKey: SelectedZoneKeyType, mapD
     }
   }
   return neighbours;
+}
+
+function drawNode3d(node: any, images: any) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const qualityMultiply = 3;
+  const radius = node.radius * qualityMultiply;
+  const size = radius * qualityMultiply;
+  canvas.width = size;
+  canvas.height = size;
+  if (ctx) {
+    const circle = { x: size / 2, y: size / 2, r: radius };
+
+    ctx.fillStyle = node.color;
+    ctx.shadowColor = node.color;
+    ctx.shadowBlur = 0;
+    ctx.globalCompositeOperation = 'source-over';
+    drawCircle(ctx, circle);
+    ctx.shadowColor = null as any;
+    ctx.shadowBlur = null as any;
+
+    if (images[node.logoUrl]) {
+      ctx.globalCompositeOperation = 'source-over';
+      const borderR = node.radius * 0.2;
+
+      ctx.drawImage(
+        images[node.logoUrl],
+        circle.x - circle.r + borderR,
+        circle.y - circle.r + borderR,
+        circle.r * 2 - 2 * borderR,
+        circle.r * 2 - 2 * borderR
+      );
+    }
+
+    const grd = ctx.createLinearGradient(
+      circle.x - circle.r,
+      circle.y - circle.r,
+      circle.x + circle.r,
+      circle.y + circle.r
+    );
+    grd.addColorStop(0, '#ffffff');
+    grd.addColorStop(1, 'black');
+    ctx.fillStyle = grd;
+    ctx.globalCompositeOperation = 'hard-light';
+    drawCircle(ctx, circle);
+
+    const gradient = ctx.createRadialGradient(
+      size / 3,
+      size / 3,
+      radius / 10, // blink size
+      size / 2,
+      size / 2,
+      radius
+    );
+    gradient.addColorStop(0, '#ffffff99');
+    gradient.addColorStop(1, '#33333D');
+    ctx.fillStyle = gradient;
+    ctx.globalCompositeOperation = 'overlay';
+    drawCircle(ctx, circle);
+  }
+  return canvas;
+}
+
+function drawCircle(ctx: any, c: any) {
+  ctx.beginPath();
+  ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+  ctx.fill();
 }

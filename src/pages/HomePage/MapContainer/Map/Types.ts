@@ -1,5 +1,7 @@
 import { LinkObject, NodeObject } from 'react-force-graph-2d';
 
+export type CanvasesMap = { [imgUrl: string]: HTMLCanvasElement };
+
 export interface Comet {
   __progress: number;
 }
