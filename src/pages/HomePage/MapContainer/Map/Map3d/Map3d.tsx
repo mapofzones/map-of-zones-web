@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
-import { PerspectiveCamera, Scene } from 'three';
-import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { getZoneKey, MapData, MapNode, SelectedZoneKeyType } from '../Types';
 import { useZonesAdditional3dInfo } from './hooks/useAdditional3dInfo';
+import { useLinkDirectionalParticles } from './hooks/useLinkDirectionalParticles';
 import { useLinkThreeObject } from './hooks/useLinkThreeObject';
 import { useNodeThreeObject } from './hooks/useNodeThreeObject';
 import { Map3dProps } from './Map3d.props';
@@ -42,6 +41,7 @@ export function Map3d({
 
   const nodeThreeObject = useNodeThreeObject(selectedZoneKey, neighbours, zoneCanvases);
   const linkThreeObject = useLinkThreeObject(selectedZoneKey);
+  const linkDirectionalParticles = useLinkDirectionalParticles(selectedZoneKey);
 
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);
 
@@ -72,6 +72,12 @@ export function Map3d({
         linkThreeObject={linkThreeObject}
         onNodeClick={onZoneClick}
         onLinkHover={onZoneHover}
+        linkCurvature={0.5}
+        linkDirectionalParticles={linkDirectionalParticles}
+        linkDirectionalParticleSpeed={0.001}
+        linkDirectionalParticleWidth={2}
+        linkDirectionalParticleColor={() => '#ffffff'}
+        linkDirectionalParticleResolution={8}
         linkColor={'rgb(255, 255, 255)'}
         d3AlphaDecay={0.02}
         d3VelocityDecay={0.3}
