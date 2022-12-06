@@ -52,6 +52,36 @@ export function Map3d({
     fg?.d3Force('center')?.strength(0);
   }, []);
 
+  useEffect(() => {
+    if (selectedZoneKey) {
+      const node = mapData.nodes.find(({ zone }) => selectedZoneKey === zone) as any;
+      if (!node) {
+        return;
+      }
+
+      const distance = 400;
+      const x = node.x || 0;
+      const y = node.y || 0;
+      const z = node.z || 0;
+
+      const distRatio = 1 + distance / Math.hypot(x, y, z);
+
+      graphRef.current?.cameraPosition(
+        {
+          x: x * distRatio,
+          y: y * distRatio,
+          z: z * distRatio,
+        },
+        {
+          x: 0,
+          y: 0,
+          z: 0,
+        },
+        2000
+      );
+    }
+  }, [mapData.nodes, selectedZoneKey]);
+
   return (
     <>
       <div id="labelContainer"></div>
