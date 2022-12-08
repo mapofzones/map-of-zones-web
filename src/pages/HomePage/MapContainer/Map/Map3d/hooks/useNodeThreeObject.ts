@@ -22,7 +22,7 @@ export function useNodeThreeObject(
       const material = new SpriteMaterial({
         map: texture,
         transparent: true,
-        opacity: isNotActive ? 0.2 : 1,
+        opacity: isNotActive ? 0.1 : 1,
       });
       const sprite = new Sprite(material);
       sprite.scale.set(node.radius, node.radius, node.radius);

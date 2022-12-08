@@ -84,7 +84,6 @@ export function Map3d({
 
   return (
     <>
-      <div id="labelContainer"></div>
       <ForceGraph3D
         ref={graphRef}
         nodeId="zone"
@@ -96,6 +95,7 @@ export function Map3d({
           const zone = data as MapNode;
           return zone.radius * 2;
         }}
+        backgroundColor={'#ffffff00'}
         graphData={mapData}
         onNodeHover={onZoneHover}
         nodeThreeObject={nodeThreeObject}
@@ -108,7 +108,6 @@ export function Map3d({
         linkDirectionalParticleWidth={2}
         linkDirectionalParticleColor={() => '#ffffff'}
         linkDirectionalParticleResolution={8}
-        linkColor={'rgb(255, 255, 255)'}
         d3AlphaDecay={0.02}
         d3VelocityDecay={0.3}
         showNavInfo={false}

@@ -29,7 +29,7 @@ export function useLinkThreeObject(focusedNodeKey: any) {
 function createLinkLine(link: any) {
   const lineMaterial = new LineBasicMaterial({
     color: '#ffffff',
-    opacity: 0.2,
+    opacity: 0.12,
     transparent: true,
   });
   const points = [];
