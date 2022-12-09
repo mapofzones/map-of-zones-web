@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import { Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
+import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 
 import { Map } from './Map/Map';
 import styles from './MapContainer.module.scss';
@@ -14,7 +15,7 @@ const ZOOM_VALUES = [0.75, 1, 1.5, 2.25, 4];
 
 export function MapContainer({ className }: MapContainerProps) {
   const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
-  const [mapType, setMapType] = useState<MapType>('2d');
+  const [mapType, setMapType] = useDefaultSearchParam<MapType>('mapType', '2d', false);
 
   const zoomValue = useMemo(() => ZOOM_VALUES[currentZoomIndex], [currentZoomIndex]);
 
@@ -38,12 +39,12 @@ export function MapContainer({ className }: MapContainerProps) {
   }, [isZoomOutDisabled, currentZoomIndex]);
 
   const switchMapType = useCallback(() => {
-    setMapType((current) => (current === '2d' ? '3d' : '2d'));
-  }, []);
+    setMapType(mapType === '2d' ? '3d' : '2d');
+  }, [mapType, setMapType]);
 
   return (
     <div className={cn(styles.container, className)}>
-      <Map mapType={mapType} forceZoom={ZOOM_VALUES[currentZoomIndex]} />
+      <Map mapType={mapType} forceZoom={zoomValue} />
       <div className={styles.leftButtonsContainer}>
         <Button className={styles.zoomInBtn} disabled={isZoomInDisabled} onClick={onZoomIn}>
           <ZoomIn className={styles.icon} />
