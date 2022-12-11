@@ -32,9 +32,9 @@ export function Map3d({
     (increaseZoom as any).current = () => {
       const position = graphRef.current?.camera().position;
       if (position) {
+        const currentZoom = Math.hypot(position.x, position.y, position.z);
         for (let zoomIndex = 0; zoomIndex < ZOOM_VALUES.length; zoomIndex++) {
           const zoomValue = ZOOM_VALUES[zoomIndex];
-          const currentZoom = Math.hypot(position.x, position.y, position.z);
           if (zoomValue < currentZoom) {
             changeZoom(position, zoomValue, currentZoom);
             return;
@@ -48,9 +48,9 @@ export function Map3d({
     (decreaseZoom as any).current = () => {
       const position = graphRef.current?.camera().position;
       if (position) {
-        for (let zoomIndex = ZOOM_VALUES.length - 1; zoomIndex > 0; zoomIndex--) {
+        const currentZoom = Math.hypot(position.x, position.y, position.z);
+        for (let zoomIndex = ZOOM_VALUES.length - 1; zoomIndex >= 0; zoomIndex--) {
           const zoomValue = ZOOM_VALUES[zoomIndex];
-          const currentZoom = Math.hypot(position.x, position.y, position.z);
           if (zoomValue > currentZoom) {
             changeZoom(position, zoomValue, currentZoom);
             return;
