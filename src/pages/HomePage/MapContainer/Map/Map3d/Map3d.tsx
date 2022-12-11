@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
+import { Vector3 } from 'three';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { getZoneKey, MapData, MapNode, SelectedZoneKeyType } from '../Types';
@@ -10,6 +11,8 @@ import { useLinkThreeObject } from './hooks/useLinkThreeObject';
 import { useNodeThreeObject } from './hooks/useNodeThreeObject';
 import { Map3dProps } from './Map3d.props';
 
+const ZOOM_VALUES = [800, 600, 400, 200, 100];
+
 export function Map3d({
   data,
   hoveredZoneKey,
@@ -18,11 +21,44 @@ export function Map3d({
   onZoneHover,
   height,
   width,
-  forceZoom,
   images,
+  increaseZoom,
+  decreaseZoom,
 }: Map3dProps) {
   const graphRef = useRef<ForceGraphMethods>();
   const mapData = useZonesAdditional3dInfo(data, selectedZoneKey);
+
+  useEffect(() => {
+    (increaseZoom as any).current = () => {
+      const position = graphRef.current?.camera().position;
+      if (position) {
+        for (let zoomIndex = 0; zoomIndex < ZOOM_VALUES.length; zoomIndex++) {
+          const zoomValue = ZOOM_VALUES[zoomIndex];
+          const currentZoom = Math.hypot(position.x, position.y, position.z);
+          if (zoomValue < currentZoom) {
+            changeZoom(position, zoomValue, currentZoom);
+            return;
+          }
+        }
+      }
+    };
+  }, [increaseZoom]);
+
+  useEffect(() => {
+    (decreaseZoom as any).current = () => {
+      const position = graphRef.current?.camera().position;
+      if (position) {
+        for (let zoomIndex = ZOOM_VALUES.length - 1; zoomIndex > 0; zoomIndex--) {
+          const zoomValue = ZOOM_VALUES[zoomIndex];
+          const currentZoom = Math.hypot(position.x, position.y, position.z);
+          if (zoomValue > currentZoom) {
+            changeZoom(position, zoomValue, currentZoom);
+            return;
+          }
+        }
+      }
+    };
+  }, [decreaseZoom]);
 
   const neighbours: Set<string> = useMemo(
     () => getNeighboursForSelectedZone(selectedZoneKey, mapData),
@@ -50,27 +86,32 @@ export function Map3d({
     fg?.d3Force('link', null as never);
     fg?.d3Force('charge')?.strength(0);
     fg?.d3Force('center')?.strength(0);
+    const controls = fg?.controls() as any;
+    controls.maxDistance = ZOOM_VALUES[0];
+    controls.minDistance = ZOOM_VALUES[ZOOM_VALUES.length - 1];
   }, []);
 
   useEffect(() => {
     if (selectedZoneKey) {
       const node = mapData.nodes.find(({ zone }) => selectedZoneKey === zone) as any;
-      if (!node) {
+      const position = graphRef.current?.camera().position;
+
+      if (!node || !position) {
         return;
       }
 
-      const distance = 400;
+      const distance = 350;
       const x = node.x || 0;
       const y = node.y || 0;
       const z = node.z || 0;
 
-      const distRatio = 1 + distance / Math.hypot(x, y, z);
+      const zoomRatio = 1 + distance / Math.hypot(x, y, z);
 
       graphRef.current?.cameraPosition(
         {
-          x: x * distRatio,
-          y: y * distRatio,
-          z: z * distRatio,
+          x: x * zoomRatio,
+          y: y * zoomRatio,
+          z: z * zoomRatio,
         },
         {
           x: 0,
@@ -116,6 +157,27 @@ export function Map3d({
       />
     </>
   );
+
+  function changeZoom(currentPosition: Vector3, zoomValue: number, currentZoom: number) {
+    const x = currentPosition.x || 0;
+    const y = currentPosition.y || 0;
+    const z = currentPosition.z || 0;
+
+    const zoomRatio = zoomValue / currentZoom;
+    graphRef.current?.cameraPosition(
+      {
+        x: x * zoomRatio,
+        y: y * zoomRatio,
+        z: z * zoomRatio,
+      },
+      {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+      0
+    );
+  }
 }
 
 function getNeighboursForSelectedZone(selectedZoneKey: SelectedZoneKeyType, mapData: MapData) {
@@ -158,7 +220,6 @@ function drawNode3d(node: any, images: any) {
     if (images[node.logoUrl]) {
       ctx.globalCompositeOperation = 'source-over';
       const borderR = node.radius * 0.2;
-
       ctx.drawImage(
         images[node.logoUrl],
         circle.x - circle.r + borderR,
@@ -174,7 +235,7 @@ function drawNode3d(node: any, images: any) {
       circle.x + circle.r,
       circle.y + circle.r
     );
-    grd.addColorStop(0, '#ffffff');
+    grd.addColorStop(0, 'white');
     grd.addColorStop(1, 'black');
     ctx.fillStyle = grd;
     ctx.globalCompositeOperation = 'hard-light';

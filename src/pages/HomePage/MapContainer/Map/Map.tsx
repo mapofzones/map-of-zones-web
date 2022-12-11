@@ -2,14 +2,20 @@ import { useMemo } from 'react';
 
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
 
-import { MapType } from '..';
 import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useGraphData } from './hooks/useGraphData';
 import { useImagePreloader } from './hooks/useImagePreloader';
+import { MapProps } from './Map.props';
 import { Map2d } from './Map2d';
 import { Map3d } from './Map3d';
 
-export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: number }) {
+export function Map({
+  mapType,
+  increaseZoom,
+  decreaseZoom,
+  disableZoomIn,
+  disableZoomOut,
+}: MapProps) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
   const { data } = useGraphData();
@@ -35,8 +41,11 @@ export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: numbe
           onZoneHover={onZoneHover}
           height={height}
           width={width}
-          forceZoom={forceZoom}
           images={images}
+          increaseZoom={increaseZoom}
+          decreaseZoom={decreaseZoom}
+          disableZoomIn={disableZoomIn}
+          disableZoomOut={disableZoomOut}
         />
       ) : (
         <Map3d
@@ -47,8 +56,9 @@ export function Map({ mapType, forceZoom }: { mapType: MapType; forceZoom: numbe
           onZoneHover={onZoneHover}
           height={height}
           width={width}
-          forceZoom={forceZoom}
           images={images}
+          increaseZoom={increaseZoom}
+          decreaseZoom={decreaseZoom}
         />
       )}
     </>

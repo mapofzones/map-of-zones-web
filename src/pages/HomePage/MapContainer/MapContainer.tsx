@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -11,32 +11,26 @@ import styles from './MapContainer.module.scss';
 import { MapContainerProps } from './MapContainer.props';
 
 export type MapType = '2d' | '3d';
-const ZOOM_VALUES = [0.75, 1, 1.5, 2.25, 4];
 
 export function MapContainer({ className }: MapContainerProps) {
-  const [currentZoomIndex, setCurrentZoomIndex] = useState(1);
   const [mapType, setMapType] = useDefaultSearchParam<MapType>('mapType', '2d', false);
+  const increaseZoom = useRef<() => void | null>(null);
+  const decreaseZoom = useRef<() => void | null>(null);
 
-  const zoomValue = useMemo(() => ZOOM_VALUES[currentZoomIndex], [currentZoomIndex]);
-
-  const isZoomInDisabled = useMemo(
-    () => currentZoomIndex >= ZOOM_VALUES.length - 1,
-    [currentZoomIndex]
-  );
-
-  const isZoomOutDisabled = useMemo(() => currentZoomIndex <= 0, [currentZoomIndex]);
+  const [isZoomInDisabled, setIsZoomInDisabled] = useState(false);
+  const [isZoomOutDisabled, setIsZoomOutDisabled] = useState(false);
 
   const onZoomIn = useCallback(() => {
     if (!isZoomInDisabled) {
-      setCurrentZoomIndex(currentZoomIndex + 1);
+      increaseZoom?.current && increaseZoom.current();
     }
-  }, [isZoomInDisabled, currentZoomIndex]);
+  }, [isZoomInDisabled]);
 
   const onZoomOut = useCallback(() => {
     if (!isZoomOutDisabled) {
-      setCurrentZoomIndex(currentZoomIndex - 1);
+      decreaseZoom?.current && decreaseZoom.current();
     }
-  }, [isZoomOutDisabled, currentZoomIndex]);
+  }, [isZoomOutDisabled]);
 
   const switchMapType = useCallback(() => {
     setMapType(mapType === '2d' ? '3d' : '2d');
@@ -44,7 +38,13 @@ export function MapContainer({ className }: MapContainerProps) {
 
   return (
     <div className={cn(styles.container, className)}>
-      <Map mapType={mapType} forceZoom={zoomValue} />
+      <Map
+        mapType={mapType}
+        increaseZoom={increaseZoom}
+        decreaseZoom={decreaseZoom}
+        disableZoomIn={(value: boolean) => setIsZoomInDisabled(value)}
+        disableZoomOut={(value: boolean) => setIsZoomOutDisabled(value)}
+      />
       <div className={styles.leftButtonsContainer}>
         <Button className={styles.zoomInBtn} disabled={isZoomInDisabled} onClick={onZoomIn}>
           <ZoomIn className={styles.icon} />
