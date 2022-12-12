@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
 import cn from 'classnames';
+import { motion } from 'framer-motion';
 
 import { Icon2d, Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
@@ -36,6 +37,10 @@ export function MapContainer({ className }: MapContainerProps) {
     setMapType(mapType === '2d' ? '3d' : '2d');
   }, [mapType, setMapType]);
 
+  const MotionIcon3d = motion(Icon3d);
+  const MotionIcon2d = motion(Icon2d);
+  const MapTypeIcon = mapType === '2d' ? MotionIcon3d : MotionIcon2d;
+
   return (
     <div className={cn(styles.container, className)}>
       <Map
@@ -53,8 +58,11 @@ export function MapContainer({ className }: MapContainerProps) {
           <ZoomOut className={styles.icon} />
         </Button>
         <Button className={styles.switchMapType} onClick={switchMapType}>
-          {mapType === '2d' && <Icon3d className={styles.icon} />}
-          {mapType === '3d' && <Icon2d className={styles.icon} />}
+          <MapTypeIcon
+            initial={{ opacity: 0, translateY: '-100%' }}
+            animate={{ opacity: 1, translateY: 0 }}
+            className={styles.icon}
+          />
         </Button>
       </div>
     </div>
