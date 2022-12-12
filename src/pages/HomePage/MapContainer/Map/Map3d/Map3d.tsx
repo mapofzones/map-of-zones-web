@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
 import { Vector3 } from 'three';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
-import { getZoneKey, MapData, MapNode, SelectedZoneKeyType } from '../Types';
+import { CanvasesMap, getZoneKey, MapData, MapNode, SelectedZoneKeyType } from '../Types';
 import { useZonesAdditional3dInfo } from './hooks/useAdditional3dInfo';
 import { useLinkDirectionalParticles } from './hooks/useLinkDirectionalParticles';
 import { useLinkThreeObject } from './hooks/useLinkThreeObject';
@@ -66,7 +66,7 @@ export function Map3d({
   );
 
   const zoneCanvases = useMemo(() => {
-    const canvases: { [key: string]: HTMLCanvasElement } = {};
+    const canvases: CanvasesMap = {};
     for (let index = 0; index < mapData.nodes.length; index++) {
       const node = mapData.nodes[index];
       const canvas = drawNode3d(node, images);

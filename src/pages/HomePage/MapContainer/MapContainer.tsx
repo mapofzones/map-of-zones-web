@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
-import { Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
+import { Icon2d, Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 
@@ -53,7 +53,8 @@ export function MapContainer({ className }: MapContainerProps) {
           <ZoomOut className={styles.icon} />
         </Button>
         <Button className={styles.switchMapType} onClick={switchMapType}>
-          <Icon3d className={styles.icon} />
+          {mapType === '2d' && <Icon3d className={styles.icon} />}
+          {mapType === '3d' && <Icon2d className={styles.icon} />}
         </Button>
       </div>
     </div>
