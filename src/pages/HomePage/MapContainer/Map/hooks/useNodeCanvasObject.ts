@@ -39,17 +39,26 @@ function checkIfZoneNeighbor(
   return sourceZoneKey === activeZoneKey && targetZoneKey === currentZoneKey;
 }
 
-export const useNodeCanvasObject = (
-  selectedZoneKey: SelectedZoneKeyType,
-  hoveredZoneKey: HoveredZoneKeyType,
-  links: MapLink[],
-  images: ImagesMap
-) =>
-  useCallback(
-    (node: NodeObject, ctx: CanvasRenderingContext2D, globalScale: number): void =>
-      drawNodeCanvasObject(node, ctx, globalScale, selectedZoneKey, hoveredZoneKey, links, images),
-    [selectedZoneKey, hoveredZoneKey, links, images]
-  );
+export function drawTitle(
+  ctx: CanvasRenderingContext2D,
+  currentNode: MapNode,
+  isFaded: boolean,
+  isNormal: boolean
+) {
+  const { x, y, radius, name, fontSize } = currentNode;
+  if (x === undefined || y === undefined) {
+    return;
+  }
+
+  const deltaY = radius + fontSize / 2 + TEXT_PADDING_TOP;
+  const textColor = isFaded ? '#33333D' : isNormal ? '#9F9FA5' : '#FFFFFF';
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = `${FONT_WEIGHT} ${fontSize}px Roboto`;
+  ctx.fillStyle = textColor;
+  ctx.fillText(name, x, y + deltaY);
+}
 
 function drawNodeCanvasObject(
   node: NodeObject,
@@ -151,23 +160,14 @@ function drawNode(
   }
 }
 
-function drawTitle(
-  ctx: CanvasRenderingContext2D,
-  currentNode: MapNode,
-  isFaded: boolean,
-  isNormal: boolean
-) {
-  const { x, y, radius, name, fontSize } = currentNode;
-  if (x === undefined || y === undefined) {
-    return;
-  }
-
-  const deltaY = radius + fontSize / 2 + TEXT_PADDING_TOP;
-  const textColor = isFaded ? '#33333D' : isNormal ? '#9F9FA5' : '#FFFFFF';
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = `${FONT_WEIGHT} ${fontSize}px Roboto`;
-  ctx.fillStyle = textColor;
-  ctx.fillText(name, x, y + deltaY);
-}
+export const useNodeCanvasObject = (
+  selectedZoneKey: SelectedZoneKeyType,
+  hoveredZoneKey: HoveredZoneKeyType,
+  links: MapLink[],
+  images: ImagesMap
+) =>
+  useCallback(
+    (node: NodeObject, ctx: CanvasRenderingContext2D, globalScale: number): void =>
+      drawNodeCanvasObject(node, ctx, globalScale, selectedZoneKey, hoveredZoneKey, links, images),
+    [selectedZoneKey, hoveredZoneKey, links, images]
+  );

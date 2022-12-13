@@ -25,7 +25,8 @@ export function useNodeThreeObject(
         opacity: isNotActive ? 0.1 : 1,
       });
       const sprite = new Sprite(material);
-      sprite.scale.set(node.radius, node.radius, node.radius);
+      const factor = node.radius / texture.image.height;
+      sprite.scale.set(texture.image.width * factor, node.radius, 1);
       scene.add(sprite);
 
       return scene;

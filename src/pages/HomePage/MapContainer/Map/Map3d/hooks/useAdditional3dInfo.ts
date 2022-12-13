@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import THREE, { Object3D, Texture, Vector3 } from 'three';
+import { Object3D, Vector3 } from 'three';
 
 import {
   getZoneKey,
   MapData,
   MapLink,
   MapNode,
-  Position,
   SelectedZoneKeyType,
   ZoneLinkApi,
   ZoneStatApi,
@@ -69,9 +68,9 @@ function getNewNodes(
 }
 
 const levelLimits = [10, 30];
-const zoneRadiuses = [50, 45, 40];
+const zoneRadiuses = [40, 33, 26];
 const zoneLogoRadiuses = [19, 10, 6.5];
-const fontSizes = [11, 10, 8];
+const fontSizes = [20, 18, 16];
 
 function enrichNodeWithVisualProperties(index: number, zone: ZoneStatApi) {
   const level = getLevel(index);
