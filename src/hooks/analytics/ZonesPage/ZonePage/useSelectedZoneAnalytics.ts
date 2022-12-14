@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { getZoneNameFromHomePageQuery } from 'hooks/analytics/HomePage/utils';
 import { Page, PAGE_TITLE } from 'hooks/analytics/Types';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 
@@ -11,7 +12,7 @@ export function useSelectedZoneAnalytics(currentPage: Page, prevPage: Page) {
     ) {
       trackEvent('selected zone', {
         period: currentPage.search.period,
-        zone: currentPage.pathname.split('/')[2],
+        zone: getZoneNameFromHomePageQuery(currentPage),
       });
     }
   }, [currentPage, prevPage]);

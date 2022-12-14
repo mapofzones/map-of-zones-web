@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
+import { getZoneNameFromHomePageQuery } from './utils';
 
 type ClosedZoneSidebarSource = 'zone overview sidebar' | 'zone peers sidebar';
 
@@ -12,7 +13,7 @@ export function useClosedZoneSidebarAnalytics(currentPage: Page, prevPage: Page)
       trackEvent('closed zone sidebar', {
         source,
         period: currentPage.search.period,
-        zone: prevPage?.pathname.split('/')[2],
+        zone: getZoneNameFromHomePageQuery(prevPage),
       });
     }
   }, [currentPage, prevPage]);

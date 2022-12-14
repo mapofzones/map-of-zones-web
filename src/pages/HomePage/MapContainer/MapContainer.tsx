@@ -10,11 +10,10 @@ import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { Map } from './Map/Map';
 import styles from './MapContainer.module.scss';
 import { MapContainerProps } from './MapContainer.props';
-
-export type MapType = '2d' | '3d';
+import { DefaultMapType, MapType } from './MapContainer.types';
 
 export function MapContainer({ className }: MapContainerProps) {
-  const [mapType, setMapType] = useDefaultSearchParam<MapType>('mapType', '2d', false);
+  const [mapType, setMapType] = useDefaultSearchParam<MapType>('mapType', DefaultMapType, false);
   const increaseZoom = useRef<() => void | null>(null);
   const decreaseZoom = useRef<() => void | null>(null);
 

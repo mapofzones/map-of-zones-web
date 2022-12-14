@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
+import { getZoneNameFromHomePageQuery } from './utils';
 
 type ZonePeersSidebarSource = 'zone overview sidebar' | 'direct link' | 'share link'; // TODO: added shared link to analytics
 
@@ -11,7 +12,7 @@ export function useViewedZonePeersSidebarAnalytics(currentPage: Page, prevPage: 
 
     const defaultProps = {
       period: currentPage.search.period,
-      zone: currentPage.pathname.split('/')[2],
+      zone: getZoneNameFromHomePageQuery(currentPage),
     };
 
     const source = getZonePeersSource(prevPage, currentPage);

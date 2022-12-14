@@ -12,6 +12,7 @@ export interface SearchProps {
   period?: string;
   utm_source?: string;
   searchZone?: string;
+  mapType?: string;
 }
 
 export const PAGE_TITLE: Record<string, string> = {

@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 
-import { MapType } from '../MapContainer';
+import { MapType } from '../MapContainer.types';
 
 export interface MapProps {
   mapType: MapType;

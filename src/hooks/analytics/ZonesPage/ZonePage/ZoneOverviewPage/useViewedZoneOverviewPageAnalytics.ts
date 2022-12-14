@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { getZoneNameFromHomePageQuery } from 'hooks/analytics/HomePage/utils';
 import { Page, PAGE_TITLE } from 'hooks/analytics/Types';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 
@@ -9,7 +10,7 @@ export function useViewedZoneOverviewPageAnalytics(currentPage: Page, prevPage: 
 
     const defaultProps = {
       period: currentPage.search.period,
-      zone: currentPage.pathname.split('/')[2],
+      zone: getZoneNameFromHomePageQuery(currentPage),
     };
 
     const source = getZoneOverviewSource(prevPage, currentPage);
@@ -29,7 +30,7 @@ function getZoneOverviewSource(prevPage: Page, currentPage: Page) {
     return 'direct link';
   } else if (
     prevPage.title === currentPage.title &&
-    currentPage.pathname.split('/')[2] !== prevPage.pathname.split('/')[2]
+    getZoneNameFromHomePageQuery(currentPage) !== getZoneNameFromHomePageQuery(prevPage)
   ) {
     return 'zone switcher';
   } else if (prevPage.title === PAGE_TITLE.ZonePeers) {

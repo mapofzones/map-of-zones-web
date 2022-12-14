@@ -2,6 +2,7 @@ import { Page } from '../Types';
 import { useChosenDetailsClickAnalytics } from './useChosenDetailsClickAnalytics';
 import { useClosedZoneSidebarAnalytics } from './useClosedZoneSidebarAnalytics';
 import { useSortedHomePageZonesListAnalytics } from './useSortedHomePageZonesListAnalytics';
+import { useSwitchedMapTypeAnalytics } from './useSwitchedMapTypeAnalytics';
 import { useSwitchedSidebarSubtabAnalytics } from './useSwitchedSidebarSubtabAnalytics';
 import { useViewedHomePageAnalytics } from './useViewedHomePageAnalytics';
 import { useViewedZoneOverviewSidebarAnalytics } from './useViewedZoneOverviewSidebarAnalytics';
@@ -15,4 +16,5 @@ export function useHomePageAnalytics(currentPage: Page, prevPage: Page) {
   useChosenDetailsClickAnalytics(currentPage, prevPage);
   useClosedZoneSidebarAnalytics(currentPage, prevPage);
   useSwitchedSidebarSubtabAnalytics(currentPage, prevPage);
+  useSwitchedMapTypeAnalytics(currentPage, prevPage);
 }

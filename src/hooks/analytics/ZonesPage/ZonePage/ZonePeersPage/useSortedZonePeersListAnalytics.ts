@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { getZoneNameFromHomePageQuery } from 'hooks/analytics/HomePage/utils';
 import { Page, PAGE_TITLE } from 'hooks/analytics/Types';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { ColumnKeys } from 'pages/ZonesPage/ZonePage/ZonePeers/Types';
@@ -27,7 +28,7 @@ export function useSortedZonePeersListAnalytics(currentPage: Page, prevPage: Pag
       trackEvent('sorted zone peers list', {
         param: ZONES_PEERS_COLUMN_TITLE[currentPage.search.columnKey as string],
         period: currentPage.search.period,
-        zone: currentPage.pathname.split('/')[2],
+        zone: getZoneNameFromHomePageQuery(currentPage),
       });
     }
   }, [currentPage, prevPage]);
