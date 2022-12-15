@@ -9,7 +9,10 @@ const COMET_LENGTH = 14;
 const ACTIVE_LINE_COLOR = '#ffffff64';
 const NORMAL_LINE_COLOR = '#ffffff1E';
 
-function isLinkRelatedToNode(nodeKey: SelectedZoneKeyType | HoveredZoneKeyType, link: MapLink) {
+export function isLinkRelatedToNode(
+  nodeKey: SelectedZoneKeyType | HoveredZoneKeyType,
+  link: MapLink
+) {
   return !!nodeKey && (nodeKey === getZoneKey(link.source) || nodeKey === getZoneKey(link.target));
 }
 

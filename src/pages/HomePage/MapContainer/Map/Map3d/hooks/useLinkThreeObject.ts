@@ -2,27 +2,40 @@ import { useCallback } from 'react';
 
 import { Scene, BufferGeometry, LineBasicMaterial, Line, Vector3 } from 'three';
 
-import { getZoneKey } from '../../Types';
+import { isLinkRelatedToNode } from '../../hooks/useLinkCanvasObject';
+import { HoveredZoneKeyType, SelectedZoneKeyType } from './../../Types';
 
-export function useLinkThreeObject(focusedNodeKey: any) {
+export function useLinkThreeObject(
+  selectedZoneKey: SelectedZoneKeyType,
+  hoveredZoneKey: HoveredZoneKeyType
+) {
   return useCallback(
     (link: any) => {
       const scene = new Scene();
 
-      if (
-        focusedNodeKey &&
-        focusedNodeKey !== getZoneKey(link.source) &&
-        focusedNodeKey !== getZoneKey(link.target)
-      ) {
+      const isActiveMode = !!selectedZoneKey || !!hoveredZoneKey;
+      const isRelatedToSelectedZone = isLinkRelatedToNode(selectedZoneKey, link);
+      const isRelatedToHoveredZone = !selectedZoneKey && isLinkRelatedToNode(hoveredZoneKey, link);
+      const isRalatedToActiveZone = isRelatedToSelectedZone || isRelatedToHoveredZone;
+
+      if (isActiveMode && !isRalatedToActiveZone) {
         return scene;
       }
+
+      // if (
+      //   focusedNodeKey &&
+      //   focusedNodeKey !== getZoneKey(link.source) &&
+      //   focusedNodeKey !== getZoneKey(link.target)
+      // ) {
+      //   return scene;
+      // }
 
       const line = createLinkLine(link);
       scene.add(line);
 
       return scene;
     },
-    [focusedNodeKey]
+    [hoveredZoneKey, selectedZoneKey]
   );
 }
 

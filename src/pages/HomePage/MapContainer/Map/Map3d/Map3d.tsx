@@ -75,8 +75,13 @@ export function Map3d({
     return canvases;
   }, [images, mapData.nodes]);
 
-  const nodeThreeObject = useNodeThreeObject(selectedZoneKey, neighbours, zoneCanvases);
-  const linkThreeObject = useLinkThreeObject(selectedZoneKey);
+  const nodeThreeObject = useNodeThreeObject(
+    selectedZoneKey,
+    hoveredZoneKey,
+    mapData.links,
+    zoneCanvases
+  );
+  const linkThreeObject = useLinkThreeObject(selectedZoneKey, hoveredZoneKey);
   const linkDirectionalParticles = useLinkDirectionalParticles(selectedZoneKey);
 
   const clearSelectedNode = useClearSelectedNode(selectedZoneKey);

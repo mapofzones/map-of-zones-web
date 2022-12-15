@@ -2,42 +2,11 @@ import { useCallback } from 'react';
 
 import { NodeObject } from 'react-force-graph-2d';
 
-import {
-  HoveredZoneKeyType,
-  MapLink,
-  MapNode,
-  SelectedZoneKeyType,
-  ImagesMap,
-  getZoneKey,
-} from '../Types';
+import { HoveredZoneKeyType, MapLink, MapNode, SelectedZoneKeyType, ImagesMap } from '../Types';
+import { getNodeActiveState } from '../utils/getNodeActiveState';
 
 const TEXT_PADDING_TOP = 3;
 const FONT_WEIGHT = 400;
-
-function isNeighbor(
-  activeZoneKey: string | undefined,
-  currentZoneKey: string,
-  links: MapLink[]
-): boolean {
-  return (
-    !!activeZoneKey &&
-    links.some(
-      (link) =>
-        checkIfZoneNeighbor(link, activeZoneKey, currentZoneKey) ||
-        checkIfZoneNeighbor(link, currentZoneKey, activeZoneKey)
-    )
-  );
-}
-
-function checkIfZoneNeighbor(
-  link: MapLink,
-  activeZoneKey: string,
-  currentZoneKey: string
-): unknown {
-  const sourceZoneKey = getZoneKey(link.source);
-  const targetZoneKey = getZoneKey(link.target);
-  return sourceZoneKey === activeZoneKey && targetZoneKey === currentZoneKey;
-}
 
 export function drawTitle(
   ctx: CanvasRenderingContext2D,
@@ -74,21 +43,12 @@ function drawNodeCanvasObject(
     return;
   }
 
-  const isSelectedZone = !!selectedZoneKey && currentNode.zone === selectedZoneKey;
-  const isHoveredZone = !!hoveredZoneKey && currentNode.zone === hoveredZoneKey;
-  const isFocusedZone = isSelectedZone || isHoveredZone; // SELECTED style -- opacity: border=1 (FF) background=0.1 (1A)
-  const isNormal = !selectedZoneKey && !hoveredZoneKey; // NORMAL style -- opacity: border=0.6 (9A) background=0.1 (1A)
-  const isSelectedNeighbor = isFocusedZone
-    ? false
-    : isNeighbor(selectedZoneKey, currentNode.zone, links);
-
-  const isHoveredNeighbor =
-    !!selectedZoneKey || isSelectedNeighbor
-      ? false
-      : isNeighbor(hoveredZoneKey, currentNode.zone, links);
-
-  const isActive = !!isSelectedNeighbor || isHoveredNeighbor; // ACTIVE style -- opacity: border=0.6 (9A) background=0.1 (1A)
-  const isFaded = !isNormal && !isFocusedZone && !isActive; // FADED style -- opacity: border=0.2 (33) background=0.05 (0D)
+  const { isFaded, isFocusedZone, isSelectedZone, isNormal } = getNodeActiveState(
+    selectedZoneKey,
+    currentNode,
+    hoveredZoneKey,
+    links
+  );
 
   const image = currentNode.logoUrl ? images[currentNode.logoUrl] : null;
   drawNode(ctx, currentNode, isFaded, isFocusedZone, isSelectedZone, globalScale, image);
