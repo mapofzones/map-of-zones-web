@@ -1,24 +1,30 @@
 import { useCallback } from 'react';
 
-import { getZoneKey, SelectedZoneKeyType } from './../../Types';
+import { getLinkActiveState } from '../../utils/getLinkActiveState';
+import { SelectedZoneKeyType, HoveredZoneKeyType } from './../../Types';
 
-export function useLinkDirectionalParticles(selectedZoneKey: SelectedZoneKeyType) {
+export function useLinkDirectionalParticles(
+  selectedZoneKey: SelectedZoneKeyType,
+  hoveredZoneKey: HoveredZoneKeyType
+) {
   return useCallback(
     (link: any) => {
       if (!link.isActive) {
         return 0;
       }
 
-      if (
-        selectedZoneKey &&
-        selectedZoneKey !== getZoneKey(link.source) &&
-        selectedZoneKey !== getZoneKey(link.target)
-      ) {
+      const { isActiveMode, isRalatedToActiveZone } = getLinkActiveState(
+        selectedZoneKey,
+        hoveredZoneKey,
+        link
+      );
+
+      if (isActiveMode && !isRalatedToActiveZone) {
         return 0;
       }
 
       return 1;
     },
-    [selectedZoneKey]
+    [hoveredZoneKey, selectedZoneKey]
   );
 }

@@ -1,4 +1,5 @@
-import { MapLink, getZoneKey } from '../Types';
+import { MapLink } from '../Types';
+import { getZoneKey } from './getZoneKey';
 
 export function checkIfZoneNeighbor(
   link: MapLink,

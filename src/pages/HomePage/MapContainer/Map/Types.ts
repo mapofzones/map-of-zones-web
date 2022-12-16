@@ -75,7 +75,3 @@ export interface ZoneStatApi {
   logoUrl?: string | null;
   name: string;
 }
-
-export function getZoneKey(link: MapLinkNode | string) {
-  return typeof link === 'string' ? link : link.zone;
-}

@@ -2,19 +2,13 @@ import { useCallback } from 'react';
 
 import { LinkObject } from 'react-force-graph-2d';
 
-import { getZoneKey, HoveredZoneKeyType, MapLink, SelectedZoneKeyType } from '../Types';
+import { HoveredZoneKeyType, MapLink, SelectedZoneKeyType } from '../Types';
+import { getLinkActiveState } from '../utils/getLinkActiveState';
 
 const COMET_SPEED = 0.001;
 const COMET_LENGTH = 14;
 const ACTIVE_LINE_COLOR = '#ffffff64';
 const NORMAL_LINE_COLOR = '#ffffff1E';
-
-export function isLinkRelatedToNode(
-  nodeKey: SelectedZoneKeyType | HoveredZoneKeyType,
-  link: MapLink
-) {
-  return !!nodeKey && (nodeKey === getZoneKey(link.source) || nodeKey === getZoneKey(link.target));
-}
 
 export const useLinkCanvasObject = (
   selectedNodeKey: SelectedZoneKeyType,
@@ -37,10 +31,11 @@ function drawLinkCanvasObject(
     return;
   }
 
-  const isActiveMode = !!selectedNodeKey || !!hoveredNodeKey;
-  const isRelatedToSelectedZone = isLinkRelatedToNode(selectedNodeKey, link);
-  const isRelatedToHoveredZone = !selectedNodeKey && isLinkRelatedToNode(hoveredNodeKey, link);
-  const isRalatedToActiveZone = isRelatedToSelectedZone || isRelatedToHoveredZone;
+  const { isActiveMode, isRalatedToActiveZone } = getLinkActiveState(
+    selectedNodeKey,
+    hoveredNodeKey,
+    link
+  );
 
   if (isActiveMode && !isRalatedToActiveZone) {
     return;

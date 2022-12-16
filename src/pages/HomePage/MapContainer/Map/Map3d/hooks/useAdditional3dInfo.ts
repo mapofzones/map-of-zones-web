@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Object3D, Vector3 } from 'three';
 
 import {
-  getZoneKey,
   MapData,
   MapLink,
   MapNode,
@@ -11,6 +10,7 @@ import {
   ZoneLinkApi,
   ZoneStatApi,
 } from '../../Types';
+import { getZoneKey } from '../../utils/getZoneKey';
 
 export function useZonesAdditional3dInfo(
   data: { nodes: ZoneStatApi[]; links: ZoneLinkApi[] },
