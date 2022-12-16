@@ -28,7 +28,7 @@ export function Map({
     () => data.nodes.map((node) => node?.logoUrl ?? '').filter((url) => !!url),
     [data.nodes]
   );
-  const { images } = useImagePreloader(imgUrls);
+  const images = useImagePreloader(imgUrls);
 
   return (
     <>

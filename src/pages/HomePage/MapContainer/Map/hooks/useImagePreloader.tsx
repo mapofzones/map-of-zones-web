@@ -34,8 +34,9 @@ export function useImagePreloader(imageList: string[]) {
         const image = await getImageAsync(imgUrl);
         if (image !== null) {
           setImages((prev) => {
-            prev[imgUrl] = image;
-            return prev;
+            const newMap = { ...prev };
+            newMap[imgUrl] = image;
+            return newMap;
           });
         }
       });
@@ -46,5 +47,5 @@ export function useImagePreloader(imageList: string[]) {
     }
   }, [imageList, images]);
 
-  return { images };
+  return images;
 }
