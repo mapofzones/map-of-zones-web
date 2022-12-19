@@ -1,4 +1,9 @@
-export function drawNode3d(node: any, images: any) {
+import textureSphere2Src from 'assets/texture-sphere-2.png';
+import textureSphereSrc from 'assets/texture-sphere.png';
+
+import { ImagesMap } from '../../Types';
+
+export function drawNode3d(node: any, images: ImagesMap) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   const qualityMultiply = 3;
@@ -21,10 +26,15 @@ export function drawNode3d(node: any, images: any) {
 
   const circle = { x: width / 2, y: radius, r: radius };
 
-  ctx.fillStyle = node.color;
-  ctx.shadowColor = node.color;
-  ctx.shadowBlur = 0;
-  ctx.globalCompositeOperation = 'source-over';
+  ctx.beginPath();
+  ctx.lineWidth = 7;
+  ctx.strokeStyle = node.color;
+  ctx.arc(circle.x, circle.y, circle.r * 0.9, 0, 2 * Math.PI, false);
+  ctx.closePath();
+  ctx.stroke();
+
+  circle.r *= 0.87;
+  ctx.fillStyle = 'black';
   drawCircle(ctx, circle);
   ctx.shadowColor = null as any;
   ctx.shadowBlur = null as any;
@@ -34,49 +44,54 @@ export function drawNode3d(node: any, images: any) {
     const borderR = node.radius * 0.2;
     ctx.drawImage(
       images[node.logoUrl],
+      circle.x - circle.r + borderR - 1,
+      circle.y - circle.r + borderR - 1,
+      circle.r * 2 - 2 * borderR + 2,
+      circle.r * 2 - 2 * borderR + 2
+    );
+
+    ctx.globalCompositeOperation = 'multiply';
+    ctx.drawImage(
+      images[textureSphereSrc],
       circle.x - circle.r + borderR,
       circle.y - circle.r + borderR,
       circle.r * 2 - 2 * borderR,
       circle.r * 2 - 2 * borderR
     );
+
+    ctx.globalAlpha = 0.5;
+    ctx.globalCompositeOperation = 'hard-light';
+    ctx.drawImage(
+      images[textureSphere2Src],
+      circle.x - circle.r + borderR,
+      circle.y - circle.r + borderR,
+      circle.r * 2 - 2 * borderR,
+      circle.r * 2 - 2 * borderR
+    );
+    ctx.globalAlpha = 1;
   }
 
-  const grd = ctx.createLinearGradient(
-    circle.x - circle.r,
-    circle.y - circle.r,
-    circle.x + circle.r,
-    circle.y + circle.r
-  );
-  grd.addColorStop(0, 'white');
-  grd.addColorStop(1, 'black');
-  ctx.fillStyle = grd;
-  ctx.globalCompositeOperation = 'hard-light';
-  drawCircle(ctx, circle);
+  drawTitle(ctx, fontSize, node, canvas, radius);
 
-  const gradient = ctx.createRadialGradient(
-    width / 2 - radius / 2,
-    radius / 2,
-    radius / 5,
-    (width / 2) * 0.9,
-    radius * 0.9,
-    radius
-  );
-  gradient.addColorStop(0, '#ffffff99');
-  gradient.addColorStop(1, '#33333D');
-  ctx.fillStyle = gradient;
-  ctx.globalCompositeOperation = 'soft-light';
-  drawCircle(ctx, circle);
+  return canvas;
+}
 
+function drawTitle(
+  ctx: CanvasRenderingContext2D,
+  fontSize: number,
+  node: any,
+  canvas: HTMLCanvasElement,
+  radius: number
+) {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
   ctx.font = `${400} ${fontSize}px Roboto`;
   ctx.fillStyle = '#FFFFFF';
   ctx.fillText(node.name, canvas.width / 2, radius * 2 + fontSize / 2);
-  return canvas;
 }
 
-function drawCircle(ctx: any, c: any) {
+function drawCircle(ctx: CanvasRenderingContext2D, c: any) {
   ctx.beginPath();
   ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
   ctx.fill();

@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import textureSphere2Src from 'assets/texture-sphere-2.png';
+import textureSphereSrc from 'assets/texture-sphere.png';
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
 
 import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
@@ -28,7 +30,7 @@ export function Map({
     () => data.nodes.map((node) => node?.logoUrl ?? '').filter((url) => !!url),
     [data.nodes]
   );
-  const images = useImagePreloader(imgUrls);
+  const images = useImagePreloader([...imgUrls, textureSphereSrc, textureSphere2Src]);
 
   return (
     <>

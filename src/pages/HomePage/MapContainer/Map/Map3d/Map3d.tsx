@@ -2,6 +2,9 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
 
+import textureSphere2Src from 'assets/texture-sphere-2.png';
+import textureSphereSrc from 'assets/texture-sphere.png';
+
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { CanvasesMap, MapNode } from '../Types';
 import { useZonesAdditional3dInfo } from './hooks/useAdditional3dInfo';
