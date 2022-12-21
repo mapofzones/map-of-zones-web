@@ -2,10 +2,20 @@ import { useEffect, useState } from 'react';
 
 import { Object3D, Vector3 } from 'three';
 
-import { MapData, MapLink, MapNode, ZoneLinkApi, ZoneStatApi } from '../../Types';
+import {
+  MapData,
+  MapLink,
+  MapNode,
+  SelectedZoneKeyType,
+  ZoneLinkApi,
+  ZoneStatApi,
+} from '../../Types';
 import { getZoneKey } from '../../utils/getZoneKey';
 
-export function useZonesAdditional3dInfo(data: { nodes: ZoneStatApi[]; links: ZoneLinkApi[] }) {
+export function useZonesAdditional3dInfo(
+  data: { nodes: ZoneStatApi[]; links: ZoneLinkApi[] },
+  selectedZoneKey: SelectedZoneKeyType
+) {
   const [graphData, setGraphData] = useState<MapData>({
     nodes: [] as MapNode[],
     links: [] as MapLink[],
@@ -14,8 +24,8 @@ export function useZonesAdditional3dInfo(data: { nodes: ZoneStatApi[]; links: Zo
   useEffect(() => {
     const positions = getPositions(data.nodes);
 
-    setGraphData({
-      nodes: getNewNodes(data.nodes, positions),
+    setGraphData((oldData: MapData) => ({
+      nodes: getNewNodes(data.nodes, oldData.nodes, selectedZoneKey, positions),
       links: data.links.map((link) => {
         const sourceZone = getZoneKey(link.source);
         const targetZone = getZoneKey(link.target);
@@ -34,16 +44,27 @@ export function useZonesAdditional3dInfo(data: { nodes: ZoneStatApi[]; links: Zo
           target,
         };
       }),
-    });
-  }, [data.links, data.nodes]);
+    }));
+  }, [data, selectedZoneKey]);
   return graphData;
 }
 
-function getNewNodes(nodes: ZoneStatApi[], positions: { [key: string]: Vector3 }): MapNode[] {
+function getNewNodes(
+  nodes: ZoneStatApi[],
+  oldNodes: MapNode[],
+  selectedZoneKey: SelectedZoneKeyType,
+  positions: { [key: string]: Vector3 }
+): MapNode[] {
+  const radiusConst = 100;
+
   const mapNodes = nodes.map((zone: ZoneStatApi, index: number) =>
-    enrichNodeWithVisualProperties(index, zone, positions)
+    enrichNodeWithVisualProperties(index, zone)
   );
-  return mapNodes;
+
+  const nodesWithAnimation = mapNodes.map((node: MapNode, index: number, arr: MapNode[]) =>
+    enrichNodeWithAnimation(arr, node, selectedZoneKey, index, radiusConst, oldNodes, positions)
+  );
+  return nodesWithAnimation;
 }
 
 const levelLimits = [10, 30];
@@ -51,17 +72,12 @@ const zoneRadiuses = [40, 33, 26];
 const zoneLogoRadiuses = [19, 10, 6.5];
 const fontSizes = [20, 18, 16];
 
-function enrichNodeWithVisualProperties(
-  index: number,
-  zone: ZoneStatApi,
-  positions: { [key: string]: Vector3 }
-) {
+function enrichNodeWithVisualProperties(index: number, zone: ZoneStatApi) {
   const level = getLevel(index);
   const radius = getZoneRadiusByLevel(level);
   const logoRadius = getZoneLogoRadiusByLevel(level);
   const color = getZoneColor(zone.ibcVolumeIn, zone.ibcVolumeOut);
   const fontSize = getFontSizeByLevel(level);
-  const pos = positions[zone.zone];
 
   const node: MapNode = {
     ...zone,
@@ -70,9 +86,45 @@ function enrichNodeWithVisualProperties(
     logoRadius,
     color,
     fontSize,
-    ...pos,
   } as MapNode;
   return node;
+}
+
+function enrichNodeWithAnimation(
+  arr: MapNode[],
+  node: MapNode,
+  selectedZoneKey: SelectedZoneKeyType,
+  index: number,
+  radiusConst: number,
+  oldNodes: MapNode[],
+  positions: { [key: string]: Vector3 }
+) {
+  const pos = positions[node.zone];
+  //create image
+  const bitmap = document.createElement('canvas');
+  const g = bitmap.getContext('2d');
+  bitmap.width = 100;
+  bitmap.height = 100;
+  if (g) {
+    // g.font = 'Bold 20px Arial';
+
+    g.fillStyle = 'red';
+    // g.fillText(node.name, 0, 20);
+    g.strokeStyle = 'red';
+    g.arc(50, 50, 50, 0, Math.PI * 2);
+    // g.strokeText(node.name, 0, 20);
+  }
+
+  // canvas contents will be used for a texture
+  // const texture = new Texture(bitmap);
+  // texture.needsUpdate = true;
+  const texture = bitmap.toDataURL('image/png');
+
+  return {
+    ...node,
+    ...pos,
+    texture: bitmap,
+  } as MapNode;
 }
 
 function getPositions(arr: ZoneStatApi[]) {
@@ -87,11 +139,7 @@ function getPositions(arr: ZoneStatApi[]) {
     object.position.setFromSphericalCoords(220, phi, theta);
     object.lookAt(vector);
 
-    targets[arr[i].zone] = new Vector3(
-      Math.round(object.position.x),
-      Math.round(object.position.y),
-      Math.round(object.position.z)
-    );
+    targets[arr[i].zone] = new Vector3(object.position.x, object.position.z, -object.position.y);
   }
   return targets;
 }
