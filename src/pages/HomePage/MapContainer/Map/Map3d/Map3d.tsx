@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
-import { Vector3 } from 'three';
+import { Vector3, SphereGeometry, TextureLoader, MeshBasicMaterial, Mesh, DoubleSide } from 'three';
 
+import fileUrl from 'assets/bg.jpg';
 import textureSphere2Src from 'assets/texture-sphere-2.png';
 import textureSphereSrc from 'assets/texture-sphere.png';
 
@@ -108,6 +109,13 @@ export function Map3d({
     const controls = fg?.controls() as any;
     controls.maxDistance = ZOOM_VALUES[0];
     controls.minDistance = ZOOM_VALUES[ZOOM_VALUES.length - 1];
+
+    const scene = fg?.scene();
+    const sphereGeometry = new SphereGeometry(1000, 32, 16);
+    const texture = new TextureLoader().load(fileUrl);
+    const material = new MeshBasicMaterial({ map: texture, side: DoubleSide });
+    const sphere = new Mesh(sphereGeometry, material);
+    scene?.add(sphere);
   }, []);
 
   useEffect(() => {
