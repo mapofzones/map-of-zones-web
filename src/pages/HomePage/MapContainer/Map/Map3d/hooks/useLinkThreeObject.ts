@@ -23,7 +23,7 @@ export function useLinkThreeObject(
         return scene;
       }
 
-      const line = createLinkLine(link);
+      const line = createLinkLine(link, isRalatedToActiveZone);
       scene.add(line);
 
       return scene;
@@ -32,10 +32,10 @@ export function useLinkThreeObject(
   );
 }
 
-function createLinkLine(link: any) {
+function createLinkLine(link: any, isRalatedToActiveZone: boolean) {
   const lineMaterial = new LineBasicMaterial({
     color: '#ffffff',
-    opacity: 0.12,
+    opacity: isRalatedToActiveZone ? 0.39 : 0.12,
     transparent: true,
   });
   const points = [];
