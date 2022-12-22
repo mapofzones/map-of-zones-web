@@ -11,6 +11,7 @@ import { Map } from './Map/Map';
 import styles from './MapContainer.module.scss';
 import { MapContainerProps } from './MapContainer.props';
 import { DefaultMapType, MapType } from './MapContainer.types';
+import { MapLegend } from './MapLegend';
 
 export function MapContainer({ className }: MapContainerProps) {
   const [mapType, setMapType] = useDefaultSearchParam<MapType>('mapType', DefaultMapType, false);
@@ -42,6 +43,8 @@ export function MapContainer({ className }: MapContainerProps) {
 
   return (
     <div className={cn(styles.container, className)}>
+      <MapLegend />
+
       <Map
         mapType={mapType}
         increaseZoom={increaseZoom}
