@@ -23,6 +23,6 @@ export function changeGraphZoom(
       y: 0,
       z: 0,
     },
-    1000
+    100
   );
 }
