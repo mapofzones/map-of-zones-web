@@ -35,7 +35,7 @@ export function useLinkThreeObject(
 function createLinkLine(link: any, isRalatedToActiveZone: boolean) {
   const lineMaterial = new LineBasicMaterial({
     color: '#ffffff',
-    opacity: isRalatedToActiveZone ? 0.39 : 0.12,
+    opacity: isRalatedToActiveZone ? 0.25 : 0.12,
     transparent: true,
   });
   const points = [];

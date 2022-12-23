@@ -76,7 +76,7 @@ function drawNode(
   }
 
   const fillStyleOpecity = isFaded ? '0D' : '1A';
-  const borderStyleOpacity = isFaded ? '33' : isFocusedZone ? 'FF' : '9A';
+  const borderStyleOpacity = isFaded ? '33' : isFocusedZone ? 'FF' : 'CD';
   if (color) {
     ctx.strokeStyle = `${color}${borderStyleOpacity}`;
     ctx.fillStyle = `${color}${fillStyleOpecity}`;
@@ -104,7 +104,7 @@ function drawNode(
 
   if (image && logoRadius) {
     if (isFaded) {
-      ctx.globalAlpha = 0.2;
+      ctx.globalAlpha = 0.12;
     }
 
     ctx.drawImage(image, x - logoRadius, y - logoRadius, logoRadius * 2, logoRadius * 2);
