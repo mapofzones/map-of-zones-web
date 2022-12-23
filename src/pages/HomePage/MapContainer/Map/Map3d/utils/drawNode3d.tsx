@@ -24,47 +24,41 @@ export function drawNode3d(node: any, images: ImagesMap) {
   const height = radius * 2 + fontSize;
   canvas.height = height;
 
-  const circle = { x: width / 2, y: radius, r: radius };
+  const x = width / 2;
+  const y = radius;
+  let r = radius;
 
+  const lineWidth = 6;
   ctx.beginPath();
-  ctx.lineWidth = 7;
+  ctx.lineWidth = lineWidth;
   ctx.strokeStyle = node.color;
-  ctx.arc(circle.x, circle.y, circle.r * 0.9, 0, 2 * Math.PI, false);
+  ctx.arc(x, y, r - lineWidth / 2, 0, 2 * Math.PI, false);
   ctx.closePath();
   ctx.stroke();
 
-  circle.r *= 0.87;
-  if (images[node.logoUrl]) {
+  const borderR = radius * 0.12;
+  r -= borderR;
+  const x0 = x - r;
+  const y0 = y - r;
+  const sphereSize = r * 2;
+  const drawLogo = images[node.logoUrl];
+  if (drawLogo) {
     ctx.globalCompositeOperation = 'source-over';
-    const borderR = node.radius * 0.2;
-    ctx.drawImage(
-      images[node.logoUrl],
-      circle.x - circle.r + borderR - 1,
-      circle.y - circle.r + borderR - 1,
-      circle.r * 2 - 2 * borderR + 2,
-      circle.r * 2 - 2 * borderR + 2
-    );
-
-    ctx.globalCompositeOperation = 'multiply';
-    ctx.drawImage(
-      images[textureSphereSrc],
-      circle.x - circle.r + borderR,
-      circle.y - circle.r + borderR,
-      circle.r * 2 - 2 * borderR,
-      circle.r * 2 - 2 * borderR
-    );
-
-    ctx.globalAlpha = 0.5;
-    ctx.globalCompositeOperation = 'hard-light';
-    ctx.drawImage(
-      images[textureSphere2Src],
-      circle.x - circle.r + borderR,
-      circle.y - circle.r + borderR,
-      circle.r * 2 - 2 * borderR,
-      circle.r * 2 - 2 * borderR
-    );
-    ctx.globalAlpha = 1;
+    ctx.drawImage(images[node.logoUrl], x0 - 1, y0 - 1, sphereSize + 2, sphereSize + 2);
   }
+
+  ctx.globalCompositeOperation = 'multiply';
+  ctx.drawImage(images[textureSphereSrc], x0, y0, sphereSize, sphereSize);
+
+  if (!drawLogo) {
+    ctx.fillStyle = node.color;
+    drawCircle(ctx, x, y, r);
+  }
+
+  ctx.globalAlpha = 0.5;
+  ctx.globalCompositeOperation = 'hard-light';
+  ctx.drawImage(images[textureSphere2Src], x0, y0, sphereSize, sphereSize);
+  ctx.globalAlpha = 1;
 
   drawTitle(ctx, node, fontSize, radius, canvas.width / 2);
 
@@ -86,8 +80,8 @@ function drawTitle(
   ctx.fillText(node.name, centerX, radius * 2 + fontSize / 2 + 3);
 }
 
-function drawCircle(ctx: CanvasRenderingContext2D, c: any) {
+function drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, r: number) {
   ctx.beginPath();
-  ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+  ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fill();
 }
