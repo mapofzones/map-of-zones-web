@@ -76,7 +76,7 @@ function drawNode(
   }
 
   const fillStyleOpecity = isFaded ? '0D' : '1A';
-  const borderStyleOpacity = isFaded ? '33' : isFocusedZone ? 'FF' : 'CD';
+  const borderStyleOpacity = isFaded ? '1E' : isFocusedZone ? 'FF' : 'CD';
   if (color) {
     ctx.strokeStyle = `${color}${borderStyleOpacity}`;
     ctx.fillStyle = `${color}${fillStyleOpecity}`;
