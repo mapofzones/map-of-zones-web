@@ -101,10 +101,6 @@ export function Map3d({
     fg?.d3Force('link', null as never);
     fg?.d3Force('charge')?.strength(0);
     fg?.d3Force('center')?.strength(0);
-
-    const controls = fg?.controls() as any;
-    controls.maxDistance = ZOOM_VALUES[0];
-    controls.minDistance = ZOOM_VALUES[ZOOM_VALUES.length - 1];
   }, []);
 
   useEffect(() => {
