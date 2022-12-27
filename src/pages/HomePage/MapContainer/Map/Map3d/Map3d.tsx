@@ -31,6 +31,7 @@ export function Map3d({
   decreaseZoom,
 }: Map3dProps) {
   const graphRef = useRef<ForceGraphMethods>();
+  const graphContainerRef = useRef<HTMLDivElement>(null);
   const mapData = useZonesAdditional3dInfo(data, selectedZoneKey);
 
   useEffect(() => {
@@ -101,6 +102,51 @@ export function Map3d({
     fg?.d3Force('link', null as never);
     fg?.d3Force('charge')?.strength(0);
     fg?.d3Force('center')?.strength(0);
+
+    const controls = fg?.controls() as any;
+    controls.noZoom = true;
+    // controls.maxDistance = ZOOM_VALUES[0];
+    // controls.minDistance = ZOOM_VALUES[ZOOM_VALUES.length - 1];
+  }, []);
+
+  useEffect(() => {
+    const onScroll = (event: any) => {
+      const position = graphRef.current?.camera().position;
+      // console.log(event.wheelDelta);
+      if (!position) {
+        return;
+      }
+
+      const x = position.x || 0;
+      const y = position.y || 0;
+      const z = position.z || 0;
+      console.log(Math.hypot(x, y, z), event);
+      const distance = Math.max(
+        ZOOM_VALUES[ZOOM_VALUES.length - 1],
+        Math.min(Math.hypot(x, y, z) + event.wheelDelta, ZOOM_VALUES[0])
+      );
+      console.log(distance);
+
+      const zoomRatio = distance / Math.hypot(x, y, z);
+
+      graphRef.current?.cameraPosition(
+        {
+          x: x * zoomRatio,
+          y: y * zoomRatio,
+          z: z * zoomRatio,
+        },
+        {
+          x: 0,
+          y: 0,
+          z: 0,
+        },
+        100
+      );
+    };
+    // clean up code
+    graphContainerRef.current?.removeEventListener('wheel', onScroll);
+    graphContainerRef.current?.addEventListener('wheel', onScroll, { passive: true });
+    return () => graphContainerRef?.current?.removeEventListener('wheel', onScroll);
   }, []);
 
   useEffect(() => {
@@ -136,7 +182,7 @@ export function Map3d({
   }, [mapData.nodes, selectedZoneKey]);
 
   return (
-    <>
+    <div ref={graphContainerRef}>
       <ForceGraph3D
         ref={graphRef}
         nodeId="zone"
@@ -166,7 +212,8 @@ export function Map3d({
         showNavInfo={false}
         enableNodeDrag={false}
         onBackgroundClick={clearSelectedNode}
+        enableNavigationControls={true}
       />
-    </>
+    </div>
   );
 }
