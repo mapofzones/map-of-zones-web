@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
-import { Vector3 } from 'three';
-
-import textureSphere2Src from 'assets/texture-sphere-2.png';
-import textureSphereSrc from 'assets/texture-sphere.png';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { CanvasesMap, MapNode } from '../Types';
@@ -12,6 +8,7 @@ import { useZonesAdditional3dInfo } from './hooks/useAdditional3dInfo';
 import { useLinkDirectionalParticles } from './hooks/useLinkDirectionalParticles';
 import { useLinkThreeObject } from './hooks/useLinkThreeObject';
 import { useNodeThreeObject } from './hooks/useNodeThreeObject';
+import { useWheelWithThrottling } from './hooks/useWheelWithThrottling';
 import { Map3dProps } from './Map3d.props';
 import { changeGraphZoom } from './utils/changeGraphZoom';
 import { drawNode3d } from './utils/drawNode3d';
@@ -105,49 +102,14 @@ export function Map3d({
 
     const controls = fg?.controls() as any;
     controls.noZoom = true;
-    // controls.maxDistance = ZOOM_VALUES[0];
-    // controls.minDistance = ZOOM_VALUES[ZOOM_VALUES.length - 1];
   }, []);
 
-  useEffect(() => {
-    const onScroll = (event: any) => {
-      const position = graphRef.current?.camera().position;
-      // console.log(event.wheelDelta);
-      if (!position) {
-        return;
-      }
-
-      const x = position.x || 0;
-      const y = position.y || 0;
-      const z = position.z || 0;
-      console.log(Math.hypot(x, y, z), event);
-      const distance = Math.max(
-        ZOOM_VALUES[ZOOM_VALUES.length - 1],
-        Math.min(Math.hypot(x, y, z) + event.wheelDelta, ZOOM_VALUES[0])
-      );
-      console.log(distance);
-
-      const zoomRatio = distance / Math.hypot(x, y, z);
-
-      graphRef.current?.cameraPosition(
-        {
-          x: x * zoomRatio,
-          y: y * zoomRatio,
-          z: z * zoomRatio,
-        },
-        {
-          x: 0,
-          y: 0,
-          z: 0,
-        },
-        100
-      );
-    };
-    // clean up code
-    graphContainerRef.current?.removeEventListener('wheel', onScroll);
-    graphContainerRef.current?.addEventListener('wheel', onScroll, { passive: true });
-    return () => graphContainerRef?.current?.removeEventListener('wheel', onScroll);
-  }, []);
+  useWheelWithThrottling(
+    graphRef,
+    graphContainerRef,
+    ZOOM_VALUES[ZOOM_VALUES.length - 1],
+    ZOOM_VALUES[0]
+  );
 
   useEffect(() => {
     if (selectedZoneKey) {

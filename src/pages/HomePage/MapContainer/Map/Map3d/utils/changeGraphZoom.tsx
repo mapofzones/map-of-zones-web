@@ -5,7 +5,8 @@ export function changeGraphZoom(
   graph: ForceGraphMethods,
   currentPosition: Vector3,
   zoomValue: number,
-  currentZoom: number
+  currentZoom: number,
+  transitionMs = 100
 ) {
   const x = currentPosition.x || 0;
   const y = currentPosition.y || 0;
@@ -23,6 +24,6 @@ export function changeGraphZoom(
       y: 0,
       z: 0,
     },
-    100
+    transitionMs
   );
 }
