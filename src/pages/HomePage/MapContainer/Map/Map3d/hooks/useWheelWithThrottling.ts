@@ -15,6 +15,7 @@ export function useWheelWithThrottling(
 
   useEffect(() => {
     function onScroll(event: WheelEvent) {
+      event.preventDefault();
       throttleDelta.current += event.deltaY;
 
       if (throttleInProgress.current) {
