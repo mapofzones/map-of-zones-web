@@ -35,12 +35,17 @@ export function useWheelWithThrottling(
         }
 
         const currentZoom = Math.hypot(position.x, position.y, position.z);
-        const zoomValue = Math.max(
+        const zoomValue = calculateZoomValue(
+          currentZoom,
+          throttleDelta.current,
           minZoom,
-          Math.min(currentZoom - throttleDelta.current / 2, maxZoom)
+          maxZoom,
+          event.ctrlKey
         );
 
-        changeGraphZoom(graph, position, zoomValue, currentZoom, 1000);
+        if (zoomValue !== currentZoom) {
+          changeGraphZoom(graph, position, zoomValue, currentZoom, 1000);
+        }
 
         throttleInProgress.current = false;
         throttleDelta.current = 0;
@@ -49,7 +54,20 @@ export function useWheelWithThrottling(
 
     // clean up code
     graphContainerRef.current?.removeEventListener('wheel', onScroll);
-    graphContainerRef.current?.addEventListener('wheel', onScroll, { passive: true });
+    graphContainerRef.current?.addEventListener('wheel', onScroll, { passive: false });
     return () => graphContainerRef?.current?.removeEventListener('wheel', onScroll);
   }, [graphContainerRef, graphRef, maxZoom, minZoom]);
+}
+
+function calculateZoomValue(
+  currentZoom: number,
+  throttleDelta: number,
+  minZoom: number,
+  maxZoom: number,
+  isPinchEvent: boolean
+) {
+  const k = isPinchEvent ? 5 : 3;
+  const calculatedZoom = currentZoom + k * throttleDelta;
+  const zoomValue = Math.max(minZoom, Math.min(calculatedZoom, maxZoom));
+  return zoomValue;
 }
