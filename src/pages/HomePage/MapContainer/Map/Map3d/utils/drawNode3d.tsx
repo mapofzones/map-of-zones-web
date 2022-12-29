@@ -41,10 +41,10 @@ export function drawNode3d(node: any, images: ImagesMap) {
   const x0 = x - r;
   const y0 = y - r;
   const sphereSize = r * 2;
-  const drawLogo = images[node.logoUrl];
+  let drawLogo = !!images[node.logoUrl];
   if (drawLogo) {
     ctx.globalCompositeOperation = 'source-over';
-    ctx.drawImage(images[node.logoUrl], x0 - 1, y0 - 1, sphereSize + 2, sphereSize + 2);
+    drawLogo = tryDrawLogo(ctx, images, node, x0, y0, sphereSize);
   }
 
   ctx.globalCompositeOperation = 'multiply';
@@ -84,4 +84,20 @@ function drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, r: numb
   ctx.beginPath();
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fill();
+}
+
+function tryDrawLogo(
+  ctx: CanvasRenderingContext2D,
+  images: ImagesMap,
+  node: any,
+  x0: number,
+  y0: number,
+  sphereSize: number
+) {
+  try {
+    ctx.drawImage(images[node.logoUrl], x0 - 1, y0 - 1, sphereSize + 2, sphereSize + 2);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
