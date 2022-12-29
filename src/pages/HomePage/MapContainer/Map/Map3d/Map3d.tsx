@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
-import { Vector3 } from 'three';
 
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { CanvasesMap, MapNode } from '../Types';
@@ -28,12 +27,9 @@ export function Map3d({
   increaseZoom,
   decreaseZoom,
 }: Map3dProps) {
-  const [mapDataInited, setMapDataInited] = useState(false);
-
-  const mapData = useZonesAdditional3dInfo(data);
-
   const graphRef = useRef<ForceGraphMethods>();
   const graphContainerRef = useRef<HTMLDivElement>(null);
+  const mapData = useZonesAdditional3dInfo(data, selectedZoneKey);
 
   useEffect(() => {
     (increaseZoom as any).current = () => {
@@ -111,32 +107,34 @@ export function Map3d({
   useWheel(graphRef, graphContainerRef, ZOOM_VALUES[ZOOM_VALUES.length - 1], ZOOM_VALUES[0]);
 
   useEffect(() => {
-    if (mapData?.nodes && mapData.nodes.length > 0) {
-      setMapDataInited(true);
-    }
-  }, [mapData.nodes]);
-
-  useEffect(() => {
-    if (!selectedZoneKey && mapDataInited) {
-      const node = mapData.nodes[0] as any;
-      if (!node) {
-        return;
-      }
-
-      rotateCamera(graphRef.current, node, 400, 5000);
-    }
-    // don't need to use selectedZoneKey and mapData.nodes to change camera position only after data was inited
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapDataInited]);
-
-  useEffect(() => {
     if (selectedZoneKey) {
       const node = mapData.nodes.find(({ zone }) => selectedZoneKey === zone) as any;
-      if (!node) {
+      const position = graphRef.current?.camera().position;
+
+      if (!node || !position) {
         return;
       }
 
-      rotateCamera(graphRef.current, node, 350, 2000);
+      const distance = 350;
+      const x = node.x || 0;
+      const y = node.y || 0;
+      const z = node.z || 0;
+
+      const zoomRatio = 1 + distance / Math.hypot(x, y, z);
+
+      graphRef.current?.cameraPosition(
+        {
+          x: x * zoomRatio,
+          y: y * zoomRatio,
+          z: z * zoomRatio,
+        },
+        {
+          x: 0,
+          y: 0,
+          z: 0,
+        },
+        2000
+      );
     }
   }, [mapData.nodes, selectedZoneKey]);
 
@@ -174,37 +172,5 @@ export function Map3d({
         enableNavigationControls={true}
       />
     </div>
-  );
-}
-
-function rotateCamera(
-  graph: ForceGraphMethods | undefined,
-  rotateToPoint: Vector3,
-  distance: number,
-  transitionMs: number
-) {
-  const position = graph?.camera().position;
-  if (!position) {
-    return;
-  }
-
-  const x = rotateToPoint.x || 0;
-  const y = rotateToPoint.y || 0;
-  const z = rotateToPoint.z || 0;
-
-  const zoomRatio = 1 + distance / Math.hypot(x, y, z);
-
-  graph.cameraPosition(
-    {
-      x: x * zoomRatio,
-      y: y * zoomRatio,
-      z: z * zoomRatio,
-    },
-    {
-      x: 0,
-      y: 0,
-      z: 0,
-    },
-    transitionMs
   );
 }
