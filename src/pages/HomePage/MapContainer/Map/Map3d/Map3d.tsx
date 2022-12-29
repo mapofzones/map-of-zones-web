@@ -8,7 +8,7 @@ import { useZonesAdditional3dInfo } from './hooks/useAdditional3dInfo';
 import { useLinkDirectionalParticles } from './hooks/useLinkDirectionalParticles';
 import { useLinkThreeObject } from './hooks/useLinkThreeObject';
 import { useNodeThreeObject } from './hooks/useNodeThreeObject';
-import { useWheelWithThrottling } from './hooks/useWheelWithThrottling';
+import { useWheel } from './hooks/useWheelWithThrottling';
 import { Map3dProps } from './Map3d.props';
 import { changeGraphZoom } from './utils/changeGraphZoom';
 import { drawNode3d } from './utils/drawNode3d';
@@ -104,12 +104,7 @@ export function Map3d({
     controls.noZoom = true;
   }, []);
 
-  useWheelWithThrottling(
-    graphRef,
-    graphContainerRef,
-    ZOOM_VALUES[ZOOM_VALUES.length - 1],
-    ZOOM_VALUES[0]
-  );
+  useWheel(graphRef, graphContainerRef, ZOOM_VALUES[ZOOM_VALUES.length - 1], ZOOM_VALUES[0]);
 
   useEffect(() => {
     if (selectedZoneKey) {
