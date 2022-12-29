@@ -135,6 +135,7 @@ export function Map3d({
       if (!node) {
         return;
       }
+
       rotateCamera(graphRef.current, node, 350, 2000);
     }
   }, [mapData.nodes, selectedZoneKey]);
@@ -192,18 +193,12 @@ function rotateCamera(
   const z = rotateToPoint.z || 0;
 
   const zoomRatio = 1 + distance / Math.hypot(x, y, z);
-  let newX = x * zoomRatio;
-  const newY = y * zoomRatio;
-  const newZ = z * zoomRatio;
-  // fix bug if both coordinates equal to 0
-  if (!newX && !newZ) {
-    newX = 10;
-  }
+
   graph.cameraPosition(
     {
-      x: newX,
-      y: newY,
-      z: newZ,
+      x: x * zoomRatio,
+      y: y * zoomRatio,
+      z: z * zoomRatio,
     },
     {
       x: 0,
