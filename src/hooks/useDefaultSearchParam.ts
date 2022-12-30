@@ -2,7 +2,11 @@ import { useCallback, useEffect, useMemo } from 'react';
 
 import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
-export function useDefaultSearchParam<T extends string>(key: string, defaultValue?: T | undefined) {
+export function useDefaultSearchParam<T extends string>(
+  key: string,
+  defaultValue?: T | undefined,
+  forceDefaultValue = true
+) {
   const [search] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,10 +38,10 @@ export function useDefaultSearchParam<T extends string>(key: string, defaultValu
   );
 
   useEffect(() => {
-    if (!search.get(key) && defaultValue) {
+    if (!search.get(key) && defaultValue && forceDefaultValue) {
       setSelectedColumnKey(defaultValue, true);
     }
-  }, [search, key, defaultValue, setSelectedColumnKey]);
+  }, [search, key, defaultValue, setSelectedColumnKey, forceDefaultValue]);
 
   return [selectedColumnKey, setSelectedColumnKey] as const;
 }

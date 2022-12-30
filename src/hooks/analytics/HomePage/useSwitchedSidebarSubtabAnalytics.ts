@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
+import { getZoneNameFromHomePageQuery } from './utils';
 
 export function useSwitchedSidebarSubtabAnalytics(currentPage: Page, prevPage: Page) {
   useEffect(() => {
@@ -13,7 +14,7 @@ export function useSwitchedSidebarSubtabAnalytics(currentPage: Page, prevPage: P
     ) {
       trackEvent('switched sidebar subtab', {
         subtab: currentPage.title === PAGE_TITLE.HomePeers ? 'peers subtab' : 'overview subtab',
-        zone: currentPage.pathname.split('/')[2],
+        zone: getZoneNameFromHomePageQuery(currentPage),
       });
     }
   }, [currentPage, prevPage]);

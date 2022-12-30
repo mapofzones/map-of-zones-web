@@ -2,6 +2,17 @@
 # yarn lockfile v1
 
 
+"3d-force-graph@^1.70":
+  version "1.70.15"
+  resolved "https://registry.yarnpkg.com/3d-force-graph/-/3d-force-graph-1.70.15.tgz#32329fbb2f4ded2a159d42313f88633200f4010c"
+  integrity sha512-X+QhMGNDVP/7OsJQizV7bmzDuJU3lN2PaUfE90u0J41Hjrt3rX5vzSJP0FbF3s84cx/n0MTycuuTa8aqphz+Eg==
+  dependencies:
+    accessor-fn "1"
+    kapsule "^1.13"
+    three ">=0.118 <1"
+    three-forcegraph "^1.39"
+    three-render-objects "^1.27"
+
 "@amplitude/analytics-browser@^1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@amplitude/analytics-browser/-/analytics-browser-1.4.1.tgz#427979ff590524fe59cbda9d331f5558783930c4"
@@ -1126,6 +1137,13 @@
   integrity sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug==
   dependencies:
     regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.17.8":
+  version "7.20.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.1.tgz#1148bb33ab252b165a06698fde7576092a78b4a9"
+  integrity sha512-mrzLkl6U9YLF8qpqI7TB82PESyEGjm/0Ly91jG575eVxMMlb8fYfOXFZIJ8XfLrJZQbm7dlKry2bJmXBUEkdFg==
+  dependencies:
+    regenerator-runtime "^0.13.10"
 
 "@babel/template@^7.16.7", "@babel/template@^7.3.3":
   version "7.16.7"
@@ -2624,6 +2642,13 @@
   resolved "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.1.tgz"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
 
+"@types/three@^0.144.0":
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.144.0.tgz#a154f40122dbc3668c5424a5373f3965c6564557"
+  integrity sha512-psvEs6q5rLN50jUYZ3D4pZMfxTbdt3A243blt0my7/NcL6chaCZpHe2csbCtx0SOD9fI/XnF3wnVUAYZGqCSYg==
+  dependencies:
+    "@types/webxr" "*"
+
 "@types/trusted-types@^2.0.2":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.2.tgz"
@@ -2649,6 +2674,11 @@
     "@types/node" "*"
     "@types/unist" "*"
     "@types/vfile-message" "*"
+
+"@types/webxr@*":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@types/webxr/-/webxr-0.5.0.tgz#aae1cef3210d88fd4204f8c33385a0bbc4da07c9"
+  integrity sha512-IUMDPSXnYIbEO2IereEFcgcqfDREOgmbGqtrMpVPpACTU6pltYLwHgVkrnYv0XhWEcjio9sYEfIEzgn3c7nDqA==
 
 "@types/ws@^8.0.0", "@types/ws@^8.5.1":
   version "8.5.3"
@@ -4755,6 +4785,13 @@ damerau-levenshtein@^1.0.7:
   resolved "https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
 
+data-joint@^1.2:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/data-joint/-/data-joint-1.2.6.tgz#9c1e8844473894fbf04aea5e052a9027c2df9c8b"
+  integrity sha512-xuKyhQcD7vlO451VwKoK0RS8owh+iAZoQM2Up0ooTxrpLXh6XMUNPQW9vEOqv1+BT3c185FCLyWjUcCsEXC0/Q==
+  dependencies:
+    index-array-by "^1.3.3"
+
 data-urls@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/data-urls/-/data-urls-2.0.0.tgz"
@@ -6846,7 +6883,7 @@ indent-string@^4.0.0:
   resolved "https://registry.npmjs.org/indent-string/-/indent-string-4.0.0.tgz"
   integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
 
-index-array-by@1:
+index-array-by@1, index-array-by@^1.3.3:
   version "1.3.3"
   resolved "https://registry.npmjs.org/index-array-by/-/index-array-by-1.3.3.tgz"
   integrity sha512-dpqV1sX+hx4s0RqAT97ypk9xzcAXJ0XK27p3bTgPy8bjbJAX6Kf7RU3pPXgmg9hhO7f5/WxO354v2f/A0/fz3Q==
@@ -8775,6 +8812,37 @@ neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ngraph.events@^1.0.0, ngraph.events@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/ngraph.events/-/ngraph.events-1.2.2.tgz#3ceb92d676a04a4e7ce60a09fa8e17a4f0346d7f"
+  integrity sha512-JsUbEOzANskax+WSYiAPETemLWYXmixuPAlmZmhIbIj6FH/WDgEGCGnRwUQBK0GjOnVm8Ui+e5IJ+5VZ4e32eQ==
+
+ngraph.forcelayout@^3.3:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ngraph.forcelayout/-/ngraph.forcelayout-3.3.1.tgz#981e1baee5e0593c490bc27219169f9cedfa4f8b"
+  integrity sha512-MKBuEh1wujyQHFTW57y5vd/uuEOK0XfXYxm3lC7kktjJLRdt/KEKEknyOlc6tjXflqBKEuYBBcu7Ax5VY+S6aw==
+  dependencies:
+    ngraph.events "^1.0.0"
+    ngraph.merge "^1.0.0"
+    ngraph.random "^1.0.0"
+
+ngraph.graph@^20.0:
+  version "20.0.1"
+  resolved "https://registry.yarnpkg.com/ngraph.graph/-/ngraph.graph-20.0.1.tgz#579470d1d805583239704dc913e2095540aaf371"
+  integrity sha512-VFsQ+EMkT+7lcJO1QP8Ik3w64WbHJl27Q53EO9hiFU9CRyxJ8HfcXtfWz/U8okuoYKDctbciL6pX3vG5dt1rYA==
+  dependencies:
+    ngraph.events "^1.2.1"
+
+ngraph.merge@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ngraph.merge/-/ngraph.merge-1.0.0.tgz#d763cdfa48b1bbd4270ea246f06c9c8ff5d3477c"
+  integrity sha512-5J8YjGITUJeapsomtTALYsw7rFveYkM+lBj3QiYZ79EymQcuri65Nw3knQtFxQBU1r5iOaVRXrSwMENUPK62Vg==
+
+ngraph.random@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ngraph.random/-/ngraph.random-1.1.0.tgz#5345c4bb63865c85d98ee6f13eab1395d8545a90"
+  integrity sha512-h25UdUN/g8U7y29TzQtRm/GvGr70lK37yQPvPKXXuVfs7gCm82WipYFZcksQfeKumtOemAzBIcT7lzzyK/edLw==
+
 no-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/no-case/-/no-case-3.0.4.tgz"
@@ -9378,6 +9446,13 @@ pkg-up@^3.1.0:
   integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   dependencies:
     find-up "^3.0.0"
+
+polished@4:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-4.2.2.tgz#2529bb7c3198945373c52e34618c8fe7b1aa84d1"
+  integrity sha512-Sz2Lkdxz6F2Pgnpi9U5Ng/WdWAUZxmHrNPoVlm3aAemxoy2Qy7LGjQg4uf8qKelDAUW94F4np3iH2YPf2qefcQ==
+  dependencies:
+    "@babel/runtime" "^7.17.8"
 
 popmotion@11.0.3:
   version "11.0.3"
@@ -10317,6 +10392,15 @@ react-force-graph-2d@^1.23.10:
     prop-types "^15.8"
     react-kapsule "^2.2"
 
+react-force-graph-3d@^1.21.14:
+  version "1.21.14"
+  resolved "https://registry.yarnpkg.com/react-force-graph-3d/-/react-force-graph-3d-1.21.14.tgz#abcf9607a80724f0d1776ab92a058f385581fc3c"
+  integrity sha512-NZiQ1cPvPljdTNEWzfJmSyfbqhn75QBmemxnu4lFVxc3eYGP7DnxQGRlRX85CU19owh/YOLhCOD8vXM66/I7tw==
+  dependencies:
+    "3d-force-graph" "^1.70"
+    prop-types "^15.8"
+    react-kapsule "^2.2"
+
 react-is@^16.10.2, react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -10599,6 +10683,11 @@ regenerate@^1.4.2:
   version "1.4.2"
   resolved "https://registry.npmjs.org/regenerate/-/regenerate-1.4.2.tgz"
   integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
+
+regenerator-runtime@^0.13.10:
+  version "0.13.10"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.10.tgz#ed07b19616bcbec5da6274ebc75ae95634bfc2ee"
+  integrity sha512-KepLsg4dU12hryUO7bp/axHAKvwGOCV0sGloQtpagJ12ai+ojVDqkeGSiRX1zlq+kjIMZ1t7gpze+26QqtdGqw==
 
 regenerator-runtime@^0.13.4, regenerator-runtime@^0.13.9:
   version "0.13.9"
@@ -12096,6 +12185,42 @@ text-table@^0.2.0:
   resolved "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
   integrity sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==
 
+three-forcegraph@^1.39:
+  version "1.39.7"
+  resolved "https://registry.yarnpkg.com/three-forcegraph/-/three-forcegraph-1.39.7.tgz#091db478df710f778c02b439b50ede76a23beba1"
+  integrity sha512-4kKip9DauhnYFw8kz35zGW56Olw4PJdyUnoMWjyleDZEM/HmnmzQtJ1ns7MK1ouI/Pc0Q8qy0guUj5LF9QIyFw==
+  dependencies:
+    accessor-fn "1"
+    d3-array "1 - 3"
+    d3-force-3d "2 - 3"
+    d3-scale "1 - 4"
+    d3-scale-chromatic "1 - 3"
+    data-joint "^1.2"
+    kapsule "^1.13"
+    ngraph.forcelayout "^3.3"
+    ngraph.graph "^20.0"
+    tinycolor2 "^1.4"
+
+three-render-objects@^1.27:
+  version "1.27.6"
+  resolved "https://registry.yarnpkg.com/three-render-objects/-/three-render-objects-1.27.6.tgz#15fecad746a558d240d1b772f8b20d44e4834cc0"
+  integrity sha512-mvNHk3oujVuajW0U+/UxQ7RBNmCLXgOIqdtThPXJCPimInwdPCw6lWVETgp6WAA1TebZLdpvKPfXpG5hgOJRvQ==
+  dependencies:
+    "@tweenjs/tween.js" "18"
+    accessor-fn "1"
+    kapsule "^1.13"
+    polished "4"
+
+three-spritetext@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/three-spritetext/-/three-spritetext-1.6.5.tgz#67d6f5ab985507a0687eccc7b27c112fa268b8f8"
+  integrity sha512-ttA1ce3tJz6OFojLGY3VjtqF9johetq50TztYcPFWqdEUrwPmej5XXcHahVyQGd88FHRDzJmW2rW3zSifUsdYA==
+
+"three@>=0.118 <1", three@^0.146.0:
+  version "0.146.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.146.0.tgz#fd80f0d128ab4bb821a02191ae241e4e6326f17a"
+  integrity sha512-1lvNfLezN6OJ9NaFAhfX4sm5e9YCzHtaRgZ1+B4C+Hv6TibRMsuBAM5/wVKzxjpYIlMymvgsHEFrrigEfXnb2A==
+
 throat@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/throat/-/throat-6.0.1.tgz"
@@ -12111,7 +12236,7 @@ thunky@^1.0.2:
   resolved "https://registry.npmjs.org/thunky/-/thunky-1.1.0.tgz"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
 
-tinycolor2@^1.4.2:
+tinycolor2@^1.4, tinycolor2@^1.4.2:
   version "1.4.2"
   resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.4.2.tgz"
   integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==

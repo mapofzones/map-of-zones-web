@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { matchPath, useLocation, useSearchParams } from 'react-router-dom';
 
-import { useSelectedZone } from 'pages/HomePage/Map/hooks/eventHooks';
+import { useSelectedZone } from 'pages/HomePage/MapContainer/Map/hooks/eventHooks';
 import * as path from 'routing';
 
 import { trackEvent } from '../useAnalytics';

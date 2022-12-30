@@ -9,6 +9,7 @@ function preloadImagePromise(src: string): Promise<HTMLImageElement> {
     img.onload = () => resolve(img);
     img.onerror = img.onabort = () => reject();
     img.src = src;
+    img.crossOrigin = 'anonymous';
   });
 }
 
@@ -33,8 +34,9 @@ export function useImagePreloader(imageList: string[]) {
         const image = await getImageAsync(imgUrl);
         if (image !== null) {
           setImages((prev) => {
-            prev[imgUrl] = image;
-            return prev;
+            const newMap = { ...prev };
+            newMap[imgUrl] = image;
+            return newMap;
           });
         }
       });
@@ -45,5 +47,5 @@ export function useImagePreloader(imageList: string[]) {
     }
   }, [imageList, images]);
 
-  return { images };
+  return images;
 }

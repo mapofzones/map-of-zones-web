@@ -6,7 +6,7 @@ import { ZoneNameDocument } from 'graphql/v2/common/Zone/__generated__/ZoneName.
 import { useShareLinksAnalytics } from 'hooks/analytics/Multipage/useShareLinksAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useTelegramShareText, useTwitterShareText } from 'hooks/useShareLink';
-import { useSelectedZone } from 'pages/HomePage/Map/hooks/eventHooks';
+import { useSelectedZone } from 'pages/HomePage/MapContainer/Map/hooks/eventHooks';
 import { ElementSize } from 'types/ElementSize';
 import { ExternalLinks } from 'types/external-links';
 import { openInNewTab } from 'utils/helper';

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
+import { getZoneNameFromHomePageQuery } from './utils';
 
 export type ZoneOverviewSidebarSource =
   | 'sidebar view'
@@ -17,7 +18,7 @@ export function useViewedZoneOverviewSidebarAnalytics(currentPage: Page, prevPag
 
     const defaultProps = {
       period: currentPage.search.period,
-      zone: currentPage.pathname.split('/')[2],
+      zone: getZoneNameFromHomePageQuery(currentPage),
     };
 
     const source = getZoneOverviewSource(prevPage, currentPage);

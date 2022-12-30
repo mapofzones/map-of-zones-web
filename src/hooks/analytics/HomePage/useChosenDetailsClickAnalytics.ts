@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
+import { getZoneNameFromHomePageQuery } from './utils';
 
 type ChosenDetailsSource = 'sidebar list' | 'zone overview sidebar' | 'zone peers sidebar';
 
@@ -12,7 +13,7 @@ export function useChosenDetailsClickAnalytics(currentPage: Page, prevPage: Page
       trackEvent('chosen details', {
         source,
         period: currentPage.search.period,
-        zone: currentPage.pathname.split('/')[2],
+        zone: getZoneNameFromHomePageQuery(currentPage),
       });
     }
   }, [currentPage, prevPage]);

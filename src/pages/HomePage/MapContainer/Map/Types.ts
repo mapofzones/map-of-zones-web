@@ -1,5 +1,7 @@
 import { LinkObject, NodeObject } from 'react-force-graph-2d';
 
+export type CanvasesMap = { [imgUrl: string]: HTMLCanvasElement };
+
 export interface Comet {
   __progress: number;
 }
@@ -72,8 +74,4 @@ export interface ZoneStatApi {
   isMainnet: boolean;
   logoUrl?: string | null;
   name: string;
-}
-
-export function getZoneKey(link: MapLinkNode | string) {
-  return typeof link === 'string' ? link : link.zone;
 }
