@@ -158,6 +158,7 @@ export function Map3d({
         linkThreeObject={linkThreeObject}
         onNodeClick={onZoneClick}
         onLinkHover={onZoneHover}
+        linkCurvature={0.3}
         linkDirectionalParticles={linkDirectionalParticles}
         linkDirectionalParticleSpeed={0.001}
         linkDirectionalParticleWidth={2}
