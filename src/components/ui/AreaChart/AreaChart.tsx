@@ -18,20 +18,21 @@ import { AreaChartProps } from './AreaChart.props';
 
 export function AreaChart({
   className,
+  color,
   data,
   dataFormat = NumberType.Number,
   dataKey,
   timeFormat = 'DD MMM, HH:mm',
 }: AreaChartProps) {
-  const isChartColored = data.length > 1;
+  const isChartCorrect = data.length > 1;
 
   const lastPointIndex = data.length - 1;
-  const referencePoint = isChartColored ? data[lastPointIndex] : undefined;
+  const referencePoint = isChartCorrect ? data[lastPointIndex] : undefined;
 
-  const isNegative = isChartColored ? data[0][dataKey] > data[lastPointIndex][dataKey] : false;
-  const primaryColor = isNegative ? '#ff4455' : '#66DD55';
+  const isNegative = isChartCorrect ? data[0][dataKey] > data[lastPointIndex][dataKey] : false;
+  const primaryColor = color ?? (isNegative ? '#ff4455' : '#66DD55');
 
-  const gradientId = `gradient-${isNegative ? 'neg' : 'pos'}`;
+  const gradientId = `gradient-${primaryColor}`;
 
   return (
     <ResponsiveContainer
@@ -56,8 +57,8 @@ export function AreaChart({
             x2="0"
             y2="1"
           >
-            <stop className={styles.stop1} offset="7.35%" />
-            <stop className={styles.stop2} offset="96%" />
+            <stop stopColor={primaryColor} stopOpacity={0.2} offset="7.35%" />
+            <stop stopColor={primaryColor} stopOpacity={0} offset="96%" />
           </linearGradient>
         </defs>
 
@@ -116,6 +117,7 @@ export function AreaChart({
             x={referencePoint['time']}
             y={referencePoint[dataKey]}
             r={3}
+            fill={primaryColor}
             className={styles.dot}
           />
         )}

@@ -38,16 +38,21 @@ export function ButtonGroup<T extends string>({
     >
       {buttons &&
         buttons.map((buttonGroupItem: ButtonGroupItem<T>) => {
-          const itemKey = buttonGroupItem?.key ? buttonGroupItem?.key : buttonGroupItem.title;
+          const itemKey = buttonGroupItem?.key
+            ? buttonGroupItem?.key
+            : buttonGroupItem.title
+            ? buttonGroupItem.title
+            : '';
           const active = isActive ? isActive(itemKey as string) : selectedItemKey === itemKey;
 
           return (
             <Button
-              className={cn(className, styles.item, {
+              className={cn(styles.item, {
                 [styles.active]: active,
               })}
               key={itemKey}
               size={size}
+              IconBefore={buttonGroupItem.icon}
               buttonType={active ? ButtonType.PRIMARY : ButtonType.SECONDARY}
               onClick={() => onButtonItemClick(buttonGroupItem)}
             >
@@ -72,6 +77,6 @@ function MapChildren(
       className: cn(child.props.className, styles.item, {
         [styles.active]: isActive && isActive(child.key as string),
       }),
-    });
+    } as any);
   });
 }

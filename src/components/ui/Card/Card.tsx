@@ -10,6 +10,7 @@ function Card({
   loading = false,
   children,
   hasBorder = false,
+  title,
   ...props
 }: CardProps): JSX.Element {
   return (
@@ -22,6 +23,7 @@ function Card({
           })}
           {...props}
         >
+          {title && <div className={styles.title}>{title}</div>}
           {children}
         </div>
       )}

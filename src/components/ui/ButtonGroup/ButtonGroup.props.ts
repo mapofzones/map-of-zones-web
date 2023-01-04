@@ -4,7 +4,8 @@ import { ElementSize } from 'types/ElementSize';
 
 export interface ButtonGroupItem<T> {
   key?: T;
-  title: string;
+  title?: string;
+  icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string | undefined }>;
 }
 
 export interface ButtonGroupProps<T>

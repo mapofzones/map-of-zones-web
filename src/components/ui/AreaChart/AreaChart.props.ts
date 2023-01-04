@@ -4,6 +4,7 @@ import { NumberType } from '../NumberFormat';
 
 export interface AreaChartProps {
   className?: string;
+  color?: string;
   data: ChartItemWithTime[];
   dataFormat?: NumberType;
   dataKey: string;

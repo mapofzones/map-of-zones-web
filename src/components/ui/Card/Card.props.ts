@@ -6,4 +6,5 @@ export interface CardProps
   className?: string;
   loading?: boolean;
   hasBorder?: boolean;
+  title?: string;
 }

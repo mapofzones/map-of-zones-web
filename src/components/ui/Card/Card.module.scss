@@ -7,4 +7,10 @@
   &.hasBorder {
     border: 1px solid var(--black-900);
   }
+
+  .title {
+    font-size: var(--font-heading-size-md);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
 }
