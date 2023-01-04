@@ -1,6 +1,8 @@
+export { ReactComponent as AreaChartIcon } from './area-chart-icon.svg';
 export { ReactComponent as ArrowDown } from './arrow-down.svg';
 export { ReactComponent as ArrowRight } from './arrow-right.svg';
 export { ReactComponent as ArrowUp } from './arrow-up.svg';
+export { ReactComponent as BarChartIcon } from './bar-chart-icon.svg';
 export { ReactComponent as ChannelClosedIcon } from './channel-closed.svg';
 export { ReactComponent as CircularArrows } from './circular-arrows.svg';
 export { ReactComponent as CloseCircleIcon } from './close-circle.svg';
