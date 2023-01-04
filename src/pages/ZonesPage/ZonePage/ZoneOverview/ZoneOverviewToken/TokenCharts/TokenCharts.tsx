@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { ButtonGroup, NumberType, SkeletonRectangle } from 'components';
+import { AreaChartBlock } from 'components/AreaChartBlock';
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { AreaChart } from 'components/ui/AreaChart/AreaChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
@@ -13,14 +14,7 @@ import { useZoneTokenChart } from './../useZoneTokenChart';
 import styles from './TokenCharts.module.scss';
 
 export function TokenCharts() {
-  const [selectedPeriod] = useSelectedPeriod();
-
   const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.PRICE);
-
-  const chartTimeFormat = useMemo(
-    () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),
-    [selectedPeriod]
-  );
 
   const { data: chartData, loading: chartLoading } = useZoneTokenChart(selectedChartType);
 
@@ -39,22 +33,15 @@ export function TokenCharts() {
         buttons={chartOptions}
         setSelectedButton={onChartSelected}
       ></ButtonGroup>
-      <PeriodDisplay
-        className={styles.periodInfo}
-        periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
+      <AreaChartBlock
+        className={styles.priceVolumeChart}
+        loading={chartLoading}
+        data={chartData}
+        dataKey={'value'}
+        dataFormatType={
+          selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
+        }
       />
-      {chartLoading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
-      {!chartLoading && chartData && (
-        <AreaChart
-          className={styles.priceVolumeChart}
-          data={chartData}
-          dataKey={'value'}
-          dataFormat={
-            selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
-          }
-          timeFormat={chartTimeFormat}
-        />
-      )}
     </div>
   );
 }
