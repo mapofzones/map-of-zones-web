@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import { ExplanationTooltip, NumberFormat, PendingValue, SkeletonTextWrapper } from 'components';
+import { PeriodBlock } from 'components/PeriodBlock';
 import { NumberType } from 'components/ui/NumberFormat/NumberType';
 import { ElementSize } from 'types/ElementSize';
 
@@ -12,14 +13,15 @@ export function ValueWithPending({
   children,
   className,
   compact = false,
+  defaultSkeletonText,
+  loading = false,
   numberType = NumberType.Number,
   pendingValue,
+  showPeriod = false,
   size = ElementSize.MEDIUM,
   title,
-  value,
   tooltipText,
-  loading = false,
-  defaultSkeletonText,
+  value,
   ...props
 }: ValueWithPendingProps) {
   return (
@@ -32,10 +34,18 @@ export function ValueWithPending({
       {...props}
     >
       {title && (
-        <span className={styles.title}>
-          {title}
-          {tooltipText && <ExplanationTooltip text={tooltipText} />}
-        </span>
+        <>
+          <span className={styles.title}>
+            {title}
+            {showPeriod && (
+              <>
+                &nbsp;
+                <PeriodBlock />
+              </>
+            )}
+            {tooltipText && <ExplanationTooltip text={tooltipText} />}
+          </span>
+        </>
       )}
 
       <span

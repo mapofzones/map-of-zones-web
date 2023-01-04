@@ -8,6 +8,7 @@ import {
   ValueWithPending,
   ZoneLogo,
 } from 'components';
+import { PeriodBlock } from 'components/PeriodBlock';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
@@ -57,7 +58,8 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
                   ratingDiff={data?.[priceDiffKeyByPeriod[selectedPeriod]] as number | undefined}
                 />
               </SkeletonTextWrapper>
-              <span className={styles.period}>&nbsp;({selectedPeriod})</span>
+              &nbsp;
+              <PeriodBlock />
             </div>
           </span>
         </div>

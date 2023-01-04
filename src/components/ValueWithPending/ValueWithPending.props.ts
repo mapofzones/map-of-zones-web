@@ -9,12 +9,13 @@ export interface ValueWithPendingProps
   children?: ReactNode;
   className?: string;
   compact?: boolean;
-  numberType?: NumberType;
-  pendingValue?: number | null;
-  size?: ElementSize;
-  title?: string;
-  value?: number | null;
-  tooltipText?: string;
   defaultSkeletonText?: string;
   loading?: boolean;
+  numberType?: NumberType;
+  pendingValue?: number | null;
+  showPeriod?: boolean;
+  size?: ElementSize;
+  title?: string;
+  tooltipText?: string;
+  value?: number | null;
 }
