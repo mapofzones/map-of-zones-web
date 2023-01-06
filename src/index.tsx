@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import './index.scss';
+import { RestApiQueryProvider } from 'providers/RestApiQueryProvider';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -20,7 +22,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <App />
+        <RestApiQueryProvider>
+          <App />
+        </RestApiQueryProvider>
       </ApolloProvider>
     </BrowserRouter>
   </React.StrictMode>
