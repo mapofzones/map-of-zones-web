@@ -23,6 +23,10 @@
   .transactionsBlock {
     grid-area: transactions;
   }
+
+  .ibcTransfersBlock {
+    grid-area: ibcTransfers;
+  }
 }
 
 @media (max-width: 980px) {
@@ -32,7 +36,8 @@
       'token'
       'activity'
       'parameters'
-      'transactions';
+      'transactions'
+      'ibcTransfers';
     grid-template-columns: 1fr;
     gap: 48px;
   }

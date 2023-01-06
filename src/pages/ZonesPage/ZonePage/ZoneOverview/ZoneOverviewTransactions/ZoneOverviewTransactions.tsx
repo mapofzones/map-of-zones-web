@@ -7,8 +7,7 @@ import { ButtonGroup, Card, NumberType, ValueWithPending } from 'components';
 import { AreaChartBlock } from 'components/AreaChartBlock';
 import { ElementSize } from 'types/ElementSize';
 
-import { ChartType as CType } from '../ZoneOverviewToken/Types';
-import { useZoneTokenChart } from '../ZoneOverviewToken/useZoneTokenChart';
+import { useZoneOverviewTransactionCard } from './useZoneOverviewTransactionsCard';
 import styles from './ZoneOverviewTransactions.module.scss';
 
 import { ZoneOverviewTransactionsProps } from '.';
@@ -24,7 +23,7 @@ const chartOptions = [
 ];
 
 export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactionsProps) {
-  const { data, loading } = useZoneTokenChart(CType.VOLUME); // TODO: use correct hook
+  const { data, loading } = useZoneOverviewTransactionCard();
 
   const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.AREA); // TODO: use correct type
 
@@ -53,9 +52,9 @@ export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactions
           defaultSkeletonText={'418 940'}
         />
         <AreaChartBlock
-          data={data}
+          data={data?.chart ?? []}
           loading={loading}
-          dataKey={'value'}
+          dataKey={'ibcTransfersCount'}
           dataFormatType={NumberType.Number}
           color={'#22AAFF'}
         />
