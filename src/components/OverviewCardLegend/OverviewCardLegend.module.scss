@@ -1,0 +1,14 @@
+.cardLegend {
+  display: flex;
+  height: 49px;
+
+  .detailsItem {
+    border-left: 1px solid var(--black-900);
+    padding: 0 20px;
+
+    &:first-child {
+      border: none;
+      padding-left: 0;
+    }
+  }
+}
