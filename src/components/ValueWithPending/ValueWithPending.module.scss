@@ -8,6 +8,14 @@
 
     color: var(--grey-500);
     font-size: var(--font-base-size-md);
+
+    .icon {
+      margin-right: 4px;
+    }
+
+    .periodText {
+      margin-left: 4px;
+    }
   }
 
   &.md {
@@ -16,6 +24,12 @@
 
   &.lg {
     font-size: var(--font-heading-size-sm);
+  }
+
+  &.secondary {
+    .valueContainer {
+      color: var(--grey-400);
+    }
   }
 
   .valueContainer {

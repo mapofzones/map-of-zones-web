@@ -10,6 +10,7 @@ export interface ValueWithPendingProps
   className?: string;
   compact?: boolean;
   defaultSkeletonText?: string;
+  titleIcon?: ReactNode;
   loading?: boolean;
   numberType?: NumberType;
   pendingValue?: number | null;
@@ -18,4 +19,5 @@ export interface ValueWithPendingProps
   title?: string;
   tooltipText?: string;
   value?: number | null;
+  variants?: 'primary' | 'secondary';
 }

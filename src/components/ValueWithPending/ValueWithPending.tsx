@@ -14,6 +14,7 @@ export function ValueWithPending({
   className,
   compact = false,
   defaultSkeletonText,
+  titleIcon,
   loading = false,
   numberType = NumberType.Number,
   pendingValue,
@@ -22,11 +23,12 @@ export function ValueWithPending({
   title,
   tooltipText,
   value,
+  variants = 'primary',
   ...props
 }: ValueWithPendingProps) {
   return (
     <div
-      className={cn(className, styles.container, {
+      className={cn(className, styles.container, [styles[variants]], {
         [styles.sm]: size === ElementSize.SMALL,
         [styles.md]: size === ElementSize.MEDIUM,
         [styles.lg]: size === ElementSize.LARGE,
@@ -36,13 +38,9 @@ export function ValueWithPending({
       {title && (
         <>
           <span className={styles.title}>
+            {titleIcon && <span className={styles.icon}>{titleIcon}</span>}
             {title}
-            {showPeriod && (
-              <>
-                &nbsp;
-                <PeriodBlock />
-              </>
-            )}
+            {showPeriod && <PeriodBlock className={styles.periodText} />}
             {tooltipText && <ExplanationTooltip text={tooltipText} />}
           </span>
         </>
