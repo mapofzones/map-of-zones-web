@@ -1,3 +1,5 @@
+import React from 'react';
+
 import cn from 'classnames';
 import moment from 'moment';
 import {
@@ -11,117 +13,122 @@ import {
   YAxis,
 } from 'recharts';
 
-import { NumberFormat, NumberType } from '../NumberFormat';
+import { NumberType } from '../NumberFormat';
 import { formatNumberToString } from '../NumberFormat/NumberFormat';
 import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
+import { ChartTooltipContent } from './ChartTooltipContent';
+import { useDatasetCalculations } from './useDatasetCalculations';
 
 export function AreaChart({
   className,
-  color,
   data,
+  datasetInfo,
   dataFormat = NumberType.Number,
-  dataKey,
   timeFormat = 'DD MMM, HH:mm',
 }: AreaChartProps) {
-  const isChartCorrect = data.length > 1;
-
-  const lastPointIndex = data.length - 1;
-  const referencePoint = isChartCorrect ? data[lastPointIndex] : undefined;
-
-  const isNegative = isChartCorrect ? data[0][dataKey] > data[lastPointIndex][dataKey] : false;
-  const primaryColor = color ?? (isNegative ? '#ff4455' : '#66DD55');
-
-  const gradientId = `gradient-${primaryColor}`;
+  const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
 
   return (
-    <ResponsiveContainer
-      className={cn(className, styles.container)}
-      width={'100%'}
-      height={'100%'}
-      maxHeight={250}
-    >
-      <AreaRechart
-        className={cn(styles.chart, {
-          [styles.negative]: isNegative,
-        })}
-        data={data}
-        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+    <>
+      <ResponsiveContainer
+        className={cn(className, styles.container)}
+        width={'100%'}
+        height={'100%'}
+        maxHeight={250}
       >
-        <defs>
-          <linearGradient
-            id={gradientId}
-            className={cn(styles.gradient)}
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="1"
-          >
-            <stop stopColor={primaryColor} stopOpacity={0.2} offset="7.35%" />
-            <stop stopColor={primaryColor} stopOpacity={0} offset="96%" />
-          </linearGradient>
-        </defs>
+        <AreaRechart
+          className={styles.chart}
+          data={data}
+          margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+        >
+          <defs>
+            {Object.keys(datasetCalculatedInfo).map((key: string) => {
+              const dataset = datasetCalculatedInfo[key];
 
-        <XAxis
-          dataKey="time"
-          axisLine={false}
-          tickLine={false}
-          fontSize={12}
-          interval={'preserveEnd'}
-          padding={{ right: 3, left: 0 }}
-          tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
-        />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          fontSize={12}
-          mirror={true}
-          tickSize={3}
-          domain={[(dataMin: number) => dataMin * 0.95, (dataMax: number) => dataMax * 1.05]}
-          tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
-        />
-        <CartesianGrid
-          strokeDasharray="3 3"
-          vertical={false}
-          stroke="#ffffff"
-          strokeOpacity="0.2"
-        />
-        <Tooltip
-          cursor={{ stroke: primaryColor, strokeWidth: 1, strokeOpacity: 0.5 }}
-          wrapperClassName={styles.tooltipWrapper}
-          position={{ y: -40 }}
-          offset={0}
-          separator={''}
-          allowEscapeViewBox={{ x: true, y: true }}
-          formatter={(value: number) => [
-            <NumberFormat
-              value={value}
-              className={styles.tooltipValue}
-              key={`Tooltip_chart`}
-              numberType={dataFormat}
-            />,
-            '',
-          ]}
-          labelFormatter={(label: number) => moment.unix(label).format('DD MMM, HH:mm')}
-        />
-        <Area
-          type="monotone"
-          dataKey={dataKey}
-          stroke={primaryColor}
-          fillOpacity={1}
-          fill={`url(#${gradientId})`}
-          activeDot={{ r: 3, stroke: '#1E1C25', strokeWidth: 1 }}
-        />
-        {referencePoint && (
-          <ReferenceDot
-            x={referencePoint['time']}
-            y={referencePoint[dataKey]}
-            r={3}
-            fill={primaryColor}
-            className={styles.dot}
+              return (
+                <linearGradient
+                  id={dataset.gradientId}
+                  key={dataset.gradientId}
+                  className={cn(styles.gradient)}
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop stopColor={dataset.color} stopOpacity={0.2} offset="7.35%" />
+                  <stop stopColor={dataset.color} stopOpacity={0} offset="96%" />
+                </linearGradient>
+              );
+            })}
+          </defs>
+
+          <XAxis
+            dataKey="time"
+            axisLine={false}
+            tickLine={false}
+            fontSize={12}
+            interval={'preserveEnd'}
+            padding={{ right: 3, left: 0 }}
+            tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
           />
-        )}
-      </AreaRechart>
-    </ResponsiveContainer>
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            fontSize={12}
+            mirror={true}
+            tickSize={3}
+            domain={[(dataMin: number) => dataMin * 0.95, (dataMax: number) => dataMax * 1.05]}
+            tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
+          />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+            stroke="#ffffff"
+            strokeOpacity="0.2"
+          />
+          <Tooltip
+            active={true}
+            wrapperStyle={{ outline: 'none' }}
+            cursor={{
+              stroke:
+                Object.keys(datasetCalculatedInfo).length === 1
+                  ? Object.values(datasetCalculatedInfo)[0].color
+                  : '#7F7F87',
+              strokeWidth: 1,
+              strokeOpacity: 0.5,
+            }}
+            position={{ y: 0 }}
+            allowEscapeViewBox={{ x: true, y: true }}
+            content={<ChartTooltipContent datasetInfo={datasetInfo} numberFormat={dataFormat} />}
+          />
+          {Object.keys(datasetCalculatedInfo).map((key: string) => {
+            const dataset = datasetCalculatedInfo[key];
+
+            return (
+              <React.Fragment key={key}>
+                <Area
+                  type="monotone"
+                  dataKey={key}
+                  stroke={dataset.color}
+                  fillOpacity={1}
+                  fill={`url(#${dataset.gradientId})`}
+                  activeDot={{ r: 3, stroke: '#1E1C25', strokeWidth: 1 }}
+                />
+                {dataset.referencePoint && (
+                  <ReferenceDot
+                    x={dataset.referencePoint['time']}
+                    y={dataset.referencePoint[key]}
+                    r={3}
+                    fill={dataset.color}
+                    className={styles.dot}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </AreaRechart>
+      </ResponsiveContainer>
+    </>
   );
 }

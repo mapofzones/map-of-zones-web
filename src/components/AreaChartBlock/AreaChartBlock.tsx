@@ -11,10 +11,9 @@ import styles from './AreaChartBlock.module.scss';
 import { AreaChartBlockProps } from '.';
 
 export function AreaChartBlock({
-  color,
   loading,
   data,
-  dataKey,
+  datasetInfo,
   dataFormatType,
 }: AreaChartBlockProps) {
   const [selectedPeriod] = useSelectedPeriod();
@@ -34,10 +33,9 @@ export function AreaChartBlock({
         <AreaChart
           className={styles.chart}
           data={data}
-          dataKey={dataKey}
+          datasetInfo={datasetInfo}
           dataFormat={dataFormatType}
           timeFormat={chartTimeFormat}
-          color={color}
         />
       )}
     </>

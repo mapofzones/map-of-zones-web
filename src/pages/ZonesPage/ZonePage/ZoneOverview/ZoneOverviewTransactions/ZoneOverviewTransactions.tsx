@@ -32,7 +32,7 @@ export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactions
   };
 
   return (
-    <Card title="Transactions" className={cn(styles.wrapper, className)}>
+    <Card title="Transactions" className={cn(styles.container, className)}>
       <ButtonGroup
         className={styles.chartTypeSwitcher}
         size={ElementSize.SMALL}
@@ -51,14 +51,18 @@ export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactions
           showPeriod={true}
           defaultSkeletonText={'418 940'}
         />
-        <AreaChartBlock
-          data={data?.chart ?? []}
-          loading={loading}
-          dataKey={'ibcTransfersCount'}
-          dataFormatType={NumberType.Number}
-          color={'#22AAFF'}
-        />
       </div>
+      <AreaChartBlock
+        data={data?.chart ?? []}
+        loading={loading}
+        datasetInfo={{
+          value: {
+            color: '#22AAFF',
+            description: 'Total Transactions',
+          },
+        }}
+        dataFormatType={NumberType.Number}
+      />
     </Card>
   );
 }

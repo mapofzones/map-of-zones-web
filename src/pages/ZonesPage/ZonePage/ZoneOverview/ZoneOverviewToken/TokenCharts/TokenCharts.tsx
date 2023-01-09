@@ -37,7 +37,11 @@ export function TokenCharts() {
         className={styles.priceVolumeChart}
         loading={chartLoading}
         data={chartData}
-        dataKey={'value'}
+        datasetInfo={{
+          value: {
+            description: 'asdf',
+          },
+        }}
         dataFormatType={
           selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
         }

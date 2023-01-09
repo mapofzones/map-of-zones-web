@@ -75,9 +75,13 @@ export function ZoneOverviewIbcTransfers({ className }: ZoneOverviewIbcTransfers
       <AreaChartBlock
         data={data?.chart ?? []}
         loading={loading}
-        dataKey={'ibcTransfersCount'}
+        datasetInfo={{
+          ibcTransfersCount: {
+            color: '#22AAFF',
+            description: 'IBC Transfers',
+          },
+        }}
         dataFormatType={NumberType.Number}
-        color={'#22AAFF'}
       />
     </Card>
   );
