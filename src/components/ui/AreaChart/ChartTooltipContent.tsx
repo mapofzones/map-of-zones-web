@@ -1,6 +1,7 @@
-import React from 'react';
 import moment from 'moment';
+
 import { Circle } from 'components/ui/Circle';
+
 import { NumberFormat } from '../NumberFormat';
 import styles from './AreaChart.module.scss';
 
