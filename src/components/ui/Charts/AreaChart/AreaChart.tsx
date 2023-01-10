@@ -13,8 +13,9 @@ import {
   YAxis,
 } from 'recharts';
 
-import { NumberType } from '../NumberFormat';
-import { formatNumberToString } from '../NumberFormat/NumberFormat';
+import { NumberType } from 'components/ui/NumberFormat';
+import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+
 import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
 import { ChartTooltipContent } from './ChartTooltipContent';
@@ -121,7 +122,8 @@ export function AreaChart({
                     y={dataset.referencePoint[key]}
                     r={3}
                     fill={dataset.color}
-                    className={styles.dot}
+                    stroke={'#1e1c25'}
+                    strokeOpacity={1}
                   />
                 )}
               </React.Fragment>

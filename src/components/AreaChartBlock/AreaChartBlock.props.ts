@@ -1,5 +1,5 @@
 import { NumberType } from 'components/ui';
-import { ChartItemWithTime, DatasetInfo } from 'components/ui/AreaChart/AreaChart.props';
+import { ChartItemWithTime, DatasetInfo } from 'components/ui/Charts/AreaChart/AreaChart.props';
 
 export interface AreaChartBlockProps {
   className?: string;

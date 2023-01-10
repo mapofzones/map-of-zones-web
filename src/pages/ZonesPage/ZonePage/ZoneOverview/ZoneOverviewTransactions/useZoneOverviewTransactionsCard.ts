@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { ChartItemWithTime } from 'components/ui/AreaChart/AreaChart.props';
+import { ChartItemWithTime } from 'components/ui/Charts/AreaChart/AreaChart.props';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 export function useZoneOverviewTransactionCard(): {

@@ -1,8 +1,8 @@
 import moment from 'moment';
 
 import { Circle } from 'components/ui/Circle';
+import { NumberFormat } from 'components/ui/NumberFormat';
 
-import { NumberFormat } from '../NumberFormat';
 import styles from './AreaChart.module.scss';
 
 export function ChartTooltipContent({ active, payload, label, datasetInfo, numberFormat }: any) {

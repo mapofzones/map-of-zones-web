@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { SkeletonRectangle } from 'components/Skeleton';
-import { AreaChart } from 'components/ui/AreaChart/AreaChart';
+import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 

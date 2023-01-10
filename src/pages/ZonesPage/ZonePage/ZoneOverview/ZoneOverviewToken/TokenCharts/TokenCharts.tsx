@@ -1,12 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
-import { ButtonGroup, NumberType, SkeletonRectangle } from 'components';
+import { ButtonGroup, NumberType } from 'components';
 import { AreaChartBlock } from 'components/AreaChartBlock';
-import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
-import { AreaChart } from 'components/ui/AreaChart/AreaChart';
-import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
 import { chartOptions, ChartType } from './../Types';

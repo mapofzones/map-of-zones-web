@@ -1,7 +1,5 @@
-import { values } from 'lodash';
+import { NumberType } from 'components/ui/NumberFormat';
 import { ChartItemByString } from 'utils/helper';
-
-import { NumberType } from '../NumberFormat';
 
 export interface AreaChartProps {
   className?: string;
