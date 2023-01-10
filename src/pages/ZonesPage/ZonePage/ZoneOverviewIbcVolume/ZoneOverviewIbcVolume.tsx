@@ -5,6 +5,8 @@ import cn from 'classnames';
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ButtonGroup, Card, NumberType, ValueWithPending } from 'components';
 import { AreaChartBlock } from 'components/AreaChartBlock';
+import { OverviewCardLegend } from 'components/OverviewCardLegend';
+import { Circle } from 'components/ui/Circle';
 import { ElementSize } from 'types/ElementSize';
 
 import { ChartType as CType } from '../ZoneOverview/ZoneOverviewToken/Types';
@@ -23,6 +25,42 @@ const chartOptions = [
   { key: ChartType.BAR, icon: BarChartIcon },
 ];
 
+export const IBC_VOLUME_METADATA = {
+  totalIbcVolume: {
+    title: 'Total IBC',
+    tooltipText: 'Total IBC', // TODO provide real tooltip text
+    numberType: NumberType.Currency,
+    size: ElementSize.LARGE,
+    loading: false,
+    showPeriod: true,
+    defaultSkeletonText: '$1,414,795,629',
+    icon: <Circle color={'#BFBFC3'} />,
+    additional: false,
+  },
+  ibcVolumeIn: {
+    title: 'IBC In',
+    tooltipText: 'IBC In', // TODO provide real tooltip text
+    numberType: NumberType.Currency,
+    size: ElementSize.LARGE,
+    loading: false,
+    showPeriod: false,
+    defaultSkeletonText: '$34,824,000',
+    additional: false,
+    icon: <Circle color={'#22AAFF'} />,
+  },
+  ibcVolumeOut: {
+    title: 'IBC Out',
+    tooltipText: 'IBC Out', // TODO provide real tooltip text
+    numberType: NumberType.Currency,
+    size: ElementSize.LARGE,
+    loading: false,
+    showPeriod: false,
+    defaultSkeletonText: '$34,824,000',
+    additional: false,
+    icon: <Circle color={'#EE11CC'} />,
+  },
+};
+
 export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps) {
   const { data, loading } = useZoneTokenChart(CType.VOLUME); // TODO: use correct hook
 
@@ -40,19 +78,14 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
         buttons={chartOptions}
         setSelectedButton={onChartSelected}
       />
-      <div className={styles.cardLegend}>
-        <ValueWithPending
-          className={styles.detailsItem}
-          title="Total IBC"
-          tooltipText="Total IBC" // TODO provide real tooltip text
-          value={1414795629} // TODO provide real data
-          numberType={NumberType.Currency}
-          size={ElementSize.LARGE}
-          loading={loading}
-          showPeriod={true}
-          defaultSkeletonText={'$1,414,795,629'}
-        />
-      </div>
+      <OverviewCardLegend
+        metadata={IBC_VOLUME_METADATA}
+        values={{
+          totalIbcVolume: 1414795629,
+          ibcVolumeIn: 34824000,
+          ibcVolumeOut: 134824000,
+        }}
+      />
       <AreaChartBlock
         data={[
           { time: 1, ibcTotal: 100, ibcIn: 90, ibcOut: 10 },
