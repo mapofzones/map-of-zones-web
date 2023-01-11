@@ -20,7 +20,7 @@ export function useDatasetCalculations(
           const isNegative = firstValue > lastValue;
           color = isNegative ? '#ff4455' : '#66DD55';
         }
-        const gradientId = `gradient-${color}`;
+        const gradientId = `bar-gradient-${color}`;
         prev[key] = {
           gradientId,
           color,

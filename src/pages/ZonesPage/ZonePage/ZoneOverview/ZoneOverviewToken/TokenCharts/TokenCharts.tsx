@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ButtonGroup, NumberType } from 'components';
-import { AreaChartBlock } from 'components/AreaChartBlock';
+import { ChartContainer, ChartType as CType } from 'components/ChartContainer';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
 
@@ -29,7 +29,7 @@ export function TokenCharts() {
         buttons={chartOptions}
         setSelectedButton={onChartSelected}
       ></ButtonGroup>
-      <AreaChartBlock
+      <ChartContainer
         className={styles.priceVolumeChart}
         loading={chartLoading}
         data={chartData}

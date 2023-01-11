@@ -3,8 +3,8 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
-import { ButtonGroup, Card, NumberType, ValueWithPending } from 'components';
-import { AreaChartBlock } from 'components/AreaChartBlock';
+import { ButtonGroup, Card, NumberType } from 'components';
+import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
 import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
 import { Circle } from 'components/ui/Circle';
@@ -15,11 +15,6 @@ import { useZoneTokenChart } from '../ZoneOverview/ZoneOverviewToken/useZoneToke
 import styles from './ZoneOverviewIbcVolume.module.scss';
 
 import { ZoneOverviewIbcVolumeProps } from '.';
-
-export enum ChartType {
-  AREA = 'area',
-  BAR = 'bar',
-}
 
 const chartOptions = [
   { key: ChartType.AREA, icon: AreaChartIcon },
@@ -87,64 +82,34 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
           ibcVolumeOut: 134824000,
         }}
       />
-      {selectedChartType === ChartType.AREA && (
-        <AreaChartBlock
-          data={[
-            { time: 1, ibcTotal: 100, ibcIn: 90, ibcOut: 10 },
-            { time: 2, ibcTotal: 120, ibcIn: 90, ibcOut: 30 },
-            { time: 3, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 4, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 5, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 6, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 7, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-          ]}
-          loading={loading}
-          datasetInfo={{
-            ibcTotal: {
-              color: '#BFBFC3',
-              description: 'IBC Total (24h)',
-            },
-            ibcIn: {
-              color: '#22AAFF',
-              description: 'IBC In',
-            },
-            ibcOut: {
-              color: '#EE11CC',
-              description: 'IBC Out',
-            },
-          }}
-          dataFormatType={NumberType.Currency}
-        />
-      )}
-      {selectedChartType === ChartType.BAR && (
-        <BarChart
-          data={[
-            { time: 1, ibcTotal: 100, ibcIn: 90, ibcOut: 10 },
-            { time: 2, ibcTotal: 120, ibcIn: 90, ibcOut: 30 },
-            { time: 3, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 4, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 5, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 6, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-            { time: 7, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
-          ]}
-          datasetInfo={{
-            ibcTotal: {
-              color: '#BFBFC3',
-              description: 'IBC Total (24h)',
-            },
-            ibcIn: {
-              color: '#22AAFF',
-              description: 'IBC In',
-            },
-            ibcOut: {
-              color: '#EE11CC',
-              description: 'IBC Out',
-            },
-          }}
-          dataFormat={NumberType.Currency}
-          timeFormat={'DD MMM'}
-        />
-      )}
+      <ChartContainer
+        chartType={selectedChartType}
+        data={[
+          { time: 1, ibcTotal: 100, ibcIn: 90, ibcOut: 10 },
+          { time: 2, ibcTotal: 120, ibcIn: 90, ibcOut: 30 },
+          { time: 3, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
+          { time: 4, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
+          { time: 5, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
+          { time: 6, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
+          { time: 7, ibcTotal: 90, ibcIn: 60, ibcOut: 30 },
+        ]}
+        loading={loading}
+        datasetInfo={{
+          ibcTotal: {
+            color: '#BFBFC3',
+            description: 'IBC Total (24h)',
+          },
+          ibcIn: {
+            color: '#22AAFF',
+            description: 'IBC In',
+          },
+          ibcOut: {
+            color: '#EE11CC',
+            description: 'IBC Out',
+          },
+        }}
+        dataFormatType={NumberType.Currency}
+      />
     </Card>
   );
 }

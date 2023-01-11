@@ -1,26 +1,31 @@
 import { useMemo } from 'react';
 
+import moment from 'moment';
+
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { SkeletonRectangle } from 'components/Skeleton';
 import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
+import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
-import styles from './AreaChartBlock.module.scss';
+import styles from './ChartContainer.module.scss';
+import { ChartContainerProps, ChartType } from './ChartContainer.props';
 
-import { AreaChartBlockProps } from '.';
-
-export function AreaChartBlock({
+export function ChartContainer({
   loading,
-  data,
+  chartType = ChartType.AREA,
+  data = [],
   datasetInfo,
   dataFormatType,
-}: AreaChartBlockProps) {
+}: ChartContainerProps) {
   const [selectedPeriod] = useSelectedPeriod();
   const chartTimeFormat = useMemo(
     () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),
     [selectedPeriod]
   );
+
+  const Chart = useMemo(() => (chartType === ChartType.AREA ? AreaChart : BarChart), [chartType]);
 
   return (
     <>
@@ -30,7 +35,7 @@ export function AreaChartBlock({
       />
       {loading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
       {!loading && data && (
-        <AreaChart
+        <Chart
           className={styles.chart}
           data={data}
           datasetInfo={datasetInfo}

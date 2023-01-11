@@ -4,18 +4,13 @@ import cn from 'classnames';
 
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ButtonGroup, Card, NumberType, ValueWithPending } from 'components';
-import { AreaChartBlock } from 'components/AreaChartBlock';
+import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { ElementSize } from 'types/ElementSize';
 
 import { useZoneOverviewTransactionCard } from './useZoneOverviewTransactionsCard';
 import styles from './ZoneOverviewTransactions.module.scss';
 
 import { ZoneOverviewTransactionsProps } from '.';
-
-export enum ChartType {
-  AREA = 'area',
-  BAR = 'bar',
-}
 
 const chartOptions = [
   { key: ChartType.AREA, icon: AreaChartIcon },
@@ -52,8 +47,9 @@ export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactions
           defaultSkeletonText={'418 940'}
         />
       </div>
-      <AreaChartBlock
+      <ChartContainer
         data={data?.chart ?? []}
+        chartType={selectedChartType}
         loading={loading}
         datasetInfo={{
           value: {

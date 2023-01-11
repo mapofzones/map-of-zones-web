@@ -13,7 +13,7 @@ export function ChartTooltipContent({ active, payload, label, datasetInfo, numbe
         {payload.map((data: any) => {
           return (
             <div key={data.dataKey} className={styles.tooltipItem}>
-              <Circle color={data.color} />
+              <Circle color={datasetInfo[data.dataKey].color} />
               <span className={styles.description}>{datasetInfo[data.dataKey].description}</span>
               <NumberFormat
                 value={data.payload[data.dataKey]}

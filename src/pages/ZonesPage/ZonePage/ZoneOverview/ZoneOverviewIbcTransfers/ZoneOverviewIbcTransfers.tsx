@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { AreaChartIcon, BarChartIcon, PendingIcon } from 'assets/icons';
 import { ButtonGroup, Card, NumberType } from 'components';
-import { AreaChartBlock } from 'components/AreaChartBlock';
+import { ChartContainer } from 'components/ChartContainer';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
 import { Circle } from 'components/ui/Circle';
 import { ElementSize } from 'types/ElementSize';
@@ -72,7 +72,8 @@ export function ZoneOverviewIbcTransfers({ className }: ZoneOverviewIbcTransfers
         setSelectedButton={onChartSelected}
       />
       <OverviewCardLegend metadata={LEGEND_METADATA} values={legendData} />
-      <AreaChartBlock
+      <ChartContainer
+        chartType={selectedChartType}
         data={data?.chart ?? []}
         loading={loading}
         datasetInfo={{

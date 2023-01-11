@@ -3,11 +3,10 @@ import React from 'react';
 import cn from 'classnames';
 import moment from 'moment';
 import {
-  Area,
   Bar,
   BarChart as BarRechart,
+  Brush,
   CartesianGrid,
-  ReferenceDot,
   ResponsiveContainer,
   Tooltip,
   XAxis,

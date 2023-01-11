@@ -21,7 +21,7 @@ export function useDatasetCalculations(
           const isNegative = firstValue > lastValue;
           color = isNegative ? '#ff4455' : '#66DD55';
         }
-        const gradientId = `gradient-${color}`;
+        const gradientId = `area-gradient-${color}`;
         prev[key] = {
           referencePoint,
           gradientId,
