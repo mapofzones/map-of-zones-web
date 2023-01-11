@@ -4,7 +4,8 @@ import cn from 'classnames';
 import moment from 'moment';
 import {
   Area,
-  AreaChart as AreaRechart,
+  Bar,
+  BarChart as BarRechart,
   CartesianGrid,
   ReferenceDot,
   ResponsiveContainer,
@@ -17,17 +18,17 @@ import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
 
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
-import styles from './AreaChart.module.scss';
-import { AreaChartProps } from './AreaChart.props';
+import styles from './BarChart.module.scss';
+import { BarChartProps } from './BarChart.props';
 import { useDatasetCalculations } from './useDatasetCalculations';
 
-export function AreaChart({
+export function BarChart({
   className,
   data,
   datasetInfo,
   dataFormat = NumberType.Number,
   timeFormat = 'DD MMM, HH:mm',
-}: AreaChartProps) {
+}: BarChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
 
   return (
@@ -38,7 +39,7 @@ export function AreaChart({
         height={'100%'}
         maxHeight={250}
       >
-        <AreaRechart
+        <BarRechart
           className={styles.chart}
           data={data}
           margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
@@ -46,7 +47,6 @@ export function AreaChart({
           <defs>
             {Object.keys(datasetCalculatedInfo).map((key: string) => {
               const dataset = datasetCalculatedInfo[key];
-
               return (
                 <linearGradient
                   id={dataset.gradientId}
@@ -57,8 +57,8 @@ export function AreaChart({
                   x2="0"
                   y2="1"
                 >
-                  <stop stopColor={dataset.color} stopOpacity={0.2} offset="7.35%" />
-                  <stop stopColor={dataset.color} stopOpacity={0} offset="96%" />
+                  <stop stopColor={dataset.color} stopOpacity={1} offset="0%" />
+                  <stop stopColor={dataset.color} stopOpacity={0.2} offset="100%" />
                 </linearGradient>
               );
             })}
@@ -92,10 +92,7 @@ export function AreaChart({
             active={true}
             wrapperStyle={{ outline: 'none' }}
             cursor={{
-              stroke:
-                Object.keys(datasetCalculatedInfo).length === 1
-                  ? Object.values(datasetCalculatedInfo)[0].color
-                  : '#7F7F87',
+              fill: '#7F7F8750',
               strokeWidth: 1,
               strokeOpacity: 0.5,
             }}
@@ -107,29 +104,17 @@ export function AreaChart({
             const dataset = datasetCalculatedInfo[key];
 
             return (
-              <React.Fragment key={key}>
-                <Area
-                  type="monotone"
-                  dataKey={key}
-                  stroke={dataset.color}
-                  fillOpacity={1}
-                  fill={`url(#${dataset.gradientId})`}
-                  activeDot={{ r: 3, stroke: '#1E1C25', strokeWidth: 1 }}
-                />
-                {dataset.referencePoint && (
-                  <ReferenceDot
-                    x={dataset.referencePoint['time']}
-                    y={dataset.referencePoint[key]}
-                    r={3}
-                    fill={dataset.color}
-                    stroke={'#1e1c25'}
-                    strokeOpacity={1}
-                  />
-                )}
-              </React.Fragment>
+              <Bar
+                key={key}
+                type="monotone"
+                dataKey={key}
+                radius={[2, 2, 0, 0]}
+                fillOpacity={0.5}
+                fill={`url(#${dataset.gradientId})`}
+              />
             );
           })}
-        </AreaRechart>
+        </BarRechart>
       </ResponsiveContainer>
     </>
   );
