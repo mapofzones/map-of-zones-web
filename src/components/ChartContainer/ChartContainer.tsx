@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
 
-import moment from 'moment';
-
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { SkeletonRectangle } from 'components/Skeleton';
 import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';

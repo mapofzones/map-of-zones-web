@@ -82,7 +82,7 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
           ibcVolumeOut: 134824000,
         }}
       />
-      <ChartContainer
+      {/* <ChartContainer
         chartType={selectedChartType}
         data={[
           { time: 1, ibcTotal: 100, ibcIn: 90, ibcOut: 10 },
@@ -97,19 +97,19 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
         datasetInfo={{
           ibcTotal: {
             color: '#BFBFC3',
-            description: 'IBC Total (24h)',
+            title: 'IBC Total (24h)',
           },
           ibcIn: {
             color: '#22AAFF',
-            description: 'IBC In',
+            title: 'IBC In',
           },
           ibcOut: {
             color: '#EE11CC',
-            description: 'IBC Out',
+            title: 'IBC Out',
           },
         }}
         dataFormatType={NumberType.Currency}
-      />
+      /> */}
     </Card>
   );
 }

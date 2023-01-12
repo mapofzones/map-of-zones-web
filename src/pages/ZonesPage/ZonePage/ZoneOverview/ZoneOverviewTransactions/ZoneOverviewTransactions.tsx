@@ -54,7 +54,7 @@ export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactions
         datasetInfo={{
           value: {
             color: '#22AAFF',
-            description: 'Total Transactions',
+            title: 'Total Transactions',
           },
         }}
         dataFormatType={NumberType.Number}

@@ -1,5 +1,5 @@
 import { NumberType } from 'components/ui/NumberFormat';
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemWithTime } from 'types/chart';
 
 export interface AreaChartProps {
   className?: string;
@@ -14,13 +14,9 @@ export interface ChartData {
   colors: string;
 }
 
-export interface ChartItemWithTime extends ChartItemByString {
-  time: number;
-}
-
 export interface DatasetInfo {
   color?: string;
-  description: string;
+  title: string;
 }
 
 // values: [{

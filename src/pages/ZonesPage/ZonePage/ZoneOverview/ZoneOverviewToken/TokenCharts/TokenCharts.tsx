@@ -35,7 +35,7 @@ export function TokenCharts() {
         data={chartData}
         datasetInfo={{
           value: {
-            description: 'asdf',
+            title: 'asdf',
           },
         }}
         dataFormatType={

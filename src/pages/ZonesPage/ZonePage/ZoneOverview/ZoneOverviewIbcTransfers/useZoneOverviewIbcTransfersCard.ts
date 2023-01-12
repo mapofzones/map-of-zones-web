@@ -1,8 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { ChartItemWithTime } from 'components/ui/Charts/AreaChart/AreaChart.props';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+
+import {
+  ZoneOverviewIbcTransfersCardData,
+  ZoneOverviewIbcTransfersCardResult,
+} from './ZoneOverviewIbcTransfersCard.types';
 
 export function useZoneOverviewIbcTransfersCard(): {
   data: ZoneOverviewIbcTransfersCardData | undefined;
@@ -19,21 +23,4 @@ export function useZoneOverviewIbcTransfersCard(): {
     data: data?.data,
     loading: isLoading,
   };
-}
-
-interface ZoneOverviewIbcTransfersCardResult {
-  data: ZoneOverviewIbcTransfersCardData;
-}
-
-interface ZoneOverviewIbcTransfersCardData {
-  zone: string;
-  totalIbcTransfersCount?: number;
-  totalPending?: number;
-  chart: IbcTransfersChart[];
-}
-
-interface IbcTransfersChart extends ChartItemWithTime {
-  time: number;
-  pending: number;
-  ibcTransfersCount: number;
 }

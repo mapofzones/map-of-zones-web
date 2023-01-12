@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 
-import { ChartItemWithTime, DatasetInfo } from './BarChart.props';
+import { ChartItemWithTime } from 'types/chart';
+
+import { DatasetInfo } from './BarChart.props';
 
 export function useDatasetCalculations(
   datasetInfo: {

@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PeriodKeys } from 'components/PeriodSelector/Types';
-import { ChartItemWithTime } from 'components/ui/Charts/AreaChart/AreaChart.props';
 import { ZoneTokenChartDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneTokenChart.query.generated';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { ChartItemWithTime } from 'types/chart';
 
 import { ChartType } from './Types';
 

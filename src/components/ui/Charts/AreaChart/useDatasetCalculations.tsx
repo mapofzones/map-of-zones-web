@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 
-import { ChartItemWithTime, DatasetInfo } from './AreaChart.props';
+import { ChartItemWithTime } from 'types/chart';
+
+import { DatasetInfo } from './AreaChart.props';
 
 export function useDatasetCalculations(
   datasetInfo: {

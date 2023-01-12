@@ -14,7 +14,7 @@ export function ChartTooltipContent({ active, payload, label, datasetInfo, numbe
           return (
             <div key={data.dataKey} className={styles.tooltipItem}>
               <Circle color={datasetInfo[data.dataKey].color} />
-              <span className={styles.description}>{datasetInfo[data.dataKey].description}</span>
+              <span className={styles.description}>{datasetInfo[data.dataKey].title}</span>
               <NumberFormat
                 value={data.payload[data.dataKey]}
                 className={styles.value}

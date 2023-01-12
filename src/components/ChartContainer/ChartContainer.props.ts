@@ -1,5 +1,6 @@
 import { NumberType } from 'components/ui';
-import { ChartItemWithTime, DatasetInfo } from 'components/ui/Charts/AreaChart/AreaChart.props';
+import { DatasetInfo } from 'components/ui/Charts/AreaChart/AreaChart.props';
+import { ChartItemWithTime } from 'types/chart';
 
 export interface ChartContainerProps {
   className?: string;
