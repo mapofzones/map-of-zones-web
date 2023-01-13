@@ -19,4 +19,5 @@ export interface OverviewCardLegendProps {
   className?: string;
   metadata: { [key: string]: LegendMetadata };
   values: { [key: string]: number | undefined };
+  loading: boolean;
 }

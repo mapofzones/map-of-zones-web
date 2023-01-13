@@ -5,7 +5,6 @@ import moment from 'moment';
 import {
   Area,
   AreaChart as AreaRechart,
-  Brush,
   CartesianGrid,
   ReferenceDot,
   ResponsiveContainer,

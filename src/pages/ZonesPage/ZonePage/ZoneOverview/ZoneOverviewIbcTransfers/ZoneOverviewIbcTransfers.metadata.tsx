@@ -7,7 +7,7 @@ import { ElementSize } from 'types/ElementSize';
 import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewIbcTransfersCard.types';
 
 export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
-  title: 'Ibc Transfers',
+  title: 'IBC Transfers',
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Number,
   dataset: {
@@ -18,7 +18,6 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
       legendValueAccessorKey: 'totalIbcTransfersCount',
       chartValueAccessorKey: 'ibcTransfersCount',
       size: ElementSize.LARGE,
-      loading: false,
       showPeriod: true,
       defaultSkeletonText: '19 850',
       color: '#22AAFF',
@@ -31,7 +30,6 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
       tooltipText: 'Processing (24h)',
       numberType: NumberType.Number,
       size: ElementSize.LARGE,
-      loading: false,
       showPeriod: true,
       defaultSkeletonText: '10',
       additional: true,

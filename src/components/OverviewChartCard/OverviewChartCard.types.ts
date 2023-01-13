@@ -21,7 +21,6 @@ interface DatasetMetadata<T, K> {
   chartValueAccessorKey?: keyof K;
   tooltipText: string;
   size: ElementSize;
-  loading: boolean;
   showPeriod: boolean;
   defaultSkeletonText: string;
   icon: ReactNode;

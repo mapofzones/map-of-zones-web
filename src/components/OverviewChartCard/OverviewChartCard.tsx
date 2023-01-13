@@ -31,6 +31,12 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
     item?.key && setSelectedChartType(item.key);
   };
 
+  const legendMetadata = Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
+    const dataset = metadata.dataset[key];
+    acc[dataset.legendValueAccessorKey] = dataset;
+    return acc;
+  }, {});
+
   const legendData = Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
     const dataset = metadata.dataset[key];
     acc[dataset.legendValueAccessorKey] = data ? data[dataset.legendValueAccessorKey] : undefined;
@@ -62,13 +68,13 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
           setSelectedButton={onChartSelected}
         />
       )}
-      <OverviewCardLegend metadata={metadata.dataset} values={legendData} />
+      <OverviewCardLegend metadata={legendMetadata} values={legendData} loading={loading} />
       <ChartContainer
         chartType={selectedChartType}
         data={data?.chart ?? []}
         loading={loading}
         datasetInfo={chartMetadata}
-        dataFormatType={NumberType.Number}
+        dataFormatType={metadata.numberType}
       />
     </Card>
   );
