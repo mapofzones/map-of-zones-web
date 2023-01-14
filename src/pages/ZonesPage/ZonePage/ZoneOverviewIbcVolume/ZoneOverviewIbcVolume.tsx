@@ -11,6 +11,7 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
   return (
     <OverviewChartCard
       className={className}
+      title="IBC Volume"
       data={data}
       loading={loading}
       metadata={VOLUME_CARD_METADATA}

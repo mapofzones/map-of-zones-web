@@ -21,11 +21,12 @@ const CHART_ICONS = {
 
 export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartItemWithTime>({
   metadata,
+  title,
   data,
   loading = false,
   className,
 }: OverviewChartCardProps<T, K>) {
-  const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.AREA); // TODO: use correct type
+  const [selectedChartType, setSelectedChartType] = useState<ChartType>(metadata.chartTypes[0]);
 
   const onChartSelected = (item: { key?: ChartType }) => {
     item?.key && setSelectedChartType(item.key);
@@ -56,7 +57,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
   }, {});
 
   return (
-    <Card title={metadata.title} className={cn(styles.wrapper, className)}>
+    <Card title={title} className={cn(styles.wrapper, className)}>
       {metadata.chartTypes.length > 1 && (
         <ButtonGroup
           className={styles.chartTypeSwitcher}

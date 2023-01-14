@@ -1,4 +1,3 @@
-import { PendingIcon } from 'assets/icons';
 import { NumberType } from 'components';
 import { ChartType } from 'components/ChartContainer';
 import { Circle } from 'components/ui/Circle';
@@ -7,7 +6,6 @@ import { ElementSize } from 'types/ElementSize';
 import { IbcVolumeOverviewCardMetadata } from './ZoneOverviewIbcVolume.types';
 
 export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
-  title: 'IBC Volume',
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Currency,
   dataset: {

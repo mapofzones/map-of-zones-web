@@ -11,6 +11,7 @@ export function ZoneOverviewIbcTransfers({ className }: ZoneOverviewIbcTransfers
   return (
     <OverviewChartCard
       className={className}
+      title="IBC Transfers"
       data={data}
       loading={loading}
       metadata={TRANSFERS_CARD_METADATA}

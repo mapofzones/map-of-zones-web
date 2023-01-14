@@ -7,7 +7,6 @@ import { ElementSize } from 'types/ElementSize';
 import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewIbcTransfersCard.types';
 
 export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
-  title: 'IBC Transfers',
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Number,
   dataset: {

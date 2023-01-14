@@ -8,7 +8,6 @@ import { ElementSize } from 'types/ElementSize';
 export type DataWithChart<T> = { chart: T[] };
 
 export interface OverviewCardMetadata<T extends DataWithChart<K>, K extends ChartItemWithTime> {
-  title: string;
   numberType: NumberType;
   chartTypes: ChartType[];
   dataset: { [key: string]: DatasetMetadata<T, K> };
