@@ -1,5 +1,6 @@
 import { ZoneOverviewIbcVolume } from '../ZoneOverviewIbcVolume';
 import styles from './ZoneOverview.module.scss';
+import { ZoneOverviewActiveUsers } from './ZoneOverviewActiveUsers';
 import { ZoneOverviewDelegations } from './ZoneOverviewDelegations';
 import { ZoneOverviewIbcTransfers } from './ZoneOverviewIbcTransfers';
 import { ZoneOverviewParameters } from './ZoneOverviewParameters/ZoneOverviewParameters';
@@ -14,6 +15,7 @@ export function ZoneOverview() {
       <ZoneOverviewParameters className={styles.parametersBlock} />
       <ZoneOverviewTransactions className={styles.transactionsBlock} />
       <ZoneOverviewIbcTransfers className={styles.ibcTransfersBlock} />
+      <ZoneOverviewActiveUsers className={styles.activeUsersBlock} />
       <ZoneOverviewDelegations className={styles.delegationsBlock} />
     </div>
   );
