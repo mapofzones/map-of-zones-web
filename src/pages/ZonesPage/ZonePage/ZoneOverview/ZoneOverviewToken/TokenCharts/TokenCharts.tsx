@@ -35,7 +35,7 @@ export function TokenCharts() {
         data={chartData}
         datasetInfo={{
           value: {
-            title: 'asdf',
+            title: selectedChartType === ChartType.PRICE ? 'Price' : 'Trading Volume',
           },
         }}
         dataFormatType={

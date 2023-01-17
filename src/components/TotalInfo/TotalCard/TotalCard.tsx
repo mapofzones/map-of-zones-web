@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import cn from 'classnames';
 
-import { SkeletonRectangle } from 'components/Skeleton';
+import { Card } from 'components/ui';
 
 import styles from './TotalCard.module.scss';
 
@@ -10,15 +10,18 @@ export function TotalCard({
   children,
   className,
   loading = false,
+  title,
 }: {
   children: ReactNode;
   className?: string;
   loading?: boolean;
+  title?: string;
 }): JSX.Element {
   return (
     <>
-      {loading && <SkeletonRectangle className={cn(styles.container, className)} />}
-      {!loading && <div className={cn(styles.container, className)}>{children}</div>}
+      <Card title={title} loading={loading} className={cn(styles.container, className)}>
+        <div className={styles.valueContainer}>{children}</div>
+      </Card>
     </>
   );
 }

@@ -15,8 +15,9 @@
     min-height: 101px;
 
     .parameterCard {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      .valueBlock {
+        flex-grow: 1;
+      }
 
       .bondedRateValueContainer {
         display: flex;

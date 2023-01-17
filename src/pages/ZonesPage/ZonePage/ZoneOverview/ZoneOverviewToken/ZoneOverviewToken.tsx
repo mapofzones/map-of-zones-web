@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import {
+  Card,
   NumberFormat,
   NumberType,
   RatingDiffTriangle,
@@ -23,8 +24,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
   const { data, loading } = useZoneOverviewToken();
 
   return (
-    <div className={cn(className, styles.container)}>
-      <div className={styles.title}>Token</div>
+    <Card title="Token" className={cn(className, styles.container)}>
       <div className={styles.detailsContainer}>
         <div className={styles.detailsItem}>
           <span className={styles.detailsItem_title}>Price</span>
@@ -84,6 +84,6 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
       </div>
 
       <TokenCharts />
-    </div>
+    </Card>
   );
 }

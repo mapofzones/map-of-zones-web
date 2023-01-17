@@ -1,93 +1,83 @@
-.container {
-  .title {
-    color: var(--white);
-    font-size: var(--font-heading-size-md);
-  }
+.detailsContainer {
+  display: flex;
 
-  .detailsContainer {
-    display: flex;
-    margin-top: 24px;
+  .detailsItem {
+    display: block;
+    padding-right: 24px;
+    padding-left: 16px;
 
-    .detailsItem {
-      display: block;
-      padding-right: 24px;
-      padding-left: 16px;
+    border-left: 1px solid var(--black-900);
 
-      border-left: 1px solid var(--black-900);
+    &_title {
+      display: inline-block;
+      margin-bottom: 8px;
 
-      &_title {
-        display: inline-block;
-        margin-bottom: 8px;
+      color: var(--grey-500);
+      font-size: var(--font-base-size-md);
+    }
 
-        color: var(--grey-500);
-        font-size: var(--font-base-size-md);
-      }
+    &_data {
+      display: flex;
+      flex-direction: column;
 
-      &_data {
-        display: flex;
-        flex-direction: column;
+      font-size: var(--font-heading-size-sm);
+    }
 
-        font-size: var(--font-heading-size-sm);
-      }
-
-      .infoGroup {
-        display: flex;
-
-        &:first-child {
-          margin-bottom: 4px;
-        }
-      }
-
-      .tokenName {
-        margin-right: 4px;
-        margin-left: 8px;
-
-        color: var(--grey-500);
-      }
-
-      .tokenPriceDiff {
-        margin-right: 4px;
-
-        font-size: var(--font-secondary-size-md);
-      }
+    .infoGroup {
+      display: flex;
 
       &:first-child {
-        padding-left: 0;
-
-        border-left: none;
+        margin-bottom: 4px;
       }
+    }
+
+    .tokenName {
+      margin-right: 4px;
+      margin-left: 8px;
+
+      color: var(--grey-500);
+    }
+
+    .tokenPriceDiff {
+      margin-right: 4px;
+
+      font-size: var(--font-secondary-size-md);
+    }
+
+    &:first-child {
+      padding-left: 0;
+
+      border-left: none;
     }
   }
 }
 
 @media (max-width: 630px) {
-  .container {
-    .detailsContainer {
-      flex-direction: column;
+  .detailsContainer {
+    flex-direction: column;
 
-      .detailsItem {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 20px 0;
+    .detailsItem {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 20px 0;
 
-        border-top: 1px solid var(--black-900);
-        border-left: none;
+      border-top: 1px solid var(--black-900);
+      border-left: none;
 
-        &:first-child {
-          border: none;
-        }
+      &:first-child {
+        border: none;
+      }
 
-        &_data {
-          display: grid;
-          flex-direction: column;
+      &_data {
+        display: grid;
+        flex-direction: column;
 
-          .infoGroup {
-            justify-content: flex-end;
+        .infoGroup {
+          justify-content: flex-end;
 
-            &:first-child {
-              margin-bottom: 2px;
-            }
+          &:first-child {
+            margin-bottom: 2px;
           }
         }
       }
