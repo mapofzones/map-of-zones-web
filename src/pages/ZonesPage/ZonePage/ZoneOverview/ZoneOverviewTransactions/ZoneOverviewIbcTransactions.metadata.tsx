@@ -14,7 +14,7 @@ export const TRANSACTIONS_CARD_METADATA: IbcTransactionsOverviewCardMetadata = {
       tooltipText: 'Ibc Transfers',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalTxsCount',
-      chartValueAccessorKey: 'value',
+      chartValueAccessorKey: 'txsCount',
       size: ElementSize.LARGE,
       showPeriod: true,
       defaultSkeletonText: '19 850',

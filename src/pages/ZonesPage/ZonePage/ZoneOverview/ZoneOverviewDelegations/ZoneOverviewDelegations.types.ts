@@ -16,9 +16,9 @@ export interface ZoneOverviewDelegationsCardData {
 
 export interface DelegationsChart extends ChartItemWithTime {
   time: number;
-  delegated: number;
+  delegationAmount: number;
   // redelegated: number;
-  undelegated: number;
+  undelegationAmount: number;
 }
 
 export type IbcDelegationsOverviewCardMetadata = OverviewCardMetadata<
