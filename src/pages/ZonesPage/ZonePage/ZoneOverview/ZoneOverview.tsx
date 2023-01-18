@@ -6,6 +6,7 @@ import { ZoneOverviewIbcTransfers } from './ZoneOverviewIbcTransfers';
 import { ZoneOverviewParameters } from './ZoneOverviewParameters/ZoneOverviewParameters';
 import { ZoneOverviewToken } from './ZoneOverviewToken/ZoneOverviewToken';
 import { ZoneOverviewTransactions } from './ZoneOverviewTransactions';
+import { ZoneOverviewUniqueDelegates } from './ZoneOverviewUniqueDelegates';
 
 export function ZoneOverview() {
   return (
@@ -16,6 +17,7 @@ export function ZoneOverview() {
       <ZoneOverviewTransactions className={styles.transactionsBlock} />
       <ZoneOverviewIbcTransfers className={styles.ibcTransfersBlock} />
       <ZoneOverviewActiveUsers className={styles.activeUsersBlock} />
+      <ZoneOverviewUniqueDelegates className={styles.delegatesBlock} />
       <ZoneOverviewDelegations className={styles.delegationsBlock} />
     </div>
   );

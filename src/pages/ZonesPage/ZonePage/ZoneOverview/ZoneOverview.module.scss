@@ -4,7 +4,8 @@
     'token activity'
     'parameters parameters'
     'transactions ibcTransfers'
-    'activeUsers delegations';
+    'activeUsers delegates'
+    'delegations .';
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 40px;
   padding: 0 36px 24px;
@@ -33,6 +34,10 @@
     grid-area: activeUsers;
   }
 
+  .delegatesBlock {
+    grid-area: delegates;
+  }
+
   .delegationsBlock {
     grid-area: delegations;
   }
@@ -48,6 +53,7 @@
       'transactions'
       'ibcTransfers'
       'activeUsers'
+      'delegates'
       'delegations';
     grid-template-columns: 1fr;
     gap: 48px;
