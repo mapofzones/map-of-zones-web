@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import cn from 'classnames';
 
 import {
@@ -13,15 +15,15 @@ import { PeriodBlock } from 'components/PeriodBlock';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
+import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { TokenCharts } from './TokenCharts/TokenCharts';
 import { priceDiffKeyByPeriod } from './Types';
-import { useZoneOverviewToken } from './useZoneOverviewToken';
 import styles from './ZoneOverviewToken.module.scss';
 
 export function ZoneOverviewToken({ className }: { className?: string }) {
   const [selectedPeriod] = useSelectedPeriod();
 
-  const { data, loading } = useZoneOverviewToken();
+  const { loading, data } = useContext(OverviewTokenContext);
 
   return (
     <Card title="Token" className={cn(className, styles.container)}>

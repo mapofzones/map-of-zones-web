@@ -23,6 +23,7 @@ export function ValueWithPending({
   title,
   tooltipText,
   value,
+  valuePostfixComponent,
   variants = 'primary',
   ...props
 }: ValueWithPendingProps) {
@@ -54,6 +55,7 @@ export function ValueWithPending({
         <SkeletonTextWrapper loading={loading} defaultText={defaultSkeletonText}>
           {children}
           {!children && <NumberFormat compact={compact} numberType={numberType} value={value} />}
+          {valuePostfixComponent}
         </SkeletonTextWrapper>
 
         {pendingValue != null && (

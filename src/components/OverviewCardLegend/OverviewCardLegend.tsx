@@ -19,6 +19,7 @@ export function OverviewCardLegend({ metadata, values, loading }: OverviewCardLe
             titleIcon={conf.icon}
             tooltipText={conf.tooltipText}
             value={value}
+            valuePostfixComponent={conf.valuePostfixComponent}
             numberType={conf.numberType}
             size={conf.size}
             loading={loading}

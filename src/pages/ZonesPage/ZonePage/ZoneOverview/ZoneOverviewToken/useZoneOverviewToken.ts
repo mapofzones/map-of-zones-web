@@ -15,10 +15,12 @@ export interface ZoneOverviewTokenData {
   tradingVolumeDay?: number | null;
 }
 
-export function useZoneOverviewToken(): {
+export interface ZoneOverviewTokenResult {
   data: ZoneOverviewTokenData | undefined;
   loading: boolean;
-} {
+}
+
+export function useZoneOverviewToken(): ZoneOverviewTokenResult {
   const { zone = '' } = useParams();
 
   const options = {

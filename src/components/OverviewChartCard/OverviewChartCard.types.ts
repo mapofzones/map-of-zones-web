@@ -25,4 +25,5 @@ interface DatasetMetadata<T, K> {
   icon: ReactNode;
   additional: boolean;
   color?: string;
+  valuePostfixComponent?: ReactNode;
 }
