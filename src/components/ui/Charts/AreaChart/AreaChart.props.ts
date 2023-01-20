@@ -7,6 +7,7 @@ export interface AreaChartProps {
   dataFormat?: NumberType;
   datasetInfo: { [key: string]: DatasetInfo };
   timeFormat?: string;
+  tooltipTimeFormat?: string;
 }
 
 export interface ChartData {

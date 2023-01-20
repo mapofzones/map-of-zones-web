@@ -27,6 +27,7 @@ export function BarChart({
   datasetInfo,
   dataFormat = NumberType.Number,
   timeFormat = 'DD MMM, HH:mm',
+  tooltipTimeFormat = 'DD MMM, HH:mm',
 }: BarChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
 
@@ -97,7 +98,13 @@ export function BarChart({
             }}
             position={{ y: 0 }}
             allowEscapeViewBox={{ x: true, y: true }}
-            content={<ChartTooltipContent datasetInfo={datasetInfo} numberFormat={dataFormat} />}
+            content={
+              <ChartTooltipContent
+                datasetInfo={datasetInfo}
+                numberFormat={dataFormat}
+                timeFormat={tooltipTimeFormat}
+              />
+            }
           />
           {Object.keys(datasetCalculatedInfo).map((key: string) => {
             const dataset = datasetCalculatedInfo[key];

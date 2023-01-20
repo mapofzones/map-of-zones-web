@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import moment from 'moment';
+
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { SkeletonRectangle } from 'components/Skeleton';
 import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
@@ -23,7 +25,44 @@ export function ChartContainer({
     [selectedPeriod]
   );
 
+  const tooltipTimeFormat = useMemo(
+    () => (selectedPeriod === PeriodKeys.DAY ? 'DD MMM, HH:mm' : 'DD MMM YYYY'),
+    [selectedPeriod]
+  );
+
   const Chart = useMemo(() => (chartType === ChartType.AREA ? AreaChart : BarChart), [chartType]);
+
+  const flatData = useMemo(() => {
+    if (selectedPeriod === PeriodKeys.DAY) {
+      return data;
+    }
+
+    const aggregatedDataByTime = data.reduce((acc: any, curr: any, index: number) => {
+      const dateTime = moment.unix(curr.time).format('DD/MM/YYYY');
+
+      Object.keys(datasetInfo).forEach((datasetKey: string) => {
+        const value = curr[datasetKey];
+        if (value !== undefined) {
+          if (!acc[dateTime]) {
+            acc[dateTime] = {};
+          }
+          acc[dateTime][datasetKey] = !acc[dateTime][datasetKey]
+            ? value
+            : (acc[dateTime][datasetKey] += value);
+        }
+      });
+
+      return acc;
+    }, {});
+
+    const [, ...newData] = Object.keys(aggregatedDataByTime).map((date: string) => {
+      return {
+        time: moment(date, 'DD/MM/YYYY').unix(),
+        ...aggregatedDataByTime[date],
+      };
+    });
+    return newData;
+  }, [data, datasetInfo, selectedPeriod]);
 
   return (
     <>
@@ -35,10 +74,11 @@ export function ChartContainer({
       {!loading && data && (
         <Chart
           className={styles.chart}
-          data={data}
+          data={flatData}
           datasetInfo={datasetInfo}
           dataFormat={dataFormatType}
           timeFormat={chartTimeFormat}
+          tooltipTimeFormat={tooltipTimeFormat}
         />
       )}
     </>

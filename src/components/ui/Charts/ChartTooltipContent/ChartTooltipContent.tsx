@@ -5,11 +5,18 @@ import { NumberFormat } from 'components/ui/NumberFormat';
 
 import styles from './ChartTooltipContent.module.scss';
 
-export function ChartTooltipContent({ active, payload, label, datasetInfo, numberFormat }: any) {
+export function ChartTooltipContent({
+  active,
+  payload,
+  label,
+  datasetInfo,
+  numberFormat,
+  timeFormat,
+}: any) {
   if (active && payload && payload.length) {
     return (
       <div className={styles.container}>
-        <span className={styles.time}>{moment.unix(label).format('DD MMM, HH:mm')}</span>
+        <span className={styles.time}>{moment.unix(label).format(timeFormat)}</span>
         {payload.map((data: any) => {
           return (
             <div key={data.dataKey} className={styles.tooltipItem}>
