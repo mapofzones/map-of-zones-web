@@ -21,6 +21,8 @@ import styles from './BarChart.module.scss';
 import { BarChartProps } from './BarChart.props';
 import { useDatasetCalculations } from './useDatasetCalculations';
 
+const BARS_LIMIT = 30;
+
 export function BarChart({
   className,
   data,
@@ -120,6 +122,16 @@ export function BarChart({
               />
             );
           })}
+          {data.length * Object.keys(datasetInfo).length > BARS_LIMIT && (
+            <Brush
+              startIndex={data.length > 10 ? data.length - 7 : 0}
+              height={25}
+              travellerWidth={7}
+              stroke="#ffffff90"
+              fill="#4f4f5a00"
+              tickFormatter={(value: number) => moment.unix(data[value].time).format(timeFormat)}
+            />
+          )}
         </BarRechart>
       </ResponsiveContainer>
     </>
