@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-areas:
-    'token activity'
+    'token volumes'
     'parameters parameters'
     'transactions ibcTransfers'
     'activeUsers delegates'
@@ -14,8 +14,9 @@
     grid-area: token;
   }
 
-  .activityBlock {
-    grid-area: activity;
+  .volumesBlock {
+    grid-area: volumes;
+    min-height: 447px;
   }
 
   .parametersBlock {
@@ -48,7 +49,7 @@
     display: grid;
     grid-template-areas:
       'token'
-      'activity'
+      'volumes'
       'parameters'
       'transactions'
       'ibcTransfers'

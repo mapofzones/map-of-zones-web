@@ -14,7 +14,7 @@ export function ZoneOverview() {
     <OverviewTokenContextProvider>
       <div className={styles.container}>
         <ZoneOverviewToken className={styles.tokenBlock} />
-        <ZoneOverviewIbcVolume className={styles.activityBlock} />
+        <ZoneOverviewIbcVolume className={styles.volumesBlock} />
         <ZoneOverviewParameters className={styles.parametersBlock} />
         <ZoneOverviewTransactions className={styles.transactionsBlock} />
         <ZoneOverviewIbcTransfers className={styles.ibcTransfersBlock} />

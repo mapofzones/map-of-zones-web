@@ -37,7 +37,6 @@ export function AreaChart({
         className={cn(className, styles.container)}
         width={'100%'}
         height={'100%'}
-        maxHeight={250}
       >
         <AreaRechart
           className={styles.chart}

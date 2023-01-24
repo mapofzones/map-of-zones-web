@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import cn from 'classnames';
 import moment from 'moment';
 
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
@@ -14,6 +15,7 @@ import { ChartContainerProps, ChartType } from './ChartContainer.props';
 
 export function ChartContainer({
   loading,
+  className,
   chartType = ChartType.AREA,
   data = [],
   datasetInfo,
@@ -73,7 +75,7 @@ export function ChartContainer({
       {loading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
       {!loading && data && (
         <Chart
-          className={styles.chart}
+          className={cn(styles.chart, className)}
           data={flatData}
           datasetInfo={datasetInfo}
           dataFormat={dataFormatType}

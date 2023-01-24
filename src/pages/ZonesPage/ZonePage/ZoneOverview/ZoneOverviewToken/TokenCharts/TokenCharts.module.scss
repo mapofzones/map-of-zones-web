@@ -1,13 +1,21 @@
 .chartContainer {
   position: relative;
 
-  min-height: 200px;
-  max-height: 260px;
+  min-height: 260px;
 
   margin-top: 24px;
 
   .priceSwitcher {
     max-width: 230px;
+  }
+
+  .priceVolumeContainer {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    width: 100%;
+    pointer-events: none;
   }
 
   .priceVolumeChart {
