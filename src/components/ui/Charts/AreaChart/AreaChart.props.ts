@@ -8,6 +8,7 @@ export interface AreaChartProps {
   datasetInfo: { [key: string]: DatasetInfo };
   timeFormat?: string;
   tooltipTimeFormat?: string;
+  isZeroMinXAxisValue?: boolean;
 }
 
 export interface ChartData {

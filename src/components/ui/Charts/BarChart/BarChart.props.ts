@@ -8,6 +8,7 @@ export interface BarChartProps {
   datasetInfo: { [key: string]: DatasetInfo };
   timeFormat?: string;
   tooltipTimeFormat?: string;
+  isZeroMinXAxisValue?: boolean;
 }
 
 export interface ChartData {

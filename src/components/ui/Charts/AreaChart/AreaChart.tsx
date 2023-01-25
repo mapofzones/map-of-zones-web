@@ -28,6 +28,7 @@ export function AreaChart({
   dataFormat = NumberType.Number,
   timeFormat = 'DD MMM, HH:mm',
   tooltipTimeFormat = 'DD MMM, HH:mm',
+  isZeroMinXAxisValue = true,
 }: AreaChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
 
@@ -79,7 +80,10 @@ export function AreaChart({
             fontSize={12}
             mirror={true}
             tickSize={3}
-            domain={[(dataMin: number) => dataMin * 0.95, (dataMax: number) => dataMax * 1.05]}
+            domain={[
+              isZeroMinXAxisValue ? 0 : (dataMin: number) => dataMin * 0.95,
+              (dataMax: number) => dataMax * 1.05,
+            ]}
             tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
           />
           <CartesianGrid

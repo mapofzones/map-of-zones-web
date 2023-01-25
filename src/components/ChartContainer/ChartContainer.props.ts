@@ -9,6 +9,7 @@ export interface ChartContainerProps {
   datasetInfo: { [key: string]: DatasetInfo };
   dataFormatType: NumberType;
   loading: boolean;
+  isZeroMinXAxisValue?: boolean;
 }
 
 export enum ChartType {

@@ -42,6 +42,7 @@ export function TokenCharts() {
           dataFormatType={
             selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
           }
+          isZeroMinXAxisValue={false}
         />
       </div>
     </div>
