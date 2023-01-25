@@ -17,6 +17,7 @@ export function useZoneOverviewDelegations(): {
 
   const { data, isLoading } = useQuery<ZoneOverviewDelegationsCardResult>({
     queryKey: [`delegationsAmountChart/${zone}/${period}`],
+    enabled: !!period && !!zone,
   });
 
   return {

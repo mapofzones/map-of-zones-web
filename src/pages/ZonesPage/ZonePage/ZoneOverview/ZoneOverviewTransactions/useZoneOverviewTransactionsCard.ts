@@ -17,6 +17,7 @@ export function useZoneOverviewTransactionCard(): {
 
   const { data, isLoading } = useQuery<ZoneOverviewIbcTransactionsCardResult>({
     queryKey: [`txsChart/${zone}/${period}`],
+    enabled: !!period && !!zone,
   });
 
   return {

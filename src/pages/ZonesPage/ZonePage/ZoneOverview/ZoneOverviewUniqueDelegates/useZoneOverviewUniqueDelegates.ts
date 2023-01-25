@@ -17,6 +17,7 @@ export function useZoneOverviewUniqueDelegates(): {
 
   const { data, isLoading } = useQuery<ZoneOverviewUniqueDelegatesCardResult>({
     queryKey: [`delegatorCountChart/${zone}/${period}`],
+    enabled: !!period && !!zone,
   });
 
   return {

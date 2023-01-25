@@ -1,10 +1,7 @@
 .container {
-  display: flex;
-  flex-direction: column;
-
   padding: 16px;
 
-  background: #1e1c25;
+  background: var(--black-400);
   border-radius: 5px;
 
   &.hasBorder {
@@ -14,6 +11,9 @@
   .title {
     font-size: var(--font-heading-size-md);
     font-weight: 600;
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+
     margin-bottom: 24px;
   }
 }

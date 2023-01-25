@@ -14,7 +14,19 @@
     gap: 24px;
     min-height: 101px;
 
+    .valuesContainer {
+      display: flex;
+      flex-direction: row;
+
+      .divider {
+        height: auto;
+        align-self: stretch;
+      }
+    }
+
     .parameterCard {
+      padding: 24px;
+
       .valueBlock {
         flex-grow: 1;
       }

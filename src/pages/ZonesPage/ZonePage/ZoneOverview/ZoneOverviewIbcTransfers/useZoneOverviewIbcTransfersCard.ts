@@ -17,6 +17,7 @@ export function useZoneOverviewIbcTransfersCard(): {
 
   const { data, isLoading } = useQuery<ZoneOverviewIbcTransfersCardResult>({
     queryKey: [`ibcTransferChart/${zone}/${period}`],
+    enabled: !!period && !!zone,
   });
 
   return {

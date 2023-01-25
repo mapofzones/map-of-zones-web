@@ -17,6 +17,7 @@ export function useZoneOverviewIbcVolumeCard(): {
 
   const { data, isLoading } = useQuery<ZoneOverviewIbcVolumeCardResult>({
     queryKey: [`ibcVolumeChart/${zone}/${period}`],
+    enabled: !!period && !!zone,
   });
 
   return {

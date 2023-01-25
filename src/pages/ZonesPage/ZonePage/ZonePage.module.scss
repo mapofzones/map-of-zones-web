@@ -21,6 +21,9 @@
 
       .zoneName {
         font-size: var(--font-heading-size-lg);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        font-feature-settings: 'tnum' on, 'lnum' on;
       }
 
       .arrowContainer {

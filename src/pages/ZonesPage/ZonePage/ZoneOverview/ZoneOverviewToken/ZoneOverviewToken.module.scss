@@ -1,53 +1,57 @@
-.detailsContainer {
-  display: flex;
+.container {
+  padding: 24px;
 
-  .detailsItem {
-    display: block;
-    padding-right: 24px;
-    padding-left: 16px;
+  .detailsContainer {
+    display: flex;
 
-    border-left: 1px solid var(--black-900);
+    .detailsItem {
+      display: block;
+      padding-right: 24px;
+      padding-left: 16px;
 
-    &_title {
-      display: inline-block;
-      margin-bottom: 8px;
+      border-left: 1px solid var(--black-900);
 
-      color: var(--grey-500);
-      font-size: var(--font-base-size-md);
-    }
+      &_title {
+        display: inline-block;
+        margin-bottom: 8px;
 
-    &_data {
-      display: flex;
-      flex-direction: column;
+        color: var(--grey-500);
+        font-size: var(--font-base-size-md);
+      }
 
-      font-size: var(--font-heading-size-sm);
-    }
+      &_data {
+        display: flex;
+        flex-direction: column;
 
-    .infoGroup {
-      display: flex;
+        font-size: var(--font-heading-size-sm);
+      }
+
+      .infoGroup {
+        display: flex;
+
+        &:first-child {
+          margin-bottom: 4px;
+        }
+      }
+
+      .tokenName {
+        margin-right: 4px;
+        margin-left: 8px;
+
+        color: var(--grey-500);
+      }
+
+      .tokenPriceDiff {
+        margin-right: 4px;
+
+        font-size: var(--font-secondary-size-md);
+      }
 
       &:first-child {
-        margin-bottom: 4px;
+        padding-left: 0;
+
+        border-left: none;
       }
-    }
-
-    .tokenName {
-      margin-right: 4px;
-      margin-left: 8px;
-
-      color: var(--grey-500);
-    }
-
-    .tokenPriceDiff {
-      margin-right: 4px;
-
-      font-size: var(--font-secondary-size-md);
-    }
-
-    &:first-child {
-      padding-left: 0;
-
-      border-left: none;
     }
   }
 }

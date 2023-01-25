@@ -20,7 +20,7 @@ export function TotalCard({
   return (
     <>
       <Card title={title} loading={loading} className={cn(styles.container, className)}>
-        <div className={styles.valueContainer}>{children}</div>
+        {children}
       </Card>
     </>
   );

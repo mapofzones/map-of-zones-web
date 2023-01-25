@@ -47,6 +47,7 @@ export function useZoneOverviewActiveUsersCard(): {
 
   const { data, isLoading } = useQuery<ZoneOverviewActiveUsersCardResult>({
     queryKey: [`activeUsers/${zone}/${period}`],
+    enabled: !!period && !!zone,
   });
 
   return {

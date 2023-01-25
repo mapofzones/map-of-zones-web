@@ -120,6 +120,7 @@ export function AreaChart({
                   stroke={dataset.color}
                   fillOpacity={1}
                   fill={`url(#${dataset.gradientId})`}
+                  strokeWidth={2}
                   activeDot={{ r: 3, stroke: '#1E1C25', strokeWidth: 1 }}
                 />
                 {dataset.referencePoint && (

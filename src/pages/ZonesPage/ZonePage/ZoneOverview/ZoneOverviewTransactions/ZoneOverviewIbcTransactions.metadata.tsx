@@ -10,8 +10,8 @@ export const TRANSACTIONS_CARD_METADATA: IbcTransactionsOverviewCardMetadata = {
   numberType: NumberType.Number,
   dataset: {
     ibcTransfersCount: {
-      title: 'IBC Transfers',
-      tooltipText: 'Ibc Transfers',
+      title: 'Total Transactions',
+      tooltipText: 'Total Transactions',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalTxsCount',
       chartValueAccessorKey: 'txsCount',

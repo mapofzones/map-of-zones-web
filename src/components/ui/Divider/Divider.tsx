@@ -2,10 +2,16 @@ import cn from 'classnames';
 
 import styles from './Divider.module.scss';
 
-export function Divider({ horizontal = false }: { horizontal?: boolean }) {
+export function Divider({
+  horizontal = false,
+  className,
+}: {
+  horizontal?: boolean;
+  className?: string;
+}) {
   return (
     <div
-      className={cn(styles.divider, {
+      className={cn(className, styles.divider, {
         [styles.horizontal]: horizontal,
       })}
     />
