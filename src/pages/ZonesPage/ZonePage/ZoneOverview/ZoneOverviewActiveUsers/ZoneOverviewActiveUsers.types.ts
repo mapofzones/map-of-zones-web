@@ -8,8 +8,8 @@ export interface ZoneOverviewActiveUsersCardResult {
 }
 
 export interface ZoneOverviewActiveUsersCardData {
-  totalDailyActiveUsers?: number;
-  totalIbcDailyActiveUsers?: number;
+  totalActiveAddresses?: number;
+  totalIbcActiveAddresses?: number;
   chart: ActiveUsersChart[];
 }
 
