@@ -8,6 +8,7 @@ import { SkeletonRectangle } from 'components/Skeleton';
 import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
 import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
+import { Watermark } from 'components/Watermark';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import styles from './ChartContainer.module.scss';
@@ -75,15 +76,18 @@ export function ChartContainer({
       />
       {loading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
       {!loading && data && (
-        <Chart
-          className={cn(styles.chart, className)}
-          data={flatData}
-          datasetInfo={datasetInfo}
-          dataFormat={dataFormatType}
-          timeFormat={chartTimeFormat}
-          tooltipTimeFormat={tooltipTimeFormat}
-          isZeroMinXAxisValue={isZeroMinXAxisValue}
-        />
+        <>
+          <Watermark />
+          <Chart
+            className={cn(styles.chart, className)}
+            data={flatData}
+            datasetInfo={datasetInfo}
+            dataFormat={dataFormatType}
+            timeFormat={chartTimeFormat}
+            tooltipTimeFormat={tooltipTimeFormat}
+            isZeroMinXAxisValue={isZeroMinXAxisValue}
+          />
+        </>
       )}
     </>
   );
