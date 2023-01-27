@@ -5,7 +5,6 @@
     display: flex;
 
     .detailsItem {
-      display: block;
       padding-right: 24px;
       padding-left: 16px;
 
@@ -23,7 +22,7 @@
         display: flex;
         flex-direction: column;
 
-        font-size: var(--font-heading-size-sm);
+        font-size: var(--font-heading-size-md);
       }
 
       .infoGroup {
@@ -57,31 +56,33 @@
 }
 
 @media (max-width: 630px) {
-  .detailsContainer {
-    flex-direction: column;
+  .container {
+    .detailsContainer {
+      flex-direction: column;
 
-    .detailsItem {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      padding: 20px 0;
+      .detailsItem {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 0;
 
-      border-top: 1px solid var(--black-900);
-      border-left: none;
+        border-top: 1px solid var(--black-900);
+        border-left: none;
 
-      &:first-child {
-        border: none;
-      }
+        &:first-child {
+          border: none;
+        }
 
-      &_data {
-        display: grid;
-        flex-direction: column;
+        &_data {
+          display: grid;
+          flex-direction: column;
 
-        .infoGroup {
-          justify-content: flex-end;
+          .infoGroup {
+            justify-content: flex-end;
 
-          &:first-child {
-            margin-bottom: 2px;
+            &:first-child {
+              margin-bottom: 2px;
+            }
           }
         }
       }

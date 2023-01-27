@@ -32,7 +32,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           <span className={styles.detailsItem_title}>Price</span>
           <span className={styles.detailsItem_data}>
             <div className={styles.infoGroup}>
-              <ZoneLogo size="20px" logoUrl={data?.logoUrl} loading={loading} />
+              <ZoneLogo size="24px" logoUrl={data?.logoUrl} loading={loading} />
               <SkeletonTextWrapper
                 className={styles.tokenName}
                 loading={loading}

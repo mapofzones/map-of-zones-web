@@ -35,7 +35,7 @@ export function BarChart({
     <>
       <ResponsiveContainer
         className={cn(className, styles.container)}
-        width={'100%'}
+        width={'99%'} // 99 instead of 100 to be able to automaticaly resize chart
         height={'100%'}
         maxHeight={250}
       >
