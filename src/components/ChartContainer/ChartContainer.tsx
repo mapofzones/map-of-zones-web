@@ -74,9 +74,9 @@ export function ChartContainer({
         className={styles.periodInfo}
         periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
       />
-      {loading && <SkeletonRectangle style={{ minHeight: '200px', width: '100%' }} />}
+      {loading && <SkeletonRectangle style={{ minHeight: '230px', width: '100%' }} />}
       {!loading && data && (
-        <>
+        <div style={{ position: 'relative' }}>
           <Watermark />
           <Chart
             className={cn(styles.chart, className)}
@@ -87,7 +87,7 @@ export function ChartContainer({
             tooltipTimeFormat={tooltipTimeFormat}
             isZeroMinXAxisValue={isZeroMinXAxisValue}
           />
-        </>
+        </div>
       )}
     </>
   );
