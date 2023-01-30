@@ -15,7 +15,6 @@ export function useDatasetCalculations(
       Object.keys(datasetInfo).reduce((prev: { [key: string]: any }, key: string) => {
         const dataset = datasetInfo[key];
         const lastPointIndex = data.length - 1;
-        const referencePoint = data[lastPointIndex];
         let color = dataset.color;
         if (!color) {
           const firstValue = data[0] ? data[0][key] : 0;
@@ -25,7 +24,6 @@ export function useDatasetCalculations(
         }
         const gradientId = `area-gradient-${color}`;
         prev[key] = {
-          referencePoint,
           gradientId,
           color,
         };
