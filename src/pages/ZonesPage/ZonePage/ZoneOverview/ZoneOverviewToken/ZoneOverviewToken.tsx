@@ -76,7 +76,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         />
         <ValueWithPending
           className={styles.detailsItem}
-          title="Trading Volume"
+          title="Trading Volume (24h)"
           value={data?.tradingVolumeDay}
           numberType={NumberType.Currency}
           size={ElementSize.LARGE}

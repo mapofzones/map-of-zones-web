@@ -10,20 +10,20 @@ export const ACTIVE_USERS_CARD_METADATA: ActiveUsersOverviewCardMetadata = {
   numberType: NumberType.Number,
   dataset: {
     dailyActiveUsers: {
-      title: 'Daily Active Users',
+      title: 'Active Users',
       tooltipText: 'Daily Active Users',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalActiveAddresses',
       chartValueAccessorKey: 'activeAddressesCount',
       size: ElementSize.LARGE,
-      showPeriod: false,
+      showPeriod: true,
       defaultSkeletonText: '8 345',
       color: '#22AAFF',
       icon: <Circle color={'#22AAFF'} />,
       additional: false,
     },
     ibcActiveUsers: {
-      title: 'IBC Daily Active Users',
+      title: 'IBC Active Users',
       tooltipText: 'IBC Daily Active Users',
       legendValueAccessorKey: 'totalIbcActiveAddresses',
       chartValueAccessorKey: 'ibcActiveAddressesCount',
