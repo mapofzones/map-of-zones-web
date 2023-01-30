@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import cn from 'classnames';
-import moment from 'moment';
 
 import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
 import { SkeletonRectangle } from 'components/Skeleton';
@@ -36,38 +35,6 @@ export function ChartContainer({
 
   const Chart = useMemo(() => (chartType === ChartType.AREA ? AreaChart : BarChart), [chartType]);
 
-  const flatData = useMemo(() => {
-    if (selectedPeriod === PeriodKeys.DAY) {
-      return data;
-    }
-
-    const aggregatedDataByTime = data.reduce((acc: any, curr: any, index: number) => {
-      const dateTime = moment.unix(curr.time).format('DD/MM/YYYY');
-
-      Object.keys(datasetInfo).forEach((datasetKey: string) => {
-        const value = curr[datasetKey];
-        if (value !== undefined) {
-          if (!acc[dateTime]) {
-            acc[dateTime] = {};
-          }
-          acc[dateTime][datasetKey] = !acc[dateTime][datasetKey]
-            ? value
-            : (acc[dateTime][datasetKey] += value);
-        }
-      });
-
-      return acc;
-    }, {});
-
-    const [, ...newData] = Object.keys(aggregatedDataByTime).map((date: string) => {
-      return {
-        time: moment(date, 'DD/MM/YYYY').unix(),
-        ...aggregatedDataByTime[date],
-      };
-    });
-    return newData;
-  }, [data, datasetInfo, selectedPeriod]);
-
   return (
     <>
       <PeriodDisplay
@@ -80,7 +47,7 @@ export function ChartContainer({
           <Watermark />
           <Chart
             className={cn(styles.chart, className)}
-            data={flatData}
+            data={data}
             datasetInfo={datasetInfo}
             dataFormat={dataFormatType}
             timeFormat={chartTimeFormat}

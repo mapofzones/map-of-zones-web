@@ -5,7 +5,9 @@ import cn from 'classnames';
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
-import { ButtonGroup, Card, NumberType } from 'components/ui';
+import { ButtonGroup, Card } from 'components/ui';
+import { useAggregatedData } from 'hooks/useAggregatedData';
+import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ChartItemWithTime } from 'types/chart';
 import { ElementSize } from 'types/ElementSize';
 
@@ -26,6 +28,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
   loading = false,
   className,
 }: OverviewChartCardProps<T, K>) {
+  const [selectedPeriod] = useSelectedPeriod();
   const [selectedChartType, setSelectedChartType] = useState<ChartType>(metadata.chartTypes[0]);
 
   const onChartSelected = (item: { key?: ChartType }) => {
@@ -56,6 +59,8 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
     return acc;
   }, {});
 
+  const flatData = useAggregatedData(data?.chart ?? [], selectedPeriod, chartMetadata);
+
   return (
     <Card title={title} className={cn(styles.wrapper, className)}>
       {metadata.chartTypes.length > 1 && (
@@ -72,7 +77,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
       <OverviewCardLegend metadata={legendMetadata} values={legendData} loading={loading} />
       <ChartContainer
         chartType={selectedChartType}
-        data={data?.chart ?? []}
+        data={flatData}
         loading={loading}
         datasetInfo={chartMetadata}
         dataFormatType={metadata.numberType}
