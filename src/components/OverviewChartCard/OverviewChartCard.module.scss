@@ -1,6 +1,9 @@
 .wrapper {
   position: relative;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
 
   .chartTypeSwitcher {
     position: absolute;

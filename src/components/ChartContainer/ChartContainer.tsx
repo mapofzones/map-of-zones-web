@@ -74,9 +74,9 @@ export function ChartContainer({
         className={styles.periodInfo}
         periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
       />
-      {loading && <SkeletonRectangle style={{ minHeight: '230px', width: '100%' }} />}
+      {loading && <SkeletonRectangle style={{ width: '100%', flex: '1 1 auto' }} />}
       {!loading && data && (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', flex: '1 1 auto' }}>
           <Watermark />
           <Chart
             className={cn(styles.chart, className)}

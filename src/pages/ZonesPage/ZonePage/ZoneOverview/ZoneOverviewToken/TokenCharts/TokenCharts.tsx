@@ -29,22 +29,20 @@ export function TokenCharts() {
         buttons={chartOptions}
         setSelectedButton={onChartSelected}
       ></ButtonGroup>
-      <div className={styles.priceVolumeContainer}>
-        <ChartContainer
-          className={styles.priceVolumeChart}
-          loading={chartLoading}
-          data={chartData}
-          datasetInfo={{
-            value: {
-              title: selectedChartType === ChartType.PRICE ? 'Price' : 'Trading Volume',
-            },
-          }}
-          dataFormatType={
-            selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
-          }
-          isZeroMinXAxisValue={false}
-        />
-      </div>
+      <ChartContainer
+        className={styles.priceVolumeChart}
+        loading={chartLoading}
+        data={chartData}
+        datasetInfo={{
+          value: {
+            title: selectedChartType === ChartType.PRICE ? 'Price' : 'Trading Volume',
+          },
+        }}
+        dataFormatType={
+          selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
+        }
+        isZeroMinXAxisValue={false}
+      />
     </div>
   );
 }

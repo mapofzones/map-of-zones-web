@@ -1,24 +1,11 @@
 .chartContainer {
-  position: relative;
-
-  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 
   margin-top: 24px;
 
   .priceSwitcher {
     max-width: 230px;
-  }
-
-  .priceVolumeContainer {
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    width: 100%;
-    pointer-events: none;
-  }
-
-  .priceVolumeChart {
-    max-height: 200px !important;
   }
 }

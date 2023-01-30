@@ -93,7 +93,7 @@ export function BarChart({
           />
           <Tooltip
             active={true}
-            wrapperStyle={{ outline: 'none' }}
+            wrapperStyle={{ outline: 'none', zIndex: 1000 }}
             cursor={{
               fill: '#7F7F8750',
               strokeWidth: 1,
