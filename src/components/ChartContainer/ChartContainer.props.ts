@@ -10,6 +10,7 @@ export interface ChartContainerProps {
   dataFormatType: NumberType;
   loading: boolean;
   isZeroMinXAxisValue?: boolean;
+  tooltipTimeFormat?: string;
 }
 
 export enum ChartType {

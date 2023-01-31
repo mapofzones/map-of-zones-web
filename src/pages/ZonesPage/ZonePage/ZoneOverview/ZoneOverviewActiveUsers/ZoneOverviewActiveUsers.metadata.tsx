@@ -8,6 +8,7 @@ import { ActiveUsersOverviewCardMetadata } from './ZoneOverviewActiveUsers.types
 export const ACTIVE_USERS_CARD_METADATA: ActiveUsersOverviewCardMetadata = {
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Number,
+  chartKeys: ['activeAddressesCount', 'ibcActiveAddressesCount'],
   dataset: {
     dailyActiveUsers: {
       title: 'Active Users',

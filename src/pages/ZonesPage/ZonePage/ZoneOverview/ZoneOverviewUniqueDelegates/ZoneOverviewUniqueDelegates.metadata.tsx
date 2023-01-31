@@ -8,6 +8,7 @@ import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewUniqueDelegates.
 export const UNIQUE_DELEGATES_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Number,
+  chartKeys: ['delegatorsCount'],
   dataset: {
     delegates: {
       title: 'Delegates',

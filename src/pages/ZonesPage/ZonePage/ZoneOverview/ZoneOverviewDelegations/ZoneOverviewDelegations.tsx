@@ -1,6 +1,7 @@
 import { useContext, useMemo } from 'react';
 
 import { OverviewChartCard } from 'components/OverviewChartCard';
+import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
 
 import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
@@ -25,11 +26,17 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
     return newMetadata;
   }, [tokenData?.symbol]);
 
+  const chartData = useAggregatedDataByPeriod(
+    data?.chart ?? [],
+    DELEGATIONS_CARD_METADATA.chartKeys
+  );
+
   return (
     <OverviewChartCard
       className={className}
       title="Delegations"
       data={data}
+      chartData={chartData}
       loading={loading}
       metadata={metadata}
     />

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ButtonGroup, NumberType } from 'components';
-import { ChartContainer, ChartType as CType } from 'components/ChartContainer';
+import { ChartContainer } from 'components/ChartContainer';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
 
@@ -41,6 +41,7 @@ export function TokenCharts() {
         dataFormatType={
           selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
         }
+        tooltipTimeFormat="DD MMM, HH:mm"
         isZeroMinXAxisValue={false}
       />
     </div>

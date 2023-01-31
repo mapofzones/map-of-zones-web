@@ -10,6 +10,7 @@ export type DataWithChart<T> = { chart: T[] };
 export interface OverviewCardMetadata<T extends DataWithChart<K>, K extends ChartItemWithTime> {
   numberType: NumberType;
   chartTypes: ChartType[];
+  chartKeys: (keyof K)[];
   dataset: { [key: string]: DatasetMetadata<T, K> };
 }
 

@@ -8,6 +8,7 @@ import { IbcDelegationsOverviewCardMetadata } from './ZoneOverviewDelegations.ty
 export const DELEGATIONS_CARD_METADATA: IbcDelegationsOverviewCardMetadata = {
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Number,
+  chartKeys: ['delegationAmount', 'undelegationAmount'],
   dataset: {
     delegated: {
       title: 'Delegated',

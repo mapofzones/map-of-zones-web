@@ -9,6 +9,7 @@ import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewIbcTransfersCard
 export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Number,
+  chartKeys: ['ibcTransfersCount'],
   dataset: {
     ibcTransfersCount: {
       title: 'IBC Transfers',

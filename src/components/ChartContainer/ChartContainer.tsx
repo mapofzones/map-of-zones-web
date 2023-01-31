@@ -20,6 +20,7 @@ export function ChartContainer({
   data = [],
   datasetInfo,
   dataFormatType,
+  tooltipTimeFormat,
   isZeroMinXAxisValue,
 }: ChartContainerProps) {
   const [selectedPeriod] = useSelectedPeriod();
@@ -28,10 +29,8 @@ export function ChartContainer({
     [selectedPeriod]
   );
 
-  const tooltipTimeFormat = useMemo(
-    () => (selectedPeriod === PeriodKeys.DAY ? 'DD MMM, HH:mm' : 'DD MMM YYYY'),
-    [selectedPeriod]
-  );
+  const tooltipFormat =
+    tooltipTimeFormat ?? selectedPeriod === PeriodKeys.DAY ? 'DD MMM, HH:mm' : 'DD MMM YYYY';
 
   const Chart = useMemo(() => (chartType === ChartType.AREA ? AreaChart : BarChart), [chartType]);
 
@@ -51,7 +50,7 @@ export function ChartContainer({
             datasetInfo={datasetInfo}
             dataFormat={dataFormatType}
             timeFormat={chartTimeFormat}
-            tooltipTimeFormat={tooltipTimeFormat}
+            tooltipTimeFormat={tooltipFormat}
             isZeroMinXAxisValue={isZeroMinXAxisValue}
           />
         </div>

@@ -8,4 +8,5 @@ export interface OverviewChartCardProps<T extends DataWithChart<K>, K extends Ch
   title: string;
   data: T | undefined;
   loading?: boolean;
+  chartData: ChartItemWithTime[];
 }

@@ -13,6 +13,7 @@ export function ZoneOverviewActiveUsers({ className }: ZoneOverviewActiveUsersPr
       className={className}
       title="Active Users"
       data={data}
+      chartData={data?.chart ?? []}
       loading={loading}
       metadata={ACTIVE_USERS_CARD_METADATA}
     />
