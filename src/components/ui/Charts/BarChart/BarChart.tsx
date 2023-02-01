@@ -35,9 +35,8 @@ export function BarChart({
     <>
       <ResponsiveContainer
         className={cn(className, styles.container)}
-        width={'99%'} // 99 instead of 100 to be able to automaticaly resize chart
+        width={'100%'}
         height={'100%'}
-        maxHeight={250}
       >
         <BarRechart
           className={styles.chart}
@@ -71,7 +70,7 @@ export function BarChart({
             tickLine={false}
             fontSize={12}
             interval={'preserveEnd'}
-            padding={{ right: 3, left: 0 }}
+            padding={{ right: 0, left: 0 }}
             tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
           />
           <YAxis

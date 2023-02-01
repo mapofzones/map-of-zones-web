@@ -6,6 +6,8 @@
   margin-top: 24px;
 
   .priceSwitcher {
-    max-width: 230px;
+    position: absolute;
+    min-width: 230px;
+    margin-top: 8px;
   }
 }

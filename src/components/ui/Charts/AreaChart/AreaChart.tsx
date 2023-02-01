@@ -33,11 +33,7 @@ export function AreaChart({
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
 
   return (
-    <ResponsiveContainer
-      className={cn(className, styles.container)}
-      width={'99%'} // 99 instead of 100 to be able to automaticaly resize chart
-      height={'100%'}
-    >
+    <ResponsiveContainer className={cn(className, styles.container)} width={'100%'} height={'100%'}>
       <AreaRechart
         className={styles.chart}
         data={data}
@@ -70,7 +66,7 @@ export function AreaChart({
           tickLine={false}
           fontSize={12}
           interval={'preserveEnd'}
-          padding={{ right: 3, left: 0 }}
+          padding={{ right: 0, left: 0 }}
           tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
         />
         <YAxis
