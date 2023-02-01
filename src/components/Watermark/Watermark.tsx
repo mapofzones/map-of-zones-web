@@ -1,14 +1,15 @@
-import logo from 'assets/logo-grey.png';
+import { ReactComponent as WatermarkSVG } from 'assets/watermark.svg';
 
 export function Watermark() {
   return (
-    <img
-      src={logo}
+    <WatermarkSVG
       style={{
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
+        height: '78px',
+        width: '220px',
       }}
     />
   );
