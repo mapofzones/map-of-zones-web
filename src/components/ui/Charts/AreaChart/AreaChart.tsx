@@ -62,14 +62,16 @@ export function AreaChart({
 
         <XAxis
           dataKey="time"
+          style={{ fill: '#8F8F96' }}
           axisLine={false}
           tickLine={false}
           fontSize={12}
           interval={'preserveEnd'}
-          padding={{ right: 0, left: 0 }}
+          padding={{ right: 3, left: 0 }}
           tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
         />
         <YAxis
+          style={{ fill: '#8F8F96' }}
           tickLine={false}
           axisLine={false}
           fontSize={12}

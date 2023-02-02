@@ -66,6 +66,7 @@ export function BarChart({
 
           <XAxis
             dataKey="time"
+            style={{ fill: '#8F8F96' }}
             axisLine={false}
             tickLine={false}
             fontSize={12}
@@ -74,6 +75,7 @@ export function BarChart({
             tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
           />
           <YAxis
+            style={{ fill: '#8F8F96' }}
             tickLine={false}
             axisLine={false}
             fontSize={12}

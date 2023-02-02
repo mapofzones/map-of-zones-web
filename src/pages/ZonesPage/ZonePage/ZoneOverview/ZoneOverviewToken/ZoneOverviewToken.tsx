@@ -60,7 +60,6 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
                   ratingDiff={data?.[priceDiffKeyByPeriod[selectedPeriod]] as number | undefined}
                 />
               </SkeletonTextWrapper>
-              &nbsp;
               <PeriodBlock />
             </div>
           </span>
