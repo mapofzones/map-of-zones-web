@@ -16,7 +16,7 @@ export function ZoneOverviewUniqueDelegates({ className }: ZoneOverviewUniqueDel
   return (
     <OverviewChartCard
       className={className}
-      title="Delegates"
+      title="Unique Delegators"
       data={data}
       chartData={chartData}
       loading={loading}
