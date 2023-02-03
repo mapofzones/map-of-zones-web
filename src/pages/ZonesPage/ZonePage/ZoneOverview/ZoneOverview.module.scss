@@ -9,14 +9,15 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
   padding: 0 24px 24px;
+  overflow: hidden;
 
   .tokenBlock {
     grid-area: token;
+    min-height: 447px;
   }
 
   .volumesBlock {
     grid-area: volumes;
-    min-height: 447px;
   }
 
   .parametersBlock {

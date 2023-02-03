@@ -12,3 +12,9 @@
     margin: 24px;
   }
 }
+
+@media (max-width: 630px) {
+  .wrapper {
+    min-height: 600px;
+  }
+}

@@ -8,6 +8,7 @@ import { IbcVolumeOverviewCardMetadata } from './ZoneOverviewIbcVolume.types';
 export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Currency,
+  wrappedInSmallScreen: true,
   chartKeys: ['total', 'ibcIn', 'ibcOut'],
   dataset: {
     totalIbcVolume: {

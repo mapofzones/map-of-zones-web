@@ -42,7 +42,6 @@ export function BarChart({
           className={styles.chart}
           data={data}
           margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-          barGap={1}
         >
           <defs>
             {Object.keys(datasetCalculatedInfo).map((key: string) => {

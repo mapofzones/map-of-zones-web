@@ -12,6 +12,7 @@ export interface OverviewCardMetadata<T extends DataWithChart<K>, K extends Char
   chartTypes: ChartType[];
   chartKeys: (keyof K)[];
   dataset: { [key: string]: DatasetMetadata<T, K> };
+  wrappedInSmallScreen?: boolean;
 }
 
 interface DatasetMetadata<T, K> {

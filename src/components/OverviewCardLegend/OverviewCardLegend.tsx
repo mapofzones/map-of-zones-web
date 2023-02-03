@@ -1,12 +1,19 @@
+import cn from 'classnames';
+
 import { ValueWithPending } from 'components';
 
 import styles from './OverviewCardLegend.module.scss';
 
 import { OverviewCardLegendProps } from '.';
 
-export function OverviewCardLegend({ metadata, values, loading }: OverviewCardLegendProps) {
+export function OverviewCardLegend({
+  metadata,
+  values,
+  loading,
+  wrappedInSmallScreen = false,
+}: OverviewCardLegendProps) {
   return (
-    <div className={styles.cardLegend}>
+    <div className={cn(styles.cardLegend, { [styles.wrapped]: wrappedInSmallScreen })}>
       {Object.keys(metadata).map((key: string) => {
         const conf = metadata[key];
         const value = values[key];

@@ -21,4 +21,5 @@ export interface OverviewCardLegendProps {
   metadata: { [key: string]: LegendMetadata };
   values: { [key: string]: number | undefined };
   loading: boolean;
+  wrappedInSmallScreen?: boolean;
 }

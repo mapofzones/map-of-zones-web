@@ -71,7 +71,12 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
           setSelectedButton={onChartSelected}
         />
       )}
-      <OverviewCardLegend metadata={legendMetadata} values={legendData} loading={loading} />
+      <OverviewCardLegend
+        metadata={legendMetadata}
+        values={legendData}
+        loading={loading}
+        wrappedInSmallScreen={metadata.wrappedInSmallScreen}
+      />
       <ChartContainer
         chartType={selectedChartType}
         data={chartData}
