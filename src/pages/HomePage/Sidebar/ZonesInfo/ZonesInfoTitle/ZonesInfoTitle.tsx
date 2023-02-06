@@ -9,6 +9,7 @@ import styles from './ZonesInfoTitle.module.scss';
 
 export function ZonesInfoTitle({
   loading,
+  searchValue,
   onSearchChange,
   zonesCount,
 }: ZoneInfoTitleProps): JSX.Element {
@@ -25,6 +26,7 @@ export function ZonesInfoTitle({
 
       <Search
         className={styles.search}
+        initialValue={searchValue}
         onSearchChange={onSearchChange}
         onFocus={() => setSearchExpanded(true)}
         onBlur={() => setSearchExpanded(false)}

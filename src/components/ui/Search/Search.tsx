@@ -11,13 +11,14 @@ import { SearchProps } from './Search.props';
 export function Search({
   autoFocus = false,
   className,
+  initialValue = '',
   onBlur,
   onFocus,
   onSearchChange,
   placeholder = 'Search',
   ...props
 }: SearchProps): JSX.Element {
-  const [enteredText, setEnteredText] = useState('');
+  const [enteredText, setEnteredText] = useState(initialValue);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEnteredText(event.target.value);

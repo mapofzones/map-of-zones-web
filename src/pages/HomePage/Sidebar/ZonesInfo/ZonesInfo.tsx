@@ -65,6 +65,7 @@ function ZonesInfo(): JSX.Element {
     <div className={styles.container}>
       <ZonesInfoTitle
         zonesCount={zones?.length}
+        searchValue={searchValue}
         loading={tableDataLoading}
         onSearchChange={onSearchChange}
       />
