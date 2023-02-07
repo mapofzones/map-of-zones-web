@@ -67,7 +67,7 @@ export function AreaChart({
           tickLine={false}
           fontSize={12}
           interval={'preserveEnd'}
-          padding={{ right: 3, left: 0 }}
+          padding={{ right: 3, left: 3 }}
           tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
         />
         <YAxis
