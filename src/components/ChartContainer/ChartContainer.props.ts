@@ -2,11 +2,13 @@ import { NumberType } from 'components/ui';
 import { DatasetInfo } from 'components/ui/Charts/AreaChart/AreaChart.props';
 import { ChartItemWithTime } from 'types/chart';
 
-export interface ChartContainerProps {
+type ChartKeys<T extends ChartItemWithTime> = Omit<T, 'time'>; //
+
+export interface ChartContainerProps<T extends ChartItemWithTime> {
   className?: string;
   chartType?: ChartType;
-  data: ChartItemWithTime[];
-  datasetInfo: { [key: string]: DatasetInfo };
+  data: T[];
+  datasetInfo: { [key in keyof ChartKeys<T>]: DatasetInfo };
   dataFormatType: NumberType;
   loading: boolean;
   isZeroMinXAxisValue?: boolean;

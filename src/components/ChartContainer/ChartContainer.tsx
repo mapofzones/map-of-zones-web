@@ -9,11 +9,12 @@ import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
 import { Watermark } from 'components/Watermark';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { ChartItemWithTime } from 'types/chart';
 
 import styles from './ChartContainer.module.scss';
 import { ChartContainerProps, ChartType } from './ChartContainer.props';
 
-export function ChartContainer({
+export function ChartContainer<T extends ChartItemWithTime>({
   loading,
   className,
   chartType = ChartType.AREA,
@@ -22,7 +23,7 @@ export function ChartContainer({
   dataFormatType,
   tooltipTimeFormat,
   isZeroMinXAxisValue,
-}: ChartContainerProps) {
+}: ChartContainerProps<T>) {
   const [selectedPeriod] = useSelectedPeriod();
   const chartTimeFormat = useMemo(
     () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),

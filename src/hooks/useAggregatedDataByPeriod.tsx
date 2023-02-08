@@ -10,7 +10,7 @@ import { useSelectedPeriod } from './useSelectedPeriod';
 export function useAggregatedDataByPeriod<T extends ChartItemWithTime>(
   data: T[],
   keys: (keyof T)[]
-) {
+): T[] {
   const [selectedPeriod] = useSelectedPeriod();
 
   return useMemo(() => {

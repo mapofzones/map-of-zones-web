@@ -52,12 +52,7 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
         </OverviewLegendItem>
 
         <OverviewLegendItem className={styles.legendItem}>
-          <OverviewLegendTitle
-            title="Total Out"
-            circleColor="#EE11CC"
-            showPeriod
-            tooltipText="Total Out"
-          />
+          <OverviewLegendTitle title="Total Out" circleColor="#EE11CC" tooltipText="Total Out" />
           <LegendNumberValue value={data?.totalIbcOut} numberType={NumberType.Currency} />
         </OverviewLegendItem>
       </OverviewChartLegend>
