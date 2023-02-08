@@ -6,7 +6,6 @@ import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
 import { ButtonGroup, Card } from 'components/ui';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ChartItemWithTime } from 'types/chart';
 import { ElementSize } from 'types/ElementSize';
 
@@ -15,7 +14,7 @@ import { DataWithChart } from './OverviewChartCard.types';
 
 import { OverviewChartCardProps } from '.';
 
-const CHART_ICONS = {
+export const CHART_ICONS = {
   [ChartType.AREA]: AreaChartIcon,
   [ChartType.BAR]: BarChartIcon,
 };
