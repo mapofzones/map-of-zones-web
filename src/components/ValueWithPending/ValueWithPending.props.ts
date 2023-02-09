@@ -19,6 +19,5 @@ export interface ValueWithPendingProps
   titleIcon?: ReactNode;
   tooltipText?: string;
   value?: number | null;
-  valuePostfixComponent?: ReactNode;
   variants?: 'primary' | 'secondary';
 }

@@ -34,17 +34,6 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
     item?.key && setSelectedChartType(item.key);
   };
 
-  // TODO: refactoring
-  const metadata = useMemo(() => {
-    const newMetadata = { ...DELEGATIONS_CARD_METADATA };
-    newMetadata.dataset.delegated.valuePostfixComponent = <TokenValue symbol={tokenData?.symbol} />;
-    newMetadata.dataset.undelegated.valuePostfixComponent = (
-      <TokenValue symbol={tokenData?.symbol} />
-    );
-
-    return newMetadata;
-  }, [tokenData?.symbol]);
-
   const chartData = useAggregatedDataByPeriod(
     data?.chart ?? [],
     DELEGATIONS_CARD_METADATA.chartKeys

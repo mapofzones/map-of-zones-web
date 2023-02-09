@@ -13,7 +13,6 @@ export interface LegendMetadata {
   icon: ReactNode;
   color?: string;
   additional: boolean;
-  valuePostfixComponent?: ReactNode;
 }
 
 export interface OverviewCardLegendProps {
