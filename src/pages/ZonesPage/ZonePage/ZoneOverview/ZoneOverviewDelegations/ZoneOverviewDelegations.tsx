@@ -21,6 +21,17 @@ import styles from './ZoneOverviewDelegations.module.scss';
 
 import { ZoneOverviewDelegationsProps } from '.';
 
+const CHART_METADATA = {
+  delegationAmount: {
+    title: 'Delegated',
+    color: '#22AAFF',
+  },
+  undelegationAmount: {
+    title: 'Un-Delegated',
+    color: '#FF4455',
+  },
+};
+
 export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsProps) {
   const { data, loading } = useZoneOverviewDelegations();
 
@@ -42,36 +53,28 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
   return (
     <ZoneOverviewCard title="Delegations">
       <ZoneOverviewChartTypeButtonsGroup
-        chartTypes={metadata.chartTypes}
+        chartTypes={[ChartType.AREA, ChartType.BAR]}
         onChartSelected={onChartSelected}
       />
 
       <OverviewChartLegend className={cn(styles.chartLegend, styles.wrapped)}>
         <OverviewLegendItem className={styles.legendItem}>
           <OverviewLegendTitle
-            title={metadata.dataset.delegated.title}
-            circleColor={metadata.dataset.delegated.color}
-            showPeriod={metadata.dataset.delegated.showPeriod}
-            tooltipText={metadata.dataset.delegated.tooltipText}
+            title={CHART_METADATA.delegationAmount.title}
+            circleColor={CHART_METADATA.delegationAmount.color}
+            showPeriod
+            tooltipText="Delegated tooltip"
           />
-          <LegendValueBase>
-            <NumberFormat value={data?.totalDelegated} numberType={NumberType.Number} />
-            <span className={styles.additional}>&nbsp;{tokenData?.symbol}</span>
-          </LegendValueBase>
+          <TokenLegendValue value={data?.totalDelegated} symbol={tokenData?.symbol} />
         </OverviewLegendItem>
 
         <OverviewLegendItem className={styles.legendItem}>
           <OverviewLegendTitle
-            title={metadata.dataset.undelegated.title}
-            circleColor={metadata.dataset.undelegated.color}
-            showPeriod={metadata.dataset.undelegated.showPeriod}
-            tooltipText={metadata.dataset.undelegated.tooltipText}
+            title={CHART_METADATA.undelegationAmount.title}
+            circleColor={CHART_METADATA.undelegationAmount.color}
+            tooltipText="Un-Delegated tooltip"
           />
-
-          <LegendValueBase>
-            <NumberFormat value={data?.totalUndelegated} numberType={NumberType.Number} />
-            <span className={styles.additional}>&nbsp;{tokenData?.symbol}</span>
-          </LegendValueBase>
+          <TokenLegendValue value={data?.totalUndelegated} symbol={tokenData?.symbol} />
         </OverviewLegendItem>
       </OverviewChartLegend>
 
@@ -79,13 +82,24 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
         chartType={selectedChartType}
         data={chartData}
         loading={loading}
-        datasetInfo={metadata.dataset}
+        datasetInfo={CHART_METADATA}
         dataFormatType={NumberType.Currency}
       />
     </ZoneOverviewCard>
   );
 }
 
-function TokenValue({ symbol }: { symbol?: string | null }) {
-  return <span className={styles.additional}>&nbsp;{symbol}</span>;
+function TokenLegendValue({
+  value,
+  symbol,
+}: {
+  value: number | undefined;
+  symbol?: string | null;
+}) {
+  return (
+    <LegendValueBase>
+      <NumberFormat value={value} numberType={NumberType.Number} />
+      <span className={styles.additional}>&nbsp;{symbol}</span>
+    </LegendValueBase>
+  );
 }
