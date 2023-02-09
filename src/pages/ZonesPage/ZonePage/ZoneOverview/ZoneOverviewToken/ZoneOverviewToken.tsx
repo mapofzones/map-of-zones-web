@@ -11,6 +11,12 @@ import {
   ValueWithPending,
   ZoneLogo,
 } from 'components';
+import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
+import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
+import { LegendTitleBase } from 'components/OverviewChartCard/Legend/Title/LegendTitleBase';
+import { LegendNumberValue } from 'components/OverviewChartCard/Legend/Value/LegendNumberValue';
+import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/LegendValueBase';
+import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
 import { PeriodBlock } from 'components/PeriodBlock';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
@@ -26,11 +32,11 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
   const { loading, data } = useContext(OverviewTokenContext);
 
   return (
-    <Card title="Token" className={cn(className, styles.container)}>
-      <div className={styles.detailsContainer}>
-        <div className={styles.detailsItem}>
-          <span className={styles.detailsItem_title}>Price</span>
-          <span className={styles.detailsItem_data}>
+    <ZoneOverviewCard title="Token" className={cn(className, styles.container)}>
+      <OverviewChartLegend className={cn(styles.chartLegend, styles.wrapped)}>
+        <OverviewLegendItem className={styles.legendItem}>
+          <LegendTitleBase>Price</LegendTitleBase>
+          <LegendValueBase>
             <div className={styles.infoGroup}>
               <ZoneLogo size="24px" logoUrl={data?.logoUrl} loading={loading} />
               <SkeletonTextWrapper
@@ -62,29 +68,27 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
               </SkeletonTextWrapper>
               <PeriodBlock />
             </div>
-          </span>
-        </div>
-        <ValueWithPending
-          className={styles.detailsItem}
-          title="Market Cap"
-          value={data?.marketCap}
-          numberType={NumberType.Currency}
-          size={ElementSize.LARGE}
-          loading={loading}
-          defaultSkeletonText={'$418 940 000'}
-        />
-        <ValueWithPending
-          className={styles.detailsItem}
-          title="Trading Volume (24h)"
-          value={data?.tradingVolumeDay}
-          numberType={NumberType.Currency}
-          size={ElementSize.LARGE}
-          loading={loading}
-          defaultSkeletonText={'$418 940 000'}
-        />
-      </div>
+          </LegendValueBase>
+        </OverviewLegendItem>
+
+        <OverviewLegendItem className={styles.legendItem}>
+          <LegendTitleBase>Market Cap</LegendTitleBase>
+          <LegendNumberValue
+            value={data?.marketCap || undefined}
+            numberType={NumberType.Currency}
+          />
+        </OverviewLegendItem>
+
+        <OverviewLegendItem className={styles.legendItem}>
+          <LegendTitleBase>Trading Volume (24h)</LegendTitleBase>
+          <LegendNumberValue
+            value={data?.tradingVolumeDay || undefined}
+            numberType={NumberType.Currency}
+          />
+        </OverviewLegendItem>
+      </OverviewChartLegend>
 
       <TokenCharts />
-    </Card>
+    </ZoneOverviewCard>
   );
 }
