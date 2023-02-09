@@ -1,14 +1,12 @@
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import cn from 'classnames';
 
-import { NumberFormat, NumberType } from 'components';
+import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
-import { OverviewChartCard } from 'components/OverviewChartCard';
 import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
 import { OverviewLegendTitle } from 'components/OverviewChartCard/Legend/Title/OverviewLegendTitle';
-import { LegendNumberValue } from 'components/OverviewChartCard/Legend/Value/LegendNumberValue';
 import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/LegendValueBase';
 import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
 import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewChartCard/ZoneOverviewChartTypeButtonsGroup';
@@ -16,7 +14,6 @@ import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
 
 import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
-import { DELEGATIONS_CARD_METADATA } from './ZoneOverviewDelegations.metadata';
 import styles from './ZoneOverviewDelegations.module.scss';
 
 import { ZoneOverviewDelegationsProps } from '.';
@@ -37,18 +34,16 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
 
   const { loading: tokenLoading, data: tokenData } = useContext(OverviewTokenContext);
 
-  const [selectedChartType, setSelectedChartType] = useState<ChartType>(
-    DELEGATIONS_CARD_METADATA.chartTypes[0]
-  );
+  const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.AREA);
 
   const onChartSelected = (item: { key?: ChartType }) => {
     item?.key && setSelectedChartType(item.key);
   };
 
-  const chartData = useAggregatedDataByPeriod(
-    data?.chart ?? [],
-    DELEGATIONS_CARD_METADATA.chartKeys
-  );
+  const chartData = useAggregatedDataByPeriod(data?.chart ?? [], [
+    'delegationAmount',
+    'undelegationAmount',
+  ]);
 
   return (
     <ZoneOverviewCard title="Delegations">
@@ -65,7 +60,9 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
             showPeriod
             tooltipText="Delegated tooltip"
           />
-          <TokenLegendValue value={data?.totalDelegated} symbol={tokenData?.symbol} />
+          <SkeletonTextWrapper loading={loading} defaultText={'13 952 000'}>
+            <TokenLegendValue value={data?.totalDelegated} symbol={tokenData?.symbol} />
+          </SkeletonTextWrapper>
         </OverviewLegendItem>
 
         <OverviewLegendItem className={styles.legendItem}>

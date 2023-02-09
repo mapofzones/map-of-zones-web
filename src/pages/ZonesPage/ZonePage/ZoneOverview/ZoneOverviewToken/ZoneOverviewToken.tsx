@@ -3,12 +3,10 @@ import { useContext } from 'react';
 import cn from 'classnames';
 
 import {
-  Card,
   NumberFormat,
   NumberType,
   RatingDiffTriangle,
   SkeletonTextWrapper,
-  ValueWithPending,
   ZoneLogo,
 } from 'components';
 import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
@@ -19,7 +17,6 @@ import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/Legen
 import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
 import { PeriodBlock } from 'components/PeriodBlock';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { ElementSize } from 'types/ElementSize';
 
 import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { TokenCharts } from './TokenCharts/TokenCharts';
@@ -73,18 +70,22 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
 
         <OverviewLegendItem className={styles.legendItem}>
           <LegendTitleBase>Market Cap</LegendTitleBase>
-          <LegendNumberValue
-            value={data?.marketCap || undefined}
-            numberType={NumberType.Currency}
-          />
+          <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
+            <LegendNumberValue
+              value={data?.marketCap || undefined}
+              numberType={NumberType.Currency}
+            />
+          </SkeletonTextWrapper>
         </OverviewLegendItem>
 
         <OverviewLegendItem className={styles.legendItem}>
           <LegendTitleBase>Trading Volume (24h)</LegendTitleBase>
-          <LegendNumberValue
-            value={data?.tradingVolumeDay || undefined}
-            numberType={NumberType.Currency}
-          />
+          <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
+            <LegendNumberValue
+              value={data?.tradingVolumeDay || undefined}
+              numberType={NumberType.Currency}
+            />
+          </SkeletonTextWrapper>
         </OverviewLegendItem>
       </OverviewChartLegend>
 

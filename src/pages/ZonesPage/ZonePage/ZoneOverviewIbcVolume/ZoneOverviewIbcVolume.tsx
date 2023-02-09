@@ -1,8 +1,8 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 
 import cn from 'classnames';
 
-import { ButtonGroup, Card, NumberType } from 'components';
+import { NumberType, SkeletonTextWrapper } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
@@ -13,7 +13,6 @@ import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewChartCard/
 import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
 
 import { useZoneOverviewIbcVolumeCard } from './useZoneOverviewIbcVolumeCard';
-import { VOLUME_CARD_METADATA } from './ZoneOverviewIbcVolume.metadata';
 import styles from './ZoneOverviewIbcVolume.module.scss';
 
 import { ZoneOverviewIbcVolumeProps } from '.';
@@ -42,7 +41,7 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
   };
 
   const { data, loading } = useZoneOverviewIbcVolumeCard();
-  const flatData = useAggregatedDataByPeriod(data?.chart ?? [], VOLUME_CARD_METADATA.chartKeys);
+  const flatData = useAggregatedDataByPeriod(data?.chart ?? [], ['total', 'ibcIn', 'ibcOut']);
 
   return (
     <ZoneOverviewCard title="IBC Volume" className={className}>
@@ -57,27 +56,33 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
             title={CHART_METADATA.total.title}
             circleColor={CHART_METADATA.total.color}
             showPeriod
-            tooltipText="Total IBC"
+            tooltipText="Total IBC tooltip"
           />
-          <LegendNumberValue value={data?.totalIbc} numberType={numberType} />
+          <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
+            <LegendNumberValue value={data?.totalIbc} numberType={numberType} />
+          </SkeletonTextWrapper>
         </OverviewLegendItem>
 
         <OverviewLegendItem className={styles.legendItem}>
           <OverviewLegendTitle
             title={CHART_METADATA.ibcIn.title}
             circleColor={CHART_METADATA.ibcIn.color}
-            tooltipText="Total In"
+            tooltipText="Total In tooltip"
           />
-          <LegendNumberValue value={data?.totalIbcIn} numberType={numberType} />
+          <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
+            <LegendNumberValue value={data?.totalIbcIn} numberType={numberType} />
+          </SkeletonTextWrapper>
         </OverviewLegendItem>
 
         <OverviewLegendItem className={styles.legendItem}>
           <OverviewLegendTitle
             title={CHART_METADATA.ibcOut.title}
             circleColor={CHART_METADATA.ibcOut.color}
-            tooltipText="Total Out"
+            tooltipText="Total Out tooltip"
           />
-          <LegendNumberValue value={data?.totalIbcOut} numberType={numberType} />
+          <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
+            <LegendNumberValue value={data?.totalIbcOut} numberType={numberType} />
+          </SkeletonTextWrapper>
         </OverviewLegendItem>
       </OverviewChartLegend>
 
