@@ -8,10 +8,10 @@ export interface LegendMetadata {
   tooltipText: string;
   numberType: NumberType;
   size: ElementSize;
-  loading: boolean;
   showPeriod: boolean;
   defaultSkeletonText: string;
   icon: ReactNode;
+  color?: string;
   additional: boolean;
   valuePostfixComponent?: ReactNode;
 }

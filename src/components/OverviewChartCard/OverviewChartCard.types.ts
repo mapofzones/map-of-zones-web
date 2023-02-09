@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 import { ChartType } from 'components/ChartContainer';
+import { LegendMetadata } from 'components/OverviewCardLegend';
 import { NumberType } from 'components/ui';
 import { ChartItemWithTime } from 'types/chart';
 import { ElementSize } from 'types/ElementSize';
@@ -15,17 +16,11 @@ export interface OverviewCardMetadata<T extends DataWithChart<K>, K extends Char
   wrappedInSmallScreen?: boolean;
 }
 
-interface DatasetMetadata<T, K> {
-  title: string;
-  numberType: NumberType;
+interface DatasetMetadata<T, K> extends LegendMetadata {
   legendValueAccessorKey: keyof T;
   chartValueAccessorKey?: keyof K;
-  tooltipText: string;
-  size: ElementSize;
-  showPeriod: boolean;
-  defaultSkeletonText: string;
-  icon: ReactNode;
-  additional: boolean;
-  color?: string;
-  valuePostfixComponent?: ReactNode;
 }
+
+// export interface LegendMetadata {
+//   loading: boolean;
+// }

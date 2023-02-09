@@ -3,5 +3,5 @@ interface LegendValueBaseProps {
 }
 
 export function LegendValueBase({ children }: LegendValueBaseProps) {
-  return <>{children}</>;
+  return <span>{children}</span>;
 }

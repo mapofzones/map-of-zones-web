@@ -1,7 +1,7 @@
 .cardLegend {
   display: flex;
 
-  .detailsItem {
+  .legendItem {
     border-left: 1px solid var(--black-900);
     padding: 0 20px;
 
@@ -21,7 +21,7 @@
     &.wrapped {
       flex-wrap: wrap;
 
-      .detailsItem {
+      .legendItem {
         &:first-child {
           flex: 1 0 100%;
           margin-bottom: 24px;
@@ -41,7 +41,7 @@
     flex-wrap: wrap;
     flex-direction: column;
 
-    .detailsItem {
+    .legendItem {
       padding: 20px 0;
 
       border-top: 1px solid var(--black-900);

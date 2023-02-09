@@ -11,6 +11,8 @@ import { ElementSize } from 'types/ElementSize';
 
 import styles from './OverviewChartCard.module.scss';
 import { DataWithChart } from './OverviewChartCard.types';
+import { ZoneOverviewCard } from './ZoneOverviewCard';
+import { ZoneOverviewChartTypeButtonsGroup } from './ZoneOverviewChartTypeButtonsGroup';
 
 import { OverviewChartCardProps } from '.';
 
@@ -58,24 +60,19 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
   }, {});
 
   return (
-    <Card title={title} className={cn(styles.wrapper, className)}>
-      {metadata.chartTypes.length > 1 && (
-        <ButtonGroup
-          className={styles.chartTypeSwitcher}
-          size={ElementSize.SMALL}
-          buttons={metadata.chartTypes.map((type: ChartType) => ({
-            key: type,
-            icon: CHART_ICONS[type],
-          }))}
-          setSelectedButton={onChartSelected}
-        />
-      )}
+    <ZoneOverviewCard title={title} className={className}>
+      <ZoneOverviewChartTypeButtonsGroup
+        chartTypes={metadata.chartTypes}
+        onChartSelected={onChartSelected}
+      />
+
       <OverviewCardLegend
         metadata={legendMetadata}
         values={legendData}
         loading={loading}
         wrappedInSmallScreen={metadata.wrappedInSmallScreen}
       />
+
       <ChartContainer
         chartType={selectedChartType}
         data={chartData}
@@ -83,6 +80,6 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
         datasetInfo={chartMetadata}
         dataFormatType={metadata.numberType}
       />
-    </Card>
+    </ZoneOverviewCard>
   );
 }
