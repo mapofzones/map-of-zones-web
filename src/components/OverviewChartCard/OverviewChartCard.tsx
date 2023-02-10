@@ -83,6 +83,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartIte
         loading={loading}
         datasetInfo={chartMetadata}
         dataFormatType={metadata.numberType}
+        lastDashedPeriod
       />
     </Card>
   );

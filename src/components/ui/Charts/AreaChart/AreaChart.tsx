@@ -15,6 +15,7 @@ import {
 
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+import { ChartItemWithTime } from 'types/chart';
 
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './AreaChart.module.scss';
@@ -29,14 +30,35 @@ export function AreaChart({
   timeFormat = 'DD MMM, HH:mm',
   tooltipTimeFormat = 'DD MMM, HH:mm',
   isZeroMinXAxisValue = true,
+  lastDashedPeriod = false,
 }: AreaChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
+  const handledData = !lastDashedPeriod
+    ? data
+    : data.map((item: ChartItemWithTime, index: number) => {
+        if (index < data.length - 2) {
+          return item;
+        }
+
+        return Object.keys(item).reduce((acc: any, currKey: string) => {
+          if (currKey === 'time') {
+            acc[currKey] = item[currKey];
+          } else {
+            if (index === data.length - 2) {
+              acc[currKey] = item[currKey];
+            }
+            acc[`_${currKey}`] = item[currKey];
+          }
+
+          return acc;
+        }, {});
+      });
 
   return (
     <ResponsiveContainer className={cn(className, styles.container)} width={'100%'} height={'100%'}>
       <AreaRechart
         className={styles.chart}
-        data={data}
+        data={handledData}
         margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
       >
         <defs>
@@ -118,12 +140,26 @@ export function AreaChart({
               <Area
                 type="monotone"
                 dataKey={key}
+                name={key}
                 stroke={dataset.color}
                 fillOpacity={1}
                 fill={`url(#${dataset.gradientId})`}
                 strokeWidth={2}
                 activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
               />
+              {lastDashedPeriod && (
+                <Area
+                  type="monotone"
+                  dataKey={`_${key}`}
+                  name={key}
+                  stroke={dataset.color}
+                  fillOpacity={1}
+                  fill={`url(#${dataset.gradientId})`}
+                  strokeWidth={2}
+                  strokeDasharray={'5 5'}
+                  activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
+                />
+              )}
             </React.Fragment>
           );
         })}

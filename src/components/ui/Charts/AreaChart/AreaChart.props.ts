@@ -9,6 +9,7 @@ export interface AreaChartProps {
   timeFormat?: string;
   tooltipTimeFormat?: string;
   isZeroMinXAxisValue?: boolean;
+  lastDashedPeriod?: boolean;
 }
 
 export interface ChartData {

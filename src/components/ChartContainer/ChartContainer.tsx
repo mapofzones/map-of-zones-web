@@ -22,6 +22,7 @@ export function ChartContainer({
   dataFormatType,
   tooltipTimeFormat,
   isZeroMinXAxisValue,
+  lastDashedPeriod = false,
 }: ChartContainerProps) {
   const [selectedPeriod] = useSelectedPeriod();
   const chartTimeFormat = useMemo(
@@ -52,6 +53,7 @@ export function ChartContainer({
             timeFormat={chartTimeFormat}
             tooltipTimeFormat={tooltipFormat}
             isZeroMinXAxisValue={isZeroMinXAxisValue}
+            lastDashedPeriod={lastDashedPeriod}
           />
         </div>
       )}

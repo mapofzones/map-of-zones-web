@@ -11,6 +11,7 @@ export interface ChartContainerProps {
   loading: boolean;
   isZeroMinXAxisValue?: boolean;
   tooltipTimeFormat?: string;
+  lastDashedPeriod?: boolean;
 }
 
 export enum ChartType {
