@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import cn from 'classnames';
 import moment from 'moment';
 import {
@@ -32,6 +34,10 @@ export function BarChart({
   isZeroMinXAxisValue = true,
 }: BarChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
+
+  const chartHash = useMemo(() => Math.random(), []);
+  const maskId = `mask-stripe-${chartHash}`;
+
   return (
     <>
       <ResponsiveContainer
@@ -73,7 +79,7 @@ export function BarChart({
           >
             <rect width="4" height="8" transform="translate(0,0)" fill="white"></rect>
           </pattern>
-          <mask id="mask-stripe">
+          <mask id={maskId}>
             <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
           </mask>
 
@@ -140,7 +146,11 @@ export function BarChart({
             );
           })}
 
-          <ReferenceArea fill={'#1c1c25'} shape={<DashedBar />} x1={data[data.length - 1].time} />
+          <ReferenceArea
+            fill={'#1c1c25'}
+            shape={<DashedBar maskId={maskId} />}
+            x1={data[data.length - 1].time}
+          />
 
           {false && data.length * Object.keys(datasetInfo).length > BARS_LIMIT && (
             <Brush
@@ -158,7 +168,7 @@ export function BarChart({
   );
 }
 
-const DashedBar = ({ x, y, width, height, fill }: any) => {
+export const DashedBar = ({ x, y, width, height, fill, maskId }: any) => {
   const rectX = x;
   const rectY = height < 0 ? y + height : y;
   const rectHeight = Math.abs(height);
@@ -166,7 +176,7 @@ const DashedBar = ({ x, y, width, height, fill }: any) => {
   return (
     <rect
       fill={fill}
-      mask="url(#mask-stripe)"
+      mask={`url(#${maskId})`}
       x={rectX}
       y={rectY}
       width={width}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import cn from 'classnames';
 import moment from 'moment';
@@ -6,7 +6,7 @@ import {
   Area,
   AreaChart as AreaRechart,
   CartesianGrid,
-  ReferenceDot,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -15,8 +15,8 @@ import {
 
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
-import { ChartItemWithTime } from 'types/chart';
 
+import { DashedBar } from '../BarChart/BarChart';
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
@@ -33,32 +33,14 @@ export function AreaChart({
   lastDashedPeriod = false,
 }: AreaChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
-  const handledData = !lastDashedPeriod
-    ? data
-    : data.map((item: ChartItemWithTime, index: number) => {
-        if (index < data.length - 2) {
-          return item;
-        }
-
-        return Object.keys(item).reduce((acc: any, currKey: string) => {
-          if (currKey === 'time') {
-            acc[currKey] = item[currKey];
-          } else {
-            if (index === data.length - 2) {
-              acc[currKey] = item[currKey];
-            }
-            acc[`_${currKey}`] = item[currKey];
-          }
-
-          return acc;
-        }, {});
-      });
+  const chartHash = useMemo(() => Math.random(), []);
+  const maskId = `mask-stripe-${chartHash}`;
 
   return (
     <ResponsiveContainer className={cn(className, styles.container)} width={'100%'} height={'100%'}>
       <AreaRechart
         className={styles.chart}
-        data={handledData}
+        data={data}
         margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
       >
         <defs>
@@ -81,6 +63,19 @@ export function AreaChart({
             );
           })}
         </defs>
+
+        <pattern
+          id="pattern-stripe"
+          width="8"
+          height="8"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect width="4" height="8" transform="translate(0,0)" fill="white"></rect>
+        </pattern>
+        <mask id={maskId}>
+          <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+        </mask>
 
         <XAxis
           dataKey="time"
@@ -105,6 +100,7 @@ export function AreaChart({
           ]}
           tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
         />
+
         <CartesianGrid
           strokeDasharray="3 3"
           vertical={false}
@@ -163,6 +159,14 @@ export function AreaChart({
             </React.Fragment>
           );
         })}
+
+        {lastDashedPeriod && (
+          <ReferenceArea
+            fill={'#1c1c25'}
+            shape={<DashedBar maskId={maskId} />}
+            x1={data[data.length - 2].time}
+          />
+        )}
       </AreaRechart>
     </ResponsiveContainer>
   );
