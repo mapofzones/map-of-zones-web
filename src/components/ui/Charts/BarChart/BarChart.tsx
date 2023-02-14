@@ -5,6 +5,7 @@ import {
   BarChart as BarRechart,
   Brush,
   CartesianGrid,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -63,6 +64,19 @@ export function BarChart({
             })}
           </defs>
 
+          <pattern
+            id="pattern-stripe"
+            width="8"
+            height="8"
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(45)"
+          >
+            <rect width="4" height="8" transform="translate(0,0)" fill="white"></rect>
+          </pattern>
+          <mask id="mask-stripe">
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+          </mask>
+
           <XAxis
             dataKey="time"
             style={{ fill: '#8F8F96' }}
@@ -110,6 +124,7 @@ export function BarChart({
               />
             }
           />
+
           {Object.keys(datasetCalculatedInfo).map((key: string) => {
             const dataset = datasetCalculatedInfo[key];
 
@@ -124,6 +139,9 @@ export function BarChart({
               />
             );
           })}
+
+          <ReferenceArea fill={'#1c1c25'} shape={<DashedBar />} x1={data[data.length - 1].time} />
+
           {false && data.length * Object.keys(datasetInfo).length > BARS_LIMIT && (
             <Brush
               startIndex={data.length > 10 ? data.length - 7 : 0}
@@ -139,3 +157,20 @@ export function BarChart({
     </>
   );
 }
+
+const DashedBar = ({ x, y, width, height, fill }: any) => {
+  const rectX = x;
+  const rectY = height < 0 ? y + height : y;
+  const rectHeight = Math.abs(height);
+
+  return (
+    <rect
+      fill={fill}
+      mask="url(#mask-stripe)"
+      x={rectX}
+      y={rectY}
+      width={width}
+      height={rectHeight}
+    />
+  );
+};
