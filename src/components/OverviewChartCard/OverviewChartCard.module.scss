@@ -5,11 +5,11 @@
   flex-direction: column;
   min-height: 450px;
 
-  .chartTypeSwitcher {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 24px;
+  .chartControls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 0;
   }
 }
 

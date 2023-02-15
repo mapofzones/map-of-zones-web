@@ -106,6 +106,7 @@ export function BarChart({
             ]}
             tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
           />
+
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}
@@ -149,7 +150,7 @@ export function BarChart({
           <ReferenceArea
             fill={'#1c1c25'}
             shape={<DashedBar maskId={maskId} />}
-            x1={data[data.length - 1].time}
+            x1={data[data.length - 1]?.time}
           />
 
           {false && data.length * Object.keys(datasetInfo).length > BARS_LIMIT && (

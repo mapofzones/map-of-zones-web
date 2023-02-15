@@ -1,6 +1,6 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, useState } from 'react';
 
-import { OverviewChartCard } from 'components/OverviewChartCard';
+import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCard';
 import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
 
 import { OverviewTokenContext } from '../OverviewTokenContextProvider';
@@ -11,6 +11,8 @@ import styles from './ZoneOverviewDelegations.module.scss';
 import { ZoneOverviewDelegationsProps } from '.';
 
 export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsProps) {
+  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+
   const { data, loading } = useZoneOverviewDelegations();
 
   const { loading: tokenLoading, data: tokenData } = useContext(OverviewTokenContext);
@@ -28,6 +30,7 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
 
   const chartData = useAggregatedDataByPeriod(
     data?.chart ?? [],
+    selectedPeriod,
     DELEGATIONS_CARD_METADATA.chartKeys
   );
 
@@ -39,6 +42,7 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
       chartData={chartData}
       loading={loading}
       metadata={metadata}
+      onPeriodSelected={(key) => setSelectedPeriod(key)}
     />
   );
 }

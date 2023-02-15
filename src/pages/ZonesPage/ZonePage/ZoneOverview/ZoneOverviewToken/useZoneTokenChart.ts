@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 
 import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ZoneTokenChartDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneTokenChart.query.generated';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ChartItemWithTime } from 'types/chart';
 
 import { ChartType } from './Types';
@@ -12,14 +11,16 @@ export interface ZoneTokenChartData {
   chart: ChartItemWithTime[];
 }
 
-export function useZoneTokenChart(chartType: ChartType): {
+export function useZoneTokenChart(
+  chartType: ChartType,
+  selectedPeriod: PeriodKeys
+): {
   data: ChartItemWithTime[];
   loading: boolean;
 } {
   const { zone = '' } = useParams();
-  const [period] = useSelectedPeriod();
 
-  const type = getChartType(period, chartType);
+  const type = getChartType(selectedPeriod, chartType);
 
   const options = {
     variables: { zone, chartType: type },

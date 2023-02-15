@@ -2,13 +2,15 @@ import { useMemo } from 'react';
 
 import cn from 'classnames';
 
-import { PeriodKeys, PERIODS_IN_DAYS_BY_KEY } from 'components/PeriodSelector/Types';
+import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { SkeletonRectangle } from 'components/Skeleton';
+import { ButtonGroup } from 'components/ui';
 import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
 import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
 import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
 import { Watermark } from 'components/Watermark';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { ElementSize } from 'types/ElementSize';
 
 import styles from './ChartContainer.module.scss';
 import { ChartContainerProps, ChartType } from './ChartContainer.props';
@@ -37,10 +39,6 @@ export function ChartContainer({
 
   return (
     <>
-      <PeriodDisplay
-        className={styles.periodInfo}
-        periodInDays={PERIODS_IN_DAYS_BY_KEY[selectedPeriod]}
-      />
       {loading && <SkeletonRectangle style={{ width: '100%', flex: '1 1 auto' }} />}
       {!loading && data && (
         <div style={{ position: 'relative', flex: '1 1 auto' }}>

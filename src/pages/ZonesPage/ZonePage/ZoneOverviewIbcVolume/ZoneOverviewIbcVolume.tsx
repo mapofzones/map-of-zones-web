@@ -1,6 +1,7 @@
-import { OverviewChartCard } from 'components/OverviewChartCard';
+import { useState } from 'react';
+
+import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCard';
 import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { useZoneOverviewIbcVolumeCard } from './useZoneOverviewIbcVolumeCard';
 import { VOLUME_CARD_METADATA } from './ZoneOverviewIbcVolume.metadata';
@@ -8,9 +9,14 @@ import { VOLUME_CARD_METADATA } from './ZoneOverviewIbcVolume.metadata';
 import { ZoneOverviewIbcVolumeProps } from '.';
 
 export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps) {
-  const { data, loading } = useZoneOverviewIbcVolumeCard();
+  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+  const { data, loading } = useZoneOverviewIbcVolumeCard(selectedPeriod);
 
-  const flatData = useAggregatedDataByPeriod(data?.chart ?? [], VOLUME_CARD_METADATA.chartKeys);
+  const flatData = useAggregatedDataByPeriod(
+    data?.chart ?? [],
+    selectedPeriod,
+    VOLUME_CARD_METADATA.chartKeys
+  );
 
   return (
     <OverviewChartCard
@@ -20,6 +26,7 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
       chartData={flatData}
       loading={loading}
       metadata={VOLUME_CARD_METADATA}
+      onPeriodSelected={(period) => setSelectedPeriod(period)}
     />
   );
 }
