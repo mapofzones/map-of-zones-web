@@ -8,13 +8,12 @@ export interface ZoneOverviewIbcTransfersCardResult {
 }
 
 export interface ZoneOverviewIbcTransfersCardData {
-  zone: string;
   totalIbcTransfersCount?: number;
   totalPending?: number;
   chart: IbcTransfersChart[];
 }
 
-export interface IbcTransfersChart extends ChartItemWithTime {
+export interface IbcTransfersChart {
   time: number;
   pending: number;
   ibcTransfersCount: number;

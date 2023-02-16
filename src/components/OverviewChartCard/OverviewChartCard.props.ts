@@ -1,5 +1,3 @@
-import { ChartItemWithTime } from 'types/chart';
-
 import { DataWithChart, OverviewCardMetadata } from './OverviewChartCard.types';
 
 export type OverviewCardPeriod = '1w' | '2w' | '1m';
@@ -10,7 +8,7 @@ export interface OverviewChartCardProps<T extends DataWithChart<K>, K> {
   title: string;
   data: T | undefined;
   loading?: boolean;
-  chartData: ChartItemWithTime[];
+  chartData: K[];
   onPeriodSelected?: (key: OverviewCardPeriod) => void;
 }
 
