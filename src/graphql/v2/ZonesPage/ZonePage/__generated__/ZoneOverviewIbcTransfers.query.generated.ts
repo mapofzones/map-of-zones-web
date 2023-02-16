@@ -147,7 +147,11 @@ export const ZoneOverviewIbcTransfersCardDocument = {
                                 {
                                   kind: 'ObjectField',
                                   name: { kind: 'Name', value: '_eq' },
-                                  value: { kind: 'StringValue', value: 'transfers', block: false },
+                                  value: {
+                                    kind: 'StringValue',
+                                    value: 'transfers_general',
+                                    block: false,
+                                  },
                                 },
                               ],
                             },

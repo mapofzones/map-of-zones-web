@@ -12,7 +12,7 @@ export const ZONE_OVERVIEW_IBC_TRANSFERS = gql`
       ibcTransfers: ibc_transfers
       ibcTransfersPending: ibc_transfers_pending
       ibcTransfersChart: blockchain_tf_switched_charts(
-        where: { chart_type: { _eq: "transfers" } }
+        where: { chart_type: { _eq: "transfers_general" } }
         order_by: { point_index: asc }
       ) {
         ibcTransfer: point_value
