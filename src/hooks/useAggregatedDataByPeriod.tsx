@@ -6,7 +6,7 @@ import { OverviewCardPeriod } from 'components/OverviewChartCard';
 import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ChartItemWithTime } from 'types/chart';
 
-export function useAggregatedDataByPeriod<T extends ChartItemWithTime>(
+export function useAggregatedDataByPeriod<T>(
   data: T[],
   selectedPeriod: OverviewCardPeriod,
   keys: (keyof T)[]

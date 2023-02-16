@@ -164,7 +164,7 @@ export function AreaChart({
           <ReferenceArea
             fill={'#1c1c25'}
             shape={<DashedBar maskId={maskId} />}
-            x1={data[data.length - 2].time}
+            x1={data[data.length - 2]?.time}
           />
         )}
       </AreaRechart>

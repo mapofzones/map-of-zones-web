@@ -28,7 +28,7 @@ const PERIOD_TITLES_BY_KEY: Record<OverviewCardPeriod, string> = {
   '1m': '1M',
 };
 
-export function OverviewChartCard<T extends DataWithChart<K>, K extends ChartItemWithTime>({
+export function OverviewChartCard<T extends DataWithChart<K>, K>({
   metadata,
   title,
   data,
