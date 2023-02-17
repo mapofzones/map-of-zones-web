@@ -8,14 +8,16 @@ import {
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcTransfers.query.generated';
 import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
+import { useZoneOverviewOptions } from '../hooks/useZoneOverviewOptions';
 import {
   IbcTransfersChart,
   ZoneOverviewIbcTransfersCardData,
 } from './ZoneOverviewIbcTransfersCard.types';
 
-type IbcTransfersCardApi = ZoneOverviewIbcTransfersCardQueryResult['ibcTransfersCardData'][number];
-type IbcTransfersChartApi = IbcTransfersCardApi['ibcTransfersChart'][number];
-type IbcTransfersPendingChartApi = IbcTransfersCardApi['ibcTransfersPendingChart'][number];
+type IbcTransfersCardApi = ZoneOverviewIbcTransfersCardQueryResult['ibcTransfersCardData'];
+type IbcTransfersChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersChart'][number];
+type IbcTransfersPendingChartApi =
+  NonNullable<IbcTransfersCardApi>['ibcTransfersPendingChart'][number];
 
 const chartsMapping: ArraysMapping<
   IbcTransfersCardApi,
@@ -36,12 +38,7 @@ export function useZoneOverviewIbcTransfersCard(period: OverviewCardPeriod): {
   data: ZoneOverviewIbcTransfersCardData | undefined;
   loading: boolean;
 } {
-  const { zone = '' } = useParams();
-
-  const options = {
-    variables: { zone, period: OVERVIEW_PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
-    skip: !zone,
-  };
+  const options = useZoneOverviewOptions(period);
 
   const { data, loading } = useQuery<ZoneOverviewIbcTransfersCardQueryResult>(
     ZoneOverviewIbcTransfersCardDocument,
@@ -50,9 +47,9 @@ export function useZoneOverviewIbcTransfersCard(period: OverviewCardPeriod): {
 
   return {
     data: {
-      totalIbcTransfersCount: data?.ibcTransfersCardData[0]?.ibcTransfers,
-      totalPending: data?.ibcTransfersCardData[0]?.ibcTransfersPending,
-      chart: mergeChartArraysIntoOne(data?.ibcTransfersCardData[0], chartsMapping),
+      totalIbcTransfersCount: data?.ibcTransfersCardData?.ibcTransfers?.aggregate?.sum?.value,
+      totalPending: data?.ibcTransfersCardData?.ibcTransfersPending,
+      chart: mergeChartArraysIntoOne(data?.ibcTransfersCardData, chartsMapping),
     },
     loading,
   };

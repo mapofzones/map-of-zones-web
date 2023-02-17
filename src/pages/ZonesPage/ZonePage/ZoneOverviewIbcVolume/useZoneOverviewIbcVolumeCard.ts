@@ -1,19 +1,19 @@
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
 
-import { OverviewCardPeriod, OVERVIEW_PERIODS_IN_HOURS_BY_KEY } from 'components/OverviewChartCard';
+import { OverviewCardPeriod } from 'components/OverviewChartCard';
 import {
   ZoneOverviewIbcVolumeDocument,
   ZoneOverviewIbcVolumeQueryResult,
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcVolume.query.generated';
 import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
+import { useZoneOverviewOptions } from '../ZoneOverview/hooks/useZoneOverviewOptions';
 import { IbcVolumeChart, ZoneOverviewIbcVolumeCardData } from './ZoneOverviewIbcVolume.types';
 
-type IbcVolumeCardApi = ZoneOverviewIbcVolumeQueryResult['ibcVolumeCardData'][number];
-type IbcVolumeChartApi = IbcVolumeCardApi['ibcVolumeChart'][number];
-type IbcVolumeInChartApi = IbcVolumeCardApi['ibcVolumeInChart'][number];
-type IbcVolumeOutChartApi = IbcVolumeCardApi['ibcVolumeOutChart'][number];
+type IbcVolumeCardApi = ZoneOverviewIbcVolumeQueryResult['ibcVolumeCardData'];
+type IbcVolumeChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeInChart'][number];
+type IbcVolumeInChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeInChart'][number];
+type IbcVolumeOutChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeOutChart'][number];
 
 const chartsMapping: ArraysMapping<
   IbcVolumeCardApi,
@@ -38,12 +38,7 @@ export function useZoneOverviewIbcVolumeCard(period: OverviewCardPeriod): {
   data: ZoneOverviewIbcVolumeCardData | undefined;
   loading: boolean;
 } {
-  const { zone = '' } = useParams();
-
-  const options = {
-    variables: { zone, period: OVERVIEW_PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
-    skip: !zone,
-  };
+  const options = useZoneOverviewOptions(period);
 
   const { data, loading } = useQuery<ZoneOverviewIbcVolumeQueryResult>(
     ZoneOverviewIbcVolumeDocument,
@@ -52,10 +47,10 @@ export function useZoneOverviewIbcVolumeCard(period: OverviewCardPeriod): {
 
   return {
     data: {
-      totalIbc: data?.ibcVolumeCardData[0]?.ibcVolume,
-      totalIbcIn: data?.ibcVolumeCardData[0]?.ibcVolumeIn,
-      totalIbcOut: data?.ibcVolumeCardData[0]?.ibcVolumeOut,
-      chart: mergeChartArraysIntoOne(data?.ibcVolumeCardData[0], chartsMapping),
+      totalIbc: data?.ibcVolumeCardData?.ibcVolume.aggregate?.sum?.volume,
+      totalIbcIn: data?.ibcVolumeCardData?.ibcVolumeIn.aggregate?.sum?.volumeIn,
+      totalIbcOut: data?.ibcVolumeCardData?.ibcVolumeOut.aggregate?.sum?.volumeOut,
+      chart: mergeChartArraysIntoOne(data?.ibcVolumeCardData, chartsMapping),
     },
     loading,
   };

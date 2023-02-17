@@ -1,17 +1,68 @@
 import { gql } from '@apollo/client';
 
 export const ZONE_OVERVIEW_IBC_VOLUME = gql`
-  query ZoneOverviewIbcVolume($zone: String!, $period: Int!, $isMainnet: Boolean!) {
-    ibcVolumeCardData: flat_blockchain_switched_stats(
-      where: {
-        blockchain: { _eq: $zone }
-        timeframe: { _eq: $period }
-        is_mainnet: { _eq: $isMainnet }
-      }
+  query ZoneOverviewIbcVolume(
+    $zone: String!
+    $period: Int!
+    $isMainnet: Boolean!
+    $periodInDays: Int!
+  ) {
+    ibcVolumeCardData: flat_blockchain_switched_stats_by_pk(
+      blockchain: $zone
+      timeframe: $period
+      is_mainnet: $isMainnet
     ) {
-      ibcVolume: ibc_cashflow
-      ibcVolumeIn: ibc_cashflow_in
-      ibcVolumeOut: ibc_cashflow_out
+      ibcVolume: blockchain_tf_switched_charts_aggregate(
+        where: {
+          blockchain: { _eq: $zone }
+          timeframe: { _eq: $period }
+          is_mainnet: { _eq: $isMainnet }
+          chart_type: { _eq: "cashflow_general" }
+        }
+        order_by: { point_index: desc }
+        limit: $periodInDays
+        offset: 1 # exclude last point, because it's not completed period
+      ) {
+        aggregate {
+          sum {
+            volume: point_value
+          }
+        }
+      }
+      ibcVolumeIn: blockchain_tf_switched_charts_aggregate(
+        where: {
+          blockchain: { _eq: $zone }
+          timeframe: { _eq: $period }
+          is_mainnet: { _eq: $isMainnet }
+          chart_type: { _eq: "cashflow_in" }
+        }
+        order_by: { point_index: desc }
+        limit: $periodInDays
+        offset: 1 # exclude last point, because it's not completed period
+      ) {
+        aggregate {
+          sum {
+            volumeIn: point_value
+          }
+        }
+      }
+      ibcVolumeOut: blockchain_tf_switched_charts_aggregate(
+        where: {
+          blockchain: { _eq: $zone }
+          timeframe: { _eq: $period }
+          is_mainnet: { _eq: $isMainnet }
+          chart_type: { _eq: "cashflow_out" }
+        }
+        order_by: { point_index: desc }
+        limit: $periodInDays
+        offset: 1 # exclude last point, because it's not completed period
+      ) {
+        aggregate {
+          sum {
+            volumeOut: point_value
+          }
+        }
+      }
       ibcVolumeChart: blockchain_tf_switched_charts(
         where: { chart_type: { _eq: "cashflow_general" } }
         order_by: { point_index: asc }
