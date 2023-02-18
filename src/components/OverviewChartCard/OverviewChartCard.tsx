@@ -20,7 +20,7 @@ const CHART_ICONS = {
   [ChartType.BAR]: BarChartIcon,
 };
 
-const PERIODS: OverviewCardPeriod[] = ['1w', '2w', '1m'];
+const PERIODS: OverviewCardPeriod[] = ['1w', '1m'];
 
 const PERIOD_TITLES_BY_KEY: Record<OverviewCardPeriod, string> = {
   '1w': '1W',
