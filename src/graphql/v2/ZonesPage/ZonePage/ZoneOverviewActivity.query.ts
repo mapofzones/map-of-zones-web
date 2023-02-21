@@ -23,13 +23,3 @@ export const ZONE_OVERVIEW_ACTIVITY = gql`
     }
   }
 `;
-
-// switchedStats: flat_blockchain_switched_stats_by_pk(
-//       blockchain: $zone
-//       timeframe: $period
-//       is_mainnet: $isMainnet
-//     ) {
-//       ibcTransfers: ibc_transfers
-//       peersCount: ibc_peers
-//       channelsCount: channels_cnt
-//     }

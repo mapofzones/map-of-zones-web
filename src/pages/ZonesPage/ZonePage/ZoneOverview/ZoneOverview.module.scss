@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-areas:
-    'activity activity'
+    'overview overview'
     'token volumes'
     'parameters parameters'
     'transactions ibcTransfers'
@@ -12,8 +12,12 @@
   padding: 0 24px 24px;
   overflow: hidden;
 
-  .activity {
-    grid-area: activity;
+  .overview {
+    grid-area: overview;
+
+    display: grid;
+    gap: 28px;
+    grid-auto-flow: column;
   }
 
   .tokenBlock {
@@ -54,6 +58,7 @@
   .container {
     display: grid;
     grid-template-areas:
+      'overview'
       'activity'
       'token'
       'volumes'
