@@ -77,6 +77,46 @@ export function AreaChart({
           <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
         </mask>
 
+        {lastDashedPeriod && (
+          <ReferenceArea
+            fill={'#1c1c25'}
+            shape={<DashedBar maskId={maskId} />}
+            x1={data[data.length - 2]?.time}
+          />
+        )}
+
+        {Object.keys(datasetCalculatedInfo).map((key: string) => {
+          const dataset = datasetCalculatedInfo[key];
+
+          return (
+            <React.Fragment key={key}>
+              <Area
+                type="monotone"
+                dataKey={key}
+                name={key}
+                stroke={dataset.color}
+                fillOpacity={1}
+                fill={`url(#${dataset.gradientId})`}
+                strokeWidth={2}
+                activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
+              />
+              {lastDashedPeriod && (
+                <Area
+                  type="monotone"
+                  dataKey={`_${key}`}
+                  name={key}
+                  stroke={dataset.color}
+                  fillOpacity={1}
+                  fill={`url(#${dataset.gradientId})`}
+                  strokeWidth={2}
+                  strokeDasharray={'5 5'}
+                  activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
+                />
+              )}
+            </React.Fragment>
+          );
+        })}
+
         <XAxis
           dataKey="time"
           style={{ fill: '#8F8F96' }}
@@ -128,45 +168,6 @@ export function AreaChart({
             />
           }
         />
-        {Object.keys(datasetCalculatedInfo).map((key: string) => {
-          const dataset = datasetCalculatedInfo[key];
-
-          return (
-            <React.Fragment key={key}>
-              <Area
-                type="monotone"
-                dataKey={key}
-                name={key}
-                stroke={dataset.color}
-                fillOpacity={1}
-                fill={`url(#${dataset.gradientId})`}
-                strokeWidth={2}
-                activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
-              />
-              {lastDashedPeriod && (
-                <Area
-                  type="monotone"
-                  dataKey={`_${key}`}
-                  name={key}
-                  stroke={dataset.color}
-                  fillOpacity={1}
-                  fill={`url(#${dataset.gradientId})`}
-                  strokeWidth={2}
-                  strokeDasharray={'5 5'}
-                  activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
-                />
-              )}
-            </React.Fragment>
-          );
-        })}
-
-        {lastDashedPeriod && (
-          <ReferenceArea
-            fill={'#1c1c25'}
-            shape={<DashedBar maskId={maskId} />}
-            x1={data[data.length - 2]?.time}
-          />
-        )}
       </AreaRechart>
     </ResponsiveContainer>
   );

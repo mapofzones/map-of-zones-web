@@ -1,110 +1,152 @@
 .container {
-  display: grid;
-  grid-template-areas:
-    'activityTitle activityTitle'
-    'volumeCard totalTxsCard'
-    'volumeCard transfersCard'
-    'overviewItemsGroup overviewItemsGroup';
-  grid-template-rows: auto 1fr 1fr 1fr;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
 
-  .title {
-    grid-area: activityTitle;
+  .header {
+    display: flex;
+    justify-content: space-between;
 
-    color: var(--white);
     font-size: var(--font-heading-size-md);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+
+    margin-bottom: 24px;
   }
 
-  .volumeCard {
-    grid-area: volumeCard;
-  }
+  .valuesContainer {
+    display: flex;
+    flex-direction: row;
 
-  .totalTxsCard {
-    grid-area: totalTxsCard;
-  }
+    .valueBlock {
+      flex-grow: 1;
+    }
 
-  .transfersCard {
-    grid-area: transfersCard;
-  }
+    .volumeInOutContainer {
+      font-size: var(--font-base-size-md);
+      min-width: 150px;
 
-  .overviewItemsGroup {
-    display: grid;
-    grid-area: overviewItemsGroup;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: column;
-    grid-template-rows: auto auto;
-
-    column-gap: 24px;
-
-    .detailedInfoItem {
-      margin: 0 12px;
-      padding: 12px 8px;
-
-      &:first-child,
-      &:nth-child(3) {
-        padding-top: 8px;
-
-        border-bottom: 1px solid var(--black-900);
+      .volumeLineChart {
+        margin-bottom: 8px;
       }
 
-      .additionalInfo {
-        margin-top: 2px;
+      .volumeInValue {
+        margin-right: 16px;
 
-        color: var(--grey-500);
-        font-size: var(--font-secondary-size-md);
+        font-size: var(--font-heading-size-sm);
       }
 
-      &.dauInfo {
-        display: flex;
-        flex-direction: column;
+      .volumeOutValue {
+        font-size: var(--font-heading-size-sm);
       }
+    }
 
-      .dauValue {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        margin-top: -7px;
-      }
+    .ibcVolume,
+    .transactions,
+    .activeAddresses {
+      margin-right: 16px;
     }
   }
 }
+// .container {
+//   display: grid;
+//   padding: 24px;
+//   grid-template-areas:
+//     'volumeCard totalTxsCard'
+//     'volumeCard transfersCard'
+//     'overviewItemsGroup overviewItemsGroup';
+//   grid-template-rows: auto 1fr 1fr 1fr;
+//   grid-template-columns: repeat(2, minmax(0, 1fr));
+//   gap: 24px;
 
-@media (max-width: 630px) {
-  .container {
-    grid-template-areas:
-      'activityTitle'
-      'volumeCard'
-      'totalTxsCard'
-      'transfersCard'
-      'overviewItemsGroup';
-    grid-template-rows: auto;
-    grid-template-columns: 1fr;
-    gap: 20px;
+//   .volumeCard {
+//     grid-area: volumeCard;
+//   }
 
-    .overviewItemsGroup {
-      grid-auto-flow: row;
-      grid-template-rows: auto;
-      grid-template-columns: 1fr;
+//   .totalTxsCard {
+//     grid-area: totalTxsCard;
+//   }
 
-      .detailedInfoItem {
-        margin: 0 20px;
-        padding: 20px 0;
+//   .transfersCard {
+//     grid-area: transfersCard;
+//   }
 
-        border-bottom: 1px solid var(--black-900);
+//   .overviewItemsGroup {
+//     display: grid;
+//     grid-area: overviewItemsGroup;
+//     grid-auto-columns: 1fr;
+//     grid-auto-flow: column;
+//     grid-template-rows: auto auto;
 
-        &:first-child {
-          padding-top: 12px;
-        }
+//     column-gap: 24px;
 
-        &:nth-child(3) {
-          padding-top: 20px;
-        }
+//     .detailedInfoItem {
+//       margin: 0 12px;
+//       padding: 12px 8px;
 
-        &:last-child {
-          border-bottom: none;
-        }
-      }
-    }
-  }
-}
+//       &:first-child,
+//       &:nth-child(3) {
+//         padding-top: 8px;
+
+//         border-bottom: 1px solid var(--black-900);
+//       }
+
+//       .additionalInfo {
+//         margin-top: 2px;
+
+//         color: var(--grey-500);
+//         font-size: var(--font-secondary-size-md);
+//       }
+
+//       &.dauInfo {
+//         display: flex;
+//         flex-direction: column;
+//       }
+
+//       .dauValue {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: flex-end;
+//         margin-top: -7px;
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 630px) {
+//   .container {
+//     grid-template-areas:
+//       'volumeCard'
+//       'totalTxsCard'
+//       'transfersCard'
+//       'overviewItemsGroup';
+//     grid-template-rows: auto;
+//     grid-template-columns: 1fr;
+//     gap: 20px;
+
+//     .overviewItemsGroup {
+//       grid-auto-flow: row;
+//       grid-template-rows: auto;
+//       grid-template-columns: 1fr;
+
+//       .detailedInfoItem {
+//         margin: 0 20px;
+//         padding: 20px 0;
+
+//         border-bottom: 1px solid var(--black-900);
+
+//         &:first-child {
+//           padding-top: 12px;
+//         }
+
+//         &:nth-child(3) {
+//           padding-top: 20px;
+//         }
+
+//         &:last-child {
+//           border-bottom: none;
+//         }
+//       }
+//     }
+//   }
+// }

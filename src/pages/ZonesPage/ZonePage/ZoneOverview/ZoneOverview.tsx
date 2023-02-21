@@ -2,6 +2,7 @@ import { ZoneOverviewIbcVolume } from '../ZoneOverviewIbcVolume';
 import OverviewTokenContextProvider from './OverviewTokenContextProvider';
 import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewActiveUsers } from './ZoneOverviewActiveUsers';
+import { ZoneOverviewActivity } from './ZoneOverviewActivity/ZoneOverviewActivity';
 import { ZoneOverviewDelegations } from './ZoneOverviewDelegations';
 import { ZoneOverviewIbcTransfers } from './ZoneOverviewIbcTransfers';
 import { ZoneOverviewParameters } from './ZoneOverviewParameters/ZoneOverviewParameters';
@@ -13,6 +14,7 @@ export function ZoneOverview() {
   return (
     <OverviewTokenContextProvider>
       <div className={styles.container}>
+        <ZoneOverviewActivity className={styles.activity} />
         <ZoneOverviewToken className={styles.tokenBlock} />
         <ZoneOverviewIbcVolume className={styles.volumesBlock} />
         <ZoneOverviewParameters className={styles.parametersBlock} />
