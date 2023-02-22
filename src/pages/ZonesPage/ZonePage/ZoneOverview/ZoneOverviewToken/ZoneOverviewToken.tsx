@@ -1,29 +1,45 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import cn from 'classnames';
 
 import {
+  ButtonGroup,
   Card,
   NumberFormat,
   NumberType,
+  PeriodKeys,
   RatingDiffTriangle,
   SkeletonTextWrapper,
   ValueWithPending,
   ZoneLogo,
 } from 'components';
-import { PeriodBlock } from 'components/PeriodBlock';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { Period } from 'components/PeriodBlock';
+import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
 
 import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { TokenCharts } from './TokenCharts/TokenCharts';
-import { priceDiffKeyByPeriod } from './Types';
+import { chartOptions, ChartType, priceDiffKeyByPeriod } from './Types';
 import styles from './ZoneOverviewToken.module.scss';
 
+const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
+
 export function ZoneOverviewToken({ className }: { className?: string }) {
-  const [selectedPeriod] = useSelectedPeriod();
+  const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.PRICE);
+  const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
   const { loading, data } = useContext(OverviewTokenContext);
+
+  const onChartSelected = (item: { key?: ChartType }) => {
+    item?.key && setSelectedChartType(item.key);
+    trackSelectedChart(item.key);
+  };
+
+  const onPeriodSelected = (item: { key?: PeriodKeys }) => {
+    item?.key && setSelectedPeriod(item.key);
+  };
+
+  const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
 
   return (
     <Card title="Token" className={cn(className, styles.container)}>
@@ -60,7 +76,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
                   ratingDiff={data?.[priceDiffKeyByPeriod[selectedPeriod]] as number | undefined}
                 />
               </SkeletonTextWrapper>
-              <PeriodBlock />
+              <Period period={selectedPeriod} />
             </div>
           </span>
         </div>
@@ -84,7 +100,28 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         />
       </div>
 
-      <TokenCharts />
+      <div className={styles.chartControls}>
+        <ButtonGroup
+          className={styles.priceSwitcher}
+          size={ElementSize.SMALL}
+          buttons={chartOptions}
+          setSelectedButton={onChartSelected}
+        ></ButtonGroup>
+
+        {PERIODS.length > 1 && (
+          <ButtonGroup
+            className={styles.chartTypeSwitcher}
+            size={ElementSize.SMALL}
+            buttons={PERIODS.map((period: PeriodKeys) => ({
+              key: period,
+              title: period.toUpperCase(),
+            }))}
+            setSelectedButton={onPeriodSelected}
+          />
+        )}
+      </div>
+
+      <TokenCharts chartType={selectedChartType} period={selectedPeriod} />
     </Card>
   );
 }

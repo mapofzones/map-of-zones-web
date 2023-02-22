@@ -17,7 +17,7 @@ export const DELEGATIONS_CARD_METADATA: IbcDelegationsOverviewCardMetadata = {
       legendValueAccessorKey: 'totalDelegated',
       chartValueAccessorKey: 'delegationAmount',
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
       defaultSkeletonText: '143 345',
       color: '#22AAFF',
       icon: <Circle color={'#22AAFF'} />,

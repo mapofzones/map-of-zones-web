@@ -18,7 +18,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
       legendValueAccessorKey: 'totalIbcTransfersCount',
       chartValueAccessorKey: 'ibcTransfersCount',
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
       defaultSkeletonText: '19 850',
       color: '#22AAFF',
       icon: <Circle color={'#22AAFF'} />, // get color from above property
@@ -30,7 +30,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
       tooltipText: 'Processing (24h)',
       numberType: NumberType.Number,
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
       defaultSkeletonText: '10',
       additional: true,
       icon: <PendingIcon />,

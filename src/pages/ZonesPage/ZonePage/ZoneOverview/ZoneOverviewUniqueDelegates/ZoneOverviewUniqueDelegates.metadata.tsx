@@ -17,7 +17,7 @@ export const UNIQUE_DELEGATES_CARD_METADATA: IbcTransfersOverviewCardMetadata = 
       legendValueAccessorKey: 'totalDelegatorsCount',
       chartValueAccessorKey: 'delegatorsCount',
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
       defaultSkeletonText: '19 850',
       color: '#22AAFF',
       icon: <Circle color={'#22AAFF'} />, // get color from above property

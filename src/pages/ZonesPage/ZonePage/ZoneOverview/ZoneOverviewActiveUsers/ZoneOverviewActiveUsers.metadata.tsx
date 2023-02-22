@@ -17,7 +17,7 @@ export const ACTIVE_USERS_CARD_METADATA: ActiveUsersOverviewCardMetadata = {
       legendValueAccessorKey: 'totalActiveAddresses',
       chartValueAccessorKey: 'activeAddressesCount',
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
       defaultSkeletonText: '8 345',
       color: '#22AAFF',
       icon: <Circle color={'#22AAFF'} />,

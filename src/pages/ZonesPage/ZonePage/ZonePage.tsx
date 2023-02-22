@@ -3,13 +3,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
-import {
-  AnimatedArrowDown,
-  ExternalLink,
-  PeriodSelector,
-  SkeletonTextWrapper,
-  ZoneLogo,
-} from 'components';
+import { AnimatedArrowDown, ExternalLink, SkeletonTextWrapper, ZoneLogo } from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useTabletMediumMediaQuery, useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
@@ -22,7 +16,6 @@ import { ZonesSelector } from './ZonesSelector/ZonesSelector';
 
 export function ZonePage() {
   const isTabletMedium = useTabletMediumMediaQuery();
-  const isTabletSmall = useTabletSmallMediaQuery();
 
   const location = useLocation();
 
@@ -43,7 +36,7 @@ export function ZonePage() {
   useEffect(() => setSearchVisible(false), [location, setSearchVisible]);
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.zoneContainer} ref={ref}>
           <div className={styles.detailsTitle} onClick={toggleSearch}>
@@ -101,9 +94,11 @@ export function ZonePage() {
           {isSearchVisible && <ZonesSelector currentZone={data} zonesList={zonesList} />}
         </div>
 
-        <ZoneNavigation peersCount={data?.peersCount} useSmallView={isTabletMedium} />
-
-        <PeriodSelector className={styles.periodContainer} useDropdown={isTabletSmall} />
+        <ZoneNavigation
+          className={styles.tabsContainer}
+          peersCount={data?.peersCount}
+          useSmallView={isTabletMedium}
+        />
       </div>
 
       <Outlet />

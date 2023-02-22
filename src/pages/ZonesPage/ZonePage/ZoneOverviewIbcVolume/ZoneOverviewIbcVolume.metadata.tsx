@@ -18,7 +18,7 @@ export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
       legendValueAccessorKey: 'totalIbc',
       chartValueAccessorKey: 'total',
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
       defaultSkeletonText: '$1,414,795,629',
       color: '#BFBFC3',
       icon: <Circle color={'#BFBFC3'} />,

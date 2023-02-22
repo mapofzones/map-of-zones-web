@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
+import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ZonesListZoneDetailsDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneDetails.query.generated';
 import { useMainnet } from 'hooks/useMainnet';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 export interface ZonesListZoneDetails {
   git?: string | null;
@@ -24,12 +24,10 @@ export function useZonesListZoneDetails(): {
 } {
   const { zone = '' } = useParams();
 
-  const [period] = useSelectedPeriod();
-
   const [isMainnet] = useMainnet();
 
   const options = {
-    variables: { zone, timeframe: PERIODS_IN_HOURS_BY_KEY[period], isMainnet },
+    variables: { zone, timeframe: PERIODS_IN_HOURS_BY_KEY[PeriodKeys.DAY], isMainnet },
     skip: !zone,
   };
 

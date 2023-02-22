@@ -60,6 +60,17 @@
       }
     }
   }
+
+  .chartControls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 0;
+
+    .priceSwitcher {
+      min-width: 230px;
+    }
+  }
 }
 
 @media (min-width: 980px) and (max-width: 1280px) {
