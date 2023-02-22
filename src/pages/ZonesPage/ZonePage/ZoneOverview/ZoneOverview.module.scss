@@ -70,6 +70,10 @@
       'delegations';
     grid-template-columns: 1fr;
     gap: 25px;
+
+    .overview {
+      grid-auto-flow: row;
+    }
   }
 }
 
