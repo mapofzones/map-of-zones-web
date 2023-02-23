@@ -10,7 +10,7 @@ import { ZoneOverviewTransactionsProps } from '.';
 
 export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactionsProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
-  const { data, loading } = useZoneOverviewTransactionCard();
+  const { data, loading } = useZoneOverviewTransactionCard(selectedPeriod);
 
   const chartData = useAggregatedDataByPeriod(
     data?.chart ?? [],

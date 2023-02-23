@@ -2,18 +2,10 @@ import { useMemo } from 'react';
 
 import moment from 'moment';
 
-import { PeriodKeys } from 'components';
 import { ChartItemWithTime } from 'types/chart';
 
-export function useLastChartPointByDate<T extends ChartItemWithTime>(
-  data: T[],
-  period: PeriodKeys
-) {
+export function useLastChartPointByDate<T extends ChartItemWithTime>(data: T[]) {
   return useMemo(() => {
-    if (period === PeriodKeys.DAY) {
-      return data;
-    }
-
     const chartMapData = data.reduce((dict: { [key: string]: T }, curr: T) => {
       const currItemTime = moment.unix(curr.time).format('DD/MM/YYYY');
 

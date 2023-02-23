@@ -1,19 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { OverviewCardPeriod } from 'components/OverviewChartCard';
 
 import {
   ZoneOverviewIbcTransactionsCardData,
   ZoneOverviewIbcTransactionsCardResult,
 } from './ZoneOverviewIbcTransactions.types';
 
-export function useZoneOverviewTransactionCard(): {
+export function useZoneOverviewTransactionCard(period: OverviewCardPeriod): {
   data: ZoneOverviewIbcTransactionsCardData | undefined;
   loading: boolean;
 } {
   const { zone = '' } = useParams();
-  const [period] = useSelectedPeriod();
 
   const { data, isLoading } = useQuery<ZoneOverviewIbcTransactionsCardResult>({
     queryKey: [`txsChart/${zone}/${period}`],

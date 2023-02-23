@@ -1,6 +1,7 @@
-import { OverviewChartCard } from 'components/OverviewChartCard';
+import { useState } from 'react';
+
+import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCard';
 import { useLastChartPointByDate } from 'hooks/useLastChartPointByDate';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
 import { useZoneOverviewUniqueDelegates } from './useZoneOverviewUniqueDelegates';
 import { UNIQUE_DELEGATES_CARD_METADATA } from './ZoneOverviewUniqueDelegates.metadata';
@@ -8,10 +9,10 @@ import { UNIQUE_DELEGATES_CARD_METADATA } from './ZoneOverviewUniqueDelegates.me
 import { ZoneOverviewUniqueDelegatesProps } from '.';
 
 export function ZoneOverviewUniqueDelegates({ className }: ZoneOverviewUniqueDelegatesProps) {
-  const [period] = useSelectedPeriod();
-  const { data, loading } = useZoneOverviewUniqueDelegates();
+  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+  const { data, loading } = useZoneOverviewUniqueDelegates(selectedPeriod);
 
-  const chartData = useLastChartPointByDate(data?.chart ?? [], period);
+  const chartData = useLastChartPointByDate(data?.chart ?? []);
 
   return (
     <OverviewChartCard
@@ -21,6 +22,7 @@ export function ZoneOverviewUniqueDelegates({ className }: ZoneOverviewUniqueDel
       chartData={chartData}
       loading={loading}
       metadata={UNIQUE_DELEGATES_CARD_METADATA}
+      onPeriodSelected={(period) => setSelectedPeriod(period)}
     />
   );
 }

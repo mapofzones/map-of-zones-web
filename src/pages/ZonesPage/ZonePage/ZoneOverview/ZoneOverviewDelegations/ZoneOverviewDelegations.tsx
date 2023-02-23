@@ -13,7 +13,7 @@ import { ZoneOverviewDelegationsProps } from '.';
 export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
 
-  const { data, loading } = useZoneOverviewDelegations();
+  const { data, loading } = useZoneOverviewDelegations(selectedPeriod);
 
   const { loading: tokenLoading, data: tokenData } = useContext(OverviewTokenContext);
 
