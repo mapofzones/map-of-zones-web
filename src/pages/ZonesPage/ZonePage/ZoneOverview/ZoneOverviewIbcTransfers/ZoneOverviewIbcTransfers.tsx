@@ -21,6 +21,7 @@ export function ZoneOverviewIbcTransfers({ className }: ZoneOverviewIbcTransfers
       loading={loading}
       metadata={TRANSFERS_CARD_METADATA}
       onPeriodSelected={(period) => setSelectedPeriod(period)}
+      period={selectedPeriod}
     />
   );
 }

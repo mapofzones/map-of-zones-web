@@ -20,6 +20,7 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
       loading={loading}
       metadata={VOLUME_CARD_METADATA}
       onPeriodSelected={(period) => setSelectedPeriod(period)}
+      period={selectedPeriod}
     />
   );
 }

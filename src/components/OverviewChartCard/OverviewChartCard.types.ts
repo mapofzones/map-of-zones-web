@@ -17,7 +17,7 @@ export interface OverviewCardMetadata<T extends DataWithChart<K>, K> {
 interface DatasetMetadata<T, K> {
   title: string;
   numberType: NumberType;
-  legendValueAccessorKey: keyof T;
+  legendValueAccessorKey?: keyof T;
   chartValueAccessorKey?: keyof K;
   tooltipText: string;
   size: ElementSize;

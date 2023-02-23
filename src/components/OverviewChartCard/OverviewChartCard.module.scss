@@ -5,6 +5,13 @@
   flex-direction: column;
   min-height: 450px;
 
+  .additionalText {
+    margin-top: 8px;
+
+    color: var(--grey-500);
+    font-size: var(--font-secondary-size-md);
+  }
+
   .chartControls {
     display: flex;
     flex-direction: row;

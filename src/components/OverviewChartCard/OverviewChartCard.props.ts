@@ -10,6 +10,7 @@ export interface OverviewChartCardProps<T extends DataWithChart<K>, K> {
   loading?: boolean;
   chartData: K[];
   onPeriodSelected?: (key: OverviewCardPeriod) => void;
+  period?: OverviewCardPeriod; // TODO: use not undefined
 }
 
 export const OVERVIEW_PERIODS_IN_HOURS_BY_KEY: Record<OverviewCardPeriod, number> = {

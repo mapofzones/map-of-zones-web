@@ -14,7 +14,6 @@ export const ACTIVE_USERS_CARD_METADATA: ActiveUsersOverviewCardMetadata = {
       title: 'Active Users',
       tooltipText: 'Daily Active Users',
       numberType: NumberType.Number,
-      legendValueAccessorKey: 'totalActiveAddresses',
       chartValueAccessorKey: 'activeAddressesCount',
       size: ElementSize.LARGE,
       showPeriod: false,
@@ -26,7 +25,6 @@ export const ACTIVE_USERS_CARD_METADATA: ActiveUsersOverviewCardMetadata = {
     ibcActiveUsers: {
       title: 'IBC Active Users',
       tooltipText: 'IBC Daily Active Users',
-      legendValueAccessorKey: 'totalIbcActiveAddresses',
       chartValueAccessorKey: 'ibcActiveAddressesCount',
       numberType: NumberType.Number,
       size: ElementSize.LARGE,

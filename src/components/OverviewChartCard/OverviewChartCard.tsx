@@ -1,19 +1,18 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
+import moment from 'moment';
 
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
 import { ButtonGroup, Card } from 'components/ui';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { ChartItemWithTime } from 'types/chart';
 import { ElementSize } from 'types/ElementSize';
 
 import styles from './OverviewChartCard.module.scss';
-import { DataWithChart } from './OverviewChartCard.types';
+import { DataWithChart, OverviewCardMetadata } from './OverviewChartCard.types';
 
-import { OverviewCardPeriod, OverviewChartCardProps } from '.';
+import { OverviewCardPeriod, OverviewChartCardProps, OVERVIEW_PERIODS_IN_HOURS_BY_KEY } from '.';
 
 const CHART_ICONS = {
   [ChartType.AREA]: AreaChartIcon,
@@ -35,6 +34,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
   chartData,
   loading = false,
   className,
+  period = '1w',
   onPeriodSelected,
 }: OverviewChartCardProps<T, K>) {
   const [selectedChartType, setSelectedChartType] = useState<ChartType>(metadata.chartTypes[0]);
@@ -46,38 +46,35 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
     item?.key && onPeriodSelected && onPeriodSelected(item?.key);
   };
 
-  const legendMetadata = Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
-    const dataset = metadata.dataset[key];
-    acc[dataset.legendValueAccessorKey] = dataset;
-    return acc;
-  }, {});
+  const legendMetadata = rebuildLegendMetadataByLegendKey<T, K>(metadata);
 
-  const legendData = Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
-    const dataset = metadata.dataset[key];
-    acc[dataset.legendValueAccessorKey] = data ? data[dataset.legendValueAccessorKey] : undefined;
-    return acc;
-  }, {});
+  const legendExist = Object.keys(legendMetadata).length > 0;
 
-  const chartMetadata = Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
-    const dataset = metadata.dataset[key];
-    if (dataset.chartValueAccessorKey) {
-      acc[dataset.chartValueAccessorKey] = {
-        title: dataset.title,
-        color: dataset.color,
-      };
-    }
+  const legendData = legendExist ? rebuildLegendDataByLegendKey<T, K>(metadata, data) : undefined;
 
-    return acc;
-  }, {});
+  const chartMetadata = rebuildChartMetadataByChartKey<T, K>(metadata);
+
+  const endPeriodFormatted = moment().utc().format('DD MMM');
+  const beginPeriodFormatted = moment()
+    .utc()
+    .subtract(OVERVIEW_PERIODS_IN_HOURS_BY_KEY[period] / 24, 'days')
+    .format('DD MMM');
 
   return (
     <Card title={title} className={cn(styles.wrapper, className)}>
-      <OverviewCardLegend
-        metadata={legendMetadata}
-        values={legendData}
-        loading={loading}
-        wrappedInSmallScreen={metadata.wrappedInSmallScreen}
-      />
+      {legendExist && (
+        <>
+          <OverviewCardLegend
+            metadata={legendMetadata}
+            values={legendData}
+            loading={loading}
+            wrappedInSmallScreen={metadata.wrappedInSmallScreen}
+          />
+          <span className={styles.additionalText}>
+            Cumulative value from {beginPeriodFormatted} 00:00 to {endPeriodFormatted} 00:00 (UTC)
+          </span>
+        </>
+      )}
       <div className={styles.chartControls}>
         {metadata.chartTypes.length > 1 && (
           <ButtonGroup
@@ -112,4 +109,44 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
       />
     </Card>
   );
+}
+function rebuildChartMetadataByChartKey<T extends DataWithChart<K>, K>(
+  metadata: OverviewCardMetadata<T, K>
+) {
+  return Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
+    const dataset = metadata.dataset[key];
+    if (dataset.chartValueAccessorKey) {
+      acc[dataset.chartValueAccessorKey] = {
+        title: dataset.title,
+        color: dataset.color,
+      };
+    }
+
+    return acc;
+  }, {});
+}
+
+function rebuildLegendMetadataByLegendKey<T extends DataWithChart<K>, K>(
+  metadata: OverviewCardMetadata<T, K>
+) {
+  return Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
+    const dataset = metadata.dataset[key];
+    if (dataset.legendValueAccessorKey) {
+      acc[dataset.legendValueAccessorKey] = dataset;
+    }
+    return acc;
+  }, {});
+}
+
+function rebuildLegendDataByLegendKey<T extends DataWithChart<K>, K>(
+  metadata: OverviewCardMetadata<T, K>,
+  data: T | undefined
+) {
+  return Object.keys(metadata.dataset).reduce((acc: any, key: string) => {
+    const dataset = metadata.dataset[key];
+    if (dataset.legendValueAccessorKey) {
+      acc[dataset.legendValueAccessorKey] = data ? data[dataset.legendValueAccessorKey] : undefined;
+    }
+    return acc;
+  }, {});
 }

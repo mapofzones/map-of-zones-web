@@ -11,7 +11,7 @@ export function ZoneOverviewActiveUsers({ className }: ZoneOverviewActiveUsersPr
   return (
     <OverviewChartCard
       className={className}
-      title="Active Users"
+      title="Daily Active Addresses"
       data={data}
       chartData={data?.chart ?? []}
       loading={loading}
