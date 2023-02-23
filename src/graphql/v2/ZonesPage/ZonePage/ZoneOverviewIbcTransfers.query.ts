@@ -29,7 +29,57 @@ export const ZONE_OVERVIEW_IBC_TRANSFERS = gql`
           }
         }
       }
-      ibcTransfersPending: ibc_transfers_pending
+      ibcTransfersIn: blockchain_tf_switched_charts_aggregate(
+        where: {
+          blockchain: { _eq: $zone }
+          timeframe: { _eq: $period }
+          is_mainnet: { _eq: $isMainnet }
+          chart_type: { _eq: "transfers_in" }
+        }
+        order_by: { point_index: desc }
+        limit: $periodInDays
+        offset: 1 # exclude last point, because it's not completed period
+      ) {
+        aggregate {
+          sum {
+            value: point_value
+          }
+        }
+      }
+      ibcTransfersOut: blockchain_tf_switched_charts_aggregate(
+        where: {
+          blockchain: { _eq: $zone }
+          timeframe: { _eq: $period }
+          is_mainnet: { _eq: $isMainnet }
+          chart_type: { _eq: "transfers_out" }
+        }
+        order_by: { point_index: desc }
+        limit: $periodInDays
+        offset: 1 # exclude last point, because it's not completed period
+      ) {
+        aggregate {
+          sum {
+            value: point_value
+          }
+        }
+      }
+      ibcTransfersFailed: blockchain_tf_switched_charts_aggregate(
+        where: {
+          blockchain: { _eq: $zone }
+          timeframe: { _eq: $period }
+          is_mainnet: { _eq: $isMainnet }
+          chart_type: { _eq: "transfers_failed" }
+        }
+        order_by: { point_index: desc }
+        limit: $periodInDays
+        offset: 1 # exclude last point, because it's not completed period
+      ) {
+        aggregate {
+          sum {
+            value: point_value
+          }
+        }
+      }
       ibcTransfersChart: blockchain_tf_switched_charts(
         where: { chart_type: { _eq: "transfers_general" } }
         order_by: { point_index: asc }
@@ -37,11 +87,25 @@ export const ZONE_OVERVIEW_IBC_TRANSFERS = gql`
         ibcTransfer: point_value
         time: point_index
       }
-      ibcTransfersPendingChart: blockchain_tf_switched_charts(
-        where: { chart_type: { _eq: "transfers_pending" } }
+      ibcTransfersInChart: blockchain_tf_switched_charts(
+        where: { chart_type: { _eq: "transfers_in" } }
         order_by: { point_index: asc }
       ) {
-        pending: point_value
+        value: point_value
+        time: point_index
+      }
+      ibcTransfersOutChart: blockchain_tf_switched_charts(
+        where: { chart_type: { _eq: "transfers_out" } }
+        order_by: { point_index: asc }
+      ) {
+        value: point_value
+        time: point_index
+      }
+      ibcTransfersFailedChart: blockchain_tf_switched_charts(
+        where: { chart_type: { _eq: "transfers_failed" } }
+        order_by: { point_index: asc }
+      ) {
+        value: point_value
         time: point_index
       }
     }

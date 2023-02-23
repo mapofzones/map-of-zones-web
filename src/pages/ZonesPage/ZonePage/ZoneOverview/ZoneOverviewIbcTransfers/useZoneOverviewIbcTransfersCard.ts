@@ -16,21 +16,31 @@ import {
 
 type IbcTransfersCardApi = ZoneOverviewIbcTransfersCardQueryResult['ibcTransfersCardData'];
 type IbcTransfersChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersChart'][number];
-type IbcTransfersPendingChartApi =
-  NonNullable<IbcTransfersCardApi>['ibcTransfersPendingChart'][number];
+type IbcTransfersFailedChartApi =
+  NonNullable<IbcTransfersCardApi>['ibcTransfersFailedChart'][number];
+type IbcTransfersInChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersInChart'][number];
+type IbcTransfersOutChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersOutChart'][number];
+type CombinedChartApi = IbcTransfersChartApi &
+  IbcTransfersFailedChartApi &
+  IbcTransfersInChartApi &
+  IbcTransfersOutChartApi;
 
-const chartsMapping: ArraysMapping<
-  IbcTransfersCardApi,
-  IbcTransfersChartApi & IbcTransfersPendingChartApi,
-  IbcTransfersChart
-> = {
+const chartsMapping: ArraysMapping<IbcTransfersCardApi, CombinedChartApi, IbcTransfersChart> = {
   ibcTransfersChart: {
     from: 'ibcTransfer',
     to: 'ibcTransfersCount',
   },
-  ibcTransfersPendingChart: {
-    from: 'pending',
-    to: 'pending',
+  ibcTransfersFailedChart: {
+    from: 'value',
+    to: 'ibcTransfersFailedCount',
+  },
+  ibcTransfersInChart: {
+    from: 'value',
+    to: 'ibcTransfersInCount',
+  },
+  ibcTransfersOutChart: {
+    from: 'value',
+    to: 'ibcTransfersOutCount',
   },
 };
 
@@ -48,7 +58,10 @@ export function useZoneOverviewIbcTransfersCard(period: OverviewCardPeriod): {
   return {
     data: {
       totalIbcTransfersCount: data?.ibcTransfersCardData?.ibcTransfers?.aggregate?.sum?.value,
-      totalPending: data?.ibcTransfersCardData?.ibcTransfersPending,
+      ibcTransfersFailedCount:
+        data?.ibcTransfersCardData?.ibcTransfersFailed?.aggregate?.sum?.value,
+      ibcTransfersInCount: data?.ibcTransfersCardData?.ibcTransfersIn?.aggregate?.sum?.value,
+      ibcTransfersOutCount: data?.ibcTransfersCardData?.ibcTransfersOut?.aggregate?.sum?.value,
       chart: mergeChartArraysIntoOne(data?.ibcTransfersCardData, chartsMapping),
     },
     loading,
