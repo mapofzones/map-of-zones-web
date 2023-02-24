@@ -13,6 +13,12 @@ export interface OverviewChartCardProps<T extends DataWithChart<K>, K> {
   period?: OverviewCardPeriod; // TODO: use not undefined
 }
 
+export const OVERVIEW_PERIODS_API_KEYS: Record<OverviewCardPeriod, string> = {
+  '1w': '7d',
+  '2w': '14d',
+  '1m': '30d',
+};
+
 export const OVERVIEW_PERIODS_IN_HOURS_BY_KEY: Record<OverviewCardPeriod, number> = {
   '1w': 24 * 7,
   '2w': 24 * 7 * 2,

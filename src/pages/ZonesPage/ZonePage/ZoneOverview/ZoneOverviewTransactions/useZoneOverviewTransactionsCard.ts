@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { OverviewCardPeriod } from 'components/OverviewChartCard';
+import { OverviewCardPeriod, OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCard';
 
 import {
   ZoneOverviewIbcTransactionsCardData,
@@ -15,7 +15,7 @@ export function useZoneOverviewTransactionCard(period: OverviewCardPeriod): {
   const { zone = '' } = useParams();
 
   const { data, isLoading } = useQuery<ZoneOverviewIbcTransactionsCardResult>({
-    queryKey: [`txsChart/${zone}/${period}`],
+    queryKey: [`txsChart/${zone}/${OVERVIEW_PERIODS_API_KEYS[period]}`],
     enabled: !!period && !!zone,
   });
 
