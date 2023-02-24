@@ -6,7 +6,6 @@ import {
   Area,
   AreaChart as AreaRechart,
   CartesianGrid,
-  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -15,8 +14,8 @@ import {
 
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+import { ChartItemWithTime } from 'types/chart';
 
-import { DashedBar } from '../BarChart/BarChart';
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
@@ -33,14 +32,32 @@ export function AreaChart({
   lastDashedPeriod = false,
 }: AreaChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
-  const chartHash = useMemo(() => Math.random(), []);
-  const maskId = `mask-stripe-${chartHash}`;
+  const handledData = !lastDashedPeriod
+    ? data
+    : data.map((item: ChartItemWithTime, index: number) => {
+        if (index < data.length - 2) {
+          return item;
+        }
+
+        return Object.keys(item).reduce((acc: any, currKey: string) => {
+          if (currKey === 'time') {
+            acc[currKey] = item[currKey];
+          } else {
+            if (index === data.length - 2) {
+              acc[currKey] = item[currKey];
+            }
+            acc[`_${currKey}`] = item[currKey];
+          }
+
+          return acc;
+        }, {});
+      });
 
   return (
     <ResponsiveContainer className={cn(className, styles.container)} width={'100%'} height={'100%'}>
       <AreaRechart
         className={styles.chart}
-        data={data}
+        data={handledData}
         margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
       >
         <defs>
@@ -64,19 +81,6 @@ export function AreaChart({
           })}
         </defs>
 
-        <pattern
-          id="pattern-stripe"
-          width="8"
-          height="8"
-          patternUnits="userSpaceOnUse"
-          patternTransform="rotate(45)"
-        >
-          <rect width="4" height="8" transform="translate(0,0)" fill="white"></rect>
-        </pattern>
-        <mask id={maskId}>
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
-        </mask>
-
         {Object.keys(datasetCalculatedInfo).map((key: string) => {
           const dataset = datasetCalculatedInfo[key];
 
@@ -92,17 +96,22 @@ export function AreaChart({
                 strokeWidth={2}
                 activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
               />
+              {lastDashedPeriod && (
+                <Area
+                  type="monotone"
+                  dataKey={`_${key}`}
+                  name={key}
+                  stroke={dataset.color}
+                  fillOpacity={1}
+                  fill={`url(#${dataset.gradientId})`}
+                  strokeWidth={2}
+                  strokeDasharray={'5 5'}
+                  activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
+                />
+              )}
             </React.Fragment>
           );
         })}
-
-        {lastDashedPeriod && (
-          <ReferenceArea
-            fill={'#1c1c25'}
-            shape={<DashedBar maskId={maskId} />}
-            x1={data[data.length - 2]?.time}
-          />
-        )}
 
         <XAxis
           dataKey="time"
