@@ -30,19 +30,6 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
       icon: <Circle color={'#BFBFC3'} />, // get color from above property
       additional: false,
     },
-    failed: {
-      title: 'IBC Failed',
-      tooltipText: 'Ibc Transfers',
-      numberType: NumberType.Number,
-      legendValueAccessorKey: 'ibcTransfersFailedCount',
-      chartValueAccessorKey: 'ibcTransfersFailedCount',
-      size: ElementSize.LARGE,
-      showPeriod: false,
-      defaultSkeletonText: '19 850',
-      color: '#ff4455',
-      icon: <Circle color={'#ff4455'} />, // get color from above property
-      additional: false,
-    },
     in: {
       title: 'IBC In',
       tooltipText: 'Ibc Transfers',
