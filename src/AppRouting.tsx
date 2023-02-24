@@ -44,9 +44,9 @@ export function AppRouting() {
           </Route>
         </Route>
         <Route path={path.assetsPath} element={<AssetsPage />} />
-        <Route path={path.swapPath} element={<SwapPage />} />
+        <Route path={`${path.swapPath}/*`} element={<SwapPage />} />
         <Route path={path.aboutPath} element={<AboutPage />} />
-        <Route path="*" element={<div>Not found.</div>} />
+        {/* <Route path="*" element={<div>Not found.</div>} /> */}
       </Route>
     </Routes>
   );

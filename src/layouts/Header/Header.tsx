@@ -47,7 +47,7 @@ function Header({ ...props }): JSX.Element {
           <NavLink to={`/${assetsPath}`} onClick={() => trackHeaderTabClick('assets')}>
             Assets
           </NavLink>
-          <NavLink to={`/${swapPath}`} onClick={() => trackHeaderTabClick('swap')}>
+          <NavLink to={`/${swapPath}`} onClick={() => trackHeaderTabClick('swap-squid')}>
             Swap
           </NavLink>
           {/* <NavLink to={`/${aboutPath}`}>About</NavLink> */}
