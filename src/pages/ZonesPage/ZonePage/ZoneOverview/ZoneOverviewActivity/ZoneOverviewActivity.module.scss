@@ -29,7 +29,7 @@
         min-width: 150px;
 
         .volumeLineChart {
-          margin-bottom: 8px;
+          margin-bottom: 12px;
         }
 
         .volumeInOutValuesContainer {
@@ -40,11 +40,11 @@
         .volumeInValue {
           margin-right: 16px;
 
-          font-size: var(--font-heading-size-sm);
+          font-size: var(--font-base-size-md);
         }
 
         .volumeOutValue {
-          font-size: var(--font-heading-size-sm);
+          font-size: var(--font-base-size-md);
         }
       }
 
@@ -94,6 +94,15 @@
 
         .valueBlock {
           flex: 1;
+        }
+
+        &.volumeGroup {
+          flex-direction: column;
+          padding-bottom: 24px;
+
+          .ibcVolume {
+            margin-bottom: 20px;
+          }
         }
       }
     }

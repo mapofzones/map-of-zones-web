@@ -49,6 +49,7 @@ export function BarChart({
           className={styles.chart}
           data={data}
           margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+          barGap={1}
         >
           <defs>
             {Object.keys(datasetCalculatedInfo).map((key: string) => {
@@ -82,6 +83,27 @@ export function BarChart({
           <mask id={maskId}>
             <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
           </mask>
+
+          {Object.keys(datasetCalculatedInfo).map((key: string) => {
+            const dataset = datasetCalculatedInfo[key];
+
+            return (
+              <Bar
+                key={key}
+                type="monotone"
+                dataKey={key}
+                radius={[2, 2, 0, 0]}
+                fillOpacity={0.5}
+                fill={`url(#${dataset.gradientId})`}
+              />
+            );
+          })}
+
+          <ReferenceArea
+            fill={'#1c1c25'}
+            shape={<DashedBar maskId={maskId} />}
+            x1={data[data.length - 1]?.time}
+          />
 
           <XAxis
             dataKey="time"
@@ -130,27 +152,6 @@ export function BarChart({
                 timeFormat={tooltipTimeFormat}
               />
             }
-          />
-
-          {Object.keys(datasetCalculatedInfo).map((key: string) => {
-            const dataset = datasetCalculatedInfo[key];
-
-            return (
-              <Bar
-                key={key}
-                type="monotone"
-                dataKey={key}
-                radius={[2, 2, 0, 0]}
-                fillOpacity={0.5}
-                fill={`url(#${dataset.gradientId})`}
-              />
-            );
-          })}
-
-          <ReferenceArea
-            fill={'#1c1c25'}
-            shape={<DashedBar maskId={maskId} />}
-            x1={data[data.length - 1]?.time}
           />
 
           {false && data.length * Object.keys(datasetInfo).length > BARS_LIMIT && (

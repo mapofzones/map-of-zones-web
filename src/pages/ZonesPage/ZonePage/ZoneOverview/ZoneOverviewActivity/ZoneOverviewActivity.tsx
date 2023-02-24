@@ -47,7 +47,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         )}
       </div>
       <div className={styles.valuesContainer}>
-        <div className={styles.valueGroup}>
+        <div className={cn(styles.valueGroup, styles.volumeGroup)}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.ibcVolume)}
             title={'IBC Volume'}
