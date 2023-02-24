@@ -2,15 +2,10 @@ import { useMemo } from 'react';
 
 import cn from 'classnames';
 
-import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { SkeletonRectangle } from 'components/Skeleton';
-import { ButtonGroup } from 'components/ui';
 import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
 import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
-import { PeriodDisplay } from 'components/ui/PeriodDisplay/PeriodDisplay';
 import { Watermark } from 'components/Watermark';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { ElementSize } from 'types/ElementSize';
 
 import styles from './ChartContainer.module.scss';
 import { ChartContainerProps, ChartType } from './ChartContainer.props';
@@ -22,19 +17,11 @@ export function ChartContainer({
   data = [],
   datasetInfo,
   dataFormatType,
-  tooltipTimeFormat,
   isZeroMinXAxisValue,
   lastDashedPeriod = false,
+  tooltipTimeFormat = 'DD MMM YYYY',
+  chartTimeFormat = 'DD MMM',
 }: ChartContainerProps) {
-  const [selectedPeriod] = useSelectedPeriod();
-  const chartTimeFormat = useMemo(
-    () => (selectedPeriod === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'),
-    [selectedPeriod]
-  );
-
-  const tooltipFormat =
-    tooltipTimeFormat ?? selectedPeriod === PeriodKeys.DAY ? 'DD MMM, HH:mm' : 'DD MMM YYYY';
-
   const Chart = useMemo(() => (chartType === ChartType.AREA ? AreaChart : BarChart), [chartType]);
 
   return (
@@ -49,7 +36,7 @@ export function ChartContainer({
             datasetInfo={datasetInfo}
             dataFormat={dataFormatType}
             timeFormat={chartTimeFormat}
-            tooltipTimeFormat={tooltipFormat}
+            tooltipTimeFormat={tooltipTimeFormat}
             isZeroMinXAxisValue={isZeroMinXAxisValue}
             lastDashedPeriod={lastDashedPeriod}
           />
