@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { trackEvent } from '../useAnalytics';
 
-type HeaderMenuTab = 'home' | 'zones' | 'assets';
+type HeaderMenuTab = 'home' | 'zones' | 'assets' | 'swap';
 
 export function useHeaderMenuClicksAnalytics() {
   const [searchParams] = useSearchParams();
