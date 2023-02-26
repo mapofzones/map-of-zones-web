@@ -29,7 +29,7 @@ export function ChartContainer({
       {loading && <SkeletonRectangle style={{ width: '100%', flex: '1 1 auto' }} />}
       {!loading && data && (
         <div style={{ position: 'relative', flex: '1 1 auto' }}>
-          <Watermark />
+          <Watermark className={styles.chartLogo} />
           <Chart
             className={cn(styles.chart, className)}
             data={data}

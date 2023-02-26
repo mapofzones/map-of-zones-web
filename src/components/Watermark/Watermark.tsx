@@ -1,8 +1,9 @@
 import { ReactComponent as WatermarkSVG } from 'assets/watermark.svg';
 
-export function Watermark() {
+export function Watermark({ className }: { className?: string }) {
   return (
     <WatermarkSVG
+      className={className}
       style={{
         position: 'absolute',
         top: '50%',

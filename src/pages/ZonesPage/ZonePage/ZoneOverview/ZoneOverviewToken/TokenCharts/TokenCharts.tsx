@@ -16,7 +16,7 @@ export function TokenCharts({ chartType, period }: { chartType: ChartType; perio
         data={chartData}
         datasetInfo={{
           value: {
-            title: chartType === ChartType.PRICE ? 'Price' : 'Trading Volume',
+            title: chartType === ChartType.PRICE ? 'Price' : 'Volume',
           },
         }}
         dataFormatType={chartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number}

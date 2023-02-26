@@ -7,6 +7,10 @@
   text-align: end;
 }
 
+.chartLogo {
+  top: calc(50% - 16px) !important; // exclude X axis
+}
+
 .chart {
   pointer-events: all;
   position: absolute;

@@ -12,7 +12,9 @@ export function ZoneNavigation({ className, peersCount, useSmallView }: ZoneNavi
       {useSmallView && (
         <ButtonGroup className={styles.pagesSwitcher}>
           <NavLink to={overviewPath}>Overview</NavLink>
-          <NavLink to={peersPath}>{`Peers ${peersCount ? `(${peersCount})` : ''}`}</NavLink>
+          <NavLink className={styles.peersTab} to={peersPath}>{`Peers ${
+            peersCount ? `(${peersCount})` : ''
+          }`}</NavLink>
         </ButtonGroup>
       )}
 

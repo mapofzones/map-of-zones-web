@@ -102,7 +102,7 @@ export function AreaChart({
                   dataKey={`_${key}`}
                   name={key}
                   stroke={dataset.color}
-                  fillOpacity={1}
+                  fillOpacity={0.5}
                   fill={`url(#${dataset.gradientId})`}
                   strokeWidth={2}
                   strokeDasharray={'5 5'}
