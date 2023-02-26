@@ -1,13 +1,12 @@
 import { useMemo } from 'react';
 
-import moment from 'moment';
-
 import { ChartItemWithTime } from 'types/chart';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 export function useLastChartPointByDate<T extends ChartItemWithTime>(data: T[]) {
   return useMemo(() => {
     const chartMapData = data.reduce((dict: { [key: string]: T }, curr: T) => {
-      const currItemTime = moment.unix(curr.time).format('DD/MM/YYYY');
+      const currItemTime = formatUnixUTC(curr.time, 'DD/MM/YYYY');
 
       if (!dict[currItemTime] || curr.time > dict[currItemTime].time) {
         dict[currItemTime] = curr;

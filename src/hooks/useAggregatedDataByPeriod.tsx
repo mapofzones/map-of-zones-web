@@ -3,8 +3,7 @@ import { useMemo } from 'react';
 import moment from 'moment';
 
 import { OverviewCardPeriod } from 'components/OverviewChartCard';
-import { PeriodKeys } from 'components/PeriodSelector/Types';
-import { ChartItemWithTime } from 'types/chart';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 export function useAggregatedDataByPeriod<T>(
   data: T[],
@@ -13,7 +12,7 @@ export function useAggregatedDataByPeriod<T>(
 ) {
   return useMemo(() => {
     const aggregatedDataByTime = data.reduce((acc: any, curr: any, index: number) => {
-      const dateTime = moment.unix(curr.time).format('DD/MM/YYYY');
+      const dateTime = formatUnixUTC(curr.time, 'DD/MM/YYYY');
 
       keys.forEach((datasetKey: keyof T) => {
         const value = curr[datasetKey];

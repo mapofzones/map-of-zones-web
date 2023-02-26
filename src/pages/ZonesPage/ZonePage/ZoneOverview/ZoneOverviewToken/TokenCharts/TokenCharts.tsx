@@ -21,6 +21,7 @@ export function TokenCharts({ chartType, period }: { chartType: ChartType; perio
         }}
         dataFormatType={chartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number}
         tooltipTimeFormat="DD MMM, HH:mm"
+        chartTimeFormat={period === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'}
         isZeroMinXAxisValue={false}
       />
     </div>

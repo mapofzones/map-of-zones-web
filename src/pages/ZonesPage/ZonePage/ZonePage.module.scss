@@ -58,6 +58,7 @@
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
+      transition: all 0.5s linear;
     }
 
     .periodContainer {
@@ -87,6 +88,19 @@
             top: 0;
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .container {
+    .header {
+      .tabsContainer {
+        right: 0;
+        left: auto;
+        transform: unset;
+        margin-right: 12px;
       }
     }
   }

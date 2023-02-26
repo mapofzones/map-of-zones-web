@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import cn from 'classnames';
-import moment from 'moment';
 import {
   Area,
   AreaChart as AreaRechart,
@@ -15,6 +14,7 @@ import {
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
 import { ChartItemWithTime } from 'types/chart';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './AreaChart.module.scss';
@@ -26,7 +26,7 @@ export function AreaChart({
   data,
   datasetInfo,
   dataFormat = NumberType.Number,
-  timeFormat = 'DD MMM, HH:mm',
+  timeFormat = 'DD MMM',
   tooltipTimeFormat = 'DD MMM, HH:mm',
   isZeroMinXAxisValue = true,
   lastDashedPeriod = false,
@@ -121,7 +121,7 @@ export function AreaChart({
           fontSize={12}
           interval={'preserveEnd'}
           padding={{ right: 3, left: 3 }}
-          tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
+          tickFormatter={(value: number) => formatUnixUTC(value, timeFormat)}
         />
         <YAxis
           style={{ fill: '#8F8F96' }}
@@ -155,7 +155,7 @@ export function AreaChart({
             strokeOpacity: 0.5,
           }}
           position={{ y: 0 }}
-          allowEscapeViewBox={{ x: true, y: true }}
+          allowEscapeViewBox={{ x: false, y: true }}
           content={
             <ChartTooltipContent
               datasetInfo={datasetInfo}

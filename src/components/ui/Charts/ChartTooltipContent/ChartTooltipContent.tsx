@@ -1,7 +1,6 @@
-import moment from 'moment';
-
 import { Circle } from 'components/ui/Circle';
 import { NumberFormat } from 'components/ui/NumberFormat';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import styles from './ChartTooltipContent.module.scss';
 
@@ -16,7 +15,7 @@ export function ChartTooltipContent({
   if (active && payload && payload.length && datasetInfo) {
     return (
       <div className={styles.container}>
-        <span className={styles.time}>{moment.unix(label).format(timeFormat)}</span>
+        <span className={styles.time}>{formatUnixUTC(label, timeFormat)}</span>
         {Object.keys(datasetInfo).map((key: string) => {
           const dataset = datasetInfo[key];
           const data = payload.find((value: any) => value.name === key);

@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import cn from 'classnames';
-import moment from 'moment';
 import {
   Bar,
   BarChart as BarRechart,
@@ -16,6 +15,7 @@ import {
 
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './BarChart.module.scss';
@@ -29,7 +29,7 @@ export function BarChart({
   data,
   datasetInfo,
   dataFormat = NumberType.Number,
-  timeFormat = 'DD MMM, HH:mm',
+  timeFormat = 'DD MMM',
   tooltipTimeFormat = 'DD MMM, HH:mm',
   isZeroMinXAxisValue = true,
 }: BarChartProps) {
@@ -113,7 +113,7 @@ export function BarChart({
             fontSize={12}
             interval={'preserveEnd'}
             padding={{ right: 0, left: 0 }}
-            tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
+            tickFormatter={(value: number) => formatUnixUTC(value, timeFormat)}
           />
           <YAxis
             style={{ fill: '#8F8F96' }}
@@ -144,7 +144,7 @@ export function BarChart({
               strokeOpacity: 0.5,
             }}
             position={{ y: 0 }}
-            allowEscapeViewBox={{ x: true, y: true }}
+            allowEscapeViewBox={{ x: false, y: true }}
             content={
               <ChartTooltipContent
                 datasetInfo={datasetInfo}
@@ -161,7 +161,7 @@ export function BarChart({
               travellerWidth={7}
               stroke="#ffffff90"
               fill="#4f4f5a00"
-              tickFormatter={(value: number) => moment.unix(data[value].time).format(timeFormat)}
+              tickFormatter={(value: number) => formatUnixUTC(data[value]?.time, timeFormat)}
             />
           )}
         </BarRechart>
