@@ -10,5 +10,5 @@ export interface OverviewLegendItemProps {
 }
 
 export function OverviewLegendItem({ className, children }: OverviewLegendItemProps) {
-  return <div className={cn(className, styles.legendItem)}>{children}</div>;
+  return <div className={cn(className, styles.container)}>{children}</div>;
 }

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { ValueWithPending } from 'components';
+import { SkeletonTextWrapper } from 'components';
 import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
 import { OverviewLegendTitle } from 'components/OverviewChartCard/Legend/Title/OverviewLegendTitle';
@@ -18,7 +18,7 @@ export function OverviewCardLegend({
 }: OverviewCardLegendProps) {
   return (
     <OverviewChartLegend
-      className={cn(styles.chartLegend, { [styles.wrapped]: wrappedInSmallScreen })}
+      className={cn(styles.cardLegend, { [styles.wrapped]: wrappedInSmallScreen })}
     >
       {Object.keys(metadata).map((key: string) => {
         const conf = metadata[key];
@@ -32,7 +32,9 @@ export function OverviewCardLegend({
               showPeriod={conf.showPeriod}
               tooltipText={conf.tooltipText}
             />
-            <LegendNumberValue value={value} numberType={conf.numberType} />
+            <SkeletonTextWrapper loading={loading} defaultText={conf.defaultSkeletonText}>
+              <LegendNumberValue value={value} numberType={conf.numberType} />
+            </SkeletonTextWrapper>
           </OverviewLegendItem>
         );
       })}

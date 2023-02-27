@@ -16,7 +16,7 @@
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 630px), (min-width: 980px) and (max-width: 1280px) {
   .cardLegend {
     &.wrapped {
       flex-wrap: wrap;
