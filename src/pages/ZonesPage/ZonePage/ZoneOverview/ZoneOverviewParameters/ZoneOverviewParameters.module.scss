@@ -11,7 +11,7 @@
 
     display: grid;
     grid-template-columns: repeat(var(--columns), 1fr);
-    gap: 24px;
+    gap: 28px;
     min-height: 101px;
 
     .valuesContainer {

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { Card, Divider, NumberType, TotalCard, ValueWithPending } from 'components';
+import { Card, Divider, NumberType, ValueWithPending } from 'components';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 
@@ -15,7 +15,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
   return (
     <div className={cn(className, styles.container)}>
       <div className={styles.parametersCards}>
-        <Card title="Economic Metrics" className={styles.parameterCard} loading={loading}>
+        <Card title="Token Supply" className={styles.parameterCard} loading={loading}>
           <div className={styles.valuesContainer}>
             <ValueWithPending
               className={styles.valueBlock}
@@ -34,14 +34,14 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             />
           </div>
         </Card>
-        <Card title="Staking Metrics" className={styles.parameterCard} loading={loading}>
+        <Card title="Staking" className={styles.parameterCard} loading={loading}>
           <div className={styles.valuesContainer}>
             <StackingBlock data={data} className={styles.valueBlock} />
             <Divider className={styles.divider} />
             <TotalBondenRateBlock data={data} className={styles.valueBlock} />
           </div>
         </Card>
-        <Card title="Infrastructure Metrics" className={styles.parameterCard} loading={loading}>
+        <Card title="Infrastructure" className={styles.parameterCard} loading={loading}>
           <div className={styles.valuesContainer}>
             <ValueWithPending
               className={styles.valueBlock}

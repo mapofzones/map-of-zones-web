@@ -13,16 +13,16 @@
   }
 }
 
-@media (min-width: 980px) and (max-width: 1280px) {
-  .container {
-    .cardContent {
-      flex-direction: column;
+// @media (min-width: 980px) and (max-width: 1280px) {
+//   .container {
+//     .cardContent {
+//       flex-direction: column;
 
-      .valueBlock {
-        &:first-child {
-          margin-bottom: 24px;
-        }
-      }
-    }
-  }
-}
+//       .valueBlock {
+//         &:first-child {
+//           margin-bottom: 24px;
+//         }
+//       }
+//     }
+//   }
+// }

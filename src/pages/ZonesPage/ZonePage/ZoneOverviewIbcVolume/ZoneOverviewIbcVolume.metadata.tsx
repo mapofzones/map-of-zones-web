@@ -12,7 +12,7 @@ export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
   chartKeys: ['total', 'ibcIn', 'ibcOut'],
   dataset: {
     totalIbcVolume: {
-      title: 'Total IBC',
+      title: 'Total IBC Volume',
       tooltipText: 'Total IBC',
       numberType: NumberType.Currency,
       legendValueAccessorKey: 'totalIbc',
@@ -25,7 +25,7 @@ export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
       additional: false,
     },
     ibcVolumeIn: {
-      title: 'IBC In',
+      title: 'IBC Volume In',
       legendValueAccessorKey: 'totalIbcIn',
       chartValueAccessorKey: 'ibcIn',
       tooltipText: 'IBC In',
@@ -38,7 +38,7 @@ export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
       icon: <Circle color={'#22AAFF'} />,
     },
     ibcVolumeOut: {
-      title: 'IBC Out',
+      title: 'IBC Volume Out',
       legendValueAccessorKey: 'totalIbcOut',
       chartValueAccessorKey: 'ibcOut',
       tooltipText: 'IBC Out',

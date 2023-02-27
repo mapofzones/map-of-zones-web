@@ -58,7 +58,6 @@
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
-      transition: all 0.5s linear;
     }
 
     .periodContainer {
@@ -70,12 +69,17 @@
 @media (max-width: 880px) {
   .container {
     .header {
-      display: grid;
-      grid-template-areas:
-        'zoneContainer periodContainer'
-        'pagesSwitcher pagesSwitcher';
+      align-items: stretch;
+      display: flex;
+      flex-direction: column;
 
       margin: 24px 12px 40px;
+
+      .tabsContainer {
+        position: initial;
+        left: 0;
+        transform: none;
+      }
 
       .zoneContainer {
         .detailsTitle {
@@ -88,19 +92,6 @@
             top: 0;
           }
         }
-      }
-    }
-  }
-}
-
-@media (max-width: 630px) {
-  .container {
-    .header {
-      .tabsContainer {
-        right: 0;
-        left: auto;
-        transform: unset;
-        margin-right: 12px;
       }
     }
   }

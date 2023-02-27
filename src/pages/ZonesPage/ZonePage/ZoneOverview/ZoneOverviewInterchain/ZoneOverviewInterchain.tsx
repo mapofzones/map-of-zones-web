@@ -13,7 +13,7 @@ export function ZoneOverviewInterchain({ className }: ZoneOverviewInterchainProp
   const { data, loading } = useZoneOverviewInterchain();
 
   return (
-    <Card title="Interchain Status" className={cn(className, styles.container)}>
+    <Card title="Interchain" className={cn(className, styles.container)}>
       <div className={styles.cardContent}>
         <ValueWithPending
           className={cn(styles.valueBlock, styles.peers)}

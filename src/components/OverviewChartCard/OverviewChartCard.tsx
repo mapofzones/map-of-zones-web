@@ -71,7 +71,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
             wrappedInSmallScreen={metadata.wrappedInSmallScreen}
           />
           <span className={styles.additionalText}>
-            Cumulative value from {beginPeriodFormatted} 00:00 to {endPeriodFormatted} 00:00 (UTC)
+            Aggregated value from {beginPeriodFormatted} to {endPeriodFormatted} (UTC)
           </span>
         </>
       )}

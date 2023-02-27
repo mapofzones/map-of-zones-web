@@ -18,7 +18,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
   wrappedInSmallScreen: true,
   dataset: {
     total: {
-      title: 'Total IBC',
+      title: 'Total IBC Transfers',
       tooltipText: 'Ibc Transfers',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalIbcTransfersCount',
@@ -31,7 +31,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
       additional: false,
     },
     in: {
-      title: 'IBC In',
+      title: 'IBC Transfers In',
       tooltipText: 'Ibc Transfers',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'ibcTransfersInCount',
@@ -44,7 +44,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
       additional: false,
     },
     out: {
-      title: 'IBC Out',
+      title: 'IBC Transfers Out',
       tooltipText: 'Ibc Transfers',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'ibcTransfersOutCount',
