@@ -11,8 +11,8 @@ export const ACTIVE_USERS_CARD_METADATA: ActiveUsersOverviewCardMetadata = {
   chartKeys: ['activeAddressesCount', 'ibcActiveAddressesCount'],
   dataset: {
     dailyActiveUsers: {
-      title: 'Active Users',
-      tooltipText: 'Daily Active Users',
+      title: 'Active Addresses',
+      tooltipText: 'Daily Active Addresses',
       numberType: NumberType.Number,
       chartValueAccessorKey: 'activeAddressesCount',
       size: ElementSize.LARGE,
@@ -23,8 +23,8 @@ export const ACTIVE_USERS_CARD_METADATA: ActiveUsersOverviewCardMetadata = {
       additional: false,
     },
     ibcActiveUsers: {
-      title: 'IBC Active Users',
-      tooltipText: 'IBC Daily Active Users',
+      title: 'IBC Active Addresses',
+      tooltipText: 'IBC Daily Active Addresses',
       chartValueAccessorKey: 'ibcActiveAddressesCount',
       numberType: NumberType.Number,
       size: ElementSize.LARGE,

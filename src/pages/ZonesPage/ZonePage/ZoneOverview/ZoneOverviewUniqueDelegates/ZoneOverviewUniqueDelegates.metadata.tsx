@@ -11,8 +11,8 @@ export const UNIQUE_DELEGATES_CARD_METADATA: IbcTransfersOverviewCardMetadata = 
   chartKeys: ['delegatorsCount'],
   dataset: {
     delegates: {
-      title: 'Delegates',
-      tooltipText: 'Delegates',
+      title: 'Delegators',
+      tooltipText: 'Delegators',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalDelegatorsCount',
       chartValueAccessorKey: 'delegatorsCount',

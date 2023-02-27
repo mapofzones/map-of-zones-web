@@ -33,7 +33,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
   return (
     <Card className={cn(className, styles.container)}>
       <div className={styles.header}>
-        <span>{`${selectedPeriod.toUpperCase()} Activity`}</span>
+        <span>{`Activity (${selectedPeriod.toUpperCase()})`}</span>
         {PERIODS.length > 1 && (
           <ButtonGroup
             className={styles.periodSwitcher}
@@ -116,7 +116,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
         <div className={styles.valueGroup}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.activeAddresses)}
-            title={'Active Addresses'}
+            title="Active Addresses"
             value={data?.dau}
             numberType={NumberType.Number}
             tooltipText={tooltips['dau'](selectedPeriod)}
@@ -126,7 +126,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           />
           <ValueWithPending
             className={styles.valueBlock}
-            title={'Active IBC Transfers'}
+            title="Active IBC Addresses"
             value={data?.ibcDau}
             numberType={NumberType.Number}
             tooltipText={tooltips['ibcDau'](selectedPeriod)}

@@ -1,4 +1,6 @@
 .container {
+  --gap: 28px;
+
   display: grid;
   grid-template-areas:
     'overview overview'
@@ -16,7 +18,7 @@
     grid-area: overview;
 
     display: grid;
-    gap: 28px;
+    gap: var(--gap);
     grid-auto-flow: column;
   }
 
@@ -51,6 +53,14 @@
 
   .delegationsBlock {
     grid-area: delegations;
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1280px) {
+  .container {
+    .overview {
+      grid-template-columns: 1fr calc((100% - var(--gap) * 2) / 3);
+    }
   }
 }
 

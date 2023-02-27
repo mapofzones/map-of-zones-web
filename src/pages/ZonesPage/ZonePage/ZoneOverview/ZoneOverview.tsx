@@ -3,7 +3,6 @@ import OverviewTokenContextProvider from './OverviewTokenContextProvider';
 import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewActiveUsers } from './ZoneOverviewActiveUsers';
 import { ZoneOverviewActivity } from './ZoneOverviewActivity/ZoneOverviewActivity';
-import { ZoneOverviewDelegations } from './ZoneOverviewDelegations';
 import { ZoneOverviewIbcTransfers } from './ZoneOverviewIbcTransfers';
 import { ZoneOverviewInterchain } from './ZoneOverviewInterchain';
 import { ZoneOverviewParameters } from './ZoneOverviewParameters/ZoneOverviewParameters';
@@ -16,8 +15,8 @@ export function ZoneOverview() {
     <OverviewTokenContextProvider>
       <div className={styles.container}>
         <div className={styles.overview}>
-          <ZoneOverviewActivity />
-          <ZoneOverviewInterchain />
+          <ZoneOverviewActivity className={styles.activityBlock} />
+          <ZoneOverviewInterchain className={styles.interchainBlock} />
         </div>
         <ZoneOverviewToken className={styles.tokenBlock} />
         <ZoneOverviewIbcVolume className={styles.volumesBlock} />
@@ -26,7 +25,6 @@ export function ZoneOverview() {
         <ZoneOverviewIbcTransfers className={styles.ibcTransfersBlock} />
         <ZoneOverviewActiveUsers className={styles.activeUsersBlock} />
         <ZoneOverviewUniqueDelegates className={styles.delegatesBlock} />
-        <ZoneOverviewDelegations className={styles.delegationsBlock} />
       </div>
     </OverviewTokenContextProvider>
   );
