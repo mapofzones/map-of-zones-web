@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
-import moment from 'moment';
 
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
@@ -9,11 +8,12 @@ import { OverviewCardLegend } from 'components/OverviewCardLegend';
 
 import styles from './OverviewChartCard.module.scss';
 import { DataWithChart, OverviewCardMetadata } from './OverviewChartCard.types';
+import { OverviewLegendAdditionalText } from './OverviewLegendAdditionalText';
 import { OverviewPeriodButtonsGroup } from './OverviewPeriodButtonsGroup';
 import { ZoneOverviewCard } from './ZoneOverviewCard';
 import { ZoneOverviewChartTypeButtonsGroup } from './ZoneOverviewChartTypeButtonsGroup';
 
-import { OverviewCardPeriod, OverviewChartCardProps, OVERVIEW_PERIODS_IN_HOURS_BY_KEY } from '.';
+import { OverviewCardPeriod, OverviewChartCardProps } from '.';
 
 export const CHART_ICONS = {
   [ChartType.AREA]: AreaChartIcon,
@@ -49,12 +49,6 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
 
   const chartMetadata = rebuildChartMetadataByChartKey<T, K>(metadata);
 
-  const endPeriodFormatted = moment().utc().format('DD MMM');
-  const beginPeriodFormatted = moment()
-    .utc()
-    .subtract(OVERVIEW_PERIODS_IN_HOURS_BY_KEY[period] / 24, 'days')
-    .format('DD MMM');
-
   return (
     <ZoneOverviewCard title={title} className={className}>
       {legendExist && (
@@ -65,9 +59,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
             loading={loading}
             wrappedInSmallScreen={metadata.wrappedInSmallScreen}
           />
-          <span className={styles.additionalText}>
-            Aggregated value from {beginPeriodFormatted} to {endPeriodFormatted} (UTC)
-          </span>
+          <OverviewLegendAdditionalText period={period} />
         </>
       )}
       <div className={styles.chartControls}>
