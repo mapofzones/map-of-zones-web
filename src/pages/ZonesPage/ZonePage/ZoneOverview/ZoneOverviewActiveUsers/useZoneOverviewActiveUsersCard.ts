@@ -1,22 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { OverviewCardPeriod, OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCard';
 
 import {
   ZoneOverviewActiveUsersCardData,
   ZoneOverviewActiveUsersCardResult,
 } from './ZoneOverviewActiveUsers.types';
 
-export function useZoneOverviewActiveUsersCard(): {
+export function useZoneOverviewActiveUsersCard(period: OverviewCardPeriod): {
   data: ZoneOverviewActiveUsersCardData | undefined;
   loading: boolean;
 } {
   const { zone = '' } = useParams();
-  const [period] = useSelectedPeriod();
 
   const { data, isLoading } = useQuery<ZoneOverviewActiveUsersCardResult>({
-    queryKey: [`activeAddressesCountChart/${zone}/${period}`],
+    queryKey: [`activeAddressesCountChart/${zone}/${OVERVIEW_PERIODS_API_KEYS[period]}`],
     enabled: !!period && !!zone,
   });
 

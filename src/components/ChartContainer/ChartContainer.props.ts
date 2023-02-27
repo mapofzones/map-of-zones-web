@@ -2,9 +2,9 @@ import { NumberType } from 'components/ui';
 import { DatasetInfo } from 'components/ui/Charts/AreaChart/AreaChart.props';
 import { ChartItemWithTime } from 'types/chart';
 
-type ChartKeys<T extends ChartItemWithTime> = Omit<T, 'time'>; //
+type ChartKeys<T> = Omit<T, 'time'>; //
 
-export interface ChartContainerProps<T extends ChartItemWithTime> {
+export interface ChartContainerProps<T> {
   className?: string;
   chartType?: ChartType;
   data: T[];
@@ -13,6 +13,8 @@ export interface ChartContainerProps<T extends ChartItemWithTime> {
   loading: boolean;
   isZeroMinXAxisValue?: boolean;
   tooltipTimeFormat?: string;
+  lastDashedPeriod?: boolean;
+  chartTimeFormat?: string;
 }
 
 export enum ChartType {

@@ -1,27 +1,57 @@
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-
+import { OverviewCardPeriod } from 'components/OverviewChartCard';
 import {
+  ZoneOverviewIbcTransfersCardDocument,
+  ZoneOverviewIbcTransfersCardQueryResult,
+} from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcTransfers.query.generated';
+import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
+
+import { useZoneOverviewOptions } from '../hooks/useZoneOverviewOptions';
+import {
+  IbcTransfersChart,
   ZoneOverviewIbcTransfersCardData,
-  ZoneOverviewIbcTransfersCardResult,
 } from './ZoneOverviewIbcTransfersCard.types';
 
-export function useZoneOverviewIbcTransfersCard(): {
+type IbcTransfersCardApi = ZoneOverviewIbcTransfersCardQueryResult['ibcTransfersCardData'];
+type IbcTransfersChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersChart'][number];
+type IbcTransfersInChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersInChart'][number];
+type IbcTransfersOutChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersOutChart'][number];
+type CombinedChartApi = IbcTransfersChartApi & IbcTransfersInChartApi & IbcTransfersOutChartApi;
+
+const chartsMapping: ArraysMapping<IbcTransfersCardApi, CombinedChartApi, IbcTransfersChart> = {
+  ibcTransfersChart: {
+    from: 'ibcTransfer',
+    to: 'ibcTransfersCount',
+  },
+  ibcTransfersInChart: {
+    from: 'value',
+    to: 'ibcTransfersInCount',
+  },
+  ibcTransfersOutChart: {
+    from: 'value',
+    to: 'ibcTransfersOutCount',
+  },
+};
+
+export function useZoneOverviewIbcTransfersCard(period: OverviewCardPeriod): {
   data: ZoneOverviewIbcTransfersCardData | undefined;
   loading: boolean;
 } {
-  const { zone = '' } = useParams();
-  const [period] = useSelectedPeriod();
+  const options = useZoneOverviewOptions(period);
 
-  const { data, isLoading } = useQuery<ZoneOverviewIbcTransfersCardResult>({
-    queryKey: [`ibcTransferChart/${zone}/${period}`],
-    enabled: !!period && !!zone,
-  });
+  const { data, loading } = useQuery<ZoneOverviewIbcTransfersCardQueryResult>(
+    ZoneOverviewIbcTransfersCardDocument,
+    options
+  );
 
   return {
-    data: data?.data,
-    loading: isLoading,
+    data: {
+      totalIbcTransfersCount: data?.ibcTransfersCardData?.ibcTransfers?.aggregate?.sum?.value,
+      ibcTransfersInCount: data?.ibcTransfersCardData?.ibcTransfersIn?.aggregate?.sum?.value,
+      ibcTransfersOutCount: data?.ibcTransfersCardData?.ibcTransfersOut?.aggregate?.sum?.value,
+      chart: mergeChartArraysIntoOne(data?.ibcTransfersCardData, chartsMapping),
+    },
+    loading,
   };
 }

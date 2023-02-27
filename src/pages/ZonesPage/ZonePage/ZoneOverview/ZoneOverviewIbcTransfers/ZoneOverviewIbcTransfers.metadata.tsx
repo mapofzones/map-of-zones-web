@@ -9,31 +9,52 @@ import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewIbcTransfersCard
 export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
   chartTypes: [ChartType.AREA, ChartType.BAR],
   numberType: NumberType.Number,
-  chartKeys: ['ibcTransfersCount'],
+  chartKeys: [
+    'ibcTransfersCount',
+    'ibcTransfersFailedCount',
+    'ibcTransfersInCount',
+    'ibcTransfersOutCount',
+  ],
+  wrappedInSmallScreen: true,
   dataset: {
-    ibcTransfersCount: {
-      title: 'IBC Transfers',
+    total: {
+      title: 'Total IBC',
       tooltipText: 'Ibc Transfers',
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalIbcTransfersCount',
       chartValueAccessorKey: 'ibcTransfersCount',
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
+      defaultSkeletonText: '19 850',
+      color: '#BFBFC3',
+      icon: <Circle color={'#BFBFC3'} />, // get color from above property
+      additional: false,
+    },
+    in: {
+      title: 'IBC In',
+      tooltipText: 'Ibc Transfers',
+      numberType: NumberType.Number,
+      legendValueAccessorKey: 'ibcTransfersInCount',
+      chartValueAccessorKey: 'ibcTransfersInCount',
+      size: ElementSize.LARGE,
+      showPeriod: false,
       defaultSkeletonText: '19 850',
       color: '#22AAFF',
       icon: <Circle color={'#22AAFF'} />, // get color from above property
       additional: false,
     },
-    pending: {
-      title: 'Processing',
-      legendValueAccessorKey: 'totalPending',
-      tooltipText: 'Processing (24h)',
+    out: {
+      title: 'IBC Out',
+      tooltipText: 'Ibc Transfers',
       numberType: NumberType.Number,
+      legendValueAccessorKey: 'ibcTransfersOutCount',
+      chartValueAccessorKey: 'ibcTransfersOutCount',
       size: ElementSize.LARGE,
-      showPeriod: true,
-      defaultSkeletonText: '10',
-      additional: true,
-      icon: <PendingIcon />,
+      showPeriod: false,
+      defaultSkeletonText: '19 850',
+      color: '#EE11CC',
+      icon: <Circle color={'#EE11CC'} />, // get color from above property
+      additional: false,
     },
   },
 };

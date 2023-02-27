@@ -2,31 +2,26 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
+import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ZoneOverviewActivityDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
-import { ChartItemByString } from 'utils/helper';
 
 export type ZoneOverviewActivityQueryResult = {
-  peersCount?: number;
-  channelsCount?: number;
+  ibcVolume?: any;
+  ibcVolumeIn?: any;
+  ibcVolumeOut?: any;
+  ibcVolumeInPercent?: any;
+  ibcVolumeOutPercent?: any;
+  ibcTransfers?: number;
   dau?: number | null;
   ibcDau?: number | null;
-  ibcDauPercent?: number;
   totalTxs?: number;
-  totalTxsChart: ChartItemByString[];
-  ibcTransfers?: number;
-  ibcTransfersPending?: number;
-  ibcTransfersChart: ChartItemByString[];
 };
 
-export function useZoneOverviewActivity(): {
+export function useZoneOverviewActivity(period: PeriodKeys): {
   data: ZoneOverviewActivityQueryResult | undefined;
   loading: boolean;
 } {
   const { zone = '' } = useParams();
-
-  const [period] = useSelectedPeriod();
 
   const options = {
     variables: { zone, period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
@@ -37,20 +32,15 @@ export function useZoneOverviewActivity(): {
 
   return {
     data: data && {
-      ibcTransfers: data.switchedStats[0]?.ibcTransfers,
-      peersCount: data.switchedStats[0]?.peersCount,
-      channelsCount: data.switchedStats[0]?.channelsCount,
-      ibcTransfersPending: data.switchedStats[0]?.ibcTransfersPending,
-      ibcTransfersChart: handleChartByPeriod(
-        data.switchedStats[0]?.ibcTransfersChart?.slice(),
-        period,
-        'ibcTransfer'
-      ),
+      ibcVolume: data?.switchedStats?.ibcVolume,
+      ibcVolumeIn: data?.switchedStats?.ibcVolumeIn,
+      ibcVolumeOut: data?.switchedStats?.ibcVolumeOut,
+      ibcVolumeInPercent: data?.switchedStats?.ibcVolumeInPercent,
+      ibcVolumeOutPercent: data?.switchedStats?.ibcVolumeOutPercent,
+      ibcTransfers: data?.switchedStats?.ibcTransfers,
       totalTxs: data.stats[0]?.totalTxs,
-      totalTxsChart: handleChartByPeriod(data.stats[0]?.totalTxsChart?.slice(), period, 'txs'),
       dau: data.stats[0]?.dau,
       ibcDau: data.stats[0]?.ibcDau,
-      ibcDauPercent: data.stats[0]?.ibcDauPercent,
     },
     loading,
   };

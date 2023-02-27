@@ -6,8 +6,6 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneIbcTransfersCardV2FragmentDoc } from '../../../common/Cards/__generated__/ZoneIbcTransfersCard.fragment.generated';
-import { ZoneTotalTxsCardV2FragmentDoc } from '../../../common/Cards/__generated__/ZoneTotalTxsCard.fragment.generated';
 export type ZoneOverviewActivityQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
   period: Types.Scalars['Int'];
@@ -15,20 +13,15 @@ export type ZoneOverviewActivityQueryVariables = Types.Exact<{
 }>;
 
 export type ZoneOverviewActivityQueryResult = {
-  switchedStats: Array<{
-    peersCount: number;
-    channelsCount: number;
+  switchedStats?: {
+    ibcVolume: any;
+    ibcVolumeIn: any;
+    ibcVolumeOut: any;
+    ibcVolumeInPercent: any;
+    ibcVolumeOutPercent: any;
     ibcTransfers: number;
-    ibcTransfersPending: number;
-    ibcTransfersChart: Array<{ ibcTransfer?: any | null }>;
-  }>;
-  stats: Array<{
-    ibcDau?: number | null;
-    dau?: number | null;
-    ibcDauPercent?: any | null;
-    totalTxs: number;
-    totalTxsChart: Array<{ txs?: any | null }>;
-  }>;
+  } | null;
+  stats: Array<{ totalTxs: number; ibcDau?: number | null; dau?: number | null }>;
 };
 
 export const ZoneOverviewActivityDocument = {
@@ -70,73 +63,56 @@ export const ZoneOverviewActivityDocument = {
           {
             kind: 'Field',
             alias: { kind: 'Name', value: 'switchedStats' },
-            name: { kind: 'Name', value: 'flat_blockchain_switched_stats' },
+            name: { kind: 'Name', value: 'flat_blockchain_switched_stats_by_pk' },
             arguments: [
               {
                 kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'blockchain' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'timeframe' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'is_mainnet' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
+                name: { kind: 'Name', value: 'blockchain' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'timeframe' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'is_mainnet' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneIbcTransfersCardV2' } },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'peersCount' },
-                  name: { kind: 'Name', value: 'ibc_peers' },
+                  alias: { kind: 'Name', value: 'ibcVolume' },
+                  name: { kind: 'Name', value: 'ibc_cashflow' },
                 },
                 {
                   kind: 'Field',
-                  alias: { kind: 'Name', value: 'channelsCount' },
-                  name: { kind: 'Name', value: 'channels_cnt' },
+                  alias: { kind: 'Name', value: 'ibcVolumeIn' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOut' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeInPercent' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_in_percent' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcVolumeOutPercent' },
+                  name: { kind: 'Name', value: 'ibc_cashflow_out_percent' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcTransfers' },
+                  name: { kind: 'Name', value: 'ibc_transfers' },
                 },
               ],
             },
@@ -187,7 +163,11 @@ export const ZoneOverviewActivityDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneTotalTxsCardV2' } },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'totalTxs' },
+                  name: { kind: 'Name', value: 'txs' },
+                },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcDau' },
@@ -198,18 +178,11 @@ export const ZoneOverviewActivityDocument = {
                   alias: { kind: 'Name', value: 'dau' },
                   name: { kind: 'Name', value: 'active_addresses_cnt' },
                 },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcDauPercent' },
-                  name: { kind: 'Name', value: 'ibc_active_addresses_percent' },
-                },
               ],
             },
           },
         ],
       },
     },
-    ...ZoneIbcTransfersCardV2FragmentDoc.definitions,
-    ...ZoneTotalTxsCardV2FragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<ZoneOverviewActivityQueryResult, ZoneOverviewActivityQueryVariables>;

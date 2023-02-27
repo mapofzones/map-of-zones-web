@@ -1,96 +1,141 @@
+import { useState } from 'react';
+
 import cn from 'classnames';
 
-import { NumberFormat, NumberType } from 'components';
-import { IbcVolumeCard } from 'components/IbcVolumeCard/IbcVolumeCard';
-import { TotalInfoCard } from 'components/SharedCards/TotalInfoCard/TotalInfoCard';
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { ZoneOverviewItem } from 'pages/HomePage/Sidebar/ZoneDetails/ZoneOverview/ZoneOverviewItem/ZoneOverviewItem';
+import {
+  ButtonGroup,
+  Card,
+  Divider,
+  NumberFormat,
+  NumberType,
+  PeriodKeys,
+  SkeletonTextWrapper,
+  ValueWithPending,
+  VolumeLineChart,
+} from 'components';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
-import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
 
+const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
+
 export function ZoneOverviewActivity({ className }: { className?: string }) {
-  const { data, loading } = useZoneOverviewActivity();
+  const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
-  const [period] = useSelectedPeriod();
+  const { data, loading } = useZoneOverviewActivity(selectedPeriod);
 
-  const dauTittle = getDauTitleByPeriod(period);
+  const onPeriodSelected = (item: { key?: PeriodKeys }) => {
+    item?.key && setSelectedPeriod(item.key);
+  };
 
   return (
-    <div className={cn(className, styles.container)}>
-      <div className={styles.title}>Activity</div>
-      <IbcVolumeCard className={styles.volumeCard} vertical />
-      <TotalInfoCard
-        className={styles.totalTxsCard}
-        title={'Total Txs'}
-        value={data?.totalTxs}
-        numberType={NumberType.Number}
-        chartData={data?.totalTxsChart}
-        chartKey={'txs'}
-        loading={loading}
-        hasBorder={false}
-        size={ElementSize.LARGE}
-      />
-      <TotalInfoCard
-        className={styles.transfersCard}
-        title={'IBC Transfers'}
-        value={data?.ibcTransfers}
-        pendingValue={data?.ibcTransfersPending}
-        numberType={NumberType.Number}
-        chartData={data?.ibcTransfersChart}
-        chartKey={'ibcTransfer'}
-        loading={loading}
-        hasBorder={false}
-        size={ElementSize.LARGE}
-      />
-      <div className={styles.overviewItemsGroup}>
-        <ZoneOverviewItem
-          className={cn(styles.detailedInfoItem, styles.peersOverviewItem)}
-          rowDirection
-          title={'Peers'}
-          value={data?.peersCount}
-          loading={loading}
-          defaultLoadingValue={'12'}
-          tooltipText={tooltips['peersCount']()}
-        ></ZoneOverviewItem>
-        <ZoneOverviewItem
-          className={cn(styles.detailedInfoItem, styles.channelsOverviewItem)}
-          rowDirection
-          title={'Channels'}
-          value={data?.channelsCount}
-          loading={loading}
-          defaultLoadingValue={'250'}
-          tooltipText={tooltips['channelsCount']()}
-        ></ZoneOverviewItem>
-        <ZoneOverviewItem
-          className={cn(styles.detailedInfoItem, styles.dauOverviewItem)}
-          rowDirection
-          title={dauTittle}
-          loading={loading}
-          value={data?.dau}
-          tooltipText={tooltips['dau'](period)}
-        />
-        <ZoneOverviewItem
-          className={cn(styles.detailedInfoItem, styles.ibcDauOverviewItem)}
-          rowDirection
-          title={`IBC ${dauTittle}`}
-          loading={loading}
-          defaultLoadingValue={`2 345 (99,8% of ${dauTittle})`}
-          tooltipText={tooltips['ibcDau'](period)}
-        >
-          <div className={styles.dauValue}>
-            <NumberFormat value={data?.ibcDau} />
-            <span className={styles.additionalInfo}>
-              {' '}
-              (<NumberFormat value={data?.ibcDauPercent} numberType={NumberType.Percent} />
-              {` of ${dauTittle}`})
-            </span>
-          </div>
-        </ZoneOverviewItem>
+    <Card className={cn(className, styles.container)}>
+      <div className={styles.header}>
+        <span>{`${selectedPeriod.toUpperCase()} Activity`}</span>
+        {PERIODS.length > 1 && (
+          <ButtonGroup
+            className={styles.periodSwitcher}
+            size={ElementSize.SMALL}
+            buttons={PERIODS.map((period: PeriodKeys) => ({
+              key: period,
+              title: period.toUpperCase(),
+            }))}
+            setSelectedButton={onPeriodSelected}
+          />
+        )}
       </div>
-    </div>
+      <div className={styles.valuesContainer}>
+        <div className={cn(styles.valueGroup, styles.volumeGroup)}>
+          <ValueWithPending
+            className={cn(styles.valueBlock, styles.ibcVolume)}
+            title={'IBC Volume'}
+            value={data?.ibcVolume}
+            numberType={NumberType.Currency}
+            tooltipText={tooltips['ibcVolume']()}
+            size={ElementSize.LARGE}
+            loading={loading}
+            defaultSkeletonText={'$16 256 000'}
+          />
+
+          <div className={cn(styles.volumeInOutContainer, styles.valueBlock)}>
+            <VolumeLineChart
+              className={styles.volumeLineChart}
+              volumeInPercent={data?.ibcVolumeInPercent}
+              volumeOutPercent={data?.ibcVolumeOutPercent}
+            />
+
+            <div className={styles.volumeInOutValuesContainer}>
+              <SkeletonTextWrapper
+                className={styles.volumeInValue}
+                loading={loading}
+                defaultText={'$7 940 600'}
+              >
+                <NumberFormat value={data?.ibcVolumeIn} numberType={NumberType.Currency} />
+              </SkeletonTextWrapper>
+
+              <SkeletonTextWrapper
+                className={cn(styles.volumeOutValue)}
+                loading={loading}
+                defaultText={'$7 940 600'}
+              >
+                <NumberFormat value={data?.ibcVolumeOut} numberType={NumberType.Currency} />
+              </SkeletonTextWrapper>
+            </div>
+          </div>
+        </div>
+
+        <Divider />
+
+        <div className={styles.valueGroup}>
+          <ValueWithPending
+            className={cn(styles.valueBlock, styles.transactions)}
+            title={'Transactions'}
+            value={data?.totalTxs}
+            numberType={NumberType.Number}
+            tooltipText={tooltips['totalTxs']()}
+            size={ElementSize.LARGE}
+            loading={loading}
+            defaultSkeletonText={'149 650'}
+          />
+          <ValueWithPending
+            className={styles.valueBlock}
+            title={'IBC Transfers'}
+            value={data?.ibcTransfers}
+            numberType={NumberType.Number}
+            tooltipText={tooltips['ibcTransfers']()}
+            size={ElementSize.LARGE}
+            loading={loading}
+            defaultSkeletonText={'29 848'}
+          />
+        </div>
+
+        <Divider />
+
+        <div className={styles.valueGroup}>
+          <ValueWithPending
+            className={cn(styles.valueBlock, styles.activeAddresses)}
+            title={'Active Addresses'}
+            value={data?.dau}
+            numberType={NumberType.Number}
+            tooltipText={tooltips['dau'](selectedPeriod)}
+            size={ElementSize.LARGE}
+            loading={loading}
+            defaultSkeletonText={'17 000'}
+          />
+          <ValueWithPending
+            className={styles.valueBlock}
+            title={'Active IBC Transfers'}
+            value={data?.ibcDau}
+            numberType={NumberType.Number}
+            tooltipText={tooltips['ibcDau'](selectedPeriod)}
+            size={ElementSize.LARGE}
+            loading={loading}
+            defaultSkeletonText={'5 000'}
+          />
+        </div>
+      </div>
+    </Card>
   );
 }

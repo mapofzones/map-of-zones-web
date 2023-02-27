@@ -1,27 +1,57 @@
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-
+import { OverviewCardPeriod } from 'components/OverviewChartCard';
 import {
-  ZoneOverviewIbcVolumeCardData,
-  ZoneOverviewIbcVolumeCardResult,
-} from './ZoneOverviewIbcVolume.types';
+  ZoneOverviewIbcVolumeDocument,
+  ZoneOverviewIbcVolumeQueryResult,
+} from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcVolume.query.generated';
+import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
-export function useZoneOverviewIbcVolumeCard(): {
+import { useZoneOverviewOptions } from '../ZoneOverview/hooks/useZoneOverviewOptions';
+import { IbcVolumeChart, ZoneOverviewIbcVolumeCardData } from './ZoneOverviewIbcVolume.types';
+
+type IbcVolumeCardApi = ZoneOverviewIbcVolumeQueryResult['ibcVolumeCardData'];
+type IbcVolumeChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeInChart'][number];
+type IbcVolumeInChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeInChart'][number];
+type IbcVolumeOutChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeOutChart'][number];
+
+const chartsMapping: ArraysMapping<
+  IbcVolumeCardApi,
+  IbcVolumeChartApi & IbcVolumeInChartApi & IbcVolumeOutChartApi,
+  IbcVolumeChart
+> = {
+  ibcVolumeChart: {
+    from: 'volume',
+    to: 'total',
+  },
+  ibcVolumeInChart: {
+    from: 'volumeIn',
+    to: 'ibcIn',
+  },
+  ibcVolumeOutChart: {
+    from: 'volumeOut',
+    to: 'ibcOut',
+  },
+};
+
+export function useZoneOverviewIbcVolumeCard(period: OverviewCardPeriod): {
   data: ZoneOverviewIbcVolumeCardData | undefined;
   loading: boolean;
 } {
-  const { zone = '' } = useParams();
-  const [period] = useSelectedPeriod();
+  const options = useZoneOverviewOptions(period);
 
-  const { data, isLoading } = useQuery<ZoneOverviewIbcVolumeCardResult>({
-    queryKey: [`ibcVolumeChart/${zone}/${period}`],
-    enabled: !!period && !!zone,
-  });
+  const { data, loading } = useQuery<ZoneOverviewIbcVolumeQueryResult>(
+    ZoneOverviewIbcVolumeDocument,
+    options
+  );
 
   return {
-    data: data?.data,
-    loading: isLoading,
+    data: {
+      totalIbc: data?.ibcVolumeCardData?.ibcVolume.aggregate?.sum?.volume,
+      totalIbcIn: data?.ibcVolumeCardData?.ibcVolumeIn.aggregate?.sum?.volumeIn,
+      totalIbcOut: data?.ibcVolumeCardData?.ibcVolumeOut.aggregate?.sum?.volumeOut,
+      chart: mergeChartArraysIntoOne(data?.ibcVolumeCardData, chartsMapping),
+    },
+    loading,
   };
 }

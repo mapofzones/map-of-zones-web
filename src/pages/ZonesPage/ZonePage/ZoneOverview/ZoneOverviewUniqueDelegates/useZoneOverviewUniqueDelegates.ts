@@ -1,22 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { OverviewCardPeriod, OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCard';
 
 import {
   ZoneOverviewUniqueDelegatesCardData,
   ZoneOverviewUniqueDelegatesCardResult,
 } from './ZoneOverviewUniqueDelegates.types';
 
-export function useZoneOverviewUniqueDelegates(): {
+export function useZoneOverviewUniqueDelegates(period: OverviewCardPeriod): {
   data: ZoneOverviewUniqueDelegatesCardData | undefined;
   loading: boolean;
 } {
   const { zone = '' } = useParams();
-  const [period] = useSelectedPeriod();
 
   const { data, isLoading } = useQuery<ZoneOverviewUniqueDelegatesCardResult>({
-    queryKey: [`delegatorCountChart/${zone}/${period}`],
+    queryKey: [`delegatorCountChart/${zone}/${OVERVIEW_PERIODS_API_KEYS[period]}`],
     enabled: !!period && !!zone,
   });
 

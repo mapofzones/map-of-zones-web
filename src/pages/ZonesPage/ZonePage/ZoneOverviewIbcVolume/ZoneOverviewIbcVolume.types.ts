@@ -7,18 +7,17 @@ export interface ZoneOverviewIbcVolumeCardResult {
 }
 
 export interface ZoneOverviewIbcVolumeCardData {
-  zone: string;
   totalIbcIn: number;
   totalIbcOut: number;
   totalIbc: number;
   chart: IbcVolumeChart[];
 }
 
-interface IbcVolumeChart extends ChartItemWithTime {
+export interface IbcVolumeChart {
   time: number;
-  ibcIn: number;
-  ibcOut: number;
-  total: number;
+  ibcIn?: number;
+  ibcOut?: number;
+  total?: number;
 }
 
 export type IbcVolumeOverviewCardMetadata = OverviewCardMetadata<

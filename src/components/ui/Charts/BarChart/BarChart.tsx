@@ -1,10 +1,12 @@
+import { useMemo } from 'react';
+
 import cn from 'classnames';
-import moment from 'moment';
 import {
   Bar,
   BarChart as BarRechart,
   Brush,
   CartesianGrid,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -13,6 +15,7 @@ import {
 
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './BarChart.module.scss';
@@ -26,11 +29,15 @@ export function BarChart({
   data,
   datasetInfo,
   dataFormat = NumberType.Number,
-  timeFormat = 'DD MMM, HH:mm',
+  timeFormat = 'DD MMM',
   tooltipTimeFormat = 'DD MMM, HH:mm',
   isZeroMinXAxisValue = true,
 }: BarChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
+
+  const chartHash = useMemo(() => Math.random(), []);
+  const maskId = `mask-stripe-${chartHash}`;
+
   return (
     <>
       <ResponsiveContainer
@@ -42,6 +49,7 @@ export function BarChart({
           className={styles.chart}
           data={data}
           margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+          barGap={1}
         >
           <defs>
             {Object.keys(datasetCalculatedInfo).map((key: string) => {
@@ -63,6 +71,40 @@ export function BarChart({
             })}
           </defs>
 
+          <pattern
+            id="pattern-stripe"
+            width="8"
+            height="8"
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(45)"
+          >
+            <rect width="4" height="8" transform="translate(0,0)" fill="white"></rect>
+          </pattern>
+          <mask id={maskId}>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+          </mask>
+
+          {Object.keys(datasetCalculatedInfo).map((key: string) => {
+            const dataset = datasetCalculatedInfo[key];
+
+            return (
+              <Bar
+                key={key}
+                type="monotone"
+                dataKey={key}
+                radius={[2, 2, 0, 0]}
+                fillOpacity={0.5}
+                fill={`url(#${dataset.gradientId})`}
+              />
+            );
+          })}
+
+          <ReferenceArea
+            fill={'#1c1c25'}
+            shape={<DashedBar maskId={maskId} />}
+            x1={data[data.length - 1]?.time}
+          />
+
           <XAxis
             dataKey="time"
             style={{ fill: '#8F8F96' }}
@@ -71,7 +113,7 @@ export function BarChart({
             fontSize={12}
             interval={'preserveEnd'}
             padding={{ right: 0, left: 0 }}
-            tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
+            tickFormatter={(value: number) => formatUnixUTC(value, timeFormat)}
           />
           <YAxis
             style={{ fill: '#8F8F96' }}
@@ -86,6 +128,7 @@ export function BarChart({
             ]}
             tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
           />
+
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}
@@ -101,7 +144,7 @@ export function BarChart({
               strokeOpacity: 0.5,
             }}
             position={{ y: 0 }}
-            allowEscapeViewBox={{ x: true, y: true }}
+            allowEscapeViewBox={{ x: false, y: true }}
             content={
               <ChartTooltipContent
                 datasetInfo={datasetInfo}
@@ -110,20 +153,7 @@ export function BarChart({
               />
             }
           />
-          {Object.keys(datasetCalculatedInfo).map((key: string) => {
-            const dataset = datasetCalculatedInfo[key];
 
-            return (
-              <Bar
-                key={key}
-                type="monotone"
-                dataKey={key}
-                radius={[2, 2, 0, 0]}
-                fillOpacity={0.5}
-                fill={`url(#${dataset.gradientId})`}
-              />
-            );
-          })}
           {false && data.length * Object.keys(datasetInfo).length > BARS_LIMIT && (
             <Brush
               startIndex={data.length > 10 ? data.length - 7 : 0}
@@ -131,7 +161,7 @@ export function BarChart({
               travellerWidth={7}
               stroke="#ffffff90"
               fill="#4f4f5a00"
-              tickFormatter={(value: number) => moment.unix(data[value].time).format(timeFormat)}
+              tickFormatter={(value: number) => formatUnixUTC(data[value]?.time, timeFormat)}
             />
           )}
         </BarRechart>
@@ -139,3 +169,20 @@ export function BarChart({
     </>
   );
 }
+
+export const DashedBar = ({ x, y, width, height, fill, maskId }: any) => {
+  const rectX = x;
+  const rectY = height < 0 ? y + height : y;
+  const rectHeight = Math.abs(height);
+
+  return (
+    <rect
+      fill={fill}
+      mask={`url(#${maskId})`}
+      x={rectX}
+      y={rectY}
+      width={width}
+      height={rectHeight}
+    />
+  );
+};

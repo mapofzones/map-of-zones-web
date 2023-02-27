@@ -3,12 +3,13 @@ import { ChartItemWithTime } from 'types/chart';
 
 export interface AreaChartProps {
   className?: string;
-  data: ChartItemWithTime[];
+  data: any[];
   dataFormat?: NumberType;
   datasetInfo: { [key: string]: DatasetInfo };
   timeFormat?: string;
   tooltipTimeFormat?: string;
   isZeroMinXAxisValue?: boolean;
+  lastDashedPeriod?: boolean;
 }
 
 export interface ChartData {

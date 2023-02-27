@@ -2,24 +2,17 @@ import { useMemo } from 'react';
 
 import moment from 'moment';
 
-import { PeriodKeys } from 'components/PeriodSelector/Types';
-import { ChartItemWithTime } from 'types/chart';
+import { OverviewCardPeriod } from 'components/OverviewChartCard';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
-import { useSelectedPeriod } from './useSelectedPeriod';
-
-export function useAggregatedDataByPeriod<T extends ChartItemWithTime>(
+export function useAggregatedDataByPeriod<T>(
   data: T[],
+  selectedPeriod: OverviewCardPeriod,
   keys: (keyof T)[]
 ): T[] {
-  const [selectedPeriod] = useSelectedPeriod();
-
   return useMemo(() => {
-    if (selectedPeriod === PeriodKeys.DAY) {
-      return data;
-    }
-
     const aggregatedDataByTime = data.reduce((acc: any, curr: any, index: number) => {
-      const dateTime = moment.unix(curr.time).format('DD/MM/YYYY');
+      const dateTime = formatUnixUTC(curr.time, 'DD/MM/YYYY');
 
       keys.forEach((datasetKey: keyof T) => {
         const value = curr[datasetKey];
@@ -43,5 +36,5 @@ export function useAggregatedDataByPeriod<T extends ChartItemWithTime>(
       };
     });
     return newData;
-  }, [data, keys, selectedPeriod]);
+  }, [data, keys]);
 }

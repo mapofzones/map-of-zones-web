@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 
 import cn from 'classnames';
+import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCard';
 
 import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
@@ -10,7 +11,6 @@ import { OverviewLegendTitle } from 'components/OverviewChartCard/Legend/Title/O
 import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/LegendValueBase';
 import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
 import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewChartCard/ZoneOverviewChartTypeButtonsGroup';
-import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
 
 import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
@@ -30,7 +30,9 @@ const CHART_METADATA = {
 };
 
 export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsProps) {
-  const { data, loading } = useZoneOverviewDelegations();
+  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+
+  const { data, loading } = useZoneOverviewDelegations(selectedPeriod);
 
   const { loading: tokenLoading, data: tokenData } = useContext(OverviewTokenContext);
 
@@ -39,11 +41,6 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
   const onChartSelected = (item: { key?: ChartType }) => {
     item?.key && setSelectedChartType(item.key);
   };
-
-  const chartData = useAggregatedDataByPeriod(data?.chart ?? [], [
-    'delegationAmount',
-    'undelegationAmount',
-  ]);
 
   return (
     <ZoneOverviewCard title="Delegations">
@@ -77,7 +74,7 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
 
       <ChartContainer
         chartType={selectedChartType}
-        data={chartData}
+        data={data?.chart ?? []}
         loading={loading}
         datasetInfo={CHART_METADATA}
         dataFormatType={NumberType.Currency}

@@ -6,13 +6,15 @@ import { overviewPath, peersPath } from 'routing';
 import styles from './ZoneNavigation.module.scss';
 import { ZoneNavigationProps } from './ZoneNavigation.props';
 
-export function ZoneNavigation({ peersCount, useSmallView }: ZoneNavigationProps) {
+export function ZoneNavigation({ className, peersCount, useSmallView }: ZoneNavigationProps) {
   return (
-    <>
+    <div className={className}>
       {useSmallView && (
         <ButtonGroup className={styles.pagesSwitcher}>
           <NavLink to={overviewPath}>Overview</NavLink>
-          <NavLink to={peersPath}>{`Peers ${peersCount ? `(${peersCount})` : ''}`}</NavLink>
+          <NavLink className={styles.peersTab} to={peersPath}>{`Peers ${
+            peersCount ? `(${peersCount})` : ''
+          }`}</NavLink>
         </ButtonGroup>
       )}
 
@@ -24,6 +26,6 @@ export function ZoneNavigation({ peersCount, useSmallView }: ZoneNavigationProps
           </NavigationButton>
         </div>
       )}
-    </>
+    </div>
   );
 }

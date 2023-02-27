@@ -1,30 +1,25 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_IBC_TRANSFERS_CARD_V2_FRAGMENT } from 'graphql/v2/common/Cards/ZoneIbcTransfersCard.fragment';
-import { ZONE_TOTAL_TXS_CARD_V2_FRAGMENT } from 'graphql/v2/common/Cards/ZoneTotalTxsCard.fragment';
-
 export const ZONE_OVERVIEW_ACTIVITY = gql`
-  ${ZONE_IBC_TRANSFERS_CARD_V2_FRAGMENT}
-  ${ZONE_TOTAL_TXS_CARD_V2_FRAGMENT}
   query ZoneOverviewActivity($zone: String!, $period: Int!, $isMainnet: Boolean!) {
-    switchedStats: flat_blockchain_switched_stats(
-      where: {
-        blockchain: { _eq: $zone }
-        timeframe: { _eq: $period }
-        is_mainnet: { _eq: $isMainnet }
-      }
+    switchedStats: flat_blockchain_switched_stats_by_pk(
+      blockchain: $zone
+      timeframe: $period
+      is_mainnet: $isMainnet
     ) {
-      ...ZoneIbcTransfersCardV2
-      peersCount: ibc_peers
-      channelsCount: channels_cnt
+      ibcVolume: ibc_cashflow
+      ibcVolumeIn: ibc_cashflow_in
+      ibcVolumeOut: ibc_cashflow_out
+      ibcVolumeInPercent: ibc_cashflow_in_percent
+      ibcVolumeOutPercent: ibc_cashflow_out_percent
+      ibcTransfers: ibc_transfers
     }
     stats: flat_blockchain_stats(
       where: { blockchain: { _eq: $zone }, timeframe: { _eq: $period } }
     ) {
-      ...ZoneTotalTxsCardV2
+      totalTxs: txs
       ibcDau: ibc_active_addresses_cnt
       dau: active_addresses_cnt
-      ibcDauPercent: ibc_active_addresses_percent
     }
   }
 `;

@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+
+  .cardContent {
+    display: flex;
+    flex-direction: row;
+
+    .valueBlock {
+      flex: 1;
+    }
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1280px) {
+  .container {
+    .cardContent {
+      flex-direction: column;
+
+      .valueBlock {
+        &:first-child {
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+}

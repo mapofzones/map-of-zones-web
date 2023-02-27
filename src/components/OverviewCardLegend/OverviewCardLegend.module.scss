@@ -3,7 +3,7 @@
 
   .legendItem {
     border-left: 1px solid var(--black-900);
-    padding: 0 20px;
+    padding: 0 16px;
 
     &:first-child {
       border: none;
@@ -16,7 +16,7 @@
   }
 }
 
-@media (min-width: 980px) and (max-width: 1280px) {
+@media (max-width: 1280px) {
   .cardLegend {
     &.wrapped {
       flex-wrap: wrap;
@@ -32,20 +32,6 @@
           padding-left: 0;
         }
       }
-    }
-  }
-}
-
-@media (max-width: 630px) {
-  .cardLegend {
-    flex-wrap: wrap;
-    flex-direction: column;
-
-    .legendItem {
-      padding: 20px 0;
-
-      border-top: 1px solid var(--black-900);
-      border-left: none;
     }
   }
 }

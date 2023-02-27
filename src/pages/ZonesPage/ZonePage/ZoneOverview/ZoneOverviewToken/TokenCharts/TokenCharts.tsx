@@ -1,47 +1,27 @@
-import { useState } from 'react';
-
-import { ButtonGroup, NumberType } from 'components';
+import { NumberType, PeriodKeys } from 'components';
 import { ChartContainer } from 'components/ChartContainer';
-import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
-import { ElementSize } from 'types/ElementSize';
 
-import { chartOptions, ChartType } from './../Types';
+import { ChartType } from './../Types';
 import { useZoneTokenChart } from './../useZoneTokenChart';
 import styles from './TokenCharts.module.scss';
 
-export function TokenCharts() {
-  const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.PRICE);
-
-  const { data: chartData, loading: chartLoading } = useZoneTokenChart(selectedChartType);
-
-  const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
-
-  const onChartSelected = (item: { key?: ChartType }) => {
-    item?.key && setSelectedChartType(item.key);
-    trackSelectedChart(item.key);
-  };
+export function TokenCharts({ chartType, period }: { chartType: ChartType; period: PeriodKeys }) {
+  const { data: chartData, loading: chartLoading } = useZoneTokenChart(chartType, period);
 
   return (
     <div className={styles.chartContainer}>
-      <ButtonGroup
-        className={styles.priceSwitcher}
-        size={ElementSize.SMALL}
-        buttons={chartOptions}
-        setSelectedButton={onChartSelected}
-      ></ButtonGroup>
       <ChartContainer
         className={styles.priceVolumeChart}
         loading={chartLoading}
         data={chartData}
         datasetInfo={{
           value: {
-            title: selectedChartType === ChartType.PRICE ? 'Price' : 'Trading Volume',
+            title: chartType === ChartType.PRICE ? 'Price' : 'Volume',
           },
         }}
-        dataFormatType={
-          selectedChartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number
-        }
+        dataFormatType={chartType === ChartType.PRICE ? NumberType.Currency : NumberType.Number}
         tooltipTimeFormat="DD MMM, HH:mm"
+        chartTimeFormat={period === PeriodKeys.DAY ? 'HH:mm' : 'DD MMM'}
         isZeroMinXAxisValue={false}
       />
     </div>

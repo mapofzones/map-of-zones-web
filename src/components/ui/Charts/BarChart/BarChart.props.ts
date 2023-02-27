@@ -3,7 +3,7 @@ import { ChartItemWithTime } from 'types/chart';
 
 export interface BarChartProps {
   className?: string;
-  data: ChartItemWithTime[];
+  data: any[];
   dataFormat?: NumberType;
   datasetInfo: { [key: string]: DatasetInfo };
   timeFormat?: string;

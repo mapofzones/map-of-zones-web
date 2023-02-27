@@ -4,13 +4,14 @@ import cn from 'classnames';
 
 import { NumberType, SkeletonTextWrapper } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
+import { OverviewCardPeriod } from 'components/OverviewChartCard';
 import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
 import { OverviewLegendTitle } from 'components/OverviewChartCard/Legend/Title/OverviewLegendTitle';
 import { LegendNumberValue } from 'components/OverviewChartCard/Legend/Value/LegendNumberValue';
+import { OverviewPeriodButtonsGroup } from 'components/OverviewChartCard/OverviewPeriodButtonsGroup';
 import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
 import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewChartCard/ZoneOverviewChartTypeButtonsGroup';
-import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
 
 import { useZoneOverviewIbcVolumeCard } from './useZoneOverviewIbcVolumeCard';
 import styles from './ZoneOverviewIbcVolume.module.scss';
@@ -32,24 +33,24 @@ const CHART_METADATA = {
   },
 };
 const numberType = NumberType.Currency;
+const VOLUME_PERIODS: OverviewCardPeriod[] = ['1w', '1m'];
 
 export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps) {
+  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+  const { data, loading } = useZoneOverviewIbcVolumeCard(selectedPeriod);
+
   const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.AREA);
 
   const onChartSelected = (item: { key?: ChartType }) => {
     item?.key && setSelectedChartType(item.key);
   };
 
-  const { data, loading } = useZoneOverviewIbcVolumeCard();
-  const flatData = useAggregatedDataByPeriod(data?.chart ?? [], ['total', 'ibcIn', 'ibcOut']);
+  const onPeriodSelected = (period: OverviewCardPeriod) => {
+    setSelectedPeriod(period);
+  };
 
   return (
     <ZoneOverviewCard title="IBC Volume" className={className}>
-      <ZoneOverviewChartTypeButtonsGroup
-        chartTypes={[ChartType.AREA, ChartType.BAR]}
-        onChartSelected={onChartSelected}
-      />
-
       <OverviewChartLegend className={cn(styles.chartLegend, styles.wrapped)}>
         <OverviewLegendItem className={styles.legendItem}>
           <OverviewLegendTitle
@@ -86,12 +87,22 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
         </OverviewLegendItem>
       </OverviewChartLegend>
 
+      <div className={styles.chartControls}>
+        <ZoneOverviewChartTypeButtonsGroup
+          chartTypes={[ChartType.AREA, ChartType.BAR]}
+          onChartSelected={onChartSelected}
+        />
+
+        <OverviewPeriodButtonsGroup periods={VOLUME_PERIODS} onPeriodSelected={onPeriodSelected} />
+      </div>
+
       <ChartContainer
         chartType={selectedChartType}
-        data={flatData}
+        data={data?.chart ?? []}
         loading={loading}
         datasetInfo={CHART_METADATA}
         dataFormatType={numberType}
+        // period={selectedPeriod}
       />
     </ZoneOverviewCard>
   );

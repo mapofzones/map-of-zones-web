@@ -1,0 +1,27 @@
+import { NumberType } from 'components/ui';
+import { DatasetInfo } from 'components/ui/Charts/AreaChart/AreaChart.props';
+
+type ChartKeys<T extends ChartItemWithTime> = Omit<T, 'time'>; //
+
+export interface ChartContainerProps<T extends ChartItemWithTime> {
+  className?: string;
+  chartType?: ChartType;
+<<<<<<< HEAD
+  data: T[];
+  datasetInfo: { [key in keyof ChartKeys<T>]: DatasetInfo };
+=======
+  data: any[]; // use generic type
+  datasetInfo: { [key: string]: DatasetInfo };
+>>>>>>> dev
+  dataFormatType: NumberType;
+  loading: boolean;
+  isZeroMinXAxisValue?: boolean;
+  tooltipTimeFormat?: string;
+  lastDashedPeriod?: boolean;
+  chartTimeFormat?: string;
+}
+
+export enum ChartType {
+  AREA = 'area',
+  BAR = 'bar',
+}

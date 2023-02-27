@@ -1,6 +1,7 @@
 .container {
   display: grid;
   grid-template-areas:
+    'overview overview'
     'token volumes'
     'parameters parameters'
     'transactions ibcTransfers'
@@ -10,6 +11,14 @@
   gap: 28px;
   padding: 0 24px 24px;
   overflow: hidden;
+
+  .overview {
+    grid-area: overview;
+
+    display: grid;
+    gap: 28px;
+    grid-auto-flow: column;
+  }
 
   .tokenBlock {
     grid-area: token;
@@ -49,6 +58,7 @@
   .container {
     display: grid;
     grid-template-areas:
+      'overview'
       'token'
       'volumes'
       'parameters'
@@ -59,6 +69,10 @@
       'delegations';
     grid-template-columns: 1fr;
     gap: 25px;
+
+    .overview {
+      grid-auto-flow: row;
+    }
   }
 }
 

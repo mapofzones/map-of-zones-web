@@ -1,12 +1,10 @@
 import React from 'react';
 
 import cn from 'classnames';
-import moment from 'moment';
 import {
   Area,
   AreaChart as AreaRechart,
   CartesianGrid,
-  ReferenceDot,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -15,6 +13,8 @@ import {
 
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+import { ChartItemWithTime } from 'types/chart';
+import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './AreaChart.module.scss';
@@ -26,17 +26,38 @@ export function AreaChart({
   data,
   datasetInfo,
   dataFormat = NumberType.Number,
-  timeFormat = 'DD MMM, HH:mm',
+  timeFormat = 'DD MMM',
   tooltipTimeFormat = 'DD MMM, HH:mm',
   isZeroMinXAxisValue = true,
+  lastDashedPeriod = false,
 }: AreaChartProps) {
   const datasetCalculatedInfo = useDatasetCalculations(datasetInfo, data);
+  const handledData = !lastDashedPeriod
+    ? data
+    : data.map((item: ChartItemWithTime, index: number) => {
+        if (index < data.length - 2) {
+          return item;
+        }
+
+        return Object.keys(item).reduce((acc: any, currKey: string) => {
+          if (currKey === 'time') {
+            acc[currKey] = item[currKey];
+          } else {
+            if (index === data.length - 2) {
+              acc[currKey] = item[currKey];
+            }
+            acc[`_${currKey}`] = item[currKey];
+          }
+
+          return acc;
+        }, {});
+      });
 
   return (
     <ResponsiveContainer className={cn(className, styles.container)} width={'100%'} height={'100%'}>
       <AreaRechart
         className={styles.chart}
-        data={data}
+        data={handledData}
         margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
       >
         <defs>
@@ -60,6 +81,38 @@ export function AreaChart({
           })}
         </defs>
 
+        {Object.keys(datasetCalculatedInfo).map((key: string) => {
+          const dataset = datasetCalculatedInfo[key];
+
+          return (
+            <React.Fragment key={key}>
+              <Area
+                type="monotone"
+                dataKey={key}
+                name={key}
+                stroke={dataset.color}
+                fillOpacity={1}
+                fill={`url(#${dataset.gradientId})`}
+                strokeWidth={2}
+                activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
+              />
+              {lastDashedPeriod && (
+                <Area
+                  type="monotone"
+                  dataKey={`_${key}`}
+                  name={key}
+                  stroke={dataset.color}
+                  fillOpacity={0.5}
+                  fill={`url(#${dataset.gradientId})`}
+                  strokeWidth={2}
+                  strokeDasharray={'5 5'}
+                  activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
+                />
+              )}
+            </React.Fragment>
+          );
+        })}
+
         <XAxis
           dataKey="time"
           style={{ fill: '#8F8F96' }}
@@ -68,7 +121,7 @@ export function AreaChart({
           fontSize={12}
           interval={'preserveEnd'}
           padding={{ right: 3, left: 3 }}
-          tickFormatter={(value: number) => moment.unix(value).format(timeFormat)}
+          tickFormatter={(value: number) => formatUnixUTC(value, timeFormat)}
         />
         <YAxis
           style={{ fill: '#8F8F96' }}
@@ -83,6 +136,7 @@ export function AreaChart({
           ]}
           tickFormatter={(value: number) => formatNumberToString(value, dataFormat, true)}
         />
+
         <CartesianGrid
           strokeDasharray="3 3"
           vertical={false}
@@ -101,7 +155,7 @@ export function AreaChart({
             strokeOpacity: 0.5,
           }}
           position={{ y: 0 }}
-          allowEscapeViewBox={{ x: true, y: true }}
+          allowEscapeViewBox={{ x: false, y: true }}
           content={
             <ChartTooltipContent
               datasetInfo={datasetInfo}
@@ -110,23 +164,6 @@ export function AreaChart({
             />
           }
         />
-        {Object.keys(datasetCalculatedInfo).map((key: string) => {
-          const dataset = datasetCalculatedInfo[key];
-
-          return (
-            <React.Fragment key={key}>
-              <Area
-                type="monotone"
-                dataKey={key}
-                stroke={dataset.color}
-                fillOpacity={1}
-                fill={`url(#${dataset.gradientId})`}
-                strokeWidth={2}
-                activeDot={{ r: 4, stroke: '#1E1C25', strokeWidth: 1 }}
-              />
-            </React.Fragment>
-          );
-        })}
       </AreaRechart>
     </ResponsiveContainer>
   );

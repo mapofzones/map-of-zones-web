@@ -17,7 +17,7 @@ export const TRANSACTIONS_CARD_METADATA: IbcTransactionsOverviewCardMetadata = {
       legendValueAccessorKey: 'totalTxsCount',
       chartValueAccessorKey: 'txsCount',
       size: ElementSize.LARGE,
-      showPeriod: true,
+      showPeriod: false,
       defaultSkeletonText: '19 850',
       color: '#22AAFF',
       icon: <Circle color={'#22AAFF'} />, // get color from above property
