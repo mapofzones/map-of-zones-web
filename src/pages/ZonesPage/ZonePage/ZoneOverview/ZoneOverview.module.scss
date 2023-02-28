@@ -7,8 +7,8 @@
     'token volumes'
     'parameters parameters'
     'transactions ibcTransfers'
-    'activeUsers delegates'
-    'delegations .';
+    'activeUsers returnedAddresses'
+    'delegates .';
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
   padding: 0 24px 24px;
@@ -47,6 +47,10 @@
     grid-area: activeUsers;
   }
 
+  .returnedAddressesBlock {
+    grid-area: returnedAddresses;
+  }
+
   .delegatesBlock {
     grid-area: delegates;
   }
@@ -75,6 +79,7 @@
       'transactions'
       'ibcTransfers'
       'activeUsers'
+      'returnedAddresses'
       'delegates'
       'delegations';
     grid-template-columns: 1fr;

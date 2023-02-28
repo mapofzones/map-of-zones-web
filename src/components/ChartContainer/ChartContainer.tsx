@@ -6,7 +6,6 @@ import { SkeletonRectangle } from 'components/Skeleton';
 import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
 import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
 import { Watermark } from 'components/Watermark';
-import { ChartItemWithTime } from 'types/chart';
 
 import styles from './ChartContainer.module.scss';
 import { ChartContainerProps, ChartType } from './ChartContainer.props';
