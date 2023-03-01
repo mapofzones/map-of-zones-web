@@ -20,6 +20,7 @@
     display: grid;
     gap: var(--gap);
     grid-auto-flow: column;
+    grid-template-columns: 1fr max(230px);
   }
 
   .tokenBlock {
@@ -87,6 +88,7 @@
 
     .overview {
       grid-auto-flow: row;
+      grid-template-columns: 1fr;
     }
   }
 }
