@@ -20,7 +20,7 @@ export function AssetsTotalInfo(): JSX.Element {
   const { data: zonesTotalInfo, loading } = useAssetsTotalInfo();
 
   return (
-    <TotalInfo>
+    <TotalInfo className={styles.assetsTotalInfo}>
       <TotalCard className={cn(styles.card, styles.withChart)} loading={loading}>
         <div>
           <div className={styles.title}>24h Trading Volume</div>

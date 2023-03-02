@@ -6,16 +6,35 @@ import {
   NumberFormat,
   NumberType,
   PendingValue,
+  PeriodKeys,
   TotalCard,
   TotalInfo,
   ValueWithPending,
 } from 'components';
 import { useLaptopMediumMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { getDauTitleByPeriod } from 'utils/helper';
 
+import { useZonesIntercahinDau, ZonesTotalInterchainDau } from './useZonesInterchainDau';
 import { useZonesTotalInfo } from './useZonesTotalInfo';
 import { ZonesConnection } from './ZonesConnection/ZonesConnection';
 import styles from './ZonesTotalInfo.module.scss';
+
+function getDauValueByPeriod(data: ZonesTotalInterchainDau | undefined, period: PeriodKeys) {
+  if (!data) {
+    return undefined;
+  }
+  if (period === PeriodKeys.DAY) {
+    return data.totalInterchainUniqueActiveAddressesDay;
+  }
+  if (period === PeriodKeys.WEEK) {
+    return data.totalInterchainUniqueActiveAddressesWeek;
+  }
+  if (period === PeriodKeys.MONTH) {
+    return data.totalInterchainUniqueActiveAddressesMonth;
+  }
+  return undefined;
+}
 
 export function ZonesTotalInfo(): JSX.Element {
   const [selectedPeriod] = useSelectedPeriod(undefined);
@@ -24,8 +43,10 @@ export function ZonesTotalInfo(): JSX.Element {
 
   const { data: zonesTotalInfo, loading } = useZonesTotalInfo(selectedPeriod);
 
+  const { data: zonesDau, loading: dauLoading } = useZonesIntercahinDau();
+
   return (
-    <TotalInfo>
+    <TotalInfo className={styles.zonesTotalInfo}>
       <TotalCard className={cn(styles.card, styles.withChart)} loading={loading}>
         <div>
           <span className={styles.title}>Total IBC Volume ({selectedPeriod})</span>
@@ -66,7 +87,7 @@ export function ZonesTotalInfo(): JSX.Element {
         </div>
       </TotalCard>
 
-      {!isLaptopMedium && (
+      {/* {!isLaptopMedium && (
         <TotalCard className={cn(styles.card, styles.doubleItem)} loading={loading}>
           <div>
             <span className={styles.title}>All Channels</span>
@@ -83,6 +104,19 @@ export function ZonesTotalInfo(): JSX.Element {
               className={cn(styles.value, styles.doublevalue)}
               value={zonesTotalInfo?.activeChannels}
               numberType={NumberType.Number}
+            />
+          </div>
+        </TotalCard>
+      )} */}
+
+      {!isLaptopMedium && (
+        <TotalCard className={cn(styles.card)} loading={dauLoading}>
+          <div>
+            <span className={styles.title}>Interchain {getDauTitleByPeriod(selectedPeriod)}</span>
+            <NumberFormat
+              className={cn(styles.value, styles.mainValue)}
+              numberType={NumberType.Number}
+              value={getDauValueByPeriod(zonesDau, selectedPeriod)}
             />
           </div>
         </TotalCard>

@@ -1,3 +1,7 @@
+.zonesTotalInfo {
+  grid-template-columns: 1.65fr 1fr 1fr 1.65fr 1.65fr;
+}
+
 .title {
   display: block;
 
@@ -47,6 +51,10 @@
     .value {
       font-size: var(--font-heading-size-sm);
     }
+  }
+
+  .mainValue {
+    font-size: var(--font-heading-size-sm);
   }
 
   &.topItem {
