@@ -27,6 +27,7 @@
       .volumeInOutContainer {
         font-size: var(--font-base-size-md);
         min-width: 150px;
+        flex: 1;
 
         .volumeLineChart {
           margin-bottom: 12px;

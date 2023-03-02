@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
+import { useOverviewChartPeriodChangedAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useOverviewChartPeriodChangedAnalytics';
 
 import styles from './OverviewChartCard.module.scss';
 import { DataWithChart, OverviewCardMetadata } from './OverviewChartCard.types';
@@ -33,12 +34,17 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
   onPeriodSelected,
 }: OverviewChartCardProps<T, K>) {
   const [selectedChartType, setSelectedChartType] = useState<ChartType>(metadata.chartTypes[0]);
+  const trackChartPeriodChangedEvent = useOverviewChartPeriodChangedAnalytics(title);
+
   const onChartSelected = (item: { key?: ChartType }) => {
     item?.key && setSelectedChartType(item.key);
   };
 
   const onChartPeriodSelected = (period: OverviewCardPeriod) => {
-    onPeriodSelected && onPeriodSelected(period);
+    if (onPeriodSelected) {
+      onPeriodSelected(period);
+      trackChartPeriodChangedEvent(period);
+    }
   };
 
   const legendMetadata = rebuildLegendMetadataByLegendKey<T, K>(metadata);
