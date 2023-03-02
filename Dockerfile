@@ -6,9 +6,12 @@ FROM node:18-alpine as build-deps
 WORKDIR /usr/src/app
 
 # install app dependencies
+ARG NPM_AUTH_TOKEN
+COPY .npmrc .npmrc
 COPY package.json ./
 COPY yarn.lock ./
 RUN yarn install
+RUN rm -f .npmrc
 
 # add app
 COPY . ./
