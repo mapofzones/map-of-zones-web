@@ -1,38 +1,50 @@
 import cn from 'classnames';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
-import { NumberType, SkeletonRectangle } from 'components';
+import { NumberType, PeriodKeys, SkeletonRectangle } from 'components';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
 import { Watermark } from 'components/Watermark';
 
 import styles from './OverviewReturnedAddressesChart.module.scss';
+import { OverviewReturnedAddressesChartTooltip } from './OverviewReturnedAddressesChartTooltip';
+import { ZoneOverviewReturnedAddressesChartData } from './types';
 
 import { OverviewReturnedAddressesChartProps } from '.';
 
 export function OverviewReturnedAddressesChart({
   className,
   loading = false,
-  returnedRate,
+  data,
+  period,
 }: OverviewReturnedAddressesChartProps) {
-  const chartData = [
+  const gradientId = 'returned-addresses-graient';
+
+  const chartData: ZoneOverviewReturnedAddressesChartData = [
     {
-      period: 'Yesterday',
-      valuePercent: 1,
-      valuePercentTo100: 0,
+      period: getPeriodTitle(period, 0),
+      value: data?.prevTotalAddresses,
+      valuePercent: data?.prevTotalAddresses ? 1 : undefined,
     },
     {
-      period: 'Today',
-      valuePercent: returnedRate,
-      valuePercentTo100: returnedRate ? 1 - returnedRate : undefined,
+      period: getPeriodTitle(period, 1),
+      value: data?.returnedAddresses,
+      valuePercent: data?.returnedRate,
     },
   ];
-
-  const gradientId = 'returned-addresses-graient';
 
   return (
     <>
       {loading && <SkeletonRectangle style={{ width: '100%', flex: '1 1 auto' }} />}
-      {!loading && chartData && (
+      {!loading && data && (
         <div style={{ position: 'relative', flex: '1 1 auto' }}>
           <Watermark className={styles.chartLogo} />
           <ResponsiveContainer
@@ -60,21 +72,15 @@ export function OverviewReturnedAddressesChart({
               </defs>
 
               <Bar
+                yAxisId="percents"
                 type="monotone"
                 dataKey="valuePercent"
-                stackId="stackId"
                 radius={[2, 2, 0, 0]}
                 fillOpacity={0.5}
                 fill={`url(#${gradientId})`}
               />
-              <Bar
-                type="monotone"
-                dataKey="valuePercentTo100"
-                stackId="stackId"
-                radius={[2, 2, 0, 0]}
-                fillOpacity={0.12}
-                fill="#22AAFF"
-              />
+
+              <Line yAxisId="count" type="monotone" dataKey="value" strokeOpacity={0} />
 
               <XAxis
                 dataKey="period"
@@ -83,16 +89,33 @@ export function OverviewReturnedAddressesChart({
                 tickLine={false}
                 fontSize={12}
                 interval={'preserveEnd'}
-                padding={{ right: 0, left: 0 }}
+                padding={{ right: 30, left: 40 }}
               />
 
               <YAxis
+                yAxisId="count"
+                orientation="right"
                 style={{ fill: '#8F8F96' }}
                 tickLine={false}
                 axisLine={false}
                 fontSize={12}
                 mirror={true}
                 tickSize={0}
+                domain={[0, 1]}
+                ticks={[0, data?.returnedAddresses ?? 0, data?.prevTotalAddresses ?? 0]}
+                tickFormatter={(value: number) => formatNumberToString(value, NumberType.Number)}
+              />
+
+              <YAxis
+                yAxisId="percents"
+                orientation="left"
+                style={{ fill: '#8F8F96' }}
+                tickLine={false}
+                axisLine={false}
+                fontSize={12}
+                mirror={true}
+                tickSize={0}
+                ticks={[0, data?.returnedRate ?? 0, 1]}
                 tickFormatter={(value: number) =>
                   formatNumberToString(value * 100, NumberType.Percent)
                 }
@@ -104,10 +127,28 @@ export function OverviewReturnedAddressesChart({
                 stroke="#ffffff"
                 strokeOpacity="0.2"
               />
+
+              <Tooltip
+                active={true}
+                wrapperStyle={{ outline: 'none', zIndex: 10000 }}
+                cursor={{
+                  stroke: '#7F7F8750',
+                  strokeWidth: 1,
+                  strokeOpacity: 0.5,
+                  fillOpacity: 0.2,
+                }}
+                position={{ y: 0 }}
+                allowEscapeViewBox={{ x: false, y: true }}
+                content={<OverviewReturnedAddressesChartTooltip data={data} />}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>
       )}
     </>
   );
+}
+
+function getPeriodTitle(period: PeriodKeys, index: number) {
+  return index === 1 ? `Last ${period.toUpperCase()}` : `Previous ${period.toUpperCase()}`;
 }

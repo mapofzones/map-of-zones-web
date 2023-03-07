@@ -1,34 +1,35 @@
+import { PeriodKeys } from 'components/PeriodSelector';
 import { ButtonGroup } from 'components/ui';
 import { ButtonGroupItem } from 'components/ui/ButtonGroup/ButtonGroup.props';
 import { ElementSize } from 'types/ElementSize';
 
 import { OverviewCardPeriod } from './OverviewChartCard.props';
 
-const PERIOD_TITLES_BY_KEY: Record<OverviewCardPeriod, string> = {
-  '1w': '1W',
-  '2w': '2W',
-  '1m': '1M',
-};
-
-export function OverviewPeriodButtonsGroup({
+export function OverviewPeriodButtonsGroup<T extends OverviewCardPeriod | PeriodKeys>({
   periods,
+  getTitleByKey = defaultTitleAccessor,
   onPeriodSelected,
 }: {
-  periods: OverviewCardPeriod[];
-  onPeriodSelected: (period: OverviewCardPeriod) => void;
+  periods: T[];
+  getTitleByKey?: (key: T) => string;
+  onPeriodSelected: (period: T) => void;
 }) {
-  const onChartPeriodSelected = (item: ButtonGroupItem<OverviewCardPeriod>) => {
+  const onChartPeriodSelected = (item: ButtonGroupItem<T>) => {
     item?.key && onPeriodSelected(item?.key);
   };
 
   return (
     <ButtonGroup
       size={ElementSize.SMALL}
-      buttons={periods.map((period: OverviewCardPeriod) => ({
+      buttons={periods.map((period: T) => ({
         key: period,
-        title: PERIOD_TITLES_BY_KEY[period],
+        title: getTitleByKey(period),
       }))}
       setSelectedButton={onChartPeriodSelected}
     />
   );
+}
+
+function defaultTitleAccessor<T extends OverviewCardPeriod | PeriodKeys>(key: T) {
+  return key.toString().toUpperCase();
 }

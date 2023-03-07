@@ -8,6 +8,7 @@ import * as Types from '../../../../base-types';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ZoneOverviewReturnedAddressesQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
+  period: Types.Scalars['Int'];
 }>;
 
 export type ZoneOverviewReturnedAddressesQueryResult = {
@@ -15,6 +16,9 @@ export type ZoneOverviewReturnedAddressesQueryResult = {
     currentActiveAddresses?: number | null;
     previousActiveAddresees?: number | null;
     repeatableAddresses?: number | null;
+    ibcCurrentActiveAddresses?: number | null;
+    ibcPreviousActiveAddresees?: number | null;
+    ibcRepeatableAddresses?: number | null;
   } | null;
 };
 
@@ -34,6 +38,14 @@ export const ZoneOverviewReturnedAddressesDocument = {
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -51,7 +63,7 @@ export const ZoneOverviewReturnedAddressesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'timeframe' },
-                value: { kind: 'IntValue', value: '24' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
               },
             ],
             selectionSet: {
@@ -71,6 +83,21 @@ export const ZoneOverviewReturnedAddressesDocument = {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'repeatableAddresses' },
                   name: { kind: 'Name', value: 'repeatable_addresses' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcCurrentActiveAddresses' },
+                  name: { kind: 'Name', value: 'ibc_current_active_addresses' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcPreviousActiveAddresees' },
+                  name: { kind: 'Name', value: 'ibc_previous_active_addresses' },
+                },
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'ibcRepeatableAddresses' },
+                  name: { kind: 'Name', value: 'ibc_repeatable_addresses' },
                 },
               ],
             },

@@ -1,8 +1,13 @@
-import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
+
+import { PeriodKeys } from 'components';
+
+import { ZoneOverviewReturnedAddressesDataByType } from '../types';
 
 export interface OverviewReturnedAddressesChartProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   loading?: boolean;
-  returnedRate: number | undefined;
+  data: ZoneOverviewReturnedAddressesDataByType;
+  period: PeriodKeys;
 }
