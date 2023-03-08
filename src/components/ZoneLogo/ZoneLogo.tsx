@@ -24,7 +24,7 @@ export function ZoneLogo({
         <div className={classes} style={style} {...props}>
           {logoUrl && (
             <>
-              <img src={logoUrl} style={style} alt={`${name} logo`} />
+              <img src={logoUrl} style={style} />
               <div
                 className={cn(styles.shadow, {
                   [styles.withOuterShadow]: withOuterShadow,
