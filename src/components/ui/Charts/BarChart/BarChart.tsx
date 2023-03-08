@@ -139,9 +139,9 @@ export function BarChart({
             active={true}
             wrapperStyle={{ outline: 'none', zIndex: 1000 }}
             cursor={{
-              fill: '#7F7F8750',
-              strokeWidth: 1,
-              strokeOpacity: 0.5,
+              strokeWidth: 0,
+              fill: 'var(--grey-100)',
+              fillOpacity: 0.3,
             }}
             position={{ y: 0 }}
             allowEscapeViewBox={{ x: false, y: true }}

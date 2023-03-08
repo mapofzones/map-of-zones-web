@@ -137,10 +137,9 @@ export function OverviewReturnedAddressesChart({
                 active={true}
                 wrapperStyle={{ outline: 'none', zIndex: 10000 }}
                 cursor={{
-                  stroke: '#7F7F8750',
-                  strokeWidth: 1,
-                  strokeOpacity: 0.5,
-                  fillOpacity: 0.2,
+                  strokeWidth: 0,
+                  fill: 'var(--grey-100)',
+                  fillOpacity: 0.3,
                 }}
                 position={{ y: 0 }}
                 allowEscapeViewBox={{ x: false, y: true }}
