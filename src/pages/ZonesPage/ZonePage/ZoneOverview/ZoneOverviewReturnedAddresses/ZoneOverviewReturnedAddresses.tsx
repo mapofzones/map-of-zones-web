@@ -71,11 +71,6 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
                 value={returnedRate !== undefined ? returnedRate * 100 : undefined}
                 numberType={NumberType.Percent}
               />
-              &nbsp;
-              <span className={styles.additional}>
-                (<NumberFormat value={returnedAddresses} /> /{' '}
-                <NumberFormat value={prevTotalAddresses} />)
-              </span>
             </LegendValueBase>
           </SkeletonTextWrapper>
         </OverviewLegendItem>
