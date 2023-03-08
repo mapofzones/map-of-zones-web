@@ -9,6 +9,10 @@ export const tooltips = {
     `Number of Zone’s unique addresses initiated at least one outward IBC transfer within a ${period} period`,
   ibcTransfers: () =>
     'Number of successfully relayed IBC transfers with pertinent quantity in progress',
+  ibcTransfersIn: () =>
+    'Number of IBC transfers successfully reveived from other Zones with pertinent quantity in progress',
+  ibcTransfersOut: () =>
+    'Number of IBC transfers successfully transfered to other Zones with pertinent quantity in progress',
   ibcTransfersFailed: () =>
     'Number of IBC transfers failed attributed to a particular pair of channels between Zones',
   ibcTransfersPending: () => 'Balancing figure between inbound and outbound IBC transfers',
@@ -27,4 +31,6 @@ export const tooltips = {
     'Ratio of successfully completed transfers to all transfers with the final status (i.e. success and failed)',
   supply: () => 'The amount of coins that are issued on a particular blockchain (on-chain supply)',
   totalTxs: () => 'All transactions in a specified zone',
+  delegators: () =>
+    'Number of unique delegators (addresses) staked their funds with a specified zone',
 };

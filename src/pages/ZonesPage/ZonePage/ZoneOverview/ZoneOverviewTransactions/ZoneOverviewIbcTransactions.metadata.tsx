@@ -2,6 +2,7 @@ import { NumberType } from 'components';
 import { ChartType } from 'components/ChartContainer';
 import { Circle } from 'components/ui/Circle';
 import { ElementSize } from 'types/ElementSize';
+import { tooltips } from 'types/Tooltips';
 
 import { IbcTransactionsOverviewCardMetadata } from './ZoneOverviewIbcTransactions.types';
 
@@ -12,7 +13,7 @@ export const TRANSACTIONS_CARD_METADATA: IbcTransactionsOverviewCardMetadata = {
   dataset: {
     ibcTransfersCount: {
       title: 'Total Transactions',
-      tooltipText: 'Total Transactions',
+      tooltipText: tooltips.totalTxs(),
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalTxsCount',
       chartValueAccessorKey: 'txsCount',

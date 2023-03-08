@@ -2,6 +2,7 @@ import { NumberType } from 'components';
 import { ChartType } from 'components/ChartContainer';
 import { Circle } from 'components/ui/Circle';
 import { ElementSize } from 'types/ElementSize';
+import { tooltips } from 'types/Tooltips';
 
 import { IbcVolumeOverviewCardMetadata } from './ZoneOverviewIbcVolume.types';
 
@@ -13,7 +14,7 @@ export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
   dataset: {
     totalIbcVolume: {
       title: 'Total IBC Volume',
-      tooltipText: 'Total IBC',
+      tooltipText: tooltips.ibcVolume(),
       numberType: NumberType.Currency,
       legendValueAccessorKey: 'totalIbc',
       chartValueAccessorKey: 'total',
@@ -26,9 +27,9 @@ export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
     },
     ibcVolumeIn: {
       title: 'IBC Volume In',
+      tooltipText: tooltips.ibcVolumeIn(),
       legendValueAccessorKey: 'totalIbcIn',
       chartValueAccessorKey: 'ibcIn',
-      tooltipText: 'IBC In',
       numberType: NumberType.Currency,
       size: ElementSize.LARGE,
       showPeriod: false,
@@ -39,9 +40,9 @@ export const VOLUME_CARD_METADATA: IbcVolumeOverviewCardMetadata = {
     },
     ibcVolumeOut: {
       title: 'IBC Volume Out',
+      tooltipText: tooltips.ibcVolumeOut(),
       legendValueAccessorKey: 'totalIbcOut',
       chartValueAccessorKey: 'ibcOut',
-      tooltipText: 'IBC Out',
       numberType: NumberType.Currency,
       size: ElementSize.LARGE,
       showPeriod: false,

@@ -41,7 +41,6 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
           prevTotalAddresses: data?.prevTotalAddresses,
         };
   const { returnedRate, returnedAddresses, prevTotalAddresses } = dataBySelectedType;
-  console.log(returnedRate, 'returnedRate');
 
   const onChartSelected = (item: { key?: ReturnedAddressesChartType }) => {
     item?.key && setSelectedChartType(item.key);
@@ -51,13 +50,20 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
     setSelectedPeriod(key);
   };
 
+  const legendTitle =
+    selectedChartType === 'ibc'
+      ? `IBC ${RETURNED_ADDRESSES_TITLE}`
+      : `Total ${RETURNED_ADDRESSES_TITLE}`;
+
+  const additionalInfo = `% of returning addresses in the last ${selectedPeriod} from the previous ${selectedPeriod}`;
+
   return (
     <ZoneOverviewCard className={className} title={RETURNED_ADDRESSES_TITLE}>
       <OverviewChartLegend className={styles.legend}>
         <OverviewLegendItem>
           <OverviewLegendTitle
-            title={RETURNED_ADDRESSES_TITLE}
-            tooltipText="Returned Addresses"
+            title={legendTitle}
+            tooltipText={additionalInfo}
           ></OverviewLegendTitle>
           <SkeletonTextWrapper loading={loading} defaultText={'32.2 % (1 244)'}>
             <LegendValueBase size="lg">
@@ -75,10 +81,7 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
         </OverviewLegendItem>
       </OverviewChartLegend>
 
-      <span className={styles.additionalText}>
-        Percentage and number of returning addresses in the last {selectedPeriod} from the previous{' '}
-        {selectedPeriod}
-      </span>
+      <span className={styles.additionalText}>{additionalInfo}</span>
 
       <div className={styles.chartControls}>
         <ButtonGroup

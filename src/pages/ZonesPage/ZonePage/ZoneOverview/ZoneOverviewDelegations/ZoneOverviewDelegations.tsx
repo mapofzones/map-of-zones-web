@@ -1,10 +1,10 @@
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import cn from 'classnames';
-import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCard';
 
 import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
+import { OverviewCardPeriod } from 'components/OverviewChartCard';
 import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
 import { OverviewLegendTitle } from 'components/OverviewChartCard/Legend/Title/OverviewLegendTitle';

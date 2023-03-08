@@ -2,6 +2,7 @@ import { NumberType } from 'components';
 import { ChartType } from 'components/ChartContainer';
 import { Circle } from 'components/ui/Circle';
 import { ElementSize } from 'types/ElementSize';
+import { tooltips } from 'types/Tooltips';
 
 import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewUniqueDelegates.types';
 
@@ -12,7 +13,7 @@ export const UNIQUE_DELEGATES_CARD_METADATA: IbcTransfersOverviewCardMetadata = 
   dataset: {
     delegates: {
       title: 'Delegators',
-      tooltipText: 'Delegators',
+      tooltipText: tooltips.delegators(),
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalDelegatorsCount',
       chartValueAccessorKey: 'delegatorsCount',

@@ -3,6 +3,7 @@ import { NumberType } from 'components';
 import { ChartType } from 'components/ChartContainer';
 import { Circle } from 'components/ui/Circle';
 import { ElementSize } from 'types/ElementSize';
+import { tooltips } from 'types/Tooltips';
 
 import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewIbcTransfersCard.types';
 
@@ -19,7 +20,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
   dataset: {
     total: {
       title: 'Total IBC Transfers',
-      tooltipText: 'Ibc Transfers',
+      tooltipText: tooltips.ibcTransfers(),
       numberType: NumberType.Number,
       legendValueAccessorKey: 'totalIbcTransfersCount',
       chartValueAccessorKey: 'ibcTransfersCount',
@@ -32,7 +33,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
     },
     in: {
       title: 'IBC Transfers In',
-      tooltipText: 'Ibc Transfers',
+      tooltipText: tooltips.ibcTransfersIn(),
       numberType: NumberType.Number,
       legendValueAccessorKey: 'ibcTransfersInCount',
       chartValueAccessorKey: 'ibcTransfersInCount',
@@ -45,7 +46,7 @@ export const TRANSFERS_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
     },
     out: {
       title: 'IBC Transfers Out',
-      tooltipText: 'Ibc Transfers',
+      tooltipText: tooltips.ibcTransfersOut(),
       numberType: NumberType.Number,
       legendValueAccessorKey: 'ibcTransfersOutCount',
       chartValueAccessorKey: 'ibcTransfersOutCount',
