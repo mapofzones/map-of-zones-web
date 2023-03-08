@@ -54,10 +54,6 @@ function calculateReturnedRate(
   if (previousActiveAddresees === undefined || repeatableAddresses === undefined) {
     return undefined;
   }
-  console.log(
-    repeatableAddresses,
-    previousActiveAddresees,
-    repeatableAddresses / previousActiveAddresees
-  );
+
   return repeatableAddresses / previousActiveAddresees;
 }
