@@ -41,6 +41,11 @@ export function OverviewReturnedAddressesChart({
     },
   ];
 
+  const yAxisCountTicks = data
+    ? [0, data?.returnedAddresses ?? 0, data?.prevTotalAddresses ?? 0]
+    : [0];
+  const yAxisPercentsTicks = data?.returnedRate ? [0, data.returnedRate, 1] : [0];
+
   return (
     <>
       {loading && <SkeletonRectangle style={{ width: '100%', flex: '1 1 auto' }} />}
@@ -102,7 +107,7 @@ export function OverviewReturnedAddressesChart({
                 mirror={true}
                 tickSize={0}
                 domain={[0, 1]}
-                ticks={[0, data?.returnedAddresses ?? 0, data?.prevTotalAddresses ?? 0]}
+                ticks={yAxisCountTicks}
                 tickFormatter={(value: number) => formatNumberToString(value, NumberType.Number)}
               />
 
@@ -115,7 +120,7 @@ export function OverviewReturnedAddressesChart({
                 fontSize={12}
                 mirror={true}
                 tickSize={0}
-                ticks={[0, data?.returnedRate ?? 0, 1]}
+                ticks={yAxisPercentsTicks}
                 tickFormatter={(value: number) =>
                   formatNumberToString(value * 100, NumberType.Percent)
                 }
