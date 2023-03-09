@@ -94,7 +94,7 @@ export function OverviewReturnedAddressesChart({
                 tickLine={false}
                 fontSize={12}
                 interval={'preserveEnd'}
-                padding={{ right: 30, left: 40 }}
+                padding={{ right: 40, left: 30 }}
               />
 
               <YAxis
