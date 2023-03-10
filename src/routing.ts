@@ -9,7 +9,7 @@ export const zonesPath = 'zones';
 
 export const assetsPath = 'assets';
 
-export const swapPath = 'swap-squid';
+export const swapPath = 'swap';
 
 export const aboutPath = 'about';
 
