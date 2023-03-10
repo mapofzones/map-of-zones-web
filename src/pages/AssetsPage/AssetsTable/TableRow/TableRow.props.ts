@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ColumnKeys } from '../Types';
 import { AssetsTableRow } from './../useAssetsTable';
+import { ColumnKeys } from '../Types';
 
 export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

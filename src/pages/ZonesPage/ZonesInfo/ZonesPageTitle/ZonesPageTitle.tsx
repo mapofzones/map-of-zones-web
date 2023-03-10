@@ -4,8 +4,8 @@ import { PeriodSelector, SkeletonRectangle } from 'components';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 
-import { useZonesCount } from '../ZonesTable/useZonesCount';
 import styles from './ZonesPageTitle.module.scss';
+import { useZonesCount } from '../ZonesTable/useZonesCount';
 
 export function ZonesPageTitle() {
   const [selectedPeriod] = useSelectedPeriod(undefined);

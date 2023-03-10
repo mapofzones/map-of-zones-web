@@ -11,9 +11,9 @@ import {
 } from 'components';
 import { overviewPath } from 'routing';
 
-import { ColumnKeys } from '../Types';
 import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
+import { ColumnKeys } from '../Types';
 
 const ratingDiffKeysMap: Record<ColumnKeys, keyof ZoneData> = {
   ibcVolumeReceived: 'ibcVolumeInRatingDiff',

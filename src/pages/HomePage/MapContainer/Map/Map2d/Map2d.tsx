@@ -2,12 +2,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
+import { Map2dProps } from './Map2d.props';
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { useLinkCanvasObject } from '../hooks/useLinkCanvasObject';
 import { useZonesAdditionalInfo } from '../hooks/useMapAdditionalData';
 import { useNodeCanvasObject } from '../hooks/useNodeCanvasObject';
 import { MapLink, MapNode } from '../Types';
-import { Map2dProps } from './Map2d.props';
 
 const ZOOM_MIN_VALUE = 0.75;
 const ZOOM_MAX_VALUE = 3.375;

@@ -6,12 +6,12 @@ import { useLocation } from 'react-router-dom';
 
 import { homePath, assetsPath, overviewPath, peersPath, zonesPath } from 'routing';
 
-import useDebounce from '../useDebounce';
 import { useAssetsPageAnalytics } from './AssetsPage/useAssetsPageAnalytics';
 import { useHomePageAnalytics } from './HomePage/useHomePageAnalytics';
 import { useMultipageAnalytics } from './Multipage/useMultipageAnalytics';
 import { Page, PAGE_TITLE } from './Types';
 import { useZonesPageAnalytics } from './ZonesPage/useZonesPageAnalytics';
+import useDebounce from '../useDebounce';
 
 export const trackEvent = (event: string, data?: object) => {
   if (process.env.NODE_ENV === 'production') {

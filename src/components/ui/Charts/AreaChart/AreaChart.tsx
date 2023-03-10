@@ -16,10 +16,10 @@ import {
 import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
 
-import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './AreaChart.module.scss';
 import { AreaChartProps } from './AreaChart.props';
 import { useDatasetCalculations } from './useDatasetCalculations';
+import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 
 export function AreaChart({
   className,

@@ -3,10 +3,10 @@ import { useContext, useMemo } from 'react';
 import { OverviewChartCard } from 'components/OverviewChartCard';
 import { useAggregatedDataByPeriod } from 'hooks/useAggregatedDataByPeriod';
 
-import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
 import { DELEGATIONS_CARD_METADATA } from './ZoneOverviewDelegations.metadata';
 import styles from './ZoneOverviewDelegations.module.scss';
+import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 
 import { ZoneOverviewDelegationsProps } from '.';
 

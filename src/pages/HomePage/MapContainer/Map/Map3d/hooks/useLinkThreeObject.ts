@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 
 import { Scene, BufferGeometry, LineBasicMaterial, Line, Vector3 } from 'three';
 
-import { getLinkActiveState } from '../../utils/getLinkActiveState';
 import { HoveredZoneKeyType, SelectedZoneKeyType } from './../../Types';
+import { getLinkActiveState } from '../../utils/getLinkActiveState';
 
 export function useLinkThreeObject(
   selectedZoneKey: SelectedZoneKeyType,
