@@ -11,7 +11,6 @@ export function SwapPage({ className, ...props }: SwapPageProps) {
       <div>
         <SquidWidget
           config={{
-            companyName: 'MOZ',
             slippage: 1.5,
             style: {
               neutralContent: '#8f8f96',

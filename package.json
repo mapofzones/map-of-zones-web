@@ -16,7 +16,7 @@
     }
   },
   "dependencies": {
-    "@0xsquid/widget": "^1.4.45-beta.0",
+    "@0xsquid/widget": "^1.4.46",
     "@amplitude/analytics-browser": "^1.8.0",
     "@apollo/client": "^3.6.9",
     "@graphql-codegen/add": "^3.1.1",
