@@ -3,9 +3,9 @@ import { memo } from 'react';
 import { CircularArrows } from 'assets/icons';
 import { Card, NumberFormat, NumberType, PeerLineChart, ValueWithPending } from 'components';
 
-import { ZonePeer } from '../useZonePeers';
 import styles from './ZonePeersTable.module.scss';
 import { ZonePeersTableProps } from './ZonePeersTableProps';
+import { ZonePeer } from '../useZonePeers';
 
 function ZonePeersTable({ peers }: ZonePeersTableProps) {
   if (!peers || !peers.length) {

@@ -5,11 +5,11 @@ import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 import { getZonesPeersPath } from 'routing';
 
-import { LearnMoreButton } from '../../LearnMoreButton';
 import { useZonePeers } from './useZonePeers';
 import styles from './ZonePeers.module.scss';
 import { ZonePeersSkeleton } from './ZonePeersSkeleton';
 import { MemoizedZonePeersTable } from './ZonePeersTable/ZonePeersTable';
+import { LearnMoreButton } from '../../LearnMoreButton';
 
 export function ZonePeers() {
   const navigateWithSearchParams = useNavigateWithSearchParams();

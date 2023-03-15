@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
+import { getZoneNameFromHomePageQuery } from './utils';
 import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
-import { getZoneNameFromHomePageQuery } from './utils';
 
 export function useSwitchedSidebarSubtabAnalytics(currentPage: Page, prevPage: Page) {
   useEffect(() => {

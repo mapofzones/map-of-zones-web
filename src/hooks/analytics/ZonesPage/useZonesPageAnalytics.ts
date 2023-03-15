@@ -1,4 +1,3 @@
-import { Page } from '../Types';
 import { useSortedZonesListAnalytics } from './useSortedZonesListAnalytics';
 import { useViewedZonesListPageAnalytics } from './useViewedZonesListPageAnalytics';
 import { useSelectedZoneAnalytics } from './ZonePage/useSelectedZoneAnalytics';
@@ -6,6 +5,7 @@ import { useSwitchedZoneSubtabAnalytics } from './ZonePage/useSwitchedZoneSubtab
 import { useViewedZoneOverviewPageAnalytics } from './ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
 import { useSortedZonePeersListAnalytics } from './ZonePage/ZonePeersPage/useSortedZonePeersListAnalytics';
 import { useViewedZonePeersPageAnalytics } from './ZonePage/ZonePeersPage/useViewedZonePeersPageAnalytics';
+import { Page } from '../Types';
 
 export function useZonesPageAnalytics(currentPage: Page, prevPage: Page) {
   useSelectedZoneAnalytics(currentPage, prevPage);

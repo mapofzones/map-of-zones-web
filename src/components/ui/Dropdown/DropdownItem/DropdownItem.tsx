@@ -2,9 +2,9 @@ import cn from 'classnames';
 
 import { TickIcon } from 'assets/icons';
 
-import { DropdownTooltip } from '../DropdownTooltip';
 import styles from './DropdownItem.module.scss';
 import { DropdownItemProps } from './DropdownItem.props';
+import { DropdownTooltip } from '../DropdownTooltip';
 
 export function DropdownItem({
   option,

@@ -7,11 +7,11 @@ import {
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcTransfers.query.generated';
 import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
-import { useZoneOverviewOptions } from '../hooks/useZoneOverviewOptions';
 import {
   IbcTransfersChart,
   ZoneOverviewIbcTransfersCardData,
 } from './ZoneOverviewIbcTransfersCard.types';
+import { useZoneOverviewOptions } from '../hooks/useZoneOverviewOptions';
 
 type IbcTransfersCardApi = ZoneOverviewIbcTransfersCardQueryResult['ibcTransfersCardData'];
 type IbcTransfersChartApi = NonNullable<IbcTransfersCardApi>['ibcTransfersChart'][number];

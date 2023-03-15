@@ -4,8 +4,8 @@ import {
 } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
 import { tooltips } from 'types/Tooltips';
 
-import { ZonesListZoneDetails } from '../useZonesListZoneDetails';
 import { ZoneChannelRowData } from './TableRow/TableRow.props';
+import { ZonesListZoneDetails } from '../useZonesListZoneDetails';
 
 export interface BlockchainChannel {
   zone: string;

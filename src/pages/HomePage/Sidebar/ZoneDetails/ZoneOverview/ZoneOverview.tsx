@@ -7,10 +7,10 @@ import { getZonesOverviewPath } from 'routing';
 import { tooltips } from 'types/Tooltips';
 import { getDauTitleByPeriod } from 'utils/helper';
 
-import { LearnMoreButton } from '../../LearnMoreButton';
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewItem } from './ZoneOverviewItem/ZoneOverviewItem';
+import { LearnMoreButton } from '../../LearnMoreButton';
 
 function ZoneOverview() {
   const navigateWithSearchParams = useNavigateWithSearchParams();
