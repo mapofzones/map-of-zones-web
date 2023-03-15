@@ -5,6 +5,8 @@ FROM node:18-alpine as build-deps
 # set the working directory
 WORKDIR /usr/src/app
 
+RUN apk add --no-cache git
+
 # install app dependencies
 ARG NPM_AUTH_TOKEN
 COPY .npmrc .npmrc
