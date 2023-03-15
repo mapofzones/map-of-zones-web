@@ -50,7 +50,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "react-app-rewired --max-old-space-size=4096 build",
     "eject": "react-app-rewired eject",
     "dev": "concurrently \"yarn start\" \"yarn generate:watch\"",
     "lint:scss": "npx stylelint 'src/**/*.scss'",
