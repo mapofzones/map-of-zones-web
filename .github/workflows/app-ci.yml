@@ -5,13 +5,13 @@ name: MOZ React CI
 
 on:
   push:
-    branches: [ "MOZ_v2" ]
+    branches: ['MOZ_v2']
   pull_request:
-    branches: [ "MOZ_v2" ]
+    branches: ['MOZ_v2']
+  workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,18 +20,18 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-        
-# install applicaion dependencies
-    - name: Install dependencies
-      run: |
-        yarn install
-    # build and test the apps
-    - name: build
-      run: |
-        yarn build
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      # install applicaion dependencies
+      - name: Install dependencies
+        run: |
+          yarn install
+      # build and test the apps
+      - name: build
+        run: |
+          yarn build
