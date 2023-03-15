@@ -21,10 +21,10 @@ import { Period } from 'components/PeriodBlock';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
 
-import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { TokenCharts } from './TokenCharts/TokenCharts';
 import { chartOptions, ChartType, priceDiffKeyByPeriod } from './Types';
 import styles from './ZoneOverviewToken.module.scss';
+import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 
 const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
 
@@ -51,7 +51,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         <OverviewLegendItem className={styles.legendItem}>
           <LegendTitleBase>Price</LegendTitleBase>
           <LegendValueBase>
-            <div className={styles.infoGroup}>
+            <div className={cn(styles.infoGroup, styles.tokenNamePrice)}>
               <ZoneLogo size="24px" logoUrl={data?.logoUrl} loading={loading} />
               <SkeletonTextWrapper
                 className={styles.tokenName}

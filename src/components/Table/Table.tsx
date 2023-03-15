@@ -43,7 +43,7 @@ export function Table<T extends string>({
 
               return React.cloneElement(child, {
                 isTableHorizontalScrollable,
-              });
+              } as any);
             })}
         </tbody>
       </table>

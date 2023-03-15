@@ -2,8 +2,8 @@ import { NumberType } from 'components';
 import { Circle } from 'components/ui/Circle';
 import { NumberFormat } from 'components/ui/NumberFormat/NumberFormat';
 
-import { RETURNED_ADDRESSES_TITLE } from '../ZoneOverviewReturnedAddresses';
 import styles from './OverviewReturnedAddressesChart.module.scss';
+import { RETURNED_ADDRESSES_TITLE } from '../ZoneOverviewReturnedAddresses';
 
 export function OverviewReturnedAddressesChartTooltip({ data, active }: any) {
   const { returnedRate, returnedAddresses, prevTotalAddresses } = data;
