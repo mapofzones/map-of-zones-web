@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: ['MOZ_v2']
   workflow_dispatch:
+    inputs:
+      environment:
+        decription: 'Environment to run'
+        type: environment
+        required: true
 
 jobs:
   build:
