@@ -14,11 +14,12 @@ on:
         decription: 'Environment to run'
         type: environment
         required: true
-  # trigger workflow
+  # trigger workflow 2
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: stage
 
     strategy:
       matrix:
