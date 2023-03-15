@@ -6,7 +6,7 @@ FROM node:18-alpine as build-deps
 WORKDIR /usr/src/app
 
 # install app dependencies
-ARG NPM_AUTH_TOKEN GENERATE_SOURCEMAP_FLAG
+ARG NPM_AUTH_TOKEN
 COPY .npmrc .npmrc
 COPY package.json ./
 COPY yarn.lock ./
