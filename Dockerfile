@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache git
 
 # install app dependencies
-ARG NPM_AUTH_TOKEN
+ARG NPM_AUTH_TOKEN GENERATE_SOURCEMAP_FLAG
 COPY .npmrc .npmrc
 COPY package.json ./
 COPY yarn.lock ./
