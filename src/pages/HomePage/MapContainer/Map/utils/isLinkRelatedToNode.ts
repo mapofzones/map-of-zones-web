@@ -1,5 +1,5 @@
-import { getZoneKey } from './getZoneKey';
 import { HoveredZoneKeyType, MapLink, SelectedZoneKeyType } from '../Types';
+import { getZoneKey } from './getZoneKey';
 
 export function isLinkRelatedToNode(
   nodeKey: SelectedZoneKeyType | HoveredZoneKeyType,

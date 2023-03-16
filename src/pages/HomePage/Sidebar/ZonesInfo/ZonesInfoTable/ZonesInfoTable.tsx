@@ -5,11 +5,11 @@ import cn from 'classnames';
 import { useSearchSidebarAnalytics } from 'hooks/analytics/HomePage/useSearchSidebarAnalytics';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 
-import styles from './ZonesInfoTable.module.scss';
-import { ZonesInfoTableProps, ZonesTableDataQueryItem } from './ZonesInfoTable.props';
 import { ZoneInfoRow } from '../../../index';
 import { ColumnKeys } from '../../../Types';
 import { METADATA } from '../Types';
+import styles from './ZonesInfoTable.module.scss';
+import { ZonesInfoTableProps, ZonesTableDataQueryItem } from './ZonesInfoTable.props';
 
 const fieldsMap: Record<
   ColumnKeys,

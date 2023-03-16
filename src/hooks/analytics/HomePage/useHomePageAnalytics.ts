@@ -1,3 +1,4 @@
+import { Page } from '../Types';
 import { useChosenDetailsClickAnalytics } from './useChosenDetailsClickAnalytics';
 import { useClosedZoneSidebarAnalytics } from './useClosedZoneSidebarAnalytics';
 import { useSortedHomePageZonesListAnalytics } from './useSortedHomePageZonesListAnalytics';
@@ -6,7 +7,6 @@ import { useSwitchedSidebarSubtabAnalytics } from './useSwitchedSidebarSubtabAna
 import { useViewedHomePageAnalytics } from './useViewedHomePageAnalytics';
 import { useViewedZoneOverviewSidebarAnalytics } from './useViewedZoneOverviewSidebarAnalytics';
 import { useViewedZonePeersSidebarAnalytics } from './useViewedZonePeersSidebarAnalytics';
-import { Page } from '../Types';
 
 export function useHomePageAnalytics(currentPage: Page, prevPage: Page) {
   useViewedHomePageAnalytics(currentPage, prevPage);

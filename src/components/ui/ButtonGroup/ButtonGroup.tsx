@@ -4,10 +4,10 @@ import cn from 'classnames';
 
 import { ElementSize } from 'types/ElementSize';
 
-import styles from './ButtonGroup.module.scss';
-import { ButtonGroupItem, ButtonGroupProps } from './ButtonGroup.props';
 import { Button } from '..';
 import { ButtonType } from '../Button/Button.props';
+import styles from './ButtonGroup.module.scss';
+import { ButtonGroupItem, ButtonGroupProps } from './ButtonGroup.props';
 
 export function ButtonGroup<T extends string>({
   buttons,

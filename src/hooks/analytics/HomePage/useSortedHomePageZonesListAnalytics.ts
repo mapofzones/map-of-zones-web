@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-import { HOME_PAGE_TABLE_COLUMN_TITLE } from './useViewedHomePageAnalytics';
 import { Page, PAGE_TITLE } from '../Types';
 import { trackEvent } from '../useAnalytics';
+import { HOME_PAGE_TABLE_COLUMN_TITLE } from './useViewedHomePageAnalytics';
 
 export function useSortedHomePageZonesListAnalytics(currentPage: Page, prevPage: Page) {
   useEffect(() => {

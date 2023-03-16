@@ -6,12 +6,12 @@ import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { SortRow } from 'hooks/useSortedTableData';
 
+import { useZonesListZoneDetails } from '../useZonesListZoneDetails';
 import { TableRow } from './TableRow/TableRow';
 import { ZoneData } from './TableRow/TableRow.props';
 import { ColumnKeys, getTableHeaderConfig, SORTING_COLUMN_KEYS } from './Types';
 import { usePeersTable } from './usePeersTable';
 import styles from './ZonePeers.module.scss';
-import { useZonesListZoneDetails } from '../useZonesListZoneDetails';
 
 export function ZonePeers() {
   const [selectedPeriod] = useSelectedPeriod();

@@ -1,5 +1,5 @@
-import { getZoneKey } from './getZoneKey';
 import { MapLink, SelectedZoneKeyType } from '../Types';
+import { getZoneKey } from './getZoneKey';
 
 export function getNeighboursForSelectedZone(
   selectedZoneKey: SelectedZoneKeyType,

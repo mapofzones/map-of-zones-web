@@ -5,8 +5,8 @@ import { useSearchParams } from 'react-router-dom';
 import { MapType, DefaultMapType } from 'pages/HomePage/MapContainer/MapContainer.types';
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-import { HOME_PAGE_TABLE_COLUMN_TITLE } from './useViewedHomePageAnalytics';
 import { trackEvent } from '../useAnalytics';
+import { HOME_PAGE_TABLE_COLUMN_TITLE } from './useViewedHomePageAnalytics';
 
 export enum SelectedZoneSourceView {
   Sidebar = 'sidebar view',

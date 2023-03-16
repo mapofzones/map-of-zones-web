@@ -17,10 +17,10 @@ import { NumberType } from 'components/ui/NumberFormat';
 import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
 import { formatUnixUTC } from 'utils/dateTimeUtils';
 
+import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 import styles from './BarChart.module.scss';
 import { BarChartProps } from './BarChart.props';
 import { useDatasetCalculations } from './useDatasetCalculations';
-import { ChartTooltipContent } from '../ChartTooltipContent/ChartTooltipContent';
 
 const BARS_LIMIT = 30;
 

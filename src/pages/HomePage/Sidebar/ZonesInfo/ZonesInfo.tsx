@@ -10,6 +10,7 @@ import { ColumnKeys } from 'pages/HomePage/Types';
 import { zonesPath } from 'routing';
 import { ElementSize } from 'types/ElementSize';
 
+import { LearnMoreButton } from '../LearnMoreButton';
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
 import { getColumnOptions, METADATA } from './Types';
 import { useTotalZonesInfo } from './useTotalZonesInfo';
@@ -18,7 +19,6 @@ import styles from './ZonesInfo.module.scss';
 import { MemoizedZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
 import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton/ZonesInfoTableSkeleton';
 import { ZonesInfoTitle } from './ZonesInfoTitle/ZonesInfoTitle';
-import { LearnMoreButton } from '../LearnMoreButton';
 
 const showTotalInfo = false;
 

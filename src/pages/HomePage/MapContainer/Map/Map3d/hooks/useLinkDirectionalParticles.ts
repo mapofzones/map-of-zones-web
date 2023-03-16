@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { SelectedZoneKeyType, HoveredZoneKeyType } from './../../Types';
 import { getLinkActiveState } from '../../utils/getLinkActiveState';
+import { SelectedZoneKeyType, HoveredZoneKeyType } from './../../Types';
 
 export function useLinkDirectionalParticles(
   selectedZoneKey: SelectedZoneKeyType,

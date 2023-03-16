@@ -21,10 +21,10 @@ import { Period } from 'components/PeriodBlock';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
 
+import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { TokenCharts } from './TokenCharts/TokenCharts';
 import { chartOptions, ChartType, priceDiffKeyByPeriod } from './Types';
 import styles from './ZoneOverviewToken.module.scss';
-import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 
 const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
 

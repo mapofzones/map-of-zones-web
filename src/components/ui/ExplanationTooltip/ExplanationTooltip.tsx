@@ -2,9 +2,9 @@ import cn from 'classnames';
 
 import { QuestionMark } from 'assets/icons';
 
+import { Tooltip } from '../Tooltip/Tooltip';
 import styles from './ExplanationTooltip.module.scss';
 import { ExplanationTooltipProps } from './ExplanationTooltip.props';
-import { Tooltip } from '../Tooltip/Tooltip';
 
 export function ExplanationTooltip({
   className,

@@ -1,5 +1,5 @@
-import { ZoneInfoRowSkeleton } from './ZoneInfoRowSkeleton';
 import styles from '../ZonesInfoTable.module.scss';
+import { ZoneInfoRowSkeleton } from './ZoneInfoRowSkeleton';
 
 export function ZonesInfoTableSkeleton(): JSX.Element {
   return (

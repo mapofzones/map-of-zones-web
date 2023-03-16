@@ -12,9 +12,9 @@ import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/Legen
 import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
 import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewChartCard/ZoneOverviewChartTypeButtonsGroup';
 
+import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
 import styles from './ZoneOverviewDelegations.module.scss';
-import { OverviewTokenContext } from '../OverviewTokenContextProvider';
 
 import { ZoneOverviewDelegationsProps } from '.';
 

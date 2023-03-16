@@ -5,9 +5,9 @@ import { ButtonType } from 'components/ui/Button/Button.props';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
+import { Dropdown } from '../ui/Dropdown';
 import styles from './PeriodSelector.module.scss';
 import { PeriodKeys } from './Types';
-import { Dropdown } from '../ui/Dropdown';
 
 export function PeriodSelector({
   className,

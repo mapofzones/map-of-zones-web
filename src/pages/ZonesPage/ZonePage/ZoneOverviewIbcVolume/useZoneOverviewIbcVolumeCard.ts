@@ -7,8 +7,8 @@ import {
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcVolume.query.generated';
 import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
-import { IbcVolumeChart, ZoneOverviewIbcVolumeCardData } from './ZoneOverviewIbcVolume.types';
 import { useZoneOverviewOptions } from '../ZoneOverview/hooks/useZoneOverviewOptions';
+import { IbcVolumeChart, ZoneOverviewIbcVolumeCardData } from './ZoneOverviewIbcVolume.types';
 
 type IbcVolumeCardApi = ZoneOverviewIbcVolumeQueryResult['ibcVolumeCardData'];
 type IbcVolumeChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeInChart'][number];

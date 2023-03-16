@@ -1,5 +1,5 @@
-import { isNeighbor } from './isNeighbor';
 import { HoveredZoneKeyType, MapLink, MapNode, SelectedZoneKeyType } from '../Types';
+import { isNeighbor } from './isNeighbor';
 
 export function getNodeActiveState(
   selectedZoneKey: SelectedZoneKeyType,
