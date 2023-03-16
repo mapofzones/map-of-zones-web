@@ -16,6 +16,7 @@ export interface ZoneOverviewParametersData {
 
 const OSMOSIS_KEY = 'osmosis-1';
 const OSMOSIS_APR = 22.08;
+const OSMOSIS_INFLATION = 36.5;
 
 export function useZoneOverviewParameters(): {
   data: ZoneOverviewParametersData;
@@ -32,7 +33,7 @@ export function useZoneOverviewParameters(): {
 
   return {
     data: {
-      inflation: data?.blockchain[0].inflation,
+      inflation: zone === OSMOSIS_KEY ? OSMOSIS_INFLATION : data?.blockchain[0].inflation,
       stackingApr: zone === OSMOSIS_KEY ? OSMOSIS_APR : data?.blockchain[0].stackingApr,
       unbondingPeriod: data?.blockchain[0].unbondingPeriod,
       bondedTokens: data?.blockchain[0].bondedTokens,
