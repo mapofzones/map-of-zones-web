@@ -2,8 +2,6 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from 'react-force-graph-3d';
 
-import { useClearSelectedNode } from '../hooks/eventHooks';
-import { CanvasesMap, MapNode } from '../Types';
 import { useZonesAdditional3dInfo } from './hooks/useAdditional3dInfo';
 import { useLinkDirectionalParticles } from './hooks/useLinkDirectionalParticles';
 import { useLinkThreeObject } from './hooks/useLinkThreeObject';
@@ -12,6 +10,8 @@ import { useWheel } from './hooks/useWheelWithThrottling';
 import { Map3dProps } from './Map3d.props';
 import { changeGraphZoom } from './utils/changeGraphZoom';
 import { drawNode3d } from './utils/drawNode3d';
+import { useClearSelectedNode } from '../hooks/eventHooks';
+import { CanvasesMap, MapNode } from '../Types';
 
 const ZOOM_VALUES = [800, 600, 400, 200, 100];
 

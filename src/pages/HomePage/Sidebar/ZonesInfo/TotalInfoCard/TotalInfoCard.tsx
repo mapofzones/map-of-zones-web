@@ -6,10 +6,10 @@ import { LineChart } from 'components/ui/LineChart/LineChart';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ChartItemByString, getDauTitleByPeriod } from 'utils/helper';
 
-import { ColumnKeys } from '../../../Types';
-import { METADATA } from '../Types';
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps, TotalInfoType } from './TotalInfoCard.props';
+import { ColumnKeys } from '../../../Types';
+import { METADATA } from '../Types';
 
 type TotalInfoMetadata = {
   title: string;

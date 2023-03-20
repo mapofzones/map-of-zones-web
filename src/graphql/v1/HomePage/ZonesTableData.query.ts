@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 
-import { ZONE_BASE_INFO } from '../common/Zone/ZoneBaseInfo.fragment';
 import { ZONE_IBC_TRANSFERS_STATS } from './Sidebar/ZonesInfo/ZoneIbcTransfersStats.fragment';
 import { ZONE_IBC_VOLUME_STATS } from './Sidebar/ZonesInfo/ZoneIbcVolumeStats.fragment';
 import { ZONE_TOTAL_TXS_STATS } from './Sidebar/ZonesInfo/ZoneTotalTxsStats.fragment';
+import { ZONE_BASE_INFO } from '../common/Zone/ZoneBaseInfo.fragment';
 
 export const ZONES_TABLE_DATA = gql`
   ${ZONE_BASE_INFO}

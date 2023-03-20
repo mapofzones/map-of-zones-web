@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 
 import { ColumnKeys } from 'pages/HomePage/Types';
 
-import { Page, PAGE_TITLE } from '../Types';
-import { trackEvent } from '../useAnalytics';
 import { HOME_PAGE_TABLE_COLUMN_TITLE } from './useViewedHomePageAnalytics';
 import { getZoneNameFromHomePageQuery } from './utils';
+import { Page, PAGE_TITLE } from '../Types';
+import { trackEvent } from '../useAnalytics';
 
 export function useSwitchedMapTypeAnalytics(currentPage: Page, prevPage: Page) {
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZonesListZoneDetails } from '../../useZonesListZoneDetails';
 import { ChannelData } from './ChannelRow/ChannelRow.props';
+import { ZonesListZoneDetails } from '../../useZonesListZoneDetails';
 
 export interface TableRowProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
