@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache git
 
 # install app dependencies
-ARG NPM_AUTH_TOKEN GENERATE_SOURCEMAP_FLAG
+ARG NPM_AUTH_TOKEN GENERATE_SOURCEMAP_FLAG REACT_APP_AMPLITUDE_KEY REACT_APP_MAINTENANCE_MODE
 COPY .npmrc .npmrc
 COPY package.json ./
 COPY yarn.lock ./
