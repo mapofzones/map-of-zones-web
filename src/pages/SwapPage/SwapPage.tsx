@@ -5,6 +5,9 @@ import styles from './SwapPage.module.scss';
 
 import { SwapPageProps } from '.';
 
+const ETHEREUM_CHAIN_ID = 1;
+const OSMOSIS_CHAIN_ID = 'osmosis-1';
+
 export function SwapPage({ className, ...props }: SwapPageProps) {
   return (
     <div className={cn(styles.container, className)} {...props}>
@@ -31,6 +34,18 @@ export function SwapPage({ className, ...props }: SwapPageProps) {
               displayDivider: false,
             },
             mainLogoUrl: '',
+            initialFromChainId: ETHEREUM_CHAIN_ID,
+            initialToChainId: OSMOSIS_CHAIN_ID,
+            defaultTokens: [
+              {
+                address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // Token address for USDC
+                chainId: ETHEREUM_CHAIN_ID, // Chain ID for Ethereum
+              },
+              {
+                address: 'uusdc', // Token address for axlUsdc
+                chainId: OSMOSIS_CHAIN_ID, // Chain ID for Osmosis
+              },
+            ],
           }}
         />
       </div>
