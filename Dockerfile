@@ -14,7 +14,7 @@ COPY package.json ./
 COPY yarn.lock ./
 
 RUN echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > .npmrc && \
-    RUN yarn install && \
+    yarn install && \
     rm -f .npmrc
 
 # add app
