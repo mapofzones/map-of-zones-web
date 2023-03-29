@@ -18,9 +18,6 @@ export default function SwapPage({ className, ...props }: SwapPageProps) {
     <>
       <div className={cn(styles.container, className)} {...props}>
         <div className={styles.widgetContainer}>
-          <div className={styles.linkContainer} onClick={() => setIsModalOpened(true)}>
-            Term of Use
-          </div>
           <SquidWidget
             config={{
               slippage: 1.5,
@@ -38,7 +35,7 @@ export default function SwapPage({ className, ...props }: SwapPageProps) {
                 secondaryContent: '#b2bcd3',
                 neutral: '#2a2a33',
                 roundedBtn: '5px',
-                roundedBox: '5px',
+                roundedBox: '5px 5px 0 0',
                 roundedDropDown: '5px',
                 displayDivider: false,
               },
@@ -57,8 +54,12 @@ export default function SwapPage({ className, ...props }: SwapPageProps) {
               ],
             }}
           />
+          <div className={styles.linkContainer} onClick={() => setIsModalOpened(true)}>
+            Term of Use
+          </div>
         </div>
       </div>
+
       <TermOfUseModal isOpen={isModalOpened} onClosed={() => setIsModalOpened(false)} />
     </>
   );
