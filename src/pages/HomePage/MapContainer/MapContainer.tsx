@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { Suspense, useCallback, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import { motion } from 'framer-motion';
@@ -7,16 +7,19 @@ import { Icon2d, Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 
+import { useGraphData } from './Map/hooks/useGraphData';
 import { Map } from './Map/Map';
 import styles from './MapContainer.module.scss';
 import { MapContainerProps } from './MapContainer.props';
 import { DefaultMapType, MapType } from './MapContainer.types';
 import { MapLegend } from './MapLegend';
 
-export function MapContainer({ className }: MapContainerProps) {
+export default function MapContainer({ className }: MapContainerProps) {
   const [mapType, setMapType] = useDefaultSearchParam<MapType>('mapType', DefaultMapType, false);
   const increaseZoom = useRef<() => void | null>(null);
   const decreaseZoom = useRef<() => void | null>(null);
+
+  const { data } = useGraphData();
 
   const [isZoomInDisabled, setIsZoomInDisabled] = useState(false);
   const [isZoomOutDisabled, setIsZoomOutDisabled] = useState(false);
@@ -45,13 +48,17 @@ export function MapContainer({ className }: MapContainerProps) {
     <div className={cn(styles.container, className)}>
       <MapLegend />
 
-      <Map
-        mapType={mapType}
-        increaseZoom={increaseZoom}
-        decreaseZoom={decreaseZoom}
-        disableZoomIn={(value: boolean) => setIsZoomInDisabled(value)}
-        disableZoomOut={(value: boolean) => setIsZoomOutDisabled(value)}
-      />
+      <Suspense>
+        <Map
+          data={data}
+          mapType={mapType}
+          increaseZoom={increaseZoom}
+          decreaseZoom={decreaseZoom}
+          disableZoomIn={(value: boolean) => setIsZoomInDisabled(value)}
+          disableZoomOut={(value: boolean) => setIsZoomOutDisabled(value)}
+        />
+      </Suspense>
+
       <div className={styles.leftButtonsContainer}>
         <Button className={styles.zoomInBtn} disabled={isZoomInDisabled} onClick={onZoomIn}>
           <ZoomIn className={styles.icon} />

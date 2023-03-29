@@ -15,7 +15,7 @@ import { CanvasesMap, MapNode } from '../Types';
 
 const ZOOM_VALUES = [800, 600, 400, 200, 100];
 
-export function Map3d({
+export default function Map3d({
   data,
   hoveredZoneKey,
   selectedZoneKey,

@@ -1,22 +1,25 @@
+import React, { Suspense } from 'react';
+
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from 'layouts/Layout/Layout';
 import { AboutPage } from 'pages/AboutPage/AboutPage';
-import { AssetsPage } from 'pages/AssetsPage/AssetsPage';
+import AssetsPage from 'pages/AssetsPage/AssetsPage';
 import { HomePage, Sidebar, ZoneDetails, ZonePeers, ZoneOverview, ZonesInfo } from 'pages/HomePage';
 import { RedirectFromOldVersionToHomePage } from 'pages/Redirect/RedirectFromOldVersionToHomePage';
 import { RedirectFromOldVersionToZonePage } from 'pages/Redirect/RedirectFromOldVersionToZonePage';
-import { SwapPage } from 'pages/SwapPage';
 import {
   ZonesInfo as ZonesListZonesInfo,
   ZonesPage,
+  ZonePage as ZonesListZonePage,
   ZoneNodes as ZonesListZoneNodes,
   ZoneOverview as ZonesListZoneOverview,
-  ZonePage as ZonesListZonePage,
   ZonePeers as ZonesListZonePeers,
   ZonePools as ZonesListZonePools,
 } from 'pages/ZonesPage';
 import * as path from 'routing';
+
+const LazySwapPage = React.lazy(() => import('./pages/SwapPage/SwapPage'));
 
 export function AppRouting() {
   return (
@@ -36,6 +39,7 @@ export function AppRouting() {
         </Route>
         <Route path={path.zonesPath} element={<ZonesPage />}>
           <Route index element={<ZonesListZonesInfo />} />
+
           <Route path={path.zoneWithParamPath} element={<ZonesListZonePage />}>
             <Route path={path.overviewPath} element={<ZonesListZoneOverview />} />
             <Route path={path.peersPath} element={<ZonesListZonePeers />} />
@@ -44,7 +48,14 @@ export function AppRouting() {
           </Route>
         </Route>
         <Route path={path.assetsPath} element={<AssetsPage />} />
-        <Route path={`${path.swapPath}/*`} element={<SwapPage />} />
+        <Route
+          path={`${path.swapPath}/*`}
+          element={
+            <Suspense>
+              <LazySwapPage />
+            </Suspense>
+          }
+        />
         <Route path={path.aboutPath} element={<AboutPage />} />
         <Route path="*" element={<div>Not found.</div>} />
       </Route>

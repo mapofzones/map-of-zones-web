@@ -8,7 +8,7 @@ import { SwapPageProps } from '.';
 const ETHEREUM_CHAIN_ID = 1;
 const OSMOSIS_CHAIN_ID = 'osmosis-1';
 
-export function SwapPage({ className, ...props }: SwapPageProps) {
+export default function SwapPage({ className, ...props }: SwapPageProps) {
   return (
     <div className={cn(styles.container, className)} {...props}>
       <div>

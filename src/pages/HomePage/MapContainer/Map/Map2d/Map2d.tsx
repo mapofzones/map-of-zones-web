@@ -13,7 +13,7 @@ const ZOOM_MIN_VALUE = 0.75;
 const ZOOM_MAX_VALUE = 3.375;
 const ZOOM_RATIO = 1.5;
 
-export function Map2d({
+export default function Map2d({
   data,
   hoveredZoneKey,
   selectedZoneKey,

@@ -1,26 +1,26 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import textureSphere2Src from 'assets/texture-sphere-2.png';
 import textureSphereSrc from 'assets/texture-sphere.png';
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
 
 import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
-import { useGraphData } from './hooks/useGraphData';
 import { useImagePreloader } from './hooks/useImagePreloader';
 import { MapProps } from './Map.props';
-import { Map2d } from './Map2d';
-import { Map3d } from './Map3d';
+
+const Map2d = React.lazy(() => import('./Map2d/Map2d'));
+const Map3d = React.lazy(() => import('./Map3d/Map3d'));
 
 export function Map({
   mapType,
   increaseZoom,
   decreaseZoom,
+  data,
   disableZoomIn,
   disableZoomOut,
 }: MapProps) {
   const [selectedZoneKey, onZoneClick] = useSelectedZone();
   const [hoveredZoneKey, onZoneHover] = useHoveredZone();
-  const { data } = useGraphData();
   const { windowSize } = useWindowSizeWithDebounce(100);
 
   const height = windowSize.height - 8;
