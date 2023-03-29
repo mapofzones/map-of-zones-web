@@ -35,7 +35,7 @@ export default function SwapPage({ className, ...props }: SwapPageProps) {
                 secondaryContent: '#b2bcd3',
                 neutral: '#2a2a33',
                 roundedBtn: '5px',
-                roundedBox: '5px 5px 0 0',
+                roundedBox: '5px',
                 roundedDropDown: '5px',
                 displayDivider: false,
               },
@@ -55,7 +55,7 @@ export default function SwapPage({ className, ...props }: SwapPageProps) {
             }}
           />
           <div className={styles.linkContainer} onClick={() => setIsModalOpened(true)}>
-            Term of Use
+            Terms of Use
           </div>
         </div>
       </div>
