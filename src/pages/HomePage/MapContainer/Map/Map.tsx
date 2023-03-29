@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 
+import { Map2d, Map3d } from 'AppRouting';
 import textureSphere2Src from 'assets/texture-sphere-2.png';
 import textureSphereSrc from 'assets/texture-sphere.png';
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
@@ -8,8 +9,8 @@ import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useImagePreloader } from './hooks/useImagePreloader';
 import { MapProps } from './Map.props';
 
-const Map2d = React.lazy(() => import('./Map2d/Map2d'));
-const Map3d = React.lazy(() => import('./Map3d/Map3d'));
+// const Map2d = React.lazy(() => import('./Map2d/Map2d'));
+// const Map3d = React.lazy(() => import('./Map3d/Map3d'));
 
 export function Map({
   mapType,

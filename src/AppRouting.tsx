@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react';
+import React, { ComponentType, Suspense, useEffect } from 'react';
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, matchPath, useLocation } from 'react-router-dom';
 
 import Layout from 'layouts/Layout/Layout';
 import { AboutPage } from 'pages/AboutPage/AboutPage';
@@ -19,9 +19,34 @@ import {
 } from 'pages/ZonesPage';
 import * as path from 'routing';
 
-const LazySwapPage = React.lazy(() => import('./pages/SwapPage/SwapPage'));
+const ReactLazyPreload = <T extends ComponentType<any>>(
+  importStatement: () => Promise<{ default: T }>
+) => {
+  const Component = React.lazy(importStatement);
+  (Component as any).preload = importStatement;
+  return Component;
+};
+
+const LazySwapPage = ReactLazyPreload(() => import('./pages/SwapPage/SwapPage'));
 
 export function AppRouting() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    async function preload() {
+      if (matchPath(path.swapPath, pathname)) {
+        await import('./pages/SwapPage/SwapPage');
+      }
+      await (Map2d as any).preload();
+      // (LazySwapPage as any).preload();
+      // (Map3d as any).preload();
+    }
+    preload();
+    // if (matchPath(path.swapPath, )) {
+
+    // }
+  }, []);
+
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -62,3 +87,10 @@ export function AppRouting() {
     </Routes>
   );
 }
+export const Map2d = ReactLazyPreload(
+  () => import('./pages/HomePage/MapContainer/Map/Map2d/Map2d')
+);
+
+export const Map3d = ReactLazyPreload(
+  () => import('./pages/HomePage/MapContainer/Map/Map3d/Map3d')
+);
