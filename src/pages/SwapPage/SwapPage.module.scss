@@ -7,12 +7,17 @@
 
   .widgetContainer {
     position: relative;
+    width: 420px;
 
     .linkContainer {
       position: absolute;
       z-index: 100;
       bottom: 0;
-      margin: 12px;
+      right: 0;
+      margin: 16px;
+      font-size: var(--font-secondary-size-md);
+      text-decoration-line: underline;
+      cursor: pointer;
     }
   }
 }
