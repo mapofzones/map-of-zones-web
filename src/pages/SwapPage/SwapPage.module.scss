@@ -4,4 +4,15 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+
+  .widgetContainer {
+    position: relative;
+
+    .linkContainer {
+      position: absolute;
+      z-index: 100;
+      bottom: 0;
+      margin: 12px;
+    }
+  }
 }

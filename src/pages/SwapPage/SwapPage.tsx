@@ -11,7 +11,10 @@ const OSMOSIS_CHAIN_ID = 'osmosis-1';
 export default function SwapPage({ className, ...props }: SwapPageProps) {
   return (
     <div className={cn(styles.container, className)} {...props}>
-      <div>
+      <div className={styles.widgetContainer}>
+        <div className={styles.linkContainer}>
+          <a href="">Term of Use</a>
+        </div>
         <SquidWidget
           config={{
             slippage: 1.5,
