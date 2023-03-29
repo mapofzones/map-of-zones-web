@@ -2,7 +2,6 @@ export const ExternalLinks = {
   mozGitHub: 'https://github.com/mapofzones',
   mozTg: 'https://t.me/+wS9nPMWm1l43OGI6',
   mozTwitter: 'https://twitter.com/mapofzones',
-  bitquasar: 'https://bitquasar.com',
   ztake: 'https://ztake.org',
   mozEmail: 'mailto:support@mapofzones.com',
   listingForm:
