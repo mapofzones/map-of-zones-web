@@ -6,7 +6,11 @@
   height: 100%;
 
   .widgetContainer {
-    width: 420px;
+    position: relative;
+    width: var(--widget-width);
+    height: calc(var(--widget-height) + 20px);
+    background-color: #2a2a33;
+    border-radius: 5px;
 
     .linkContainer {
       z-index: 100;
@@ -16,6 +20,8 @@
       font-size: var(--font-secondary-size-md);
       text-decoration-line: underline;
       cursor: pointer;
+      position: absolute;
+      bottom: 0;
     }
   }
 }

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import textureSphere2Src from 'assets/texture-sphere-2.png';
 import textureSphereSrc from 'assets/texture-sphere.png';
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
-import { LazyMap2d, LazyMap3d } from 'usePreloadModules';
+import { LazyMap2d, LazyMap3d } from 'lazyModules';
 
 import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useImagePreloader } from './hooks/useImagePreloader';
