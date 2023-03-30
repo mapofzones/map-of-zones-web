@@ -1,5 +1,6 @@
 .modal {
-  width: var(--widget-width);
+  max-width: var(--widget-width);
+  width: 100%;
   max-height: var(--widget-height);
   overflow-y: scroll;
   padding: 24px;

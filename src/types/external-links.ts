@@ -4,6 +4,7 @@ export const ExternalLinks = {
   mozTwitter: 'https://twitter.com/mapofzones',
   ztake: 'https://ztake.org',
   mozEmail: 'mailto:support@mapofzones.com',
+  squidDocs: 'https://docs.widget.squidrouter.com/troubleshooting',
   listingForm:
     'https://docs.google.com/forms/d/e/1FAIpQLSczp-YbmECgX3_DsycgHVsZiJlQZLhB46jFfchQKPxiwFR4ig/viewform?usp=sf_link',
 };
