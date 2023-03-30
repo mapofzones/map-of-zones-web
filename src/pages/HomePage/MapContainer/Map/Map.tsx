@@ -1,16 +1,13 @@
 import React, { useMemo } from 'react';
 
-import { Map2d, Map3d } from 'AppRouting';
 import textureSphere2Src from 'assets/texture-sphere-2.png';
 import textureSphereSrc from 'assets/texture-sphere.png';
 import { useWindowSizeWithDebounce } from 'hooks/useWindowSizeWithDebounce';
+import { LazyMap2d, LazyMap3d } from 'usePreloadModules';
 
 import { useHoveredZone, useSelectedZone } from './hooks/eventHooks';
 import { useImagePreloader } from './hooks/useImagePreloader';
 import { MapProps } from './Map.props';
-
-// const Map2d = React.lazy(() => import('./Map2d/Map2d'));
-// const Map3d = React.lazy(() => import('./Map3d/Map3d'));
 
 export function Map({
   mapType,
@@ -36,7 +33,7 @@ export function Map({
   return (
     <>
       {mapType === '2d' ? (
-        <Map2d
+        <LazyMap2d
           data={data}
           selectedZoneKey={selectedZoneKey}
           hoveredZoneKey={hoveredZoneKey}
@@ -51,7 +48,7 @@ export function Map({
           disableZoomOut={disableZoomOut}
         />
       ) : (
-        <Map3d
+        <LazyMap3d
           data={data}
           selectedZoneKey={selectedZoneKey}
           hoveredZoneKey={hoveredZoneKey}
