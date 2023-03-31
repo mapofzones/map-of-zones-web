@@ -21,7 +21,7 @@ export default function SwapPage() {
           <ExternalLink className={styles.link} href={ExternalLinks.squidDocs}>
             user guide
           </ExternalLink>
-          , where you will find a link to our helpdesk.
+          , where you will find a link to Squid’s helpdesk.
         </span>
         <div className={styles.widgetContainer}>
           <Suspense fallback={<SwapWidgetSkeleton />}>
