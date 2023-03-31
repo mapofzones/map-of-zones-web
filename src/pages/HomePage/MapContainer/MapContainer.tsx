@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 
 import { Icon2d, Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
+import { DefaultErrorFallback } from 'ErrorBoundary';
+import { ErrorBoundary } from 'ErrorBoundary/ErrorBoundary';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 
 import { useGraphData } from './Map/hooks/useGraphData';
@@ -48,16 +50,18 @@ export default function MapContainer({ className }: MapContainerProps) {
     <div className={cn(styles.container, className)}>
       <MapLegend />
 
-      <Suspense>
-        <Map
-          data={data}
-          mapType={mapType}
-          increaseZoom={increaseZoom}
-          decreaseZoom={decreaseZoom}
-          disableZoomIn={(value: boolean) => setIsZoomInDisabled(value)}
-          disableZoomOut={(value: boolean) => setIsZoomOutDisabled(value)}
-        />
-      </Suspense>
+      <ErrorBoundary fallback={<DefaultErrorFallback />}>
+        <Suspense>
+          <Map
+            data={data}
+            mapType={mapType}
+            increaseZoom={increaseZoom}
+            decreaseZoom={decreaseZoom}
+            disableZoomIn={(value: boolean) => setIsZoomInDisabled(value)}
+            disableZoomOut={(value: boolean) => setIsZoomOutDisabled(value)}
+          />
+        </Suspense>
+      </ErrorBoundary>
 
       <div className={styles.leftButtonsContainer}>
         <Button className={styles.zoomInBtn} disabled={isZoomInDisabled} onClick={onZoomIn}>

@@ -5,8 +5,6 @@ import ReactModal from 'react-modal';
 
 import styles from './Modal.module.scss';
 
-ReactModal.setAppElement('*');
-
 export function Modal({
   className,
   children,
