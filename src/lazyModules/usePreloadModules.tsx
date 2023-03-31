@@ -3,9 +3,8 @@ import { useEffect } from 'react';
 import { matchPath, useLocation, useSearchParams } from 'react-router-dom';
 
 import { useShowMap } from 'hooks/useShowMap';
+import { LazyMap2d, LazyMap3d, LazySwapWidget } from 'lazyModules';
 import * as path from 'routing';
-
-import { LazyMap2d, LazyMap3d, LazySwapWidget } from './exports';
 
 export default function usePreloadModules() {
   const { pathname } = useLocation();

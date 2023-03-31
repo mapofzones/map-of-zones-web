@@ -3,7 +3,7 @@ import { Suspense, useState } from 'react';
 import cn from 'classnames';
 
 import { ExternalLink } from 'components';
-import { LazySwapWidget } from 'lazyModules/exports';
+import { LazySwapWidget } from 'lazyModules';
 import { ExternalLinks } from 'types/external-links';
 
 import styles from './SwapPage.module.scss';
