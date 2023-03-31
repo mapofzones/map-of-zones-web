@@ -7,6 +7,8 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Map of zones - Cosmos network explorer" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="stylesheet" href="preload.css" />
+
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -28,7 +30,15 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <!-- This loader will be shown while main chunk is loading -->
+      <div class="loaderWrapper">
+        <div class="spinner" )}>
+          <div class="child dot1"></div>
+          <div class="child dot2"></div>
+        </div>
+      </div>
+    </div>
     <div id="portal"></div>
     <!--
       This HTML file is a template.
