@@ -1,6 +1,6 @@
 import React, { ComponentType, LazyExoticComponent } from 'react';
 
-type ComponentWithPreload<T extends ComponentType<any>> = LazyExoticComponent<T> & {
+export type ComponentWithPreload<T extends ComponentType<any>> = LazyExoticComponent<T> & {
   preload: () => Promise<{ default: T }>;
 };
 

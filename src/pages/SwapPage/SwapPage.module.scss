@@ -4,10 +4,11 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  padding: 0 12px;
 
   .assistanceText {
     font-size: var(--font-base-size-md);
-    margin: 0 24px;
+    text-align: center;
   }
 
   .link {

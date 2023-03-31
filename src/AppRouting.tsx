@@ -18,11 +18,7 @@ import {
 } from 'pages/ZonesPage';
 import * as path from 'routing';
 
-import { usePreloadModules } from './lazyModules';
-
 export function AppRouting() {
-  usePreloadModules();
-
   return (
     <Routes>
       <Route element={<Layout />}>
