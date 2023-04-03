@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import ReactDOM from 'react-dom/client';
+import ReactModal from 'react-modal';
 import { BrowserRouter } from 'react-router-dom';
 
 import './index.scss';
@@ -17,7 +18,8 @@ const client = new ApolloClient({
   link: link,
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const rootHtmlElement = document.getElementById('root') as HTMLElement;
+const root = ReactDOM.createRoot(rootHtmlElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -29,6 +31,8 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
+
+ReactModal.setAppElement(rootHtmlElement);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

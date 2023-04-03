@@ -7,7 +7,7 @@ import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { NetworkMarketCapInfoDocument } from 'graphql/v2/common/__generated__/CosmosNetworkMarketCap.query.generated';
 import { useHeaderMenuClicksAnalytics } from 'hooks/analytics/Multipage/useHeaderMenuClicksAnalytics';
 import { useComponentVisible } from 'hooks/useComponentVisible';
-import { assetsPath, homePath, zonesPath } from 'routing';
+import { assetsPath, homePath, swapPath, zonesPath } from 'routing';
 
 import { BurgerWithRef } from './Burger/Burger';
 import styles from './Header.module.scss';
@@ -46,6 +46,9 @@ function Header({ ...props }): JSX.Element {
           </NavLink>
           <NavLink to={`/${assetsPath}`} onClick={() => trackHeaderTabClick('assets')}>
             Assets
+          </NavLink>
+          <NavLink to={`/${swapPath}`} onClick={() => trackHeaderTabClick('swap')}>
+            Swap
           </NavLink>
           {/* <NavLink to={`/${aboutPath}`}>About</NavLink> */}
         </nav>

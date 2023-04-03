@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+
+  background: #0e0e16;
+}
+
+:root {
+  --spinner-size: 150px;
+  --first-spinner-color: #e1c;
+  --second-spinner-color: #2af;
+  --animation-duration: 2s;
+}
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.spinner {
+  position: relative;
+
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  margin: auto;
+
+  text-align: center;
+
+  animation: spinner-dots-rotate var(--animation-duration) infinite linear;
+}
+
+.child {
+  position: absolute;
+  top: 0;
+
+  display: inline-block;
+  width: calc(var(--spinner-size) / 2);
+  height: calc(var(--spinner-size) / 2);
+
+  background-color: var(--first-spinner-color);
+  border-radius: 100%;
+
+  animation: spinner-dots-bounce var(--animation-duration) infinite ease-in-out;
+}
+
+.dot2 {
+  top: auto;
+  bottom: 0;
+
+  background-color: var(--second-spinner-color);
+
+  animation-delay: calc(var(--animation-duration) / -2);
+}
+
+@keyframes spinner-dots-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-dots-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}

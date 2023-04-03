@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 12px;
+  background: url('../../assets/stars-bg.svg') center/contain var(--black-100);
+
+  .title {
+    font-size: var(--font-heading-size-lg);
+    margin: 36px 0;
+  }
+
+  .widgetContainer {
+    max-width: var(--widget-width);
+    width: 100%;
+    height: var(--widget-height);
+    background-color: var(--black-700);
+    border-radius: 5px;
+  }
+
+  .infoBlock {
+    color: var(--grey-500);
+    margin-top: 24px;
+    margin-bottom: 36px;
+    text-align: center;
+    font-size: var(--font-secondary-size-md);
+
+    .assistanceText {
+      margin-bottom: 8px;
+    }
+  }
+}

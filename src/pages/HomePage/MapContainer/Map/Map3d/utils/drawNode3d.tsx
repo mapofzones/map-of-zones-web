@@ -48,7 +48,9 @@ export function drawNode3d(node: any, images: ImagesMap) {
   }
 
   ctx.globalCompositeOperation = 'multiply';
-  ctx.drawImage(images[textureSphereSrc], x0, y0, sphereSize, sphereSize);
+  if (images[textureSphereSrc]) {
+    ctx.drawImage(images[textureSphereSrc], x0, y0, sphereSize, sphereSize);
+  }
 
   if (!drawLogo) {
     ctx.fillStyle = node.color;
@@ -57,7 +59,9 @@ export function drawNode3d(node: any, images: ImagesMap) {
 
   ctx.globalAlpha = 0.5;
   ctx.globalCompositeOperation = 'hard-light';
-  ctx.drawImage(images[textureSphere2Src], x0, y0, sphereSize, sphereSize);
+  if (images[textureSphere2Src]) {
+    ctx.drawImage(images[textureSphere2Src], x0, y0, sphereSize, sphereSize);
+  }
   ctx.globalAlpha = 1;
 
   drawTitle(ctx, node, fontSize, radius, canvas.width / 2);

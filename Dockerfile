@@ -5,10 +5,21 @@ FROM node:18-alpine as build-deps
 # set the working directory
 WORKDIR /usr/src/app
 
+# install git, because of build error "Could't find the binary git"
+RUN apk add --no-cache git
+
 # install app dependencies
+ARG NPM_AUTH_TOKEN=npm_token
+ARG GENERATE_SOURCEMAP_FLAG
+ARG REACT_APP_AMPLITUDE_KEY
+ARG REACT_APP_MAINTENANCE_MODE
+
 COPY package.json ./
 COPY yarn.lock ./
-RUN yarn install
+
+RUN echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > .npmrc && \
+    yarn install && \
+    rm -f .npmrc
 
 # add app
 COPY . ./

@@ -2,6 +2,7 @@ import './App.scss';
 
 import { AppRouting } from 'AppRouting';
 import { Analytics } from 'components';
+import LazyModulesPreloading from 'lazyModules/LazyModulesPreloading';
 import { MaintenancePage } from 'pages/MaintenancePage';
 
 function App() {
@@ -11,7 +12,12 @@ function App() {
     <>
       <Analytics />
       {maintenance && <MaintenancePage />}
-      {!maintenance && <AppRouting />}
+      {!maintenance && (
+        <>
+          <AppRouting />
+          <LazyModulesPreloading />
+        </>
+      )}
     </>
   );
 }

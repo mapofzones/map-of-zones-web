@@ -58,8 +58,6 @@ function Footer({ ...props }): JSX.Element {
       </div>
       <div className={styles.externalLinksBlock}>
         {'© '}
-        <ExternalLink href={ExternalLinks.bitquasar}>Bitquasar.com</ExternalLink>
-        {' & '}
         <ExternalLink href={ExternalLinks.ztake}>Ztake.org</ExternalLink>
       </div>
       <div className={styles.emailLinkBlock}>
