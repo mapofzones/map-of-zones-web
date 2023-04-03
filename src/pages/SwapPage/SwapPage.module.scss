@@ -5,10 +5,11 @@
   align-items: center;
   height: 100%;
   padding: 0 12px;
+  background: url('../../assets/stars-bg.svg') center/contain var(--black-100);
 
-  .assistanceText {
-    font-size: var(--font-base-size-md);
-    text-align: center;
+  .title {
+    font-size: var(--font-heading-size-lg);
+    margin: 36px 0;
   }
 
   .link {
@@ -17,23 +18,29 @@
   }
 
   .widgetContainer {
-    position: relative;
     max-width: var(--widget-width);
     width: 100%;
-    height: calc(var(--widget-height) + 20px);
-    background-color: #2a2a33;
+    height: var(--widget-height);
+    background-color: var(--black-700);
     border-radius: 5px;
-    margin-top: 12px;
+  }
 
-    .linkContainer {
-      z-index: 100;
+  .infoBlock {
+    color: var(--grey-500);
+    margin-top: 24px;
+    margin-bottom: 36px;
+
+    .termsOfUse {
       width: 100%;
       text-align: center;
       margin: 2px;
       font-size: var(--font-secondary-size-md);
+    }
 
-      position: absolute;
-      bottom: 0;
+    .assistanceText {
+      font-size: var(--font-base-size-md);
+      text-align: center;
+      margin-bottom: 8px;
     }
   }
 }

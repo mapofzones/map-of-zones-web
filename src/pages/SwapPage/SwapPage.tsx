@@ -18,21 +18,24 @@ export default function SwapPage() {
   return (
     <>
       <div className={styles.container}>
-        <span className={styles.assistanceText}>
-          If you need assistance, please read the{' '}
-          <ExternalLink className={styles.link} href={ExternalLinks.squidDocs}>
-            user guide
-          </ExternalLink>
-          , where you will find a link to Squid’s helpdesk.
-        </span>
+        <div className={styles.title}>In Partnership with Squid</div>
         <div className={styles.widgetContainer}>
           <ErrorBoundary fallback={<DefaultErrorFallback />}>
             <Suspense fallback={<SwapWidgetSkeleton />}>
               <LazySwapWidget />
             </Suspense>
           </ErrorBoundary>
+        </div>
+        <div className={styles.infoBlock}>
+          <div className={styles.assistanceText}>
+            If you need assistance, please read the{' '}
+            <ExternalLink className={styles.link} href={ExternalLinks.squidDocs}>
+              user guide
+            </ExternalLink>
+            , where you will find a link to Squid’s helpdesk.
+          </div>
           <div
-            className={cn(styles.linkContainer, styles.link)}
+            className={cn(styles.termsOfUse, styles.link)}
             onClick={() => setIsModalOpened(true)}
           >
             Terms of Use
