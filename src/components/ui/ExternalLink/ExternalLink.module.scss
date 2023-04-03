@@ -9,6 +9,10 @@
     fill: var(--grey-500);
   }
 
+  &.underlined {
+    text-decoration-line: underline;
+  }
+
   &:hover {
     color: var(--white);
 

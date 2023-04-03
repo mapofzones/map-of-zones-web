@@ -29,17 +29,14 @@ export default function SwapPage() {
         <div className={styles.infoBlock}>
           <div className={styles.assistanceText}>
             If you need assistance, please read the{' '}
-            <ExternalLink className={styles.link} href={ExternalLinks.squidDocs}>
+            <ExternalLink underlined href={ExternalLinks.squidDocs}>
               user guide
             </ExternalLink>
             , where you will find a link to Squid’s helpdesk.
           </div>
-          <div
-            className={cn(styles.termsOfUse, styles.link)}
-            onClick={() => setIsModalOpened(true)}
-          >
+          <ExternalLink underlined onClick={() => setIsModalOpened(true)}>
             Terms of Use
-          </div>
+          </ExternalLink>
         </div>
       </div>
       <TermOfUseModal isOpen={isModalOpened} onClosed={() => setIsModalOpened(false)} />

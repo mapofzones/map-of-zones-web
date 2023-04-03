@@ -12,11 +12,6 @@
     margin: 36px 0;
   }
 
-  .link {
-    text-decoration-line: underline;
-    cursor: pointer;
-  }
-
   .widgetContainer {
     max-width: var(--widget-width);
     width: 100%;
@@ -29,17 +24,10 @@
     color: var(--grey-500);
     margin-top: 24px;
     margin-bottom: 36px;
-
-    .termsOfUse {
-      width: 100%;
-      text-align: center;
-      margin: 2px;
-      font-size: var(--font-secondary-size-md);
-    }
+    text-align: center;
+    font-size: var(--font-secondary-size-md);
 
     .assistanceText {
-      font-size: var(--font-base-size-md);
-      text-align: center;
       margin-bottom: 8px;
     }
   }
