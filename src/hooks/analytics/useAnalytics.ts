@@ -4,11 +4,12 @@ import * as amplitude from '@amplitude/analytics-browser';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
-import { homePath, assetsPath, overviewPath, peersPath, zonesPath } from 'routing';
+import { homePath, assetsPath, overviewPath, peersPath, zonesPath, swapPath } from 'routing';
 
 import { useAssetsPageAnalytics } from './AssetsPage/useAssetsPageAnalytics';
 import { useHomePageAnalytics } from './HomePage/useHomePageAnalytics';
 import { useMultipageAnalytics } from './Multipage/useMultipageAnalytics';
+import { useSwapPageAnalytics } from './SwapPage/useSwapPageAnalytics';
 import { Page, PAGE_TITLE } from './Types';
 import { useZonesPageAnalytics } from './ZonesPage/useZonesPageAnalytics';
 import useDebounce from '../useDebounce';
@@ -42,6 +43,8 @@ const getPageTitle = (pathname: string | null) => {
   }
 
   if (pathname === `/${assetsPath}`) return PAGE_TITLE.Assets;
+
+  if (pathname === `/${swapPath}`) return PAGE_TITLE.Swap;
 
   return '';
 };
@@ -79,6 +82,7 @@ export function useAnalytics() {
   useHomePageAnalytics(currentPage, prevPage);
   useZonesPageAnalytics(currentPage, prevPage);
   useAssetsPageAnalytics(currentPage, prevPage);
+  useSwapPageAnalytics(currentPage, prevPage);
 
   return trackEvent;
 }

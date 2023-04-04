@@ -23,4 +23,5 @@ export const PAGE_TITLE: Record<string, string> = {
   ZoneOverview: 'zone overview page',
   ZonePeers: 'zone peers page',
   ZonesList: 'zones list page',
+  Swap: 'swap',
 };
