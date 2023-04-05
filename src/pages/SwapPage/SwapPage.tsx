@@ -18,7 +18,7 @@ export default function SwapPage() {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.title}>In Partnership with Squid</div>
+        <div className={styles.title}>In Partnership with Squid x Axelar</div>
         <div className={styles.widgetContainer}>
           <ErrorBoundary fallback={<DefaultErrorFallback />}>
             <Suspense fallback={<SwapWidgetSkeleton />}>
