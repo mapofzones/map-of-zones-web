@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { Button, ButtonGroup } from 'components';
-import { ButtonType } from 'components/ui/Button/Button.props';
+import { ButtonSize, ButtonType } from 'components/ui/Button/Button.props';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
 
@@ -46,7 +46,7 @@ export function PeriodSelector({
       {Object.values(PeriodKeys).map((periodValue: PeriodKeys) => (
         <Button
           key={periodValue}
-          size={ElementSize.LARGE}
+          size={ButtonSize.LARGE}
           buttonType={selectedPeriod === periodValue ? ButtonType.PRIMARY : ButtonType.SECONDARY}
           onClick={() => onPeriodChange(periodValue)}
         >

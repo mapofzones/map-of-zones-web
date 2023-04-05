@@ -2,8 +2,7 @@ import { FC } from 'react';
 
 import { ArrowRight } from 'assets/icons';
 import { Button } from 'components';
-import { ButtonType } from 'components/ui/Button/Button.props';
-import { ElementSize } from 'types/ElementSize';
+import { ButtonSize, ButtonType } from 'components/ui/Button/Button.props';
 
 import styles from './LearnMoreButton.module.scss';
 import { LearnMoreButtonProps } from './LearnMoreButton.props';
@@ -12,7 +11,7 @@ export const LearnMoreButton: FC<LearnMoreButtonProps> = (props: LearnMoreButton
   return (
     <Button
       className={styles.wrapper}
-      size={ElementSize.LARGE}
+      size={ButtonSize.LARGE}
       buttonType={ButtonType.PRIMARY}
       {...props}
     >

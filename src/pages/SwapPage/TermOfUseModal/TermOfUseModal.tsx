@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Button } from 'components';
-import { ButtonType } from 'components/ui/Button/Button.props';
+import { ButtonSize, ButtonType } from 'components/ui/Button/Button.props';
 import { Modal } from 'components/ui/Modal/Modal';
 import { ElementSize } from 'types/ElementSize';
 
@@ -100,7 +100,7 @@ export function TermOfUseModal({ isOpen, onClosed }: TermOfUseModalProps) {
       </p>
       <Button
         className={styles.closeButton}
-        size={ElementSize.LARGE}
+        size={ButtonSize.LARGE}
         buttonType={ButtonType.PRIMARY}
         onClick={onClose}
       >

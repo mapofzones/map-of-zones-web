@@ -1,5 +1,5 @@
 export enum ElementSize {
   SMALL = 'small',
-  MEDIUM = 'mdeium',
+  MEDIUM = 'medium',
   LARGE = 'large',
 }

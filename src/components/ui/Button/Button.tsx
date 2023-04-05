@@ -1,14 +1,12 @@
 import cn from 'classnames';
 
-import { ElementSize } from 'types/ElementSize';
-
 import styles from './Button.module.scss';
-import { ButtonProps, ButtonType } from './Button.props';
+import { ButtonProps, ButtonSize, ButtonType } from './Button.props';
 
 function Button({
   children,
   className,
-  size = ElementSize.MEDIUM,
+  size = ButtonSize.MEDIUM,
   buttonType = ButtonType.PRIMARY,
   IconBefore,
   IconAfter,
@@ -18,9 +16,9 @@ function Button({
     <button
       type="button"
       className={cn(className, styles.button, {
-        [styles.sm]: size === ElementSize.SMALL,
-        [styles.md]: size === ElementSize.MEDIUM,
-        [styles.lg]: size === ElementSize.LARGE,
+        [styles.sm]: size === ButtonSize.SMALL,
+        [styles.md]: size === ButtonSize.MEDIUM,
+        [styles.lg]: size === ButtonSize.LARGE,
         [styles.primary]: buttonType === ButtonType.PRIMARY,
         [styles.secondary]: buttonType === ButtonType.SECONDARY,
       })}
