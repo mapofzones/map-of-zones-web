@@ -6,8 +6,8 @@ import { ButtonProps, ButtonSize, ButtonType } from './Button.props';
 function Button({
   children,
   className,
-  size = ButtonSize.MEDIUM,
-  buttonType = ButtonType.PRIMARY,
+  size,
+  buttonType,
   IconBefore,
   IconAfter,
   ...props

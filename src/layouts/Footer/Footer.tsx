@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 
 import { GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
 import { Button, ExternalLink } from 'components';
-import { ButtonSize } from 'components/ui/Button/Button.props';
+import { ButtonSize, ButtonType } from 'components/ui/Button/Button.props';
 import { ZoneNameDocument } from 'graphql/v2/common/Zone/__generated__/ZoneName.query.generated';
 import { useShareLinksAnalytics } from 'hooks/analytics/Multipage/useShareLinksAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
@@ -40,6 +40,7 @@ function Footer({ ...props }): JSX.Element {
     <footer className={styles.container} {...props}>
       <div className={styles.shareButtonsBlock}>
         <Button
+          buttonType={ButtonType.PRIMARY}
           onClick={tgShareClick}
           className={styles.shareBtn}
           IconBefore={TgLogo}
@@ -48,6 +49,7 @@ function Footer({ ...props }): JSX.Element {
           Share
         </Button>
         <Button
+          buttonType={ButtonType.PRIMARY}
           onClick={twitterShareClick}
           className={styles.shareBtn}
           IconBefore={TwitterLogo}
