@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 import { Icon2d, Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
 import { Button } from 'components';
-import { ButtonSize, ButtonType } from 'components/ui/Button/Button.props';
+import { ButtonSize, ButtonVariant } from 'components/ui/Button/Button.props';
 import { DefaultErrorFallback } from 'ErrorBoundary';
 import { ErrorBoundary } from 'ErrorBoundary/ErrorBoundary';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
@@ -66,7 +66,7 @@ export default function MapContainer({ className }: MapContainerProps) {
 
       <div className={styles.leftButtonsContainer}>
         <Button
-          buttonType={ButtonType.PRIMARY}
+          variant={ButtonVariant.PRIMARY}
           size={ButtonSize.MEDIUM}
           className={styles.zoomInBtn}
           disabled={isZoomInDisabled}
@@ -75,7 +75,7 @@ export default function MapContainer({ className }: MapContainerProps) {
           <ZoomIn className={styles.icon} />
         </Button>
         <Button
-          buttonType={ButtonType.PRIMARY}
+          variant={ButtonVariant.PRIMARY}
           size={ButtonSize.MEDIUM}
           className={styles.zoomOutBtn}
           disabled={isZoomOutDisabled}
@@ -84,7 +84,7 @@ export default function MapContainer({ className }: MapContainerProps) {
           <ZoomOut className={styles.icon} />
         </Button>
         <Button
-          buttonType={ButtonType.PRIMARY}
+          variant={ButtonVariant.PRIMARY}
           size={ButtonSize.MEDIUM}
           className={styles.switchMapType}
           onClick={switchMapType}

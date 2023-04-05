@@ -7,7 +7,7 @@ import { ElementSize } from 'types/ElementSize';
 import styles from './ButtonGroup.module.scss';
 import { ButtonGroupItem, ButtonGroupProps } from './ButtonGroup.props';
 import { Button } from '..';
-import { ButtonSize, ButtonType } from '../Button/Button.props';
+import { ButtonSize, ButtonVariant } from '../Button/Button.props';
 
 const elementSizeToButtonSizeMap = {
   [ElementSize.SMALL]: ButtonSize.SMALL,
@@ -59,7 +59,7 @@ export function ButtonGroup<T extends string>({
               key={itemKey}
               size={elementSizeToButtonSizeMap[size]}
               IconBefore={buttonGroupItem.icon}
-              buttonType={active ? ButtonType.PRIMARY : ButtonType.SECONDARY}
+              variant={active ? ButtonVariant.PRIMARY : ButtonVariant.SECONDARY}
               onClick={() => onButtonItemClick(buttonGroupItem)}
             >
               {buttonGroupItem.title}

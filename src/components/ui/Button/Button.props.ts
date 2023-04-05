@@ -13,7 +13,7 @@ export interface ButtonProps
   IconAfter?: FunctionComponent<SVGProps<SVGSVGElement>>;
   className?: string;
   size?: ButtonSize;
-  buttonType?: ButtonType;
+  variant?: ButtonVariant;
 }
 
 export enum ButtonSize {
@@ -22,7 +22,7 @@ export enum ButtonSize {
   LARGE = 'large',
 }
 
-export enum ButtonType {
+export enum ButtonVariant {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
 }
