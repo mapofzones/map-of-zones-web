@@ -108,7 +108,7 @@ function ZoneOverview() {
         </div>
       </ScrollableContainer>
 
-      <LearnMoreButton onClick={onDetailedBtnClick} />
+      <LearnMoreButton title="Full Zone Info" primary onClick={onDetailedBtnClick} />
     </>
   );
 }

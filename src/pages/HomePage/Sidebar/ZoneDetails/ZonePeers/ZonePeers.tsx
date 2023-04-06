@@ -32,7 +32,7 @@ export function ZonePeers() {
         {!loading && <MemoizedZonePeersTable peers={sortedPeers} />}
       </ScrollableContainer>
 
-      <LearnMoreButton onClick={onDetailedBtnClick} />
+      <LearnMoreButton title="Full Zone Info" primary onClick={onDetailedBtnClick} />
     </>
   );
 }

@@ -99,7 +99,7 @@ function ZonesInfo(): JSX.Element {
       </ScrollableContainer>
       <div className={styles.shadow}></div>
 
-      <LearnMoreButton onClick={onDetailedBtnClick} />
+      <LearnMoreButton title="All Zones" onClick={onDetailedBtnClick} />
     </div>
   );
 }

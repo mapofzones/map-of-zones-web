@@ -1,15 +1,47 @@
 .wrapper {
+  display: flex;
+  min-height: 52px;
+  padding: 16.5px 18px;
+  font-size: var(--font-navigation-size);
+  color: var(--white);
+
   background-color: var(--grey-100);
 
   &:hover {
     background-color: var(--grey-300);
   }
 
-  .btnText {
-    margin-right: 8px;
+  &.primary {
+    background-color: var(--grey-1100);
+    color: var(--black-400);
+
+    &:hover {
+      background-color: var(--white);
+    }
+
+    .circle {
+      background-color: var(--black-600);
+
+      .arrowRight {
+        stroke: var(--grey-1100);
+      }
+    }
   }
 
-  .arrowRight {
-    stroke: var(--white);
+  .circle {
+    background-color: var(--grey-1100);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    .arrowRight {
+      stroke: var(--grey-100);
+    }
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 }

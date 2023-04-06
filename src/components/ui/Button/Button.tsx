@@ -25,7 +25,7 @@ function Button({
       {...props}
     >
       {IconBefore && <IconBefore className={cn(styles.icon, styles.leftIcon)} />}
-      {children && <span className={styles.content}>{children}</span>}
+      {children}
       {IconAfter && <IconAfter className={cn(styles.icon, styles.rightIcon)} />}
     </button>
   );
