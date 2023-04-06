@@ -18,7 +18,7 @@ import styles from './ZonesInfo.module.scss';
 import { MemoizedZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
 import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton/ZonesInfoTableSkeleton';
 import { ZonesInfoTitle } from './ZonesInfoTitle/ZonesInfoTitle';
-import { LearnMoreButton } from '../LearnMoreButton';
+import { ShowDetailsButton } from '../ShowDetailsButton';
 
 const showTotalInfo = false;
 
@@ -99,7 +99,7 @@ function ZonesInfo(): JSX.Element {
       </ScrollableContainer>
       <div className={styles.shadow}></div>
 
-      <LearnMoreButton title="All Zones" onClick={onDetailedBtnClick} />
+      <ShowDetailsButton title="All Zones" onClick={onDetailedBtnClick} />
     </div>
   );
 }

@@ -10,7 +10,7 @@ import { getDauTitleByPeriod } from 'utils/helper';
 import { useZoneOverview } from './useZoneOverview';
 import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewItem } from './ZoneOverviewItem/ZoneOverviewItem';
-import { LearnMoreButton } from '../../LearnMoreButton';
+import { ShowDetailsButton } from '../../ShowDetailsButton';
 
 function ZoneOverview() {
   const navigateWithSearchParams = useNavigateWithSearchParams();
@@ -108,7 +108,7 @@ function ZoneOverview() {
         </div>
       </ScrollableContainer>
 
-      <LearnMoreButton title="Full Zone Info" primary onClick={onDetailedBtnClick} />
+      <ShowDetailsButton title="Full Zone Info" primary onClick={onDetailedBtnClick} />
     </>
   );
 }

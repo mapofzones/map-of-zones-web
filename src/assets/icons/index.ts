@@ -1,5 +1,6 @@
 export { ReactComponent as AreaChartIcon } from './area-chart-icon.svg';
 export { ReactComponent as ArrowDown } from './arrow-down.svg';
+export { ReactComponent as ArrowInCircle } from './arrow-round.svg';
 export { ReactComponent as ArrowRight } from './arrow-right.svg';
 export { ReactComponent as ArrowUp } from './arrow-up.svg';
 export { ReactComponent as BarChartIcon } from './bar-chart-icon.svg';

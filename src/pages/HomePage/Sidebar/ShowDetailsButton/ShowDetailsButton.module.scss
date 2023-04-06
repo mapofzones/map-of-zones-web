@@ -19,24 +19,15 @@
       background-color: var(--white);
     }
 
-    .circle {
-      background-color: var(--black-600);
-
-      .arrowRight {
-        stroke: var(--grey-1100);
-      }
+    .arrowIcon {
+      fill: var(--black-600);
     }
   }
 
-  .circle {
-    background-color: var(--grey-1100);
+  .arrowIcon {
+    fill: var(--grey-1100);
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-
-    .arrowRight {
-      stroke: var(--grey-100);
-    }
   }
 
   .content {
