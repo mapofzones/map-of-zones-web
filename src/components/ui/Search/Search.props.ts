@@ -7,4 +7,5 @@ export interface SearchProps
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
   onSearchChange?: (value: string) => void;
+  showIcon?: boolean;
 }

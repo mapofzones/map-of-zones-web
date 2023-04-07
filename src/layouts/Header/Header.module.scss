@@ -72,6 +72,7 @@
 
     .marketCapContainer {
       font-size: var(--font-base-size-md);
+      white-space: nowrap;
 
       .marketCapTitle {
         color: var(--grey-500);

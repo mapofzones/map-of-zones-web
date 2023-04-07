@@ -10,6 +10,7 @@ import { useComponentVisible } from 'hooks/useComponentVisible';
 import { assetsPath, homePath, swapPath, zonesPath } from 'routing';
 
 import { BurgerWithRef } from './Burger/Burger';
+import { GlobalSearch } from './GlobalSearch';
 import styles from './Header.module.scss';
 
 function Header({ ...props }): JSX.Element {
@@ -52,6 +53,7 @@ function Header({ ...props }): JSX.Element {
           </NavLink>
           {/* <NavLink to={`/${aboutPath}`}>About</NavLink> */}
         </nav>
+        <GlobalSearch />
         <div className={styles.marketCapContainer}>
           <span className={styles.marketCapTitle}>Cosmos Network Market Cap: </span>
           <SkeletonTextWrapper loading={loading} defaultText={'$13 686 000 000'}>

@@ -1,6 +1,6 @@
 .container {
   &.vertical {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   &.horizontal {

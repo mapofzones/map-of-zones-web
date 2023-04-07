@@ -16,6 +16,7 @@ export function Search({
   onFocus,
   onSearchChange,
   placeholder = 'Search',
+  showIcon = true,
   ...props
 }: SearchProps): JSX.Element {
   const [enteredText, setEnteredText] = useState(initialValue);
@@ -45,7 +46,7 @@ export function Search({
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-      <SearchIcon className={styles.loopIcon} />
+      {showIcon && <SearchIcon className={styles.loopIcon} />}
     </div>
   );
 }
