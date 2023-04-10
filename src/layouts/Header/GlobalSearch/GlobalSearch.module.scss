@@ -19,6 +19,10 @@
   }
 }
 
+.itemsContainer {
+  max-height: 90vh;
+}
+
 .searchContainer {
   position: relative;
   width: 100%;
@@ -32,45 +36,4 @@
   margin: 8px 0;
   background-color: var(--black-500);
   border-radius: 5px;
-
-  .itemsContainer {
-    .zonesNotFoundContainer {
-      margin: 24px 0 32px;
-
-      color: var(--grey-300);
-      font-size: var(--font-base-size-lg);
-      text-align: center;
-    }
-
-    .groupTitle {
-      color: var(--grey-300);
-      font-size: var(--font-map-size-md);
-      text-transform: uppercase;
-      margin: 8px 16px;
-    }
-
-    .zone {
-      cursor: pointer;
-
-      > div {
-        padding: 9px 16px;
-
-        &:hover {
-          background-color: var(--black-700);
-
-          &:last-child {
-            border-radius: 0 0 5px 5px;
-          }
-        }
-      }
-
-      &.activeZone {
-        pointer-events: none;
-
-        > div {
-          background-color: var(--black-700);
-        }
-      }
-    }
-  }
 }

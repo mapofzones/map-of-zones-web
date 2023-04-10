@@ -30,16 +30,17 @@ export function useZoneOverviewParameters(): {
 
   const { data, loading } = useQuery(ZoneOverviewParametersDocument, options);
 
+  const parameters = data?.blockchain[0];
   return {
     data: {
-      inflation: data?.blockchain[0].inflation,
-      stackingApr: zone === OSMOSIS_KEY ? OSMOSIS_APR : data?.blockchain[0].stackingApr,
-      unbondingPeriod: data?.blockchain[0].unbondingPeriod,
-      bondedTokens: data?.blockchain[0].bondedTokens,
-      bondedTokensPercent: data?.blockchain[0].bondedTokensPercent,
-      validatorsCnt: data?.blockchain[0].validatorsCnt,
-      nodesCnt: data?.blockchain[0].nodesCnt,
-      onChainSupply: data?.blockchain[0].token?.onChainSupply,
+      inflation: parameters?.inflation,
+      stackingApr: zone === OSMOSIS_KEY ? OSMOSIS_APR : parameters?.stackingApr,
+      unbondingPeriod: parameters?.unbondingPeriod,
+      bondedTokens: parameters?.bondedTokens,
+      bondedTokensPercent: parameters?.bondedTokensPercent,
+      validatorsCnt: parameters?.validatorsCnt,
+      nodesCnt: parameters?.nodesCnt,
+      onChainSupply: parameters?.token?.onChainSupply,
     },
     loading,
   };

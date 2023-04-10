@@ -1,41 +1,28 @@
 import { useMemo, useState } from 'react';
 
-import cn from 'classnames';
-import { Link } from 'react-router-dom';
-
-import { Portal, ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
+import { ScrollableContainer, Search, ZoneLinkItemsWithSearch } from 'components';
+import { useZonesData, ZoneData } from 'hooks/queries/useZonesData';
 import { useComponentVisible } from 'hooks/useComponentVisible';
-import { useFilteredZones } from 'hooks/useFilteredZones';
-import { getZonesOverviewPath } from 'routing';
 
 import styles from './GlobalSearch.module.scss';
 
 import { GlobalSearchProps } from '.';
 
+const POPULAR_ZONE_KEYS = ['osmosis-1', 'cosmoshub-4', 'axelar-dojo-1'];
+
 export function GlobalSearch({ ...props }: GlobalSearchProps) {
   const [searchValue, setSearchValue] = useState('');
 
-  const zonesList = useMemo(
-    () => [
-      { name: 'Cosmoshub' },
-      { name: 'Osmosis' },
-      { name: 'Axelar' },
-      { name: 'Asset Mantle' },
-      { name: 'Altered Carbon' },
-      { name: 'Agoric' },
-      { name: 'Akash' },
-    ],
-    []
+  const { data: zonesList, loading } = useZonesData();
+  const sortedZones = useMemo(() => {
+    console.log(zonesList);
+    const sorted = [...zonesList].sort((a: ZoneData, b: ZoneData) => a.zone.localeCompare(b.zone));
+    return sorted;
+  }, [zonesList]);
+
+  const popularZones = sortedZones.filter((zone: ZoneData) =>
+    POPULAR_ZONE_KEYS.includes(zone.zone)
   );
-
-  const popularZones = useMemo(
-    () => [{ name: 'Cosmoshub' }, { name: 'Osmosis' }, { name: 'Axelar' }],
-    []
-  );
-
-  const filteredPopularZones = useFilteredZones(popularZones, searchValue);
-
-  const filteredZones = useFilteredZones(zonesList, searchValue);
 
   const { ref, isVisible, setIsVisible } = useComponentVisible<HTMLDivElement>(false);
 
@@ -61,32 +48,17 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
         </div>
         {isVisible && (
           <ScrollableContainer className={styles.itemsContainer}>
-            <div className={styles.groupTitle}>Popular</div>
-            {!!searchValue && !filteredPopularZones?.length && (
-              <div className={styles.zonesNotFoundContainer}>No zones found.</div>
-            )}
-            {filteredPopularZones.map((zone) => (
-              <Link
-                className={cn(styles.zone)}
-                key={`zone_${zone.name}`}
-                to={`/${getZonesOverviewPath(zone.name)}`}
-              >
-                <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
-              </Link>
-            ))}
-            <div className={styles.groupTitle}>Alphabetically</div>
-            {!!searchValue && !filteredZones?.length && (
-              <div className={styles.zonesNotFoundContainer}>No zones found.</div>
-            )}
-            {filteredZones.map((zone) => (
-              <Link
-                className={cn(styles.zone)}
-                key={`zone_${zone.name}`}
-                to={`/${getZonesOverviewPath(zone.name)}`}
-              >
-                <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
-              </Link>
-            ))}
+            <ZoneLinkItemsWithSearch
+              title="Popular"
+              zones={popularZones}
+              searchValue={searchValue}
+            />
+
+            <ZoneLinkItemsWithSearch
+              title="Alphabetically"
+              zones={sortedZones}
+              searchValue={searchValue}
+            />
           </ScrollableContainer>
         )}
       </div>
