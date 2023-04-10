@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 
-import { ZonesDataDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZonesData.query.generated';
+import { ZonesDataDocument } from 'graphql/v2/common/Zones/__generated__/ZonesData.query.generated';
 
 export interface ZoneData {
   logoUrl?: string | null;
