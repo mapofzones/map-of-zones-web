@@ -3,6 +3,19 @@
     height: 40px;
     background-color: var(--black-500);
     cursor: pointer;
+    color: var(--white);
+
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    &::placeholder {
+      color: var(--grey-500);
+
+      opacity: 1; /* Firefox */
+    }
+
+    /* Microsoft Edge */
+    &::input-placeholder {
+      color: var(--grey-500);
+    }
   }
 }
 
