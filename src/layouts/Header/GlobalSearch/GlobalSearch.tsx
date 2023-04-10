@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 
 import { ScrollableContainer, Search, ZoneLinkItemsWithSearch } from 'components';
+import { Modal } from 'components/ui/Modal/Modal';
 import { useZonesData, ZoneData } from 'hooks/queries/useZonesData';
-import { useComponentVisible } from 'hooks/useComponentVisible';
 
 import styles from './GlobalSearch.module.scss';
 
@@ -24,7 +24,7 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
     POPULAR_ZONE_KEYS.includes(zone.zone)
   );
 
-  const { ref, isVisible, setIsVisible } = useComponentVisible<HTMLDivElement>(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const onSearchChange = (value: string) => {
     setSearchValue(value);
@@ -34,34 +34,47 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
     setIsVisible(true);
   };
 
-  return (
-    <div className={styles.searchContainer}>
-      <div className={styles.dropdownContainer}>
-        <div ref={ref}>
-          <Search
-            className={styles.search}
-            onSearchChange={onSearchChange}
-            onClick={onSearchClick}
-            placeholder="Search, analyze and compare appchains"
-            showIcon={false}
-          />
-        </div>
-        {isVisible && (
-          <ScrollableContainer className={styles.itemsContainer}>
-            <ZoneLinkItemsWithSearch
-              title="Popular"
-              zones={popularZones}
-              searchValue={searchValue}
-            />
+  const onModalClose = () => {
+    setIsVisible(false);
+    setSearchValue('');
+  };
 
-            <ZoneLinkItemsWithSearch
-              title="Alphabetically"
-              zones={sortedZones}
-              searchValue={searchValue}
-            />
-          </ScrollableContainer>
-        )}
-      </div>
-    </div>
+  return (
+    <>
+      {!isVisible && (
+        <Search
+          className={styles.search}
+          onSearchChange={onSearchChange}
+          onClick={onSearchClick}
+          placeholder="Search zones"
+          showIcon={false}
+        />
+      )}
+      <Modal className={styles.searchContainer} isOpen={isVisible} onClose={onModalClose}>
+        <Search
+          className={styles.search}
+          onSearchChange={onSearchChange}
+          onClick={onSearchClick}
+          placeholder="Search zones"
+          showIcon={false}
+          autoFocus
+        />
+        <ScrollableContainer className={styles.itemsContainer}>
+          <ZoneLinkItemsWithSearch
+            title="Popular"
+            zones={popularZones}
+            searchValue={searchValue}
+            onItemClick={onModalClose}
+          />
+
+          <ZoneLinkItemsWithSearch
+            title="Alphabetically"
+            zones={sortedZones}
+            searchValue={searchValue}
+            onItemClick={onModalClose}
+          />
+        </ScrollableContainer>
+      </Modal>
+    </>
   );
 }

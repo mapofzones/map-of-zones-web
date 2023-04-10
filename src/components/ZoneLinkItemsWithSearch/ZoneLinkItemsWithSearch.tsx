@@ -13,6 +13,7 @@ export function ZoneLinkItemsWithSearch({
   title,
   zones,
   searchValue,
+  onItemClick,
 }: ZoneLinkItemsWithSearchProps) {
   const filteredZones = useFilteredZones(zones, searchValue);
 
@@ -24,6 +25,7 @@ export function ZoneLinkItemsWithSearch({
           className={cn(styles.zone)}
           key={`zone_${zone.zone}`}
           to={`/${getZonesOverviewPath(zone.zone)}`}
+          onClick={onItemClick}
         >
           <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
         </Link>

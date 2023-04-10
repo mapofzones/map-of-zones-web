@@ -4,4 +4,5 @@ export interface ZoneLinkItemsWithSearchProps {
   title: string;
   zones: ZoneData[];
   searchValue?: string;
+  onItemClick?: () => void;
 }

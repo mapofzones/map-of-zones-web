@@ -1,4 +1,7 @@
 .search {
+  width: 100%;
+  margin: 0 20px;
+
   input {
     height: 40px;
     background-color: var(--black-500);
@@ -20,20 +23,33 @@
 }
 
 .itemsContainer {
-  max-height: 90vh;
+  height: calc(100% - 40px);
 }
 
 .searchContainer {
   position: relative;
   width: 100%;
-  height: 100%;
-  margin: 0 20px;
-}
 
-.dropdownContainer {
-  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 1000;
   position: absolute;
-  margin: 8px 0;
+  width: 620px;
+
+  margin: 8px auto;
   background-color: var(--black-500);
   border-radius: 5px;
+  max-height: 90vh;
+
+  .search {
+    margin: 0;
+  }
 }
+
+// .dropdownContainer {
+//   // width: 100%;
+//   // position: absolute;
+
+// }
