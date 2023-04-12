@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import cn from 'classnames';
+import { motion } from 'framer-motion';
 
+import { GlobalSearchIcon } from 'assets/icons';
 import { ScrollableContainer, Search, ZoneLinkItemsWithSearch } from 'components';
 import { Modal } from 'components/ui/Modal/Modal';
 import { useZonesData, ZoneData } from 'hooks/queries/useZonesData';
@@ -78,15 +80,19 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
   return (
     <>
       {!isVisible && (
-        <Search
-          className={styles.search}
-          onClick={onSearchClick}
-          placeholder="Search zones"
-          showIcon={false}
-        />
+        <>
+          <Search
+            className={cn(styles.search, styles.searchControl)}
+            onClick={onSearchClick}
+            placeholder="Search zones"
+            showIcon={false}
+          />
+          <GlobalSearchIcon className={styles.globalSearchIcon} onClick={onSearchClick} />
+        </>
       )}
       <Modal isOpen={isVisible} onClose={onModalClose}>
         <motion.div
+          layout
           className={styles.searchContainer}
           initial="collapsed"
           animate="open"

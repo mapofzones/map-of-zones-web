@@ -1,8 +1,14 @@
-.search {
+.searchControl {
   width: 100%;
   margin: 0 20px;
   max-width: 620px;
+}
 
+.globalSearchIcon {
+  display: none;
+}
+
+.search {
   input {
     height: 40px;
     background-color: var(--black-500);
@@ -43,8 +49,25 @@
   margin: 8px auto;
   background-color: var(--black-500);
   border-radius: 5px;
+}
 
-  .search {
+@media (max-width: 880px) {
+  .searchControl {
     margin: 0;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 640px) {
+  .searchControl {
+    display: none;
+  }
+
+  .globalSearchIcon {
+    display: block;
+  }
+
+  .searchContainer {
+    width: 100%;
   }
 }
