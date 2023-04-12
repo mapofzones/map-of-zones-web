@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
@@ -8,13 +8,45 @@ import { ZoneData } from 'hooks/queries/useZonesData';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './GlobalSearchModal.module.scss';
-import { GlobalSearchModalProps } from './GlobalSearchModalProps';
+import { GlobalSearchModalProps } from './GlobalSearchModal.props';
 import { GlobalSearchInput } from '../GlobalSearchInput';
+
+const itemsContainerVariants = {
+  open: {
+    opacity: 1,
+    maxHeight: '90vh',
+    rotateX: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.3,
+      opacity: { duration: 1 },
+    },
+  },
+  search: {
+    opacity: 1,
+    maxHeight: '90vh',
+    rotateX: 0,
+    transition: {
+      duration: 0.5,
+      maxHeight: { duration: 0 },
+    },
+  },
+  collapsed: {
+    opacity: 0,
+    maxHeight: 0,
+    rotateX: -15,
+    transition: {
+      duration: 0.5,
+      delay: 0.3,
+    },
+  },
+};
 
 const POPULAR_ZONE_KEYS = ['osmosis-1', 'cosmoshub-4', 'axelar-dojo-1'];
 
 export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSearchModalProps) {
   const [searchValue, setSearchValue] = useState('');
+  const [searchWasChanged, setSearchWasChanged] = useState(false);
 
   const onSearchChange = useCallback((value: string) => {
     setSearchValue(value);
@@ -22,43 +54,17 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
 
   const modalClose = () => {
     setSearchValue('');
+    setSearchWasChanged(false);
     onModalClose?.();
   };
 
-  const MotionScrollableContainer = motion(ScrollableContainer);
+  useEffect(() => {
+    if (searchValue && !searchWasChanged) {
+      setSearchWasChanged(true);
+    }
+  }, [searchValue, searchWasChanged]);
 
   const isTablet = useTabletSmallMediaQuery();
-
-  const itemsContainerVariants = useMemo(
-    () => ({
-      open: {
-        opacity: 1,
-        maxHeight: isTablet ? '60vh' : '90vh',
-        rotateX: 0,
-        transition: {
-          duration: 1,
-        },
-      },
-      search: {
-        opacity: 1,
-        maxHeight: isTablet ? '60vh' : '90vh',
-        rotateX: -15,
-        transition: {
-          duration: 0.5,
-        },
-      },
-      collapsed: {
-        opacity: 0,
-        maxHeight: 0,
-        rotateX: -15,
-        transition: {
-          duration: 0.5,
-          delay: 0.3,
-        },
-      },
-    }),
-    [isTablet]
-  );
 
   const modalContainerVariants = isTablet
     ? {
@@ -72,6 +78,8 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
 
   const popularZones = zones.filter((zone: ZoneData) => POPULAR_ZONE_KEYS.includes(zone.zone));
 
+  const MotionScrollableContainer = motion(ScrollableContainer);
+
   return (
     <Modal isOpen={isVisible} onClose={modalClose}>
       <motion.div
@@ -79,13 +87,13 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
         initial="collapsed"
         animate="open"
         variants={modalContainerVariants}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
       >
-        <GlobalSearchInput onSearchChange={onSearchChange} autoFocus />
+        <GlobalSearchInput autoFocus onSearchChange={onSearchChange} onCancel={onModalClose} />
         <MotionScrollableContainer className={styles.itemsContainer}>
           <motion.div
             initial="collapsed"
-            animate={isVisible ? (!searchValue ? 'open' : 'search') : 'collapsed'}
+            animate={!searchWasChanged ? 'open' : 'search'}
             variants={itemsContainerVariants}
           >
             <ZoneLinkItemsWithSearch
