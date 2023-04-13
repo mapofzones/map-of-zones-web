@@ -20,42 +20,12 @@ interface ActiveItem {
   alpabetIndex: number | undefined;
 }
 
-const itemsContainerVariants = {
-  open: {
-    opacity: 1,
-    maxHeight: '90vh',
-    rotateX: 0,
-    transition: {
-      duration: 0.5,
-      delay: 0.3,
-      opacity: { duration: 1 },
-    },
-  },
-  search: {
-    opacity: 1,
-    maxHeight: '90vh',
-    rotateX: 0,
-    transition: {
-      duration: 0.5,
-      maxHeight: { duration: 0 },
-    },
-  },
-  collapsed: {
-    opacity: 0,
-    maxHeight: 0,
-    rotateX: -15,
-    transition: {
-      duration: 0.5,
-      delay: 0.3,
-    },
-  },
-};
-
 const POPULAR_ZONE_KEYS = ['osmosis-1', 'cosmoshub-4', 'axelar-dojo-1'];
 
 export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSearchModalProps) {
   const [searchValue, setSearchValue] = useState('');
   const [searchWasChanged, setSearchWasChanged] = useState(false);
+  const animationControls = useAnimation();
 
   const popularZones = zones.filter((zone: ZoneData) => POPULAR_ZONE_KEYS.includes(zone.zone));
 
@@ -65,6 +35,25 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   const onSearchChange = useCallback((value: string) => {
     setSearchValue(value);
   }, []);
+
+  useEffect(() => {
+    const animate = async () => {
+      await animationControls.set({
+        maxHeight: 0,
+      });
+      await animationControls.start({
+        maxHeight: '90vh',
+        transition: {
+          duration: 0.5,
+          delay: 0.3,
+        },
+      });
+    };
+
+    if (isVisible) {
+      animate();
+    }
+  }, [animationControls, isVisible]);
 
   const modalClose = () => {
     setSearchValue('');
@@ -102,7 +91,6 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
 
   const MotionScrollableContainer = motion(ScrollableContainer);
 
-  // const [popularActiveIndex, setPopularActiveIndex] = useState(0);
   const activeItemRef = useRef<HTMLElement>(null);
   const [activeItem, setActiveItem] = useState<ActiveItem>({
     totalIndex: undefined,
@@ -111,7 +99,6 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     popularIndex: undefined,
     alpabetIndex: undefined,
   });
-  // const activeZone = useState<string | undefined>(undefined)
 
   useEffect(() => {
     if (!activeItemRef.current) return;
@@ -119,36 +106,27 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     activeItemRef.current.scrollIntoView({
       block: 'center',
     });
-    // activeItemRef.current.scrollTo();
   }, [activeItem]);
 
   const handleArrowKeys = (e: any) => {
     // console.log(e);
     const { key } = e;
 
-    if (e.key === 'Enter') {
-      console.log(activeItem);
+    if (key === 'Enter') {
       return;
     }
 
     let newIndex = 0;
-    if (e.key === 'ArrowUp') {
+    if (key === 'ArrowUp') {
       const ind = activeItem.totalIndex ?? 0;
-      // setActiveIndex((index) => (index === 0 ? zones.length - 1 : index - 1));
       newIndex =
         (ind - 1 + (filteredZones.length + filteredPopularZones.length)) %
         (filteredZones.length + filteredPopularZones.length);
-      // setActiveIndex((index) => (index - 1) % (filteredZones.length + filteredPopularZones.length));
     }
 
-    if (e.key === 'ArrowDown') {
+    if (key === 'ArrowDown') {
       const ind = activeItem.totalIndex ?? -1;
       newIndex = (ind + 1) % (filteredZones.length + filteredPopularZones.length);
-      // setActiveIndex(
-      //   (index) =>
-      //     (index + 1 + (filteredZones.length + filteredPopularZones.length)) %
-      //     (filteredZones.length + filteredPopularZones.length)
-      // );
     }
 
     const isPopularSelected = newIndex < filteredPopularZones.length;
@@ -162,7 +140,6 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
       popularIndex,
       alpabetIndex,
     };
-    // console.log(newActiveItem);
     setActiveItem(newActiveItem);
   };
 
@@ -182,11 +159,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
           onKeyDown={handleArrowKeys}
         />
         <MotionScrollableContainer className={styles.itemsContainer}>
-          <motion.div
-            initial="collapsed"
-            animate={!searchWasChanged ? 'open' : 'search'}
-            variants={itemsContainerVariants}
-          >
+          <motion.div animate={animationControls}>
             <ZoneLinkItemsWithSearch
               title="Popular"
               zones={filteredPopularZones}
