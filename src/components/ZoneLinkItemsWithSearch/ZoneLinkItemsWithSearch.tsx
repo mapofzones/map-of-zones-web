@@ -13,16 +13,17 @@ export function ZoneLinkItemsWithSearch({
   title,
   zones,
   searchValue,
+  selectedIndex,
+  activeItemRef,
   onItemClick,
 }: ZoneLinkItemsWithSearchProps) {
-  const filteredZones = useFilteredZones(zones, searchValue);
-
   return (
     <>
       {title && <div className={styles.groupTitle}>{title}</div>}
-      {filteredZones.map((zone) => (
+      {zones.map((zone, index) => (
         <Link
-          className={cn(styles.zone)}
+          ref={index === selectedIndex ? activeItemRef : null}
+          className={cn(styles.zone, { [styles.activeZone]: index === selectedIndex })}
           key={`zone_${zone.zone}`}
           to={`/${getZonesOverviewPath(zone.zone)}`}
           onClick={onItemClick}
@@ -30,7 +31,7 @@ export function ZoneLinkItemsWithSearch({
           <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
         </Link>
       ))}
-      {!!searchValue && !filteredZones?.length && (
+      {!!searchValue && !zones?.length && (
         <div className={styles.zonesNotFoundContainer}>No zones found.</div>
       )}
     </>
