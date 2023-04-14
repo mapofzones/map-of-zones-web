@@ -15,9 +15,7 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
 
   const { data: zonesList, loading } = useZonesData();
   const sortedZones = useMemo(() => {
-    console.log(zonesList);
-    const sorted = [...zonesList].sort((a: ZoneData, b: ZoneData) => a.zone.localeCompare(b.zone));
-    return sorted;
+    return [...zonesList].sort((a: ZoneData, b: ZoneData) => a.zone.localeCompare(b.zone));
   }, [zonesList]);
 
   const [isVisible, setIsVisible] = useState(false);

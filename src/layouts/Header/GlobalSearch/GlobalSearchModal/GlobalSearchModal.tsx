@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { motion, useAnimation } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 import { ScrollableContainer, ZoneLinkItemsWithSearch } from 'components';
 import { Modal } from 'components/ui/Modal/Modal';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
+import { getZonesOverviewPath } from 'routing';
 
 import styles from './GlobalSearchModal.module.scss';
 import { GlobalSearchModalProps } from './GlobalSearchModal.props';
@@ -17,7 +19,8 @@ interface ActiveItem {
   isPopularSelected: boolean;
   isAlpabetSelected: boolean;
   popularIndex: number | undefined;
-  alpabetIndex: number | undefined;
+  alphabetIndex: number | undefined;
+  selectedZone?: string | undefined;
 }
 
 const POPULAR_ZONE_KEYS = ['osmosis-1', 'cosmoshub-4', 'axelar-dojo-1'];
@@ -26,6 +29,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   const [searchValue, setSearchValue] = useState('');
   const [searchWasChanged, setSearchWasChanged] = useState(false);
   const animationControls = useAnimation();
+  const navigate = useNavigate();
 
   const popularZones = zones.filter((zone: ZoneData) => POPULAR_ZONE_KEYS.includes(zone.zone));
 
@@ -58,6 +62,13 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   const modalClose = () => {
     setSearchValue('');
     setSearchWasChanged(false);
+    setActiveItem({
+      totalIndex: undefined,
+      isPopularSelected: false,
+      isAlpabetSelected: false,
+      popularIndex: undefined,
+      alphabetIndex: undefined,
+    });
     onModalClose?.();
   };
 
@@ -68,13 +79,45 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   }, [searchValue, searchWasChanged]);
 
   useEffect(() => {
-    setActiveItem({
-      totalIndex: undefined,
-      isPopularSelected: false,
-      isAlpabetSelected: false,
-      popularIndex: undefined,
-      alpabetIndex: undefined,
-    });
+    if (activeItem?.selectedZone) {
+      if (activeItem.isPopularSelected) {
+        const index = filteredPopularZones.findIndex(
+          (zone: ZoneData) => zone.zone === activeItem.selectedZone
+        );
+        const isPopularSelected = index >= 0;
+        const popularIndex = isPopularSelected ? index : undefined;
+        const selectedZone = isPopularSelected ? activeItem.selectedZone : undefined;
+        const totalIndex = popularIndex;
+        setActiveItem((item: ActiveItem) => {
+          return {
+            ...item,
+            totalIndex,
+            isPopularSelected,
+            popularIndex,
+            selectedZone,
+          };
+        });
+      }
+      if (activeItem.isAlpabetSelected) {
+        const index = filteredZones.findIndex(
+          (zone: ZoneData) => zone.zone === activeItem.selectedZone
+        );
+        const isAlphabetSelected = index >= 0;
+        const alphabetIndex = isAlphabetSelected ? index : undefined;
+        const selectedZone = isAlphabetSelected ? activeItem.selectedZone : undefined;
+        const totalIndex =
+          alphabetIndex !== undefined ? filteredPopularZones.length + alphabetIndex : undefined;
+        setActiveItem((item: ActiveItem) => {
+          return {
+            ...item,
+            totalIndex,
+            isAlphabetSelected,
+            alphabetIndex,
+            selectedZone,
+          };
+        });
+      }
+    }
   }, [searchValue]);
 
   const isTablet = useTabletSmallMediaQuery();
@@ -97,7 +140,8 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     isPopularSelected: false,
     isAlpabetSelected: false,
     popularIndex: undefined,
-    alpabetIndex: undefined,
+    alphabetIndex: undefined,
+    selectedZone: undefined,
   });
 
   useEffect(() => {
@@ -109,15 +153,26 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   }, [activeItem]);
 
   const handleArrowKeys = (e: any) => {
-    // console.log(e);
     const { key } = e;
 
     if (key === 'Enter') {
+      e.preventDefault();
+
+      if (activeItem?.selectedZone !== undefined) {
+        navigate({
+          pathname: `/${getZonesOverviewPath(activeItem?.selectedZone)}`,
+        });
+        modalClose();
+      }
+
       return;
     }
 
+    if (key !== 'ArrowUp' && key !== 'ArrowDown') return;
+
     let newIndex = 0;
     if (key === 'ArrowUp') {
+      e.preventDefault();
       const ind = activeItem.totalIndex ?? 0;
       newIndex =
         (ind - 1 + (filteredZones.length + filteredPopularZones.length)) %
@@ -125,6 +180,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     }
 
     if (key === 'ArrowDown') {
+      e.preventDefault();
       const ind = activeItem.totalIndex ?? -1;
       newIndex = (ind + 1) % (filteredZones.length + filteredPopularZones.length);
     }
@@ -132,13 +188,21 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     const isPopularSelected = newIndex < filteredPopularZones.length;
     const isAlpabetSelected = !isPopularSelected;
     const popularIndex = isPopularSelected ? newIndex : undefined;
-    const alpabetIndex = isAlpabetSelected ? newIndex - filteredPopularZones.length : undefined;
+    const alphabetIndex = isAlpabetSelected ? newIndex - filteredPopularZones.length : undefined;
+    const selectedZone =
+      popularIndex !== undefined
+        ? filteredPopularZones[popularIndex].zone
+        : alphabetIndex !== undefined
+        ? filteredZones[alphabetIndex].zone
+        : undefined;
+
     const newActiveItem = {
       totalIndex: newIndex,
       isPopularSelected,
       isAlpabetSelected,
       popularIndex,
-      alpabetIndex,
+      alphabetIndex,
+      selectedZone,
     };
     setActiveItem(newActiveItem);
   };
@@ -155,7 +219,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
         <GlobalSearchInput
           autoFocus
           onSearchChange={onSearchChange}
-          onCancel={onModalClose}
+          onCancel={modalClose}
           onKeyDown={handleArrowKeys}
         />
         <MotionScrollableContainer className={styles.itemsContainer}>
@@ -166,16 +230,16 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
               activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
               selectedIndex={activeItem.popularIndex}
               searchValue={searchValue}
-              onItemClick={onModalClose}
+              onItemClick={modalClose}
             />
 
             <ZoneLinkItemsWithSearch
               title="Alphabetically"
               zones={filteredZones}
               activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
-              selectedIndex={activeItem.alpabetIndex}
+              selectedIndex={activeItem.alphabetIndex}
               searchValue={searchValue}
-              onItemClick={onModalClose}
+              onItemClick={modalClose}
             />
           </motion.div>
         </MotionScrollableContainer>
