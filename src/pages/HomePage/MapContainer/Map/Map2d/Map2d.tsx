@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import cn from 'classnames';
 import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
+import { ArrowRight } from 'assets/icons';
+import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
+import { getZonesOverviewPath } from 'routing';
+
+import styles from './Map2d.module.scss';
 import { Map2dProps } from './Map2d.props';
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { useLinkCanvasObject } from '../hooks/useLinkCanvasObject';
@@ -29,6 +35,8 @@ export default function Map2d({
 }: Map2dProps) {
   const mapData = useZonesAdditionalInfo(data, selectedZoneKey);
   const [zoomValue, setZoomValue] = useState<number>(1);
+  const [x, setX] = useState<number>(0);
+  const [y, setY] = useState<number>(0);
 
   const graphRef = useRef<ForceGraphMethods>();
 
@@ -75,8 +83,46 @@ export default function Map2d({
     disableZoomOut(zoomValue <= ZOOM_MIN_VALUE);
   }, [disableZoomIn, disableZoomOut, zoomValue]);
 
+  const navigateWithSearchParams = useNavigateWithSearchParams();
+
+  const onZoneInfoRowClick = (zoneKey: string) => {
+    navigateWithSearchParams(`/${getZonesOverviewPath(zoneKey)}`);
+  };
+
   return (
     <>
+      {selectedZoneKey && (
+        <>
+          <div
+            className={styles.seeDetailsBtn}
+            style={{
+              top: `${y}px`,
+              left: `${x}px`,
+              fontSize: `${14 * zoomValue}px`,
+              padding: `${4 * zoomValue}px ${8 * zoomValue}px`,
+            }}
+            onClick={() => onZoneInfoRowClick(selectedZoneKey)}
+          >
+            <div
+              className={cn(styles.triangle, styles.bottom)}
+              style={{
+                borderWidth: `${8 * zoomValue}px`,
+              }}
+            />
+            <span className={styles.btnContent}>
+              See Details
+              <ArrowRight
+                className={styles.arrowIcon}
+                style={{
+                  width: `${8 * zoomValue}px`,
+                  height: `${13 * zoomValue}px`,
+                  marginLeft: `${6 * zoomValue}px`,
+                }}
+              />
+            </span>
+          </div>
+        </>
+      )}
       <ForceGraph2D
         ref={graphRef}
         nodeId="zone"
@@ -99,9 +145,17 @@ export default function Map2d({
         cooldownTime={Infinity}
         enableZoomInteraction={true}
         enableNodeDrag={false}
-        onZoomEnd={useCallback((value: any) => {
+        onZoom={() => {
+          setX(-10);
+          setY(-10);
+        }}
+        onZoomEnd={(value: any) => {
+          const fg = graphRef.current;
+          const coords = fg?.screen2GraphCoords(0, 0);
+          setX(-(coords?.x ?? 0) * (value?.k ?? 1));
+          setY(-(coords?.y ?? 0) * (value?.k ?? 1));
           setZoomValue(value.k);
-        }, [])}
+        }}
       />
     </>
   );
