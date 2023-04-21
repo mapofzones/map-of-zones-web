@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import cn from 'classnames';
+import { motion, useAnimation } from 'framer-motion';
 import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
 import { ArrowRight } from 'assets/icons';
@@ -37,6 +38,39 @@ export default function Map2d({
   const [zoomValue, setZoomValue] = useState<number>(1);
   const [x, setX] = useState<number>(0);
   const [y, setY] = useState<number>(0);
+
+  const animationControls = useAnimation();
+
+  const showDetailedButton = useMemo(() => {
+    const selectedNode = mapData.nodes.filter((node) => node.zone === selectedZoneKey);
+    return !!selectedNode;
+  }, [mapData.nodes, selectedZoneKey]);
+
+  useEffect(() => {
+    if (selectedZoneKey) {
+      animationControls.set({ opacity: 0, top: y + 10 * zoomValue });
+
+      animationControls.start({
+        opacity: 1,
+        top: y,
+        transition: {
+          duration: 1,
+          delay: 0.3,
+        },
+      });
+    }
+  }, [animationControls, selectedZoneKey]);
+
+  useEffect(() => {
+    animationControls.set({ opacity: 0, top: y + 10 * zoomValue });
+    animationControls.start({
+      opacity: 1,
+      top: y,
+      transition: {
+        duration: 0.5,
+      },
+    });
+  }, [animationControls, x, y, zoomValue]);
 
   const graphRef = useRef<ForceGraphMethods>();
 
@@ -91,10 +125,11 @@ export default function Map2d({
 
   return (
     <>
-      {selectedZoneKey && (
+      {selectedZoneKey && showDetailedButton && (
         <>
-          <div
+          <motion.div
             className={styles.seeDetailsBtn}
+            animate={animationControls}
             style={{
               top: `${y}px`,
               left: `${x}px`,
@@ -120,7 +155,7 @@ export default function Map2d({
                 }}
               />
             </span>
-          </div>
+          </motion.div>
         </>
       )}
       <ForceGraph2D
@@ -150,11 +185,14 @@ export default function Map2d({
           setY(-10);
         }}
         onZoomEnd={(value: any) => {
+          const zoom = value?.k ?? 1;
           const fg = graphRef.current;
           const coords = fg?.screen2GraphCoords(0, 0);
-          setX(-(coords?.x ?? 0) * (value?.k ?? 1));
-          setY(-(coords?.y ?? 0) * (value?.k ?? 1));
-          setZoomValue(value.k);
+          const x = -(coords?.x ?? 0);
+          const y = -(coords?.y ?? 0);
+          setX(x * zoom);
+          setY(y * zoom);
+          setZoomValue(zoom);
         }}
       />
     </>
