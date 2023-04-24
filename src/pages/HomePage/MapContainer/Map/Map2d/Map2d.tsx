@@ -1,15 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import cn from 'classnames';
-import { motion, useAnimation } from 'framer-motion';
 import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
-import { ArrowRight } from 'assets/icons';
-import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
-import { getZonesOverviewPath } from 'routing';
-
-import styles from './Map2d.module.scss';
 import { Map2dProps } from './Map2d.props';
+import { SeeDetailsPopupButton } from './SeeDetailsPopupButton';
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { useLinkCanvasObject } from '../hooks/useLinkCanvasObject';
 import { useZonesAdditionalInfo } from '../hooks/useMapAdditionalData';
@@ -36,41 +30,14 @@ export default function Map2d({
 }: Map2dProps) {
   const mapData = useZonesAdditionalInfo(data, selectedZoneKey);
   const [zoomValue, setZoomValue] = useState<number>(1);
+  const [stopDisplayingPopup, setStopDisplayingPopup] = useState(true);
   const [x, setX] = useState<number>(0);
   const [y, setY] = useState<number>(0);
-
-  const animationControls = useAnimation();
 
   const showDetailedButton = useMemo(() => {
     const selectedNode = mapData.nodes.filter((node) => node.zone === selectedZoneKey);
     return !!selectedNode;
   }, [mapData.nodes, selectedZoneKey]);
-
-  useEffect(() => {
-    if (selectedZoneKey) {
-      animationControls.set({ opacity: 0, top: y + 10 * zoomValue });
-
-      animationControls.start({
-        opacity: 1,
-        top: y,
-        transition: {
-          duration: 0.5,
-          delay: 0.5,
-        },
-      });
-    }
-  }, [animationControls, selectedZoneKey]);
-
-  useEffect(() => {
-    animationControls.set({ opacity: 0, top: y + 10 * zoomValue });
-    animationControls.start({
-      opacity: 1,
-      top: y,
-      transition: {
-        duration: 0.3,
-      },
-    });
-  }, [animationControls, x, y, zoomValue]);
 
   const graphRef = useRef<ForceGraphMethods>();
 
@@ -117,46 +84,15 @@ export default function Map2d({
     disableZoomOut(zoomValue <= ZOOM_MIN_VALUE);
   }, [disableZoomIn, disableZoomOut, zoomValue]);
 
-  const navigateWithSearchParams = useNavigateWithSearchParams();
-
-  const onZoneInfoRowClick = (zoneKey: string) => {
-    navigateWithSearchParams(`/${getZonesOverviewPath(zoneKey)}`);
-  };
-
   return (
     <>
-      {selectedZoneKey && showDetailedButton && (
-        <>
-          <motion.div
-            className={styles.seeDetailsBtn}
-            animate={animationControls}
-            style={{
-              top: `${y}px`,
-              left: `${x}px`,
-              fontSize: `${14 * zoomValue}px`,
-              padding: `${4 * zoomValue}px ${8 * zoomValue}px`,
-            }}
-            onClick={() => onZoneInfoRowClick(selectedZoneKey)}
-          >
-            <div
-              className={cn(styles.triangle, styles.bottom)}
-              style={{
-                borderWidth: `${8 * zoomValue}px`,
-              }}
-            />
-            <span className={styles.btnContent}>
-              See Details
-              <ArrowRight
-                className={styles.arrowIcon}
-                style={{
-                  width: `${6 * zoomValue}px`,
-                  height: `${10 * zoomValue}px`,
-                  marginLeft: `${6 * zoomValue}px`,
-                }}
-              />
-            </span>
-          </motion.div>
-        </>
+      {selectedZoneKey && !stopDisplayingPopup && showDetailedButton && (
+        <SeeDetailsPopupButton
+          x={x}
+          y={y}
+          selectedZoneKey={selectedZoneKey}
+          zoomValue={zoomValue}
+        />
       )}
       <ForceGraph2D
         ref={graphRef}
@@ -181,10 +117,7 @@ export default function Map2d({
         enableZoomInteraction={true}
         enableNodeDrag={false}
         onZoom={() => {
-          if (selectedZoneKey) {
-            setX(-10);
-            setY(-10);
-          }
+          setStopDisplayingPopup(true);
         }}
         onZoomEnd={(value: any) => {
           const zoom = value?.k ?? 1;
@@ -196,6 +129,7 @@ export default function Map2d({
           const y = -(coords?.y ?? 0) - 10;
           setX(x * zoom);
           setY(y * zoom);
+          setStopDisplayingPopup(false);
         }}
       />
     </>
