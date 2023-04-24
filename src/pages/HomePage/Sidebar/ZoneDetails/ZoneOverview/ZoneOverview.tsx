@@ -108,7 +108,7 @@ function ZoneOverview() {
         </div>
       </ScrollableContainer>
 
-      <ShowDetailsButton title="Full Zone Info" primary onClick={onDetailedBtnClick} />
+      <ShowDetailsButton title="See Zone Details" primary onClick={onDetailedBtnClick} />
     </>
   );
 }

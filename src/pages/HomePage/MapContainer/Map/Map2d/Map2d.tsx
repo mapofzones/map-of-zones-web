@@ -54,8 +54,8 @@ export default function Map2d({
         opacity: 1,
         top: y,
         transition: {
-          duration: 1,
-          delay: 0.3,
+          duration: 0.5,
+          delay: 0.5,
         },
       });
     }
@@ -67,7 +67,7 @@ export default function Map2d({
       opacity: 1,
       top: y,
       transition: {
-        duration: 0.5,
+        duration: 0.3,
       },
     });
   }, [animationControls, x, y, zoomValue]);
@@ -149,8 +149,8 @@ export default function Map2d({
               <ArrowRight
                 className={styles.arrowIcon}
                 style={{
-                  width: `${8 * zoomValue}px`,
-                  height: `${13 * zoomValue}px`,
+                  width: `${6 * zoomValue}px`,
+                  height: `${10 * zoomValue}px`,
                   marginLeft: `${6 * zoomValue}px`,
                 }}
               />
@@ -181,18 +181,21 @@ export default function Map2d({
         enableZoomInteraction={true}
         enableNodeDrag={false}
         onZoom={() => {
-          setX(-10);
-          setY(-10);
+          if (selectedZoneKey) {
+            setX(-10);
+            setY(-10);
+          }
         }}
         onZoomEnd={(value: any) => {
           const zoom = value?.k ?? 1;
+          setZoomValue(zoom);
+
           const fg = graphRef.current;
           const coords = fg?.screen2GraphCoords(0, 0);
           const x = -(coords?.x ?? 0);
-          const y = -(coords?.y ?? 0);
+          const y = -(coords?.y ?? 0) - 10;
           setX(x * zoom);
           setY(y * zoom);
-          setZoomValue(zoom);
         }}
       />
     </>

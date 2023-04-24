@@ -14,7 +14,12 @@ export function GlobalSearchInput({ className, onCancel, ...props }: GlobalSearc
   return (
     <div className={cn(className, styles.container)}>
       <SearchIcon className={styles.loopIcon} />
-      <Search className={styles.search} placeholder="Search zones" showIcon={false} {...props} />
+      <Search
+        className={styles.search}
+        placeholder="Search and analyze zones"
+        showIcon={false}
+        {...props}
+      />
       {isTablet && (
         <div className={styles.cancelBtn} onClick={onCancel}>
           Cancel
