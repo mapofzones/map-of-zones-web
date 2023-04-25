@@ -27,8 +27,8 @@ export function SeeDetailsPopupButton({
         opacity: 1,
         top: y,
         transition: {
-          duration: 0.5,
-          delay: 1.5,
+          duration: 0.3,
+          delay: 1,
         },
       });
     }
