@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ScrollableContainer, ZoneLinkItemsWithSearch } from 'components';
 import { Modal } from 'components/ui/Modal/Modal';
+import { ZonesNotFoundContainer } from 'components/ZonesNotFoundContainer';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
@@ -163,6 +164,8 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
         />
         <MotionScrollableContainer className={styles.itemsContainer}>
           <motion.div animate={animationControls}>
+            {(!filteredPopularZones || !filteredPopularZones.length) &&
+              (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
             <ZoneLinkItemsWithSearch
               title="Popular"
               zones={filteredPopularZones}

@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { ZoneInfoWithSearch } from 'components';
-import { useFilteredZones } from 'hooks/useFilteredZones';
+import { ZonesNotFoundContainer } from 'components/ZonesNotFoundContainer';
 import { getZonesOverviewPath } from 'routing';
 
 import styles from './ZoneLinkItemsWithSearch.module.scss';
@@ -17,6 +17,10 @@ export function ZoneLinkItemsWithSearch({
   activeItemRef,
   onItemClick,
 }: ZoneLinkItemsWithSearchProps) {
+  if (!zones?.length) {
+    return <></>;
+  }
+
   return (
     <>
       {title && <div className={styles.groupTitle}>{title}</div>}
@@ -31,9 +35,6 @@ export function ZoneLinkItemsWithSearch({
           <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
         </Link>
       ))}
-      {!!searchValue && !zones?.length && (
-        <div className={styles.zonesNotFoundContainer}>No zones found.</div>
-      )}
     </>
   );
 }
