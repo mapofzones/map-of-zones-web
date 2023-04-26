@@ -2,7 +2,6 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { ZoneInfoWithSearch } from 'components';
-import { ZonesNotFoundContainer } from 'components/ZonesNotFoundContainer';
 import { getZonesOverviewPath } from 'routing';
 
 import styles from './ZoneLinkItemsWithSearch.module.scss';

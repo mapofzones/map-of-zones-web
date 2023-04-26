@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  z-index: 1000;
+  z-index: 2000;
 
   display: flex;
   align-items: center;
@@ -19,10 +19,6 @@
     background: var(--black-100);
     opacity: 0.7;
     backdrop-filter: blur(8px);
-  }
-
-  .burgerIcon {
-    display: none;
   }
 
   .logoContainer {
@@ -47,27 +43,8 @@
 
     border-bottom: 1px solid var(--black-900);
 
-    .menu {
+    .menuContainer {
       margin-left: 20px;
-
-      a {
-        padding: 5px 10px;
-
-        color: var(--grey-500);
-
-        transition: color 0.3s linear;
-
-        &:hover {
-          color: var(--grey-800);
-        }
-
-        &:global(.active) {
-          color: var(--white);
-
-          background-color: var(--black-700);
-          border-radius: 5px;
-        }
-      }
     }
 
     .marketCapContainer {
@@ -108,8 +85,12 @@
     opacity: 1;
     backdrop-filter: none;
 
-    .burgerIcon {
-      display: block;
+    &.fixed {
+      position: fixed;
+    }
+
+    .backdrop {
+      opacity: 1;
     }
 
     .headerContent {
@@ -118,56 +99,30 @@
 
       border: none;
 
-      .menu {
-        position: absolute;
+      .menuContainer {
+        position: fixed;
         top: -100%;
         left: -100%;
 
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         margin-left: 0;
         padding-top: 10px;
         opacity: 0;
 
         background-color: #0e0e16;
         transition: opacity 0.5s linear;
+        pointer-events: auto;
 
         &.opened {
           top: 62px;
           left: 0;
 
           width: 100%;
-          height: auto;
+          height: 100vh;
           opacity: 1;
-
-          a {
-            margin: 0 24px;
-            padding: 16px 0;
-
-            color: var(--white);
-            font-size: var(--font-heading-size-sm);
-
-            border-bottom: 1px solid var(--black-900);
-
-            &:hover {
-              color: var(--grey-400);
-            }
-
-            &:global(.active) {
-              color: var(--grey-400);
-
-              background: none;
-            }
-          }
         }
-      }
-
-      .marketCapContainer {
-        display: none;
-      }
-
-      .line {
-        display: none;
       }
     }
   }

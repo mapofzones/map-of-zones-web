@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { ScrollableContainer, ZoneLinkItemsWithSearch } from 'components';
 import { Modal } from 'components/ui/Modal/Modal';
-import { ZonesNotFoundContainer } from 'components/ZonesNotFoundContainer';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
@@ -15,6 +14,7 @@ import { ActiveItem, getDefaultActiveItem } from './ActiveItem';
 import styles from './GlobalSearchModal.module.scss';
 import { GlobalSearchModalProps } from './GlobalSearchModal.props';
 import { useActiveItemScroll } from './hooks/useActiveItemScroll';
+import { ZonesNotFoundContainer } from './ZonesNotFoundContainer';
 import { GlobalSearchInput } from '../GlobalSearchInput';
 
 const POPULAR_ZONE_KEYS = ['osmosis-1', 'cosmoshub-4', 'axelar-dojo-1'];
