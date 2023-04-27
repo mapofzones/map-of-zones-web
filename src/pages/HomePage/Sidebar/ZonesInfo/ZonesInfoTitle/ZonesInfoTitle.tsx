@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
+import { useSearchParams } from 'react-router-dom';
 
+import { SearchIcon } from 'assets/icons';
 import { Search, SkeletonTextWrapper } from 'components';
 
 import { ZoneInfoTitleProps } from './ZoneInfoTitle.props';
@@ -13,24 +15,33 @@ export function ZonesInfoTitle({
   onSearchChange,
   zonesCount,
 }: ZoneInfoTitleProps): JSX.Element {
-  const [searchExpanded, setSearchExpanded] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  const [searchExpanded, setSearchExpanded] = useState(!!searchParams.get('searchZone'));
 
   return (
-    <div className={cn(styles.container, { [styles.expanded]: searchExpanded })}>
-      <div className={styles.zonesCountInfo}>
-        <SkeletonTextWrapper loading={loading} defaultText={'00'}>
-          {zonesCount}
-        </SkeletonTextWrapper>
-        &nbsp;Zones
-      </div>
+    <div className={cn(styles.container)}>
+      {!searchExpanded && (
+        <>
+          <div className={styles.zonesCountInfo}>
+            <SkeletonTextWrapper loading={loading} defaultText={'00'}>
+              {zonesCount}
+            </SkeletonTextWrapper>
+            &nbsp;Zones
+          </div>
 
-      <Search
-        className={styles.search}
-        initialValue={searchValue}
-        onSearchChange={onSearchChange}
-        onFocus={() => setSearchExpanded(true)}
-        onBlur={() => setSearchExpanded(false)}
-      />
+          <SearchIcon className={styles.loopIcon} onClick={() => setSearchExpanded(true)} />
+        </>
+      )}
+
+      {searchExpanded && (
+        <Search
+          autoFocus
+          className={styles.search}
+          initialValue={searchValue}
+          onSearchChange={onSearchChange}
+        />
+      )}
     </div>
   );
 }

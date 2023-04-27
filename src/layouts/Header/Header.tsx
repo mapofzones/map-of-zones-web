@@ -55,7 +55,8 @@ function Header({ ...props }): JSX.Element {
 
   return (
     <header className={styles.container} {...props}>
-      <div className={styles.backdrop}></div>
+      <div className={styles.backdrop} />
+
       {isTabletMedium && (
         <BurgerWithRef
           ref={burgerRef}
@@ -64,16 +65,20 @@ function Header({ ...props }): JSX.Element {
           setIsOpened={setIsMenuOpen}
         />
       )}
+
       <div className={styles.logoContainer}>
         <NavLink to={`/${homePath}`}>
           <Logo />
         </NavLink>
       </div>
+
       <div className={styles.headerContent}>
         <div ref={ref} className={cn(styles.menuContainer, { [styles.opened]: isMenuOpen })}>
           <Menu vertical={isTabletMedium} onItemClick={() => setIsMenuOpen(false)} />
         </div>
+
         <GlobalSearch />
+
         {!isTabletMedium && <MarketCapContainer />}
       </div>
     </header>

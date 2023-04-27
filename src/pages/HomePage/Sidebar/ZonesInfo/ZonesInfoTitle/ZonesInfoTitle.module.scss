@@ -1,9 +1,10 @@
 .container {
-  display: grid;
-  grid-template-columns: 1fr 140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   margin-bottom: 12px;
-
-  column-gap: 8px;
 
   .zonesCountInfo {
     display: flex;
@@ -11,15 +12,23 @@
     font-size: var(--font-heading-size-sm);
   }
 
+  .search {
+    width: 100%;
+  }
+
   .search input {
     font-size: var(--font-base-size-md);
   }
 
   &.expanded {
-    grid-template-columns: 1fr;
-
     .zonesCountInfo {
       display: none;
     }
+  }
+
+  .loopIcon {
+    stroke: var(--grey-500);
+
+    cursor: pointer;
   }
 }
