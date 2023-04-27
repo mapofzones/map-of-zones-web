@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { GlobalSearchIcon } from 'assets/icons';
 import { useZonesData, ZoneData } from 'hooks/queries/useZonesData';
-import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './GlobalSearch.module.scss';
 import { GlobalSearchInput } from './GlobalSearchInput';
@@ -11,7 +11,7 @@ import { GlobalSearchModal } from './GlobalSearchModal/GlobalSearchModal';
 import { GlobalSearchProps } from '.';
 
 export function GlobalSearch({ ...props }: GlobalSearchProps) {
-  const isTablet = useTabletSmallMediaQuery();
+  const isTablet = useTabletMediumMediaQuery();
 
   const { data: zonesList, loading } = useZonesData();
   const sortedZones = useMemo(() => {

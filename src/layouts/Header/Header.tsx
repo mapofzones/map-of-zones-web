@@ -55,7 +55,6 @@ function Header({ ...props }): JSX.Element {
       <div className={styles.headerContent}>
         <div className={cn(styles.menuContainer, { [styles.opened]: isMenuOpen })}>
           <Menu vertical={isTabletMedium} onItemClick={() => setIsMenuOpen(false)} />
-          {isMenuOpen && isTabletMedium && <Footer />}
         </div>
         <GlobalSearch />
         {!isTabletMedium && (
