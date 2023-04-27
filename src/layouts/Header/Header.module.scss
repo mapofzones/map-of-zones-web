@@ -76,7 +76,7 @@
 
 @media (max-width: 880px) {
   .container {
-    position: relative;
+    position: fixed;
 
     display: flex;
     justify-content: space-between;
@@ -84,10 +84,6 @@
     cursor: pointer;
     opacity: 1;
     backdrop-filter: none;
-
-    &.fixed {
-      position: fixed;
-    }
 
     .backdrop {
       opacity: 1;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useQuery } from '@apollo/client';
 import cn from 'classnames';
@@ -8,7 +8,6 @@ import { Logo } from 'assets/icons';
 import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { NetworkMarketCapInfoDocument } from 'graphql/v2/common/__generated__/CosmosNetworkMarketCap.query.generated';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
-import Footer from 'layouts/Footer/Footer';
 import { homePath } from 'routing';
 
 import { BurgerWithRef } from './Burger/Burger';
@@ -18,6 +17,9 @@ import { Menu } from './Menu';
 
 function Header({ ...props }): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLDivElement>(null);
 
   const { data, loading } = useQuery(NetworkMarketCapInfoDocument);
 
@@ -37,11 +39,30 @@ function Header({ ...props }): JSX.Element {
     }
   }, [isMenuOpen, isTabletMedium, setIsMenuOpen]);
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e: any) => {
+      if (
+        isMenuOpen &&
+        ref.current &&
+        !ref.current.contains(e.target) &&
+        !burgerRef.current?.contains(e.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', checkIfClickedOutside);
+    return () => {
+      document.removeEventListener('click', checkIfClickedOutside);
+    };
+  }, [isMenuOpen]);
+
   return (
-    <header className={cn(styles.container, { [styles.fixed]: isMenuOpen })} {...props}>
+    <header className={styles.container} {...props}>
       <div className={styles.backdrop}></div>
       {isTabletMedium && (
         <BurgerWithRef
+          ref={burgerRef}
           className={styles.burgerIcon}
           isOpened={isMenuOpen}
           setIsOpened={setIsMenuOpen}
@@ -53,7 +74,7 @@ function Header({ ...props }): JSX.Element {
         </NavLink>
       </div>
       <div className={styles.headerContent}>
-        <div className={cn(styles.menuContainer, { [styles.opened]: isMenuOpen })}>
+        <div ref={ref} className={cn(styles.menuContainer, { [styles.opened]: isMenuOpen })}>
           <Menu vertical={isTabletMedium} onItemClick={() => setIsMenuOpen(false)} />
         </div>
         <GlobalSearch />
