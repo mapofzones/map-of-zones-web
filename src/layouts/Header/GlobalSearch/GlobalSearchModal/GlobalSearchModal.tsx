@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ScrollableContainer, ZoneLinkItemsWithSearch } from 'components';
 import { Modal } from 'components/ui/Modal/Modal';
+import { useGlobalSearchItemSelectedAnalytics } from 'hooks/analytics/Multipage/useGlobalSearchItemSelectedAnalytics';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
@@ -64,6 +65,13 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     onModalClose?.();
   };
 
+  const trackSelectedGlobalSearchItem = useGlobalSearchItemSelectedAnalytics();
+  const onItemClick = (zone: string) => {
+    navigate(`/${getZonesOverviewPath(zone)}`);
+    onModalCloseInternal();
+    trackSelectedGlobalSearchItem(zone);
+  };
+
   const modalContainerVariants = isTablet
     ? {
         open: { opacity: 1 },
@@ -81,8 +89,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
       e.preventDefault();
 
       if (activeItem?.selectedZone !== undefined) {
-        onModalCloseInternal();
-        navigate(`/${getZonesOverviewPath(activeItem.selectedZone)}`);
+        onItemClick(activeItem?.selectedZone);
       }
 
       return;
@@ -172,7 +179,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
               activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
               selectedIndex={activeItem.popularIndex}
               searchValue={searchValue}
-              onItemClick={onModalCloseInternal}
+              onItemClick={onItemClick}
             />
 
             <ZoneLinkItemsWithSearch
@@ -181,7 +188,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
               activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
               selectedIndex={activeItem.alphabetIndex}
               searchValue={searchValue}
-              onItemClick={onModalCloseInternal}
+              onItemClick={onItemClick}
             />
           </motion.div>
         </MotionScrollableContainer>

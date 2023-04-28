@@ -5,6 +5,6 @@ export interface ZoneLinkItemsWithSearchProps {
   zones: ZoneData[];
   selectedIndex?: number;
   searchValue?: string;
-  onItemClick?: () => void;
+  onItemClick?: (zoneKey: string) => void;
   activeItemRef: any;
 }

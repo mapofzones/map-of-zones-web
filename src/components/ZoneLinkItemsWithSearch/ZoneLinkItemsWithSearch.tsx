@@ -1,8 +1,6 @@
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
 
 import { ZoneInfoWithSearch } from 'components';
-import { getZonesOverviewPath } from 'routing';
 
 import styles from './ZoneLinkItemsWithSearch.module.scss';
 
@@ -24,15 +22,14 @@ export function ZoneLinkItemsWithSearch({
     <>
       {title && <div className={styles.groupTitle}>{title}</div>}
       {zones.map((zone, index) => (
-        <Link
+        <div
           ref={index === selectedIndex ? activeItemRef : null}
           className={cn(styles.zone, { [styles.activeZone]: index === selectedIndex })}
           key={`zone_${zone.zone}`}
-          to={`/${getZonesOverviewPath(zone.zone)}`}
-          onClick={onItemClick}
+          onClick={() => onItemClick?.(zone.zone)}
         >
           <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
-        </Link>
+        </div>
       ))}
     </>
   );

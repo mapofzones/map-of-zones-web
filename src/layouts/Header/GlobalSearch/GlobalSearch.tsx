@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { GlobalSearchIcon } from 'assets/icons';
+import { useGlobalSearchOpenedAnalitics } from 'hooks/analytics/Multipage/useGlobalSearchOpenedAnalitics';
 import { useZonesData, ZoneData } from 'hooks/queries/useZonesData';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
 
@@ -20,9 +21,11 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
 
   const [isVisible, setIsVisible] = useState(false);
 
+  const trackTrigeredGlobalSearch = useGlobalSearchOpenedAnalitics();
   const onSearchClick = useCallback(() => {
     setIsVisible(true);
-  }, []);
+    trackTrigeredGlobalSearch();
+  }, [trackTrigeredGlobalSearch]);
 
   const onModalClose = useCallback(() => {
     setIsVisible(false);
