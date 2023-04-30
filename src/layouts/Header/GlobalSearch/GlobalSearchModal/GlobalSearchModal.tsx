@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { ScrollableContainer, ZoneLinkItemsWithSearch } from 'components';
 import { Modal } from 'components/ui/Modal/Modal';
 import { useGlobalSearchItemSelectedAnalytics } from 'hooks/analytics/Multipage/useGlobalSearchItemSelectedAnalytics';
+import { SelectedZoneOverviewSource } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
@@ -67,7 +68,9 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
 
   const trackSelectedGlobalSearchItem = useGlobalSearchItemSelectedAnalytics();
   const onItemClick = (zone: string) => {
-    navigate(`/${getZonesOverviewPath(zone)}`);
+    navigate(`/${getZonesOverviewPath(zone)}`, {
+      state: { source: SelectedZoneOverviewSource.GlobalSearch },
+    });
     onModalCloseInternal();
     trackSelectedGlobalSearchItem(zone);
   };

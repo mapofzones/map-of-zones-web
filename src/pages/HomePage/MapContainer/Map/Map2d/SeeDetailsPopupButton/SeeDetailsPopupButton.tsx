@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { motion, useAnimation } from 'framer-motion';
 
 import { ArrowRight } from 'assets/icons';
+import { SelectedZoneOverviewSource } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { getZonesOverviewPath } from 'routing';
 
@@ -37,7 +38,9 @@ export function SeeDetailsPopupButton({
   const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const onZoneInfoRowClick = (zoneKey: string) => {
-    navigateWithSearchParams(`/${getZonesOverviewPath(zoneKey)}`);
+    navigateWithSearchParams(`/${getZonesOverviewPath(zoneKey)}`, {
+      state: { source: SelectedZoneOverviewSource.Map },
+    });
   };
 
   return (

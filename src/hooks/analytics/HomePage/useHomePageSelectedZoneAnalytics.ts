@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 
 import { MapType, DefaultMapType } from 'pages/HomePage/MapContainer/MapContainer.types';
 import { ColumnKeys } from 'pages/HomePage/Types';
@@ -13,10 +13,9 @@ export enum SelectedZoneSourceView {
   Map = 'map view',
 }
 
-export function useHomePageSelectedZoneAnalytics(
-  source: SelectedZoneSourceView
-): (selectedZone: string | undefined) => void {
+export function useHomePageSelectedZoneAnalytics(): (selectedZone: string | undefined) => void {
   const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   const period = searchParams.get('period');
   const columnKey = searchParams.get('columnKey') as ColumnKeys;
@@ -29,12 +28,12 @@ export function useHomePageSelectedZoneAnalytics(
         period,
         zone: selectedZone,
         param: columnKey ? HOME_PAGE_TABLE_COLUMN_TITLE[columnKey] : '',
-        source,
+        source: location.state?.source,
         searchZone,
         mapType,
       });
     },
-    [columnKey, mapType, period, searchZone, source]
+    [columnKey, location.state?.source, mapType, period, searchZone]
   );
 
   return trackSelectedZone;
