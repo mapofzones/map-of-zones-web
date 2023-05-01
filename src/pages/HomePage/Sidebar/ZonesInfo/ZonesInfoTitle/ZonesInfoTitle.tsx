@@ -17,7 +17,20 @@ export function ZonesInfoTitle({
 }: ZoneInfoTitleProps): JSX.Element {
   const [searchParams] = useSearchParams();
 
+  const [internalSearchValue, setInternalSearchValue] = useState(searchValue);
+
   const [searchExpanded, setSearchExpanded] = useState(!!searchParams.get('searchZone'));
+
+  const onInternalSearchChange = (value: string) => {
+    setInternalSearchValue(value);
+    onSearchChange(value);
+  };
+
+  const onBlur = () => {
+    if (!internalSearchValue) {
+      setSearchExpanded(false);
+    }
+  };
 
   return (
     <div className={cn(styles.container)}>
@@ -30,7 +43,9 @@ export function ZonesInfoTitle({
             &nbsp;Zones
           </div>
 
-          <SearchIcon className={styles.loopIcon} onClick={() => setSearchExpanded(true)} />
+          <div className={styles.iconWrapper} onClick={() => setSearchExpanded(true)}>
+            <SearchIcon className={styles.loopIcon} />
+          </div>
         </>
       )}
 
@@ -38,8 +53,9 @@ export function ZonesInfoTitle({
         <Search
           autoFocus
           className={styles.search}
-          initialValue={searchValue}
-          onSearchChange={onSearchChange}
+          initialValue={internalSearchValue}
+          onSearchChange={onInternalSearchChange}
+          onBlur={onBlur}
         />
       )}
     </div>

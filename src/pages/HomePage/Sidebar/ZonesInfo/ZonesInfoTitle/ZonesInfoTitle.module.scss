@@ -26,13 +26,25 @@
     }
   }
 
-  .loopIcon {
-    stroke: var(--grey-500);
-
+  .iconWrapper {
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
     cursor: pointer;
 
     &:hover {
-      stroke: var(--grey-800);
+      .loopIcon {
+        stroke: var(--grey-800);
+      }
+    }
+
+    .loopIcon {
+      stroke: var(--grey-500);
     }
   }
 }
