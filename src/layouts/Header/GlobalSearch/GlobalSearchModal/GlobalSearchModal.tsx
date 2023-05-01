@@ -155,8 +155,6 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     }
   }, [searchValue]);
 
-  const MotionScrollableContainer = motion(ScrollableContainer);
-
   return (
     <Modal isOpen={isVisible} onClose={onModalCloseInternal}>
       <motion.div
@@ -172,7 +170,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
           onCancel={onModalCloseInternal}
           onKeyDown={handleArrowKeys}
         />
-        <MotionScrollableContainer className={styles.itemsContainer}>
+        <ScrollableContainer className={styles.itemsContainer}>
           <motion.div animate={animationControls}>
             {(!filteredPopularZones || !filteredPopularZones.length) &&
               (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
@@ -194,7 +192,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
               onItemClick={onItemClick}
             />
           </motion.div>
-        </MotionScrollableContainer>
+        </ScrollableContainer>
       </motion.div>
     </Modal>
   );
