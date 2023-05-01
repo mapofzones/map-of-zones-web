@@ -1,33 +1,22 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
-import { useSearchParams } from 'react-router-dom';
 
 import { SearchIcon } from 'assets/icons';
 import { Search, SkeletonTextWrapper } from 'components';
 
 import { ZoneInfoTitleProps } from './ZoneInfoTitle.props';
 import styles from './ZonesInfoTitle.module.scss';
+import { useSearchApiState, useSearchState } from '../ZoneTitleSearchProvider';
 
-export function ZonesInfoTitle({
-  loading,
-  searchValue,
-  onSearchChange,
-  zonesCount,
-}: ZoneInfoTitleProps): JSX.Element {
-  const [searchParams] = useSearchParams();
+export function ZonesInfoTitle({ loading, zonesCount }: ZoneInfoTitleProps): JSX.Element {
+  const searchValue = useSearchState();
+  const { setSearchValue } = useSearchApiState();
 
-  const [internalSearchValue, setInternalSearchValue] = useState(searchValue);
-
-  const [searchExpanded, setSearchExpanded] = useState(!!searchParams.get('searchZone'));
-
-  const onInternalSearchChange = (value: string) => {
-    setInternalSearchValue(value);
-    onSearchChange(value);
-  };
+  const [searchExpanded, setSearchExpanded] = useState<boolean>(!!searchValue);
 
   const onBlur = () => {
-    if (!internalSearchValue) {
+    if (!searchValue) {
       setSearchExpanded(false);
     }
   };
@@ -53,8 +42,8 @@ export function ZonesInfoTitle({
         <Search
           autoFocus
           className={styles.search}
-          initialValue={internalSearchValue}
-          onSearchChange={onInternalSearchChange}
+          initialValue={searchValue}
+          onSearchChange={setSearchValue}
           onBlur={onBlur}
         />
       )}

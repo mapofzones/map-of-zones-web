@@ -18,6 +18,7 @@ import styles from './ZonesInfo.module.scss';
 import { MemoizedZonesInfoTable } from './ZonesInfoTable/ZonesInfoTable';
 import { ZonesInfoTableSkeleton } from './ZonesInfoTable/ZonesInfoTableSkeleton/ZonesInfoTableSkeleton';
 import { ZonesInfoTitle } from './ZonesInfoTitle/ZonesInfoTitle';
+import { ZoneTitleSearchProvider } from './ZoneTitleSearchProvider';
 import { ShowDetailsButton } from '../ShowDetailsButton';
 
 const showTotalInfo = false;
@@ -30,8 +31,6 @@ function ZonesInfo(): JSX.Element {
     'columnKey',
     ColumnKeys.IbcVolume
   );
-
-  const [searchValue, setSearchValue] = useDefaultSearchParam('searchZone');
 
   const metadata = METADATA[selectedColumnKey];
 
@@ -53,54 +52,43 @@ function ZonesInfo(): JSX.Element {
     setSelectedColumnKey(option.key as ColumnKeys);
   };
 
-  const onSearchChange = (value: string) => {
-    setSearchValue(value);
-  };
-
   const onDetailedBtnClick = () => {
     navigateWithSearchParams(`/${zonesPath}`);
   };
 
   return (
-    <div className={styles.container}>
-      <ZonesInfoTitle
-        zonesCount={zones?.length}
-        searchValue={searchValue}
-        loading={tableDataLoading}
-        onSearchChange={onSearchChange}
-      />
-      <div className={styles.selectorsContainer}>
-        <Dropdown
-          className={styles.columnDropdown}
-          options={columnOptions}
-          initialSelectedKey={selectedColumnKey}
-          onOptionSelected={onColumnChange}
-          size={ElementSize.LARGE}
-        />
-        <PeriodSelector />
-      </div>
-      <ScrollableContainer className={styles.scrollableTable}>
-        {!!showTotalInfo && (
-          <TotalInfoCard
-            loading={totalInfoLoading}
-            className={styles.totalInfo}
-            totalInfo={totalInfo}
-            columnType={selectedColumnKey}
+    <ZoneTitleSearchProvider>
+      <div className={styles.container}>
+        <ZonesInfoTitle zonesCount={zones?.length} loading={tableDataLoading} />
+        <div className={styles.selectorsContainer}>
+          <Dropdown
+            className={styles.columnDropdown}
+            options={columnOptions}
+            initialSelectedKey={selectedColumnKey}
+            onOptionSelected={onColumnChange}
+            size={ElementSize.LARGE}
           />
-        )}
-        {tableDataLoading && <ZonesInfoTableSkeleton />}
-        {!tableDataLoading && (
-          <MemoizedZonesInfoTable
-            data={sortedZones}
-            searchValue={searchValue}
-            columnType={selectedColumnKey}
-          />
-        )}
-      </ScrollableContainer>
-      <div className={styles.shadow}></div>
+          <PeriodSelector />
+        </div>
+        <ScrollableContainer className={styles.scrollableTable}>
+          {!!showTotalInfo && (
+            <TotalInfoCard
+              loading={totalInfoLoading}
+              className={styles.totalInfo}
+              totalInfo={totalInfo}
+              columnType={selectedColumnKey}
+            />
+          )}
+          {tableDataLoading && <ZonesInfoTableSkeleton />}
+          {!tableDataLoading && (
+            <MemoizedZonesInfoTable data={sortedZones} columnType={selectedColumnKey} />
+          )}
+        </ScrollableContainer>
+        <div className={styles.shadow}></div>
 
-      <ShowDetailsButton title="Explore All Zones" onClick={onDetailedBtnClick} />
-    </div>
+        <ShowDetailsButton title="Explore All Zones" onClick={onDetailedBtnClick} />
+      </div>
+    </ZoneTitleSearchProvider>
   );
 }
 

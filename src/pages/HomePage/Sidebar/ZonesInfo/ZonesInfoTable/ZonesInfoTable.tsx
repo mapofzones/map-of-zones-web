@@ -10,6 +10,7 @@ import { ZonesInfoTableProps, ZonesTableDataQueryItem } from './ZonesInfoTable.p
 import { ZoneInfoRow } from '../../../index';
 import { ColumnKeys } from '../../../Types';
 import { METADATA } from '../Types';
+import { useSearchState } from '../ZoneTitleSearchProvider';
 
 const fieldsMap: Record<
   ColumnKeys,
@@ -44,15 +45,11 @@ const fieldsMap: Record<
   },
 };
 
-function ZonesInfoTable({
-  data,
-  searchValue,
-  columnType,
-  className,
-  ...props
-}: ZonesInfoTableProps) {
+function ZonesInfoTable({ data, columnType, className, ...props }: ZonesInfoTableProps) {
   const fields = fieldsMap[columnType];
   const numberType = METADATA[columnType].numberType;
+
+  const searchValue = useSearchState();
 
   const filteredZones = useFilteredZones(data || [], searchValue);
 

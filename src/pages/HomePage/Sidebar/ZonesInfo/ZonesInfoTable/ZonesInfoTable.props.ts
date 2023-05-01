@@ -6,7 +6,6 @@ export interface ZonesInfoTableProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   data?: ZonesTableDataQueryItem[];
-  searchValue?: string;
   columnType: ColumnKeys;
 }
 
