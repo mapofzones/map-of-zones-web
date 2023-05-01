@@ -21,6 +21,7 @@
     overflow: hidden;
 
     font-size: var(--font-base-size-md);
+    color: var(--white);
 
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -56,5 +57,9 @@
     cursor: pointer;
 
     appearance: none;
+  }
+
+  input[type='search']::-webkit-search-cancel-button:hover {
+    --icon-color: var(--grey-800);
   }
 }

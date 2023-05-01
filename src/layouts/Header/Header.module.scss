@@ -52,6 +52,7 @@
 @media (max-width: 880px) {
   .container {
     position: fixed;
+    margin-top: -1px;
 
     display: flex;
     justify-content: space-between;

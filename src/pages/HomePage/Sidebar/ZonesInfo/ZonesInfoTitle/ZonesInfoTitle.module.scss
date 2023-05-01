@@ -30,5 +30,9 @@
     stroke: var(--grey-500);
 
     cursor: pointer;
+
+    &:hover {
+      stroke: var(--grey-800);
+    }
   }
 }

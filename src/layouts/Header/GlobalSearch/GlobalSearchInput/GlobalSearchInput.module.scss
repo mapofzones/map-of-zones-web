@@ -5,6 +5,10 @@
   border-radius: 5px;
   background-color: var(--black-500);
 
+  &:hover {
+    background-color: var(--black-700);
+  }
+
   .search {
     flex: 1;
 
@@ -12,7 +16,6 @@
       height: 40px;
       background-color: var(--black-500);
       cursor: pointer;
-      color: var(--white);
 
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       &::placeholder {
@@ -24,6 +27,10 @@
       /* Microsoft Edge */
       &::input-placeholder {
         color: var(--grey-500);
+      }
+
+      &:hover {
+        background-color: var(--black-700);
       }
     }
   }
