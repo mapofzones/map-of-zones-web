@@ -1,12 +1,15 @@
 .container {
+  --bgColor: var(--black-500);
+
   display: flex;
   align-items: center;
   padding-left: 18px;
   border-radius: 5px;
-  background-color: var(--black-500);
+  background-color: var(--bgColor);
+  cursor: pointer;
 
   &:hover {
-    background-color: var(--black-700);
+    --bgColor: var(--black-700);
   }
 
   .search {
@@ -14,7 +17,7 @@
 
     input {
       height: 40px;
-      background-color: var(--black-500);
+      background-color: var(--bgColor);
       cursor: pointer;
 
       /* Chrome, Firefox, Opera, Safari 10.1+ */

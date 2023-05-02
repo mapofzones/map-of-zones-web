@@ -8,11 +8,16 @@ import styles from './GlobalSearchInput.module.scss';
 
 import { GlobalSearchInputProps } from '.';
 
-export function GlobalSearchInput({ className, onCancel, ...props }: GlobalSearchInputProps) {
+export function GlobalSearchInput({
+  className,
+  onCancel,
+  onClick,
+  ...props
+}: GlobalSearchInputProps) {
   const isTablet = useTabletSmallMediaQuery();
 
   return (
-    <div className={cn(className, styles.container)}>
+    <div className={cn(className, styles.container)} onClick={onClick}>
       <SearchIcon className={styles.loopIcon} />
       <Search
         className={styles.search}
