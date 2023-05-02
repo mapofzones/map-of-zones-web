@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import cn from 'classnames';
 import { motion, useAnimation } from 'framer-motion';
@@ -12,6 +12,8 @@ import styles from './SeeDetailsPopupButton.module.scss';
 import { SeeDetailsPopupButtonProps } from './SeeDetailsPopupButton.props';
 
 const BTN_INITIAL_OFFSET = 10;
+
+export const MemoizedSeeDetailsPopupButton = memo(SeeDetailsPopupButton);
 
 export function SeeDetailsPopupButton({
   x,

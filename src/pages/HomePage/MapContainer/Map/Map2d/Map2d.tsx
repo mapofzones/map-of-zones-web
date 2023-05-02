@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
 import { Map2dProps } from './Map2d.props';
-import { SeeDetailsPopupButton } from './SeeDetailsPopupButton';
+import { MemoizedSeeDetailsPopupButton } from './SeeDetailsPopupButton';
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { useLinkCanvasObject } from '../hooks/useLinkCanvasObject';
 import { useZonesAdditionalInfo } from '../hooks/useMapAdditionalData';
@@ -87,7 +87,7 @@ export default function Map2d({
   return (
     <>
       {selectedZoneKey && !stopDisplayingPopup && showDetailedButton && (
-        <SeeDetailsPopupButton
+        <MemoizedSeeDetailsPopupButton
           x={x}
           y={y}
           selectedZoneKey={selectedZoneKey}
