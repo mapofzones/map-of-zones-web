@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { GlobalSearchIcon } from 'assets/icons';
 import { useGlobalSearchOpenedAnalitics } from 'hooks/analytics/Multipage/useGlobalSearchOpenedAnalitics';
@@ -29,6 +29,20 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
 
   const onModalClose = useCallback(() => {
     setIsVisible(false);
+  }, []);
+
+  useEffect(() => {
+    function keydownHandler(e: any) {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.code === 'KeyF') {
+        setIsVisible(true);
+      }
+    }
+
+    window.addEventListener('keydown', keydownHandler);
+
+    return () => {
+      window.removeEventListener('keydown', keydownHandler);
+    };
   }, []);
 
   return (
