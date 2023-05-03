@@ -36,7 +36,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
       />
 
       <OverviewCard.Body>
-        <OverviewCard.Body.Group className={styles.volumeGroup}>
+        <OverviewCard.Body.Group className={cn(styles.bodyGroup, styles.volumeGroup)}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.ibcVolume)}
             title={'IBC Volume'}
@@ -77,7 +77,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
 
         <Divider />
 
-        <OverviewCard.Body.Group>
+        <OverviewCard.Body.Group className={styles.bodyGroup}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.transactions)}
             title={'Transactions'}
@@ -102,7 +102,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
 
         <Divider />
 
-        <OverviewCard.Body.Group>
+        <OverviewCard.Body.Group className={styles.bodyGroup}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.activeAddresses)}
             title="Active Addresses"

@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import { Card, Divider, NumberType, ValueWithPending } from 'components';
+import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 
@@ -13,8 +14,12 @@ export function ZoneOverviewInterchain({ className }: ZoneOverviewInterchainProp
   const { data, loading } = useZoneOverviewInterchain();
 
   return (
-    <Card title="Interchain" className={cn(className, styles.container)}>
-      <div className={styles.cardContent}>
+    <OverviewCard className={cn(className, styles.container)}>
+      <OverviewCard.Header>
+        <OverviewCard.Title>Interchain</OverviewCard.Title>
+      </OverviewCard.Header>
+
+      <OverviewCard.Body>
         <ValueWithPending
           className={cn(styles.valueBlock, styles.peers)}
           title={'Peers'}
@@ -38,7 +43,7 @@ export function ZoneOverviewInterchain({ className }: ZoneOverviewInterchainProp
           loading={loading}
           defaultSkeletonText={'250'}
         />
-      </div>
-    </Card>
+      </OverviewCard.Body>
+    </OverviewCard>
   );
 }
