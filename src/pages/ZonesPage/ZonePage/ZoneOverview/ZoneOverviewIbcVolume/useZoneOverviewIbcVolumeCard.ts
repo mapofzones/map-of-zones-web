@@ -8,7 +8,7 @@ import {
 import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
 import { IbcVolumeChart, ZoneOverviewIbcVolumeCardData } from './ZoneOverviewIbcVolume.types';
-import { useZoneOverviewOptions } from '../ZoneOverview/hooks/useZoneOverviewOptions';
+import { useZoneOverviewOptions } from '../hooks/useZoneOverviewOptions';
 
 type IbcVolumeCardApi = ZoneOverviewIbcVolumeQueryResult['ibcVolumeCardData'];
 type IbcVolumeChartApi = NonNullable<IbcVolumeCardApi>['ibcVolumeInChart'][number];

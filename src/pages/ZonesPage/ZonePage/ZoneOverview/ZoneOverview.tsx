@@ -3,13 +3,13 @@ import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewActiveUsers } from './ZoneOverviewActiveUsers';
 import { ZoneOverviewActivity } from './ZoneOverviewActivity/ZoneOverviewActivity';
 import { ZoneOverviewIbcTransfers } from './ZoneOverviewIbcTransfers';
+import { ZoneOverviewIbcVolume } from './ZoneOverviewIbcVolume';
 import { ZoneOverviewInterchain } from './ZoneOverviewInterchain';
 import { ZoneOverviewParameters } from './ZoneOverviewParameters/ZoneOverviewParameters';
 import { ZoneOverviewReturnedAddresses } from './ZoneOverviewReturnedAddresses';
 import { ZoneOverviewToken } from './ZoneOverviewToken/ZoneOverviewToken';
 import { ZoneOverviewTransactions } from './ZoneOverviewTransactions';
 import { ZoneOverviewUniqueDelegates } from './ZoneOverviewUniqueDelegates';
-import { ZoneOverviewIbcVolume } from '../ZoneOverviewIbcVolume';
 
 export function ZoneOverview() {
   return (
