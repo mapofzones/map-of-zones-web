@@ -34,10 +34,7 @@ export default function Map2d({
   const [x, setX] = useState<number>(0);
   const [y, setY] = useState<number>(0);
 
-  const showDetailedButton = useMemo(() => {
-    const selectedNode = mapData.nodes.filter((node) => node.zone === selectedZoneKey);
-    return !!selectedNode;
-  }, [mapData.nodes, selectedZoneKey]);
+  const showDetailedButton = mapData.nodes.findIndex((node) => node.zone === selectedZoneKey) >= 0;
 
   const graphRef = useRef<ForceGraphMethods>();
 

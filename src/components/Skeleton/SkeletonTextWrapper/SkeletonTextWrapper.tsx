@@ -20,10 +20,7 @@ export function SkeletonTextWrapper({
   className,
   ...props
 }: SkeletonTextWrapperProps) {
-  const defaultValue = useMemo(
-    () => defaultText || getTextwithSize(defaultTextMinLength, defaultTextMaxLength),
-    [defaultText, defaultTextMinLength, defaultTextMaxLength]
-  );
+  const defaultValue = defaultText || getTextwithSize(defaultTextMinLength, defaultTextMaxLength);
 
   return (
     <span className={className} {...props}>

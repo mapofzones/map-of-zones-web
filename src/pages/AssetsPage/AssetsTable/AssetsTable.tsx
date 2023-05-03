@@ -15,10 +15,7 @@ export function AssetsTable() {
     ColumnKeys.MarketCap
   );
 
-  const sortingColumnKey = useMemo(
-    () => SORTING_COLUMN_KEYS[selectedColumnKey],
-    [selectedColumnKey]
-  );
+  const sortingColumnKey = SORTING_COLUMN_KEYS[selectedColumnKey];
 
   const { data, loading } = useAssetsTable();
 
