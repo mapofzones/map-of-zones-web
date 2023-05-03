@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import cn from 'classnames';
-
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';

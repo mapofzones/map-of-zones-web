@@ -13,6 +13,8 @@ export const swapPath = 'swap';
 
 export const aboutPath = 'about';
 
+export const zonesComparison = 'comparison';
+
 export const zoneWithParamPath = ':zone';
 
 export const overviewPath = 'overview';

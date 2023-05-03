@@ -17,6 +17,7 @@ import {
   ZonePeers as ZonesListZonePeers,
   ZonePools as ZonesListZonePools,
 } from 'pages/ZonesPage';
+import { ComparisonPage } from 'pages/ZonesPage/ComparisonPage';
 import * as path from 'routing';
 
 export function AppRouting() {
@@ -38,6 +39,7 @@ export function AppRouting() {
           </Route>
           <Route path={path.zonesPath} element={<ZonesPage />}>
             <Route index element={<ZonesListZonesInfo />} />
+            <Route path={path.zonesComparison} element={<ComparisonPage />} />
 
             <Route path={path.zoneWithParamPath} element={<ZonesListZonePage />}>
               <Route path={path.overviewPath} element={<ZonesListZoneOverview />} />
