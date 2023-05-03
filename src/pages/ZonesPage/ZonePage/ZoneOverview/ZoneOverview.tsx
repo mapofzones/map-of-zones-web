@@ -1,3 +1,5 @@
+import cn from 'classnames';
+
 import OverviewTokenContextProvider from './OverviewTokenContextProvider';
 import styles from './ZoneOverview.module.scss';
 import { ZoneOverviewActiveUsers } from './ZoneOverviewActiveUsers';
@@ -20,13 +22,15 @@ export function ZoneOverview() {
           <ZoneOverviewInterchain className={styles.interchainBlock} />
         </div>
         <ZoneOverviewToken className={styles.tokenBlock} />
-        <ZoneOverviewIbcVolume className={styles.volumesBlock} />
+        <ZoneOverviewIbcVolume className={cn(styles.volumesBlock, styles.chartCard)} />
         <ZoneOverviewParameters className={styles.parametersBlock} />
-        <ZoneOverviewTransactions className={styles.transactionsBlock} />
-        <ZoneOverviewIbcTransfers className={styles.ibcTransfersBlock} />
-        <ZoneOverviewActiveUsers className={styles.activeUsersBlock} />
-        <ZoneOverviewReturnedAddresses className={styles.returnedAddressesBlock} />
-        <ZoneOverviewUniqueDelegates className={styles.delegatesBlock} />
+        <ZoneOverviewTransactions className={cn(styles.chartCard, styles.transactionsBlock)} />
+        <ZoneOverviewIbcTransfers className={cn(styles.ibcTransfersBlock, styles.chartCard)} />
+        <ZoneOverviewActiveUsers className={cn(styles.activeUsersBlock, styles.chartCard)} />
+        <ZoneOverviewReturnedAddresses
+          className={cn(styles.returnedAddressesBlock, styles.chartCard)}
+        />
+        <ZoneOverviewUniqueDelegates className={cn(styles.delegatesBlock, styles.chartCard)} />
       </div>
     </OverviewTokenContextProvider>
   );

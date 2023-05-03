@@ -3,7 +3,7 @@ import { ChartType } from 'components/ChartContainer';
 import { ButtonGroup } from 'components/ui';
 import { ElementSize } from 'types/ElementSize';
 
-import styles from './OverviewChartCard.module.scss';
+import styles from './OverviewCard.module.scss';
 
 export const CHART_ICONS = {
   [ChartType.AREA]: AreaChartIcon,

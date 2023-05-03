@@ -4,15 +4,16 @@ import cn from 'classnames';
 
 import { Card } from 'components/ui';
 
-import styles from './OverviewChartCard.module.scss';
+import styles from './OverviewCard.module.scss';
+import { OverviewCardHeader } from './OverviewCardHeader';
 
-export function ZoneOverviewCard({
+export function OverviewCard({
   children,
   title,
   className,
 }: {
   children?: ReactNode;
-  title: string;
+  title?: string;
   className?: string;
 }) {
   return (
@@ -21,3 +22,5 @@ export function ZoneOverviewCard({
     </Card>
   );
 }
+
+OverviewCard.Header = OverviewCardHeader;

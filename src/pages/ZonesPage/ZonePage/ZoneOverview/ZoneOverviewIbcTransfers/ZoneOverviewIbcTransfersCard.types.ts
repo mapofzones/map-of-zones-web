@@ -1,6 +1,6 @@
 /* eslint-disable sort-exports/sort-exports */
 
-import { OverviewCardMetadata } from 'components/OverviewChartCard';
+import { OverviewCardMetadata } from 'components/OverviewChartCardWithMetadata';
 
 export interface ZoneOverviewIbcTransfersCardResult {
   data: ZoneOverviewIbcTransfersCardData;

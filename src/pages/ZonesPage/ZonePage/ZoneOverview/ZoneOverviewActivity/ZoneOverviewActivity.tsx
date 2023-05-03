@@ -13,6 +13,7 @@ import {
   ValueWithPending,
   VolumeLineChart,
 } from 'components';
+import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 
@@ -31,8 +32,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
   };
 
   return (
-    <Card className={cn(className, styles.container)}>
-      <div className={styles.header}>
+    <OverviewCard className={cn(className)}>
+      <OverviewCard.Header>
         <span>{`Activity (${selectedPeriod.toUpperCase()})`}</span>
         {PERIODS.length > 1 && (
           <ButtonGroup
@@ -45,7 +46,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
             setSelectedButton={onPeriodSelected}
           />
         )}
-      </div>
+      </OverviewCard.Header>
       <div className={styles.valuesContainer}>
         <div className={cn(styles.valueGroup, styles.volumeGroup)}>
           <ValueWithPending
@@ -136,6 +137,6 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
           />
         </div>
       </div>
-    </Card>
+    </OverviewCard>
   );
 }

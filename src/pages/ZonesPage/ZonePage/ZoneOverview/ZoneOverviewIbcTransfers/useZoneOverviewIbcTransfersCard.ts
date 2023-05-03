@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 
-import { OverviewCardPeriod } from 'components/OverviewChartCard';
+import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import {
   ZoneOverviewIbcTransfersCardDocument,
   ZoneOverviewIbcTransfersCardQueryResult,

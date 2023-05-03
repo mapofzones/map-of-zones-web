@@ -1,7 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { OverviewCardPeriod, OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCard';
+import {
+  OverviewCardPeriod,
+  OVERVIEW_PERIODS_API_KEYS,
+} from 'components/OverviewChartCardWithMetadata';
 
 import {
   ZoneOverviewIbcTransactionsCardData,

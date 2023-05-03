@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCard';
+import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCardWithMetadata';
 
 import { useZoneOverviewIbcTransfersCard } from './useZoneOverviewIbcTransfersCard';
 import { TRANSFERS_CARD_METADATA } from './ZoneOverviewIbcTransfers.metadata';

@@ -59,6 +59,10 @@
   .delegationsBlock {
     grid-area: delegations;
   }
+
+  .chartCard {
+    min-height: 450px;
+  }
 }
 
 @media (min-width: 980px) and (max-width: 1280px) {
@@ -99,6 +103,10 @@
     padding-right: 12px;
 
     .tokenBlock {
+      min-height: 600px;
+    }
+
+    .chartCard {
       min-height: 600px;
     }
   }

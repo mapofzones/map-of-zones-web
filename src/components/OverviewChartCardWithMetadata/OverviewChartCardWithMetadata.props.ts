@@ -1,4 +1,4 @@
-import { DataWithChart, OverviewCardMetadata } from './OverviewChartCard.types';
+import { DataWithChart, OverviewCardMetadata } from './OverviewChartCardWithMetadata.types';
 
 export type OverviewCardPeriod = '1w' | '2w' | '1m';
 

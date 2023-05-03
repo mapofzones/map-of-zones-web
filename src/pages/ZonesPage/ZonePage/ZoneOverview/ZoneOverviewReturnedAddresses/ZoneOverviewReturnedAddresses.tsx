@@ -1,14 +1,12 @@
 import { useState } from 'react';
 
-import cn from 'classnames';
-
 import { ButtonGroup, NumberFormat, NumberType, PeriodKeys, SkeletonTextWrapper } from 'components';
-import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewChartCard/Legend/Title/OverviewLegendTitle';
-import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/LegendValueBase';
-import { OverviewPeriodButtonsGroup } from 'components/OverviewChartCard/OverviewPeriodButtonsGroup';
-import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
+import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/OverviewPeriodButtonsGroup';
+import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
+import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
+import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';
+import { LegendValueBase } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendValueBase';
 import { ElementSize } from 'types/ElementSize';
 
 import { OverviewReturnedAddressesChart } from './OverviewReturnedAddressesChart';
@@ -58,7 +56,7 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
   const additionalInfo = `% of returning addresses in the last ${selectedPeriod} from the previous ${selectedPeriod}`;
 
   return (
-    <ZoneOverviewCard className={className} title={RETURNED_ADDRESSES_TITLE}>
+    <OverviewCard className={className} title={RETURNED_ADDRESSES_TITLE}>
       <OverviewChartLegend className={styles.legend}>
         <OverviewLegendItem>
           <OverviewLegendTitle
@@ -94,6 +92,6 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
         period={selectedPeriod}
         loading={loading}
       />
-    </ZoneOverviewCard>
+    </OverviewCard>
   );
 }

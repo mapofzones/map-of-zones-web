@@ -1,5 +1,5 @@
 /* eslint-disable sort-exports/sort-exports */
-import { OverviewCardMetadata } from 'components/OverviewChartCard';
+import { OverviewCardMetadata } from 'components/OverviewChartCardWithMetadata';
 import { ChartItemWithTime } from 'types/chart';
 
 export interface ZoneOverviewIbcVolumeCardResult {

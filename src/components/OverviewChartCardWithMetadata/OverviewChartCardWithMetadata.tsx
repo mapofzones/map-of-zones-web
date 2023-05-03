@@ -2,15 +2,15 @@ import { useState } from 'react';
 
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
+import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/OverviewPeriodButtonsGroup';
+import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard/ZoneOverviewChartTypeButtonsGroup';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
 import { useOverviewChartPeriodChangedAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useOverviewChartPeriodChangedAnalytics';
 
-import styles from './OverviewChartCard.module.scss';
-import { DataWithChart, OverviewCardMetadata } from './OverviewChartCard.types';
-import { OverviewLegendAdditionalText } from './OverviewLegendAdditionalText';
-import { OverviewPeriodButtonsGroup } from './OverviewPeriodButtonsGroup';
-import { ZoneOverviewCard } from './ZoneOverviewCard';
-import { ZoneOverviewChartTypeButtonsGroup } from './ZoneOverviewChartTypeButtonsGroup';
+import styles from './OverviewChartCardWithMetadata.module.scss';
+import { DataWithChart, OverviewCardMetadata } from './OverviewChartCardWithMetadata.types';
+import { OverviewLegendAdditionalText } from '../OverviewCard/OverviewLegendAdditionalText';
 
 import { OverviewCardPeriod, OverviewChartCardProps } from '.';
 
@@ -54,7 +54,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
   const chartMetadata = rebuildChartMetadataByChartKey<T, K>(metadata);
 
   return (
-    <ZoneOverviewCard title={title} className={className}>
+    <OverviewCard title={title} className={className}>
       {legendExist && (
         <>
           <OverviewCardLegend
@@ -83,7 +83,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
         dataFormatType={metadata.numberType}
         lastDashedPeriod
       />
-    </ZoneOverviewCard>
+    </OverviewCard>
   );
 }
 function rebuildChartMetadataByChartKey<T extends DataWithChart<K>, K>(

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { OverviewCardPeriod } from 'components/OverviewChartCard/OverviewChartCard.props';
+import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata/OverviewChartCardWithMetadata.props';
 import { useSelectedZone } from 'pages/HomePage/MapContainer/Map/hooks/eventHooks';
 
 import { trackEvent } from './../../../useAnalytics';

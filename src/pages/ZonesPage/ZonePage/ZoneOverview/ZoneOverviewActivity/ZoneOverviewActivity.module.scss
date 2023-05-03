@@ -1,73 +1,65 @@
-.container {
+.header {
   display: flex;
-  flex-direction: column;
-  padding: 24px;
+  justify-content: space-between;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
+  font-size: var(--font-heading-size-md);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-feature-settings: 'tnum' on, 'lnum' on;
 
-    font-size: var(--font-heading-size-md);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    font-feature-settings: 'tnum' on, 'lnum' on;
+  margin-bottom: 24px;
+}
 
-    margin-bottom: 24px;
-  }
+.valuesContainer {
+  display: flex;
+  flex-direction: row;
 
-  .valuesContainer {
+  .valueGroup {
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
 
-    .valueGroup {
-      display: flex;
-      flex-direction: row;
-      flex-grow: 1;
+    .volumeInOutContainer {
+      font-size: var(--font-base-size-md);
+      min-width: 150px;
+      flex: 1;
 
-      .volumeInOutContainer {
+      .volumeLineChart {
+        margin-bottom: 12px;
+      }
+
+      .volumeInOutValuesContainer {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .volumeInValue {
+        margin-right: 16px;
+
         font-size: var(--font-base-size-md);
-        min-width: 150px;
-        flex: 1;
-
-        .volumeLineChart {
-          margin-bottom: 12px;
-        }
-
-        .volumeInOutValuesContainer {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .volumeInValue {
-          margin-right: 16px;
-
-          font-size: var(--font-base-size-md);
-        }
-
-        .volumeOutValue {
-          font-size: var(--font-base-size-md);
-        }
       }
 
-      .ibcVolume,
-      .transactions,
-      .activeAddresses {
-        margin-right: 24px;
+      .volumeOutValue {
+        font-size: var(--font-base-size-md);
       }
+    }
+
+    .ibcVolume,
+    .transactions,
+    .activeAddresses {
+      margin-right: 24px;
     }
   }
 }
 
 @media (max-width: 1280px) {
-  .container {
-    .valuesContainer {
-      .valueGroup {
-        flex-direction: column;
+  .valuesContainer {
+    .valueGroup {
+      flex-direction: column;
 
-        .valueBlock {
-          &:first-child {
-            margin-bottom: 24px;
-          }
+      .valueBlock {
+        &:first-child {
+          margin-bottom: 24px;
         }
       }
     }
@@ -75,35 +67,33 @@
 }
 
 @media (max-width: 980px) {
-  .container {
-    .valuesContainer {
-      flex-direction: column;
+  .valuesContainer {
+    flex-direction: column;
 
-      .valueGroup {
-        flex-direction: row;
+    .valueGroup {
+      flex-direction: row;
 
-        &:not(:last-child) {
-          border-bottom: 1px solid var(--black-900);
-          margin-bottom: 24px;
-        }
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--black-900);
+        margin-bottom: 24px;
+      }
 
-        &:last-child {
-          .valueBlock {
-            margin-bottom: 0;
-          }
-        }
-
+      &:last-child {
         .valueBlock {
-          flex: 1;
+          margin-bottom: 0;
         }
+      }
 
-        &.volumeGroup {
-          flex-direction: column;
-          padding-bottom: 24px;
+      .valueBlock {
+        flex: 1;
+      }
 
-          .ibcVolume {
-            margin-bottom: 20px;
-          }
+      &.volumeGroup {
+        flex-direction: column;
+        padding-bottom: 24px;
+
+        .ibcVolume {
+          margin-bottom: 20px;
         }
       }
     }

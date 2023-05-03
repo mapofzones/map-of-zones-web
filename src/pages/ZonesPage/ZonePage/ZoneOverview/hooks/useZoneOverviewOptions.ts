@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom';
 
-import { OverviewCardPeriod, OVERVIEW_PERIODS_IN_HOURS_BY_KEY } from 'components/OverviewChartCard';
+import {
+  OverviewCardPeriod,
+  OVERVIEW_PERIODS_IN_HOURS_BY_KEY,
+} from 'components/OverviewChartCardWithMetadata';
 
 export function useZoneOverviewOptions(period: OverviewCardPeriod) {
   const { zone = '' } = useParams();

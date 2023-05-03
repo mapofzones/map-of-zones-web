@@ -4,13 +4,13 @@ import cn from 'classnames';
 
 import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
-import { OverviewCardPeriod } from 'components/OverviewChartCard';
-import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewChartCard/Legend/Title/OverviewLegendTitle';
-import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/LegendValueBase';
-import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
-import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewChartCard/ZoneOverviewChartTypeButtonsGroup';
+import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard/ZoneOverviewChartTypeButtonsGroup';
+import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
+import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
+import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
+import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';
+import { LegendValueBase } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendValueBase';
 
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
 import styles from './ZoneOverviewDelegations.module.scss';
@@ -43,7 +43,7 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
   };
 
   return (
-    <ZoneOverviewCard title="Delegations">
+    <OverviewCard title="Delegations">
       <ZoneOverviewChartTypeButtonsGroup
         chartTypes={[ChartType.AREA, ChartType.BAR]}
         onChartSelected={onChartSelected}
@@ -79,7 +79,7 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
         datasetInfo={CHART_METADATA}
         dataFormatType={NumberType.Currency}
       />
-    </ZoneOverviewCard>
+    </OverviewCard>
   );
 }
 

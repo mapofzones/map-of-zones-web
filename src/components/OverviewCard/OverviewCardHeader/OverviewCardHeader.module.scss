@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: var(--font-heading-size-md);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+
+  margin-bottom: 24px;
+}

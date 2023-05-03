@@ -11,12 +11,12 @@ import {
   SkeletonTextWrapper,
   ZoneLogo,
 } from 'components';
-import { OverviewChartLegend } from 'components/OverviewChartCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewChartCard/Legend/OverviewLegendItem';
-import { LegendTitleBase } from 'components/OverviewChartCard/Legend/Title/LegendTitleBase';
-import { LegendNumberValue } from 'components/OverviewChartCard/Legend/Value/LegendNumberValue';
-import { LegendValueBase } from 'components/OverviewChartCard/Legend/Value/LegendValueBase';
-import { ZoneOverviewCard } from 'components/OverviewChartCard/ZoneOverviewCard';
+import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
+import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
+import { LegendTitleBase } from 'components/OverviewChartCardWithMetadata/Legend/Title/LegendTitleBase';
+import { LegendNumberValue } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendNumberValue';
+import { LegendValueBase } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendValueBase';
 import { Period } from 'components/PeriodBlock';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
@@ -46,7 +46,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
   const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
 
   return (
-    <ZoneOverviewCard title="Token" className={cn(className, styles.container)}>
+    <OverviewCard title="Token" className={cn(className, styles.container)}>
       <OverviewChartLegend className={cn(styles.chartLegend, styles.wrapped)}>
         <OverviewLegendItem className={styles.legendItem}>
           <LegendTitleBase>Price</LegendTitleBase>
@@ -128,6 +128,6 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
       </div>
 
       <TokenCharts chartType={selectedChartType} period={selectedPeriod} />
-    </ZoneOverviewCard>
+    </OverviewCard>
   );
 }

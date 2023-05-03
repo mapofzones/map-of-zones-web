@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import moment from 'moment';
 
-import { OverviewCardPeriod } from 'components/OverviewChartCard';
+import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 export function useAggregatedDataByPeriod<T>(
