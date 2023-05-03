@@ -3,8 +3,6 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import {
-  ButtonGroup,
-  Card,
   Divider,
   NumberFormat,
   NumberType,
@@ -19,36 +17,26 @@ import { tooltips } from 'types/Tooltips';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
-
-const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
+import { ZoneOverviewActivityHeader } from './ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
 
 export function ZoneOverviewActivity({ className }: { className?: string }) {
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
   const { data, loading } = useZoneOverviewActivity(selectedPeriod);
 
-  const onPeriodSelected = (item: { key?: PeriodKeys }) => {
-    item?.key && setSelectedPeriod(item.key);
+  const onPeriodSelected = (key: PeriodKeys) => {
+    setSelectedPeriod(key);
   };
 
   return (
     <OverviewCard className={cn(className)}>
-      <OverviewCard.Header>
-        <span>{`Activity (${selectedPeriod.toUpperCase()})`}</span>
-        {PERIODS.length > 1 && (
-          <ButtonGroup
-            className={styles.periodSwitcher}
-            size={ElementSize.SMALL}
-            buttons={PERIODS.map((period: PeriodKeys) => ({
-              key: period,
-              title: period.toUpperCase(),
-            }))}
-            setSelectedButton={onPeriodSelected}
-          />
-        )}
-      </OverviewCard.Header>
-      <div className={styles.valuesContainer}>
-        <div className={cn(styles.valueGroup, styles.volumeGroup)}>
+      <ZoneOverviewActivityHeader
+        selectedPeriod={selectedPeriod}
+        onPeriodSelected={onPeriodSelected}
+      />
+
+      <OverviewCard.Body>
+        <OverviewCard.Body.Group className={styles.volumeGroup}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.ibcVolume)}
             title={'IBC Volume'}
@@ -85,11 +73,11 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
               </SkeletonTextWrapper>
             </div>
           </div>
-        </div>
+        </OverviewCard.Body.Group>
 
         <Divider />
 
-        <div className={styles.valueGroup}>
+        <OverviewCard.Body.Group>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.transactions)}
             title={'Transactions'}
@@ -110,11 +98,11 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
             loading={loading}
             defaultSkeletonText={'29 848'}
           />
-        </div>
+        </OverviewCard.Body.Group>
 
         <Divider />
 
-        <div className={styles.valueGroup}>
+        <OverviewCard.Body.Group>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.activeAddresses)}
             title="Active Addresses"
@@ -135,8 +123,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
             loading={loading}
             defaultSkeletonText={'5 000'}
           />
-        </div>
-      </div>
+        </OverviewCard.Body.Group>
+      </OverviewCard.Body>
     </OverviewCard>
   );
 }

@@ -5,7 +5,9 @@ import cn from 'classnames';
 import { Card } from 'components/ui';
 
 import styles from './OverviewCard.module.scss';
+import { OverviewCardBody } from './OverviewCardBody';
 import { OverviewCardHeader } from './OverviewCardHeader';
+import { OverviewCardTitle } from './OverviewCardTitle';
 
 export function OverviewCard({
   children,
@@ -24,3 +26,5 @@ export function OverviewCard({
 }
 
 OverviewCard.Header = OverviewCardHeader;
+OverviewCard.Title = OverviewCardTitle;
+OverviewCard.Body = OverviewCardBody;

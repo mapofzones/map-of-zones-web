@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+@media (max-width: 1280px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 980px) {
+  .container {
+    flex-direction: row;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--black-900);
+      margin-bottom: 24px;
+    }
+  }
+}
