@@ -18,7 +18,7 @@ export type ZoneOverviewActivityQueryResult = {
   totalTxs?: number;
 };
 
-export function useZoneOverviewActivity(
+export function useZonesComprisonActivity(
   period: PeriodKeys,
   zone: string
 ): {

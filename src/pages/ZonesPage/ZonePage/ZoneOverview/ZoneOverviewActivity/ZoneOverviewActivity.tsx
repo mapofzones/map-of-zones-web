@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
+import { useParams } from 'react-router-dom';
 
 import {
   Divider,
@@ -22,7 +23,8 @@ import { ZoneOverviewActivityHeader } from './ZoneOverviewActivityHeader/ZoneOve
 export function ZoneOverviewActivity({ className }: { className?: string }) {
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
-  const { data, loading } = useZoneOverviewActivity(selectedPeriod);
+  const { zone = '' } = useParams();
+  const { data, loading } = useZoneOverviewActivity(selectedPeriod, zone);
 
   const onPeriodSelected = (key: PeriodKeys) => {
     setSelectedPeriod(key);
