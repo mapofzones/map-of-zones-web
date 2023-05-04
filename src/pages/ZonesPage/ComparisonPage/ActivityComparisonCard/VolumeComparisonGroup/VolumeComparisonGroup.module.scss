@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.compareItem {
+  display: flex;
+  align-items: center;
+}
+
+.compareGroup {
+  display: grid;
+  grid-template-columns: 1fr 68px auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.percentageBarContainer {
+  background: #33333d;
+  border-radius: 4px;
+  height: 12px;
+
+  .percentageBarLine {
+    background: #62d0d7;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    height: 100%;
+  }
+}
