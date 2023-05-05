@@ -15,7 +15,7 @@ export const ZONES_COMPARE_ACTIVITY = gql`
         ibcVolumeOutPercent: ibc_cashflow_out_percent
         ibcTransfers: ibc_transfers
       }
-      stats: flat_blockchain_stats(where: { timeframe: { _eq: $period } }) {
+      stats: blockchain_stats(where: { timeframe: { _eq: $period } }) {
         totalTxs: txs
         ibcDau: ibc_active_addresses_cnt
         dau: active_addresses_cnt
