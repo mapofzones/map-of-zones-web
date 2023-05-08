@@ -32,9 +32,11 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
   }, []);
 
   useEffect(() => {
-    function keydownHandler(e: any) {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.code === 'KeyF') {
+    function keydownHandler(e: KeyboardEvent) {
+      if (e.altKey && e.code === 'Space') {
         setIsVisible(true);
+        e.preventDefault();
+        e.stopPropagation();
       }
     }
 
