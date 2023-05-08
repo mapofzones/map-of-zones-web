@@ -5,33 +5,11 @@ import cn from 'classnames';
 import { ButtonGroup, NumberFormat, NumberType, PeriodKeys, SkeletonRectangle } from 'components';
 import { PercentageBar } from 'components/ui/PercentageBar/PercentageBar';
 import { ElementSize } from 'types/ElementSize';
+import { keys } from 'utils/mergeChartArraysIntoOne';
 
 import styles from './VolumeComparisonGroup.module.scss';
 
-import { ComparisoinGroupProps, VolumeComparisonGroupProps } from '.';
-
-enum TabKeys {
-  IBC_VOLUME = 'ibcVolume',
-  IBC_VOLUME_IN = 'ibcVolumeIn',
-  IBC_VOLUME_OUT = 'ibcVolumeOut',
-}
-
-type Option = {
-  key: TabKeys;
-  title: string;
-};
-
-const TAB_OPTION: Option[] = [
-  { key: TabKeys.IBC_VOLUME, title: 'IBC Volume' },
-  { key: TabKeys.IBC_VOLUME_IN, title: 'IBC In' },
-  { key: TabKeys.IBC_VOLUME_OUT, title: 'IBC Out' },
-];
-
-const DATA_PROPRTY_BY_TAB: Record<TabKeys, keyof ComparisoinGroupProps> = {
-  [TabKeys.IBC_VOLUME]: 'ibcVolume',
-  [TabKeys.IBC_VOLUME_IN]: 'ibcVolumeIn',
-  [TabKeys.IBC_VOLUME_OUT]: 'ibcVolumeOut',
-};
+import { VolumeComparisonGroupProps } from '.';
 
 function CompareRowItem({
   zone,
@@ -55,30 +33,35 @@ function CompareRowItem({
   );
 }
 
-export function VolumeComparisonGroup({
+export function VolumeComparisonGroup<T extends string, K>({
   className,
   children,
   data,
+  metadata,
+  zones,
   loading,
   numberType,
   colors,
   ...props
-}: VolumeComparisonGroupProps): JSX.Element {
-  const [selectedTab, setSelectedTab] = useState<TabKeys>(TabKeys.IBC_VOLUME);
+}: VolumeComparisonGroupProps<T, K>): JSX.Element {
+  const [selectedTab, setSelectedTab] = useState<T>(keys(metadata)[0]);
 
-  const onTabSelected = (item: { key?: TabKeys }) => {
+  const onTabSelected = (item: { key?: T }) => {
     item?.key && setSelectedTab(item.key);
   };
 
-  const propertyName = DATA_PROPRTY_BY_TAB[selectedTab];
+  const propertyName = metadata[selectedTab].property;
   const maxValue = data ? Math.max(...data.map((item) => item[propertyName] ?? 0)) : undefined;
+  const tabOptions = keys(metadata).map((key: T) => {
+    return { key, title: metadata[key].title };
+  });
 
   return (
     <div className={styles.container}>
       <ButtonGroup
         className={styles.groupTabSelector}
         size={ElementSize.SMALL}
-        buttons={TAB_OPTION}
+        buttons={tabOptions}
         setSelectedButton={onTabSelected}
       />
 
@@ -95,8 +78,8 @@ export function VolumeComparisonGroup({
           data &&
           data.map((item, index) => (
             <CompareRowItem
-              key={item.key}
-              zone={item.zoneName}
+              key={zones[index].zone}
+              zone={zones[index].zoneName}
               rate={item[propertyName] && maxValue ? (item[propertyName] ?? 0) / maxValue : 0}
               value={item[propertyName]}
               color={colors[index]}

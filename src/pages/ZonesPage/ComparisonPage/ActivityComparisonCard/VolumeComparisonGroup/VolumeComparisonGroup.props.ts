@@ -2,22 +2,27 @@ import { ReactNode } from 'react';
 
 import { NumberType } from 'components';
 
-export interface ComparisoinGroupProps {
-  ibcVolume?: number;
-  ibcVolumeIn?: number;
-  ibcVolumeOut?: number;
-}
+type ComparisoinGroupValues<T> = {
+  [K in keyof T]: T[K] extends number | undefined ? T[K] : never;
+};
 
-export interface ComparisonGroupItem extends ComparisoinGroupProps {
+export interface ComparisonGroupItem {
   zoneName: string;
-  key: string;
+  zone: string;
 }
 
-export interface VolumeComparisonGroupProps {
+export interface VolumeComparisonGroupProps<T extends string, K> {
   className?: string;
   children?: ReactNode;
-  data?: ComparisonGroupItem[];
+  zones: ComparisonGroupItem[];
+  data?: ComparisoinGroupValues<K>[];
   loading: boolean;
   numberType: NumberType;
   colors: string[];
+  metadata: Record<T, MetadataItem<K>>;
+}
+
+interface MetadataItem<K> {
+  title: string;
+  property: keyof K;
 }

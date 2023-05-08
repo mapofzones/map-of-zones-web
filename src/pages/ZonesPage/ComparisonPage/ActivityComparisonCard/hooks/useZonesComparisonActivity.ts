@@ -4,25 +4,28 @@ import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ZoneCompareActivityDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareActivity.query.generated';
 
-export type ZonesComparisonActivityQueryResult = {
-  key: string;
-  zoneName: string;
-  ibcVolume?: any;
-  ibcVolumeIn?: any;
-  ibcVolumeOut?: any;
-  ibcVolumeInPercent?: any;
-  ibcVolumeOutPercent?: any;
+export interface DauData {
+  dau?: number;
+  ibcDau?: number;
+}
+export interface TransfersData {
   ibcTransfers?: number;
-  dau?: number | null;
-  ibcDau?: number | null;
   totalTxs?: number;
-}[];
+}
+export interface VolumeData {
+  ibcVolume?: number;
+  ibcVolumeIn?: number;
+  ibcVolumeOut?: number;
+}
 
 export function useZonesComprisonActivity(
   period: PeriodKeys,
   zones: string[]
 ): {
-  data: ZonesComparisonActivityQueryResult | undefined;
+  zones: { zone: string; zoneName: string }[];
+  volumeData: VolumeData[];
+  transfersData: TransfersData[];
+  dauData: DauData[];
   loading: boolean;
 } {
   const options = {
@@ -33,21 +36,23 @@ export function useZonesComprisonActivity(
   const { data, loading } = useQuery(ZoneCompareActivityDocument, options);
 
   return {
-    data:
-      data &&
+    zones: data?.data?.map((item) => ({ zone: item.zone, zoneName: item.name })) ?? [],
+    volumeData:
       data?.data?.map((item) => ({
-        key: item.zone,
-        zoneName: item.name,
         ibcVolume: item?.switchedStats[0]?.ibcVolume,
         ibcVolumeIn: item?.switchedStats[0]?.ibcVolumeIn,
         ibcVolumeOut: item?.switchedStats[0]?.ibcVolumeOut,
-        ibcVolumeInPercent: item?.switchedStats[0]?.ibcVolumeInPercent,
-        ibcVolumeOutPercent: item?.switchedStats[0]?.ibcVolumeOutPercent,
+      })) ?? [],
+    transfersData:
+      data?.data?.map((item) => ({
         ibcTransfers: item?.switchedStats[0]?.ibcTransfers,
         totalTxs: item.stats[0]?.totalTxs,
-        dau: item.stats[0]?.dau,
-        ibcDau: item.stats[0]?.ibcDau,
-      })),
+      })) ?? [],
+    dauData:
+      data?.data?.map((item) => ({
+        dau: item.stats[0]?.dau ?? undefined,
+        ibcDau: item.stats[0]?.ibcDau ?? undefined,
+      })) ?? [],
     loading,
   };
 }
