@@ -1,12 +1,12 @@
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { PeriodKeys } from 'components/PeriodSelector/Types';
-import { ZoneOverviewActivityDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
+import { ZoneCompareActivityDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareActivity.query.generated';
 
-export type ZoneOverviewActivityQueryResult = {
-  zone: string;
+export type ZonesComparisonActivityQueryResult = {
+  key: string;
+  zoneName: string;
   ibcVolume?: any;
   ibcVolumeIn?: any;
   ibcVolumeOut?: any;
@@ -16,35 +16,38 @@ export type ZoneOverviewActivityQueryResult = {
   dau?: number | null;
   ibcDau?: number | null;
   totalTxs?: number;
-};
+}[];
 
 export function useZonesComprisonActivity(
   period: PeriodKeys,
-  zone: string
+  zones: string[]
 ): {
-  data: ZoneOverviewActivityQueryResult | undefined;
+  data: ZonesComparisonActivityQueryResult | undefined;
   loading: boolean;
 } {
   const options = {
-    variables: { zone, period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
-    skip: !zone,
+    variables: { zones, period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
+    skip: !zones,
   };
 
-  const { data, loading } = useQuery(ZoneOverviewActivityDocument, options);
+  const { data, loading } = useQuery(ZoneCompareActivityDocument, options);
 
   return {
-    data: data && {
-      zone,
-      ibcVolume: data?.switchedStats?.ibcVolume,
-      ibcVolumeIn: data?.switchedStats?.ibcVolumeIn,
-      ibcVolumeOut: data?.switchedStats?.ibcVolumeOut,
-      ibcVolumeInPercent: data?.switchedStats?.ibcVolumeInPercent,
-      ibcVolumeOutPercent: data?.switchedStats?.ibcVolumeOutPercent,
-      ibcTransfers: data?.switchedStats?.ibcTransfers,
-      totalTxs: data.stats[0]?.totalTxs,
-      dau: data.stats[0]?.dau,
-      ibcDau: data.stats[0]?.ibcDau,
-    },
+    data:
+      data &&
+      data?.data?.map((item) => ({
+        key: item.zone,
+        zoneName: item.name,
+        ibcVolume: item?.switchedStats[0]?.ibcVolume,
+        ibcVolumeIn: item?.switchedStats[0]?.ibcVolumeIn,
+        ibcVolumeOut: item?.switchedStats[0]?.ibcVolumeOut,
+        ibcVolumeInPercent: item?.switchedStats[0]?.ibcVolumeInPercent,
+        ibcVolumeOutPercent: item?.switchedStats[0]?.ibcVolumeOutPercent,
+        ibcTransfers: item?.switchedStats[0]?.ibcTransfers,
+        totalTxs: item.stats[0]?.totalTxs,
+        dau: item.stats[0]?.dau,
+        ibcDau: item.stats[0]?.ibcDau,
+      })),
     loading,
   };
 }
