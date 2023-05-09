@@ -38,7 +38,6 @@ export function GlobalSearchInput({
       {!isTablet && showHotkeyHint && (
         <div className={styles.hotkeyHint} onClick={onCancel}>
           <span className={styles.keyWrapper}>{isMac ? '⌥' : 'Alt'}</span>
-          {' + '}
           <span className={styles.keyWrapper}>Space</span>
         </div>
       )}
