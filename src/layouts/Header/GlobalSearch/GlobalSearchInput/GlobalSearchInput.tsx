@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { SearchIcon } from 'assets/icons';
 import { Search } from 'components';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
+import { isMacOS } from 'utils/os';
 
 import styles from './GlobalSearchInput.module.scss';
 
@@ -16,7 +17,7 @@ export function GlobalSearchInput({
   ...props
 }: GlobalSearchInputProps) {
   const isTablet = useTabletSmallMediaQuery();
-  const isMac = navigator.userAgent.toUpperCase().includes('MAC');
+  const isMac = isMacOS();
 
   return (
     <div className={cn(className, styles.container)} onClick={onClick}>
