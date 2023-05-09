@@ -2,40 +2,17 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
-import { ButtonGroup, NumberFormat, NumberType, PeriodKeys, SkeletonRectangle } from 'components';
-import { PercentageBar } from 'components/ui/PercentageBar/PercentageBar';
+import { ButtonGroup, SkeletonRectangle } from 'components';
 import { ElementSize } from 'types/ElementSize';
 import { keys } from 'utils/mergeChartArraysIntoOne';
 
-import styles from './VolumeComparisonGroup.module.scss';
+import styles from './CompareGroup.module.scss';
+import { CompareRowItem } from './CompareRowItem';
 
 import { VolumeComparisonGroupProps } from '.';
 
-function CompareRowItem({
-  zone,
-  rate,
-  value,
-  color,
-  numberType = NumberType.Number,
-}: {
-  zone: string;
-  rate?: number;
-  value?: number;
-  color: string;
-  numberType?: NumberType;
-}) {
-  return (
-    <>
-      <span>{zone}</span>
-      <PercentageBar rate={rate} color={color} />
-      <NumberFormat compact value={value} numberType={numberType} />
-    </>
-  );
-}
-
-export function VolumeComparisonGroup<T extends string, K>({
+export function CompareGroup<T extends string, K>({
   className,
-  children,
   data,
   metadata,
   zones,
@@ -57,7 +34,7 @@ export function VolumeComparisonGroup<T extends string, K>({
   });
 
   return (
-    <div className={styles.container}>
+    <div className={cn(className, styles.container)} {...props}>
       <ButtonGroup
         className={styles.groupTabSelector}
         size={ElementSize.SMALL}

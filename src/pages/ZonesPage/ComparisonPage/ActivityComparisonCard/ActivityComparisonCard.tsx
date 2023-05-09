@@ -8,13 +8,13 @@ import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewActivity/ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
 
 import styles from './ActivityComparisonCard.module.scss';
+import { CompareGroup } from './CompareGroup';
 import {
   DauData,
   TransfersData,
   useZonesComprisonActivity,
   VolumeData,
 } from './hooks/useZonesComparisonActivity';
-import { VolumeComparisonGroup } from './VolumeComparisonGroup';
 
 import { ActivityComparisonCardProps } from '.';
 
@@ -74,40 +74,36 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
       />
 
       <OverviewCard.Body>
-        <OverviewCard.Body.Group>
-          <>
-            <VolumeComparisonGroup
-              zones={zones}
-              data={volumeData}
-              metadata={VOLUME_METADATA}
-              loading={loading}
-              numberType={NumberType.Currency}
-              colors={COLORS}
-            />
+        <CompareGroup
+          zones={zones}
+          data={volumeData}
+          metadata={VOLUME_METADATA}
+          loading={loading}
+          numberType={NumberType.Currency}
+          colors={COLORS}
+        />
 
-            <Divider size={24} />
+        <Divider size={24} />
 
-            <VolumeComparisonGroup
-              zones={zones}
-              metadata={TRANSFERS_METADATA}
-              data={transfersData}
-              loading={loading}
-              numberType={NumberType.Currency}
-              colors={COLORS}
-            />
+        <CompareGroup
+          zones={zones}
+          metadata={TRANSFERS_METADATA}
+          data={transfersData}
+          loading={loading}
+          numberType={NumberType.Currency}
+          colors={COLORS}
+        />
 
-            <Divider size={24} />
+        <Divider size={24} />
 
-            <VolumeComparisonGroup
-              zones={zones}
-              data={dauData}
-              metadata={DAU_METADATA}
-              loading={loading}
-              numberType={NumberType.Currency}
-              colors={COLORS}
-            />
-          </>
-        </OverviewCard.Body.Group>
+        <CompareGroup
+          zones={zones}
+          data={dauData}
+          metadata={DAU_METADATA}
+          loading={loading}
+          numberType={NumberType.Currency}
+          colors={COLORS}
+        />
       </OverviewCard.Body>
     </OverviewCard>
   );

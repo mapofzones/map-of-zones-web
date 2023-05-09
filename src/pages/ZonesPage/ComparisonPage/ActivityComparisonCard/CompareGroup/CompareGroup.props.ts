@@ -13,7 +13,6 @@ export interface ComparisonGroupItem {
 
 export interface VolumeComparisonGroupProps<T extends string, K> {
   className?: string;
-  children?: ReactNode;
   zones: ComparisonGroupItem[];
   data?: ComparisoinGroupValues<K>[];
   loading: boolean;
