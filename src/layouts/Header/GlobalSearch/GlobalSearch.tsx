@@ -52,7 +52,11 @@ export function GlobalSearch({ ...props }: GlobalSearchProps) {
       {!isVisible && (
         <>
           {!isTablet ? (
-            <GlobalSearchInput className={styles.searchControl} onClick={onSearchClick} />
+            <GlobalSearchInput
+              className={styles.searchControl}
+              showHotkeyHint={true}
+              onClick={onSearchClick}
+            />
           ) : (
             <GlobalSearchIcon className={styles.globalSearchIcon} onClick={onSearchClick} />
           )}
