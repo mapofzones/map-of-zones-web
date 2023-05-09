@@ -12,10 +12,7 @@ export function useDefaultSearchParam<T extends string>(
   const location = useLocation();
   const columnKey = search.get(key);
 
-  const selectedColumnKey: T = useMemo(
-    () => (columnKey as T) ?? defaultValue,
-    [columnKey, defaultValue]
-  );
+  const selectedColumnKey: T = (columnKey as T) ?? defaultValue;
 
   const setSelectedColumnKey = useCallback(
     (value: T | undefined, replace = false) => {

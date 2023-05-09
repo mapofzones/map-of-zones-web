@@ -8,6 +8,7 @@
     position: absolute;
     right: 10px;
 
+    stroke: var(--grey-100);
     visibility: hidden;
   }
 
@@ -20,6 +21,7 @@
     overflow: hidden;
 
     font-size: var(--font-base-size-md);
+    color: var(--white);
 
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -55,5 +57,9 @@
     cursor: pointer;
 
     appearance: none;
+  }
+
+  input[type='search']::-webkit-search-cancel-button:hover {
+    --icon-color: var(--grey-800);
   }
 }

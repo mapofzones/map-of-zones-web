@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { ZoneData } from '../useZonesData';
+import { ZoneData } from '../../../../hooks/queries/useZonesData';
 import { ZonesListZoneDetails } from '../useZonesListZoneDetails';
 
 export interface ZonesSearchProps

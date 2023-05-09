@@ -40,7 +40,7 @@ export const useSelectedZone = () => {
   const { zone: selectedZoneKey = undefined } = useParams<string>();
 
   const navigateWithSearchParams = useNavigateWithSearchParams();
-  const trackSelectedZone = useHomePageSelectedZoneAnalytics(SelectedZoneSourceView.Map);
+  const trackSelectedZone = useHomePageSelectedZoneAnalytics();
 
   const onZoneClick = useCallback(
     (node: NodeObject) => {

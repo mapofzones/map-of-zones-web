@@ -7,7 +7,13 @@ import { ElementSize } from 'types/ElementSize';
 import styles from './ButtonGroup.module.scss';
 import { ButtonGroupItem, ButtonGroupProps } from './ButtonGroup.props';
 import { Button } from '..';
-import { ButtonType } from '../Button/Button.props';
+import { ButtonSize, ButtonVariant } from '../Button/Button.props';
+
+const elementSizeToButtonSizeMap = {
+  [ElementSize.SMALL]: ButtonSize.SMALL,
+  [ElementSize.MEDIUM]: ButtonSize.MEDIUM,
+  [ElementSize.LARGE]: ButtonSize.LARGE,
+};
 
 export function ButtonGroup<T extends string>({
   buttons,
@@ -51,9 +57,9 @@ export function ButtonGroup<T extends string>({
                 [styles.active]: active,
               })}
               key={itemKey}
-              size={size}
+              size={elementSizeToButtonSizeMap[size]}
               IconBefore={buttonGroupItem.icon}
-              buttonType={active ? ButtonType.PRIMARY : ButtonType.SECONDARY}
+              variant={active ? ButtonVariant.PRIMARY : ButtonVariant.SECONDARY}
               onClick={() => onButtonItemClick(buttonGroupItem)}
             >
               {buttonGroupItem.title}

@@ -9,7 +9,7 @@ import { useZonePeers } from './useZonePeers';
 import styles from './ZonePeers.module.scss';
 import { ZonePeersSkeleton } from './ZonePeersSkeleton';
 import { MemoizedZonePeersTable } from './ZonePeersTable/ZonePeersTable';
-import { LearnMoreButton } from '../../LearnMoreButton';
+import { ShowDetailsButton } from '../../ShowDetailsButton';
 
 export function ZonePeers() {
   const navigateWithSearchParams = useNavigateWithSearchParams();
@@ -32,7 +32,7 @@ export function ZonePeers() {
         {!loading && <MemoizedZonePeersTable peers={sortedPeers} />}
       </ScrollableContainer>
 
-      <LearnMoreButton onClick={onDetailedBtnClick} />
+      <ShowDetailsButton title="See Zone Details" primary onClick={onDetailedBtnClick} />
     </>
   );
 }

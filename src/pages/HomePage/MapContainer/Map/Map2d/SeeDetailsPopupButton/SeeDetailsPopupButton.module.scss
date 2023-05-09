@@ -1,0 +1,43 @@
+.seeDetailsBtn {
+  position: absolute;
+  z-index: 1;
+  background-color: var(--grey-1100);
+  color: var(--black-400);
+  padding: 4px 8px;
+  transform: translate(-50%, -150%);
+  border-radius: 5px;
+  cursor: pointer;
+
+  .btnContent {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+
+  .arrowIcon {
+    stroke: var(--black-400);
+  }
+
+  &:hover {
+    background-color: var(--white);
+
+    .triangle {
+      border-color: var(--white) transparent transparent transparent;
+    }
+  }
+
+  .triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: var(--grey-1100) transparent transparent transparent;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, 0);
+    margin-top: -1px;
+  }
+}

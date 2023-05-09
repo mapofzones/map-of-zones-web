@@ -1,0 +1,17 @@
+.searchControl {
+  width: 100%;
+  margin: 0 20px;
+  max-width: 620px;
+}
+
+.globalSearchIcon {
+  display: block;
+  margin-bottom: 9px;
+}
+
+@media (max-width: 880px) {
+  .searchControl {
+    margin: 0;
+    max-width: 250px;
+  }
+}

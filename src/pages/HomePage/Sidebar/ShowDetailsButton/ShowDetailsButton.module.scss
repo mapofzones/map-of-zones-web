@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  min-height: 52px;
+  padding: 16.5px 18px;
+  font-size: var(--font-navigation-size);
+  color: var(--white);
+
+  background-color: var(--grey-100);
+
+  &:hover {
+    background-color: var(--grey-300);
+  }
+
+  &.primary {
+    background-color: var(--grey-1100);
+    color: var(--black-400);
+
+    &:hover {
+      background-color: var(--white);
+    }
+
+    .arrowIcon {
+      fill: var(--black-600);
+    }
+  }
+
+  .arrowIcon {
+    fill: var(--grey-1100);
+    width: 20px;
+    height: 20px;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

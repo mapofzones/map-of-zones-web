@@ -1,0 +1,29 @@
+.searchContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+
+  margin: 8px auto;
+  background-color: var(--black-500);
+  border-radius: 5px;
+
+  .itemsContainer {
+    height: 100%;
+    max-height: 90vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .searchContainer {
+    width: calc(100% - 24px);
+    margin-left: 12px;
+    margin-right: 12px;
+
+    .itemsContainer {
+      max-height: 60vh;
+    }
+  }
+}

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import ForceGraph2D, { ForceGraphMethods, NodeObject } from 'react-force-graph-2d';
 
 import { Map2dProps } from './Map2d.props';
+import { MemoizedSeeDetailsPopupButton } from './SeeDetailsPopupButton';
 import { useClearSelectedNode } from '../hooks/eventHooks';
 import { useLinkCanvasObject } from '../hooks/useLinkCanvasObject';
 import { useZonesAdditionalInfo } from '../hooks/useMapAdditionalData';
@@ -29,6 +30,11 @@ export default function Map2d({
 }: Map2dProps) {
   const mapData = useZonesAdditionalInfo(data, selectedZoneKey);
   const [zoomValue, setZoomValue] = useState<number>(1);
+  const [stopDisplayingPopup, setStopDisplayingPopup] = useState(true);
+  const [x, setX] = useState<number>(0);
+  const [y, setY] = useState<number>(0);
+
+  const showDetailedButton = mapData.nodes.findIndex((node) => node.zone === selectedZoneKey) >= 0;
 
   const graphRef = useRef<ForceGraphMethods>();
 
@@ -77,6 +83,14 @@ export default function Map2d({
 
   return (
     <>
+      {selectedZoneKey && !stopDisplayingPopup && showDetailedButton && (
+        <MemoizedSeeDetailsPopupButton
+          x={x}
+          y={y}
+          selectedZoneKey={selectedZoneKey}
+          zoomValue={zoomValue}
+        />
+      )}
       <ForceGraph2D
         ref={graphRef}
         nodeId="zone"
@@ -99,9 +113,21 @@ export default function Map2d({
         cooldownTime={Infinity}
         enableZoomInteraction={true}
         enableNodeDrag={false}
-        onZoomEnd={useCallback((value: any) => {
-          setZoomValue(value.k);
-        }, [])}
+        onZoom={() => {
+          setStopDisplayingPopup(true);
+        }}
+        onZoomEnd={(value: any) => {
+          const zoom = value?.k ?? 1;
+          setZoomValue(zoom);
+
+          const fg = graphRef.current;
+          const coords = fg?.screen2GraphCoords(0, 0);
+          const x = -(coords?.x ?? 0);
+          const y = -(coords?.y ?? 0) - 10;
+          setX(x * zoom);
+          setY(y * zoom);
+          setStopDisplayingPopup(false);
+        }}
       />
     </>
   );

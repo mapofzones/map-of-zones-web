@@ -17,7 +17,7 @@ function ZoneInfoRow({
   numberType = NumberType.Number,
   className,
 }: ZonesInfoRowProps): JSX.Element {
-  const trackSelectedZone = useHomePageSelectedZoneAnalytics(SelectedZoneSourceView.Sidebar);
+  const trackSelectedZone = useHomePageSelectedZoneAnalytics();
 
   const navigateWithSearchParams = useNavigateWithSearchParams();
 

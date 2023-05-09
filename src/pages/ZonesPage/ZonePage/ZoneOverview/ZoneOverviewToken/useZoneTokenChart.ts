@@ -30,7 +30,7 @@ export function useZoneTokenChart(
   const { data, loading } = useQuery(ZoneTokenChartDocument, options);
 
   return {
-    data: data?.overviewBlockchainCharts[0].token?.chart ?? [],
+    data: data?.overviewBlockchainCharts[0]?.token?.chart ?? [],
     loading,
   };
 }

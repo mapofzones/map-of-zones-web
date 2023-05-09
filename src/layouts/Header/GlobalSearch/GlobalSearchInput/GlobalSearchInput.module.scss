@@ -1,0 +1,67 @@
+.container {
+  --bgColor: var(--black-500);
+
+  display: flex;
+  align-items: center;
+  padding-left: 18px;
+  padding-right: 12px;
+  border-radius: 5px;
+  background-color: var(--bgColor);
+  cursor: pointer;
+
+  &:hover {
+    --bgColor: var(--black-700);
+  }
+
+  .search {
+    flex: 1;
+
+    input {
+      height: 40px;
+      background-color: var(--bgColor);
+      padding-right: 0;
+      cursor: pointer;
+
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      &::placeholder {
+        color: var(--grey-500);
+
+        opacity: 1; /* Firefox */
+      }
+
+      /* Microsoft Edge */
+      &::input-placeholder {
+        color: var(--grey-500);
+      }
+
+      &:hover {
+        background-color: var(--black-700);
+      }
+    }
+  }
+
+  .loopIcon {
+    stroke: var(--grey-500);
+  }
+
+  .cancelBtn {
+    margin: 12px 12px 12px 0;
+    font-size: var(--font-base-size-md);
+    cursor: pointer;
+  }
+
+  .hotkeyHint {
+    color: var(--grey-500);
+    font-size: var(--font-secondary-size-md);
+
+    .keyWrapper {
+      border: 1px solid var(--grey-100);
+      border-radius: 4px;
+      padding: 4px 6px;
+
+      &:first-child {
+        margin-right: 4px;
+      }
+    }
+  }
+}

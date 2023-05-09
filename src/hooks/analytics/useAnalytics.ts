@@ -14,18 +14,7 @@ import { Page, PAGE_TITLE } from './Types';
 import { useZonesPageAnalytics } from './ZonesPage/useZonesPageAnalytics';
 import useDebounce from '../useDebounce';
 
-export const trackEvent = (event: string, data?: object) => {
-  if (process.env.NODE_ENV === 'production') {
-    if (process.env.REACT_APP_AMPLITUDE_KEY) {
-      amplitude.init(process.env.REACT_APP_AMPLITUDE_KEY);
-      amplitude.logEvent(event, data);
-    }
-  } else {
-    console.log('event:', event, data);
-  }
-};
-
-const getPageTitle = (pathname: string | null) => {
+export const getPageTitle = (pathname: string | null) => {
   if (!pathname) return '';
 
   if (pathname.includes(`/${homePath}`)) {
@@ -47,6 +36,17 @@ const getPageTitle = (pathname: string | null) => {
   if (pathname === `/${swapPath}`) return PAGE_TITLE.Swap;
 
   return '';
+};
+
+export const trackEvent = (event: string, data?: object) => {
+  if (process.env.NODE_ENV === 'production') {
+    if (process.env.REACT_APP_AMPLITUDE_KEY) {
+      amplitude.init(process.env.REACT_APP_AMPLITUDE_KEY);
+      amplitude.logEvent(event, data);
+    }
+  } else {
+    console.log('event:', event, data);
+  }
 };
 
 export function useAnalytics() {

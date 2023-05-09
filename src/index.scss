@@ -1,14 +1,68 @@
 * {
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
 
   font-family: Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
+
+table {
+  border-spacing: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  line-height: var(--line-height-base);
 }
 
 html,
 body {
   height: 100%;
-  margin: 0;
-  padding: 0;
 
   line-height: var(--line-height-base);
 }
@@ -47,25 +101,12 @@ code {
 
 a {
   color: inherit;
-  text-decoration: none;
 
   cursor: pointer;
 
   &:hover {
     color: var(--white);
   }
-}
-
-table {
-  border-spacing: 0;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  line-height: var(--line-height-base);
 }
 
 .alignRight {
@@ -92,6 +133,7 @@ textarea {
   --grey-500: #8f8f96;
   --grey-600: #9f9fa5;
   --grey-800: #bfbfc3;
+  --grey-1100: #efeff0;
   --line-height-base: 1.2;
   --font-heading-size-lg: 28px;
   --font-heading-size-md: 24px;

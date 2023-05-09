@@ -2,12 +2,12 @@ import { useQuery } from '@apollo/client';
 
 import { GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
 import { Button, ExternalLink } from 'components';
+import { ButtonSize, ButtonVariant } from 'components/ui/Button/Button.props';
 import { ZoneNameDocument } from 'graphql/v2/common/Zone/__generated__/ZoneName.query.generated';
 import { useShareLinksAnalytics } from 'hooks/analytics/Multipage/useShareLinksAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useTelegramShareText, useTwitterShareText } from 'hooks/useShareLink';
 import { useSelectedZone } from 'pages/HomePage/MapContainer/Map/hooks/eventHooks';
-import { ElementSize } from 'types/ElementSize';
 import { ExternalLinks } from 'types/external-links';
 import { openInNewTab } from 'utils/helper';
 
@@ -40,18 +40,20 @@ function Footer({ ...props }): JSX.Element {
     <footer className={styles.container} {...props}>
       <div className={styles.shareButtonsBlock}>
         <Button
+          variant={ButtonVariant.PRIMARY}
           onClick={tgShareClick}
           className={styles.shareBtn}
           IconBefore={TgLogo}
-          size={ElementSize.SMALL}
+          size={ButtonSize.SMALL}
         >
           Share
         </Button>
         <Button
+          variant={ButtonVariant.PRIMARY}
           onClick={twitterShareClick}
           className={styles.shareBtn}
           IconBefore={TwitterLogo}
-          size={ElementSize.SMALL}
+          size={ButtonSize.SMALL}
         >
           Tweet
         </Button>

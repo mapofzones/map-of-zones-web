@@ -1,5 +1,6 @@
 export { ReactComponent as AreaChartIcon } from './area-chart-icon.svg';
 export { ReactComponent as ArrowDown } from './arrow-down.svg';
+export { ReactComponent as ArrowInCircle } from './arrow-round.svg';
 export { ReactComponent as ArrowRight } from './arrow-right.svg';
 export { ReactComponent as ArrowUp } from './arrow-up.svg';
 export { ReactComponent as BarChartIcon } from './bar-chart-icon.svg';
@@ -8,6 +9,7 @@ export { ReactComponent as CircularArrows } from './circular-arrows.svg';
 export { ReactComponent as CloseCircleIcon } from './close-circle.svg';
 export { ReactComponent as EarthIcon } from './earth.svg';
 export { ReactComponent as GithubLogo } from './github-logo.svg';
+export { ReactComponent as GlobalSearchIcon } from './global-search.svg';
 export { ReactComponent as Icon2d } from './2d.svg';
 export { ReactComponent as Icon3d } from './3d.svg';
 export { ReactComponent as InfoIcon } from './info.svg';
