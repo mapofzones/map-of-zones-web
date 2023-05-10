@@ -18,12 +18,10 @@ export interface ZonesListZoneDetails {
   zone: string;
 }
 
-export function useZonesListZoneDetails(): {
+export function useZonesListZoneDetails(zone: string): {
   data: ZonesListZoneDetails | undefined;
   loading: boolean;
 } {
-  const { zone = '' } = useParams();
-
   const [isMainnet] = useMainnet();
 
   const options = {

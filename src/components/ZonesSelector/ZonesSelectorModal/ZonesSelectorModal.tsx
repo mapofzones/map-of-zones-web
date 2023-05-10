@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { from } from '@apollo/client';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
@@ -9,10 +8,10 @@ import { useFilteredZones } from 'hooks/useFilteredZones';
 import { getZonesOverviewPath } from 'routing';
 import { ScrollableContainer, Search } from 'ui';
 
-import styles from './ZonesSelector.module.scss';
-import { ZonesSearchProps } from './ZonesSelector.props';
+import styles from './ZonesSelectorModal.module.scss';
+import { ZonesSearchProps } from './ZonesSelectorModal.props';
 
-export function ZonesSelector({ currentZone, zonesList }: ZonesSearchProps): JSX.Element {
+export function ZonesSelectorModal({ currentZone, zonesList }: ZonesSearchProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
 
   const filteredZones = useFilteredZones(zonesList, searchValue);

@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  .zoneLogo {
+    margin-right: 12px;
+  }
+
+  .zoneName {
+    font-size: var(--font-heading-size-lg);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
+
+  .arrowContainer {
+    position: relative;
+    top: 3px;
+
+    margin-left: 12px;
+
+    svg {
+      stroke: var(--white);
+    }
+  }
+}
+
+@media (max-width: 880px) {
+  .container {
+    .zoneName {
+      font-size: 20px;
+      line-height: 25px;
+    }
+
+    .arrowContainer {
+      top: 0;
+    }
+  }
+}

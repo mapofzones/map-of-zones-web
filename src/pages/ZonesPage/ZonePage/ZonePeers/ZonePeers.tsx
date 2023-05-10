@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { useParams } from 'react-router-dom';
+
 import { Table, TableSkeleton, PeriodSelector } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
@@ -18,6 +20,7 @@ export function ZonePeers() {
   const [selectedPeriod] = useSelectedPeriod();
   const isTabletSmall = useTabletSmallMediaQuery();
 
+  const { zone = '' } = useParams();
   const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
     'columnKey',
     ColumnKeys.IbcVolumeReceived
@@ -26,7 +29,7 @@ export function ZonePeers() {
   const [sortedPeers, setSortedPeers] = useState<ZoneData[]>([]);
 
   const { data: peers, loading: peersLoading } = usePeersTable(selectedPeriod);
-  const { data: parentZoneData, loading: parentZoneDataLoading } = useZonesListZoneDetails();
+  const { data: parentZoneData, loading: parentZoneDataLoading } = useZonesListZoneDetails(zone);
 
   useEffect(() => {
     const sortedColumn = SORTING_COLUMN_KEYS[selectedColumnKey];
