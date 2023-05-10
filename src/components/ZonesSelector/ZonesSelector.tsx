@@ -1,46 +1,47 @@
+import { useState } from 'react';
+
 import cn from 'classnames';
 
 import { ZoneLogo } from 'components';
-import { ZoneData } from 'hooks/queries/useZonesData';
 import { useComponentVisible } from 'hooks/useComponentVisible';
-import { AnimatedArrowDown } from 'ui';
+import { AnimatedArrowDown, Button } from 'ui';
 
 import styles from './ZonesSelector.module.scss';
-import { ZonesSelectorModal } from './ZonesSelectorModal/ZonesSelectorModal';
+import { ZonesSelectorProps } from './ZonesSelector.props';
+import { ZonesSelectorWrapper } from './ZonesSelectorWrapper';
 
 export function ZonesSelector({
   className,
   zone,
   loading,
   zonesList,
-}: {
-  className?: string;
-  loading: boolean;
-  zone?: ZoneData;
-  zonesList: ZoneData[];
-}) {
-  const {
-    ref,
-    isVisible: isSearchVisible,
-    setIsVisible: setSearchVisible,
-  } = useComponentVisible<HTMLDivElement>(false);
+  onZonesSelected,
+}: ZonesSelectorProps) {
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const selectedZone = zonesList.find((item) => item.zone === zone);
 
-  const toggleSearch = () => setSearchVisible(!isSearchVisible);
+  const onModalStateChanged = (opened: boolean): void => {
+    setIsOpened(opened);
+  };
 
   return (
     <>
-      <div ref={ref} className={cn(className, styles.container)} onClick={toggleSearch}>
+      <ZonesSelectorWrapper
+        className={className}
+        zonesList={zonesList}
+        onModalStateChanged={onModalStateChanged}
+        onZoneSelected={onZonesSelected}
+      >
         <ZoneLogo
-          logoUrl={zone?.logoUrl}
-          name={zone?.name}
+          logoUrl={selectedZone?.logoUrl}
+          name={selectedZone?.name}
           size={'36px'}
           loading={loading}
           className={styles.zoneLogo}
         />
-        <span className={styles.zoneName}>{zone?.name}</span>
-        <AnimatedArrowDown className={styles.arrowContainer} isReverted={isSearchVisible} />
-      </div>
-      {isSearchVisible && <ZonesSelectorModal currentZone={zone} zonesList={zonesList} />}
+        <span className={styles.zoneName}>{selectedZone?.name}</span>
+        <AnimatedArrowDown className={styles.arrowContainer} isReverted={isOpened} />
+      </ZonesSelectorWrapper>
     </>
   );
 }

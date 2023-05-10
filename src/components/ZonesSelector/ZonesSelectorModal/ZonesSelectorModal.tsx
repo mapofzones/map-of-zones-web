@@ -1,17 +1,19 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
 
 import { ZoneInfoWithSearch } from 'components';
 import { useFilteredZones } from 'hooks/useFilteredZones';
-import { getZonesOverviewPath } from 'routing';
 import { ScrollableContainer, Search } from 'ui';
 
 import styles from './ZonesSelectorModal.module.scss';
 import { ZonesSearchProps } from './ZonesSelectorModal.props';
 
-export function ZonesSelectorModal({ currentZone, zonesList }: ZonesSearchProps): JSX.Element {
+export function ZonesSelectorModal({
+  currentZone,
+  zonesList,
+  onZoneSelected,
+}: ZonesSearchProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
 
   const filteredZones = useFilteredZones(zonesList, searchValue);
@@ -35,13 +37,13 @@ export function ZonesSelectorModal({ currentZone, zonesList }: ZonesSearchProps)
         )}
 
         {filteredZones.map((zone) => (
-          <Link
-            className={cn(styles.zone, { [styles.activeZone]: currentZone?.zone === zone.zone })}
+          <div
+            className={cn(styles.zone, { [styles.activeZone]: currentZone === zone.zone })}
             key={`zone_${zone.zone}`}
-            to={`/${getZonesOverviewPath(zone.zone)}`}
+            onClick={() => onZoneSelected(zone.zone)}
           >
             <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
-          </Link>
+          </div>
         ))}
       </ScrollableContainer>
     </div>

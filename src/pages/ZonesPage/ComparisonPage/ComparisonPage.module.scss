@@ -5,10 +5,9 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--gap);
   padding: 0 24px 24px;
-  overflow: hidden;
 
   .header {
-    grid-column: 1 / 12;
+    grid-column: 1 / 13;
 
     margin: 24px 24px 8px 24px;
 

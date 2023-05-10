@@ -1,6 +1,9 @@
-import { ReactNode } from 'react';
+import { ZoneData } from 'hooks/queries/useZonesData';
 
 export interface ZonesSelectorProps {
   className?: string;
-  children?: ReactNode;
+  loading: boolean;
+  zone?: string;
+  zonesList: ZoneData[];
+  onZonesSelected: (zone: string) => void;
 }

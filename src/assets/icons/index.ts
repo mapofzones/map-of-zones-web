@@ -16,6 +16,7 @@ export { ReactComponent as InfoIcon } from './info.svg';
 export { ReactComponent as Logo } from './logo.svg';
 export { ReactComponent as MaintenanceIcon } from './maintenance.svg';
 export { ReactComponent as PendingIcon } from './pending.svg';
+export { ReactComponent as PlusIcon } from './plus.svg';
 export { ReactComponent as QuestionMark } from './question-mark.svg';
 export { ReactComponent as RevertedArrowsIcon } from './reverted-arrows.svg';
 export { ReactComponent as ScrollUpIcon } from './scroll-up.svg';

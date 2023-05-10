@@ -1,15 +1,16 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
+import { ZonesSelector } from 'components/ZonesSelector/ZonesSelector';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useZonesData } from 'hooks/queries/useZonesData';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
+import { getZonesOverviewPath } from 'routing';
 import { ExternalLink, SkeletonTextWrapper } from 'ui';
 
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';
 import { ZoneNavigation } from './ZoneNavigation/ZoneNavigation';
 import styles from './ZonePage.module.scss';
-import { ZonesSelector } from '../../../components/ZonesSelector/ZonesSelector';
 
 export function ZonePage() {
   const isTabletMedium = useTabletMediumMediaQuery();
@@ -21,11 +22,21 @@ export function ZonePage() {
 
   const trackZoneLinksAnalytics = useZoneLinksAnalytics();
 
+  const navigate = useNavigate();
+  function onZonesSelected(zone: string) {
+    navigate(`/${getZonesOverviewPath(zone)}`);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.zoneContainer}>
-          <ZonesSelector zone={data} loading={loading} zonesList={zonesList} />
+          <ZonesSelector
+            zone={zone}
+            loading={loading}
+            zonesList={zonesList}
+            onZonesSelected={onZonesSelected}
+          />
 
           <SkeletonTextWrapper
             className={styles.zoneLinks}

@@ -1,0 +1,20 @@
+.container {
+  border: 1px dashed var(--grey-100);
+  border-radius: 50px;
+  padding: 14px;
+  margin: 1px;
+
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: -0.02em;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+
+  color: var(--grey-100);
+  background: transparent;
+
+  &:hover {
+    border: 2px solid var(--orange);
+    margin: 0;
+  }
+}
