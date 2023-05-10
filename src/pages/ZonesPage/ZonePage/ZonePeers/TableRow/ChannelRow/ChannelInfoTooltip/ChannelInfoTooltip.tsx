@@ -3,9 +3,9 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { InfoIcon, RevertedArrowsIcon } from 'assets/icons';
-import { Divider, Tooltip } from 'components';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { Divider, Tooltip } from 'ui';
 
 import styles from './ChannelInfoTooltip.module.scss';
 import { ChannelInfoTooltipProps } from './ChannelInfoTooltip.props';

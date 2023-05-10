@@ -1,14 +1,13 @@
 import { useQuery } from '@apollo/client';
 
 import { GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
-import { Button, ExternalLink } from 'components';
-import { ButtonSize, ButtonVariant } from 'components/ui/Button/Button.props';
 import { ZoneNameDocument } from 'graphql/v2/common/Zone/__generated__/ZoneName.query.generated';
 import { useShareLinksAnalytics } from 'hooks/analytics/Multipage/useShareLinksAnalytics';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useTelegramShareText, useTwitterShareText } from 'hooks/useShareLink';
 import { useSelectedZone } from 'pages/HomePage/MapContainer/Map/hooks/eventHooks';
 import { ExternalLinks } from 'types/external-links';
+import { ButtonSize, ButtonVariant, Button, ExternalLink } from 'ui';
 import { openInNewTab } from 'utils/helper';
 
 import styles from './Footer.module.scss';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ButtonGroup, NumberFormat, NumberType, PeriodKeys, SkeletonTextWrapper } from 'components';
+import { PeriodKeys } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/OverviewPeriodButtonsGroup';
 import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
@@ -8,6 +8,7 @@ import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Leg
 import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';
 import { LegendValueBase } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendValueBase';
 import { ElementSize } from 'types/ElementSize';
+import { ButtonGroup, NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
 
 import { OverviewReturnedAddressesChart } from './OverviewReturnedAddressesChart';
 import { chartOptions, ReturnedAddressesChartType } from './types';

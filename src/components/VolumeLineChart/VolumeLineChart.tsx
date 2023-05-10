@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { PercentStackedLineChart } from 'components';
+import { PercentStackedLineChart } from 'ui';
 
 import styles from './VolumeLineChart.module.scss';
 import { VolumeLineChartProps } from './VolumeLineChart.props';

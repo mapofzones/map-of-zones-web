@@ -1,18 +1,9 @@
 import cn from 'classnames';
 
-import {
-  Divider,
-  LineChart,
-  NumberFormat,
-  NumberType,
-  PendingValue,
-  PeriodKeys,
-  TotalCard,
-  TotalInfo,
-  ValueWithPending,
-} from 'components';
+import { PendingValue, PeriodKeys, TotalCard, TotalInfo, ValueWithPending } from 'components';
 import { useLaptopMediumMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { LineChart, NumberFormat, NumberType } from 'ui';
 import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZonesIntercahinDau, ZonesTotalInterchainDau } from './useZonesInterchainDau';

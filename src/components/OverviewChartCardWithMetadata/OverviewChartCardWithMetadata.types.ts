@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { ChartType } from 'components/ChartContainer';
 import { LegendMetadata } from 'components/OverviewCardLegend';
-import { NumberType } from 'components/ui';
+import { NumberType } from 'ui';
 import { ElementSize } from 'types/ElementSize';
 
 export type DataWithChart<T> = { chart: T[] };

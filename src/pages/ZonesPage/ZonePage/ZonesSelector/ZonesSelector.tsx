@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
+import { from } from '@apollo/client';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
-import { ScrollableContainer, Search, ZoneInfoWithSearch } from 'components';
+import { ZoneInfoWithSearch } from 'components';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { getZonesOverviewPath } from 'routing';
+import { ScrollableContainer, Search } from 'ui';
 
 import styles from './ZonesSelector.module.scss';
 import { ZonesSearchProps } from './ZonesSelector.props';

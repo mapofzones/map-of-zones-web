@@ -1,6 +1,7 @@
-import { NumberFormat, NumberType, ValueWithPending } from 'components';
+import { ValueWithPending } from 'components';
 import { SECONDS_IN_DAY } from 'types/constants';
 import { ElementSize } from 'types/ElementSize';
+import { NumberFormat, NumberType } from 'ui';
 
 import { ZoneOverviewParametersData } from './useZoneOverviewParameters';
 import styles from './ZoneOverviewParameters.module.scss';

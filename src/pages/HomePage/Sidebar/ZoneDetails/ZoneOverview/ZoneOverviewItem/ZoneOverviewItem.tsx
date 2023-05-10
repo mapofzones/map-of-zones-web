@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
-import { ExplanationTooltip, SkeletonTextWrapper } from 'components';
-import { NumberFormat } from 'components/ui/NumberFormat/NumberFormat';
+import { ExplanationTooltip, SkeletonTextWrapper } from 'ui';
+import { NumberFormat } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './ZoneOverviewItem.module.scss';
 import { ZoneOverviewItemProps } from './ZoneOverviewItem.props';

@@ -10,9 +10,10 @@ import {
   YAxis,
 } from 'recharts';
 
-import { NumberType, PeriodKeys, SkeletonRectangle } from 'components';
-import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+import { PeriodKeys } from 'components';
 import { Watermark } from 'components/Watermark';
+import { SkeletonRectangle, NumberType } from 'ui';
+import { formatNumberToString } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './OverviewReturnedAddressesChart.module.scss';
 import { OverviewReturnedAddressesChartTooltip } from './OverviewReturnedAddressesChartTooltip';

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
-import { ButtonGroup, NavigationButton } from 'components';
 import { overviewPath, peersPath } from 'routing';
+import { ButtonGroup, NavigationButton } from 'ui';
 
 import styles from './ZoneNavigation.module.scss';
 import { ZoneNavigationProps } from './ZoneNavigation.props';

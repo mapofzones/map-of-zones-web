@@ -1,8 +1,8 @@
 import cn from 'classnames';
 
 import { SearchIcon } from 'assets/icons';
-import { Search } from 'components';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
+import { Search } from 'ui';
 
 import styles from './GlobalSearchInput.module.scss';
 

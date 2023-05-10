@@ -13,8 +13,8 @@ import {
   YAxis,
 } from 'recharts';
 
-import { NumberType } from 'components/ui/NumberFormat';
-import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
+import { NumberType } from 'ui/NumberFormat';
+import { formatNumberToString } from 'ui/NumberFormat/NumberFormat';
 import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import styles from './BarChart.module.scss';

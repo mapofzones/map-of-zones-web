@@ -1,6 +1,6 @@
 import { PeriodBlock } from 'components/PeriodBlock';
-import { ExplanationTooltip } from 'components/ui';
-import { Circle } from 'components/ui/Circle';
+import { ExplanationTooltip } from 'ui';
+import { Circle } from 'ui/Circle';
 
 import { LegendTitleBase } from './LegendTitleBase';
 import styles from './OverviewLegendTitle.module.scss';

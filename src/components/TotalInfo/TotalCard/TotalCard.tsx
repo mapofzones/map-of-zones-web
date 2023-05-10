@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import cn from 'classnames';
 
-import { Card } from 'components/ui';
+import { Card } from 'ui';
 
 import styles from './TotalCard.module.scss';
 

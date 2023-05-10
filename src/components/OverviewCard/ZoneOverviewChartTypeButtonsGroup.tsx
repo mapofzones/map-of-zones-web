@@ -1,6 +1,6 @@
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartType } from 'components/ChartContainer';
-import { ButtonGroup } from 'components/ui';
+import { ButtonGroup } from 'ui';
 import { ElementSize } from 'types/ElementSize';
 
 import styles from './OverviewCard.module.scss';

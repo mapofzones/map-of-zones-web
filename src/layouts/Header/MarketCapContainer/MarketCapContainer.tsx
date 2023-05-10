@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 
-import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { NetworkMarketCapInfoDocument } from 'graphql/v2/common/__generated__/CosmosNetworkMarketCap.query.generated';
+import { NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
 
 import styles from './MarketCapContainer.module.scss';
 

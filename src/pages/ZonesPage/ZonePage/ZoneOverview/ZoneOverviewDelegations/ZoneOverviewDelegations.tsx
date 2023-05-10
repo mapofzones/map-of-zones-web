@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 
 import cn from 'classnames';
 
-import { NumberFormat, NumberType, SkeletonTextWrapper } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard/ZoneOverviewChartTypeButtonsGroup';
@@ -11,6 +10,7 @@ import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Le
 import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
 import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';
 import { LegendValueBase } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendValueBase';
+import { NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
 
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
 import styles from './ZoneOverviewDelegations.module.scss';

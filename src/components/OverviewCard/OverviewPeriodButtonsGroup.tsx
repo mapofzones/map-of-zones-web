@@ -1,7 +1,7 @@
 import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import { PeriodKeys } from 'components/PeriodSelector';
-import { ButtonGroup } from 'components/ui';
-import { ButtonGroupItem } from 'components/ui/ButtonGroup/ButtonGroup.props';
+import { ButtonGroup } from 'ui';
+import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 import { ElementSize } from 'types/ElementSize';
 
 export function OverviewPeriodButtonsGroup<T extends OverviewCardPeriod | PeriodKeys>({

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { useSearchParams } from 'react-router-dom';
 
-import { PeriodKeys, NumberType } from 'components';
+import { PeriodKeys } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
-import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewActivity/ZoneOverviewActivityHeader';
+import { NumberType } from 'ui';
 
 import { InterchainData, useZonesComprisonInterchain } from './hooks/useZonesComparisonInterchain';
 import styles from './InterchainComparisonCard.module.scss';

@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import cn from 'classnames';
 
-import { ButtonGroup, SkeletonRectangle } from 'components';
 import { ElementSize } from 'types/ElementSize';
+import { ButtonGroup, SkeletonRectangle } from 'ui';
 import { keys } from 'utils/mergeChartArraysIntoOne';
 
 import styles from './CompareGroup.module.scss';

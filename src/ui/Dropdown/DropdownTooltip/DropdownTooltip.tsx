@@ -1,6 +1,4 @@
-import cn from 'classnames';
-
-import { Tooltip } from 'components';
+import { Tooltip } from 'ui';
 
 import { DropdownTooltipProps } from './DropdownTooltip.props';
 

@@ -1,5 +1,5 @@
-import { Circle } from 'components/ui/Circle';
-import { NumberFormat } from 'components/ui/NumberFormat';
+import { Circle } from 'ui/Circle';
+import { NumberFormat } from 'ui/NumberFormat';
 import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import styles from './ChartTooltipContent.module.scss';

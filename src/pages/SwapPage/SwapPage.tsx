@@ -1,12 +1,10 @@
 import { Suspense, useState } from 'react';
 
-import cn from 'classnames';
-
-import { ExternalLink } from 'components';
 import { DefaultErrorFallback } from 'ErrorBoundary';
 import { ErrorBoundary } from 'ErrorBoundary/ErrorBoundary';
 import { LazySwapWidget } from 'lazyModules';
 import { ExternalLinks } from 'types/external-links';
+import { ExternalLink } from 'ui';
 
 import styles from './SwapPage.module.scss';
 import { SwapWidgetSkeleton } from './SwapWidgetSkeleton';

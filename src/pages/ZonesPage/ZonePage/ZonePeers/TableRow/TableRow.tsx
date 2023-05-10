@@ -3,18 +3,11 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 
-import {
-  AnimatedArrowDown,
-  NumberType,
-  PendingValue,
-  TableRowItem,
-  ValueWithPending,
-  ZoneLogo,
-  ZoneStatus,
-} from 'components';
+import { PendingValue, TableRowItem, ValueWithPending, ZoneLogo, ZoneStatus } from 'components';
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { AnimatedArrowDown, NumberType } from 'ui';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
 import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';

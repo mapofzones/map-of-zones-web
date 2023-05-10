@@ -1,9 +1,10 @@
 import cn from 'classnames';
 
 import { PendingIcon } from 'assets/icons';
-import { Card, NumberFormat, PeriodKeys } from 'components';
-import { LineChart } from 'components/ui/LineChart/LineChart';
+import { PeriodKeys } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { Card, NumberFormat } from 'ui';
+import { LineChart } from 'ui/LineChart/LineChart';
 import { ChartItemByString, getDauTitleByPeriod } from 'utils/helper';
 
 import styles from './TotalInfoCard.module.scss';

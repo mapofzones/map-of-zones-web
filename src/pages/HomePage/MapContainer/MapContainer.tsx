@@ -4,11 +4,10 @@ import cn from 'classnames';
 import { motion } from 'framer-motion';
 
 import { Icon2d, Icon3d, ZoomIn, ZoomOut } from 'assets/icons';
-import { Button } from 'components';
-import { ButtonSize, ButtonVariant } from 'components/ui/Button/Button.props';
 import { DefaultErrorFallback } from 'ErrorBoundary';
 import { ErrorBoundary } from 'ErrorBoundary/ErrorBoundary';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
+import { ButtonSize, ButtonVariant, Button } from 'ui';
 
 import { useGraphData } from './Map/hooks/useGraphData';
 import { Map } from './Map/Map';

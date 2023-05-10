@@ -1,5 +1,5 @@
-import { NumberType } from 'components';
-import { LinkProps } from 'components/ui/ExternalLink/ExternalLink.props';
+import { NumberType } from 'ui';
+import { LinkProps } from 'ui/ExternalLink/ExternalLink.props';
 
 export interface ZoneInfoData extends ZoneInfoValues {
   id: string;

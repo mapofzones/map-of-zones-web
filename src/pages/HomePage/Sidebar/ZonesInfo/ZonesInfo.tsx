@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
-import { Dropdown, PeriodSelector, ScrollableContainer } from 'components';
-import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
+import { PeriodSelector } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
@@ -9,6 +8,7 @@ import { useSortedTableData } from 'hooks/useSortedTableData';
 import { ColumnKeys } from 'pages/HomePage/Types';
 import { zonesPath } from 'routing';
 import { ElementSize } from 'types/ElementSize';
+import { Dropdown, DropdownOption, ScrollableContainer } from 'ui';
 
 import { TotalInfoCard } from './TotalInfoCard/TotalInfoCard';
 import { getColumnOptions, METADATA } from './Types';

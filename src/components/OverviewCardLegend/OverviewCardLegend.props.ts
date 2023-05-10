@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import { NumberType } from 'components';
 import { ElementSize } from 'types/ElementSize';
+import { NumberType } from 'ui';
 
 export interface LegendMetadata {
   title: string;

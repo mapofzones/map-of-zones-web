@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
-import { PercentStackedLineChart, ZoneLogo } from 'components';
+import { ZoneLogo } from 'components';
+import { PercentStackedLineChart } from 'ui';
 
 import styles from './PeerLineChart.module.scss';
 import { PeerLineChartProps } from './PeerLineChart.props';

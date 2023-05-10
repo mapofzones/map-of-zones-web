@@ -1,4 +1,4 @@
-import { ScrollUpButton } from 'components';
+import { ScrollUpButton } from 'ui';
 
 import styles from './AssetsPage.module.scss';
 import { AssetsTable } from './AssetsTable/AssetsTable';

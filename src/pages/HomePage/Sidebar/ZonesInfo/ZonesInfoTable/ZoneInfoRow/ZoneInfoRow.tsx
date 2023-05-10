@@ -1,12 +1,13 @@
 import cn from 'classnames';
 
-import { NumberType, ValueWithPending, ZoneInfoWithSearch } from 'components';
+import { ValueWithPending, ZoneInfoWithSearch } from 'components';
 import {
   SelectedZoneSourceView,
   useHomePageSelectedZoneAnalytics,
 } from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { overviewPath } from 'routing';
+import { NumberType } from 'ui';
 
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';

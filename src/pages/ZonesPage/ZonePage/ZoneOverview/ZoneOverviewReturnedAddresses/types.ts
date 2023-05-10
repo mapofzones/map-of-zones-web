@@ -1,4 +1,4 @@
-import { ButtonGroupItem } from 'components/ui/ButtonGroup/ButtonGroup.props';
+import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
 export type ReturnedAddressesChartType = 'total' | 'ibc';
 

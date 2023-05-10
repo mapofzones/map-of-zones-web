@@ -2,15 +2,7 @@ import { useContext, useState } from 'react';
 
 import cn from 'classnames';
 
-import {
-  ButtonGroup,
-  NumberFormat,
-  NumberType,
-  PeriodKeys,
-  RatingDiffTriangle,
-  SkeletonTextWrapper,
-  ZoneLogo,
-} from 'components';
+import { PeriodKeys, RatingDiffTriangle, ZoneLogo } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
@@ -20,6 +12,7 @@ import { LegendValueBase } from 'components/OverviewChartCardWithMetadata/Legend
 import { Period } from 'components/PeriodBlock';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
+import { ButtonGroup, NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
 
 import { TokenCharts } from './TokenCharts/TokenCharts';
 import { chartOptions, ChartType, priceDiffKeyByPeriod } from './Types';

@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 
-import { ScrollableContainer } from 'components';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSortedTableData } from 'hooks/useSortedTableData';
 import { getZonesPeersPath } from 'routing';
+import { ScrollableContainer } from 'ui';
 
 import { useZonePeers } from './useZonePeers';
 import styles from './ZonePeers.module.scss';

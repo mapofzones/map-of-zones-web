@@ -1,8 +1,6 @@
 export * from './PeriodSelector';
-export * from './Skeleton';
 export * from './Table';
 export * from './TotalInfo';
-export * from './ui';
 export * from './ZoneLinkItemsWithSearch';
 
 export { Analytics } from './Analytics/Analytics';

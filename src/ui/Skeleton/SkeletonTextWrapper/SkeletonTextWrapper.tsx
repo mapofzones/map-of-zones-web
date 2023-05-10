@@ -1,6 +1,4 @@
-import { useMemo } from 'react';
-
-import { SkeletonRectangle } from 'components';
+import { SkeletonRectangle } from 'ui';
 
 import { SkeletonTextWrapperProps } from './SkeletonTextWrapper.props';
 

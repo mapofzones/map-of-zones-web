@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
-import { AnimatedArrowDown, ExternalLink, SkeletonTextWrapper, ZoneLogo } from 'components';
+import { ZoneLogo } from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useZonesData } from 'hooks/queries/useZonesData';
 import { useComponentVisible } from 'hooks/useComponentVisible';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
+import { AnimatedArrowDown, ExternalLink, SkeletonTextWrapper } from 'ui';
 
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';
 import { ZoneNavigation } from './ZoneNavigation/ZoneNavigation';

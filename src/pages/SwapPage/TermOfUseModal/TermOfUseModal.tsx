@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Button } from 'components';
-import { ButtonSize, ButtonVariant } from 'components/ui/Button/Button.props';
-import { Modal } from 'components/ui/Modal/Modal';
-import { ElementSize } from 'types/ElementSize';
+import { Button } from 'ui';
+import { ButtonSize, ButtonVariant } from 'ui/Button/Button.props';
+import { Modal } from 'ui/Modal/Modal';
 
 import styles from './TermOfUseModal.module.scss';
 

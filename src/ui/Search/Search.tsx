@@ -3,7 +3,7 @@ import { ChangeEvent, FocusEvent, useState } from 'react';
 import cn from 'classnames';
 
 import { SearchIcon } from 'assets/icons';
-import { Input } from 'components/ui/Input/Input';
+import { Input } from 'ui/Input/Input';
 
 import styles from './Search.module.scss';
 import { SearchProps } from './Search.props';

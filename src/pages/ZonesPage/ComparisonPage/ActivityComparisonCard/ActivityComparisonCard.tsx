@@ -3,9 +3,10 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { useSearchParams } from 'react-router-dom';
 
-import { Divider, NumberType, PeriodKeys } from 'components';
+import { PeriodKeys } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewActivity/ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
+import { Divider, NumberType } from 'ui';
 
 import styles from './ActivityComparisonCard.module.scss';
 import { CompareGroup } from './CompareGroup';

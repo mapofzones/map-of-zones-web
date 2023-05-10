@@ -1,15 +1,8 @@
 import cn from 'classnames';
 
-import {
-  LineChart,
-  NumberType,
-  RatingDiffTriangle,
-  TotalCard,
-  TotalInfo,
-  ValueWithPending,
-  ZoneLogo,
-} from 'components';
+import { RatingDiffTriangle, TotalCard, TotalInfo, ValueWithPending, ZoneLogo } from 'components';
 import { useLaptopMediumMediaQuery } from 'hooks/useMediaQuery';
+import { LineChart, NumberType } from 'ui';
 
 import styles from './AssetsTotalInfo.module.scss';
 import { useAssetsTotalInfo } from './useAssetsTotalInfo';

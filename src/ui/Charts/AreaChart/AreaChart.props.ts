@@ -1,4 +1,4 @@
-import { NumberType } from 'components/ui/NumberFormat';
+import { NumberType } from 'ui/NumberFormat';
 import { ChartItemWithTime } from 'types/chart';
 
 export interface AreaChartProps {

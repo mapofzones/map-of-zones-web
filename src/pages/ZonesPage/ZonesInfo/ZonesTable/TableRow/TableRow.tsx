@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 import {
-  LineChart,
-  NumberType,
   RatingDiffTriangle,
   ValueWithPending,
   ZoneLogo,
@@ -10,6 +8,7 @@ import {
   TableRowItem,
 } from 'components';
 import { overviewPath } from 'routing';
+import { LineChart, NumberType } from 'ui';
 
 import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';

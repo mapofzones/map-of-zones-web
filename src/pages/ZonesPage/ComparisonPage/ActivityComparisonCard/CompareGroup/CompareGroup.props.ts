@@ -1,4 +1,4 @@
-import { NumberType } from 'components';
+import { NumberType } from 'ui';
 
 type ComparisonGroupValues<T> = {
   [K in keyof T]: T[K] extends number | undefined ? T[K] : never;

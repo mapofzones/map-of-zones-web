@@ -3,14 +3,15 @@ import { KeyboardEvent, useCallback, useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-import { ScrollableContainer, ZoneLinkItemsWithSearch } from 'components';
-import { Modal } from 'components/ui/Modal/Modal';
+import { ZoneLinkItemsWithSearch } from 'components';
 import { useGlobalSearchItemSelectedAnalytics } from 'hooks/analytics/Multipage/useGlobalSearchItemSelectedAnalytics';
 import { SelectedZoneOverviewSource } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { getZonesOverviewPath } from 'routing';
+import { ScrollableContainer } from 'ui';
+import { Modal } from 'ui/Modal/Modal';
 
 import { ActiveItem, getDefaultActiveItem } from './ActiveItem';
 import styles from './GlobalSearchModal.module.scss';

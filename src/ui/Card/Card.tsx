@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { SkeletonRectangle } from 'components/Skeleton/SkeletonElement/SkeletonElement';
+import { SkeletonRectangle } from 'ui/Skeleton/SkeletonElement/SkeletonElement';
 
 import styles from './Card.module.scss';
 import { CardProps } from './Card.props';

@@ -3,18 +3,11 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 
-import {
-  Divider,
-  NumberFormat,
-  NumberType,
-  PeriodKeys,
-  SkeletonTextWrapper,
-  ValueWithPending,
-  VolumeLineChart,
-} from 'components';
+import { PeriodKeys, ValueWithPending, VolumeLineChart } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
+import { NumberType, SkeletonTextWrapper, NumberFormat, Divider } from 'ui';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';

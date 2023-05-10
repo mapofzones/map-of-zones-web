@@ -2,11 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
-import { Portal } from 'components';
+import { Portal } from 'ui';
 
 import styles from './Tooltip.module.scss';
 import { TooltipProps } from './Tooltip.props';
-import { TooltipBody } from './TooltipBody';
+import { TooltipBody } from './TooltipBody/TooltipBody';
 
 export type TrianglePosition = 'top' | 'left' | 'bottom' | 'right';
 
@@ -109,12 +109,12 @@ export function Tooltip({
           {children}
           {visible && (
             <Portal>
-              <TooltipBody innerRef={bodyRef} style={{ ...posStyle, maxWidth }}>
+              <Tooltip.Body innerRef={bodyRef} style={{ ...posStyle, maxWidth }}>
                 {body}
                 {showTriangle && (
                   <div className={cn(styles.triangle, styles[trianglePosition ?? 'top'])} />
                 )}
-              </TooltipBody>
+              </Tooltip.Body>
             </Portal>
           )}
         </span>
@@ -144,3 +144,5 @@ function getTrianglePosition(
 ): TrianglePosition {
   return isVertical ? (isTopHalf ? 'top' : 'bottom') : isLeftPart ? 'left' : 'right';
 }
+
+Tooltip.Body = TooltipBody;

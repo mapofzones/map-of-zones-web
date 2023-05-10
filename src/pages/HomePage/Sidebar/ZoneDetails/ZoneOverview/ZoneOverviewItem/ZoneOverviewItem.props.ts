@@ -1,6 +1,7 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes, ReactNode } from 'react';
 
-import { NumberType, PeriodKeys } from 'components';
+import { PeriodKeys } from 'components';
+import { NumberType } from 'ui';
 
 export interface ZoneOverviewItemProps
   extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDivElement>, HTMLDivElement> {

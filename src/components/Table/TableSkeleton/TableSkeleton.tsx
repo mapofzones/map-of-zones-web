@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { SkeletonRectangle } from 'components';
+import { SkeletonRectangle } from 'ui';
 
 import { TableRowSkeleton } from './TableRowSkeleton/TableRowSkeleton';
 import styles from './TableSkeleton.module.scss';

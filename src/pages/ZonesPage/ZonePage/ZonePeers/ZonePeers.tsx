@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { ScrollUpButton, Table, TableSkeleton, PeriodSelector } from 'components';
+import { Table, TableSkeleton, PeriodSelector } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { SortRow } from 'hooks/useSortedTableData';
+import { ScrollUpButton } from 'ui';
 
 import { TableRow } from './TableRow/TableRow';
 import { ZoneData } from './TableRow/TableRow.props';

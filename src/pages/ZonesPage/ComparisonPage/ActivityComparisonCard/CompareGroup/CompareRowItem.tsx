@@ -1,5 +1,5 @@
-import { NumberFormat, NumberType } from 'components';
-import { PercentageBar } from 'components/ui/PercentageBar/PercentageBar';
+import { NumberFormat, NumberType } from 'ui';
+import { PercentageBar } from 'ui/PercentageBar/PercentageBar';
 
 export function CompareRowItem({
   zone,

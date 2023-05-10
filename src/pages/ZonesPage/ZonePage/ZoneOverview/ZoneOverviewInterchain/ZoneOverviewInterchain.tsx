@@ -1,9 +1,10 @@
 import cn from 'classnames';
 
-import { Card, Divider, NumberType, ValueWithPending } from 'components';
+import { ValueWithPending } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
+import { Divider, NumberType } from 'ui';
 
 import { useZoneOverviewInterchain } from './useZoneOverviewInterchain';
 import styles from './ZoneOverviewInterchain.module.scss';

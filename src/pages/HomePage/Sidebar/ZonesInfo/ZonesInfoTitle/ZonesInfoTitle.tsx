@@ -3,7 +3,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { SearchIcon } from 'assets/icons';
-import { Search, SkeletonTextWrapper } from 'components';
+import { Search, SkeletonTextWrapper } from 'ui';
 
 import { ZoneInfoTitleProps } from './ZoneInfoTitle.props';
 import styles from './ZonesInfoTitle.module.scss';

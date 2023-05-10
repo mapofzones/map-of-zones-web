@@ -1,4 +1,4 @@
-import { SearchProps } from 'components/ui/Search/Search.props';
+import { SearchProps } from 'ui/Search/Search.props';
 
 export interface GlobalSearchInputProps extends SearchProps {
   className?: string;

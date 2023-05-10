@@ -11,9 +11,9 @@ import {
   YAxis,
 } from 'recharts';
 
-import { NumberType } from 'components/ui/NumberFormat';
-import { formatNumberToString } from 'components/ui/NumberFormat/NumberFormat';
 import { ChartItemWithTime } from 'types/chart';
+import { NumberType } from 'ui/NumberFormat';
+import { formatNumberToString } from 'ui/NumberFormat/NumberFormat';
 import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 import styles from './AreaChart.module.scss';

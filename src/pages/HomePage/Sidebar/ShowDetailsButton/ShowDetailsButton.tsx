@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { ArrowInCircle } from 'assets/icons';
-import { Button } from 'components';
+import { Button } from 'ui';
 
 import styles from './ShowDetailsButton.module.scss';
 import ShowDetailsButtonProps from './ShowDetailsButton.props';

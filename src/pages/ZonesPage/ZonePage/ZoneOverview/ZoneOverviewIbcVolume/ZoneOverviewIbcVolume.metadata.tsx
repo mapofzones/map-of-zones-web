@@ -1,8 +1,7 @@
-import { NumberType } from 'components';
 import { ChartType } from 'components/ChartContainer';
-import { Circle } from 'components/ui/Circle';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
+import { Circle, NumberType } from 'ui';
 
 import { IbcVolumeOverviewCardMetadata } from './ZoneOverviewIbcVolume.types';
 

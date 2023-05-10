@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { DropdownOption } from 'components/ui/Dropdown/DropdownOption';
+import { DropdownOption } from 'ui/Dropdown/DropdownOption';
 import { ElementSize } from 'types/ElementSize';
 
 export interface DropdownProps

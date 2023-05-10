@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 
 import cn from 'classnames';
 
-import { SkeletonRectangle } from 'components/Skeleton';
-import { AreaChart } from 'components/ui/Charts/AreaChart/AreaChart';
-import { BarChart } from 'components/ui/Charts/BarChart/BarChart';
 import { Watermark } from 'components/Watermark';
+import { SkeletonRectangle } from 'ui';
+import { AreaChart } from 'ui/Charts/AreaChart/AreaChart';
+import { BarChart } from 'ui/Charts/BarChart/BarChart';
 
 import styles from './ChartContainer.module.scss';
 import { ChartContainerProps, ChartType } from './ChartContainer.props';

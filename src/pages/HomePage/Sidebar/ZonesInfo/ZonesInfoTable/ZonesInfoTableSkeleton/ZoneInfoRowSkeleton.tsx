@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { SkeletonTextWrapper, SkeletonCircle } from 'components';
+import { SkeletonTextWrapper, SkeletonCircle } from 'ui';
 
 import styles from '../ZoneInfoRow/ZoneInfoRow.module.scss';
 

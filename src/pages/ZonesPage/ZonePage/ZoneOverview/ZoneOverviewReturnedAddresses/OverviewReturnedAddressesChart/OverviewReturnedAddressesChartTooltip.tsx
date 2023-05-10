@@ -1,6 +1,5 @@
-import { NumberType } from 'components';
-import { Circle } from 'components/ui/Circle';
-import { NumberFormat } from 'components/ui/NumberFormat/NumberFormat';
+import { Circle, NumberType } from 'ui';
+import { NumberFormat } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './OverviewReturnedAddressesChart.module.scss';
 import { RETURNED_ADDRESSES_TITLE } from '../ZoneOverviewReturnedAddresses';

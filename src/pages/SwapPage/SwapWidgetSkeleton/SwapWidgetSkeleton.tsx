@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { SkeletonRectangle } from 'components';
+import { SkeletonRectangle } from 'ui';
 
 import styles from './SwapWidgetSkeleton.module.scss';
 

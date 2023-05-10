@@ -1,4 +1,4 @@
-import { SkeletonRectangle } from 'components';
+import { SkeletonRectangle } from 'ui';
 
 import styles from './ZonePeers.module.scss';
 

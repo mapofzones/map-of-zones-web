@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Card } from 'components';
+import { Card } from 'ui';
 
 import styles from './Sidebar.module.scss';
 

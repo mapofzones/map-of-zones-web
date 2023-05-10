@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { Tooltip } from 'components';
+import { Tooltip } from 'ui';
 
 import styles from './ZoneStatus.module.scss';
 import { ZoneStatusProps } from './ZoneStatus.props';

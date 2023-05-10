@@ -1,13 +1,12 @@
 import cn from 'classnames';
 
-import { Button, ButtonGroup } from 'components';
-import { ButtonSize, ButtonVariant } from 'components/ui/Button/Button.props';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ElementSize } from 'types/ElementSize';
+import { Button, ButtonGroup, Dropdown } from 'ui';
+import { ButtonSize, ButtonVariant } from 'ui/Button/Button.props';
 
 import styles from './PeriodSelector.module.scss';
 import { PeriodKeys } from './Types';
-import { Dropdown } from '../ui/Dropdown';
 
 export function PeriodSelector({
   className,

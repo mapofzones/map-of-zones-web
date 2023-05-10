@@ -1,16 +1,11 @@
 import { Outlet } from 'react-router-dom';
 
 import { CloseCircleIcon, EarthIcon } from 'assets/icons';
-import {
-  ButtonGroup,
-  ExternalLink,
-  ZoneLogo,
-  SkeletonTextWrapper,
-  NavLinkWithSearchParams,
-} from 'components';
+import { ZoneLogo } from 'components';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { homePath, overviewPath, peersPath } from 'routing';
+import { ButtonGroup, ExternalLink, SkeletonTextWrapper, NavLinkWithSearchParams } from 'ui';
 
 import { useZoneDetails } from './useZoneDetails';
 import styles from './ZoneDetails.module.scss';

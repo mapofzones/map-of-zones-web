@@ -1,8 +1,9 @@
 import cn from 'classnames';
 
-import { PeriodSelector, SkeletonRectangle } from 'components';
+import { PeriodSelector } from 'components';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { SkeletonRectangle } from 'ui';
 
 import styles from './ZonesPageTitle.module.scss';
 import { useZonesCount } from '../ZonesTable/useZonesCount';

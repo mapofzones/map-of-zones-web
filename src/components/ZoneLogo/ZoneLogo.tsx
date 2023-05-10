@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { SkeletonCircle } from 'components';
+import { SkeletonCircle } from 'ui';
 
 import styles from './ZoneLogo.module.scss';
 import { ZoneLogoProps } from './ZoneLogo.props';

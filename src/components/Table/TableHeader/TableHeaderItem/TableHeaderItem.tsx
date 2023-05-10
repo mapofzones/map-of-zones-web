@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { ExplanationTooltip } from 'components';
+import { ExplanationTooltip } from 'ui';
 
 import styles from './TableHeaderItem.module.scss';
 import { Align, CircleType, TableHeaderItemProps } from './TableHeaderItem.props';

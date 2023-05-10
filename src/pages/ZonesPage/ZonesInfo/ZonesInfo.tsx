@@ -1,4 +1,4 @@
-import { ScrollUpButton } from 'components';
+import { ScrollUpButton } from 'ui';
 
 import { ZonesPageTitle } from './ZonesPageTitle/ZonesPageTitle';
 import { ZonesTable } from './ZonesTable/ZonesTable';

@@ -1,9 +1,10 @@
 import cn from 'classnames';
 
-import { ExplanationTooltip, NumberFormat, PendingValue, SkeletonTextWrapper } from 'components';
+import { PendingValue } from 'components';
 import { PeriodBlock } from 'components/PeriodBlock';
-import { NumberType } from 'components/ui/NumberFormat/NumberType';
 import { ElementSize } from 'types/ElementSize';
+import { ExplanationTooltip, NumberFormat, SkeletonTextWrapper } from 'ui';
+import { NumberType } from 'ui/NumberFormat/NumberType';
 
 import styles from './ValueWithPending.module.scss';
 import { ValueWithPendingProps } from './ValueWithPending.props';

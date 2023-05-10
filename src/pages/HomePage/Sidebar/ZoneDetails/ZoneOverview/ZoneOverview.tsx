@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
 
-import { NumberFormat, IbcVolumeCard, ScrollableContainer, NumberType } from 'components';
+import { IbcVolumeCard } from 'components';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { getZonesOverviewPath } from 'routing';
 import { tooltips } from 'types/Tooltips';
+import { NumberFormat, ScrollableContainer, NumberType } from 'ui';
 import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZoneOverview } from './useZoneOverview';
