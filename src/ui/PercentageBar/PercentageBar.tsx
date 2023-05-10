@@ -1,9 +1,11 @@
 import styles from './PercentageBar.module.scss';
 
 export function PercentageBar({ rate, color }: { rate?: number; color: string }) {
+  const showBar = rate !== undefined && rate >= 0.01;
+
   return (
     <div className={styles.container}>
-      {rate && (
+      {showBar && (
         <div
           className={styles.bar}
           style={{
