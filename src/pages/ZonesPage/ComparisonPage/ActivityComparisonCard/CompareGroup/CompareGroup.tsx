@@ -11,31 +11,31 @@ import { CompareRowItem } from './CompareRowItem';
 
 import { VolumeComparisonGroupProps } from '.';
 
-export function CompareGroup<T extends string, K>({
+const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
+
+export function CompareGroup<K>({
   className,
   data,
   metadata,
   zones,
   loading,
   numberType,
-  colors,
   ...props
-}: VolumeComparisonGroupProps<T, K>): JSX.Element {
-  const [selectedTab, setSelectedTab] = useState<T>(keys(metadata)[0]);
+}: VolumeComparisonGroupProps<K>): JSX.Element {
+  const [selectedProperty, setSelectedProperty] = useState<keyof K>(keys(metadata)[0]);
 
-  const onTabSelected = (item: { key?: T }) => {
-    item?.key && setSelectedTab(item.key);
+  const onTabSelected = (item: { key?: keyof K }) => {
+    item?.key && setSelectedProperty(item.key);
   };
 
-  const propertyName = metadata[selectedTab].property;
-  const maxValue = data ? Math.max(...data.map((item) => item[propertyName] ?? 0)) : undefined;
-  const tabOptions = keys(metadata).map((key: T) => {
-    return { key, title: metadata[key].title };
+  const maxValue = data ? Math.max(...data.map((item) => item[selectedProperty] ?? 0)) : undefined;
+  const tabOptions = keys(metadata).map((key: keyof K) => {
+    return { key: key, title: metadata[key].title };
   });
 
   return (
     <div className={cn(className, styles.container)} {...props}>
-      <ButtonGroup
+      <ButtonGroup<keyof K>
         className={styles.groupTabSelector}
         size={ElementSize.SMALL}
         buttons={tabOptions}
@@ -57,9 +57,11 @@ export function CompareGroup<T extends string, K>({
             <CompareRowItem
               key={zones[index].zone}
               zone={zones[index].zoneName}
-              rate={item[propertyName] && maxValue ? (item[propertyName] ?? 0) / maxValue : 0}
-              value={item[propertyName]}
-              color={colors[index]}
+              rate={
+                item[selectedProperty] && maxValue ? (item[selectedProperty] ?? 0) / maxValue : 0
+              }
+              value={item[selectedProperty]}
+              color={ZONES_COLORS[index]}
               numberType={numberType}
             />
           ))}

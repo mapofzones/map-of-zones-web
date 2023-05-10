@@ -15,7 +15,7 @@ const elementSizeToButtonSizeMap = {
   [ElementSize.LARGE]: ButtonSize.LARGE,
 };
 
-export function ButtonGroup<T extends string>({
+export function ButtonGroup<T>({
   buttons,
   className,
   children,
@@ -45,7 +45,7 @@ export function ButtonGroup<T extends string>({
       {buttons &&
         buttons.map((buttonGroupItem: ButtonGroupItem<T>) => {
           const itemKey = buttonGroupItem?.key
-            ? buttonGroupItem?.key
+            ? buttonGroupItem?.key?.toString()
             : buttonGroupItem.title
             ? buttonGroupItem.title
             : '';

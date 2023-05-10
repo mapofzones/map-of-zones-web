@@ -10,7 +10,7 @@
     'activeUsers returnedAddresses'
     'delegates .';
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
+  gap: var(--gap);
   padding: 0 24px 24px;
   overflow: hidden;
 

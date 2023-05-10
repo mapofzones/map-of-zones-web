@@ -1,8 +1,6 @@
-import { ReactNode } from 'react';
-
 import { NumberType } from 'components';
 
-type ComparisoinGroupValues<T> = {
+type ComparisonGroupValues<T> = {
   [K in keyof T]: T[K] extends number | undefined ? T[K] : never;
 };
 
@@ -11,17 +9,15 @@ export interface ComparisonGroupItem {
   zone: string;
 }
 
-export interface VolumeComparisonGroupProps<T extends string, K> {
+export interface VolumeComparisonGroupProps<K> {
   className?: string;
   zones: ComparisonGroupItem[];
-  data?: ComparisoinGroupValues<K>[];
+  data?: ComparisonGroupValues<K>[];
   loading: boolean;
   numberType: NumberType;
-  colors: string[];
-  metadata: Record<T, MetadataItem<K>>;
+  metadata: Record<keyof K, MetadataItem>;
 }
 
-interface MetadataItem<K> {
+interface MetadataItem {
   title: string;
-  property: keyof K;
 }

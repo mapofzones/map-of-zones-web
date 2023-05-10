@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { Divider, NumberType, PeriodKeys } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
@@ -18,40 +18,35 @@ import {
 
 import { ActivityComparisonCardProps } from '.';
 
-const COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
-
 const VOLUME_METADATA: Record<
-  string,
+  keyof VolumeData,
   {
     title: string;
-    property: keyof VolumeData;
   }
 > = {
-  ibcVolume: { title: 'IBC Volume', property: 'ibcVolume' },
-  ibcVolumeIn: { title: 'IBC In', property: 'ibcVolumeIn' },
-  ibcVolumeOut: { title: 'IBC Out', property: 'ibcVolumeOut' },
+  ibcVolume: { title: 'IBC Volume' },
+  ibcVolumeIn: { title: 'IBC In' },
+  ibcVolumeOut: { title: 'IBC Out' },
 };
 
 const TRANSFERS_METADATA: Record<
-  string,
+  keyof TransfersData,
   {
     title: string;
-    property: keyof TransfersData;
   }
 > = {
-  ibcVolumeIn: { title: 'Transactions', property: 'totalTxs' },
-  ibcVolume: { title: 'IBC Transfers', property: 'ibcTransfers' },
+  totalTxs: { title: 'Transactions' },
+  ibcTransfers: { title: 'IBC Transfers' },
 };
 
 const DAU_METADATA: Record<
-  string,
+  keyof DauData,
   {
     title: string;
-    property: keyof DauData;
   }
 > = {
-  ibcVolumeIn: { title: 'Active Addresses', property: 'dau' },
-  ibcVolume: { title: 'Active IBC Addresses', property: 'ibcDau' },
+  dau: { title: 'Active Addresses' },
+  ibcDau: { title: 'Active IBC Addresses' },
 };
 
 export function ActivityComparisonCard({ className }: ActivityComparisonCardProps): JSX.Element {
@@ -59,7 +54,6 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
 
   const [search] = useSearchParams();
   const zonesStr = search.getAll('zones');
-  console.log(zonesStr);
 
   const { zones, volumeData, transfersData, dauData, loading } = useZonesComprisonActivity(
     selectedPeriod,
@@ -80,7 +74,6 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
           metadata={VOLUME_METADATA}
           loading={loading}
           numberType={NumberType.Currency}
-          colors={COLORS}
         />
 
         <Divider size={24} />
@@ -90,8 +83,7 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
           metadata={TRANSFERS_METADATA}
           data={transfersData}
           loading={loading}
-          numberType={NumberType.Currency}
-          colors={COLORS}
+          numberType={NumberType.Number}
         />
 
         <Divider size={24} />
@@ -101,8 +93,7 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
           data={dauData}
           metadata={DAU_METADATA}
           loading={loading}
-          numberType={NumberType.Currency}
-          colors={COLORS}
+          numberType={NumberType.Number}
         />
       </OverviewCard.Body>
     </OverviewCard>

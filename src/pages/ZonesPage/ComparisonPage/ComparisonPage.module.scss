@@ -1,0 +1,21 @@
+.container {
+  --gap: 28px;
+
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gap);
+  padding: 0 24px 24px;
+  overflow: hidden;
+
+  .title {
+    grid-column: 1 / 12;
+  }
+
+  .activityCard {
+    grid-column: 1 / 10;
+  }
+
+  .interchainCard {
+    grid-column: 10 / 13;
+  }
+}
