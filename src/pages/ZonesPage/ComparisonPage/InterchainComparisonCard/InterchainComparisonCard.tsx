@@ -6,17 +6,12 @@ import { NumberType } from 'ui';
 
 import { InterchainData, useZonesComprisonInterchain } from './hooks/useZonesComparisonInterchain';
 import styles from './InterchainComparisonCard.module.scss';
-import { CompareGroup } from '../ActivityComparisonCard/CompareGroup';
+import { CompareGroup, MetadataItem } from '../ActivityComparisonCard/CompareGroup';
 import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
 
 import { InterchainComparisonCardProps } from '.';
 
-const INTERCHAIN_METADATA: Record<
-  keyof InterchainData,
-  {
-    title: string;
-  }
-> = {
+const INTERCHAIN_METADATA: Record<keyof InterchainData, MetadataItem> = {
   peersCount: { title: 'Peers' },
   channelsCount: { title: 'Channels' },
 };
@@ -26,10 +21,7 @@ export function InterchainComparisonCard({
 }: InterchainComparisonCardProps): JSX.Element {
   const { zones: selectedZones } = useComparisonSelectedZones();
 
-  const { zones, interchainData, loading } = useZonesComprisonInterchain(
-    PeriodKeys.DAY,
-    selectedZones
-  );
+  const { data, loading } = useZonesComprisonInterchain(PeriodKeys.DAY, selectedZones);
 
   return (
     <OverviewCard className={cn(className, styles.container)}>
@@ -38,10 +30,9 @@ export function InterchainComparisonCard({
       </OverviewCard.Header>
 
       <OverviewCard.Body>
-        <CompareGroup
-          zones={zones}
-          data={interchainData}
+        <CompareGroup<InterchainData>
           metadata={INTERCHAIN_METADATA}
+          data={data}
           loading={loading}
           numberType={NumberType.Number}
         />

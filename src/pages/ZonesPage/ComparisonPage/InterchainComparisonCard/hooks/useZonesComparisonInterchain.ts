@@ -4,17 +4,21 @@ import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ZoneCompareInterchainDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareInterchain.query.generated';
 
+import { ZoneDetails } from '../../types/ZoneDetails';
+import { sortDetailsByZoneKeys } from '../../utils/sortDetailsByZoneKeys';
+
 export interface InterchainData {
   peersCount?: number;
   channelsCount?: number;
 }
 
+interface ZonesComparisonInterchainResult extends ZoneDetails, InterchainData {}
+
 export function useZonesComprisonInterchain(
   period: PeriodKeys,
   zones: string[]
 ): {
-  zones: { zone: string; zoneName: string }[];
-  interchainData: InterchainData[];
+  data: ZonesComparisonInterchainResult[];
   loading: boolean;
 } {
   const options = {
@@ -24,14 +28,17 @@ export function useZonesComprisonInterchain(
 
   const { data, loading } = useQuery(ZoneCompareInterchainDocument, options);
 
-  return {
-    zones: data?.data?.map((item) => ({ zone: item.zone, zoneName: item.name })) ?? [],
-    interchainData:
-      data?.data?.map((item) => ({
-        peersCount: item?.switchedStats[0]?.peersCount,
-        channelsCount: item?.switchedStats[0]?.channelsCount,
-      })) ?? [],
+  const mappedData: ZonesComparisonInterchainResult[] = (data?.data ?? []).map((item) => ({
+    zone: item.zone,
+    name: item.name,
+    peersCount: item?.switchedStats[0]?.peersCount,
+    channelsCount: item?.switchedStats[0]?.channelsCount,
+  }));
 
+  const sortedZones = sortDetailsByZoneKeys(zones, mappedData);
+
+  return {
+    data: sortedZones,
     loading,
   };
 }

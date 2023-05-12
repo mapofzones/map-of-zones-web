@@ -15,9 +15,8 @@ const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
 
 export function CompareGroup<K>({
   className,
-  data,
   metadata,
-  zones,
+  data,
   loading,
   numberType,
   ...props
@@ -28,7 +27,9 @@ export function CompareGroup<K>({
     item?.key && setSelectedProperty(item.key);
   };
 
-  const maxValue = data ? Math.max(...data.map((item) => item[selectedProperty] ?? 0)) : undefined;
+  const maxValue: number | undefined = data
+    ? Math.max(...data.map((item) => item[selectedProperty] ?? 0))
+    : undefined;
   const tabOptions = keys(metadata).map((key: keyof K) => {
     return { key: key, title: metadata[key].title };
   });
@@ -55,8 +56,8 @@ export function CompareGroup<K>({
           data &&
           data.map((item, index) => (
             <CompareRowItem
-              key={zones[index].zone}
-              zone={zones[index].zoneName}
+              key={item.zone}
+              zone={item.name}
               rate={
                 item[selectedProperty] && maxValue ? (item[selectedProperty] ?? 0) / maxValue : 0
               }

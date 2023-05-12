@@ -8,7 +8,7 @@ import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOvervie
 import { Divider, NumberType } from 'ui';
 
 import styles from './ActivityComparisonCard.module.scss';
-import { CompareGroup } from './CompareGroup';
+import { CompareGroup, MetadataItem } from './CompareGroup';
 import {
   DauData,
   TransfersData,
@@ -19,33 +19,18 @@ import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesPr
 
 import { ActivityComparisonCardProps } from '.';
 
-const VOLUME_METADATA: Record<
-  keyof VolumeData,
-  {
-    title: string;
-  }
-> = {
+const VOLUME_METADATA: Record<keyof VolumeData, MetadataItem> = {
   ibcVolume: { title: 'IBC Volume' },
   ibcVolumeIn: { title: 'IBC In' },
   ibcVolumeOut: { title: 'IBC Out' },
 };
 
-const TRANSFERS_METADATA: Record<
-  keyof TransfersData,
-  {
-    title: string;
-  }
-> = {
+const TRANSFERS_METADATA: Record<keyof TransfersData, MetadataItem> = {
   totalTxs: { title: 'Transactions' },
   ibcTransfers: { title: 'IBC Transfers' },
 };
 
-const DAU_METADATA: Record<
-  keyof DauData,
-  {
-    title: string;
-  }
-> = {
+const DAU_METADATA: Record<keyof DauData, MetadataItem> = {
   dau: { title: 'Active Addresses' },
   ibcDau: { title: 'Active IBC Addresses' },
 };
@@ -55,10 +40,7 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
 
   const { zones: selectedZones } = useComparisonSelectedZones();
 
-  const { zones, volumeData, transfersData, dauData, loading } = useZonesComprisonActivity(
-    selectedPeriod,
-    selectedZones
-  );
+  const { data, loading } = useZonesComprisonActivity(selectedPeriod, selectedZones);
 
   return (
     <OverviewCard className={cn(className, styles.container)}>
@@ -68,30 +50,27 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
       />
 
       <OverviewCard.Body>
-        <CompareGroup
-          zones={zones}
-          data={volumeData}
+        <CompareGroup<VolumeData>
           metadata={VOLUME_METADATA}
+          data={data}
           loading={loading}
           numberType={NumberType.Currency}
         />
 
         <Divider size={24} />
 
-        <CompareGroup
-          zones={zones}
-          data={transfersData}
+        <CompareGroup<TransfersData>
           metadata={TRANSFERS_METADATA}
+          data={data}
           loading={loading}
           numberType={NumberType.Number}
         />
 
         <Divider size={24} />
 
-        <CompareGroup
-          zones={zones}
-          data={dauData}
+        <CompareGroup<DauData>
           metadata={DAU_METADATA}
+          data={data}
           loading={loading}
           numberType={NumberType.Number}
         />

@@ -4,6 +4,9 @@ import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ZoneCompareActivityDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareActivity.query.generated';
 
+import { ZoneDetails } from '../../types/ZoneDetails';
+import { sortDetailsByZoneKeys } from '../../utils/sortDetailsByZoneKeys';
+
 export interface DauData {
   dau?: number;
   ibcDau?: number;
@@ -18,14 +21,13 @@ export interface VolumeData {
   ibcVolumeOut?: number;
 }
 
+interface ZoneComparisonActivityResult extends ZoneDetails, VolumeData, TransfersData, DauData {}
+
 export function useZonesComprisonActivity(
   period: PeriodKeys,
   zones: string[]
 ): {
-  zones: { zone: string; zoneName: string }[];
-  volumeData: VolumeData[];
-  transfersData: TransfersData[];
-  dauData: DauData[];
+  data: ZoneComparisonActivityResult[];
   loading: boolean;
 } {
   const options = {
@@ -35,24 +37,22 @@ export function useZonesComprisonActivity(
 
   const { data, loading } = useQuery(ZoneCompareActivityDocument, options);
 
+  const mappedData: ZoneComparisonActivityResult[] = (data?.data ?? []).map((item) => ({
+    zone: item.zone,
+    name: item.name,
+    ibcVolume: item?.switchedStats[0]?.ibcVolume,
+    ibcVolumeIn: item?.switchedStats[0]?.ibcVolumeIn,
+    ibcVolumeOut: item?.switchedStats[0]?.ibcVolumeOut,
+    ibcTransfers: item?.switchedStats[0]?.ibcTransfers,
+    totalTxs: item.stats[0]?.totalTxs,
+    dau: item.stats[0]?.dau ?? undefined,
+    ibcDau: item.stats[0]?.ibcDau ?? undefined,
+  }));
+
+  const sortedZones = sortDetailsByZoneKeys(zones, mappedData);
+
   return {
-    zones: data?.data?.map((item) => ({ zone: item.zone, zoneName: item.name })) ?? [],
-    volumeData:
-      data?.data?.map((item) => ({
-        ibcVolume: item?.switchedStats[0]?.ibcVolume,
-        ibcVolumeIn: item?.switchedStats[0]?.ibcVolumeIn,
-        ibcVolumeOut: item?.switchedStats[0]?.ibcVolumeOut,
-      })) ?? [],
-    transfersData:
-      data?.data?.map((item) => ({
-        ibcTransfers: item?.switchedStats[0]?.ibcTransfers,
-        totalTxs: item.stats[0]?.totalTxs,
-      })) ?? [],
-    dauData:
-      data?.data?.map((item) => ({
-        dau: item.stats[0]?.dau ?? undefined,
-        ibcDau: item.stats[0]?.ibcDau ?? undefined,
-      })) ?? [],
+    data: sortedZones,
     loading,
   };
 }
