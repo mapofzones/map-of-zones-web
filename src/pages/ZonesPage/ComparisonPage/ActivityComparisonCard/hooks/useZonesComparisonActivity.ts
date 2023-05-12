@@ -29,7 +29,7 @@ export function useZonesComprisonActivity(
   loading: boolean;
 } {
   const options = {
-    variables: { zones, period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
+    variables: { zones: [...zones], period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
     skip: !zones,
   };
 

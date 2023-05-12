@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import cn from 'classnames';
-import { useSearchParams } from 'react-router-dom';
 
 import { PeriodKeys } from 'components';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
@@ -16,6 +15,7 @@ import {
   useZonesComprisonActivity,
   VolumeData,
 } from './hooks/useZonesComparisonActivity';
+import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
 
 import { ActivityComparisonCardProps } from '.';
 
@@ -53,12 +53,11 @@ const DAU_METADATA: Record<
 export function ActivityComparisonCard({ className }: ActivityComparisonCardProps): JSX.Element {
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
-  const [search] = useSearchParams();
-  const zonesStr = search.getAll('zones');
+  const { zones: selectedZones } = useComparisonSelectedZones();
 
   const { zones, volumeData, transfersData, dauData, loading } = useZonesComprisonActivity(
     selectedPeriod,
-    zonesStr
+    selectedZones
   );
 
   return (
@@ -81,8 +80,8 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
 
         <CompareGroup
           zones={zones}
-          metadata={TRANSFERS_METADATA}
           data={transfersData}
+          metadata={TRANSFERS_METADATA}
           loading={loading}
           numberType={NumberType.Number}
         />

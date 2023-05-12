@@ -1,4 +1,8 @@
 .container {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 10.5px;
   border: 1px dashed var(--grey-100);
   border-radius: 50px;
   padding: 14px;
@@ -13,8 +17,14 @@
   color: var(--grey-100);
   background: transparent;
 
+  .icon {
+    stroke: currentColor;
+  }
+
   &:hover {
-    border: 2px solid var(--orange);
+    border: 2px solid var(--grey-300);
+    color: var(--white);
+    background: transparent;
     margin: 0;
   }
 }

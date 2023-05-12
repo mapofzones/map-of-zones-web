@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { PeriodKeys } from 'components/PeriodSelector/Types';
-import { ZoneCompareActivityDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareActivity.query.generated';
 import { ZoneCompareInterchainDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareInterchain.query.generated';
 
 export interface InterchainData {
@@ -19,7 +18,7 @@ export function useZonesComprisonInterchain(
   loading: boolean;
 } {
   const options = {
-    variables: { zones, period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
+    variables: { zones: [...zones], period: PERIODS_IN_HOURS_BY_KEY[period], isMainnet: true },
     skip: !zones,
   };
 
