@@ -9,10 +9,10 @@ import {
   OverviewPeriodButtonsGroup,
   OverviewCard,
 } from 'components/OverviewCard';
-import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';
-import { LegendNumberValue } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendNumberValue';
+import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
+import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
+import { OverviewLegendTitle } from 'components/OverviewCard/Legend/Title/OverviewLegendTitle';
+import { LegendNumberValue } from 'components/OverviewCard/Legend/Value/LegendNumberValue';
 import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup, NumberType, SkeletonTextWrapper } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';

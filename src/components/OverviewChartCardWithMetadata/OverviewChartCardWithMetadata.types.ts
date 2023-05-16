@@ -1,9 +1,6 @@
-import { ReactNode } from 'react';
-
 import { ChartType } from 'components/ChartContainer';
-import { LegendMetadata } from 'components/OverviewCardLegend';
+import { LegendMetadata } from 'components/OverviewChartCardWithMetadata/OverviewCardLegendWithMetadata';
 import { NumberType } from 'ui';
-import { ElementSize } from 'types/ElementSize';
 
 export type DataWithChart<T> = { chart: T[] };
 
@@ -19,7 +16,3 @@ interface DatasetMetadata<T, K> extends LegendMetadata {
   legendValueAccessorKey?: keyof T;
   chartValueAccessorKey?: keyof K;
 }
-
-// export interface LegendMetadata {
-//   loading: boolean;
-// }

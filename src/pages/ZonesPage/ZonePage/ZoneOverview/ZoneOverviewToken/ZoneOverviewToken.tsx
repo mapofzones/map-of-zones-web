@@ -4,11 +4,11 @@ import cn from 'classnames';
 
 import { PeriodKeys, RatingDiffTriangle, ZoneLogo } from 'components';
 import { OverviewCard } from 'components/OverviewCard';
-import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
-import { LegendTitleBase } from 'components/OverviewChartCardWithMetadata/Legend/Title/LegendTitleBase';
-import { LegendNumberValue } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendNumberValue';
-import { LegendValueBase } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendValueBase';
+import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
+import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
+import { LegendTitleBase } from 'components/OverviewCard/Legend/Title/LegendTitleBase';
+import { LegendNumberValue } from 'components/OverviewCard/Legend/Value/LegendNumberValue';
+import { LegendValueBase } from 'components/OverviewCard/Legend/Value/LegendValueBase';
 import { Period } from 'components/PeriodBlock';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';

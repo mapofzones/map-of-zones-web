@@ -15,7 +15,7 @@ export interface LegendMetadata {
   additional: boolean;
 }
 
-export interface OverviewCardLegendProps {
+export interface OverviewCardLegendWithMetadataProps {
   className?: string;
   metadata: { [key: string]: LegendMetadata };
   values: { [key: string]: number | undefined };

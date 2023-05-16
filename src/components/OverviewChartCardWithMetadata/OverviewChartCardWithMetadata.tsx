@@ -8,7 +8,7 @@ import {
   OverviewPeriodButtonsGroup,
   OverviewLegendAdditionalText,
 } from 'components/OverviewCard';
-import { OverviewCardLegend } from 'components/OverviewCardLegend';
+import { OverviewCardLegendWithMetadata } from 'components/OverviewChartCardWithMetadata/OverviewCardLegendWithMetadata';
 import { useOverviewChartPeriodChangedAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useOverviewChartPeriodChangedAnalytics';
 
 import styles from './OverviewChartCardWithMetadata.module.scss';
@@ -59,7 +59,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
     <OverviewCard title={title} className={className}>
       {legendExist && (
         <>
-          <OverviewCardLegend
+          <OverviewCardLegendWithMetadata
             metadata={legendMetadata}
             values={legendData}
             loading={loading}

@@ -1,21 +1,21 @@
 import cn from 'classnames';
 
-import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';
-import { LegendNumberValue } from 'components/OverviewChartCardWithMetadata/Legend/Value/LegendNumberValue';
+import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
+import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
+import { OverviewLegendTitle } from 'components/OverviewCard/Legend/Title/OverviewLegendTitle';
+import { LegendNumberValue } from 'components/OverviewCard/Legend/Value/LegendNumberValue';
 import { SkeletonTextWrapper } from 'ui';
 
-import styles from './OverviewCardLegend.module.scss';
+import styles from './OverviewCardLegendWithMetadata.module.scss';
 
-import { OverviewCardLegendProps } from '.';
+import { OverviewCardLegendWithMetadataProps } from '.';
 
-export function OverviewCardLegend({
+export function OverviewCardLegendWithMetadata({
   metadata,
   values,
   loading,
   wrappedInSmallScreen = false,
-}: OverviewCardLegendProps) {
+}: OverviewCardLegendWithMetadataProps) {
   return (
     <OverviewChartLegend
       className={cn(styles.cardLegend, { [styles.wrapped]: wrappedInSmallScreen })}
