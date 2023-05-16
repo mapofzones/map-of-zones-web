@@ -1,11 +1,14 @@
 import { useState } from 'react';
 
 import { PeriodKeys } from 'components';
-import { OverviewPeriodButtonsGroup, OverviewCard } from 'components/OverviewCard';
-import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewCard/Legend/Title/OverviewLegendTitle';
-import { LegendValueBase } from 'components/OverviewCard/Legend/Value/LegendValueBase';
+import {
+  AnalysisPeriodButtonsGroup,
+  AnalysisCard,
+  AnalysisCardLegend,
+  AnalysisLegendItem,
+  AnalysisLegendTitle,
+  LegendValueBase,
+} from 'components/AnalysisCard';
 import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup, NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
 
@@ -56,13 +59,13 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
   const additionalInfo = `% of returning addresses in the last ${selectedPeriod} from the previous ${selectedPeriod}`;
 
   return (
-    <OverviewCard className={className} title={RETURNED_ADDRESSES_TITLE}>
-      <OverviewChartLegend className={styles.legend}>
-        <OverviewLegendItem>
-          <OverviewLegendTitle
+    <AnalysisCard className={className} title={RETURNED_ADDRESSES_TITLE}>
+      <AnalysisCardLegend className={styles.legend}>
+        <AnalysisLegendItem>
+          <AnalysisLegendTitle
             title={legendTitle}
             tooltipText={additionalInfo}
-          ></OverviewLegendTitle>
+          ></AnalysisLegendTitle>
           <SkeletonTextWrapper loading={loading} defaultText={'32.2 % (1 244)'}>
             <LegendValueBase size="lg">
               <NumberFormat
@@ -71,8 +74,8 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
               />
             </LegendValueBase>
           </SkeletonTextWrapper>
-        </OverviewLegendItem>
-      </OverviewChartLegend>
+        </AnalysisLegendItem>
+      </AnalysisCardLegend>
 
       <span className={styles.additionalText}>{additionalInfo}</span>
 
@@ -84,7 +87,7 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
           setSelectedButton={onChartSelected}
         ></ButtonGroup>
 
-        <OverviewPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
+        <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </div>
 
       <OverviewReturnedAddressesChart
@@ -92,6 +95,6 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
         period={selectedPeriod}
         loading={loading}
       />
-    </OverviewCard>
+    </AnalysisCard>
   );
 }

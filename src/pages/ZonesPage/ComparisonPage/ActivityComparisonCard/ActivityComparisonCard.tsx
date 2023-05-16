@@ -3,7 +3,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
-import { OverviewCard } from 'components/OverviewCard';
+import { AnalysisCard } from 'components/AnalysisCard';
 import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewActivity/ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
 import { Divider, NumberType } from 'ui';
 
@@ -43,13 +43,13 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
   const { data, loading } = useZonesComprisonActivity(selectedPeriod, selectedZones);
 
   return (
-    <OverviewCard className={cn(className, styles.container)}>
+    <AnalysisCard className={cn(className, styles.container)}>
       <ZoneOverviewActivityHeader
         selectedPeriod={selectedPeriod}
         onPeriodSelected={setSelectedPeriod}
       />
 
-      <OverviewCard.Body>
+      <AnalysisCard.Body>
         <CompareGroup<VolumeData>
           metadata={VOLUME_METADATA}
           data={data}
@@ -74,7 +74,7 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
           loading={loading}
           numberType={NumberType.Number}
         />
-      </OverviewCard.Body>
-    </OverviewCard>
+      </AnalysisCard.Body>
+    </AnalysisCard>
   );
 }

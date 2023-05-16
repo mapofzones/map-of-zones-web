@@ -3,12 +3,14 @@ import { useContext, useState } from 'react';
 import cn from 'classnames';
 
 import { PeriodKeys, RatingDiffTriangle, ZoneLogo } from 'components';
-import { OverviewCard } from 'components/OverviewCard';
-import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
-import { LegendTitleBase } from 'components/OverviewCard/Legend/Title/LegendTitleBase';
-import { LegendNumberValue } from 'components/OverviewCard/Legend/Value/LegendNumberValue';
-import { LegendValueBase } from 'components/OverviewCard/Legend/Value/LegendValueBase';
+import {
+  AnalysisCard,
+  AnalysisCardLegend,
+  AnalysisLegendItem,
+  AnalysisLegendTitleBase,
+  LegendNumberValue,
+  LegendValueBase,
+} from 'components/AnalysisCard';
 import { Period } from 'components/PeriodBlock';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
@@ -39,10 +41,10 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
   const trackSelectedChart = useSwitchedTokenInfoChartAnalytics();
 
   return (
-    <OverviewCard title="Token" className={cn(className, styles.container)}>
-      <OverviewChartLegend className={cn(styles.chartLegend, styles.wrapped)}>
-        <OverviewLegendItem className={styles.legendItem}>
-          <LegendTitleBase>Price</LegendTitleBase>
+    <AnalysisCard title="Token" className={cn(className, styles.container)}>
+      <AnalysisCardLegend className={cn(styles.chartLegend, styles.wrapped)}>
+        <AnalysisLegendItem className={styles.legendItem}>
+          <AnalysisLegendTitleBase>Price</AnalysisLegendTitleBase>
           <LegendValueBase>
             <div className={cn(styles.infoGroup, styles.tokenNamePrice)}>
               <ZoneLogo size="24px" logoUrl={data?.logoUrl} loading={loading} />
@@ -76,28 +78,28 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
               <Period period={selectedPeriod} />
             </div>
           </LegendValueBase>
-        </OverviewLegendItem>
+        </AnalysisLegendItem>
 
-        <OverviewLegendItem className={styles.legendItem}>
-          <LegendTitleBase>Market Cap</LegendTitleBase>
+        <AnalysisLegendItem className={styles.legendItem}>
+          <AnalysisLegendTitleBase>Market Cap</AnalysisLegendTitleBase>
           <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
             <LegendNumberValue
               value={data?.marketCap || undefined}
               numberType={NumberType.Currency}
             />
           </SkeletonTextWrapper>
-        </OverviewLegendItem>
+        </AnalysisLegendItem>
 
-        <OverviewLegendItem className={styles.legendItem}>
-          <LegendTitleBase>Trading Volume (24h)</LegendTitleBase>
+        <AnalysisLegendItem className={styles.legendItem}>
+          <AnalysisLegendTitleBase>Trading Volume (24h)</AnalysisLegendTitleBase>
           <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
             <LegendNumberValue
               value={data?.tradingVolumeDay || undefined}
               numberType={NumberType.Currency}
             />
           </SkeletonTextWrapper>
-        </OverviewLegendItem>
-      </OverviewChartLegend>
+        </AnalysisLegendItem>
+      </AnalysisCardLegend>
 
       <div className={styles.chartControls}>
         <ButtonGroup
@@ -121,6 +123,6 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
       </div>
 
       <TokenCharts chartType={selectedChartType} period={selectedPeriod} />
-    </OverviewCard>
+    </AnalysisCard>
   );
 }

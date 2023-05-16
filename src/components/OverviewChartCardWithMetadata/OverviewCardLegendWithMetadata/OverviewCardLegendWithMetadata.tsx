@@ -1,9 +1,11 @@
 import cn from 'classnames';
 
-import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewCard/Legend/Title/OverviewLegendTitle';
-import { LegendNumberValue } from 'components/OverviewCard/Legend/Value/LegendNumberValue';
+import {
+  AnalysisCardLegend,
+  AnalysisLegendItem,
+  AnalysisLegendTitle,
+  LegendNumberValue,
+} from 'components/AnalysisCard';
 import { SkeletonTextWrapper } from 'ui';
 
 import styles from './OverviewCardLegendWithMetadata.module.scss';
@@ -17,7 +19,7 @@ export function OverviewCardLegendWithMetadata({
   wrappedInSmallScreen = false,
 }: OverviewCardLegendWithMetadataProps) {
   return (
-    <OverviewChartLegend
+    <AnalysisCardLegend
       className={cn(styles.cardLegend, { [styles.wrapped]: wrappedInSmallScreen })}
     >
       {Object.keys(metadata).map((key: string) => {
@@ -25,8 +27,8 @@ export function OverviewCardLegendWithMetadata({
         const value = values[key];
 
         return (
-          <OverviewLegendItem key={key} className={styles.legendItem}>
-            <OverviewLegendTitle
+          <AnalysisLegendItem key={key} className={styles.legendItem}>
+            <AnalysisLegendTitle
               title={conf.title}
               circleColor={conf.color}
               showPeriod={conf.showPeriod}
@@ -35,9 +37,9 @@ export function OverviewCardLegendWithMetadata({
             <SkeletonTextWrapper loading={loading} defaultText={conf.defaultSkeletonText}>
               <LegendNumberValue value={value} numberType={conf.numberType} />
             </SkeletonTextWrapper>
-          </OverviewLegendItem>
+          </AnalysisLegendItem>
         );
       })}
-    </OverviewChartLegend>
+    </AnalysisCardLegend>
   );
 }

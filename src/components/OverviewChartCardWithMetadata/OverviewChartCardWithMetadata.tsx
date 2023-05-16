@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
-import { ChartContainer, ChartType } from 'components/ChartContainer';
 import {
-  OverviewCard,
-  ZoneOverviewChartTypeButtonsGroup,
-  OverviewPeriodButtonsGroup,
-  OverviewLegendAdditionalText,
-} from 'components/OverviewCard';
+  AnalysisCard,
+  AnalysisChartTypeButtonsGroup,
+  AnalysisPeriodButtonsGroup,
+  AnalysisLegendAdditionalText,
+} from 'components/AnalysisCard';
+import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegendWithMetadata } from 'components/OverviewChartCardWithMetadata/OverviewCardLegendWithMetadata';
 import { useOverviewChartPeriodChangedAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useOverviewChartPeriodChangedAnalytics';
 
@@ -56,7 +56,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
   const chartMetadata = rebuildChartMetadataByChartKey<T, K>(metadata);
 
   return (
-    <OverviewCard title={title} className={className}>
+    <AnalysisCard title={title} className={className}>
       {legendExist && (
         <>
           <OverviewCardLegendWithMetadata
@@ -65,17 +65,17 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
             loading={loading}
             wrappedInSmallScreen={metadata.wrappedInSmallScreen}
           />
-          <OverviewLegendAdditionalText period={period} />
+          <AnalysisLegendAdditionalText period={period} />
         </>
       )}
       <div className={styles.chartControls}>
         {metadata.chartTypes.length > 1 && (
-          <ZoneOverviewChartTypeButtonsGroup
+          <AnalysisChartTypeButtonsGroup
             chartTypes={metadata.chartTypes}
             onChartSelected={onChartSelected}
           />
         )}
-        <OverviewPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onChartPeriodSelected} />
+        <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onChartPeriodSelected} />
       </div>
       <ChartContainer
         data={chartData}
@@ -85,7 +85,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
         dataFormatType={metadata.numberType}
         lastDashedPeriod
       />
-    </OverviewCard>
+    </AnalysisCard>
   );
 }
 function rebuildChartMetadataByChartKey<T extends DataWithChart<K>, K>(

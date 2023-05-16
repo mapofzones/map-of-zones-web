@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
-import { OverviewCard } from 'components/OverviewCard';
+import { AnalysisCard } from 'components/AnalysisCard';
 import { NumberType } from 'ui';
 
 import { InterchainData, useZonesComprisonInterchain } from './hooks/useZonesComparisonInterchain';
@@ -24,19 +24,19 @@ export function InterchainComparisonCard({
   const { data, loading } = useZonesComprisonInterchain(PeriodKeys.DAY, selectedZones);
 
   return (
-    <OverviewCard className={cn(className, styles.container)}>
-      <OverviewCard.Header>
-        <OverviewCard.Title>Interchain</OverviewCard.Title>
-      </OverviewCard.Header>
+    <AnalysisCard className={cn(className, styles.container)}>
+      <AnalysisCard.Header>
+        <AnalysisCard.Title>Interchain</AnalysisCard.Title>
+      </AnalysisCard.Header>
 
-      <OverviewCard.Body>
+      <AnalysisCard.Body>
         <CompareGroup<InterchainData>
           metadata={INTERCHAIN_METADATA}
           data={data}
           loading={loading}
           numberType={NumberType.Number}
         />
-      </OverviewCard.Body>
-    </OverviewCard>
+      </AnalysisCard.Body>
+    </AnalysisCard>
   );
 }

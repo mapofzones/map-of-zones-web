@@ -1,5 +1,5 @@
 import { PeriodKeys } from 'components';
-import { OverviewPeriodButtonsGroup, OverviewCard } from 'components/OverviewCard';
+import { AnalysisPeriodButtonsGroup, AnalysisCard } from 'components/AnalysisCard';
 
 import { ZoneOverviewActivityHeaderProps } from '.';
 
@@ -12,12 +12,12 @@ export function ZoneOverviewActivityHeader({
   ...props
 }: ZoneOverviewActivityHeaderProps): JSX.Element {
   return (
-    <OverviewCard.Header {...props}>
-      <OverviewCard.Title>{`Activity (${selectedPeriod.toUpperCase()})`}</OverviewCard.Title>
+    <AnalysisCard.Header {...props}>
+      <AnalysisCard.Title>{`Activity (${selectedPeriod.toUpperCase()})`}</AnalysisCard.Title>
 
       {children}
 
-      <OverviewPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
-    </OverviewCard.Header>
+      <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
+    </AnalysisCard.Header>
   );
 }

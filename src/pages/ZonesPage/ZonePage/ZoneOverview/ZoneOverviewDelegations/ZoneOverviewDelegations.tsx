@@ -2,13 +2,16 @@ import { useContext, useState } from 'react';
 
 import cn from 'classnames';
 
+import {
+  AnalysisCard,
+  AnalysisChartTypeButtonsGroup,
+  AnalysisCardLegend,
+  AnalysisLegendItem,
+  AnalysisLegendTitle,
+  LegendValueBase,
+} from 'components/AnalysisCard';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
-import { OverviewCard, ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard';
 import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
-import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewCard/Legend/Title/OverviewLegendTitle';
-import { LegendValueBase } from 'components/OverviewCard/Legend/Value/LegendValueBase';
 import { NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
 
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
@@ -42,15 +45,15 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
   };
 
   return (
-    <OverviewCard title="Delegations">
-      <ZoneOverviewChartTypeButtonsGroup
+    <AnalysisCard title="Delegations">
+      <AnalysisChartTypeButtonsGroup
         chartTypes={[ChartType.AREA, ChartType.BAR]}
         onChartSelected={onChartSelected}
       />
 
-      <OverviewChartLegend className={cn(styles.chartLegend, styles.wrapped)}>
-        <OverviewLegendItem className={styles.legendItem}>
-          <OverviewLegendTitle
+      <AnalysisCardLegend className={cn(styles.chartLegend, styles.wrapped)}>
+        <AnalysisLegendItem className={styles.legendItem}>
+          <AnalysisLegendTitle
             title={CHART_METADATA.delegationAmount.title}
             circleColor={CHART_METADATA.delegationAmount.color}
             showPeriod
@@ -59,17 +62,17 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
           <SkeletonTextWrapper loading={loading} defaultText={'13 952 000'}>
             <TokenLegendValue value={data?.totalDelegated} symbol={tokenData?.symbol} />
           </SkeletonTextWrapper>
-        </OverviewLegendItem>
+        </AnalysisLegendItem>
 
-        <OverviewLegendItem className={styles.legendItem}>
-          <OverviewLegendTitle
+        <AnalysisLegendItem className={styles.legendItem}>
+          <AnalysisLegendTitle
             title={CHART_METADATA.undelegationAmount.title}
             circleColor={CHART_METADATA.undelegationAmount.color}
             tooltipText="Un-Delegated tooltip"
           />
           <TokenLegendValue value={data?.totalUndelegated} symbol={tokenData?.symbol} />
-        </OverviewLegendItem>
-      </OverviewChartLegend>
+        </AnalysisLegendItem>
+      </AnalysisCardLegend>
 
       <ChartContainer
         chartType={selectedChartType}
@@ -78,7 +81,7 @@ export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsPr
         datasetInfo={CHART_METADATA}
         dataFormatType={NumberType.Currency}
       />
-    </OverviewCard>
+    </AnalysisCard>
   );
 }
 

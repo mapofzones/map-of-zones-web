@@ -3,16 +3,16 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
-import { ChartContainer, ChartType } from 'components/ChartContainer';
 import {
-  ZoneOverviewChartTypeButtonsGroup,
-  OverviewPeriodButtonsGroup,
-  OverviewCard,
-} from 'components/OverviewCard';
-import { OverviewChartLegend } from 'components/OverviewCard/Legend/OverviewChartLegend';
-import { OverviewLegendItem } from 'components/OverviewCard/Legend/OverviewLegendItem';
-import { OverviewLegendTitle } from 'components/OverviewCard/Legend/Title/OverviewLegendTitle';
-import { LegendNumberValue } from 'components/OverviewCard/Legend/Value/LegendNumberValue';
+  AnalysisChartTypeButtonsGroup,
+  AnalysisPeriodButtonsGroup,
+  AnalysisCard,
+  AnalysisCardLegend,
+  AnalysisLegendItem,
+  AnalysisLegendTitle,
+  LegendNumberValue,
+} from 'components/AnalysisCard';
+import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup, NumberType, SkeletonTextWrapper } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
@@ -58,9 +58,9 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
   );
 
   return (
-    <OverviewCard className={cn(className, styles.container)}>
-      <OverviewCard.Header>
-        <OverviewCard.Title>Token</OverviewCard.Title>
+    <AnalysisCard className={cn(className, styles.container)}>
+      <AnalysisCard.Header>
+        <AnalysisCard.Title>Token</AnalysisCard.Title>
 
         <ButtonGroup
           className={styles.groupTabSelector}
@@ -68,26 +68,26 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
           buttons={TOKEN_CARD_OPTIONS}
           setSelectedButton={onTabSelected}
         />
-      </OverviewCard.Header>
+      </AnalysisCard.Header>
 
       <div className={styles.chartControls}>
-        <ZoneOverviewChartTypeButtonsGroup disabled chartTypes={[ChartType.AREA, ChartType.BAR]} />
-        <OverviewPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
+        <AnalysisChartTypeButtonsGroup disabled chartTypes={[ChartType.AREA, ChartType.BAR]} />
+        <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </div>
 
-      <OverviewChartLegend className={styles.chartLegend}>
+      <AnalysisCardLegend className={styles.chartLegend}>
         {data?.map((item) => (
-          <OverviewLegendItem key={item.zone} className={styles.legendItem}>
-            <OverviewLegendTitle
+          <AnalysisLegendItem key={item.zone} className={styles.legendItem}>
+            <AnalysisLegendTitle
               title={`${item.name}: ${item.symbol}`}
               circleColor={datasetInfo[item.zone].color}
             />
             <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
               <LegendNumberValue value={item[selectedProperty]} numberType={NumberType.Currency} />
             </SkeletonTextWrapper>
-          </OverviewLegendItem>
+          </AnalysisLegendItem>
         ))}
-      </OverviewChartLegend>
+      </AnalysisCardLegend>
 
       <ChartContainer
         chartType={ChartType.AREA}
@@ -96,6 +96,6 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
         datasetInfo={datasetInfo}
         dataFormatType={NumberType.Currency}
       />
-    </OverviewCard>
+    </AnalysisCard>
   );
 }

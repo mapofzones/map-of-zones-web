@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 
 import { PeriodKeys, ValueWithPending, VolumeLineChart } from 'components';
-import { OverviewCard } from 'components/OverviewCard';
+import { AnalysisCard } from 'components/AnalysisCard';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 import { NumberType, SkeletonTextWrapper, NumberFormat, Divider } from 'ui';
@@ -24,14 +24,14 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
   };
 
   return (
-    <OverviewCard className={cn(className)}>
+    <AnalysisCard className={cn(className)}>
       <ZoneOverviewActivityHeader
         selectedPeriod={selectedPeriod}
         onPeriodSelected={onPeriodSelected}
       />
 
-      <OverviewCard.Body>
-        <OverviewCard.Body.Group className={cn(styles.bodyGroup, styles.volumeGroup)}>
+      <AnalysisCard.Body>
+        <AnalysisCard.Body.Group className={cn(styles.bodyGroup, styles.volumeGroup)}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.ibcVolume)}
             title={'IBC Volume'}
@@ -68,11 +68,11 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
               </SkeletonTextWrapper>
             </div>
           </div>
-        </OverviewCard.Body.Group>
+        </AnalysisCard.Body.Group>
 
         <Divider />
 
-        <OverviewCard.Body.Group className={styles.bodyGroup}>
+        <AnalysisCard.Body.Group className={styles.bodyGroup}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.transactions)}
             title={'Transactions'}
@@ -93,11 +93,11 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
             loading={loading}
             defaultSkeletonText={'29 848'}
           />
-        </OverviewCard.Body.Group>
+        </AnalysisCard.Body.Group>
 
         <Divider />
 
-        <OverviewCard.Body.Group className={styles.bodyGroup}>
+        <AnalysisCard.Body.Group className={styles.bodyGroup}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.activeAddresses)}
             title="Active Addresses"
@@ -118,8 +118,8 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
             loading={loading}
             defaultSkeletonText={'5 000'}
           />
-        </OverviewCard.Body.Group>
-      </OverviewCard.Body>
-    </OverviewCard>
+        </AnalysisCard.Body.Group>
+      </AnalysisCard.Body>
+    </AnalysisCard>
   );
 }
