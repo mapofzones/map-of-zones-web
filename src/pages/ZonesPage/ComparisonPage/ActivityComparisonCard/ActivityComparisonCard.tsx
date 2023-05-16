@@ -3,7 +3,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewCard } from 'components/OverviewCard';
 import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewActivity/ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
 import { Divider, NumberType } from 'ui';
 

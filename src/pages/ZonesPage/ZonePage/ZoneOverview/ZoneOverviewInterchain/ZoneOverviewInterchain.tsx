@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { ValueWithPending } from 'components';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewCard } from 'components/OverviewCard';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 import { Divider, NumberType } from 'ui';

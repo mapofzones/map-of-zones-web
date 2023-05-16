@@ -4,9 +4,11 @@ import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
-import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewChartTypeButtonsGroup';
-import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewPeriodButtonsGroup';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import {
+  ZoneOverviewChartTypeButtonsGroup,
+  OverviewPeriodButtonsGroup,
+  OverviewCard,
+} from 'components/OverviewCard';
 import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
 import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';

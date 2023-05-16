@@ -2,15 +2,17 @@ import { useState } from 'react';
 
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
-import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewChartTypeButtonsGroup';
-import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewPeriodButtonsGroup';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import {
+  OverviewCard,
+  ZoneOverviewChartTypeButtonsGroup,
+  OverviewPeriodButtonsGroup,
+  OverviewLegendAdditionalText,
+} from 'components/OverviewCard';
 import { OverviewCardLegend } from 'components/OverviewCardLegend';
 import { useOverviewChartPeriodChangedAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useOverviewChartPeriodChangedAnalytics';
 
 import styles from './OverviewChartCardWithMetadata.module.scss';
 import { DataWithChart, OverviewCardMetadata } from './OverviewChartCardWithMetadata.types';
-import { OverviewLegendAdditionalText } from '../OverviewCard/OverviewLegendAdditionalText/OverviewLegendAdditionalText';
 
 import { OverviewCardPeriod, OverviewChartCardProps } from '.';
 

@@ -1,6 +1,5 @@
 import { PeriodKeys } from 'components';
-import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewPeriodButtonsGroup';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewPeriodButtonsGroup, OverviewCard } from 'components/OverviewCard';
 
 import { ZoneOverviewActivityHeaderProps } from '.';
 

@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 
 import { PeriodKeys, ValueWithPending, VolumeLineChart } from 'components';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewCard } from 'components/OverviewCard';
 import { ElementSize } from 'types/ElementSize';
 import { tooltips } from 'types/Tooltips';
 import { NumberType, SkeletonTextWrapper, NumberFormat, Divider } from 'ui';

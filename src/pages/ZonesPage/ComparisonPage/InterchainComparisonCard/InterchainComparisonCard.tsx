@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewCard } from 'components/OverviewCard';
 import { NumberType } from 'ui';
 
 import { InterchainData, useZonesComprisonInterchain } from './hooks/useZonesComparisonInterchain';

@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import cn from 'classnames';
 
 import { PeriodKeys, RatingDiffTriangle, ZoneLogo } from 'components';
-import { OverviewCard } from 'components/OverviewCard/OverviewCard';
+import { OverviewCard } from 'components/OverviewCard';
 import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
 import { LegendTitleBase } from 'components/OverviewChartCardWithMetadata/Legend/Title/LegendTitleBase';
