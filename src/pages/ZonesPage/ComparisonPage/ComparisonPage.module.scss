@@ -29,4 +29,9 @@
   .interchainCard {
     grid-column: 10 / 13;
   }
+
+  .tokenCard {
+    grid-column: 1 / 7;
+    min-height: 350px;
+  }
 }

@@ -4,6 +4,7 @@ import { ActivityComparisonCard } from './ActivityComparisonCard';
 import styles from './ComparisonPage.module.scss';
 import { ComparisonSelectedZonesProvider } from './context/ComparisonSelectedZonesProvider';
 import { InterchainComparisonCard } from './InterchainComparisonCard';
+import { TokenComparisonCard } from './TokenComparisonCard';
 import { ZonesComparisonSelectors } from './ZonesComparisonSelectors';
 
 import { ComparisonPageProps } from '.';
@@ -18,6 +19,7 @@ export function ComparisonPage({ className, ...props }: ComparisonPageProps): JS
         </div>
         <ActivityComparisonCard className={styles.activityCard} />
         <InterchainComparisonCard className={styles.interchainCard} />
+        <TokenComparisonCard className={styles.tokenCard} />
       </div>
     </ComparisonSelectedZonesProvider>
   );

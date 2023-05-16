@@ -13,6 +13,7 @@ export interface ButtonGroupProps<T>
   buttons?: ButtonGroupItem<T>[];
   className?: string;
   children?: ReactNode;
+  disabled?: boolean;
   isActive?: (key: string) => boolean;
   setSelectedButton?: (item: ButtonGroupItem<T>) => void;
   size?: ElementSize;

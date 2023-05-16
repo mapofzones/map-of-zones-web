@@ -1,15 +1,17 @@
 import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import { PeriodKeys } from 'components/PeriodSelector';
+import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
-import { ElementSize } from 'types/ElementSize';
 
 export function OverviewPeriodButtonsGroup<T extends OverviewCardPeriod | PeriodKeys>({
   periods,
+  disabled = false,
   getTitleByKey = defaultTitleAccessor,
   onPeriodSelected,
 }: {
   periods: T[];
+  disabled?: boolean;
   getTitleByKey?: (key: T) => string;
   onPeriodSelected: (period: T) => void;
 }) {
@@ -19,6 +21,7 @@ export function OverviewPeriodButtonsGroup<T extends OverviewCardPeriod | Period
 
   return (
     <ButtonGroup
+      disabled={disabled}
       size={ElementSize.SMALL}
       buttons={periods.map((period: T) => ({
         key: period,

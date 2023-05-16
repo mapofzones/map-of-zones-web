@@ -31,12 +31,7 @@
   }
 
   .item {
-    display: flex;
-    flex: 1;
-    justify-content: center;
     height: 100%;
-
-    border-radius: 5px;
 
     &:hover {
       color: var(--grey-800);

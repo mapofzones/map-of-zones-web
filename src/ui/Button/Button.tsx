@@ -10,6 +10,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       className,
+      disabled,
       size,
       variant: buttonType,
       IconBefore,
@@ -18,6 +19,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     ref
   ): JSX.Element => {
+    console.log(props);
     return (
       <button
         type="button"
@@ -29,6 +31,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           [styles.primary]: buttonType === ButtonVariant.PRIMARY,
           [styles.secondary]: buttonType === ButtonVariant.SECONDARY,
         })}
+        disabled={disabled}
         {...props}
       >
         {IconBefore && <IconBefore className={cn(styles.icon, styles.leftIcon)} />}

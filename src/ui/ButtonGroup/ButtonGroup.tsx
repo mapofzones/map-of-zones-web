@@ -17,6 +17,7 @@ const elementSizeToButtonSizeMap = {
 
 export function ButtonGroup<T>({
   buttons,
+  disabled = false,
   className,
   children,
   isActive,
@@ -53,6 +54,7 @@ export function ButtonGroup<T>({
 
           return (
             <Button
+              disabled={disabled}
               className={cn(styles.item, {
                 [styles.active]: active,
               })}

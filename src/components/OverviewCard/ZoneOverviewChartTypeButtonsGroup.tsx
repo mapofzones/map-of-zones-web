@@ -1,7 +1,8 @@
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
 import { ChartType } from 'components/ChartContainer';
-import { ButtonGroup } from 'ui';
 import { ElementSize } from 'types/ElementSize';
+import { ButtonGroup } from 'ui';
+import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
 import styles from './OverviewCard.module.scss';
 
@@ -12,15 +13,18 @@ export const CHART_ICONS = {
 
 export function ZoneOverviewChartTypeButtonsGroup({
   chartTypes,
+  disabled = false,
   onChartSelected,
 }: {
+  disabled?: boolean;
   chartTypes: ChartType[];
-  onChartSelected?: any;
+  onChartSelected?: (item: ButtonGroupItem<ChartType>) => void;
 }) {
   return (
     <>
       {chartTypes.length > 1 && (
         <ButtonGroup
+          disabled={disabled}
           className={styles.chartTypeSwitcher}
           size={ElementSize.SMALL}
           buttons={chartTypes.map((type: ChartType) => ({
