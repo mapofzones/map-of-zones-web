@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { PeriodKeys } from 'components';
+import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewPeriodButtonsGroup';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
-import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/OverviewPeriodButtonsGroup';
 import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
 import { OverviewLegendTitle } from 'components/OverviewChartCardWithMetadata/Legend/Title/OverviewLegendTitle';

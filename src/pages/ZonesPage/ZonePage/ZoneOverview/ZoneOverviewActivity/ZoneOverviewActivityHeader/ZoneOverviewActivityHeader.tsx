@@ -1,12 +1,6 @@
-import { useState } from 'react';
-
-import cn from 'classnames';
-
 import { PeriodKeys } from 'components';
+import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewPeriodButtonsGroup';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
-import { OverviewPeriodButtonsGroup } from 'components/OverviewCard/OverviewPeriodButtonsGroup';
-
-import styles from './ZoneOverviewActivityHeader.module.scss';
 
 import { ZoneOverviewActivityHeaderProps } from '.';
 

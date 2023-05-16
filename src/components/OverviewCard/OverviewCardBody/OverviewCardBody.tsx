@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import styles from './OverviewCardBody.module.scss';
-import { OverviewCardBodyGroup } from '../OverviewCardBodyGroup';
+import { OverviewCardBodyGroup } from './OverviewCardBodyGroup';
 
 import { OverviewCardBodyProps } from '.';
 

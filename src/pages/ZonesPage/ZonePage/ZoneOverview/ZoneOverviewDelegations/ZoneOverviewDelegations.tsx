@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCard } from 'components/OverviewCard/OverviewCard';
-import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard/ZoneOverviewChartTypeButtonsGroup';
+import { ZoneOverviewChartTypeButtonsGroup } from 'components/OverviewCard/ButtonGroups/OverviewChartTypeButtonsGroup';
 import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import { OverviewChartLegend } from 'components/OverviewChartCardWithMetadata/Legend/OverviewChartLegend';
 import { OverviewLegendItem } from 'components/OverviewChartCardWithMetadata/Legend/OverviewLegendItem';
