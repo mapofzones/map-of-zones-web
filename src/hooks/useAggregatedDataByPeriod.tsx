@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 
 import moment from 'moment';
 
-import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { formatUnixUTC } from 'utils/dateTimeUtils';
 
 export function useAggregatedDataByPeriod<T>(
   data: T[],
-  selectedPeriod: OverviewCardPeriod,
+  selectedPeriod: AnalysisCardPeriod,
   keys: (keyof T)[]
 ): T[] {
   return useMemo(() => {

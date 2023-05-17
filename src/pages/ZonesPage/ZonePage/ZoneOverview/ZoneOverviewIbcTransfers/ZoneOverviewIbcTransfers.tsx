@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCardWithMetadata';
+import { OverviewChartCard } from 'components/OverviewChartCardWithMetadata';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 
 import { useZoneOverviewIbcTransfersCard } from './useZoneOverviewIbcTransfersCard';
 import { TRANSFERS_CARD_METADATA } from './ZoneOverviewIbcTransfers.metadata';
@@ -8,7 +9,7 @@ import { TRANSFERS_CARD_METADATA } from './ZoneOverviewIbcTransfers.metadata';
 import { ZoneOverviewIbcTransfersProps } from '.';
 
 export function ZoneOverviewIbcTransfers({ className }: ZoneOverviewIbcTransfersProps) {
-  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+  const [selectedPeriod, setSelectedPeriod] = useState<AnalysisCardPeriod>('1w');
 
   const { data, loading } = useZoneOverviewIbcTransfersCard(selectedPeriod);
 

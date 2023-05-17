@@ -10,18 +10,19 @@ import {
 import { ChartContainer, ChartType } from 'components/ChartContainer';
 import { OverviewCardLegendWithMetadata } from 'components/OverviewChartCardWithMetadata/OverviewCardLegendWithMetadata';
 import { useOverviewChartPeriodChangedAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useOverviewChartPeriodChangedAnalytics';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 
 import styles from './OverviewChartCardWithMetadata.module.scss';
 import { DataWithChart, OverviewCardMetadata } from './OverviewChartCardWithMetadata.types';
 
-import { OverviewCardPeriod, OverviewChartCardProps } from '.';
+import { OverviewChartCardProps } from '.';
 
 export const CHART_ICONS = {
   [ChartType.AREA]: AreaChartIcon,
   [ChartType.BAR]: BarChartIcon,
 };
 
-const PERIODS: OverviewCardPeriod[] = ['1w', '1m'];
+const PERIODS: AnalysisCardPeriod[] = ['1w', '1m'];
 
 export function OverviewChartCard<T extends DataWithChart<K>, K>({
   metadata,
@@ -40,7 +41,7 @@ export function OverviewChartCard<T extends DataWithChart<K>, K>({
     item?.key && setSelectedChartType(item.key);
   };
 
-  const onChartPeriodSelected = (period: OverviewCardPeriod) => {
+  const onChartPeriodSelected = (period: AnalysisCardPeriod) => {
     if (onPeriodSelected) {
       onPeriodSelected(period);
       trackChartPeriodChangedEvent(period);

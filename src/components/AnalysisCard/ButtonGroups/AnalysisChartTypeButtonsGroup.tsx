@@ -4,15 +4,17 @@ import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
+interface AnalysisChartTypeButtonsGroupProps {
+  disabled?: boolean;
+  chartTypes: ChartType[];
+  onChartSelected?: (item: ButtonGroupItem<ChartType>) => void;
+}
+
 export function AnalysisChartTypeButtonsGroup({
   chartTypes,
   disabled = false,
   onChartSelected,
-}: {
-  disabled?: boolean;
-  chartTypes: ChartType[];
-  onChartSelected?: (item: ButtonGroupItem<ChartType>) => void;
-}) {
+}: AnalysisChartTypeButtonsGroupProps) {
   return (
     <>
       {chartTypes.length > 1 && (

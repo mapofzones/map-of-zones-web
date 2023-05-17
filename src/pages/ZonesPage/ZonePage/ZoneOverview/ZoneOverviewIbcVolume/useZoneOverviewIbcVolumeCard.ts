@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 
-import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import {
   ZoneOverviewIbcVolumeDocument,
   ZoneOverviewIbcVolumeQueryResult,
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcVolume.query.generated';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
 import { IbcVolumeChart, ZoneOverviewIbcVolumeCardData } from './ZoneOverviewIbcVolume.types';
@@ -34,7 +34,7 @@ const chartsMapping: ArraysMapping<
   },
 };
 
-export function useZoneOverviewIbcVolumeCard(period: OverviewCardPeriod): {
+export function useZoneOverviewIbcVolumeCard(period: AnalysisCardPeriod): {
   data: ZoneOverviewIbcVolumeCardData | undefined;
   loading: boolean;
 } {

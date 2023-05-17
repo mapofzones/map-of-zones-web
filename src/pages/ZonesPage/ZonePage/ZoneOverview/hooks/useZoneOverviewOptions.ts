@@ -1,14 +1,11 @@
 import { useParams } from 'react-router-dom';
 
-import {
-  OverviewCardPeriod,
-  OVERVIEW_PERIODS_IN_HOURS_BY_KEY,
-} from 'components/OverviewChartCardWithMetadata';
+import { ANALYSIS_PERIODS_IN_HOURS_BY_KEY, AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 
-export function useZoneOverviewOptions(period: OverviewCardPeriod) {
+export function useZoneOverviewOptions(period: AnalysisCardPeriod) {
   const { zone = '' } = useParams();
 
-  const periodInHours = OVERVIEW_PERIODS_IN_HOURS_BY_KEY[period];
+  const periodInHours = ANALYSIS_PERIODS_IN_HOURS_BY_KEY[period];
   const periodInDays = periodInHours / 24;
 
   const options = {

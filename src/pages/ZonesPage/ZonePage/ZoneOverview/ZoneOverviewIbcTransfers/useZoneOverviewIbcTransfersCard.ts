@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 
-import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import {
   ZoneOverviewIbcTransfersCardDocument,
   ZoneOverviewIbcTransfersCardQueryResult,
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewIbcTransfers.query.generated';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ArraysMapping, mergeChartArraysIntoOne } from 'utils/mergeChartArraysIntoOne';
 
 import {
@@ -34,7 +34,7 @@ const chartsMapping: ArraysMapping<IbcTransfersCardApi, CombinedChartApi, IbcTra
   },
 };
 
-export function useZoneOverviewIbcTransfersCard(period: OverviewCardPeriod): {
+export function useZoneOverviewIbcTransfersCard(period: AnalysisCardPeriod): {
   data: ZoneOverviewIbcTransfersCardData | undefined;
   loading: boolean;
 } {

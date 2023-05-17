@@ -1,20 +1,22 @@
-import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
 import { PeriodKeys } from 'components/PeriodSelector';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
-export function AnalysisPeriodButtonsGroup<T extends OverviewCardPeriod | PeriodKeys>({
-  periods,
-  disabled = false,
-  getTitleByKey = defaultTitleAccessor,
-  onPeriodSelected,
-}: {
+interface AnalysisPeriodButtonsGroupProps<T extends AnalysisCardPeriod | PeriodKeys> {
   periods: T[];
   disabled?: boolean;
   getTitleByKey?: (key: T) => string;
   onPeriodSelected: (period: T) => void;
-}) {
+}
+
+export function AnalysisPeriodButtonsGroup<T extends AnalysisCardPeriod | PeriodKeys>({
+  periods,
+  disabled = false,
+  getTitleByKey = defaultTitleAccessor,
+  onPeriodSelected,
+}: AnalysisPeriodButtonsGroupProps<T>) {
   const onChartPeriodSelected = (item: ButtonGroupItem<T>) => {
     item?.key && onPeriodSelected(item?.key);
   };
@@ -32,6 +34,6 @@ export function AnalysisPeriodButtonsGroup<T extends OverviewCardPeriod | Period
   );
 }
 
-function defaultTitleAccessor<T extends OverviewCardPeriod | PeriodKeys>(key: T) {
+function defaultTitleAccessor<T extends AnalysisCardPeriod | PeriodKeys>(key: T) {
   return key.toString().toUpperCase();
 }

@@ -11,7 +11,7 @@ import {
   LegendValueBase,
 } from 'components/AnalysisCard';
 import { ChartContainer, ChartType } from 'components/ChartContainer';
-import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
 
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
@@ -32,7 +32,7 @@ const CHART_METADATA = {
 };
 
 export function ZoneOverviewDelegations({ className }: ZoneOverviewDelegationsProps) {
-  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+  const [selectedPeriod, setSelectedPeriod] = useState<AnalysisCardPeriod>('1w');
 
   const { data, loading } = useZoneOverviewDelegations(selectedPeriod);
 

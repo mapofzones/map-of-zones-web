@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { OverviewCardPeriod, OverviewChartCard } from 'components/OverviewChartCardWithMetadata';
+import { OverviewChartCard } from 'components/OverviewChartCardWithMetadata';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 
 import { useZoneOverviewIbcVolumeCard } from './useZoneOverviewIbcVolumeCard';
 import { VOLUME_CARD_METADATA } from './ZoneOverviewIbcVolume.metadata';
@@ -8,7 +9,7 @@ import { VOLUME_CARD_METADATA } from './ZoneOverviewIbcVolume.metadata';
 import { ZoneOverviewIbcVolumeProps } from '.';
 
 export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps) {
-  const [selectedPeriod, setSelectedPeriod] = useState<OverviewCardPeriod>('1w');
+  const [selectedPeriod, setSelectedPeriod] = useState<AnalysisCardPeriod>('1w');
   const { data, loading } = useZoneOverviewIbcVolumeCard(selectedPeriod);
 
   return (

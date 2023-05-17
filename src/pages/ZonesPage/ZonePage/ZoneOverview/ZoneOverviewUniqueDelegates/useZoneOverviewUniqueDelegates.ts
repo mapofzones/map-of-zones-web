@@ -1,17 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import {
-  OverviewCardPeriod,
-  OVERVIEW_PERIODS_API_KEYS,
-} from 'components/OverviewChartCardWithMetadata';
+import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 
 import {
   ZoneOverviewUniqueDelegatesCardData,
   ZoneOverviewUniqueDelegatesCardResult,
 } from './ZoneOverviewUniqueDelegates.types';
 
-export function useZoneOverviewUniqueDelegates(period: OverviewCardPeriod): {
+export function useZoneOverviewUniqueDelegates(period: AnalysisCardPeriod): {
   data: ZoneOverviewUniqueDelegatesCardData | undefined;
   loading: boolean;
 } {

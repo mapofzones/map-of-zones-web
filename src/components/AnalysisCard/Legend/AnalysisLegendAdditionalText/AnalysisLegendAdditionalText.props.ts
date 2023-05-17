@@ -1,5 +1,5 @@
-import { OverviewCardPeriod } from 'components/OverviewChartCardWithMetadata';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 
 export interface AnalysisLegendAdditionalTextProps {
-  period: OverviewCardPeriod;
+  period: AnalysisCardPeriod;
 }
