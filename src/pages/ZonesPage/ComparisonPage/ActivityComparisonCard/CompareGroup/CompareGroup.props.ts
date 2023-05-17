@@ -1,4 +1,4 @@
-import { NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
 
 export interface ComparisonGroupItem {
   name: string;

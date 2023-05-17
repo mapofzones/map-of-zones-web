@@ -1,5 +1,7 @@
-import { NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
 import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props';
+
+import { ChartType } from '../../types/ChartType';
 
 type ChartKeys<T> = Omit<T, 'time'>; //
 
@@ -14,9 +16,4 @@ export interface ChartContainerProps<T> {
   tooltipTimeFormat?: string;
   lastDashedPeriod?: boolean;
   chartTimeFormat?: string;
-}
-
-export enum ChartType {
-  AREA = 'area',
-  BAR = 'bar',
 }

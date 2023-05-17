@@ -6,7 +6,7 @@
 import { useQuery } from '@apollo/client';
 
 import { AseetsTableDocument } from 'graphql/v2/AssetsPage/__generated__/AssetsTable.query.generated';
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemByString } from 'types/chart';
 
 export interface AssetsTableRow {
   blockchain: { name: string };

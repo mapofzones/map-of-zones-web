@@ -1,7 +1,8 @@
-import { ChartType } from 'components/ChartContainer';
+import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
+import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
-import { NumberType, Circle } from 'ui';
+import { Circle } from 'ui';
 
 import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewUniqueDelegates.types';
 

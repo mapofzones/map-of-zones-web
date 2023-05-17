@@ -5,7 +5,8 @@ import cn from 'classnames';
 import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewActivity/ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
-import { Divider, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { Divider } from 'ui';
 
 import styles from './ActivityComparisonCard.module.scss';
 import { CompareGroup, MetadataItem } from './CompareGroup';

@@ -5,8 +5,8 @@ import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZoneIbcVolumeCardDocument } from 'graphql/v2/common/Cards/__generated__/ZoneIbcVolumeCard.query.generated';
 import { useMainnet } from 'hooks/useMainnet';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { ChartItemByString } from 'types/chart';
 import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
-import { ChartItemByString } from 'utils/helper';
 
 export interface IbcVolumeCardData {
   ibcVolume?: number;

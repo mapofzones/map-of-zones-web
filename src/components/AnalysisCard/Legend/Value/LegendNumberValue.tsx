@@ -1,4 +1,5 @@
-import { NumberFormat, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { NumberFormat } from 'ui';
 
 import styles from './LegendNumberValue.module.scss';
 import { LegendValueBase } from './LegendValueBase';

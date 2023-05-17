@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
-import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components/PeriodSelector/Types';
 import { ZonesListZonePeersDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZonePeers.query.generated';
+import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'types/PeriodKeys';
 
 import { ZoneData } from './TableRow/TableRow.props';
 import { BlockchainChannel } from './Types';

@@ -1,5 +1,5 @@
 import { ChartItemWithTime } from 'types/chart';
-import { NumberType } from 'ui/NumberFormat';
+import { NumberType } from 'types/NumberType';
 
 export interface AreaChartProps {
   className?: string;

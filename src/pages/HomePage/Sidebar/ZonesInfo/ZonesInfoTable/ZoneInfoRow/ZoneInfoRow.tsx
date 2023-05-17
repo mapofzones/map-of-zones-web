@@ -7,7 +7,7 @@ import {
 } from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { overviewPath } from 'routing';
-import { NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
 
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';

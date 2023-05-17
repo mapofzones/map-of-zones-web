@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 
 import { AseetsTotalInfoDocument } from 'graphql/v2/AssetsPage/__generated__/AssetsTotalInfo.query.generated';
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemByString } from 'types/chart';
 
 export interface AssetsTotalData {
   assetsCount?: number | null;

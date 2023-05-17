@@ -1,5 +1,5 @@
 import { PeriodKeys } from 'components';
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemByString } from 'types/chart';
 
 export function handleChartByPeriod(
   data: ChartItemByString[] | undefined,

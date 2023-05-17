@@ -10,9 +10,11 @@ import {
   AnalysisLegendTitle,
   LegendValueBase,
 } from 'components/AnalysisCard';
-import { ChartContainer, ChartType } from 'components/ChartContainer';
+import { ChartContainer } from 'components/ChartContainer';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
-import { NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
+import { ChartType } from 'types/ChartType';
+import { NumberType } from 'types/NumberType';
+import { NumberFormat, SkeletonTextWrapper } from 'ui';
 
 import { useZoneOverviewDelegations } from './useZoneOverviewDelegations';
 import styles from './ZoneOverviewDelegations.module.scss';

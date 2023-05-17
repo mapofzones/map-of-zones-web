@@ -1,6 +1,6 @@
 import { PeriodKeys } from 'components';
 import { ChartContainer } from 'components/ChartContainer';
-import { NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
 
 import { ChartType } from './../Types';
 import { useZoneTokenChart } from './../useZoneTokenChart';

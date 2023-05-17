@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { PeriodKeys, PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZonesTotalInfoDocument } from 'graphql/v2/ZonesPage/ZonesInfo/__generated__/ZonesTotalInfo.query.generated';
 import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemByString } from 'types/chart';
 
 interface TopPairZone {
   name: string;

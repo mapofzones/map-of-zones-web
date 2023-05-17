@@ -1,9 +1,8 @@
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
 
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
-import { PeriodKeys } from 'components/PeriodSelector/Types';
 import { ZoneOverviewActivityDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewActivity.query.generated';
+import { PeriodKeys } from 'types/PeriodKeys';
 
 export type ZoneOverviewActivityQueryResult = {
   zone: string;

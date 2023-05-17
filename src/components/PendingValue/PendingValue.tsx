@@ -1,8 +1,8 @@
 import cn from 'classnames';
 
 import { PendingIcon } from 'assets/icons';
+import { NumberType } from 'types/NumberType';
 import { NumberFormat } from 'ui';
-import { NumberType } from 'ui/NumberFormat/NumberType';
 
 import styles from './PendingValue.module.scss';
 import { PendingValueProps } from './PendingValue.props';

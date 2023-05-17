@@ -1,7 +1,7 @@
-import { ChartType } from 'components/ChartContainer';
+import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
-import { NumberType } from 'ui';
-import { Circle } from 'ui/Circle';
+import { NumberType } from 'types/NumberType';
+import { Circle } from 'ui';
 
 import { ActiveUsersOverviewCardMetadata } from './ZoneOverviewActiveUsers.types';
 

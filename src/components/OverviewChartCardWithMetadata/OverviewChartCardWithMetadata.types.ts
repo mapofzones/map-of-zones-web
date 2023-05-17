@@ -1,6 +1,6 @@
-import { ChartType } from 'components/ChartContainer';
 import { LegendMetadata } from 'components/OverviewChartCardWithMetadata/OverviewCardLegendWithMetadata';
-import { NumberType } from 'ui';
+import { ChartType } from 'types/ChartType';
+import { NumberType } from 'types/NumberType';
 
 export type DataWithChart<T> = { chart: T[] };
 

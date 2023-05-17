@@ -1,4 +1,5 @@
-import { Circle, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { Circle } from 'ui';
 import { NumberFormat } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './OverviewReturnedAddressesChart.module.scss';

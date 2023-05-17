@@ -2,8 +2,9 @@ import cn from 'classnames';
 
 import { ValueWithPending } from 'components';
 import { ElementSize } from 'types/ElementSize';
+import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
-import { Card, Divider, NumberType } from 'ui';
+import { Card, Divider } from 'ui';
 
 import { StackingBlock } from './StackingBlock';
 import { TotalBondenRateBlock } from './TotalBondenRateBlock';

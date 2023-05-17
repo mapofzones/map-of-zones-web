@@ -1,5 +1,5 @@
 import { AreaChartIcon, BarChartIcon } from 'assets/icons';
-import { ChartType } from 'components/ChartContainer';
+import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';

@@ -1,8 +1,8 @@
 /* eslint-disable sort-exports/sort-exports */
-import React from 'react';
 
-import { NumberFormatProps } from './NumberFormat.props';
-import { NumberType, NUMBER_STYLE_MAP } from './NumberType';
+import { NumberType } from 'types/NumberType';
+
+import { NUMBER_STYLE_MAP, NumberFormatProps } from './NumberFormat.props';
 
 export function NumberFormat({
   className,

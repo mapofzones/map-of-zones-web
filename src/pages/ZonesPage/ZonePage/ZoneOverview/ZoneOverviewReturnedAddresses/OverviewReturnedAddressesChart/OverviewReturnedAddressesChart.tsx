@@ -12,7 +12,8 @@ import {
 
 import { PeriodKeys } from 'components';
 import { Watermark } from 'components/Watermark';
-import { SkeletonRectangle, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { SkeletonRectangle } from 'ui';
 import { formatNumberToString } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './OverviewReturnedAddressesChart.module.scss';

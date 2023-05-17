@@ -2,8 +2,9 @@ import cn from 'classnames';
 
 import { VolumeLineChart } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
-import { Card, ExplanationTooltip, LineChart, NumberFormat, NumberType } from 'ui';
+import { Card, ExplanationTooltip, LineChart, NumberFormat } from 'ui';
 
 import styles from './IbcVolumeCard.module.scss';
 import { IbcVolumeCardProps } from './IbcVolumeCard.props';

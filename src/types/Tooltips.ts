@@ -1,5 +1,5 @@
 import { PeriodKeys } from 'components';
-import { PERIODS_IN_STRING } from 'components/PeriodSelector/Types';
+import { PERIODS_IN_STRING } from 'types/PeriodKeys';
 
 export const tooltips = {
   channelsCount: () => 'Number of channels that connect a particular Zone to its counterparties',

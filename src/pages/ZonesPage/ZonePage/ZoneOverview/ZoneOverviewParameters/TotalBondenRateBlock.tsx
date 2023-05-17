@@ -1,6 +1,7 @@
 import { ValueWithPending } from 'components';
 import { ElementSize } from 'types/ElementSize';
-import { NumberFormat, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { NumberFormat } from 'ui';
 
 import { ZoneOverviewParametersData } from './useZoneOverviewParameters';
 import styles from './ZoneOverviewParameters.module.scss';

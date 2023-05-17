@@ -3,8 +3,8 @@ import cn from 'classnames';
 import { PendingValue } from 'components';
 import { PeriodBlock } from 'components/PeriodBlock';
 import { ElementSize } from 'types/ElementSize';
+import { NumberType } from 'types/NumberType';
 import { ExplanationTooltip, NumberFormat, SkeletonTextWrapper } from 'ui';
-import { NumberType } from 'ui/NumberFormat/NumberType';
 
 import styles from './ValueWithPending.module.scss';
 import { ValueWithPendingProps } from './ValueWithPending.props';

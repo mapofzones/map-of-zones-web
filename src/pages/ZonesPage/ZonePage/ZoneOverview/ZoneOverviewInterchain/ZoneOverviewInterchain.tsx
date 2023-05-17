@@ -3,8 +3,9 @@ import cn from 'classnames';
 import { ValueWithPending } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { ElementSize } from 'types/ElementSize';
+import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
-import { Divider, NumberType } from 'ui';
+import { Divider } from 'ui';
 
 import { useZoneOverviewInterchain } from './useZoneOverviewInterchain';
 import styles from './ZoneOverviewInterchain.module.scss';

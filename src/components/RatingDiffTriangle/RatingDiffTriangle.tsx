@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
-import { NumberFormat, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { NumberFormat } from 'ui';
 
 import styles from './RatingDiffTriangle.module.scss';
 

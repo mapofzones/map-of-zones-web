@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 import { ChartItemWithTime } from 'types/chart';
-import { NumberType } from 'ui/NumberFormat';
+import { NumberType } from 'types/NumberType';
 import { formatNumberToString } from 'ui/NumberFormat/NumberFormat';
 import { formatUnixUTC } from 'utils/dateTimeUtils';
 

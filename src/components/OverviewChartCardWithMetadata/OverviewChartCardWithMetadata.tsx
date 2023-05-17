@@ -7,10 +7,11 @@ import {
   AnalysisPeriodButtonsGroup,
   AnalysisLegendAdditionalText,
 } from 'components/AnalysisCard';
-import { ChartContainer, ChartType } from 'components/ChartContainer';
+import { ChartContainer } from 'components/ChartContainer';
 import { OverviewCardLegendWithMetadata } from 'components/OverviewChartCardWithMetadata/OverviewCardLegendWithMetadata';
 import { useOverviewChartPeriodChangedAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useOverviewChartPeriodChangedAnalytics';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
+import { ChartType } from 'types/ChartType';
 
 import styles from './OverviewChartCardWithMetadata.module.scss';
 import { DataWithChart, OverviewCardMetadata } from './OverviewChartCardWithMetadata.types';

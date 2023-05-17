@@ -1,4 +1,4 @@
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemByString } from 'types/chart';
 
 export interface LineChartProps {
   data: ChartItemByString[];

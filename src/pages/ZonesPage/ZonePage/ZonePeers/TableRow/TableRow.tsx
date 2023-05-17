@@ -7,7 +7,8 @@ import { PendingValue, TableRowItem, ValueWithPending, ZoneLogo, ZoneStatus } fr
 import { trackEvent } from 'hooks/analytics/useAnalytics';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
-import { AnimatedArrowDown, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { AnimatedArrowDown } from 'ui';
 
 import { ChannelRow } from './ChannelRow/ChannelRow';
 import { ShowMoreRow } from './ShowMoreRow/ShowMoreRow';

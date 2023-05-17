@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 import { ElementSize } from 'types/ElementSize';
-import { NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
 
 export interface ValueWithPendingProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

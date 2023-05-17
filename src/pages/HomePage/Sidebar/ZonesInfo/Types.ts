@@ -1,7 +1,7 @@
 import { PeriodKeys } from 'components';
 import { ColumnKeys } from 'pages/HomePage/Types';
+import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
-import { NumberType } from 'ui';
 import { getDauTitleByPeriod } from 'utils/helper';
 
 import { ZonesTableDataQueryItem } from './ZonesInfoTable/ZonesInfoTable.props';

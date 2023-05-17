@@ -8,7 +8,8 @@ import {
   TableRowItem,
 } from 'components';
 import { overviewPath } from 'routing';
-import { LineChart, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { LineChart } from 'ui';
 
 import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';

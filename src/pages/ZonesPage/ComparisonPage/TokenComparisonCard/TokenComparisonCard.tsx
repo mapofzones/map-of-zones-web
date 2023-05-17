@@ -12,9 +12,11 @@ import {
   AnalysisLegendTitle,
   LegendNumberValue,
 } from 'components/AnalysisCard';
-import { ChartContainer, ChartType } from 'components/ChartContainer';
+import { ChartContainer } from 'components/ChartContainer';
+import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
-import { ButtonGroup, NumberType, SkeletonTextWrapper } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { ButtonGroup, SkeletonTextWrapper } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
 import styles from './TokenComparisonCard.module.scss';

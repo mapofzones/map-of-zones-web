@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
 
 export interface PendingValueProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

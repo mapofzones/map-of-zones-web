@@ -7,7 +7,7 @@ import {
   YAxis,
 } from 'recharts';
 
-import { ChartItemByString } from 'utils/helper';
+import { ChartItemByString } from 'types/chart';
 
 import styles from './LineChart.module.scss';
 import { LineChartProps } from './LineChart.props';

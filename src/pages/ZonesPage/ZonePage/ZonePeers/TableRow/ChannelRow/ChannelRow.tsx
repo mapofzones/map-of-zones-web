@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 import { ChannelClosedIcon } from 'assets/icons';
 import { PendingValue, TableRowItem, ValueWithPending } from 'components';
-import { NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
 
 import { ChannelInfoTooltip } from './ChannelInfoTooltip/ChannelInfoTooltip';
 import styles from './ChannelRow.module.scss';

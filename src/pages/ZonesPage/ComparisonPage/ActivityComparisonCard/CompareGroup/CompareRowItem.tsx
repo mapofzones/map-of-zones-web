@@ -1,4 +1,5 @@
-import { NumberFormat, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { NumberFormat } from 'ui';
 import { PercentageBar } from 'ui/PercentageBar/PercentageBar';
 
 export function CompareRowItem({

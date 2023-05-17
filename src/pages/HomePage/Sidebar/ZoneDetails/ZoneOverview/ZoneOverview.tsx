@@ -4,8 +4,9 @@ import { IbcVolumeCard } from 'components';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { getZonesOverviewPath } from 'routing';
+import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
-import { NumberFormat, ScrollableContainer, NumberType } from 'ui';
+import { NumberFormat, ScrollableContainer } from 'ui';
 import { getDauTitleByPeriod } from 'utils/helper';
 
 import { useZoneOverview } from './useZoneOverview';

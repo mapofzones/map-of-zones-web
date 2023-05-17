@@ -1,4 +1,4 @@
-import { NumberType } from './NumberType';
+import { NumberType } from 'types/NumberType';
 
 export interface NumberFormatProps {
   className?: string;
@@ -8,3 +8,9 @@ export interface NumberFormatProps {
   numberType?: NumberType;
   value?: number | null;
 }
+
+export const NUMBER_STYLE_MAP = {
+  [NumberType.Number]: 'decimal',
+  [NumberType.Currency]: 'currency',
+  [NumberType.Percent]: 'percent',
+};

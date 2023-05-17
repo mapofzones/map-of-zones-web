@@ -14,7 +14,8 @@ import {
 import { Period } from 'components/PeriodBlock';
 import { useSwitchedTokenInfoChartAnalytics } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useSwitchedTokenInfoChart';
 import { ElementSize } from 'types/ElementSize';
-import { ButtonGroup, NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { ButtonGroup, NumberFormat, SkeletonTextWrapper } from 'ui';
 
 import { TokenCharts } from './TokenCharts/TokenCharts';
 import { chartOptions, ChartType, priceDiffKeyByPeriod } from './Types';

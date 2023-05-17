@@ -2,7 +2,8 @@ import cn from 'classnames';
 
 import { RatingDiffTriangle, ValueWithPending, ZoneLogo, TableRowItem } from 'components';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
-import { LineChart, NumberType } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { LineChart } from 'ui';
 
 import styles from './TableRow.module.scss';
 import { TableRowProps } from './TableRow.props';

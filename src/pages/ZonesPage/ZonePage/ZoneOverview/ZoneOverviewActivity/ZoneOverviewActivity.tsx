@@ -6,8 +6,9 @@ import { useParams } from 'react-router-dom';
 import { PeriodKeys, ValueWithPending, VolumeLineChart } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { ElementSize } from 'types/ElementSize';
+import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
-import { NumberType, SkeletonTextWrapper, NumberFormat, Divider } from 'ui';
+import { SkeletonTextWrapper, NumberFormat, Divider } from 'ui';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';

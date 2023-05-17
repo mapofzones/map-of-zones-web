@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Dropdown } from 'ui';
 import { ButtonSize, ButtonVariant } from 'ui/Button/Button.props';
 
 import styles from './PeriodSelector.module.scss';
-import { PeriodKeys } from './Types';
+import { PeriodKeys } from '../../types/PeriodKeys';
 
 export function PeriodSelector({
   className,

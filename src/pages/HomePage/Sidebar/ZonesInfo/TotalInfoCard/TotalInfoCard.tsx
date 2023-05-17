@@ -3,9 +3,10 @@ import cn from 'classnames';
 import { PendingIcon } from 'assets/icons';
 import { PeriodKeys } from 'components';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { ChartItemByString } from 'types/chart';
 import { Card, NumberFormat } from 'ui';
 import { LineChart } from 'ui/LineChart/LineChart';
-import { ChartItemByString, getDauTitleByPeriod } from 'utils/helper';
+import { getDauTitleByPeriod } from 'utils/helper';
 
 import styles from './TotalInfoCard.module.scss';
 import { TotalInfoCardProps, TotalInfoType } from './TotalInfoCard.props';

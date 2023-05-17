@@ -8,7 +8,8 @@ import { AreaChart } from 'ui/Charts/AreaChart/AreaChart';
 import { BarChart } from 'ui/Charts/BarChart/BarChart';
 
 import styles from './ChartContainer.module.scss';
-import { ChartContainerProps, ChartType } from './ChartContainer.props';
+import { ChartContainerProps } from './ChartContainer.props';
+import { ChartType } from '../../types/ChartType';
 
 export function ChartContainer<T>({
   loading,

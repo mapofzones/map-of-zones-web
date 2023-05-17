@@ -10,7 +10,8 @@ import {
   LegendValueBase,
 } from 'components/AnalysisCard';
 import { ElementSize } from 'types/ElementSize';
-import { ButtonGroup, NumberFormat, NumberType, SkeletonTextWrapper } from 'ui';
+import { NumberType } from 'types/NumberType';
+import { ButtonGroup, NumberFormat, SkeletonTextWrapper } from 'ui';
 
 import { OverviewReturnedAddressesChart } from './OverviewReturnedAddressesChart';
 import { chartOptions, ReturnedAddressesChartType } from './types';

@@ -1,8 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 import { ElementSize } from 'types/ElementSize';
-import { NumberType } from 'ui';
-import { ChartItemByString } from 'utils/helper';
+import { NumberType } from 'types/NumberType';
+import { ChartItemByString } from 'types/chart';
 
 export interface TotalInfoCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
