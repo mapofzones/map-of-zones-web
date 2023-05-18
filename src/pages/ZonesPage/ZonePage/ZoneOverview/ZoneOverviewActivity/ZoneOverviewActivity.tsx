@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { PeriodKeys, ValueWithPending, VolumeLineChart } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
+import { AnalysisCardActivityHeader } from 'components/AnalysisCardActivityHeader';
 import { ElementSize } from 'types/ElementSize';
 import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
@@ -12,7 +13,6 @@ import { SkeletonTextWrapper, NumberFormat, Divider } from 'ui';
 
 import { useZoneOverviewActivity } from './useZoneOverviewActivity';
 import styles from './ZoneOverviewActivity.module.scss';
-import { ZoneOverviewActivityHeader } from './ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
 
 export function ZoneOverviewActivity({ className }: { className?: string }) {
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
@@ -26,7 +26,7 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
 
   return (
     <AnalysisCard className={cn(className)}>
-      <ZoneOverviewActivityHeader
+      <AnalysisCardActivityHeader
         selectedPeriod={selectedPeriod}
         onPeriodSelected={onPeriodSelected}
       />

@@ -20,7 +20,7 @@ export function ZoneOverviewActiveUsers({ className }: ZoneOverviewActiveUsersPr
       chartData={data?.chart ?? []}
       loading={loading}
       metadata={ACTIVE_USERS_CARD_METADATA}
-      onPeriodSelected={(period) => setSelectedPeriod(period)}
+      onPeriodSelected={setSelectedPeriod}
     />
   );
 }

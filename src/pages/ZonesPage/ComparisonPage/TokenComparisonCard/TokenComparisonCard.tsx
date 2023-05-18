@@ -1,16 +1,10 @@
-import { useState } from 'react';
-
 import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
 import {
+  AnalysisCard,
   AnalysisChartTypeButtonsGroup,
   AnalysisPeriodButtonsGroup,
-  AnalysisCard,
-  AnalysisCardLegend,
-  AnalysisLegendItem,
-  AnalysisLegendTitle,
-  LegendNumberValue,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
 import { ChartType } from 'types/ChartType';
@@ -22,10 +16,11 @@ import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 import styles from './TokenComparisonCard.module.scss';
 import { TokenProperties, useZonesTokenComparison } from './useZonesTokenComparison';
 import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
+import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
 
 import { TokenComparisonCardProps } from '.';
 
-const TOKEN_CARD_OPTIONS: ButtonGroupItem<TokenProperties>[] = [
+const TOKEN_CARD_PROPERTIES_OPTIONS: ButtonGroupItem<TokenProperties>[] = [
   { key: 'price', title: 'Price' },
   { key: 'marketCap', title: 'Market Cap' },
   { key: 'tradingVolume', title: 'Trading Volume' },
@@ -33,23 +28,12 @@ const TOKEN_CARD_OPTIONS: ButtonGroupItem<TokenProperties>[] = [
 const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
 
 export function TokenComparisonCard({ className }: TokenComparisonCardProps): JSX.Element {
-  const [selectedProperty, setSelectedProperty] = useState<TokenProperties>('price');
-
-  function onTabSelected(item: { key?: TokenProperties }): void {
-    item?.key && setSelectedProperty(item?.key);
-  }
-
-  const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.AREA);
-
-  const onChartSelected = (item: { key?: ChartType }) => {
-    item?.key && setSelectedChartType(item.key);
-  };
-
-  const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
-
-  const onPeriodSelected = (key: PeriodKeys) => {
-    setSelectedPeriod(key);
-  };
+  const { selectedProperty, onPropertyTabSelected, selectedPeriod, onPeriodSelected } =
+    useComparisonChartCardSelectedParameters<TokenProperties, PeriodKeys, ChartType>(
+      'price',
+      PeriodKeys.DAY,
+      ChartType.AREA
+    );
 
   const { zones: selectedZones } = useComparisonSelectedZones();
 
@@ -67,29 +51,32 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
         <ButtonGroup
           className={styles.groupTabSelector}
           size={ElementSize.SMALL}
-          buttons={TOKEN_CARD_OPTIONS}
-          setSelectedButton={onTabSelected}
+          buttons={TOKEN_CARD_PROPERTIES_OPTIONS}
+          setSelectedButton={onPropertyTabSelected}
         />
       </AnalysisCard.Header>
 
-      <div className={styles.chartControls}>
+      <AnalysisCard.ChartControls>
         <AnalysisChartTypeButtonsGroup disabled chartTypes={[ChartType.AREA, ChartType.BAR]} />
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
-      </div>
+      </AnalysisCard.ChartControls>
 
-      <AnalysisCardLegend className={styles.chartLegend}>
+      <AnalysisCard.Legend className={styles.chartLegend}>
         {data?.map((item) => (
-          <AnalysisLegendItem key={item.zone} className={styles.legendItem}>
-            <AnalysisLegendTitle
+          <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+            <AnalysisCard.Legend.Item.Title
               title={`${item.name}: ${item.symbol}`}
               circleColor={datasetInfo[item.zone].color}
             />
             <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
-              <LegendNumberValue value={item[selectedProperty]} numberType={NumberType.Currency} />
+              <AnalysisCard.Legend.Item.ValueNumber
+                value={item[selectedProperty]}
+                numberType={NumberType.Currency}
+              />
             </SkeletonTextWrapper>
-          </AnalysisLegendItem>
+          </AnalysisCard.Legend.Item>
         ))}
-      </AnalysisCardLegend>
+      </AnalysisCard.Legend>
 
       <ChartContainer
         chartType={ChartType.AREA}

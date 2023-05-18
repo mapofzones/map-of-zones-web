@@ -1,15 +1,9 @@
-import { useState } from 'react';
-
 import cn from 'classnames';
 
 import {
   AnalysisCard,
   AnalysisChartTypeButtonsGroup,
   AnalysisPeriodButtonsGroup,
-  AnalysisCardLegend,
-  AnalysisLegendItem,
-  AnalysisLegendTitle,
-  LegendNumberValue,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
@@ -20,10 +14,11 @@ import { ButtonGroup, SkeletonTextWrapper } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
 import styles from './IbcVolumeComparisonCard.module.scss';
-import { IbcVolumeProperties, useZonesIbcVolumeComparison } from './useZonesIbcVolumeComparison';
+import { useZonesIbcVolumeComparison } from './useZonesIbcVolumeComparison';
 import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
+import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
 
-import { IbcVolumeComparisonCardProps } from '.';
+import { IbcVolumeComparisonCardProps, IbcVolumeProperties } from '.';
 
 const IBC_VOLUME_CARD_OPTIONS: ButtonGroupItem<IbcVolumeProperties>[] = [
   { key: 'ibcVolume', title: 'Total IBC' },
@@ -33,23 +28,18 @@ const IBC_VOLUME_CARD_OPTIONS: ButtonGroupItem<IbcVolumeProperties>[] = [
 const PERIODS: AnalysisCardPeriod[] = ['1w', '1m'];
 
 export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardProps): JSX.Element {
-  const [selectedProperty, setSelectedProperty] = useState<IbcVolumeProperties>('ibcVolume');
-
-  function onTabSelected(item: { key?: IbcVolumeProperties }): void {
-    item?.key && setSelectedProperty(item?.key);
-  }
-
-  const [selectedChartType, setSelectedChartType] = useState<ChartType>(ChartType.AREA);
-
-  const onChartSelected = (item: { key?: ChartType }) => {
-    item?.key && setSelectedChartType(item.key);
-  };
-
-  const [selectedPeriod, setSelectedPeriod] = useState<AnalysisCardPeriod>('1w');
-
-  const onPeriodSelected = (key: AnalysisCardPeriod) => {
-    setSelectedPeriod(key);
-  };
+  const {
+    selectedProperty,
+    onPropertyTabSelected,
+    selectedChartType,
+    onChartTypeSelected,
+    selectedPeriod,
+    onPeriodSelected,
+  } = useComparisonChartCardSelectedParameters<IbcVolumeProperties, AnalysisCardPeriod, ChartType>(
+    'ibcVolume',
+    '1w',
+    ChartType.AREA
+  );
 
   const { zones: selectedZones } = useComparisonSelectedZones();
 
@@ -67,31 +57,34 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
           className={styles.groupTabSelector}
           size={ElementSize.SMALL}
           buttons={IBC_VOLUME_CARD_OPTIONS}
-          setSelectedButton={onTabSelected}
+          setSelectedButton={onPropertyTabSelected}
         />
       </AnalysisCard.Header>
 
-      <div className={styles.chartControls}>
+      <AnalysisCard.ChartControls>
         <AnalysisChartTypeButtonsGroup
           chartTypes={[ChartType.AREA, ChartType.BAR]}
-          onChartSelected={onChartSelected}
+          onChartSelected={onChartTypeSelected}
         />
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
-      </div>
+      </AnalysisCard.ChartControls>
 
-      <AnalysisCardLegend className={styles.chartLegend}>
+      <AnalysisCard.Legend className={styles.chartLegend}>
         {data?.map((item) => (
-          <AnalysisLegendItem key={item.zone} className={styles.legendItem}>
-            <AnalysisLegendTitle
+          <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+            <AnalysisCard.Legend.Item.Title
               title={`${item.zone}`}
               circleColor={datasetInfo[item.zone].color}
             />
             <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
-              <LegendNumberValue value={item[selectedProperty]} numberType={NumberType.Currency} />
+              <AnalysisCard.Legend.Item.ValueNumber
+                value={item[selectedProperty]}
+                numberType={NumberType.Currency}
+              />
             </SkeletonTextWrapper>
-          </AnalysisLegendItem>
+          </AnalysisCard.Legend.Item>
         ))}
-      </AnalysisCardLegend>
+      </AnalysisCard.Legend>
 
       <ChartContainer
         chartType={selectedChartType}

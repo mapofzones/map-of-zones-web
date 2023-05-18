@@ -5,8 +5,10 @@ import cn from 'classnames';
 import { Card } from 'ui';
 
 import styles from './AnalysisCard.module.scss';
+import { AnalysisChartControlsContainer } from './AnslysisChartControlsContainer';
 import { AnalysisCardBody } from './Body';
 import { AnalysisCardHeader } from './Header';
+import { AnalysisCardLegend } from './Legend';
 import { AnalysisCardTitle } from './Title';
 
 export function AnalysisCard({
@@ -28,3 +30,5 @@ export function AnalysisCard({
 AnalysisCard.Header = AnalysisCardHeader;
 AnalysisCard.Title = AnalysisCardTitle;
 AnalysisCard.Body = AnalysisCardBody;
+AnalysisCard.Legend = AnalysisCardLegend;
+AnalysisCard.ChartControls = AnalysisChartControlsContainer;

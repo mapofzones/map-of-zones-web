@@ -20,7 +20,7 @@ export function ZoneOverviewUniqueDelegates({ className }: ZoneOverviewUniqueDel
       chartData={data?.chart ?? []}
       loading={loading}
       metadata={UNIQUE_DELEGATES_CARD_METADATA}
-      onPeriodSelected={(period) => setSelectedPeriod(period)}
+      onPeriodSelected={setSelectedPeriod}
     />
   );
 }

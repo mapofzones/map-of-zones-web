@@ -20,7 +20,7 @@ export function ZoneOverviewTransactions({ className }: ZoneOverviewTransactions
       chartData={data?.chart ?? []}
       loading={loading}
       metadata={TRANSACTIONS_CARD_METADATA}
-      onPeriodSelected={(period) => setSelectedPeriod(period)}
+      onPeriodSelected={setSelectedPeriod}
     />
   );
 }

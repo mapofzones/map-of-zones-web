@@ -21,7 +21,7 @@ export function ZoneOverviewIbcTransfers({ className }: ZoneOverviewIbcTransfers
       chartData={data?.chart ?? []}
       loading={loading}
       metadata={TRANSFERS_CARD_METADATA}
-      onPeriodSelected={(period) => setSelectedPeriod(period)}
+      onPeriodSelected={setSelectedPeriod}
       period={selectedPeriod}
     />
   );

@@ -1,9 +1,6 @@
 import { useQuery } from '@apollo/client';
 
-import {
-  ZoneCompareIbcVolumeDocument,
-  ZoneCompareIbcVolumeQueryResult,
-} from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareIbcVolume.query.generated';
+import { ZoneCompareIbcVolumeDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareIbcVolume.query.generated';
 import { ANALYSIS_PERIODS_IN_HOURS_BY_KEY, AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ChartItemWithTime } from 'types/chart';
 import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props';
@@ -17,8 +14,6 @@ interface ZoneVolumeResult {
   ibcVolumeIn?: number;
   ibcVolumeOut?: number;
 }
-
-export type IbcVolumeProperties = 'ibcVolume' | 'ibcVolumeIn' | 'ibcVolumeOut';
 
 const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
 

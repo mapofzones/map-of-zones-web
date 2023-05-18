@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { PeriodKeys } from 'components';
 
-export interface ZoneOverviewActivityHeaderProps {
+export interface AnalysisCardActivityHeaderProps {
   className?: string;
   children?: ReactNode;
   selectedPeriod: PeriodKeys;

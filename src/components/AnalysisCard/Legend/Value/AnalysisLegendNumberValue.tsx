@@ -1,8 +1,8 @@
 import { NumberType } from 'types/NumberType';
 import { NumberFormat } from 'ui';
 
-import styles from './LegendNumberValue.module.scss';
-import { LegendValueBase } from './LegendValueBase';
+import styles from './AnalysisLegendNumberValue.module.scss';
+import { LegendValueBase } from './AnalysisLegendValueBase';
 
 interface LegendNumberValueProps {
   value?: number;

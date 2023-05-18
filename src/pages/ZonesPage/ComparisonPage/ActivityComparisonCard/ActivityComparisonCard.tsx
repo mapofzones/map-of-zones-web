@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
-import { ZoneOverviewActivityHeader } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewActivity/ZoneOverviewActivityHeader/ZoneOverviewActivityHeader';
+import { AnalysisCardActivityHeader } from 'components/AnalysisCardActivityHeader';
 import { NumberType } from 'types/NumberType';
 import { Divider } from 'ui';
 
@@ -45,7 +45,7 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
-      <ZoneOverviewActivityHeader
+      <AnalysisCardActivityHeader
         selectedPeriod={selectedPeriod}
         onPeriodSelected={setSelectedPeriod}
       />

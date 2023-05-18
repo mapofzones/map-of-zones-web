@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { useSelectedZone } from 'pages/HomePage/MapContainer/Map/hooks/eventHooks';
+import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 
 import { trackEvent } from './../../../useAnalytics';
 

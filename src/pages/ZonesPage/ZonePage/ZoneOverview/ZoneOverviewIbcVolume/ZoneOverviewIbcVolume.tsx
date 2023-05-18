@@ -20,7 +20,7 @@ export function ZoneOverviewIbcVolume({ className }: ZoneOverviewIbcVolumeProps)
       chartData={data?.chart ?? []}
       loading={loading}
       metadata={VOLUME_CARD_METADATA}
-      onPeriodSelected={(period) => setSelectedPeriod(period)}
+      onPeriodSelected={setSelectedPeriod}
       period={selectedPeriod}
     />
   );

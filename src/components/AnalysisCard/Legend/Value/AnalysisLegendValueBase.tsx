@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import styles from './LegendValueBase.module.scss';
+import styles from './AnalysisLegendValueBase.module.scss';
 
 interface LegendValueBaseProps {
   children?: React.ReactNode;
