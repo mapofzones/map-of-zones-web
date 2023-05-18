@@ -12,38 +12,42 @@ import { IbcVolumeOutFieldAnalysisFragmentDoc } from '../../../common/Zone/__gen
 import { IbcVolumeChartAnalysisFragmentDoc } from '../../../common/Zone/__generated__/IbcVolumeChartAnalysis.fragment.generated';
 import { IbcVolumeInChartAnalysisFragmentDoc } from '../../../common/Zone/__generated__/IbcVolumeInChartAnalysis.fragment.generated';
 import { IbcVolumeOutChartAnalysisFragmentDoc } from '../../../common/Zone/__generated__/IbcVolumeOutChartAnalysis.fragment.generated';
-export type ZoneOverviewIbcVolumeQueryVariables = Types.Exact<{
-  zone: Types.Scalars['String'];
+export type ZoneCompareIbcVolumeQueryVariables = Types.Exact<{
+  zones?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
   period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
   periodInDays: Types.Scalars['Int'];
 }>;
 
-export type ZoneOverviewIbcVolumeQueryResult = {
-  ibcVolumeCardData?: {
+export type ZoneCompareIbcVolumeQueryResult = {
+  stats: Array<{
+    zone: string;
     ibcVolume: { aggregate?: { sum?: { volume?: any | null } | null } | null };
     ibcVolumeIn: { aggregate?: { sum?: { volumeIn?: any | null } | null } | null };
     ibcVolumeOut: { aggregate?: { sum?: { volumeOut?: any | null } | null } | null };
     ibcVolumeChart: Array<{ value?: any | null; time: number }>;
     ibcVolumeInChart: Array<{ value?: any | null; time: number }>;
     ibcVolumeOutChart: Array<{ value?: any | null; time: number }>;
-  } | null;
+  }>;
 };
 
-export const ZoneOverviewIbcVolumeDocument = {
+export const ZoneCompareIbcVolumeDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'ZoneOverviewIbcVolume' },
+      name: { kind: 'Name', value: 'ZoneCompareIbcVolume' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'zones' } },
           type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            },
           },
         },
         {
@@ -76,28 +80,69 @@ export const ZoneOverviewIbcVolumeDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'ibcVolumeCardData' },
-            name: { kind: 'Name', value: 'flat_blockchain_switched_stats_by_pk' },
+            alias: { kind: 'Name', value: 'stats' },
+            name: { kind: 'Name', value: 'flat_blockchain_switched_stats' },
             arguments: [
               {
                 kind: 'Argument',
-                name: { kind: 'Name', value: 'blockchain' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'timeframe' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'is_mainnet' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'blockchain' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_in' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zones' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'is_mainnet' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'timeframe' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'zone' },
+                  name: { kind: 'Name', value: 'blockchain' },
+                },
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'IbcVolumeFieldAnalysis' } },
                 {
                   kind: 'FragmentSpread',
@@ -129,4 +174,4 @@ export const ZoneOverviewIbcVolumeDocument = {
     ...IbcVolumeInChartAnalysisFragmentDoc.definitions,
     ...IbcVolumeOutChartAnalysisFragmentDoc.definitions,
   ],
-} as unknown as DocumentNode<ZoneOverviewIbcVolumeQueryResult, ZoneOverviewIbcVolumeQueryVariables>;
+} as unknown as DocumentNode<ZoneCompareIbcVolumeQueryResult, ZoneCompareIbcVolumeQueryVariables>;

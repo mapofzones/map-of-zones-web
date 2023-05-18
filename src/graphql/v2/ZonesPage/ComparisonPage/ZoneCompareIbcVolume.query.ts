@@ -7,24 +7,27 @@ import { IBC_VOLUME_IN_CHART_ANALYSIS } from 'graphql/v2/common/Zone/IbcVolumeIn
 import { IBC_VOLUME_OUT_ANALYSIS } from 'graphql/v2/common/Zone/IbcVolumeOutAnalysis.fragment';
 import { IBC_VOLUME_OUT_CHART_ANALYSIS } from 'graphql/v2/common/Zone/IbcVolumeOutChartAnalysis.fragment';
 
-export const ZONE_OVERVIEW_IBC_VOLUME = gql`
+export const ZONES_COMPARE_IBC_VOLUME = gql`
   ${IBC_VOLUME_ANALYSIS}
   ${IBC_VOLUME_IN_ANALYSIS}
   ${IBC_VOLUME_OUT_ANALYSIS}
   ${IBC_VOLUME_CHART_ANALYSIS}
   ${IBC_VOLUME_IN_CHART_ANALYSIS}
   ${IBC_VOLUME_OUT_CHART_ANALYSIS}
-  query ZoneOverviewIbcVolume(
-    $zone: String!
+  query ZoneCompareIbcVolume(
+    $zones: [String!]
     $period: Int!
     $isMainnet: Boolean!
     $periodInDays: Int!
   ) {
-    ibcVolumeCardData: flat_blockchain_switched_stats_by_pk(
-      blockchain: $zone
-      timeframe: $period
-      is_mainnet: $isMainnet
+    stats: flat_blockchain_switched_stats(
+      where: {
+        blockchain: { _in: $zones }
+        is_mainnet: { _eq: $isMainnet }
+        timeframe: { _eq: $period }
+      }
     ) {
+      zone: blockchain
       ...IbcVolumeFieldAnalysis
       ...IbcVolumeInFieldAnalysis
       ...IbcVolumeOutFieldAnalysis

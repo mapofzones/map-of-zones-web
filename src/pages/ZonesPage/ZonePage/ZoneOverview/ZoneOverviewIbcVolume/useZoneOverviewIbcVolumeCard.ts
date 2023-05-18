@@ -21,15 +21,15 @@ const chartsMapping: ArraysMapping<
   IbcVolumeChart
 > = {
   ibcVolumeChart: {
-    from: 'volume',
+    from: 'value',
     to: 'total',
   },
   ibcVolumeInChart: {
-    from: 'volumeIn',
+    from: 'value',
     to: 'ibcIn',
   },
   ibcVolumeOutChart: {
-    from: 'volumeOut',
+    from: 'value',
     to: 'ibcOut',
   },
 };
