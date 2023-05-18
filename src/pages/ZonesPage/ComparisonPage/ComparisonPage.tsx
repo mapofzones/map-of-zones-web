@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { ActivityComparisonCard } from './ActivityComparisonCard';
 import styles from './ComparisonPage.module.scss';
 import { ComparisonSelectedZonesProvider } from './context/ComparisonSelectedZonesProvider';
+import { IbcVolumeComparisonCard } from './IbcVolumeComparisonCard';
 import { InterchainComparisonCard } from './InterchainComparisonCard';
 import { TokenComparisonCard } from './TokenComparisonCard';
 import { ZonesComparisonSelectors } from './ZonesComparisonSelectors';
@@ -20,6 +21,7 @@ export function ComparisonPage({ className, ...props }: ComparisonPageProps): JS
         <ActivityComparisonCard className={styles.activityCard} />
         <InterchainComparisonCard className={styles.interchainCard} />
         <TokenComparisonCard className={styles.tokenCard} />
+        <IbcVolumeComparisonCard className={styles.ibcVolumeCard} />
       </div>
     </ComparisonSelectedZonesProvider>
   );
