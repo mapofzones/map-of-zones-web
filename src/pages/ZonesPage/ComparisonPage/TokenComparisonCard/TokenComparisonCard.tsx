@@ -35,9 +35,9 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
       ChartType.AREA
     );
 
-  const { zones: selectedZones } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
-  const { data, chart, datasetInfo, loading } = useZonesTokenComparison(
+  const { data, chart, loading } = useZonesTokenComparison(
     selectedZones,
     selectedPeriod,
     selectedProperty
@@ -65,8 +65,8 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
         {data?.map((item) => (
           <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
             <AnalysisCard.Legend.Item.Title
-              title={`${item.name}: ${item.symbol}`}
-              circleColor={datasetInfo[item.zone].color}
+              title={`${selectedZonesDetailsByKey[item.zone].title}: ${item.symbol}`}
+              circleColor={selectedZonesDetailsByKey[item.zone].color}
             />
             <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
               <AnalysisCard.Legend.Item.ValueNumber
@@ -82,7 +82,7 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
         chartType={ChartType.AREA}
         data={chart ?? []}
         loading={loading}
-        datasetInfo={datasetInfo}
+        datasetInfo={selectedZonesDetailsByKey}
         dataFormatType={NumberType.Currency}
       />
     </AnalysisCard>

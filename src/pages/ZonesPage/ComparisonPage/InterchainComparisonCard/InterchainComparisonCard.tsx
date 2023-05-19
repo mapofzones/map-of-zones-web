@@ -19,7 +19,7 @@ const INTERCHAIN_METADATA: Record<keyof InterchainData, MetadataItem> = {
 export function InterchainComparisonCard({
   className,
 }: InterchainComparisonCardProps): JSX.Element {
-  const { zones: selectedZones } = useComparisonSelectedZones();
+  const { selectedZones } = useComparisonSelectedZones();
 
   const { data, loading } = useZonesComprisonInterchain(PeriodKeys.DAY, selectedZones);
 

@@ -39,7 +39,7 @@ const DAU_METADATA: Record<keyof DauData, MetadataItem> = {
 export function ActivityComparisonCard({ className }: ActivityComparisonCardProps): JSX.Element {
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
-  const { zones: selectedZones } = useComparisonSelectedZones();
+  const { selectedZones } = useComparisonSelectedZones();
 
   const { data, loading } = useZonesComprisonActivity(selectedPeriod, selectedZones);
 

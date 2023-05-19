@@ -6,6 +6,7 @@ import {
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
+import { useZonesData } from 'hooks/queries/useZonesData';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
@@ -41,12 +42,9 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
     ChartType.AREA
   );
 
-  const { zones: selectedZones } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
-  const { data, charts, datasetInfo, loading } = useZonesIbcVolumeComparison(
-    selectedZones,
-    selectedPeriod
-  );
+  const { data, charts, loading } = useZonesIbcVolumeComparison(selectedZones, selectedPeriod);
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
@@ -73,8 +71,8 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
         {data?.map((item) => (
           <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
             <AnalysisCard.Legend.Item.Title
-              title={`${item.zone}`}
-              circleColor={datasetInfo[item.zone].color}
+              title={selectedZonesDetailsByKey[item.zone].title}
+              circleColor={selectedZonesDetailsByKey[item.zone].color}
             />
             <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
               <AnalysisCard.Legend.Item.ValueNumber
@@ -90,7 +88,7 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
         chartType={selectedChartType}
         data={charts[selectedProperty] ?? []}
         loading={loading}
-        datasetInfo={datasetInfo}
+        datasetInfo={selectedZonesDetailsByKey}
         dataFormatType={NumberType.Currency}
       />
     </AnalysisCard>

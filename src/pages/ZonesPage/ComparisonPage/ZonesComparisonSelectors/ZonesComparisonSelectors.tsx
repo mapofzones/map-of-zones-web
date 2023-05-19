@@ -18,11 +18,11 @@ export function ZonesComparisonSelectors({
 }: ZonesComparisonSelectorsProps): JSX.Element {
   const { data: zonesList, loading } = useZonesData();
 
-  const { zones, onZoneDelete, onZoneSelected } = useComparisonSelectedZones();
+  const { selectedZones, onZoneDelete, onZoneSelected } = useComparisonSelectedZones();
 
   return (
     <div className={cn(className, styles.container)} {...props}>
-      {zones.map((zone, index) => (
+      {selectedZones.map((zone, index) => (
         <ComparisonZoneSelector
           key={zone}
           zone={zone}
@@ -33,10 +33,10 @@ export function ZonesComparisonSelectors({
         />
       ))}
 
-      {zones.length < MAX_ZONES_COUNT && (
+      {selectedZones.length < MAX_ZONES_COUNT && (
         <ZonesSelectorWrapper
           zonesList={zonesList}
-          onZoneSelected={(newZone) => onZoneSelected(newZone, zones.length)}
+          onZoneSelected={(newZone) => onZoneSelected(newZone, selectedZones.length)}
         >
           <AddToCompareButton />
         </ZonesSelectorWrapper>

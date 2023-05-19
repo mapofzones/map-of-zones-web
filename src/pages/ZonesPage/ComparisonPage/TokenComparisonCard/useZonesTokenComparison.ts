@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import { PeriodKeys } from 'components';
 import { ZoneCompareTokenDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareToken.query.generated';
 import { ChartItemWithTime } from 'types/chart';
-import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 import { sortDetailsByZoneKeys } from '../utils/sortDetailsByZoneKeys';
@@ -19,8 +18,6 @@ interface ZoneTokenResult {
 
 export type TokenProperties = 'price' | 'marketCap' | 'tradingVolume';
 
-const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
-
 export function useZonesTokenComparison(
   zones: string[],
   period: PeriodKeys,
@@ -28,7 +25,6 @@ export function useZonesTokenComparison(
 ): {
   data: ZoneTokenResult[] | undefined;
   chart: ChartItemWithTime[];
-  datasetInfo: Record<string, DatasetInfo>;
   loading: boolean;
 } {
   const type = getChartType(period, chartType);
@@ -61,20 +57,9 @@ export function useZonesTokenComparison(
   }, {} as Record<number, ChartItemWithTime>);
   const mappedChart: ChartItemWithTime[] = Object.values(mappedItems);
 
-  const datasetInfo = dataWithoutNulls.reduce((acc, item) => {
-    const index = zones.indexOf(item.zone);
-    const color = ZONES_COLORS[index];
-    acc[item.zone] = {
-      title: item.name,
-      color,
-    };
-    return acc;
-  }, {} as Record<string, DatasetInfo>);
-
   return {
     data: sortDetailsByZoneKeys(zones, mappedData),
     chart: mappedChart,
-    datasetInfo,
     loading,
   };
 }
