@@ -23,10 +23,10 @@ function ZoneInfoRow({
   const navigateWithSearchParams = useNavigateWithSearchParams();
 
   const onZoneInfoRowClick = () => {
-    navigateWithSearchParams(`${zone.id}/${overviewPath}`, {
+    navigateWithSearchParams(`${zone.zone}/${overviewPath}`, {
       state: { source: SelectedZoneSourceView.Sidebar },
     });
-    trackSelectedZone(zone.id);
+    trackSelectedZone(zone.zone);
   };
 
   return (

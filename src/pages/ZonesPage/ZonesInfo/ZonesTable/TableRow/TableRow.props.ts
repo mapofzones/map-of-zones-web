@@ -1,6 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 import { ChartItemByString } from 'types/chart';
+import { ZoneBase } from 'types/models/ZoneDetails';
 
 import { ColumnKeys } from '../Types';
 
@@ -13,9 +14,7 @@ export interface TableRowProps
   zone: ZoneData;
 }
 
-export interface ZoneData {
-  zone: string;
-  name: string;
+export interface ZoneData extends ZoneBase {
   logoUrl?: string | null;
   isZoneUpToDate?: boolean | null;
 

@@ -66,7 +66,7 @@ function ZonesInfoTable({ data, columnType, className, ...props }: ZonesInfoTabl
           numberType={numberType}
           searchValue={searchValue}
           zone={{
-            id: zone.zone,
+            zone: zone.zone,
             name: zone.name,
             logoUrl: zone.logoUrl,
             rating: zone[fields.ratingKey] as any,

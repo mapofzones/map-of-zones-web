@@ -4,8 +4,8 @@ import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { NumberType } from 'types/NumberType';
 
-import { InterchainData, useZonesComprisonInterchain } from './hooks/useZonesComparisonInterchain';
 import styles from './InterchainComparisonCard.module.scss';
+import { InterchainData, useZonesComprisonInterchain } from './useZonesComparisonInterchain';
 import { CompareGroup, MetadataItem } from '../ActivityComparisonCard/CompareGroup';
 import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
 

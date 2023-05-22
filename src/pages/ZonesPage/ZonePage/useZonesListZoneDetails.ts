@@ -3,18 +3,17 @@ import { useQuery } from '@apollo/client';
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZonesListZoneDetailsDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneDetails.query.generated';
 import { useMainnet } from 'hooks/useMainnet';
+import { ZoneBase } from 'types/models/ZoneDetails';
 import { PeriodKeys } from 'types/PeriodKeys';
 
-export interface ZonesListZoneDetails {
+export interface ZonesListZoneDetails extends ZoneBase {
   git?: string | null;
   isZoneUpToDate?: boolean | null;
   logoUrl?: string | null;
-  name: string;
   peersCount?: number | null;
   telegram?: string | null;
   twitter?: string | null;
   website?: string | null;
-  zone: string;
 }
 
 export function useZonesListZoneDetails(zone: string): {

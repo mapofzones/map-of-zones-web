@@ -1,5 +1,7 @@
 import { LinkObject, NodeObject } from 'react-force-graph-2d';
 
+import { ZoneBase } from 'types/models/ZoneDetails';
+
 export type CanvasesMap = { [imgUrl: string]: HTMLCanvasElement };
 
 export interface Comet {
@@ -27,12 +29,10 @@ export interface MapLinkNode extends NodeObject {
   zone: string;
 }
 
-export interface MapNode extends NodeObject {
+export interface MapNode extends NodeObject, ZoneBase {
   __animatedPos?: Position[];
-  zone: string;
   isMainnet: boolean;
   logoUrl?: string | null;
-  name: string;
   ibcVolume?: number | null;
   ibcVolumeIn?: number | null;
   ibcVolumeOut?: number | null;
@@ -62,8 +62,7 @@ export interface ZoneLinkApi {
   ibcVolume?: number | null;
 }
 
-export interface ZoneStatApi {
-  zone: string;
+export interface ZoneStatApi extends ZoneBase {
   ibcVolume: number | null;
   ibcVolumeIn: number | null;
   ibcVolumeOut: number | null;
@@ -73,5 +72,4 @@ export interface ZoneStatApi {
   totalTxsRating: number;
   isMainnet: boolean;
   logoUrl?: string | null;
-  name: string;
 }

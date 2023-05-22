@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { useQuery } from '@apollo/client';
 
 import { ZoneCompareIbcVolumeDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareIbcVolume.query.generated';
@@ -14,14 +16,20 @@ interface ZoneVolumeResult {
   ibcVolumeOut?: number;
 }
 
-export function useZonesIbcVolumeComparison(
-  zones: string[],
-  period: AnalysisCardPeriod
-): {
+interface ZonesIbcVolumeComparisonResult {
   data: ZoneVolumeResult[] | undefined;
   charts: Record<string, ChartItemWithTime[]>;
   loading: boolean;
-} {
+}
+
+export function useZonesIbcVolumeComparison(
+  zones: string[],
+  period: AnalysisCardPeriod
+): ZonesIbcVolumeComparisonResult {
+  const [handledData, setHandledData] = useState<ZonesIbcVolumeComparisonResult>(
+    {} as ZonesIbcVolumeComparisonResult
+  );
+
   const periodInHours = ANALYSIS_PERIODS_IN_HOURS_BY_KEY[period];
   const periodInDays = periodInHours / 24;
 
@@ -37,58 +45,48 @@ export function useZonesIbcVolumeComparison(
 
   const { data, loading } = useQuery(ZoneCompareIbcVolumeDocument, options);
 
-  const compareItems = nullsToUndefined(data?.stats) ?? [];
+  useEffect(() => {
+    const compareItems = nullsToUndefined(data?.stats) ?? [];
 
-  const mappedData = compareItems.map((item) => ({
-    zone: item.zone,
-    ibcVolume: item.ibcVolume?.aggregate?.sum?.volume,
-    ibcVolumeIn: item.ibcVolumeIn?.aggregate?.sum?.volumeIn,
-    ibcVolumeOut: item.ibcVolumeOut?.aggregate?.sum?.volumeOut,
-  }));
+    const mappedData = compareItems.map((item) => ({
+      zone: item.zone,
+      ibcVolume: item.ibcVolume?.aggregate?.sum?.volume,
+      ibcVolumeIn: item.ibcVolumeIn?.aggregate?.sum?.volumeIn,
+      ibcVolumeOut: item.ibcVolumeOut?.aggregate?.sum?.volumeOut,
+    }));
 
-  const ibcVolumeChartItems: Record<number, ChartItemWithTime> = compareItems.reduce(
-    (acc, item) => {
-      item?.ibcVolumeChart?.forEach((chartItem) => {
-        const { time, value } = chartItem;
-        acc[time] = acc[time] || { time };
-        acc[time][item.zone] = value;
-      });
-      return acc;
-    },
-    {} as Record<number, ChartItemWithTime>
-  );
-  const ibcVolumeChart: ChartItemWithTime[] = Object.values(ibcVolumeChartItems);
+    const chartKeys = ['ibcVolumeChart', 'ibcVolumeInChart', 'ibcVolumeOutChart'] as const;
+    type ChartKeys = (typeof chartKeys)[number];
+    const charts = chartKeys.reduce((dict, chartKeyName) => {
+      const chartItems = compareItems.reduce((acc, item) => {
+        const chartItem = item[chartKeyName];
+        if (chartItem !== undefined) {
+          chartItem.forEach((chartItem: ChartItemWithTime) => {
+            const { time, value } = chartItem;
+            acc[time] = acc[time] || { time };
+            acc[time][item.zone] = value;
+          });
+        }
+        return acc;
+      }, {} as Record<number, ChartItemWithTime>);
 
-  const volumeInChartItems: Record<number, ChartItemWithTime> = compareItems.reduce((acc, item) => {
-    item?.ibcVolumeInChart?.forEach((chartItem) => {
-      const { time, value } = chartItem;
-      acc[time] = acc[time] || { time };
-      acc[time][item.zone] = value;
+      const chart = Object.values(chartItems);
+
+      dict[chartKeyName] = chart;
+
+      return dict;
+    }, {} as Record<ChartKeys, ChartItemWithTime[]>);
+
+    setHandledData({
+      data: sortDetailsByZoneKeys(zones, mappedData),
+      charts: {
+        ibcVolume: charts.ibcVolumeChart,
+        ibcVolumeIn: charts.ibcVolumeInChart,
+        ibcVolumeOut: charts.ibcVolumeOutChart,
+      },
+      loading,
     });
-    return acc;
-  }, {} as Record<number, ChartItemWithTime>);
-  const volumeInChart: ChartItemWithTime[] = Object.values(volumeInChartItems);
+  }, [data?.stats, loading, zones]);
 
-  const volumeOutChartItems: Record<number, ChartItemWithTime> = compareItems.reduce(
-    (acc, item) => {
-      item?.ibcVolumeOutChart?.forEach((chartItem) => {
-        const { time, value } = chartItem;
-        acc[time] = acc[time] || { time };
-        acc[time][item.zone] = value;
-      });
-      return acc;
-    },
-    {} as Record<number, ChartItemWithTime>
-  );
-  const volumeOutChart: ChartItemWithTime[] = Object.values(volumeOutChartItems);
-
-  return {
-    data: sortDetailsByZoneKeys(zones, mappedData),
-    charts: {
-      ibcVolume: ibcVolumeChart,
-      ibcVolumeIn: volumeInChart,
-      ibcVolumeOut: volumeOutChart,
-    },
-    loading,
-  };
+  return handledData;
 }

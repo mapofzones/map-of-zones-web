@@ -1,11 +1,10 @@
 import { useQuery } from '@apollo/client';
 
 import { ZonesDataDocument } from 'graphql/v2/common/Zones/__generated__/ZonesData.query.generated';
+import { ZoneBase } from 'types/models/ZoneDetails';
 
-export interface ZoneData {
+export interface ZoneData extends ZoneBase {
   logoUrl?: string | null;
-  name: string;
-  zone: string;
 }
 
 export function useZonesData(isMainnet = true): {

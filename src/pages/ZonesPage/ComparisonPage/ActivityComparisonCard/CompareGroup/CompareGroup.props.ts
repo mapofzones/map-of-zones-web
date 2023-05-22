@@ -1,9 +1,7 @@
+import { ZoneBase } from 'types/models/ZoneDetails';
 import { NumberType } from 'types/NumberType';
 
-export interface ComparisonGroupItem {
-  name: string;
-  zone: string;
-}
+export interface ComparisonGroupItem extends ZoneBase {}
 
 export type ComparisonGroupValues<T> = {
   [K in keyof T]: T[K] extends number | undefined ? T[K] : never;

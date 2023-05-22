@@ -15,7 +15,7 @@ import {
   TransfersData,
   useZonesComprisonActivity,
   VolumeData,
-} from './hooks/useZonesComparisonActivity';
+} from './useZonesComparisonActivity';
 import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
 
 import { ActivityComparisonCardProps } from '.';

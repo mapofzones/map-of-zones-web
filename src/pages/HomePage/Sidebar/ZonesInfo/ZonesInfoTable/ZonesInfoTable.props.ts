@@ -1,5 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
+import { ZoneBase } from 'types/models/ZoneDetails';
+
 import { ColumnKeys } from '../../../Types';
 
 export interface ZonesInfoTableProps
@@ -9,10 +11,8 @@ export interface ZonesInfoTableProps
   columnType: ColumnKeys;
 }
 
-export interface ZonesTableDataQueryItem {
-  zone: string;
+export interface ZonesTableDataQueryItem extends ZoneBase {
   logoUrl?: string | null;
-  name: string;
   ibcVolume?: number | null;
   ibcVolumePending?: number | null;
   ibcVolumeRating?: number | null;

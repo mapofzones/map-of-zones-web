@@ -19,7 +19,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     ref
   ): JSX.Element => {
-    console.log(props);
     return (
       <button
         type="button"

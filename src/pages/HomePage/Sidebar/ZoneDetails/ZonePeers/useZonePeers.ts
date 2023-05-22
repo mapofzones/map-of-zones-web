@@ -7,6 +7,7 @@ import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZonePeersSidebarDocument } from 'graphql/v2/HomePage/Sidebar/ZoneDetails/__generated__/ZonePeers.query.generated';
 import { useMainnet } from 'hooks/useMainnet';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { ZoneBase } from 'types/models/ZoneDetails';
 
 export interface ZonePeer {
   ibcVolumeIn: number;
@@ -21,9 +22,7 @@ export interface ZonePeer {
   ibcVolume: number;
 }
 
-export interface ZonePeerBlockchain {
-  name: string;
-  zone: string;
+export interface ZonePeerBlockchain extends ZoneBase {
   logoUrl?: string | null;
 }
 

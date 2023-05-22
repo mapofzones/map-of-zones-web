@@ -2,12 +2,11 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { ZoneDetailsDocument } from 'graphql/v2/HomePage/Sidebar/ZoneDetails/__generated__/ZoneDetails.query.generated';
+import { ZoneBase } from 'types/models/ZoneDetails';
 
-export interface ZoneDetails {
-  zone: string;
+export interface ZoneDetails extends ZoneBase {
   website?: string | null;
   logoUrl?: string | null;
-  name: string;
 }
 
 export function useZoneDetails(): { data: ZoneDetails | undefined; loading: boolean } {

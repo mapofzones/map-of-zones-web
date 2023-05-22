@@ -1,9 +1,8 @@
+import { ZoneBase } from 'types/models/ZoneDetails';
 import { NumberType } from 'types/NumberType';
 import { LinkProps } from 'ui/ExternalLink/ExternalLink.props';
 
-export interface ZoneInfoData extends ZoneInfoValues {
-  id: string;
-  name: string;
+export interface ZoneInfoData extends ZoneBase, ZoneInfoValues {
   logoUrl?: string | null;
 }
 export interface ZoneInfoValues {

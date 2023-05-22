@@ -6,7 +6,6 @@ import {
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
-import { useZonesData } from 'hooks/queries/useZonesData';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
@@ -86,7 +85,7 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
 
       <ChartContainer
         chartType={selectedChartType}
-        data={charts[selectedProperty] ?? []}
+        data={charts?.[selectedProperty] ?? []}
         loading={loading}
         datasetInfo={selectedZonesDetailsByKey}
         dataFormatType={NumberType.Currency}
