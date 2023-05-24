@@ -13,10 +13,17 @@ hooks:
   afterAllFileWrite:
     - prettier --write
 generates:
+  ./src/graphql/server-schema.graphql:
+    schema: src/graphql/client-schema.graphql
+    plugins:
+      - schema-ast
   ./src/graphql/base-types.ts:
-    - add: *top-comment
-    - typescript
+    schema: src/graphql/client-schema.graphql
+    plugins:
+      - add: *top-comment
+      - typescript
   ./src/:
+    schema: src/graphql/client-schema.graphql
     preset: near-operation-file
     presetConfig:
       extension: .generated.ts

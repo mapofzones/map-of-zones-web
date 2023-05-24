@@ -13,6 +13,7 @@ export interface ZonesTableDataQueryItem {
   zone: string;
   logoUrl?: string | null;
   name: string;
+  isIbcVolumeShouldBeCustomized?: boolean;
   ibcVolume?: number | null;
   ibcVolumePending?: number | null;
   ibcVolumeRating?: number | null;

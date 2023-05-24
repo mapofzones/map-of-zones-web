@@ -3448,6 +3448,7 @@ export type Flat_Blockchains = {
   /** An aggregated array relationship */
   channels_stats_aggregate: Flat_Channels_Stats_Aggregate;
   inflation?: Maybe<Scalars['numeric']>;
+  isIbcVolumeShouldBeCustomized: Scalars['Boolean'];
   is_mainnet: Scalars['Boolean'];
   is_synced?: Maybe<Scalars['Boolean']>;
   logo_url?: Maybe<Scalars['String']>;

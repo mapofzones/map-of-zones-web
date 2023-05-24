@@ -1,0 +1,5 @@
+directive @client on FIELD
+
+extend type flat_blockchains {
+  isIbcVolumeShouldBeCustomized: Boolean!
+}

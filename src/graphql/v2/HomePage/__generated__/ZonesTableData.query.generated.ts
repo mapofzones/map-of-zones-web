@@ -21,6 +21,7 @@ export type ZonesTableDataQueryVariables = Types.Exact<{
 
 export type ZonesTableDataQueryResult = {
   zonesTable: Array<{
+    isIbcVolumeShouldBeCustomized: boolean;
     zone: string;
     logoUrl?: string | null;
     name: string;
@@ -135,6 +136,11 @@ export const ZonesTableDataDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ZoneBaseInfoV2' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'isIbcVolumeShouldBeCustomized' },
+                  directives: [{ kind: 'Directive', name: { kind: 'Name', value: 'client' } }],
+                },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'switchedStats' },
