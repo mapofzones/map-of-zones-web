@@ -7,13 +7,14 @@ import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 import { BlockchainParametersAnalysisFragmentDoc } from '../../../common/Zone/__generated__/BlockchainParametersAnalysis.fragment.generated';
-export type ZoneOverviewParametersQueryVariables = Types.Exact<{
-  zone: Types.Scalars['String'];
+export type ZoneCompareBlockchainParametersQueryVariables = Types.Exact<{
+  zones?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
 }>;
 
-export type ZoneOverviewParametersQueryResult = {
-  blockchain: Array<{
+export type ZoneCompareBlockchainParametersQueryResult = {
+  blockchains: Array<{
     inflation?: any | null;
+    zone: string;
     stackingApr?: any | null;
     unbondingPeriod?: number | null;
     bondedTokens?: any | null;
@@ -24,20 +25,23 @@ export type ZoneOverviewParametersQueryResult = {
   }>;
 };
 
-export const ZoneOverviewParametersDocument = {
+export const ZoneCompareBlockchainParametersDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'ZoneOverviewParameters' },
+      name: { kind: 'Name', value: 'ZoneCompareBlockchainParameters' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'zones' } },
           type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            },
           },
         },
       ],
@@ -46,7 +50,7 @@ export const ZoneOverviewParametersDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'blockchain' },
+            alias: { kind: 'Name', value: 'blockchains' },
             name: { kind: 'Name', value: 'flat_blockchains' },
             arguments: [
               {
@@ -63,8 +67,8 @@ export const ZoneOverviewParametersDocument = {
                         fields: [
                           {
                             kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+                            name: { kind: 'Name', value: '_in' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zones' } },
                           },
                         ],
                       },
@@ -76,6 +80,11 @@ export const ZoneOverviewParametersDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'zone' },
+                  name: { kind: 'Name', value: 'network_id' },
+                },
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'BlockchainParametersAnalysis' },
@@ -89,6 +98,6 @@ export const ZoneOverviewParametersDocument = {
     ...BlockchainParametersAnalysisFragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<
-  ZoneOverviewParametersQueryResult,
-  ZoneOverviewParametersQueryVariables
+  ZoneCompareBlockchainParametersQueryResult,
+  ZoneCompareBlockchainParametersQueryVariables
 >;

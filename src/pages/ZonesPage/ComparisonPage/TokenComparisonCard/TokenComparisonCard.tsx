@@ -15,8 +15,8 @@ import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
 import styles from './TokenComparisonCard.module.scss';
 import { TokenProperties, useZonesTokenComparison } from './useZonesTokenComparison';
-import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { TokenComparisonCardProps } from '.';
 

@@ -5,18 +5,18 @@ import cn from 'classnames';
 import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { AnalysisCardActivityHeader } from 'components/AnalysisCardActivityHeader';
+import { CompareGroup, MetadataItem } from 'components/CompareGroup';
 import { NumberType } from 'types/NumberType';
 import { Divider } from 'ui';
 
 import styles from './ActivityComparisonCard.module.scss';
-import { CompareGroup, MetadataItem } from './CompareGroup';
 import {
   DauData,
   TransfersData,
   useZonesComprisonActivity,
   VolumeData,
 } from './useZonesComparisonActivity';
-import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { ActivityComparisonCardProps } from '.';
 
@@ -39,7 +39,7 @@ const DAU_METADATA: Record<keyof DauData, MetadataItem> = {
 export function ActivityComparisonCard({ className }: ActivityComparisonCardProps): JSX.Element {
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
-  const { selectedZones } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, loading } = useZonesComprisonActivity(selectedPeriod, selectedZones);
 
@@ -52,8 +52,9 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
 
       <AnalysisCard.Body>
         <CompareGroup<VolumeData>
-          metadata={VOLUME_METADATA}
           data={data}
+          metadata={VOLUME_METADATA}
+          zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
           numberType={NumberType.Currency}
         />
@@ -61,8 +62,9 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
         <Divider size={24} />
 
         <CompareGroup<TransfersData>
-          metadata={TRANSFERS_METADATA}
           data={data}
+          metadata={TRANSFERS_METADATA}
+          zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
           numberType={NumberType.Number}
         />
@@ -70,8 +72,9 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
         <Divider size={24} />
 
         <CompareGroup<DauData>
-          metadata={DAU_METADATA}
           data={data}
+          metadata={DAU_METADATA}
+          zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
           numberType={NumberType.Number}
         />

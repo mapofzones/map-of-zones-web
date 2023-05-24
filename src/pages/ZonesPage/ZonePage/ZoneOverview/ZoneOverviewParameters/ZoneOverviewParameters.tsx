@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { useParams } from 'react-router-dom';
 
 import { ValueWithPending } from 'components';
 import { ElementSize } from 'types/ElementSize';
@@ -12,7 +13,9 @@ import { useZoneOverviewParameters } from './useZoneOverviewParameters';
 import styles from './ZoneOverviewParameters.module.scss';
 
 export function ZoneOverviewParameters({ className }: { className?: string }) {
-  const { data, loading } = useZoneOverviewParameters();
+  const { zone = '' } = useParams();
+
+  const { data, loading } = useZoneOverviewParameters(zone);
 
   return (
     <div className={cn(className, styles.container)}>

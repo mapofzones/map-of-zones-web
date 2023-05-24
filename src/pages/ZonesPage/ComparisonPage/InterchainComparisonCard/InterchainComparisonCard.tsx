@@ -2,12 +2,12 @@ import cn from 'classnames';
 
 import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
+import { CompareGroup, MetadataItem } from 'components/CompareGroup';
 import { NumberType } from 'types/NumberType';
 
 import styles from './InterchainComparisonCard.module.scss';
 import { InterchainData, useZonesComprisonInterchain } from './useZonesComparisonInterchain';
-import { CompareGroup, MetadataItem } from '../ActivityComparisonCard/CompareGroup';
-import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { InterchainComparisonCardProps } from '.';
 
@@ -19,7 +19,7 @@ const INTERCHAIN_METADATA: Record<keyof InterchainData, MetadataItem> = {
 export function InterchainComparisonCard({
   className,
 }: InterchainComparisonCardProps): JSX.Element {
-  const { selectedZones } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, loading } = useZonesComprisonInterchain(PeriodKeys.DAY, selectedZones);
 
@@ -33,6 +33,7 @@ export function InterchainComparisonCard({
         <CompareGroup<InterchainData>
           metadata={INTERCHAIN_METADATA}
           data={data}
+          zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
           numberType={NumberType.Number}
         />

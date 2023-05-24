@@ -15,8 +15,8 @@ import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
 import styles from './IbcVolumeComparisonCard.module.scss';
 import { useZonesIbcVolumeComparison } from './useZonesIbcVolumeComparison';
-import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { IbcVolumeComparisonCardProps, IbcVolumeProperties } from '.';
 

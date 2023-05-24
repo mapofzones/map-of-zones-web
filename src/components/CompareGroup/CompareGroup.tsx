@@ -11,14 +11,13 @@ import { CompareRowItem } from './CompareRowItem';
 
 import { VolumeComparisonGroupProps } from '.';
 
-const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
-
 export function CompareGroup<K>({
   className,
   metadata,
   data,
   loading,
   numberType,
+  zonesDetailsByKey,
   ...props
 }: VolumeComparisonGroupProps<K>): JSX.Element {
   const [selectedProperty, setSelectedProperty] = useState<keyof K>(keys(metadata)[0]);
@@ -54,15 +53,15 @@ export function CompareGroup<K>({
       <div className={styles.compareGroup}>
         {!loading &&
           data &&
-          data.map((item, index) => (
+          data.map((item) => (
             <CompareRowItem
               key={item.zone}
-              zone={item.name}
+              zone={zonesDetailsByKey[item.zone]?.title}
               rate={
                 item[selectedProperty] && maxValue ? (item[selectedProperty] ?? 0) / maxValue : 0
               }
               value={item[selectedProperty]}
-              color={ZONES_COLORS[index]}
+              color={zonesDetailsByKey[item.zone]?.color ?? '#62D0D7'}
               numberType={numberType}
             />
           ))}

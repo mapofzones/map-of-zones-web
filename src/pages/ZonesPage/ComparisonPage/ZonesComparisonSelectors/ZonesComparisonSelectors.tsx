@@ -6,7 +6,7 @@ import { useZonesData } from 'hooks/queries/useZonesData';
 
 import { ComparisonZoneSelector } from './ComparisonZoneSelector';
 import styles from './ZonesComparisonSelectors.module.scss';
-import { useComparisonSelectedZones } from '../context/ComparisonSelectedZonesProvider';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { ZonesComparisonSelectorsProps } from '.';
 

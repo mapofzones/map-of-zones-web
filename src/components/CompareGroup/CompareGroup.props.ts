@@ -1,7 +1,9 @@
-import { ZoneBase } from 'types/models/ZoneDetails';
 import { NumberType } from 'types/NumberType';
+import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props'; // TODO: common DatasetInfo
 
-export interface ComparisonGroupItem extends ZoneBase {}
+export interface ComparisonGroupItem {
+  zone: string;
+}
 
 export type ComparisonGroupValues<T> = {
   [K in keyof T]: T[K] extends number | undefined ? T[K] : never;
@@ -17,4 +19,5 @@ export interface VolumeComparisonGroupProps<K> {
   data?: (ComparisonGroupItem & ComparisonGroupValues<K>)[];
   loading: boolean;
   numberType: NumberType;
+  zonesDetailsByKey: Record<string, DatasetInfo>;
 }

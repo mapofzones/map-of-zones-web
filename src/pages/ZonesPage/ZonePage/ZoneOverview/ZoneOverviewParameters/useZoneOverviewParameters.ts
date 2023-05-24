@@ -1,28 +1,17 @@
+import { useMemo } from 'react';
+
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
 
 import { ZoneOverviewParametersDocument } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewParameters.query.generated';
+import { DataResultWithLoading } from 'types/DataResultWithLoading';
+import { ZoneAnalysisBlockchainParametersData } from 'types/models/Analysis/ZoneAnalysisBlockchainParametersData';
+import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
+import { resolveStackingApr } from 'utils/resolveStackingApr';
 
-export interface ZoneOverviewParametersData {
-  inflation?: number | null;
-  stackingApr?: number | null;
-  unbondingPeriod?: number | null;
-  bondedTokens?: number | null;
-  bondedTokensPercent?: number | null;
-  validatorsCnt?: number | null;
-  nodesCnt?: number | null;
-  onChainSupply?: number | null;
-}
+interface ZonesOverviewBlockchainParametersResult
+  extends DataResultWithLoading<ZoneAnalysisBlockchainParametersData> {}
 
-const OSMOSIS_KEY = 'osmosis-1';
-const OSMOSIS_APR = 22.08;
-
-export function useZoneOverviewParameters(): {
-  data: ZoneOverviewParametersData;
-  loading: boolean;
-} {
-  const { zone = '' } = useParams();
-
+export function useZoneOverviewParameters(zone: string): ZonesOverviewBlockchainParametersResult {
   const options = {
     variables: { zone },
     skip: !zone,
@@ -30,18 +19,20 @@ export function useZoneOverviewParameters(): {
 
   const { data, loading } = useQuery(ZoneOverviewParametersDocument, options);
 
-  const parameters = data?.blockchain[0];
-  return {
-    data: {
-      inflation: parameters?.inflation,
-      stackingApr: zone === OSMOSIS_KEY ? OSMOSIS_APR : parameters?.stackingApr,
-      unbondingPeriod: parameters?.unbondingPeriod,
-      bondedTokens: parameters?.bondedTokens,
-      bondedTokensPercent: parameters?.bondedTokensPercent,
-      validatorsCnt: parameters?.validatorsCnt,
-      nodesCnt: parameters?.nodesCnt,
-      onChainSupply: parameters?.token?.onChainSupply,
-    },
-    loading,
-  };
+  return useMemo(() => {
+    const parameters = data?.blockchain[0];
+    return {
+      data: nullsToUndefined({
+        inflation: parameters?.inflation,
+        stackingApr: resolveStackingApr(zone, parameters?.stackingApr),
+        unbondingPeriod: parameters?.unbondingPeriod,
+        bondedTokens: parameters?.bondedTokens,
+        bondedTokensPercent: parameters?.bondedTokensPercent,
+        validatorsCnt: parameters?.validatorsCnt,
+        nodesCnt: parameters?.nodesCnt,
+        onChainSupply: parameters?.token?.onChainSupply,
+      }),
+      loading,
+    };
+  }, [data?.blockchain, loading, zone]);
 }

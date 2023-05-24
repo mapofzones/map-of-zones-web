@@ -5,9 +5,9 @@ import { useQuery } from '@apollo/client';
 import { PERIODS_IN_HOURS_BY_KEY } from 'components';
 import { ZoneCompareActivityDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareActivity.query.generated';
 import { DataResultWithLoading } from 'types/DataResultWithLoading';
+import { ZoneBase } from 'types/models/ZoneDetails';
 import { PeriodKeys } from 'types/PeriodKeys';
 
-import { ZoneBase } from '../../../../types/models/ZoneDetails';
 import { sortDetailsByZoneKeys } from '../utils/sortDetailsByZoneKeys';
 
 export interface DauData {

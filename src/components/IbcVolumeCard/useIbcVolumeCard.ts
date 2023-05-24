@@ -6,7 +6,7 @@ import { ZoneIbcVolumeCardDocument } from 'graphql/v2/common/Cards/__generated__
 import { useMainnet } from 'hooks/useMainnet';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { ChartItemByString } from 'types/chart';
-import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
+import { handleChartByPeriod } from 'utils/handleChartByPeriod';
 
 export interface IbcVolumeCardData {
   ibcVolume?: number;

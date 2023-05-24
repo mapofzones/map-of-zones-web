@@ -1,9 +1,9 @@
 import { ValueWithPending } from 'components';
 import { ElementSize } from 'types/ElementSize';
+import { ZoneAnalysisBlockchainParametersData } from 'types/models/Analysis/ZoneAnalysisBlockchainParametersData';
 import { NumberType } from 'types/NumberType';
 import { NumberFormat } from 'ui';
 
-import { ZoneOverviewParametersData } from './useZoneOverviewParameters';
 import styles from './ZoneOverviewParameters.module.scss';
 
 export function TotalBondenRateBlock({
@@ -11,7 +11,7 @@ export function TotalBondenRateBlock({
   className,
 }: {
   className?: string;
-  data: ZoneOverviewParametersData;
+  data: ZoneAnalysisBlockchainParametersData;
 }) {
   return (
     <div className={className}>
