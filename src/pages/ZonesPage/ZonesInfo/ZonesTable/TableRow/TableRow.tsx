@@ -9,7 +9,9 @@ import {
   ZoneStatus,
   TableRowItem,
 } from 'components';
+import { IbcVolumeDisclaimer } from 'components/IbcVolumeDisclaimer';
 import { overviewPath } from 'routing';
+import { IsGravityBridge } from 'services/IsGravityBridge';
 
 import styles from './TableRow.module.scss';
 import { TableRowProps, ZoneData } from './TableRow.props';
@@ -39,6 +41,8 @@ export function TableRow({
     navigate(`${zone.zone}/${overviewPath}`);
   };
 
+  const showDisclaimer = IsGravityBridge(zone.zone);
+
   return (
     <tr className={styles.container} onClick={onClick}>
       <TableRowItem isSticky={isTableHorizontalScrollable}>
@@ -51,6 +55,7 @@ export function TableRow({
           <span className={styles.zoneName}>{zone.name}</span>
           <ZoneStatus className={styles.status} status={zone.isZoneUpToDate} />
           <RatingDiffTriangle className={styles.ratingDiff} ratingDiff={ratingDiff} />
+          {showDisclaimer && <IbcVolumeDisclaimer className={styles.disclaimer} />}
         </div>
       </TableRowItem>
 

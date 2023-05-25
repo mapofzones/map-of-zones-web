@@ -12,31 +12,44 @@
 
       grid-area: zoneContainer;
 
-      .detailsTitle {
+      .selectedZoneInfo {
         display: flex;
-        align-items: center;
 
-        cursor: pointer;
+        .detailsTitle {
+          display: flex;
+          align-items: center;
 
-        .zoneLogo {
-          margin-right: 12px;
+          cursor: pointer;
+
+          .zoneLogo {
+            margin-right: 12px;
+          }
+
+          .zoneName {
+            font-size: var(--font-heading-size-lg);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            font-feature-settings: 'tnum' on, 'lnum' on;
+          }
+
+          .arrowContainer {
+            position: relative;
+            top: 3px;
+
+            margin-left: 12px;
+
+            svg {
+              stroke: var(--white);
+            }
+          }
         }
 
-        .zoneName {
-          font-size: var(--font-heading-size-lg);
-          font-weight: 600;
-          letter-spacing: -0.02em;
-          font-feature-settings: 'tnum' on, 'lnum' on;
-        }
-
-        .arrowContainer {
-          position: relative;
-          top: 3px;
-
-          margin-left: 12px;
+        .disclaimer {
+          margin-left: 16px;
 
           svg {
-            stroke: var(--white);
+            width: 24px;
+            height: 24px;
           }
         }
       }

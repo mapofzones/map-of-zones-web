@@ -1,9 +1,11 @@
 import cn from 'classnames';
+import { useParams } from 'react-router-dom';
 
 import { VolumeLineChart } from 'components';
 import { IbcVolumeDisclaimer } from 'components/IbcVolumeDisclaimer';
 import { Card, ExplanationTooltip, LineChart, NumberFormat, NumberType } from 'components/ui';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { IsGravityBridge as ShouldIbcVolumeBeCustomized } from 'services/IsGravityBridge';
 import { tooltips } from 'types/Tooltips';
 
 import styles from './IbcVolumeCard.module.scss';
@@ -16,8 +18,11 @@ export function IbcVolumeCard({
   vertical = false,
 }: IbcVolumeCardProps): JSX.Element {
   const [period] = useSelectedPeriod();
+  const { zone = '' } = useParams();
 
   const { data, loading } = useIbcVolumeCard();
+
+  const showDisclaimer = ShouldIbcVolumeBeCustomized(zone);
 
   return (
     <Card
@@ -32,9 +37,7 @@ export function IbcVolumeCard({
         <ExplanationTooltip text={tooltips['ibcVolume']()} />
       </span>
       <div>
-        {data?.isIbcVolumeShouldBeCustomized && (
-          <IbcVolumeDisclaimer className={styles.disclaimer} />
-        )}
+        {showDisclaimer && <IbcVolumeDisclaimer className={styles.disclaimer} />}
         <NumberFormat
           className={styles.volumeValue}
           value={data?.ibcVolume}

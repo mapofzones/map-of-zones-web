@@ -8,6 +8,7 @@ import {
 } from 'hooks/analytics/HomePage/useHomePageSelectedZoneAnalytics';
 import { useNavigateWithSearchParams } from 'hooks/useNavigateWithSearchParams';
 import { overviewPath } from 'routing';
+import { IsGravityBridge } from 'services/IsGravityBridge';
 
 import styles from './ZoneInfoRow.module.scss';
 import { ZonesInfoRowProps } from './ZoneInfoRow.props';
@@ -29,15 +30,15 @@ function ZoneInfoRow({
     trackSelectedZone(zone.id);
   };
 
+  const isIbcVolumeShouldBeCustomized = IsGravityBridge(zone.id);
+
   return (
     <div className={cn(styles.row, className)} onClick={onZoneInfoRowClick}>
       <div className={cn(styles.zoneRating, styles.cell)}>{zone.rating}</div>
 
       <div className={cn(styles.zoneContainer, styles.cell)}>
         <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
-        {zone.isIbcVolumeShouldBeCustomized && (
-          <IbcVolumeDisclaimer className={styles.disclaimer} />
-        )}
+        {isIbcVolumeShouldBeCustomized && <IbcVolumeDisclaimer className={styles.disclaimer} />}
       </div>
       <div className={cn(styles.valueContainer, styles.cell)}>
         <ValueWithPending
