@@ -3,8 +3,6 @@ schema {
   subscription: subscription_root
 }
 
-directive @client on FIELD
-
 """
 expression to compare columns of type Boolean. All fields are combined with logical 'AND'.
 """
@@ -69,10 +67,6 @@ input String_comparison_exp {
   _nlike: String
   _nsimilar: String
   _similar: String
-}
-
-type ZoneFunctionalFlags {
-  isIbcVolumeShouldBeCustomized: Boolean!
 }
 
 scalar bigint
@@ -4622,7 +4616,6 @@ type flat_blockchains {
     """
     where: flat_channels_stats_bool_exp
   ): flat_channels_stats_aggregate!
-  flags: ZoneFunctionalFlags!
   inflation: numeric
   is_mainnet: Boolean!
   is_synced: Boolean

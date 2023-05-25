@@ -1,9 +1,0 @@
-directive @client on FIELD
-
-type ZoneFunctionalFlags {
-  isIbcVolumeShouldBeCustomized: Boolean!
-}
-
-extend type flat_blockchains {
-  flags: ZoneFunctionalFlags!
-}

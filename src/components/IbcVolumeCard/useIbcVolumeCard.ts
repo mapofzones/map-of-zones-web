@@ -9,7 +9,6 @@ import { handleChartByPeriod } from 'utils/ handleChartByPeriod';
 import { ChartItemByString } from 'utils/helper';
 
 export interface IbcVolumeCardData {
-  isIbcVolumeShouldBeCustomized?: boolean;
   ibcVolume?: number;
   ibcVolumeIn?: number;
   ibcVolumeOut?: number;
@@ -44,8 +43,6 @@ export function useIbcVolumeCard(): {
   return {
     data: {
       ...data?.ibcVolumeCardData[0],
-      isIbcVolumeShouldBeCustomized:
-        data?.ibcVolumeCardData[0]?.zone?.flags?.isIbcVolumeShouldBeCustomized,
       ibcVolumeChart: handleChartByPeriod(
         data?.ibcVolumeCardData[0]?.ibcVolumeChart?.slice(),
         period,

@@ -20,9 +20,7 @@ export const ZONES_TABLE_DATA = gql`
   ) {
     zonesTable: flat_blockchains(where: { is_mainnet: { _eq: $isMainnet } }) {
       ...ZoneBaseInfoV2
-      flags @client {
-        isIbcVolumeShouldBeCustomized
-      }
+
       switchedStats: blockchain_switched_stats(
         where: { timeframe: { _eq: $period }, is_mainnet: { _eq: $isMainnet } }
       ) {

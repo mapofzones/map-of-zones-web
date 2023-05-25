@@ -9,11 +9,6 @@ export const ZONE_IBC_VOLUME_CARD = gql`
         is_mainnet: { _eq: $isMainnet }
       }
     ) {
-      zone: blockchainByBlockchain {
-        flags @client {
-          isIbcVolumeShouldBeCustomized
-        }
-      }
       ibcVolume: ibc_cashflow
       ibcVolumeIn: ibc_cashflow_in
       ibcVolumeOut: ibc_cashflow_out
