@@ -71,6 +71,10 @@ input String_comparison_exp {
   _similar: String
 }
 
+type ZoneFunctionalFlags {
+  isIbcVolumeShouldBeCustomized: Boolean!
+}
+
 scalar bigint
 
 """
@@ -4618,8 +4622,8 @@ type flat_blockchains {
     """
     where: flat_channels_stats_bool_exp
   ): flat_channels_stats_aggregate!
+  flags: ZoneFunctionalFlags!
   inflation: numeric
-  isIbcVolumeShouldBeCustomized: Boolean!
   is_mainnet: Boolean!
   is_synced: Boolean
   logo_url: String

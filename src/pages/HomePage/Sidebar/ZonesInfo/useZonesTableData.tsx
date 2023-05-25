@@ -32,7 +32,7 @@ export function useZonesTableData(
         data?.zonesTable.map((zone) => ({
           name: zone.name,
           zone: zone.zone,
-          isIbcVolumeShouldBeCustomized: zone.isIbcVolumeShouldBeCustomized,
+          isIbcVolumeShouldBeCustomized: !!zone?.flags?.isIbcVolumeShouldBeCustomized,
           logoUrl: zone.logoUrl,
           ...zone.switchedStats[0],
           ...zone.stats[0],

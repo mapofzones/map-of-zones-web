@@ -16,10 +16,12 @@ const client = new ApolloClient({
     typePolicies: {
       flat_blockchains: {
         fields: {
-          isIbcVolumeShouldBeCustomized: {
+          flags: {
             read(_, { readField }) {
               const zone = readField('network_id') as string;
-              return zonesWithCustomIbcVolumeVar().includes(zone);
+              return {
+                isIbcVolumeShouldBeCustomized: zonesWithCustomIbcVolumeVar().includes(zone),
+              };
             },
           },
         },

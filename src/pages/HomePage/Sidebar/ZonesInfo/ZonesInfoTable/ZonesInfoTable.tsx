@@ -69,6 +69,7 @@ function ZonesInfoTable({ data, columnType, className, ...props }: ZonesInfoTabl
             id: zone.zone,
             name: zone.name,
             logoUrl: zone.logoUrl,
+            isIbcVolumeShouldBeCustomized: zone.isIbcVolumeShouldBeCustomized,
             rating: zone[fields.ratingKey] as any,
             ratingDiff: zone[fields.ratingDiffKey] as any,
             value: zone[fields.valueKey] as any,

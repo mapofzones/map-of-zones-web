@@ -6,7 +6,7 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { ZoneBaseInfoV2FragmentDoc } from '../../../common/Zone/__generated__/ZoneBaseInfo.fragment.generated';
+import { ZoneBaseInfoV2FragmentDoc } from '../../Zone/__generated__/ZoneBaseInfo.fragment.generated';
 export type ZonesDataQueryVariables = Types.Exact<{
   isMainnet: Types.Scalars['Boolean'];
 }>;

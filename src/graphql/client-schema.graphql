@@ -1,5 +1,9 @@
 directive @client on FIELD
 
-extend type flat_blockchains {
+type ZoneFunctionalFlags {
   isIbcVolumeShouldBeCustomized: Boolean!
+}
+
+extend type flat_blockchains {
+  flags: ZoneFunctionalFlags!
 }

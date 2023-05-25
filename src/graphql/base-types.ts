@@ -79,6 +79,10 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type ZoneFunctionalFlags = {
+  isIbcVolumeShouldBeCustomized: Scalars['Boolean'];
+};
+
 /** expression to compare columns of type bigint. All fields are combined with logical 'AND'. */
 export type Bigint_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['bigint']>;
@@ -3447,8 +3451,8 @@ export type Flat_Blockchains = {
   channels_stats: Array<Flat_Channels_Stats>;
   /** An aggregated array relationship */
   channels_stats_aggregate: Flat_Channels_Stats_Aggregate;
+  flags: ZoneFunctionalFlags;
   inflation?: Maybe<Scalars['numeric']>;
-  isIbcVolumeShouldBeCustomized: Scalars['Boolean'];
   is_mainnet: Scalars['Boolean'];
   is_synced?: Maybe<Scalars['Boolean']>;
   logo_url?: Maybe<Scalars['String']>;

@@ -21,6 +21,7 @@ export type ZoneIbcVolumeCardQueryResult = {
     ibcVolumeOutPercent: any;
     ibcVolumeInPending: any;
     ibcVolumeOutPending: any;
+    zone: { flags: { isIbcVolumeShouldBeCustomized: boolean } };
     ibcVolumeChart: Array<{ volume?: any | null }>;
   }>;
 };
@@ -121,6 +122,32 @@ export const ZoneIbcVolumeCardDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'zone' },
+                  name: { kind: 'Name', value: 'blockchainByBlockchain' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'flags' },
+                        directives: [
+                          { kind: 'Directive', name: { kind: 'Name', value: 'client' } },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'isIbcVolumeShouldBeCustomized' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
                 {
                   kind: 'Field',
                   alias: { kind: 'Name', value: 'ibcVolume' },

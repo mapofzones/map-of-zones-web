@@ -7,6 +7,7 @@ export { ReactComponent as BarChartIcon } from './bar-chart-icon.svg';
 export { ReactComponent as ChannelClosedIcon } from './channel-closed.svg';
 export { ReactComponent as CircularArrows } from './circular-arrows.svg';
 export { ReactComponent as CloseCircleIcon } from './close-circle.svg';
+export { ReactComponent as DisclaimerIcon } from './disclaimer.svg';
 export { ReactComponent as EarthIcon } from './earth.svg';
 export { ReactComponent as GithubLogo } from './github-logo.svg';
 export { ReactComponent as GlobalSearchIcon } from './global-search.svg';

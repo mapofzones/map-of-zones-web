@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import { VolumeLineChart } from 'components';
+import { IbcVolumeDisclaimer } from 'components/IbcVolumeDisclaimer';
 import { Card, ExplanationTooltip, LineChart, NumberFormat, NumberType } from 'components/ui';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { tooltips } from 'types/Tooltips';
@@ -30,11 +31,16 @@ export function IbcVolumeCard({
         IBC Volume ({period})&nbsp;
         <ExplanationTooltip text={tooltips['ibcVolume']()} />
       </span>
-      <NumberFormat
-        className={styles.volumeValue}
-        value={data?.ibcVolume}
-        numberType={NumberType.Currency}
-      />
+      <div>
+        {data?.isIbcVolumeShouldBeCustomized && (
+          <IbcVolumeDisclaimer className={styles.disclaimer} />
+        )}
+        <NumberFormat
+          className={styles.volumeValue}
+          value={data?.ibcVolume}
+          numberType={NumberType.Currency}
+        />
+      </div>
       <div className={styles.chart}>
         {data?.ibcVolumeChart && <LineChart data={data.ibcVolumeChart} dataKey={'volume'} />}
       </div>

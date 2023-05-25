@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import { NumberType, ValueWithPending, ZoneInfoWithSearch } from 'components';
+import { IbcVolumeDisclaimer } from 'components/IbcVolumeDisclaimer/IbcVolumeDisclaimer';
 import {
   SelectedZoneSourceView,
   useHomePageSelectedZoneAnalytics,
@@ -34,6 +35,9 @@ function ZoneInfoRow({
 
       <div className={cn(styles.zoneContainer, styles.cell)}>
         <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
+        {zone.isIbcVolumeShouldBeCustomized && (
+          <IbcVolumeDisclaimer className={styles.disclaimer} />
+        )}
       </div>
       <div className={cn(styles.valueContainer, styles.cell)}>
         <ValueWithPending
