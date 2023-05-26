@@ -30,7 +30,7 @@ function ZoneOverview() {
   return (
     <>
       <ScrollableContainer className={styles.container}>
-        <IbcVolumeCard hasBorder />
+        <IbcVolumeCard />
         <div className={styles.detailedInfo}>
           <ZoneOverviewItem
             className={styles.detailedInfoItem}

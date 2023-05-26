@@ -10,6 +10,7 @@
   align-content: flex-start;
   min-height: 150px;
   padding: 16px;
+  background-color: var(--black-700);
 
   .chart {
     grid-area: chart;
@@ -51,18 +52,5 @@
   .volumeLineChart {
     margin-top: 12px;
     margin-bottom: 8px;
-  }
-
-  .volumeInValue,
-  .volumeOutValue {
-    margin-bottom: 6px;
-
-    font-size: var(--font-base-size-md);
-  }
-
-  .volumeInPendingValue,
-  .volumeOutPendingValue {
-    color: var(--grey-500);
-    font-size: var(--font-secondary-size-md);
   }
 }

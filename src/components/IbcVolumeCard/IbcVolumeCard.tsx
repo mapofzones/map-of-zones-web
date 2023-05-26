@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 
-import { VolumeLineChart } from 'components';
+import { ValueWithPending, VolumeLineChart } from 'components';
 import { IbcVolumeDisclaimer } from 'components/IbcVolumeDisclaimer';
 import { Card, ExplanationTooltip, LineChart, NumberFormat, NumberType } from 'components/ui';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
@@ -52,26 +52,39 @@ export function IbcVolumeCard({
         volumeInPercent={data?.ibcVolumeInPercent ?? 0}
         volumeOutPercent={data?.ibcVolumeOutPercent ?? 0}
       />
-      <NumberFormat
+      <ValueWithPending
+        className={styles.volumeIn}
+        value={data?.ibcVolumeIn}
+        pendingValue={data?.ibcVolumeInPending}
+        numberType={NumberType.Currency}
+      />
+      <ValueWithPending
+        className={styles.volumeOut}
+        value={data?.ibcVolumeOut}
+        pendingValue={data?.ibcVolumeOutPending}
+        numberType={NumberType.Currency}
+        alignRight
+      />
+      {/* <NumberFormat
         className={styles.volumeInValue}
         value={data?.ibcVolumeIn}
         numberType={NumberType.Currency}
-      />
-      <NumberFormat
+      /> */}
+      {/* <NumberFormat
         className={cn(styles.volumeOutValue, 'alignRight')}
         value={data?.ibcVolumeOut}
         numberType={NumberType.Currency}
-      />
-      <NumberFormat
+      /> */}
+      {/* <NumberFormat
         className={styles.volumeInPendingValue}
         value={data?.ibcVolumeInPending}
         numberType={NumberType.Currency}
-      />
-      <NumberFormat
+      /> */}
+      {/* <NumberFormat
         className={cn(styles.volumeOutPendingValue, 'alignRight')}
         value={data?.ibcVolumeOutPending}
         numberType={NumberType.Currency}
-      />
+      /> */}
     </Card>
   );
 }
