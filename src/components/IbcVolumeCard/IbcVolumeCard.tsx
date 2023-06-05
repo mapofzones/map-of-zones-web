@@ -65,26 +65,6 @@ export function IbcVolumeCard({
         numberType={NumberType.Currency}
         alignRight
       />
-      {/* <NumberFormat
-        className={styles.volumeInValue}
-        value={data?.ibcVolumeIn}
-        numberType={NumberType.Currency}
-      /> */}
-      {/* <NumberFormat
-        className={cn(styles.volumeOutValue, 'alignRight')}
-        value={data?.ibcVolumeOut}
-        numberType={NumberType.Currency}
-      /> */}
-      {/* <NumberFormat
-        className={styles.volumeInPendingValue}
-        value={data?.ibcVolumeInPending}
-        numberType={NumberType.Currency}
-      /> */}
-      {/* <NumberFormat
-        className={cn(styles.volumeOutPendingValue, 'alignRight')}
-        value={data?.ibcVolumeOutPending}
-        numberType={NumberType.Currency}
-      /> */}
     </Card>
   );
 }

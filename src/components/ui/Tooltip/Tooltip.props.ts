@@ -10,4 +10,5 @@ export interface TooltipProps
   maxWidth?: number;
   showTriangle?: boolean;
   text?: string;
+  hideDelayMs?: number;
 }

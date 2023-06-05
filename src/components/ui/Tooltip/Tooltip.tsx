@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -10,6 +10,13 @@ import { TooltipBody } from './TooltipBody';
 
 export type TrianglePosition = 'top' | 'left' | 'bottom' | 'right';
 
+function tryClearTimerRef(timerRef: MutableRefObject<NodeJS.Timeout | null>) {
+  if (timerRef.current) {
+    clearTimeout(timerRef.current);
+    timerRef.current = null;
+  }
+}
+
 export function Tooltip({
   body,
   children,
@@ -18,6 +25,7 @@ export function Tooltip({
   margin = 16,
   maxWidth = 240,
   showTriangle = false,
+  hideDelayMs = 0,
   ...props
 }: TooltipProps) {
   const [visible, setVisible] = useState<boolean>(false);
@@ -26,14 +34,43 @@ export function Tooltip({
 
   const tooltipRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const bodyMouseHover = useRef<boolean>();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleClose = () => {
+    if (!bodyMouseHover.current) {
+      setVisible(false);
+    }
+  };
 
   const showTooltip = () => {
     setVisible(true);
+    tryClearTimerRef(timerRef);
   };
 
   const hideTooltip = () => {
-    setVisible(false);
+    if (!hideDelayMs) {
+      handleClose();
+    } else {
+      timerRef.current = setTimeout(handleClose, hideDelayMs);
+    }
   };
+
+  const hadleBodyMouseEnter = () => {
+    bodyMouseHover.current = true;
+    showTooltip();
+  };
+
+  const handleBodyMouseLeave = () => {
+    bodyMouseHover.current = false;
+    hideTooltip();
+  };
+
+  useEffect(() => {
+    return () => {
+      tryClearTimerRef(timerRef);
+    };
+  }, []);
 
   const getTooltipPositionStyle = useCallback(
     (
@@ -102,14 +139,19 @@ export function Tooltip({
         <span
           ref={tooltipRef}
           className={cn(styles.container, className)}
-          onMouseOver={showTooltip}
-          onMouseOut={hideTooltip}
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
           {...props}
         >
           {children}
           {visible && (
             <Portal>
-              <TooltipBody innerRef={bodyRef} style={{ ...posStyle, maxWidth }}>
+              <TooltipBody
+                innerRef={bodyRef}
+                style={{ ...posStyle, maxWidth }}
+                onMouseEnter={hadleBodyMouseEnter}
+                onMouseLeave={handleBodyMouseLeave}
+              >
                 {body}
                 {showTriangle && (
                   <div className={cn(styles.triangle, styles[trianglePosition ?? 'top'])} />
