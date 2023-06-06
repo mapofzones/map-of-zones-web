@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export interface TooltipProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   body: ReactNode;
   children: ReactNode;
   className?: string;
@@ -11,4 +11,5 @@ export interface TooltipProps
   showTriangle?: boolean;
   text?: string;
   hideDelayMs?: number;
+  onMouseEnter?: (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }

@@ -3154,7 +3154,7 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@release-it/conventional-changelog@github:release-it/conventional-changelog":
+"@release-it/conventional-changelog@release-it/conventional-changelog":
   version "5.1.1"
   resolved "https://codeload.github.com/release-it/conventional-changelog/tar.gz/ff9f1aae654dc378d5ed4703a2802ef9591e1a96"
   dependencies:

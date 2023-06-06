@@ -1,4 +1,4 @@
-import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -26,6 +26,7 @@ export function Tooltip({
   maxWidth = 240,
   showTriangle = false,
   hideDelayMs = 0,
+  onMouseEnter,
   ...props
 }: TooltipProps) {
   const [visible, setVisible] = useState<boolean>(false);
@@ -56,14 +57,27 @@ export function Tooltip({
     }
   };
 
-  const hadleBodyMouseEnter = () => {
+  const onMouseEnterInternal = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    showTooltip();
+    onMouseEnter && onMouseEnter(event);
+  };
+
+  const onMouseLeaveInternal = () => {
+    hideTooltip();
+  };
+
+  const onBodyMouseEnter = () => {
     bodyMouseHover.current = true;
     showTooltip();
   };
 
-  const handleBodyMouseLeave = () => {
+  const onBodyMouseLeave = () => {
     bodyMouseHover.current = false;
     hideTooltip();
+  };
+
+  const onBodyClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
   };
 
   useEffect(() => {
@@ -102,7 +116,7 @@ export function Tooltip({
     [isVertical, margin, maxWidth]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!visible) {
       return;
     }
@@ -138,9 +152,9 @@ export function Tooltip({
       {body && (
         <span
           ref={tooltipRef}
-          className={cn(styles.container, className)}
-          onMouseEnter={showTooltip}
-          onMouseLeave={hideTooltip}
+          className={cn(className, styles.container)}
+          onMouseEnter={onMouseEnterInternal}
+          onMouseLeave={onMouseLeaveInternal}
           {...props}
         >
           {children}
@@ -149,8 +163,9 @@ export function Tooltip({
               <TooltipBody
                 innerRef={bodyRef}
                 style={{ ...posStyle, maxWidth }}
-                onMouseEnter={hadleBodyMouseEnter}
-                onMouseLeave={handleBodyMouseLeave}
+                onMouseEnter={onBodyMouseEnter}
+                onMouseLeave={onBodyMouseLeave}
+                onClick={onBodyClick}
               >
                 {body}
                 {showTriangle && (
