@@ -1,5 +1,3 @@
-import { MutableRefObject, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-
 import cn from 'classnames';
 
 import { Portal } from 'components';
@@ -7,15 +5,8 @@ import { Portal } from 'components';
 import styles from './Tooltip.module.scss';
 import { TooltipProps } from './Tooltip.props';
 import { TooltipBody } from './TooltipBody';
-
-export type TrianglePosition = 'top' | 'left' | 'bottom' | 'right';
-
-function tryClearTimerRef(timerRef: MutableRefObject<NodeJS.Timeout | null>) {
-  if (timerRef.current) {
-    clearTimeout(timerRef.current);
-    timerRef.current = null;
-  }
-}
+import { useToggleVisibilityWithTimeout } from './useToggleVisibilityWithTimeout';
+import { useTooltipPositionStyle } from './useTooltipPositionStyle';
 
 export function Tooltip({
   body,
@@ -29,122 +20,24 @@ export function Tooltip({
   onMouseEnter,
   ...props
 }: TooltipProps) {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [posStyle, setPosStyle] = useState<React.CSSProperties>();
-  const [trianglePosition, setTrianglePosition] = useState<TrianglePosition | undefined>(undefined);
+  const { visible, showTooltip, hideTooltip } = useToggleVisibilityWithTimeout(hideDelayMs);
 
-  const tooltipRef = useRef<HTMLDivElement>(null);
-  const bodyRef = useRef<HTMLDivElement>(null);
-  const bodyMouseHover = useRef<boolean>();
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const handleClose = () => {
-    if (!bodyMouseHover.current) {
-      setVisible(false);
-    }
-  };
-
-  const showTooltip = () => {
-    setVisible(true);
-    tryClearTimerRef(timerRef);
-  };
-
-  const hideTooltip = () => {
-    if (!hideDelayMs) {
-      handleClose();
-    } else {
-      timerRef.current = setTimeout(handleClose, hideDelayMs);
-    }
-  };
+  const { tooltipRef, bodyRef, posStyle, trianglePosition } = useTooltipPositionStyle(
+    visible,
+    isVertical,
+    showTriangle,
+    maxWidth,
+    margin
+  );
 
   const onMouseEnterInternal = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     showTooltip();
     onMouseEnter && onMouseEnter(event);
   };
 
-  const onMouseLeaveInternal = () => {
-    hideTooltip();
-  };
-
-  const onBodyMouseEnter = () => {
-    bodyMouseHover.current = true;
-    showTooltip();
-  };
-
-  const onBodyMouseLeave = () => {
-    bodyMouseHover.current = false;
-    hideTooltip();
-  };
-
   const onBodyClick = (event: React.MouseEvent) => {
     event.stopPropagation();
   };
-
-  useEffect(() => {
-    return () => {
-      tryClearTimerRef(timerRef);
-    };
-  }, []);
-
-  const getTooltipPositionStyle = useCallback(
-    (
-      hoverRect: DOMRect,
-      bodyClientRect: DOMRect | undefined,
-      isHoverInTopHalf: boolean,
-      isHoverInLeftHalf: boolean
-    ) => {
-      const style: React.CSSProperties = {};
-      if (isVertical) {
-        style.left = getLeftCoordinate(hoverRect, bodyClientRect?.width ?? maxWidth, margin);
-
-        if (isHoverInTopHalf) {
-          style.top = hoverRect.top + hoverRect.height + margin;
-        } else {
-          style.bottom = window.innerHeight - hoverRect.top + margin;
-        }
-      } else {
-        style.top = getTopCoordinate(hoverRect, bodyClientRect?.height ?? 0, margin);
-
-        if (isHoverInLeftHalf) {
-          style.left = hoverRect.left + hoverRect.width + margin;
-        } else {
-          style.right = window.innerWidth - hoverRect.left + margin;
-        }
-      }
-      return style;
-    },
-    [isVertical, margin, maxWidth]
-  );
-
-  useLayoutEffect(() => {
-    if (!visible) {
-      return;
-    }
-
-    const bodyClientRect = bodyRef.current?.getBoundingClientRect();
-    const hoverRect = tooltipRef.current?.getBoundingClientRect();
-
-    if (!hoverRect) {
-      return;
-    }
-
-    const isHoverInTopHalf = hoverRect.top < window.innerHeight / 2;
-    const isHoverInLeftHalf = hoverRect.left < window.innerWidth / 2;
-
-    const style: React.CSSProperties = getTooltipPositionStyle(
-      hoverRect,
-      bodyClientRect,
-      isHoverInTopHalf,
-      isHoverInLeftHalf
-    );
-
-    if (showTriangle) {
-      const trianglePosition = getTrianglePosition(isVertical, isHoverInTopHalf, isHoverInLeftHalf);
-      setTrianglePosition(trianglePosition);
-    }
-
-    setPosStyle(style);
-  }, [visible, showTriangle, isVertical, getTooltipPositionStyle]);
 
   return (
     <>
@@ -154,7 +47,7 @@ export function Tooltip({
           ref={tooltipRef}
           className={cn(className, styles.container)}
           onMouseEnter={onMouseEnterInternal}
-          onMouseLeave={onMouseLeaveInternal}
+          onMouseLeave={hideTooltip}
           {...props}
         >
           {children}
@@ -163,8 +56,8 @@ export function Tooltip({
               <TooltipBody
                 innerRef={bodyRef}
                 style={{ ...posStyle, maxWidth }}
-                onMouseEnter={onBodyMouseEnter}
-                onMouseLeave={onBodyMouseLeave}
+                onMouseEnter={showTooltip}
+                onMouseLeave={hideTooltip}
                 onClick={onBodyClick}
               >
                 {body}
@@ -178,26 +71,4 @@ export function Tooltip({
       )}
     </>
   );
-}
-
-function getLeftCoordinate(hoverRect: DOMRect, width: number, margin: number) {
-  let left = hoverRect.left + hoverRect.width / 2 - width / 2;
-  left = Math.max(margin, left);
-  left = Math.min(left, document.body.clientWidth - width - margin);
-  return left;
-}
-
-function getTopCoordinate(hoverRect: DOMRect, height: number, margin: number) {
-  let top = hoverRect.top + hoverRect.height / 2 - height / 2;
-  top = Math.max(margin, top);
-  top = Math.min(top, document.body.clientHeight - height - margin);
-  return top;
-}
-
-function getTrianglePosition(
-  isVertical: boolean,
-  isTopHalf: boolean,
-  isLeftPart: boolean
-): TrianglePosition {
-  return isVertical ? (isTopHalf ? 'top' : 'bottom') : isLeftPart ? 'left' : 'right';
 }

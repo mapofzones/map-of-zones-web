@@ -21,4 +21,3 @@ export { ScrollableContainer } from './ScrollableContainer/ScrollableContainer';
 export { ScrollUpButton } from './ScrollUpButton/ScrollUpButton';
 export { Search } from './Search/Search';
 export { Tooltip } from './Tooltip/Tooltip';
-export { TooltipBody } from './Tooltip/TooltipBody';
