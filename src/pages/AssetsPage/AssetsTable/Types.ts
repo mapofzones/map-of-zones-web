@@ -1,4 +1,5 @@
 import { Align } from 'components/Table/TableHeader/TableHeaderItem/TableHeaderItem.props';
+import { ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { tooltips } from 'types/Tooltips';
 
 import { AssetsTableRow } from './useAssetsTable';
@@ -60,7 +61,7 @@ export const TABLE_HEADER_CONFIG = [
     columnKey: ColumnKeys.Volume24hPercent,
   },
   {
-    title: 'On-Chain Supply',
+    title: ON_CHAIN_SUPPLY,
     explanationText: tooltips['supply'](),
     columnKey: ColumnKeys.Supply,
   },

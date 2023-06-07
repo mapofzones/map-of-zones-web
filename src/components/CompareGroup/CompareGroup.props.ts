@@ -11,6 +11,7 @@ export type ComparisonGroupValues<T> = {
 
 export interface MetadataItem {
   title: string;
+  numberType: NumberType;
 }
 
 export interface VolumeComparisonGroupProps<K> {
@@ -18,6 +19,5 @@ export interface VolumeComparisonGroupProps<K> {
   metadata: Record<keyof K, MetadataItem>;
   data?: (ComparisonGroupItem & ComparisonGroupValues<K>)[];
   loading: boolean;
-  numberType: NumberType;
   zonesDetailsByKey: Record<string, DatasetInfo>;
 }

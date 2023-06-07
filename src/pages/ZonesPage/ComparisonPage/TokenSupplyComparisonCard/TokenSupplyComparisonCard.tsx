@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
+import { INFLATION, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
 import styles from './TokenSupplyComparisonCard.module.scss';
@@ -16,8 +17,8 @@ interface TokenSupplyData {
 }
 
 const TOKEN_SUPPLY_METADATA: Record<keyof TokenSupplyData, MetadataItem> = {
-  onChainSupply: { title: 'On-Chain Supply' },
-  inflation: { title: 'Inflation' },
+  onChainSupply: { title: ON_CHAIN_SUPPLY, numberType: NumberType.Number },
+  inflation: { title: INFLATION, numberType: NumberType.Percent },
 };
 
 export function TokenSupplyComparisonCard({
@@ -39,7 +40,6 @@ export function TokenSupplyComparisonCard({
           zonesDetailsByKey={selectedZonesDetailsByKey}
           data={data}
           loading={loading}
-          numberType={NumberType.Number}
         />
       </AnalysisCard.Body>
     </AnalysisCard>

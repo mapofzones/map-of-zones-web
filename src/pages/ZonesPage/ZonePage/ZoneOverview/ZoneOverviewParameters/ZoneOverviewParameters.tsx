@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 
 import { ValueWithPending } from 'components';
+import { INFLATION, INFRASTRUCTURE, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
 import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
@@ -24,7 +25,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
           <div className={styles.valuesContainer}>
             <ValueWithPending
               className={styles.valueBlock}
-              title={'On-Chain Supply'}
+              title={ON_CHAIN_SUPPLY}
               value={data?.onChainSupply}
               numberType={NumberType.Number}
               size={ElementSize.LARGE}
@@ -32,7 +33,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             <Divider className={styles.divider} />
             <ValueWithPending
               className={styles.valueBlock}
-              title={'Inflation'}
+              title={INFLATION}
               value={data?.inflation}
               numberType={NumberType.Percent}
               size={ElementSize.LARGE}
@@ -46,7 +47,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             <TotalBondenRateBlock data={data} className={styles.valueBlock} />
           </div>
         </Card>
-        <Card title="Infrastructure" className={styles.parameterCard} loading={loading}>
+        <Card title={INFRASTRUCTURE} className={styles.parameterCard} loading={loading}>
           <div className={styles.valuesContainer}>
             <ValueWithPending
               className={styles.valueBlock}

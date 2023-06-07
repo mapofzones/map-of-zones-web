@@ -16,7 +16,6 @@ export function CompareGroup<K>({
   metadata,
   data,
   loading,
-  numberType,
   zonesDetailsByKey,
   ...props
 }: VolumeComparisonGroupProps<K>): JSX.Element {
@@ -62,7 +61,7 @@ export function CompareGroup<K>({
               }
               value={item[selectedProperty]}
               color={zonesDetailsByKey[item.zone]?.color ?? '#62D0D7'}
-              numberType={numberType}
+              numberType={metadata[selectedProperty]?.numberType}
             />
           ))}
       </div>

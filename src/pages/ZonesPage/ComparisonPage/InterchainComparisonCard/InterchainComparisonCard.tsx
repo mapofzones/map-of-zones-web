@@ -12,8 +12,8 @@ import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZones
 import { InterchainComparisonCardProps } from '.';
 
 const INTERCHAIN_METADATA: Record<keyof InterchainData, MetadataItem> = {
-  peersCount: { title: 'Peers' },
-  channelsCount: { title: 'Channels' },
+  peersCount: { title: 'Peers', numberType: NumberType.Number },
+  channelsCount: { title: 'Channels', numberType: NumberType.Number },
 };
 
 export function InterchainComparisonCard({
@@ -35,7 +35,6 @@ export function InterchainComparisonCard({
           data={data}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
-          numberType={NumberType.Number}
         />
       </AnalysisCard.Body>
     </AnalysisCard>

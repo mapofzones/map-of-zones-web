@@ -21,19 +21,19 @@ import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZones
 import { ActivityComparisonCardProps } from '.';
 
 const VOLUME_METADATA: Record<keyof VolumeData, MetadataItem> = {
-  ibcVolume: { title: 'IBC Volume' },
-  ibcVolumeIn: { title: 'IBC In' },
-  ibcVolumeOut: { title: 'IBC Out' },
+  ibcVolume: { title: 'IBC Volume', numberType: NumberType.Currency },
+  ibcVolumeIn: { title: 'IBC In', numberType: NumberType.Currency },
+  ibcVolumeOut: { title: 'IBC Out', numberType: NumberType.Currency },
 };
 
 const TRANSFERS_METADATA: Record<keyof TransfersData, MetadataItem> = {
-  totalTxs: { title: 'Transactions' },
-  ibcTransfers: { title: 'IBC Transfers' },
+  totalTxs: { title: 'Transactions', numberType: NumberType.Number },
+  ibcTransfers: { title: 'IBC Transfers', numberType: NumberType.Number },
 };
 
 const DAU_METADATA: Record<keyof DauData, MetadataItem> = {
-  dau: { title: 'Active Addresses' },
-  ibcDau: { title: 'Active IBC Addresses' },
+  dau: { title: 'Active Addresses', numberType: NumberType.Number },
+  ibcDau: { title: 'Active IBC Addresses', numberType: NumberType.Number },
 };
 
 export function ActivityComparisonCard({ className }: ActivityComparisonCardProps): JSX.Element {
@@ -56,7 +56,6 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
           metadata={VOLUME_METADATA}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
-          numberType={NumberType.Currency}
         />
 
         <Divider size={24} />
@@ -66,7 +65,6 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
           metadata={TRANSFERS_METADATA}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
-          numberType={NumberType.Number}
         />
 
         <Divider size={24} />
@@ -76,7 +74,6 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
           metadata={DAU_METADATA}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
-          numberType={NumberType.Number}
         />
       </AnalysisCard.Body>
     </AnalysisCard>
