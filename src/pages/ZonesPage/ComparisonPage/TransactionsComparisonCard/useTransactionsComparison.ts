@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useQueries } from '@tanstack/react-query';
 
@@ -44,7 +44,7 @@ export function useTransactionsComparison(
       charts,
       loading,
     });
-  }, [responses]);
+  }, [JSON.stringify(responses)]); // fix bug in @tanstack/react-query library: responses has new reference for each rerender, so effect invoked too often
 
   return handledData;
 }

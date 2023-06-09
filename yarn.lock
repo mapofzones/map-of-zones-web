@@ -3551,10 +3551,10 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.27.0.tgz#96bcef499008ea080b66611d029655e3ffdf8bea"
   integrity sha512-sm+QncWaPmM73IPwFlmWSKPqjdTXZeFf/7aEmWh00z7yl2FjqophPt0dE1EHW9P1giMC5rMviv7OUbSDmWzXXA==
 
-"@tanstack/query-core@4.29.11":
-  version "4.29.11"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.29.11.tgz#fa338f7d6897c6be5de6d8dabd603d9b78ee48c7"
-  integrity sha512-8C+hF6SFAb/TlFZyS9FItgNwrw4PMa7YeX+KQYe2ZAiEz6uzg6yIr+QBzPkUwZ/L0bXvGd1sufTm3wotoz+GwQ==
+"@tanstack/query-core@^5.0.0-alpha.43":
+  version "5.0.0-alpha.57"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.0.0-alpha.57.tgz#6c3f5635ae1014d9c064fd27e17aaaa8557048b1"
+  integrity sha512-Av0S6+BaO4i+RUA4NjByvtmyJZQwhBe2B/+8330SovfRkEKjcMkwu8z89u1060hFUECR6uBtBVGHzchSDCq4yw==
 
 "@tanstack/query-persist-client-core@4.27.0":
   version "4.27.0"
@@ -3586,20 +3586,19 @@
   dependencies:
     "@tanstack/query-persist-client-core" "4.27.0"
 
+"@tanstack/react-query@5.0.0-alpha.57":
+  version "5.0.0-alpha.57"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.0.0-alpha.57.tgz#1cab31ef79e9c5f8504ed4d6bdee052a8184227d"
+  integrity sha512-XSgzPzvIc0mcoj6us57S4piuH587zxy1NjhPWiWUpmNRFWRR9+DsqFz7SAy5fj6Ekd+l7+YLIHPWwRGeOpuivQ==
+  dependencies:
+    "@tanstack/query-core" "^5.0.0-alpha.43"
+
 "@tanstack/react-query@^4.14.5", "@tanstack/react-query@^4.3.9":
   version "4.28.0"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.28.0.tgz#01cb9969b15cbcbd5dcfcd4b264dc18ef0a35f86"
   integrity sha512-8cGBV5300RHlvYdS4ea+G1JcZIt5CIuprXYFnsWggkmGoC0b5JaqG0fIX3qwDL9PTNkKvG76NGThIWbpXivMrQ==
   dependencies:
     "@tanstack/query-core" "4.27.0"
-    use-sync-external-store "^1.2.0"
-
-"@tanstack/react-query@^4.20.9":
-  version "4.29.12"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.29.12.tgz#de111cf1d6c389b86acacfaf972302914cfa1208"
-  integrity sha512-zhcN6+zF6cxprxhTHQajHGlvxgK8npnp9uLe9yaWhGc6sYcPWXzyO4raL4HomUzQOPzu3jLvkriJQ7BOrDM8vA==
-  dependencies:
-    "@tanstack/query-core" "4.29.11"
     use-sync-external-store "^1.2.0"
 
 "@tootallnate/once@1":
