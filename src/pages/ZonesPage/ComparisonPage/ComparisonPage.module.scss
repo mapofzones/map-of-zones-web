@@ -42,4 +42,9 @@
   .tokenSupplyCard {
     grid-column: 1 / 5;
   }
+
+  .transactionCard {
+    grid-column: 1 / 7;
+    min-height: 350px;
+  }
 }

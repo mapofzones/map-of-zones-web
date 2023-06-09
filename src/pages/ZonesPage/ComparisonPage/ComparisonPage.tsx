@@ -11,6 +11,7 @@ import {
 } from './providers/ComparisonSelectedZonesProvider';
 import { TokenComparisonCard } from './TokenComparisonCard';
 import { TokenSupplyComparisonCard } from './TokenSupplyComparisonCard';
+import { TransactionsComparisonCard } from './TransactionsComparisonCard';
 import { ZonesComparisonSelectors } from './ZonesComparisonSelectors';
 
 import { ComparisonPageProps } from '.';
@@ -31,6 +32,7 @@ function ComparisonPageContent({ className, ...props }: ComparisonPageProps) {
       <BlockchainParametersComparisonProvider zones={selectedZones}>
         <TokenSupplyComparisonCard className={styles.tokenSupplyCard} />
       </BlockchainParametersComparisonProvider>
+      <TransactionsComparisonCard className={styles.transactionCard} />
     </div>
   );
 }

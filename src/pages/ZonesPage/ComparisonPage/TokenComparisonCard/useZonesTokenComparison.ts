@@ -6,6 +6,7 @@ import { PeriodKeys } from 'components';
 import { ZoneCompareTokenDocument } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareToken.query.generated';
 import { ChartItemWithTime } from 'types/chart';
 import { ZoneBase } from 'types/models/ZoneDetails';
+import { mapCharts } from 'utils/mapCharts';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 import { sortDetailsByZoneKeys } from '../utils/sortDetailsByZoneKeys';
@@ -55,19 +56,14 @@ export function useZonesTokenComparison(
       tradingVolume: undefined,
     }));
 
-    const mappedItems: Record<number, ChartItemWithTime> = dataWithoutNulls.reduce((acc, item) => {
-      item.token?.chart?.forEach((chartItem) => {
-        const { time, value } = chartItem;
-        acc[time] = acc[time] || { time };
-        acc[time][item.zone] = value;
-      });
-      return acc;
-    }, {} as Record<number, ChartItemWithTime>);
-    const mappedChart: ChartItemWithTime[] = Object.values(mappedItems);
+    const mappedChart = mapCharts(
+      dataWithoutNulls.map((data) => ({ zone: data.zone, chart: data.token?.chart })),
+      ['chart']
+    );
 
     setHandledData({
       data: sortDetailsByZoneKeys(zones, mappedData),
-      chart: mappedChart,
+      chart: mappedChart['chart'],
       loading,
     });
   }, [data?.compareTokens, loading, zones]);
