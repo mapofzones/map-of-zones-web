@@ -3,6 +3,7 @@ import cn from 'classnames';
 import {
   AnalysisCard,
   AnalysisChartTypeButtonsGroup,
+  AnalysisLegendAdditionalText,
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
@@ -68,22 +69,29 @@ export function IbcTransfersComparisonCard({
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </AnalysisCard.ChartControls>
 
-      <AnalysisCard.Legend className={styles.chartLegend}>
-        {data?.map((item) => (
-          <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
-            <AnalysisCard.Legend.Item.Title
-              title={selectedZonesDetailsByKey[item.zone].title}
-              circleColor={selectedZonesDetailsByKey[item.zone].color}
-            />
-            <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
-              <AnalysisCard.Legend.Item.ValueNumber
-                value={item[selectedProperty]}
-                numberType={NumberType.Currency}
+      <div className={styles.legendWrapper}>
+        <AnalysisCard.Legend className={styles.chartLegend}>
+          {data?.map((item) => (
+            <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+              <AnalysisCard.Legend.Item.Title
+                title={selectedZonesDetailsByKey[item.zone].title}
+                circleColor={selectedZonesDetailsByKey[item.zone].color}
               />
-            </SkeletonTextWrapper>
-          </AnalysisCard.Legend.Item>
-        ))}
-      </AnalysisCard.Legend>
+              <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
+                <AnalysisCard.Legend.Item.ValueNumber
+                  value={item[selectedProperty]}
+                  numberType={NumberType.Currency}
+                />
+              </SkeletonTextWrapper>
+            </AnalysisCard.Legend.Item>
+          ))}
+        </AnalysisCard.Legend>
+
+        <AnalysisLegendAdditionalText
+          period={selectedPeriod}
+          className={styles.legendAdditionalText}
+        />
+      </div>
 
       <ChartContainer
         chartType={selectedChartType}
