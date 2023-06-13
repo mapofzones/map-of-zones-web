@@ -7,7 +7,6 @@ import { ChartItemWithTime } from 'types/chart';
 export function mapCharts<T extends { zone: string }, ChartKeys extends keyof T>(
   compareItems: T[],
   chartKeys: ChartKeys[],
-
   chartValueKey = 'value'
 ) {
   const charts = chartKeys.reduce((dict, chartKeyName) => {

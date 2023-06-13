@@ -12,38 +12,42 @@ import { IbcTransfersOutFieldAnalysisFragmentDoc } from '../../../common/Zone/Tr
 import { IbcTransfersChartAnalysisFragmentDoc } from '../../../common/Zone/Transfers/__generated__/IbcTransfersChartAnalysis.generated';
 import { IbcTransfersInChartAnalysisFragmentDoc } from '../../../common/Zone/Transfers/__generated__/IbcTransfersInChartAnalysis.generated';
 import { IbcTransfersOutChartAnalysisFragmentDoc } from '../../../common/Zone/Transfers/__generated__/IbcTransfersOutChartAnalysis.generated';
-export type ZoneOverviewIbcTransfersCardQueryVariables = Types.Exact<{
-  zone: Types.Scalars['String'];
+export type ZoneCompareIbcTransfersQueryVariables = Types.Exact<{
+  zones?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
   period: Types.Scalars['Int'];
   isMainnet: Types.Scalars['Boolean'];
   periodInDays: Types.Scalars['Int'];
 }>;
 
-export type ZoneOverviewIbcTransfersCardQueryResult = {
-  ibcTransfersCardData?: {
+export type ZoneCompareIbcTransfersQueryResult = {
+  stats: Array<{
+    zone: string;
     ibcTransfers: { aggregate?: { sum?: { value?: any | null } | null } | null };
     ibcTransfersIn: { aggregate?: { sum?: { value?: any | null } | null } | null };
     ibcTransfersOut: { aggregate?: { sum?: { value?: any | null } | null } | null };
     ibcTransfersChart: Array<{ value?: any | null; time: number }>;
     ibcTransfersInChart: Array<{ value?: any | null; time: number }>;
     ibcTransfersOutChart: Array<{ value?: any | null; time: number }>;
-  } | null;
+  }>;
 };
 
-export const ZoneOverviewIbcTransfersCardDocument = {
+export const ZoneCompareIbcTransfersDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'ZoneOverviewIbcTransfersCard' },
+      name: { kind: 'Name', value: 'ZoneCompareIbcTransfers' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'zones' } },
           type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            },
           },
         },
         {
@@ -76,28 +80,69 @@ export const ZoneOverviewIbcTransfersCardDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'ibcTransfersCardData' },
-            name: { kind: 'Name', value: 'flat_blockchain_switched_stats_by_pk' },
+            alias: { kind: 'Name', value: 'stats' },
+            name: { kind: 'Name', value: 'flat_blockchain_switched_stats' },
             arguments: [
               {
                 kind: 'Argument',
-                name: { kind: 'Name', value: 'blockchain' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'zone' } },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'timeframe' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'is_mainnet' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'blockchain' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_in' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'zones' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'is_mainnet' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'isMainnet' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'timeframe' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'period' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'zone' },
+                  name: { kind: 'Name', value: 'blockchain' },
+                },
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'IbcTransfersFieldAnalysis' },
@@ -136,6 +181,6 @@ export const ZoneOverviewIbcTransfersCardDocument = {
     ...IbcTransfersOutChartAnalysisFragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<
-  ZoneOverviewIbcTransfersCardQueryResult,
-  ZoneOverviewIbcTransfersCardQueryVariables
+  ZoneCompareIbcTransfersQueryResult,
+  ZoneCompareIbcTransfersQueryVariables
 >;

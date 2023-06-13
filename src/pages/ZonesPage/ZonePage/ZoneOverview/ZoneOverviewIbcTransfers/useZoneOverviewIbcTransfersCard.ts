@@ -21,7 +21,7 @@ type CombinedChartApi = IbcTransfersChartApi & IbcTransfersInChartApi & IbcTrans
 
 const chartsMapping: ArraysMapping<IbcTransfersCardApi, CombinedChartApi, IbcTransfersChart> = {
   ibcTransfersChart: {
-    from: 'ibcTransfer',
+    from: 'value',
     to: 'ibcTransfersCount',
   },
   ibcTransfersInChart: {
