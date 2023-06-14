@@ -13,7 +13,7 @@ import { NumberType } from 'types/NumberType';
 import { SkeletonTextWrapper } from 'ui';
 
 import styles from './TransactionsComparisonCard.module.scss';
-import { useTransactionsComparison } from './useTransactionsComparison';
+import { ZoneTransactionsResult, useTransactionsComparison } from './useTransactionsComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
 import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
@@ -51,10 +51,10 @@ export function TransactionsComparisonCard({
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </AnalysisCard.ChartControls>
 
-      <div className={styles.legendWrapper}>
+      <div className={styles.legendContainer}>
         <AnalysisCard.Legend>
           <>
-            {data?.map((item: any) => {
+            {data?.map((item: ZoneTransactionsResult) => {
               return (
                 <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
                   <AnalysisCard.Legend.Item.Title
@@ -81,7 +81,7 @@ export function TransactionsComparisonCard({
 
       <ChartContainer
         chartType={selectedChartType}
-        data={charts?.chart ?? []}
+        data={charts?.['txsCount'] ?? []}
         loading={loading}
         datasetInfo={selectedZonesDetailsByKey}
         dataFormatType={numberType}

@@ -3,7 +3,6 @@ import cn from 'classnames';
 import {
   AnalysisCard,
   AnalysisChartTypeButtonsGroup,
-  AnalysisLegendAdditionalText,
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
@@ -14,23 +13,38 @@ import { NumberType } from 'types/NumberType';
 import { ButtonGroup, SkeletonTextWrapper } from 'ui';
 import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
-import styles from './IbcTransfersComparisonCard.module.scss';
-import { useZonesIbcTransfersComparison } from './useZonesIbcTransfersComparison';
+import styles from './DailyActiveAddressesComparisonCard.module.scss';
+import {
+  DailyActiveAddressesComparisonCardProps,
+  DailyActiveAddressesProperties,
+} from './DailyActiveAddressesComparisonCard.props';
+import {
+  ZoneDailyActiveAddressesItem,
+  useDailyActiveAddressesComparison,
+} from './useDailyActiveAddressesComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
 import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
-import { IbcTransfersComparisonCardProps, IbcTransfersProperties } from '.';
-
-const IBC_VOLUME_CARD_OPTIONS: ButtonGroupItem<IbcTransfersProperties>[] = [
-  { key: 'ibcTransfers', title: 'Total IBC' },
-  { key: 'ibcTransfersIn', title: 'IBC In' },
-  { key: 'ibcTransfersOut', title: 'IBC Out' },
+const DAILY_ACTIVE_ADDRESSES_CARD_OPTIONS: ButtonGroupItem<DailyActiveAddressesProperties>[] = [
+  { key: 'activeAddressesCount', title: 'Active Addresses' },
+  { key: 'ibcActiveAddressesCount', title: 'Active IBC Addresses' },
 ];
+
+const TOTAL_PROP_NAME_BY_SELECTED_PROP: Record<
+  DailyActiveAddressesProperties,
+  keyof ZoneDailyActiveAddressesItem
+> = {
+  activeAddressesCount: 'totalActiveAddresses',
+  ibcActiveAddressesCount: 'totalIbcActiveAddresses',
+};
+
 const PERIODS: AnalysisCardPeriod[] = ['1w', '1m'];
 
-export function IbcTransfersComparisonCard({
+const numberType = NumberType.Number;
+
+export function DailyActiveAddressesComparisonCard({
   className,
-}: IbcTransfersComparisonCardProps): JSX.Element {
+}: DailyActiveAddressesComparisonCardProps): JSX.Element {
   const {
     selectedProperty,
     onPropertyTabSelected,
@@ -39,24 +53,27 @@ export function IbcTransfersComparisonCard({
     selectedPeriod,
     onPeriodSelected,
   } = useComparisonChartCardSelectedParameters<
-    IbcTransfersProperties,
+    DailyActiveAddressesProperties,
     AnalysisCardPeriod,
     ChartType
-  >('ibcTransfers', '1w', ChartType.AREA);
+  >('activeAddressesCount', '1w', ChartType.AREA);
 
   const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
-  const { data, charts, loading } = useZonesIbcTransfersComparison(selectedZones, selectedPeriod);
+  const { data, charts, loading } = useDailyActiveAddressesComparison(
+    selectedZones,
+    selectedPeriod
+  );
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
-        <AnalysisCard.Title>IBC Transfers</AnalysisCard.Title>
+        <AnalysisCard.Title>Daily Active Addresses</AnalysisCard.Title>
 
         <ButtonGroup
           className={styles.groupTabSelector}
           size={ElementSize.SMALL}
-          buttons={IBC_VOLUME_CARD_OPTIONS}
+          buttons={DAILY_ACTIVE_ADDRESSES_CARD_OPTIONS}
           setSelectedButton={onPropertyTabSelected}
         />
       </AnalysisCard.Header>
@@ -69,9 +86,9 @@ export function IbcTransfersComparisonCard({
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </AnalysisCard.ChartControls>
 
-      <div className={styles.legendContainer}>
-        <AnalysisCard.Legend className={styles.chartLegend}>
-          {data?.map((item) => (
+      <AnalysisCard.Legend className={styles.legendContainer}>
+        {data?.map((item: ZoneDailyActiveAddressesItem) => {
+          return (
             <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
               <AnalysisCard.Legend.Item.Title
                 title={selectedZonesDetailsByKey[item.zone].title}
@@ -79,26 +96,21 @@ export function IbcTransfersComparisonCard({
               />
               <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
                 <AnalysisCard.Legend.Item.ValueNumber
-                  value={item[selectedProperty]}
-                  numberType={NumberType.Currency}
+                  value={item[TOTAL_PROP_NAME_BY_SELECTED_PROP[selectedProperty]] as number}
+                  numberType={numberType}
                 />
               </SkeletonTextWrapper>
             </AnalysisCard.Legend.Item>
-          ))}
-        </AnalysisCard.Legend>
-
-        <AnalysisLegendAdditionalText
-          period={selectedPeriod}
-          className={styles.legendAdditionalText}
-        />
-      </div>
+          );
+        })}
+      </AnalysisCard.Legend>
 
       <ChartContainer
         chartType={selectedChartType}
         data={charts?.[selectedProperty] ?? []}
         loading={loading}
         datasetInfo={selectedZonesDetailsByKey}
-        dataFormatType={NumberType.Currency}
+        dataFormatType={numberType}
       />
     </AnalysisCard>
   );

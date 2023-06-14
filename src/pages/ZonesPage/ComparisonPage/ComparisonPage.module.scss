@@ -51,4 +51,9 @@
   .transfersCard {
     grid-column: 7 / 13;
   }
+
+  .activeAddresses {
+    grid-column: 1 / 7;
+    min-height: 350px;
+  }
 }

@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import { ActivityComparisonCard } from './ActivityComparisonCard';
 import styles from './ComparisonPage.module.scss';
+import { DailyActiveAddressesComparisonCard } from './DailyActiveAddressesComparisonCard';
 import { IbcTransfersComparisonCard } from './IbcTransfersComparisonCard';
 import { IbcVolumeComparisonCard } from './IbcVolumeComparisonCard';
 import { InterchainComparisonCard } from './InterchainComparisonCard';
@@ -35,6 +36,7 @@ function ComparisonPageContent({ className, ...props }: ComparisonPageProps) {
       </BlockchainParametersComparisonProvider>
       <TransactionsComparisonCard className={styles.transactionCard} />
       <IbcTransfersComparisonCard className={styles.transfersCard} />
+      <DailyActiveAddressesComparisonCard className={styles.activeAddresses} />
     </div>
   );
 }

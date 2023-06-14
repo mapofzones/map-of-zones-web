@@ -37,81 +37,45 @@ export function mapCharts<T extends { zone: string }, ChartKeys extends keyof T>
 
 //
 // EXAMPLE
+//
 // Initial data
 //
 // [
 //   {
 //     zone: 'columbus-5',
-//     ibcVolumeChart: [
-//       {
-//         value: 41177,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
-//     ibcVolumeInChart: [
-//       {
-//         value: 28172,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
-//     ibcVolumeOutChart: [
-//       {
-//         value: 13005,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
+//     ibcVolumeChart: [{ value: 41177, time: 1685491200 }, ... {}],
+//     ibcVolumeInChart: [{ value: 28172, time: 1685491200 }, ... {}],
+//     ibcVolumeOutChart: [{ value: 13005, time: 1685491200 }, ... {}]
 //   },
 //   {
 //     zone: 'cosmoshub-4',
-//     ibcVolumeChart: [
-//       {
-//         value: 3222327,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
-//     ibcVolumeInChart: [
-//       {
-//         value: 1426746,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
-//     ibcVolumeOutChart: [
-//       {
-//         value: 1795581,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
+//     ibcVolumeChart: [{ value: 1234, time: 1685491200 }, ... {}],
+//     ibcVolumeInChart: [{ value: 4567, time: 1685491200 }, ... {}],
+//     ibcVolumeOutChart: [{ value: 7895, time: 1685491200 }, ... {}]
 //   },
 //   {
 //     zone: 'osmosis-1',
-//     ibcVolumeChart: [
-//       {
-//         value: 10207700,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
-//     ibcVolumeInChart: [
-//       {
-//         __typename: 'flat_blockchain_tf_switched_charts',
-//         value: 2218406,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
-//     ibcVolumeOutChart: [
-//       {
-//         __typename: 'flat_blockchain_tf_switched_charts',
-//         value: 7989294,
-//         time: 1685491200,
-//       },
-//       ...
-//     ],
+//     ibcVolumeChart: [{ value: 12344, time: 1685491200 }, ... {}],
+//     ibcVolumeInChart: [{ value: 34231, time: 1685491200 }, ... {}],
+//     ibcVolumeOutChart: [{ value: 7896, time: 1685491200 }, ... {}]
 //   },
 // ];
+//
+// TO data:
+//
+// {
+// ibcVolumeChart: [
+//   {time: 1686009600, columbus-5: 96455, cosmoshub-4: 4548069, osmosis-1: 9130999}
+//    ...
+//   {time: 1686614400, columbus-5: 7662, cosmoshub-4: 874351, osmosis-1: 4397675}
+// ]
+// ibcVolumeInChart: [
+//   {time: 1686009600, columbus-5: 45995, cosmoshub-4: 1525146, osmosis-1: 3024143}
+//    ...
+//   {time: 1686614400, columbus-5: 6835, cosmoshub-4: 410310, osmosis-1: 1323128}
+// ]
+// ibcVolumeOutChart: [
+//   {time: 1686009600, columbus-5: 50460, cosmoshub-4: 3022923, osmosis-1: 6106856}
+//    ...
+//   {time: 1686614400, columbus-5: 827, cosmoshub-4: 464041, osmosis-1: 3074547}
+// }

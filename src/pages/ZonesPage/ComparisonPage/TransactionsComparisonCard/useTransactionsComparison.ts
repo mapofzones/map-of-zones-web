@@ -3,16 +3,19 @@ import { useQueries } from '@tanstack/react-query';
 import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ChartItemWithTime } from 'types/chart';
-import { mapCharts } from 'utils/mapCharts';
+import {
+  MappedComparisonResult,
+  mapComparisonRestApiChartsData,
+} from 'utils/mapComparisonRestApiChartsData';
 
-interface ZoneTransactionsResult {
+export interface ZoneTransactionsResult {
   zone: string;
   totalTxsCount?: number;
 }
 
 interface ZonesTransactionsComparisonResult {
   data: ZoneTransactionsResult[] | undefined;
-  charts: Record<string, ChartItemWithTime[]>;
+  charts: MappedComparisonResult<ChartItemWithTime[]>;
   loading: boolean;
 }
 
@@ -32,7 +35,8 @@ export function useTransactionsComparison(
     responses.map((result) => (result.data as TransactionRootApiResult)?.data).filter((d) => !!d) ??
     [];
   const loading = responses.every((result) => result.isLoading);
-  const charts = mapCharts(result, ['chart'], 'txsCount');
+  const charts = mapComparisonRestApiChartsData(result);
+  console.log(charts);
 
   return {
     data: result.map((item) => ({ zone: item.zone, totalTxsCount: item.totalTxsCount })),
@@ -51,7 +55,7 @@ interface TransactionApiResult {
   chart: TransactionChart[];
 }
 
-interface TransactionChart {
+interface TransactionChart extends ChartItemWithTime {
   time: number;
   txsCount: number;
 }
