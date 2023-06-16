@@ -16,21 +16,21 @@ import { NumberType } from 'types/NumberType';
 import { SkeletonRectangle } from 'ui';
 import { formatNumberToString } from 'ui/NumberFormat/NumberFormat';
 
-import styles from './OverviewReturnedAddressesChart.module.scss';
-import { OverviewReturnedAddressesChartTooltip } from './OverviewReturnedAddressesChartTooltip';
-import { ZoneOverviewReturnedAddressesChartData } from './types';
+import styles from './AnalysisReturnedAddressesChart.module.scss';
+import { AnalysisReturnedAddressesChartTooltip } from './AnalysisReturnedAddressesChartTooltip';
+import { ZoneAnalysisReturnedAddressesChartData } from './types';
 
-import { OverviewReturnedAddressesChartProps } from '.';
+import { AnalysisReturnedAddressesChartProps } from '.';
 
-export function OverviewReturnedAddressesChart({
+export function AnalysisReturnedAddressesChart({
   className,
   loading = false,
   data,
   period,
-}: OverviewReturnedAddressesChartProps) {
+}: AnalysisReturnedAddressesChartProps) {
   const gradientId = 'returned-addresses-gradient';
 
-  const chartData: ZoneOverviewReturnedAddressesChartData = [
+  const chartData: ZoneAnalysisReturnedAddressesChartData = [
     {
       period: getPeriodTitle(period, 0),
       value: data?.prevTotalAddresses,
@@ -145,7 +145,7 @@ export function OverviewReturnedAddressesChart({
                 }}
                 position={{ y: 0 }}
                 allowEscapeViewBox={{ x: false, y: true }}
-                content={<OverviewReturnedAddressesChartTooltip data={data} />}
+                content={<AnalysisReturnedAddressesChartTooltip data={data} />}
               />
             </BarChart>
           </ResponsiveContainer>

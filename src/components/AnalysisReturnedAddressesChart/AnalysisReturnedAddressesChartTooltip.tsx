@@ -1,11 +1,11 @@
+import { RETURNED_ADDRESSES_TITLE } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 import { Circle } from 'ui';
 import { NumberFormat } from 'ui/NumberFormat/NumberFormat';
 
-import styles from './OverviewReturnedAddressesChart.module.scss';
-import { RETURNED_ADDRESSES_TITLE } from '../../pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewReturnedAddresses/ZoneOverviewReturnedAddresses';
+import styles from './AnalysisReturnedAddressesChart.module.scss';
 
-export function OverviewReturnedAddressesChartTooltip({ data, active }: any) {
+export function AnalysisReturnedAddressesChartTooltip({ data, active }: any) {
   const { returnedRate, returnedAddresses, prevTotalAddresses } = data;
 
   if (data && active) {

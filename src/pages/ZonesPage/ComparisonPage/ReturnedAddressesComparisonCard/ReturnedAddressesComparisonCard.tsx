@@ -6,48 +6,56 @@ import {
   AnalysisChartTypeButtonsGroup,
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
-import { ChartContainer } from 'components/ChartContainer';
-import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
+import { AnalysisReturnedAddressesChart } from 'components/AnalysisReturnedAddressesChart';
 import { ChartType } from 'types/ChartType';
+import { RETURNED_ADDRESSES_TITLE } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
+import {
+  RETURNED_ADDRESSES_PROPERTIES_OPTIONS,
+  ReturnedAddressesCardProperties,
+} from 'types/models/Analysis/ZoneAnalysisReturnedAddressesData';
 import { NumberType } from 'types/NumberType';
 import { ButtonGroup, SkeletonTextWrapper } from 'ui';
-import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 
 import styles from './ReturnedAddressesComparisonCard.module.scss';
-import {
-  TokenProperties as ReturnedAddressesProperties,
-  useZonesReturnedAddressesComparison,
-} from './useZonesReturnedAddressesComparison';
+import { useZonesReturnedAddressesComparison } from './useZonesReturnedAddressesComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
+import {
+  useComparisonSelectedZones,
+  ZONES_COLORS,
+} from '../providers/ComparisonSelectedZonesProvider';
 
 import { TokenComparisonCardProps as ReturnedAddressesComparisonCardProps } from '.';
 
-const TOKEN_CARD_PROPERTIES_OPTIONS: ButtonGroupItem<ReturnedAddressesProperties>[] = [
-  { key: 'price', title: 'Total' },
-  { key: 'marketCap', title: 'IBC' },
-];
-
-const PERIODS: AnalysisCardPeriod[] = ['1w', '1m'];
+const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
 
 export function ReturnedAddressesComparisonCard({
   className,
 }: ReturnedAddressesComparisonCardProps): JSX.Element {
   const { selectedProperty, onPropertyTabSelected, selectedPeriod, onPeriodSelected } =
     useComparisonChartCardSelectedParameters<
-      ReturnedAddressesProperties,
-      AnalysisCardPeriod,
+      ReturnedAddressesCardProperties,
+      PeriodKeys,
       ChartType
-    >('price', '1w', ChartType.BAR);
+    >('total', PeriodKeys.DAY, ChartType.BAR);
 
   const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
-  const { data, chart, loading } = useZonesReturnedAddressesComparison(
-    selectedZones,
-    selectedPeriod,
-    selectedProperty
-  );
+  const { data, loading } = useZonesReturnedAddressesComparison(selectedZones, selectedPeriod);
+
+  const isIbc = selectedProperty === 'ibc';
+  const dataBySelectedType =
+    data?.map((item) => ({
+      returnedRate: isIbc ? item?.ibcReturnedRate : item?.returnedRate,
+      returnedAddresses: isIbc ? item?.ibcReturnedAddresses : item?.returnedAddresses,
+      prevTotalAddresses: isIbc ? item?.ibcPrevTotalAddresses : item?.prevTotalAddresses,
+    })) ?? [];
+
+  const legendTitle = isIbc
+    ? `IBC ${RETURNED_ADDRESSES_TITLE}`
+    : `Total ${RETURNED_ADDRESSES_TITLE}`;
+
+  const additionalInfo = `% of returning addresses in the last ${selectedPeriod} from the previous ${selectedPeriod}`;
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
@@ -57,7 +65,7 @@ export function ReturnedAddressesComparisonCard({
         <ButtonGroup
           className={styles.groupTabSelector}
           size={ElementSize.SMALL}
-          buttons={TOKEN_CARD_PROPERTIES_OPTIONS}
+          buttons={RETURNED_ADDRESSES_PROPERTIES_OPTIONS}
           setSelectedButton={onPropertyTabSelected}
         />
       </AnalysisCard.Header>
@@ -67,30 +75,39 @@ export function ReturnedAddressesComparisonCard({
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </AnalysisCard.ChartControls>
 
-      <AnalysisCard.Legend className={styles.chartLegend}>
-        {data?.map((item) => (
-          <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
-            <AnalysisCard.Legend.Item.Title
-              title={`${selectedZonesDetailsByKey[item.zone].title}: ${item.symbol}`}
-              circleColor={selectedZonesDetailsByKey[item.zone].color}
-            />
-            <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
-              <AnalysisCard.Legend.Item.ValueNumber
-                value={item[selectedProperty]}
-                numberType={NumberType.Currency}
-              />
-            </SkeletonTextWrapper>
-          </AnalysisCard.Legend.Item>
-        ))}
-      </AnalysisCard.Legend>
+      <div className={styles.chartLegend}>
+        <AnalysisCard.Legend>
+          {data?.map((item, index) => {
+            return (
+              <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+                <AnalysisCard.Legend.Item.Title
+                  title={selectedZonesDetailsByKey[item.zone].title}
+                  circleColor={selectedZonesDetailsByKey[item.zone].color}
+                />
+                <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
+                  <AnalysisCard.Legend.Item.ValueNumber
+                    value={
+                      dataBySelectedType[index]?.returnedRate !== undefined
+                        ? dataBySelectedType[index].returnedRate! * 100
+                        : undefined
+                    }
+                    numberType={NumberType.Percent}
+                  />
+                </SkeletonTextWrapper>
+              </AnalysisCard.Legend.Item>
+            );
+          })}
+        </AnalysisCard.Legend>
 
-      <ChartContainer
-        chartType={ChartType.AREA}
-        data={chart ?? []}
+        <span className={styles.additionalText}>{additionalInfo}</span>
+      </div>
+
+      {/* <AnalysisReturnedAddressesChart
+        data={dataBySelectedType}
+        period={selectedPeriod}
         loading={loading}
-        datasetInfo={selectedZonesDetailsByKey}
-        dataFormatType={NumberType.Currency}
-      />
+        colors={ZONES_COLORS}
+      /> */}
     </AnalysisCard>
   );
 }

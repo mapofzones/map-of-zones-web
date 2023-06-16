@@ -53,24 +53,22 @@ export function TransactionsComparisonCard({
 
       <div className={styles.legendContainer}>
         <AnalysisCard.Legend>
-          <>
-            {data?.map((item: ZoneTransactionsResult) => {
-              return (
-                <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
-                  <AnalysisCard.Legend.Item.Title
-                    title={selectedZonesDetailsByKey[item.zone].title}
-                    circleColor={selectedZonesDetailsByKey[item.zone].color}
+          {data?.map((item: ZoneTransactionsResult) => {
+            return (
+              <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+                <AnalysisCard.Legend.Item.Title
+                  title={selectedZonesDetailsByKey[item.zone].title}
+                  circleColor={selectedZonesDetailsByKey[item.zone].color}
+                />
+                <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
+                  <AnalysisCard.Legend.Item.ValueNumber
+                    value={item.totalTxsCount}
+                    numberType={numberType}
                   />
-                  <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
-                    <AnalysisCard.Legend.Item.ValueNumber
-                      value={item.totalTxsCount}
-                      numberType={numberType}
-                    />
-                  </SkeletonTextWrapper>
-                </AnalysisCard.Legend.Item>
-              );
-            })}
-          </>
+                </SkeletonTextWrapper>
+              </AnalysisCard.Legend.Item>
+            );
+          })}
         </AnalysisCard.Legend>
 
         <AnalysisLegendAdditionalText

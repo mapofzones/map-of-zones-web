@@ -1,13 +1,13 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 import { PeriodKeys } from 'components';
+import { ZoneAnalysisReturnedAddressesDataByType } from 'types/models/Analysis/ZoneAnalysisReturnedAddressesData';
 
-import { ZoneOverviewReturnedAddressesDataByType } from '../../pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewReturnedAddresses/types';
-
-export interface OverviewReturnedAddressesChartProps
+export interface AnalysisReturnedAddressesChartProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   loading?: boolean;
-  data: ZoneOverviewReturnedAddressesDataByType;
+  data: ZoneAnalysisReturnedAddressesDataByType;
   period: PeriodKeys;
+  colors: string[];
 }

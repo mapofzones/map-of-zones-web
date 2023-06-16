@@ -36,7 +36,6 @@ export function useTransactionsComparison(
     [];
   const loading = responses.every((result) => result.isLoading);
   const charts = mapComparisonRestApiChartsData(result);
-  console.log(charts);
 
   return {
     data: result.map((item) => ({ zone: item.zone, totalTxsCount: item.totalTxsCount })),

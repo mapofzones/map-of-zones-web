@@ -8,7 +8,7 @@ import {
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewReturnedAddresses.generated';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
-import { ZoneOverviewReturnedAddressesData } from './types';
+import { ZoneAnalysisReturnedAddressesData } from '../../../../../types/models/Analysis/ZoneAnalysisReturnedAddressesData';
 
 // TODO: move to new file
 export function calculateReturnedRate(
@@ -23,7 +23,7 @@ export function calculateReturnedRate(
 }
 
 export function useZoneOverviewReturnedAddresses(period: PeriodKeys): {
-  data: ZoneOverviewReturnedAddressesData;
+  data: ZoneAnalysisReturnedAddressesData;
   loading: boolean;
 } {
   const { zone = '' } = useParams();

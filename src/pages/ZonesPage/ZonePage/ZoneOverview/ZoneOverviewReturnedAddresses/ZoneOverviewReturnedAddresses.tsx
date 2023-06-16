@@ -9,12 +9,17 @@ import {
   AnalysisLegendTitle,
   LegendValueBase,
 } from 'components/AnalysisCard';
+import { AnalysisReturnedAddressesChart } from 'components/AnalysisReturnedAddressesChart';
+import { ZONES_COLORS } from 'pages/ZonesPage/ComparisonPage/providers/ComparisonSelectedZonesProvider';
+import { RETURNED_ADDRESSES_TITLE } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
+import {
+  RETURNED_ADDRESSES_PROPERTIES_OPTIONS,
+  ReturnedAddressesCardProperties,
+} from 'types/models/Analysis/ZoneAnalysisReturnedAddressesData';
 import { NumberType } from 'types/NumberType';
 import { ButtonGroup, NumberFormat, SkeletonTextWrapper } from 'ui';
 
-import { OverviewReturnedAddressesChart } from '../../../../../components/OverviewReturnedAddressesChart';
-import { chartOptions, ReturnedAddressesChartType } from './types';
 import { useZoneOverviewReturnedAddresses } from './useZoneOverviewReturnedAddresses';
 import styles from './ZoneOverviewReturnedAddresses.module.scss';
 
@@ -22,10 +27,9 @@ import { ZoneOverviewReturnedAddressesProps } from '.';
 
 const PERIODS: PeriodKeys[] = [PeriodKeys.DAY, PeriodKeys.WEEK, PeriodKeys.MONTH];
 
-export const RETURNED_ADDRESSES_TITLE = 'Returned Addresses';
-
 export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturnedAddressesProps) {
-  const [selectedChartType, setSelectedChartType] = useState<ReturnedAddressesChartType>('total');
+  const [selectedChartType, setSelectedChartType] =
+    useState<ReturnedAddressesCardProperties>('total');
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
   const { data, loading } = useZoneOverviewReturnedAddresses(selectedPeriod);
@@ -44,7 +48,7 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
         };
   const { returnedRate, returnedAddresses, prevTotalAddresses } = dataBySelectedType;
 
-  const onChartSelected = (item: { key?: ReturnedAddressesChartType }) => {
+  const onChartSelected = (item: { key?: ReturnedAddressesCardProperties }) => {
     item?.key && setSelectedChartType(item.key);
   };
 
@@ -84,18 +88,19 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
         <ButtonGroup
           className={styles.chartType}
           size={ElementSize.SMALL}
-          buttons={chartOptions}
+          buttons={RETURNED_ADDRESSES_PROPERTIES_OPTIONS}
           setSelectedButton={onChartSelected}
         ></ButtonGroup>
 
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </div>
 
-      <OverviewReturnedAddressesChart
-        data={dataBySelectedType}
+      {/* <AnalysisReturnedAddressesChart
+        data={[dataBySelectedType]}
         period={selectedPeriod}
         loading={loading}
-      />
+        colors={ZONES_COLORS}
+      /> */}
     </AnalysisCard>
   );
 }

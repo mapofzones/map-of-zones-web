@@ -14,10 +14,6 @@ interface SelectedZones {
 
 const ZONES_SEARCH_KEY = 'zones';
 
-const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
-
-const SelectedZonesContext = createContext<SelectedZones>({} as SelectedZones);
-
 export function ComparisonSelectedZonesProvider({ children }: { children: ReactNode }) {
   const [search] = useSearchParams();
 
@@ -82,4 +78,8 @@ export function ComparisonSelectedZonesProvider({ children }: { children: ReactN
   );
 }
 
+const SelectedZonesContext = createContext<SelectedZones>({} as SelectedZones);
+
 export const useComparisonSelectedZones = () => useContext(SelectedZonesContext);
+
+export const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
