@@ -28,7 +28,7 @@ export function OverviewReturnedAddressesChart({
   data,
   period,
 }: OverviewReturnedAddressesChartProps) {
-  const gradientId = 'returned-addresses-graient';
+  const gradientId = 'returned-addresses-gradient';
 
   const chartData: ZoneOverviewReturnedAddressesChartData = [
     {

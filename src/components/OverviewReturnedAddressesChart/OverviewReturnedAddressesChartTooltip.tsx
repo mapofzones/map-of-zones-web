@@ -3,7 +3,7 @@ import { Circle } from 'ui';
 import { NumberFormat } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './OverviewReturnedAddressesChart.module.scss';
-import { RETURNED_ADDRESSES_TITLE } from '../ZoneOverviewReturnedAddresses';
+import { RETURNED_ADDRESSES_TITLE } from '../../pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewReturnedAddresses/ZoneOverviewReturnedAddresses';
 
 export function OverviewReturnedAddressesChartTooltip({ data, active }: any) {
   const { returnedRate, returnedAddresses, prevTotalAddresses } = data;

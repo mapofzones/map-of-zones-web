@@ -13,7 +13,7 @@ import { ElementSize } from 'types/ElementSize';
 import { NumberType } from 'types/NumberType';
 import { ButtonGroup, NumberFormat, SkeletonTextWrapper } from 'ui';
 
-import { OverviewReturnedAddressesChart } from './OverviewReturnedAddressesChart';
+import { OverviewReturnedAddressesChart } from '../../../../../components/OverviewReturnedAddressesChart';
 import { chartOptions, ReturnedAddressesChartType } from './types';
 import { useZoneOverviewReturnedAddresses } from './useZoneOverviewReturnedAddresses';
 import styles from './ZoneOverviewReturnedAddresses.module.scss';

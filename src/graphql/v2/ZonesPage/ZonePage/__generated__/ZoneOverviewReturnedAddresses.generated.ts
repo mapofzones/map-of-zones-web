@@ -6,6 +6,7 @@
 import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { ReturnedActiveAddressesAnalysisFragmentDoc } from '../../../common/Zone/__generated__/ReturnedActiveAddresses.fragment.generated';
 export type ZoneOverviewReturnedAddressesQueryVariables = Types.Exact<{
   zone: Types.Scalars['String'];
   period: Types.Scalars['Int'];
@@ -70,34 +71,8 @@ export const ZoneOverviewReturnedAddressesDocument = {
               kind: 'SelectionSet',
               selections: [
                 {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'currentActiveAddresses' },
-                  name: { kind: 'Name', value: 'current_active_addresses' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'previousActiveAddresees' },
-                  name: { kind: 'Name', value: 'previous_active_addresses' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'repeatableAddresses' },
-                  name: { kind: 'Name', value: 'repeatable_addresses' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcCurrentActiveAddresses' },
-                  name: { kind: 'Name', value: 'ibc_current_active_addresses' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcPreviousActiveAddresees' },
-                  name: { kind: 'Name', value: 'ibc_previous_active_addresses' },
-                },
-                {
-                  kind: 'Field',
-                  alias: { kind: 'Name', value: 'ibcRepeatableAddresses' },
-                  name: { kind: 'Name', value: 'ibc_repeatable_addresses' },
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ReturnedActiveAddressesAnalysis' },
                 },
               ],
             },
@@ -105,6 +80,7 @@ export const ZoneOverviewReturnedAddressesDocument = {
         ],
       },
     },
+    ...ReturnedActiveAddressesAnalysisFragmentDoc.definitions,
   ],
 } as unknown as DocumentNode<
   ZoneOverviewReturnedAddressesQueryResult,

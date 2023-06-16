@@ -6,8 +6,21 @@ import {
   ZoneOverviewReturnedAddressesDocument,
   ZoneOverviewReturnedAddressesQueryResult,
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewReturnedAddresses.generated';
+import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 import { ZoneOverviewReturnedAddressesData } from './types';
+
+// TODO: move to new file
+export function calculateReturnedRate(
+  repeatableAddresses: number | undefined,
+  previousActiveAddresees: number | undefined
+) {
+  if (previousActiveAddresees === undefined || repeatableAddresses === undefined) {
+    return undefined;
+  }
+
+  return repeatableAddresses / previousActiveAddresees;
+}
 
 export function useZoneOverviewReturnedAddresses(period: PeriodKeys): {
   data: ZoneOverviewReturnedAddressesData;
@@ -28,32 +41,23 @@ export function useZoneOverviewReturnedAddresses(period: PeriodKeys): {
     options
   );
 
+  const cardData = nullsToUndefined(data?.cardData);
+
   return {
     data: {
       returnedRate: calculateReturnedRate(
-        data?.cardData?.repeatableAddresses ?? undefined,
-        data?.cardData?.previousActiveAddresees ?? undefined
+        cardData?.repeatableAddresses,
+        cardData?.previousActiveAddresees
       ),
-      returnedAddresses: data?.cardData?.repeatableAddresses ?? undefined,
-      prevTotalAddresses: data?.cardData?.previousActiveAddresees ?? undefined,
+      returnedAddresses: cardData?.repeatableAddresses,
+      prevTotalAddresses: cardData?.previousActiveAddresees,
       ibcReturnedRate: calculateReturnedRate(
-        data?.cardData?.ibcRepeatableAddresses ?? undefined,
-        data?.cardData?.ibcPreviousActiveAddresees ?? undefined
+        cardData?.ibcRepeatableAddresses,
+        cardData?.ibcPreviousActiveAddresees
       ),
-      ibcReturnedAddresses: data?.cardData?.ibcRepeatableAddresses ?? undefined,
-      ibcPrevTotalAddresses: data?.cardData?.ibcPreviousActiveAddresees ?? undefined,
+      ibcReturnedAddresses: cardData?.ibcRepeatableAddresses,
+      ibcPrevTotalAddresses: cardData?.ibcPreviousActiveAddresees,
     },
     loading,
   };
-}
-
-function calculateReturnedRate(
-  repeatableAddresses: number | undefined,
-  previousActiveAddresees: number | undefined
-) {
-  if (previousActiveAddresees === undefined || repeatableAddresses === undefined) {
-    return undefined;
-  }
-
-  return repeatableAddresses / previousActiveAddresees;
 }
