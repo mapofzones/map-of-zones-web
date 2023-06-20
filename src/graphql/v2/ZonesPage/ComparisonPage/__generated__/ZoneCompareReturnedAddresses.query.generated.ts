@@ -14,6 +14,8 @@ export type ZonesCompareReturnedAddressesQueryVariables = Types.Exact<{
 
 export type ZonesCompareReturnedAddressesQueryResult = {
   stats: Array<{
+    returnedRate: number;
+    ibcReturnedRate: number;
     zone: string;
     currentActiveAddresses?: number | null;
     previousActiveAddresees?: number | null;

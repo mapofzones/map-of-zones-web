@@ -6,21 +6,8 @@ import {
   ZoneOverviewReturnedAddressesDocument,
   ZoneOverviewReturnedAddressesQueryResult,
 } from 'graphql/v2/ZonesPage/ZonePage/__generated__/ZoneOverviewReturnedAddresses.generated';
+import { ZoneAnalysisReturnedAddressesData } from 'types/models/Analysis/ZoneAnalysisReturnedAddressesData';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
-
-import { ZoneAnalysisReturnedAddressesData } from '../../../../../types/models/Analysis/ZoneAnalysisReturnedAddressesData';
-
-// TODO: move to new file
-export function calculateReturnedRate(
-  repeatableAddresses: number | undefined,
-  previousActiveAddresees: number | undefined
-) {
-  if (previousActiveAddresees === undefined || repeatableAddresses === undefined) {
-    return undefined;
-  }
-
-  return repeatableAddresses / previousActiveAddresees;
-}
 
 export function useZoneOverviewReturnedAddresses(period: PeriodKeys): {
   data: ZoneAnalysisReturnedAddressesData;
@@ -45,16 +32,10 @@ export function useZoneOverviewReturnedAddresses(period: PeriodKeys): {
 
   return {
     data: {
-      returnedRate: calculateReturnedRate(
-        cardData?.repeatableAddresses,
-        cardData?.previousActiveAddresees
-      ),
+      returnedRate: cardData?.returnedRate,
       returnedAddresses: cardData?.repeatableAddresses,
       prevTotalAddresses: cardData?.previousActiveAddresees,
-      ibcReturnedRate: calculateReturnedRate(
-        cardData?.ibcRepeatableAddresses,
-        cardData?.ibcPreviousActiveAddresees
-      ),
+      ibcReturnedRate: cardData?.ibcReturnedRate,
       ibcReturnedAddresses: cardData?.ibcRepeatableAddresses,
       ibcPrevTotalAddresses: cardData?.ibcPreviousActiveAddresees,
     },

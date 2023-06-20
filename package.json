@@ -19,6 +19,7 @@
     "@0xsquid/widget": "^1.4.46",
     "@amplitude/analytics-browser": "^1.8.0",
     "@apollo/client": "^3.6.9",
+    "@graphql-codegen/schema-ast": "^4.0.0",
     "@tanstack/react-query": "5.0.0-alpha.57",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",

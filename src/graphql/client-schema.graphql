@@ -1,0 +1,6 @@
+directive @client on FIELD
+
+extend type flat_blockchain_stats {
+  returnedRate: Int!
+  ibcReturnedRate: Int!
+}

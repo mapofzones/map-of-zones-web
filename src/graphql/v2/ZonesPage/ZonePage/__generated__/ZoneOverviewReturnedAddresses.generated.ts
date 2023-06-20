@@ -14,6 +14,8 @@ export type ZoneOverviewReturnedAddressesQueryVariables = Types.Exact<{
 
 export type ZoneOverviewReturnedAddressesQueryResult = {
   cardData?: {
+    returnedRate: number;
+    ibcReturnedRate: number;
     currentActiveAddresses?: number | null;
     previousActiveAddresees?: number | null;
     repeatableAddresses?: number | null;

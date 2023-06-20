@@ -7,7 +7,6 @@ import {
   ZonesCompareReturnedAddressesDocument,
   ZonesCompareReturnedAddressesQueryResult,
 } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareReturnedAddresses.query.generated';
-import { calculateReturnedRate } from 'pages/ZonesPage/ZonePage/ZoneOverview/ZoneOverviewReturnedAddresses/useZoneOverviewReturnedAddresses';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 
 import { sortDetailsByZoneKeys } from '../utils/sortDetailsByZoneKeys';
@@ -50,16 +49,10 @@ export function useZonesReturnedAddressesComparison(
 
     const mappedData = stats.map((cardData) => ({
       zone: cardData.zone,
-      returnedRate: calculateReturnedRate(
-        cardData?.repeatableAddresses,
-        cardData?.previousActiveAddresees
-      ),
+      returnedRate: cardData?.returnedRate,
       returnedAddresses: cardData?.repeatableAddresses,
       prevTotalAddresses: cardData?.previousActiveAddresees,
-      ibcReturnedRate: calculateReturnedRate(
-        cardData?.ibcRepeatableAddresses,
-        cardData?.ibcPreviousActiveAddresees
-      ),
+      ibcReturnedRate: cardData?.ibcReturnedRate,
       ibcReturnedAddresses: cardData?.ibcRepeatableAddresses,
       ibcPrevTotalAddresses: cardData?.ibcPreviousActiveAddresees,
     }));

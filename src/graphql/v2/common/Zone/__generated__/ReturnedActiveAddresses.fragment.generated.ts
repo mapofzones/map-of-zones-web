@@ -7,6 +7,8 @@ import * as Types from '../../../../base-types';
 
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type ReturnedActiveAddressesAnalysisFragment = {
+  returnedRate: number;
+  ibcReturnedRate: number;
   currentActiveAddresses?: number | null;
   previousActiveAddresees?: number | null;
   repeatableAddresses?: number | null;
@@ -42,6 +44,11 @@ export const ReturnedActiveAddressesAnalysisFragmentDoc = {
           },
           {
             kind: 'Field',
+            name: { kind: 'Name', value: 'returnedRate' },
+            directives: [{ kind: 'Directive', name: { kind: 'Name', value: 'client' } }],
+          },
+          {
+            kind: 'Field',
             alias: { kind: 'Name', value: 'ibcCurrentActiveAddresses' },
             name: { kind: 'Name', value: 'ibc_current_active_addresses' },
           },
@@ -54,6 +61,11 @@ export const ReturnedActiveAddressesAnalysisFragmentDoc = {
             kind: 'Field',
             alias: { kind: 'Name', value: 'ibcRepeatableAddresses' },
             name: { kind: 'Name', value: 'ibc_repeatable_addresses' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ibcReturnedRate' },
+            directives: [{ kind: 'Directive', name: { kind: 'Name', value: 'client' } }],
           },
         ],
       },

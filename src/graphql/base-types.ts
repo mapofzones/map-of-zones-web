@@ -1194,6 +1194,7 @@ export type Flat_Blockchain_Stats = {
   /** An aggregated array relationship */
   blockchain_tf_charts_aggregate: Flat_Blockchain_Tf_Charts_Aggregate;
   current_active_addresses?: Maybe<Scalars['Int']>;
+  ibcReturnedRate: Scalars['Int'];
   ibc_active_addresses_cnt?: Maybe<Scalars['Int']>;
   ibc_active_addresses_cnt_diff?: Maybe<Scalars['Int']>;
   ibc_active_addresses_percent?: Maybe<Scalars['numeric']>;
@@ -1202,6 +1203,7 @@ export type Flat_Blockchain_Stats = {
   ibc_repeatable_addresses?: Maybe<Scalars['Int']>;
   previous_active_addresses?: Maybe<Scalars['Int']>;
   repeatable_addresses?: Maybe<Scalars['Int']>;
+  returnedRate: Scalars['Int'];
   timeframe: Scalars['Int'];
   /** An object relationship */
   timeframeByTimeframe: Flat_Timeframes;
