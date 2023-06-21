@@ -95,12 +95,12 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
         <AnalysisPeriodButtonsGroup periods={PERIODS} onPeriodSelected={onPeriodSelected} />
       </div>
 
-      {/* <AnalysisReturnedAddressesChart
+      <AnalysisReturnedAddressesChart
         data={[dataBySelectedType]}
         period={selectedPeriod}
         loading={loading}
         colors={ZONES_COLORS}
-      /> */}
+      />
     </AnalysisCard>
   );
 }

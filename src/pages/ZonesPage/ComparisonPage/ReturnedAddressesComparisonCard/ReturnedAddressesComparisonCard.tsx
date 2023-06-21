@@ -102,12 +102,12 @@ export function ReturnedAddressesComparisonCard({
         <span className={styles.additionalText}>{additionalInfo}</span>
       </div>
 
-      {/* <AnalysisReturnedAddressesChart
+      <AnalysisReturnedAddressesChart
         data={dataBySelectedType}
         period={selectedPeriod}
         loading={loading}
         colors={ZONES_COLORS}
-      /> */}
+      />
     </AnalysisCard>
   );
 }

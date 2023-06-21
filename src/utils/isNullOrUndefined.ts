@@ -1,7 +1,7 @@
-export function isDefined<T>(value: T | null | undefined): value is T {
-  return value !== null && value !== undefined;
+export function isDefined<T>(value: T | undefined | null): value is T {
+  return value !== undefined && value !== null;
 }
 
-export function isNullOrUndefined<T>(value: T | null | undefined): value is null | undefined {
-  return isDefined(value);
+export function isNullOrUndefined<T>(value: T | undefined | null): value is NonNullable<T> {
+  return !isDefined(value);
 }

@@ -7,7 +7,7 @@ export interface AnalysisReturnedAddressesChartProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   loading?: boolean;
-  data: ZoneAnalysisReturnedAddressesDataByType;
+  data: ZoneAnalysisReturnedAddressesDataByType[];
   period: PeriodKeys;
   colors: string[];
 }

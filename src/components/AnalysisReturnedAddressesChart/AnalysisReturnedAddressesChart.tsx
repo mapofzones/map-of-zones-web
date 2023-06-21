@@ -3,11 +3,11 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Line,
+  Cell,
   ResponsiveContainer,
   Tooltip,
-  XAxis,
   YAxis,
+  LabelList,
 } from 'recharts';
 
 import { PeriodKeys } from 'components';
@@ -26,27 +26,30 @@ export function AnalysisReturnedAddressesChart({
   className,
   loading = false,
   data,
+  colors,
   period,
 }: AnalysisReturnedAddressesChartProps) {
   const gradientId = 'returned-addresses-gradient';
 
-  const chartData: ZoneAnalysisReturnedAddressesChartData = [
-    {
-      period: getPeriodTitle(period, 0),
-      value: data?.prevTotalAddresses,
-      valuePercent: data?.prevTotalAddresses ? 1 : undefined,
-    },
-    {
+  const chartData: ZoneAnalysisReturnedAddressesChartData = data?.map((item) => {
+    return {
+      prevPeriod: getPeriodTitle(period, 0),
       period: getPeriodTitle(period, 1),
-      value: data?.returnedAddresses,
-      valuePercent: data?.returnedRate,
-    },
-  ];
+      prevValue: item?.prevTotalAddresses,
+      prevValuePercent: item?.prevTotalAddresses ? 1 : undefined,
+      value: item?.returnedAddresses,
+      valuePercent: item?.returnedRate,
+    };
+  });
 
   const yAxisCountTicks = data
-    ? [0, data?.returnedAddresses ?? 0, data?.prevTotalAddresses ?? 0]
+    ? [0, data[0]?.returnedAddresses ?? 0, data[0]?.prevTotalAddresses ?? 0]
     : [0];
-  const yAxisPercentsTicks = data?.returnedRate ? [0, data.returnedRate, 1] : [0];
+
+  const percentTicks = chartData
+    .map((item) => item.valuePercent)
+    .filter((item) => !!item) as number[];
+  const yAxisPercentsTicks = percentTicks.length === 1 ? [0, ...percentTicks, 1] : [0, 1];
 
   return (
     <>
@@ -62,56 +65,97 @@ export function AnalysisReturnedAddressesChart({
             <BarChart
               className={styles.chart}
               data={chartData}
-              margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+              margin={{ top: 0, right: 0, left: 0, bottom: 20 }}
             >
               <defs>
-                <linearGradient
-                  id={gradientId}
-                  className={styles.gradient}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-                  <stop stopColor="#22AAFF" stopOpacity={1} offset="0%" />
-                  <stop stopColor="#22AAFF" stopOpacity={0.2} offset="100%" />
-                </linearGradient>
+                {colors.map((color: string, index: number) => {
+                  return (
+                    <linearGradient
+                      id={`${gradientId}-${index}`}
+                      key={`${gradientId}-${index}`}
+                      className={styles.gradient}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop stopColor={color} stopOpacity={1} offset="0%" />
+                      <stop stopColor={color} stopOpacity={0.2} offset="100%" />
+                    </linearGradient>
+                  );
+                })}
               </defs>
 
+              <Bar
+                yAxisId="percents"
+                type="monotone"
+                dataKey="prevValuePercent"
+                radius={[2, 2, 0, 0]}
+                fillOpacity={0.5}
+              >
+                <LabelList
+                  dataKey="prevPeriod"
+                  position="insideBottom"
+                  offset={-15}
+                  fontSize={12}
+                  fill="#8F8F96"
+                />
+                {chartData.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={`url(#${gradientId}-${index % colors.length})`}
+                  />
+                ))}
+              </Bar>
+              {/* it's impossible to extract dublicated code to custom bar component 
+              ISSUE: https://github.com/recharts/recharts/issues/2788
+              */}
               <Bar
                 yAxisId="percents"
                 type="monotone"
                 dataKey="valuePercent"
                 radius={[2, 2, 0, 0]}
                 fillOpacity={0.5}
-                fill={`url(#${gradientId})`}
-              />
+              >
+                <LabelList
+                  dataKey="valuePercent"
+                  position="center"
+                  fontSize={12}
+                  fill="white"
+                  formatter={(value: number) =>
+                    formatNumberToString(value * 100, NumberType.Percent)
+                  }
+                />
+                <LabelList
+                  dataKey="period"
+                  position="insideBottom"
+                  offset={-15}
+                  fontSize={12}
+                  fill="#8F8F96"
+                />
+                {chartData.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={`url(#${gradientId}-${index % colors.length})`}
+                  />
+                ))}
+              </Bar>
 
-              <Line yAxisId="count" type="monotone" dataKey="value" strokeOpacity={0} />
-
-              <XAxis
-                dataKey="period"
-                style={{ fill: '#8F8F96' }}
-                axisLine={false}
-                tickLine={false}
-                fontSize={12}
-                interval={'preserveEnd'}
-                padding={{ right: 40, left: 30 }}
-              />
-
-              <YAxis
-                yAxisId="count"
-                orientation="right"
-                style={{ fill: '#8F8F96' }}
-                tickLine={false}
-                axisLine={false}
-                fontSize={12}
-                mirror={true}
-                tickSize={0}
-                domain={[0, 1]}
-                ticks={yAxisCountTicks}
-                tickFormatter={(value: number) => formatNumberToString(value, NumberType.Number)}
-              />
+              {data.length <= 1 && (
+                <YAxis
+                  yAxisId="count"
+                  orientation="right"
+                  style={{ fill: '#8F8F96' }}
+                  tickLine={false}
+                  axisLine={false}
+                  fontSize={12}
+                  mirror={true}
+                  tickSize={0}
+                  domain={[0, 1]}
+                  ticks={yAxisCountTicks}
+                  tickFormatter={(value: number) => formatNumberToString(value, NumberType.Number)}
+                />
+              )}
 
               <YAxis
                 yAxisId="percents"
@@ -156,5 +200,5 @@ export function AnalysisReturnedAddressesChart({
 }
 
 function getPeriodTitle(period: PeriodKeys, index: number) {
-  return index === 1 ? `Last ${period.toUpperCase()}` : `Previous ${period.toUpperCase()}`;
+  return index === 1 ? `Last ${period.toUpperCase()}` : `Prev. ${period.toUpperCase()}`;
 }
