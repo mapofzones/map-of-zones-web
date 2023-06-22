@@ -20,10 +20,7 @@ import { ButtonGroup, SkeletonTextWrapper } from 'ui';
 import styles from './ReturnedAddressesComparisonCard.module.scss';
 import { useZonesReturnedAddressesComparison } from './useZonesReturnedAddressesComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import {
-  useComparisonSelectedZones,
-  ZONES_COLORS,
-} from '../providers/ComparisonSelectedZonesProvider';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { TokenComparisonCardProps as ReturnedAddressesComparisonCardProps } from '.';
 
@@ -106,7 +103,7 @@ export function ReturnedAddressesComparisonCard({
         data={dataBySelectedType}
         period={selectedPeriod}
         loading={loading}
-        colors={ZONES_COLORS}
+        metadata={Object.values(selectedZonesDetailsByKey)}
       />
     </AnalysisCard>
   );

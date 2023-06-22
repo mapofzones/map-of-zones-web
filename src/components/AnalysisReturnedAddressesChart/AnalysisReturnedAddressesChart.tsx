@@ -26,10 +26,11 @@ export function AnalysisReturnedAddressesChart({
   className,
   loading = false,
   data,
-  colors,
+  metadata,
   period,
 }: AnalysisReturnedAddressesChartProps) {
   const gradientId = 'returned-addresses-gradient';
+  const colors = metadata.map((value) => value.color).filter((value) => !!value) as string[];
 
   const chartData: ZoneAnalysisReturnedAddressesChartData = data?.map((item) => {
     return {
@@ -180,7 +181,6 @@ export function AnalysisReturnedAddressesChart({
               />
 
               <Tooltip
-                active={true}
                 wrapperStyle={{ outline: 'none', zIndex: 10000 }}
                 cursor={{
                   strokeWidth: 0,
@@ -188,8 +188,9 @@ export function AnalysisReturnedAddressesChart({
                   fillOpacity: 0.3,
                 }}
                 position={{ y: 0 }}
+                filterNull={false}
                 allowEscapeViewBox={{ x: false, y: true }}
-                content={<AnalysisReturnedAddressesChartTooltip data={data} />}
+                content={<AnalysisReturnedAddressesChartTooltip data={data} metadata={metadata} />}
               />
             </BarChart>
           </ResponsiveContainer>

@@ -1,19 +1,39 @@
-import { RETURNED_ADDRESSES_TITLE } from 'types/constants/AnalysisTitles';
+import { TooltipProps } from 'recharts';
+
+import { ZoneAnalysisReturnedAddressesDataByType } from 'types/models/Analysis/ZoneAnalysisReturnedAddressesData';
 import { NumberType } from 'types/NumberType';
 import { Circle } from 'ui';
+import { DatasetInfo } from 'ui/Charts/BarChart/BarChart.props';
 import { NumberFormat } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './AnalysisReturnedAddressesChart.module.scss';
 
-export function AnalysisReturnedAddressesChartTooltip({ data, active }: any) {
-  const { returnedRate, returnedAddresses, prevTotalAddresses } = data;
+interface AnalysisReturnedAddressesChartTooltipProps
+  extends TooltipProps<number | string, number | string> {
+  data: ZoneAnalysisReturnedAddressesDataByType[];
+  metadata: DatasetInfo[];
+}
 
-  if (data && active) {
+export function AnalysisReturnedAddressesChartTooltip({
+  data,
+  metadata,
+  active,
+  ...props
+}: AnalysisReturnedAddressesChartTooltipProps) {
+  if (props.label === undefined) {
+    return <></>;
+  }
+
+  const item = data[props.label];
+  const itemMetadata = Object.values(metadata)[props.label] as DatasetInfo;
+  const { returnedRate, returnedAddresses, prevTotalAddresses } = item;
+
+  if (active) {
     return (
       <div className={styles.tooltipContainer}>
         <div className={styles.tooltipItem}>
-          <Circle color="var(--blue)" />
-          <span className={styles.description}>{RETURNED_ADDRESSES_TITLE}</span>
+          <Circle color={itemMetadata.color || 'var(--blue'} />
+          <span className={styles.description}>{itemMetadata.title}</span>
           <NumberFormat
             value={returnedRate ? returnedRate * 100 : undefined}
             numberType={NumberType.Percent}

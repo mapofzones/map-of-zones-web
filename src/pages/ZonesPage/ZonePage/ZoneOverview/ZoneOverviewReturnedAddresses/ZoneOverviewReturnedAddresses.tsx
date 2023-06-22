@@ -10,7 +10,6 @@ import {
   LegendValueBase,
 } from 'components/AnalysisCard';
 import { AnalysisReturnedAddressesChart } from 'components/AnalysisReturnedAddressesChart';
-import { ZONES_COLORS } from 'pages/ZonesPage/ComparisonPage/providers/ComparisonSelectedZonesProvider';
 import { RETURNED_ADDRESSES_TITLE } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
 import {
@@ -99,7 +98,7 @@ export function ZoneOverviewReturnedAddresses({ className }: ZoneOverviewReturne
         data={[dataBySelectedType]}
         period={selectedPeriod}
         loading={loading}
-        colors={ZONES_COLORS}
+        metadata={[{ title: RETURNED_ADDRESSES_TITLE, color: 'var(--blue)' }]}
       />
     </AnalysisCard>
   );
