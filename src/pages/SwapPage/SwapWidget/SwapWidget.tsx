@@ -7,6 +7,7 @@ export default function SwapWidget() {
   return (
     <SquidWidget
       config={{
+        integratorId: 'mapofzones-swap-widget',
         slippage: 1.5,
         style: {
           neutralContent: '#8f8f96',
@@ -24,7 +25,7 @@ export default function SwapWidget() {
           roundedBtn: '5px',
           roundedBox: '5px',
           roundedDropDown: '5px',
-          displayDivider: false,
+          roundedCornerBtn: '5px',
         },
         mainLogoUrl: '',
         initialFromChainId: ETHEREUM_CHAIN_ID,
