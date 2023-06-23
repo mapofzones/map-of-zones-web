@@ -60,4 +60,9 @@
   .returnedAddresses {
     grid-column: 7 / 13;
   }
+
+  .uniqueDelegators {
+    grid-column: 1 / 7;
+    min-height: 468px;
+  }
 }

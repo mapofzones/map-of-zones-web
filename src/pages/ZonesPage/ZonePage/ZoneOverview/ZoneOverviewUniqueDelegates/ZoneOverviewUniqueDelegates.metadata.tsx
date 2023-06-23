@@ -1,10 +1,19 @@
+import { OverviewCardMetadata } from 'components/OverviewChartCardWithMetadata';
 import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
 import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
 import { Circle } from 'ui';
 
-import { IbcTransfersOverviewCardMetadata } from './ZoneOverviewUniqueDelegates.types';
+import {
+  UniqueDelegatorsChart,
+  AnalysisUniqueDelegatorsCardData,
+} from '../../../../../types/models/Analysis/ZoneAnalysisUniqueDelegators';
+
+export type IbcTransfersOverviewCardMetadata = OverviewCardMetadata<
+  AnalysisUniqueDelegatorsCardData,
+  UniqueDelegatorsChart
+>;
 
 export const UNIQUE_DELEGATES_CARD_METADATA: IbcTransfersOverviewCardMetadata = {
   chartTypes: [ChartType.AREA, ChartType.BAR],

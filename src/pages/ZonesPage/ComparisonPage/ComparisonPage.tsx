@@ -15,6 +15,7 @@ import { ReturnedAddressesComparisonCard } from './ReturnedAddressesComparisonCa
 import { TokenComparisonCard } from './TokenComparisonCard';
 import { TokenSupplyComparisonCard } from './TokenSupplyComparisonCard';
 import { TransactionsComparisonCard } from './TransactionsComparisonCard';
+import { UniqueDelegatorsComparisonCard } from './UniqueDelegatorsComparisonCard';
 import { ZonesComparisonSelectors } from './ZonesComparisonSelectors';
 
 import { ComparisonPageProps } from '.';
@@ -39,6 +40,7 @@ function ComparisonPageContent({ className, ...props }: ComparisonPageProps) {
       <IbcTransfersComparisonCard className={styles.transfersCard} />
       <DailyActiveAddressesComparisonCard className={styles.activeAddresses} />
       <ReturnedAddressesComparisonCard className={styles.returnedAddresses} />
+      <UniqueDelegatorsComparisonCard className={styles.uniqueDelegators} />
     </div>
   );
 }
