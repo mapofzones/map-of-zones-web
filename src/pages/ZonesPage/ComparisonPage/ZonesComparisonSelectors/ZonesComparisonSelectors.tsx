@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { AddToCompareButton } from 'components/AddToCompareButton';
 import { ZonesSelectorWrapper } from 'components/ZonesSelector/ZonesSelectorWrapper';
 import { useZonesData } from 'hooks/queries/useZonesData';
+import { useActions, useAppSelector } from 'hooks/redux';
 
 import { ComparisonZoneSelector } from './ComparisonZoneSelector';
 import styles from './ZonesComparisonSelectors.module.scss';
@@ -18,7 +19,19 @@ export function ZonesComparisonSelectors({
 }: ZonesComparisonSelectorsProps): JSX.Element {
   const { data: zonesList, loading } = useZonesData();
 
-  const { selectedZones, onZoneDelete, onZoneSelected } = useComparisonSelectedZones();
+  // const { selectedZones } = useComparisonSelectedZones();
+
+  const selectedZones = useAppSelector((state) => state.selectedComparisonZones);
+
+  const { selectZone, deleteZone } = useActions();
+
+  const onZoneSelected = (zone: string, index: number) => {
+    selectZone({ zone, index });
+  };
+
+  const onZoneDelete = (zone: string) => {
+    deleteZone(zone);
+  };
 
   return (
     <div className={cn(className, styles.container)} {...props}>
