@@ -43,6 +43,10 @@
     grid-column: 1 / 5;
   }
 
+  .stakingCard {
+    grid-column: 5 / 9;
+  }
+
   .transactionCard {
     grid-column: 1 / 7;
     min-height: 468px;

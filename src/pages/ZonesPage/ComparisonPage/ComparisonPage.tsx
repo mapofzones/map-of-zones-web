@@ -12,6 +12,7 @@ import {
   useComparisonSelectedZones,
 } from './providers/ComparisonSelectedZonesProvider';
 import { ReturnedAddressesComparisonCard } from './ReturnedAddressesComparisonCard';
+import { StakingComparisonCard } from './StakingComparisonCard';
 import { TokenComparisonCard } from './TokenComparisonCard';
 import { TokenSupplyComparisonCard } from './TokenSupplyComparisonCard';
 import { TransactionsComparisonCard } from './TransactionsComparisonCard';
@@ -35,6 +36,7 @@ function ComparisonPageContent({ className, ...props }: ComparisonPageProps) {
       <IbcVolumeComparisonCard className={styles.ibcVolumeCard} />
       <BlockchainParametersComparisonProvider zones={selectedZones}>
         <TokenSupplyComparisonCard className={styles.tokenSupplyCard} />
+        <StakingComparisonCard className={styles.stakingCard} />
       </BlockchainParametersComparisonProvider>
       <TransactionsComparisonCard className={styles.transactionCard} />
       <IbcTransfersComparisonCard className={styles.transfersCard} />
