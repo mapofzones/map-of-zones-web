@@ -2,14 +2,18 @@ import React from 'react';
 
 import ReactDOM from 'react-dom/client';
 import ReactModal from 'react-modal';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import './index.scss';
 import { GraphQLProvider } from 'providers/GraphQLProvider';
 import { RestApiQueryProvider } from 'providers/RestApiQueryProvider';
+import { setupStore } from 'store/store';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const store = setupStore();
 
 const rootHtmlElement = document.getElementById('root') as HTMLElement;
 const root = ReactDOM.createRoot(rootHtmlElement);
@@ -18,7 +22,9 @@ root.render(
     <BrowserRouter>
       <GraphQLProvider>
         <RestApiQueryProvider>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </RestApiQueryProvider>
       </GraphQLProvider>
     </BrowserRouter>
