@@ -38,8 +38,8 @@ export function useTokenSupplyComparison(zones: string[]): ZonesComparisonInterc
         unbondingPeriod: parameters?.unbondingPeriod,
         bondedTokens: parameters?.bondedTokens,
         bondedTokensPercent: parameters?.bondedTokensPercent,
-        validatorsCnt: parameters?.validatorsCnt,
-        nodesCnt: parameters?.nodesCnt,
+        validatorsCount: parameters?.validatorsCnt,
+        nodesCount: parameters?.nodesCnt,
         onChainSupply: parameters?.token?.onChainSupply,
       })) ?? [];
 

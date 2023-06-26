@@ -2,7 +2,11 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
-import { STACKING_APR, TOTAL_BONDED_RATE } from 'types/constants/AnalysisTitles';
+import {
+  STACKING_APR_TITLE,
+  STACKING_TITLE,
+  TOTAL_BONDED_RATE_TITLE,
+} from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
 import styles from './StakingComparisonCard.module.scss';
@@ -17,8 +21,8 @@ interface StakingData {
 }
 
 const STAKING_METADATA: Record<keyof StakingData, MetadataItem> = {
-  stackingApr: { title: STACKING_APR, numberType: NumberType.Percent },
-  bondedTokensPercent: { title: TOTAL_BONDED_RATE, numberType: NumberType.Percent },
+  stackingApr: { title: STACKING_APR_TITLE, numberType: NumberType.Percent },
+  bondedTokensPercent: { title: TOTAL_BONDED_RATE_TITLE, numberType: NumberType.Percent },
 };
 
 export function StakingComparisonCard({ className }: StakingComparisonCardProps): JSX.Element {
@@ -29,7 +33,7 @@ export function StakingComparisonCard({ className }: StakingComparisonCardProps)
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
-        <AnalysisCard.Title>Staking</AnalysisCard.Title>
+        <AnalysisCard.Title>{STACKING_TITLE}</AnalysisCard.Title>
       </AnalysisCard.Header>
 
       <AnalysisCard.Body>

@@ -1,5 +1,5 @@
 import { ValueWithPending } from 'components';
-import { TOTAL_BONDED_RATE } from 'types/constants/AnalysisTitles';
+import { TOTAL_BONDED_RATE_TITLE } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
 import { ZoneAnalysisBlockchainParametersData } from 'types/models/Analysis/ZoneAnalysisBlockchainParametersData';
 import { NumberType } from 'types/NumberType';
@@ -16,7 +16,7 @@ export function TotalBondenRateBlock({
 }) {
   return (
     <div className={className}>
-      <ValueWithPending title={TOTAL_BONDED_RATE} size={ElementSize.LARGE}>
+      <ValueWithPending title={TOTAL_BONDED_RATE_TITLE} size={ElementSize.LARGE}>
         <div className={styles.bondedRateValueContainer}>
           <NumberFormat value={data?.bondedTokens} compact />
           <span className={styles.secondValue}>

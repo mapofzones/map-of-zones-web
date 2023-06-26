@@ -47,6 +47,10 @@
     grid-column: 5 / 9;
   }
 
+  .infrastructureCard {
+    grid-column: 9 / 13;
+  }
+
   .transactionCard {
     grid-column: 1 / 7;
     min-height: 468px;

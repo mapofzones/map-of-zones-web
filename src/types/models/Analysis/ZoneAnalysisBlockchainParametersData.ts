@@ -4,7 +4,7 @@ export interface ZoneAnalysisBlockchainParametersData {
   unbondingPeriod?: number;
   bondedTokens?: number;
   bondedTokensPercent?: number;
-  validatorsCnt?: number;
-  nodesCnt?: number;
+  validatorsCount?: number;
+  nodesCount?: number;
   onChainSupply?: number;
 }

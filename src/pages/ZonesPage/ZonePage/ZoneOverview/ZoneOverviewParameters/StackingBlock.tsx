@@ -1,6 +1,6 @@
 import { ValueWithPending } from 'components';
 import { SECONDS_IN_DAY } from 'types/constants';
-import { STACKING_APR } from 'types/constants/AnalysisTitles';
+import { STACKING_APR_TITLE } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
 import { ZoneAnalysisBlockchainParametersData } from 'types/models/Analysis/ZoneAnalysisBlockchainParametersData';
 import { NumberType } from 'types/NumberType';
@@ -18,7 +18,7 @@ export function StackingBlock({
   return (
     <div className={className}>
       <ValueWithPending
-        title={STACKING_APR}
+        title={STACKING_APR_TITLE}
         value={data.stackingApr}
         numberType={NumberType.Percent}
         size={ElementSize.LARGE}

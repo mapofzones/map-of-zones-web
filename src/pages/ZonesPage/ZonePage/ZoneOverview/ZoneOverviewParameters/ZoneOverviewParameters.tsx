@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 
 import { ValueWithPending } from 'components';
-import { INFLATION, INFRASTRUCTURE, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
+import { INFLATION, INFRASTRUCTURE_TITLE, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
 import { NumberType } from 'types/NumberType';
 import { tooltips } from 'types/Tooltips';
@@ -47,12 +47,12 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             <TotalBondenRateBlock data={data} className={styles.valueBlock} />
           </div>
         </Card>
-        <Card title={INFRASTRUCTURE} className={styles.parameterCard} loading={loading}>
+        <Card title={INFRASTRUCTURE_TITLE} className={styles.parameterCard} loading={loading}>
           <div className={styles.valuesContainer}>
             <ValueWithPending
               className={styles.valueBlock}
               title={'Validators'}
-              value={data?.validatorsCnt}
+              value={data?.validatorsCount}
               numberType={NumberType.Number}
               size={ElementSize.LARGE}
             />
@@ -60,7 +60,7 @@ export function ZoneOverviewParameters({ className }: { className?: string }) {
             <ValueWithPending
               className={styles.valueBlock}
               title={'Nodes (RPC/REST)'}
-              value={data?.nodesCnt}
+              value={data?.nodesCount}
               numberType={NumberType.Number}
               tooltipText={tooltips['nodesCount']()}
               size={ElementSize.LARGE}

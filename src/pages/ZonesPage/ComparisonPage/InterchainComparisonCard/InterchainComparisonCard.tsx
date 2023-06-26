@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
+import { INTERCHAIN_TITLE } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
 import styles from './InterchainComparisonCard.module.scss';
@@ -26,7 +27,7 @@ export function InterchainComparisonCard({
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
-        <AnalysisCard.Title>Interchain</AnalysisCard.Title>
+        <AnalysisCard.Title>{INTERCHAIN_TITLE}</AnalysisCard.Title>
       </AnalysisCard.Header>
 
       <AnalysisCard.Body>
