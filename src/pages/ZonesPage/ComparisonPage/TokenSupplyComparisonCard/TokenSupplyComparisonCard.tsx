@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
-import { useGetTokenSupplyQuery } from 'services/Comparison';
+import { useGetTokenSupplyQuery } from 'services/comparisonApi';
 import { INFLATION, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
@@ -26,7 +26,7 @@ export function TokenSupplyComparisonCard({
 }: TokenSupplyComparisonCardProps): JSX.Element {
   const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, isLoading: loading } = useGetTokenSupplyQuery(selectedZones);
+  const { data, isLoading: loading } = useGetTokenSupplyQuery({ zones: selectedZones });
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>

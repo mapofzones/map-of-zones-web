@@ -1,48 +1,34 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { graphqlRequestBaseQuery } from '@rtk-query/graphql-request-base-query';
-
 import {
   ZoneCompareBlockchainParametersDocument,
   ZoneCompareBlockchainParametersQueryResult,
+  ZoneCompareBlockchainParametersQueryVariables,
 } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareBlockchainParameters.query.generated';
+import { ZoneAnalysisBlockchainParametersData } from 'types/models/Analysis/ZoneAnalysisBlockchainParametersData';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 import { resolveStackingApr } from 'utils/resolveStackingApr';
+import { sortDetailsByZoneKeys } from 'utils/sortDetailsByZoneKeys';
 
-const baseQuery = graphqlRequestBaseQuery({
-  url: process.env.REACT_APP_GRAPHQL_HTTP_URI || '',
-  customErrors: ({ name, stack, response }) => {
-    const {
-      message = '',
-      statusCode = 500,
-      error = '',
-    } = response?.errors?.length ? response?.errors[0]?.extensions.response : {};
+import { api } from './baseApi';
+export interface ZoneComparisonBlockchainParametersData
+  extends ZoneAnalysisBlockchainParametersData {
+  zone: string;
+}
 
-    return {
-      name,
-      message,
-      statusCode,
-      error,
-      stack,
-    };
-  },
-});
-
-export const apiSlice = createApi({
-  reducerPath: 'api',
-  baseQuery,
+export const comparisonApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getTokenSupply: builder.query({
-      query: (zones: string[]) => ({
+    getTokenSupply: builder.query<
+      ZoneComparisonBlockchainParametersData[],
+      ZoneCompareBlockchainParametersQueryVariables
+    >({
+      query: (variables: ZoneCompareBlockchainParametersQueryVariables) => ({
         document: ZoneCompareBlockchainParametersDocument,
-        variables: {
-          zones: [...zones],
-        },
-        skip: !zones,
+        variables,
+        skip: !variables.zones?.length,
       }),
       transformResponse: (
         data: ZoneCompareBlockchainParametersQueryResult | undefined,
         _,
-        zones
+        { zones }
       ) => {
         const mappedData =
           data?.blockchains?.map((parameters) => ({
@@ -57,20 +43,14 @@ export const apiSlice = createApi({
             onChainSupply: parameters?.token?.onChainSupply,
           })) ?? [];
 
-        const sorted = sortDetailsByZoneKeys(zones, mappedData);
+        const sorted =
+          Array.isArray(zones) && zones.length > 1
+            ? sortDetailsByZoneKeys(zones, mappedData)
+            : mappedData;
         return nullsToUndefined(sorted);
       },
     }),
   }),
 });
 
-export const { useGetTokenSupplyQuery } = apiSlice;
-
-export function sortDetailsByZoneKeys<T extends { zone: string }>(
-  zones: string[],
-  mappedData: T[]
-): T[] {
-  return zones
-    .map((zone) => mappedData.find((zoneDetails) => zoneDetails.zone === zone))
-    .filter((zone): zone is T => zone !== undefined);
-}
+export const { useGetTokenSupplyQuery } = comparisonApi;

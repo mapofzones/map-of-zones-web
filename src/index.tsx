@@ -10,7 +10,7 @@ import './index.scss';
 
 import { GraphQLProvider } from 'providers/GraphQLProvider';
 import { RestApiQueryProvider } from 'providers/RestApiQueryProvider';
-import { apiSlice } from 'services/Comparison';
+import { api } from 'services/baseApi';
 import { setupStore } from 'store/store';
 
 import App from './App';
@@ -23,7 +23,7 @@ const root = ReactDOM.createRoot(rootHtmlElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ApiProvider api={apiSlice}>
+      <ApiProvider api={api}>
         <GraphQLProvider>
           <RestApiQueryProvider>
             <Provider store={store}>

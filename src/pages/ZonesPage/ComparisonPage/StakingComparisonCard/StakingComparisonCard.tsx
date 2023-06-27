@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
-import { useGetTokenSupplyQuery } from 'services/Comparison';
+import { useGetTokenSupplyQuery } from 'services/comparisonApi';
 import {
   STACKING_APR_TITLE,
   STACKING_TITLE,
@@ -28,7 +28,7 @@ const STAKING_METADATA: Record<keyof StakingData, MetadataItem> = {
 export function StakingComparisonCard({ className }: StakingComparisonCardProps): JSX.Element {
   const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, isLoading: loading } = useGetTokenSupplyQuery(selectedZones);
+  const { data, isLoading: loading } = useGetTokenSupplyQuery({ zones: selectedZones });
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
