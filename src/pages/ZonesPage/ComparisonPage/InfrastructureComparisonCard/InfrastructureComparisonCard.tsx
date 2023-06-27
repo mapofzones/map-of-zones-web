@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
+import { useGetTokenSupplyQuery } from 'services/Comparison';
 import {
   INFRASTRUCTURE_TITLE,
   NODES_TITLE,
@@ -13,7 +14,6 @@ import { NumberType } from 'types/NumberType';
 import styles from './InfrastructureComparisonCard.module.scss';
 import { InfrastructureComparisonCardProps } from './InfrastructureComparisonCard.props';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
-import { useBlockchainParametersComparison } from '../providers/BlockchainParametersComparisonProvider';
 
 type InfrastructureData = Pick<
   ZoneAnalysisBlockchainParametersData,
@@ -28,9 +28,9 @@ const INFRASTRUCTURE_METADATA: Record<keyof InfrastructureData, MetadataItem> = 
 export function InfrastructureComparisonCard({
   className,
 }: InfrastructureComparisonCardProps): JSX.Element {
-  const { selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, loading } = useBlockchainParametersComparison();
+  const { data, isLoading: loading } = useGetTokenSupplyQuery(selectedZones);
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>

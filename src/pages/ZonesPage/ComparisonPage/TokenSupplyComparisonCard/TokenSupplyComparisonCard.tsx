@@ -2,12 +2,12 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
+import { useGetTokenSupplyQuery } from 'services/Comparison';
 import { INFLATION, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
 import styles from './TokenSupplyComparisonCard.module.scss';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
-import { useBlockchainParametersComparison } from '../providers/BlockchainParametersComparisonProvider';
 
 import { TokenSupplyComparisonCardProps } from '.';
 
@@ -24,9 +24,9 @@ const TOKEN_SUPPLY_METADATA: Record<keyof TokenSupplyData, MetadataItem> = {
 export function TokenSupplyComparisonCard({
   className,
 }: TokenSupplyComparisonCardProps): JSX.Element {
-  const { selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, loading } = useBlockchainParametersComparison();
+  const { data, isLoading: loading } = useGetTokenSupplyQuery(selectedZones);
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>

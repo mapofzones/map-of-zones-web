@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ApiProvider } from '@reduxjs/toolkit/query/react';
 import ReactDOM from 'react-dom/client';
 import ReactModal from 'react-modal';
 import { Provider } from 'react-redux';
@@ -9,6 +10,7 @@ import './index.scss';
 
 import { GraphQLProvider } from 'providers/GraphQLProvider';
 import { RestApiQueryProvider } from 'providers/RestApiQueryProvider';
+import { apiSlice } from 'services/Comparison';
 import { setupStore } from 'store/store';
 
 import App from './App';
@@ -21,13 +23,15 @@ const root = ReactDOM.createRoot(rootHtmlElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <GraphQLProvider>
-        <RestApiQueryProvider>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </RestApiQueryProvider>
-      </GraphQLProvider>
+      <ApiProvider api={apiSlice}>
+        <GraphQLProvider>
+          <RestApiQueryProvider>
+            <Provider store={store}>
+              <App />
+            </Provider>
+          </RestApiQueryProvider>
+        </GraphQLProvider>
+      </ApiProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

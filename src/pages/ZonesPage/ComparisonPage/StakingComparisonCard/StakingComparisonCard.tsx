@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
+import { useGetTokenSupplyQuery } from 'services/Comparison';
 import {
   STACKING_APR_TITLE,
   STACKING_TITLE,
@@ -11,7 +12,6 @@ import { NumberType } from 'types/NumberType';
 
 import styles from './StakingComparisonCard.module.scss';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
-import { useBlockchainParametersComparison } from '../providers/BlockchainParametersComparisonProvider';
 
 import { StakingComparisonCardProps } from '.';
 
@@ -26,9 +26,9 @@ const STAKING_METADATA: Record<keyof StakingData, MetadataItem> = {
 };
 
 export function StakingComparisonCard({ className }: StakingComparisonCardProps): JSX.Element {
-  const { selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, loading } = useBlockchainParametersComparison();
+  const { data, isLoading: loading } = useGetTokenSupplyQuery(selectedZones);
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>

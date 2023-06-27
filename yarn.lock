@@ -2011,7 +2011,7 @@
     lodash "~4.17.0"
     tslib "~2.4.0"
 
-"@graphql-codegen/plugin-helpers@^3.1.1", "@graphql-codegen/plugin-helpers@^3.1.2":
+"@graphql-codegen/plugin-helpers@^3.0.0", "@graphql-codegen/plugin-helpers@^3.1.1", "@graphql-codegen/plugin-helpers@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-3.1.2.tgz#69a2e91178f478ea6849846ade0a59a844d34389"
   integrity sha512-emOQiHyIliVOIjKVKdsI5MXj312zmRDwmHpyUTZMjfpvxq/UVAHUJIVdVf+lnjjrI+LXBTgMlTWTgHQfmICxjg==
@@ -2073,6 +2073,17 @@
     "@graphql-codegen/typescript" "^2.8.8"
     "@graphql-codegen/visitor-plugin-common" "2.13.8"
     auto-bind "~4.0.0"
+    tslib "~2.4.0"
+
+"@graphql-codegen/typescript-rtk-query@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-rtk-query/-/typescript-rtk-query-2.4.1.tgz#25f5a6ac008b10c7fde4e03f2746f3523d977fca"
+  integrity sha512-ouqy16Jt410nJxuUXgt3Zb5KxczsMpMe/s2lRYdWN+48ZgLCvULBXG+mMLq3HgSJxXHnouA+Ncak7FrGUrElYw==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^3.0.0"
+    "@graphql-codegen/visitor-plugin-common" "2.13.1"
+    auto-bind "~4.0.0"
+    change-case-all "1.0.15"
     tslib "~2.4.0"
 
 "@graphql-codegen/typescript@^2.5.1", "@graphql-codegen/typescript@^2.8.8":
@@ -3241,6 +3252,13 @@
     "@types/estree" "0.0.39"
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
+
+"@rtk-query/graphql-request-base-query@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@rtk-query/graphql-request-base-query/-/graphql-request-base-query-2.2.0.tgz#e1e5e44793a234ea4c180619e469ed0e1890b2aa"
+  integrity sha512-zBGaTJUHsE1UJWkQGxPfdIteysbd+4Ivx4nkuy6Xgd2kn6zOd849YdR48B1fUh7QA2CXj/F1d+jrCETULp7hnA==
+  dependencies:
+    graphql-request "^4.0.0"
 
 "@rushstack/eslint-patch@^1.1.0":
   version "1.2.0"
@@ -9853,6 +9871,15 @@ graphql-depth-limit@^1.1.0:
   integrity sha512-+3B2BaG8qQ8E18kzk9yiSdAa75i/hnnOwgSeAxVJctGQPvmeiLtqKOYF6HETCyRjiF7Xfsyal0HbLlxCQkgkrw==
   dependencies:
     arrify "^1.0.1"
+
+graphql-request@^4.0.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-4.3.0.tgz#b934e08fcae764aa2cdc697d3c821f046cb5dbf2"
+  integrity sha512-2v6hQViJvSsifK606AliqiNiijb1uwWp6Re7o0RTyH+uRTv/u7Uqm2g4Fjq/LgZIzARB38RZEvVBFOQOVdlBow==
+  dependencies:
+    cross-fetch "^3.1.5"
+    extract-files "^9.0.0"
+    form-data "^3.0.0"
 
 graphql-request@^5.0.0:
   version "5.2.0"
