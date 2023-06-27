@@ -36,7 +36,7 @@ export function useZonesReturnedAddressesComparison(
 
   const options = {
     variables: { zones: [...zones], period: PERIODS_IN_HOURS_BY_KEY[period] },
-    skip: !zones,
+    skip: !zones?.length,
   };
 
   const { data, loading } = useQuery<ZonesCompareReturnedAddressesQueryResult>(

@@ -39,7 +39,7 @@ export function useZonesTokenComparison(
 
   const options = {
     variables: { zones, chartType: type },
-    skip: !zones,
+    skip: !zones?.length,
   };
 
   const { data, loading } = useQuery(ZoneCompareTokenDocument, options);

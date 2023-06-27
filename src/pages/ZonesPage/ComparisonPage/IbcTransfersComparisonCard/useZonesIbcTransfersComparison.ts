@@ -41,7 +41,7 @@ export function useZonesIbcTransfersComparison(
       isMainnet: true,
       periodInDays: periodInDays,
     },
-    skip: !zones,
+    skip: !zones?.length,
   };
 
   const { data, loading } = useQuery(ZoneCompareIbcTransfersDocument, options);

@@ -1,4 +1,4 @@
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
@@ -24,21 +24,14 @@ export function useDailyActiveAddressesComparison(
   zones: string[],
   period: AnalysisCardPeriod
 ): ZonesDailyActiveAddressesComparisonResult {
-  const queries = zones.map((zone) => {
-    return {
-      queryKey: [`activeAddressesCountChart/${zone}/${OVERVIEW_PERIODS_API_KEYS[period]}`],
-      enabled: !!period && !!zone,
-    };
+  const { data: responses, isLoading: loading } = useQuery<DailyActiveAddressesRootApiResult[]>({
+    queryKey: [`activeAddressesCountChart/${zones.join(',')}/${OVERVIEW_PERIODS_API_KEYS[period]}`],
+    enabled: !!period && !!zones?.length,
   });
 
-  const responses = useQueries<DailyActiveAddressesRootApiResult[]>({ queries });
-
-  const result =
-    responses
-      .map((result) => (result.data as DailyActiveAddressesRootApiResult)?.data)
-      .filter((d) => !!d) ?? [];
-  const loading = responses.every((result) => result.isLoading);
-  const charts = mapComparisonRestApiChartsData(result);
+  const result = responses?.map((item) => item.data)?.filter((d) => !!d) ?? [];
+  const charts: MappedComparisonResult<DailyActiveAddressesChart[]> =
+    mapComparisonRestApiChartsData(result);
 
   return {
     data: result.map((item) => ({

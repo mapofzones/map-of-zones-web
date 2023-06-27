@@ -1,4 +1,4 @@
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
@@ -8,14 +8,11 @@ import {
   mapComparisonRestApiChartsData,
 } from 'utils/mapComparisonRestApiChartsData';
 
-export interface ZoneTransactionsResult {
-  zone: string;
-  totalTxsCount?: number;
-}
+export type ZoneTransactionsResult = Pick<TransactionApiResult, 'zone' | 'totalTxsCount'>;
 
 interface ZonesTransactionsComparisonResult {
   data: ZoneTransactionsResult[] | undefined;
-  charts: MappedComparisonResult<ChartItemWithTime[]>;
+  charts: MappedComparisonResult<TransactionChart[]>;
   loading: boolean;
 }
 
@@ -23,19 +20,13 @@ export function useTransactionsComparison(
   zones: string[],
   period: AnalysisCardPeriod
 ): ZonesTransactionsComparisonResult {
-  const queries = zones.map((zone) => {
-    return {
-      queryKey: [`txsChart/${zone}/${OVERVIEW_PERIODS_API_KEYS[period]}`],
-      enabled: !!period && !!zone,
-    };
+  const { data: responses, isLoading: loading } = useQuery<TransactionRootApiResult[]>({
+    queryKey: [`txsChart/${zones.join(',')}/${OVERVIEW_PERIODS_API_KEYS[period]}`],
+    enabled: !!period && !!zones?.length,
   });
-  const responses = useQueries<TransactionApiResult[]>({ queries });
 
-  const result =
-    responses.map((result) => (result.data as TransactionRootApiResult)?.data).filter((d) => !!d) ??
-    [];
-  const loading = responses.every((result) => result.isLoading);
-  const charts = mapComparisonRestApiChartsData(result);
+  const result = responses?.map((item) => item.data)?.filter((d) => !!d) ?? [];
+  const charts: MappedComparisonResult<TransactionChart[]> = mapComparisonRestApiChartsData(result);
 
   return {
     data: result.map((item) => ({ zone: item.zone, totalTxsCount: item.totalTxsCount })),
