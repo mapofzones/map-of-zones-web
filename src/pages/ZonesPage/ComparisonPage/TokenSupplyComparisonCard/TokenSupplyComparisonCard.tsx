@@ -6,8 +6,8 @@ import { INFLATION, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
 import styles from './TokenSupplyComparisonCard.module.scss';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 import { useBlockchainParametersComparison } from '../providers/BlockchainParametersComparisonProvider';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { TokenSupplyComparisonCardProps } from '.';
 
@@ -24,7 +24,7 @@ const TOKEN_SUPPLY_METADATA: Record<keyof TokenSupplyData, MetadataItem> = {
 export function TokenSupplyComparisonCard({
   className,
 }: TokenSupplyComparisonCardProps): JSX.Element {
-  const { selectedZonesDetailsByKey } = useComparisonSelectedZones();
+  const { selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
   const { data, loading } = useBlockchainParametersComparison();
 

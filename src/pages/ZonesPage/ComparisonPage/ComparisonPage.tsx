@@ -3,16 +3,14 @@ import cn from 'classnames';
 import { ActivityComparisonCard } from './ActivityComparisonCard';
 import styles from './ComparisonPage.module.scss';
 import { DailyActiveAddressesComparisonCard } from './DailyActiveAddressesComparisonCard';
+import { useSelectedZonesDetails } from './hooks/useSelectedZonesDetails';
 import { IbcTransfersComparisonCard } from './IbcTransfersComparisonCard';
 import { IbcVolumeComparisonCard } from './IbcVolumeComparisonCard';
 import { InfrastructureComparisonCard } from './InfrastructureComparisonCard';
 import { InterchainComparisonCard } from './InterchainComparisonCard';
 import { BlockchainParametersComparisonProvider } from './providers/BlockchainParametersComparisonProvider';
-import {
-  ComparisonSelectedZonesProvider,
-  useComparisonSelectedZones,
-} from './providers/ComparisonSelectedZonesProvider';
 import { ReturnedAddressesComparisonCard } from './ReturnedAddressesComparisonCard';
+import { SelectedZonesSyncWithSearchParams } from './SelectedZonesSyncWithSearchParams';
 import { StakingComparisonCard } from './StakingComparisonCard';
 import { TokenComparisonCard } from './TokenComparisonCard';
 import { TokenSupplyComparisonCard } from './TokenSupplyComparisonCard';
@@ -23,7 +21,7 @@ import { ZonesComparisonSelectors } from './ZonesComparisonSelectors';
 import { ComparisonPageProps } from '.';
 
 function ComparisonPageContent({ className, ...props }: ComparisonPageProps) {
-  const { selectedZones } = useComparisonSelectedZones();
+  const { selectedZones } = useSelectedZonesDetails();
 
   return (
     <div className={cn(className, styles.container)} {...props}>
@@ -35,6 +33,7 @@ function ComparisonPageContent({ className, ...props }: ComparisonPageProps) {
       <InterchainComparisonCard className={styles.interchainCard} />
       <TokenComparisonCard className={styles.tokenCard} />
       <IbcVolumeComparisonCard className={styles.ibcVolumeCard} />
+      {/* TODO: get rid of  BlockchainParametersComparisonProvider */}
       <BlockchainParametersComparisonProvider zones={selectedZones}>
         <TokenSupplyComparisonCard className={styles.tokenSupplyCard} />
         <StakingComparisonCard className={styles.stakingCard} />
@@ -51,8 +50,8 @@ function ComparisonPageContent({ className, ...props }: ComparisonPageProps) {
 
 export function ComparisonPage({ className, ...props }: ComparisonPageProps): JSX.Element {
   return (
-    <ComparisonSelectedZonesProvider>
+    <SelectedZonesSyncWithSearchParams>
       <ComparisonPageContent className={className} {...props}></ComparisonPageContent>
-    </ComparisonSelectedZonesProvider>
+    </SelectedZonesSyncWithSearchParams>
   );
 }

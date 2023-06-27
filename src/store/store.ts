@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { reducer } from './comparison.slice';
+import selectedComparisonZonesReducer from './selectedComparisonZones.slice';
 
 const rootReducer = combineReducers({
-  selectedComparisonZones: reducer,
+  selectedComparisonZones: selectedComparisonZonesReducer,
 });
 
 export type AppDispatch = AppStore['dispatch'];

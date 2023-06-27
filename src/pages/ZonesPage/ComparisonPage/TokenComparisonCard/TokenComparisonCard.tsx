@@ -16,7 +16,7 @@ import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 import styles from './TokenComparisonCard.module.scss';
 import { TokenProperties, useZonesTokenComparison } from './useZonesTokenComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 import { TokenComparisonCardProps } from '.';
 
@@ -35,7 +35,7 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
       ChartType.AREA
     );
 
-  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
   const { data, chart, loading } = useZonesTokenComparison(
     selectedZones,

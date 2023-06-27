@@ -3,11 +3,11 @@ import { useMemo } from 'react';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { actions } from 'store/comparison.slice';
+import { selectedComparisonZonesActions } from 'store/selectedComparisonZones.slice';
 import { AppDispatch, RootState } from 'store/store';
 
 const rootActions = {
-  ...actions,
+  ...selectedComparisonZonesActions,
 };
 
 export const useActions = () => {

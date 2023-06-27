@@ -2,12 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: string[] = [];
 
-export const comparisonSlice = createSlice({
+export const selectedComparisonZones = createSlice({
   name: 'selectedComparisonZones',
   initialState,
   reducers: {
     initiateSelectedZones: (state, action) => {
-      state = action.payload;
+      if (state.length === 0) {
+        state.push(...action.payload);
+      }
     },
     selectZone: (state, action) => {
       if (!state.includes(action.payload.zone)) {
@@ -23,4 +25,6 @@ export const comparisonSlice = createSlice({
   },
 });
 
-export const { actions, reducer } = comparisonSlice;
+export const { actions: selectedComparisonZonesActions } = selectedComparisonZones;
+
+export default selectedComparisonZones.reducer;

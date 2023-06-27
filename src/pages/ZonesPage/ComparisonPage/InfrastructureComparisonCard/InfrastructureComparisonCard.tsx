@@ -12,8 +12,8 @@ import { NumberType } from 'types/NumberType';
 
 import styles from './InfrastructureComparisonCard.module.scss';
 import { InfrastructureComparisonCardProps } from './InfrastructureComparisonCard.props';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 import { useBlockchainParametersComparison } from '../providers/BlockchainParametersComparisonProvider';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 type InfrastructureData = Pick<
   ZoneAnalysisBlockchainParametersData,
@@ -28,7 +28,7 @@ const INFRASTRUCTURE_METADATA: Record<keyof InfrastructureData, MetadataItem> = 
 export function InfrastructureComparisonCard({
   className,
 }: InfrastructureComparisonCardProps): JSX.Element {
-  const { selectedZonesDetailsByKey } = useComparisonSelectedZones();
+  const { selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
   const { data, loading } = useBlockchainParametersComparison();
 

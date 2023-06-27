@@ -10,8 +10,8 @@ import {
 import { NumberType } from 'types/NumberType';
 
 import styles from './StakingComparisonCard.module.scss';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 import { useBlockchainParametersComparison } from '../providers/BlockchainParametersComparisonProvider';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { StakingComparisonCardProps } from '.';
 
@@ -26,7 +26,7 @@ const STAKING_METADATA: Record<keyof StakingData, MetadataItem> = {
 };
 
 export function StakingComparisonCard({ className }: StakingComparisonCardProps): JSX.Element {
-  const { selectedZonesDetailsByKey } = useComparisonSelectedZones();
+  const { selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
   const { data, loading } = useBlockchainParametersComparison();
 

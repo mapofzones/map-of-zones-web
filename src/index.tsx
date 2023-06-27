@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import './index.scss';
+
 import { GraphQLProvider } from 'providers/GraphQLProvider';
 import { RestApiQueryProvider } from 'providers/RestApiQueryProvider';
 import { setupStore } from 'store/store';

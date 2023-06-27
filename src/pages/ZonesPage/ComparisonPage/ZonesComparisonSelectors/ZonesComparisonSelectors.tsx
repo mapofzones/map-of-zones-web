@@ -3,11 +3,11 @@ import cn from 'classnames';
 import { AddToCompareButton } from 'components/AddToCompareButton';
 import { ZonesSelectorWrapper } from 'components/ZonesSelector/ZonesSelectorWrapper';
 import { useZonesData } from 'hooks/queries/useZonesData';
-import { useActions, useAppSelector } from 'hooks/redux';
+import { useActions } from 'hooks/redux';
 
 import { ComparisonZoneSelector } from './ComparisonZoneSelector';
 import styles from './ZonesComparisonSelectors.module.scss';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 import { ZonesComparisonSelectorsProps } from '.';
 
@@ -19,9 +19,7 @@ export function ZonesComparisonSelectors({
 }: ZonesComparisonSelectorsProps): JSX.Element {
   const { data: zonesList, loading } = useZonesData();
 
-  // const { selectedZones } = useComparisonSelectedZones();
-
-  const selectedZones = useAppSelector((state) => state.selectedComparisonZones);
+  const { selectedZones } = useSelectedZonesDetails();
 
   const { selectZone, deleteZone } = useActions();
 

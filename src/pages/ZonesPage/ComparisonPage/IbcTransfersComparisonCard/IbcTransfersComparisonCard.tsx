@@ -17,7 +17,7 @@ import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 import styles from './IbcTransfersComparisonCard.module.scss';
 import { useZonesIbcTransfersComparison } from './useZonesIbcTransfersComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 import { IbcTransfersComparisonCardProps, IbcTransfersProperties } from '.';
 
@@ -44,7 +44,7 @@ export function IbcTransfersComparisonCard({
     ChartType
   >('ibcTransfers', '1w', ChartType.AREA);
 
-  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
   const { data, charts, loading } = useZonesIbcTransfersComparison(selectedZones, selectedPeriod);
 

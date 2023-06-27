@@ -8,7 +8,7 @@ import { NumberType } from 'types/NumberType';
 
 import styles from './InterchainComparisonCard.module.scss';
 import { InterchainData, useZonesComprisonInterchain } from './useZonesComparisonInterchain';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 import { InterchainComparisonCardProps } from '.';
 
@@ -20,7 +20,7 @@ const INTERCHAIN_METADATA: Record<keyof InterchainData, MetadataItem> = {
 export function InterchainComparisonCard({
   className,
 }: InterchainComparisonCardProps): JSX.Element {
-  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
   const { data, loading } = useZonesComprisonInterchain(PeriodKeys.DAY, selectedZones);
 

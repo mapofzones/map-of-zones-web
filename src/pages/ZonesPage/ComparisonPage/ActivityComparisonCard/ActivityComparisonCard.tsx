@@ -16,7 +16,7 @@ import {
   useZonesComprisonActivity,
   VolumeData,
 } from './useZonesComparisonActivity';
-import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
+import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 import { ActivityComparisonCardProps } from '.';
 
@@ -39,7 +39,7 @@ const DAU_METADATA: Record<keyof DauData, MetadataItem> = {
 export function ActivityComparisonCard({ className }: ActivityComparisonCardProps): JSX.Element {
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKeys>(PeriodKeys.DAY);
 
-  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
   const { data, loading } = useZonesComprisonActivity(selectedPeriod, selectedZones);
 
