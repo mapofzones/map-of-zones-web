@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { useActionCreators } from './hooks';
+
 const initialState: string[] = [];
 
 export const selectedComparisonZones = createSlice({
@@ -26,5 +28,8 @@ export const selectedComparisonZones = createSlice({
 });
 
 export const { actions: selectedComparisonZonesActions } = selectedComparisonZones;
+
+export const useSelectedComparisonZonesActionsCreator = () =>
+  useActionCreators(selectedComparisonZones.actions);
 
 export default selectedComparisonZones.reducer;

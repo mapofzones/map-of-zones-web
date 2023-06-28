@@ -2,21 +2,23 @@ import { ReactNode, useEffect } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
-import { useActions, useAppSelector } from 'hooks/redux';
+import { useAppSelector } from 'store/hooks';
+import { useSelectedComparisonZonesActionsCreator } from 'store/selectedComparisonZones.slice';
 
-import { ZONES_SEARCH_KEY } from './hooks/useSelectedZonesDetails';
+const ZONES_SEARCH_KEY = 'zones';
 
 export function SelectedZonesSyncWithSearchParams({ children }: { children: ReactNode }) {
   const [search] = useSearchParams();
 
   const selectedZones = useAppSelector((state) => state.selectedComparisonZones);
-  const { initiateSelectedZones } = useActions();
+  const { initiateSelectedZones } = useSelectedComparisonZonesActionsCreator();
 
   useEffect(() => {
     const zonesSearch = search.getAll(ZONES_SEARCH_KEY);
 
     const uniqueZones = [...new Set(zonesSearch)];
     initiateSelectedZones(uniqueZones);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

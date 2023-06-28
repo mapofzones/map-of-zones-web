@@ -5,17 +5,11 @@ import { restApi } from 'services/baseRestApi';
 
 import selectedComparisonZonesReducer from './selectedComparisonZones.slice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   selectedComparisonZones: selectedComparisonZonesReducer,
   [graphqlApi.reducerPath]: graphqlApi.reducer,
   [restApi.reducerPath]: restApi.reducer,
 });
-
-export type AppDispatch = AppStore['dispatch'];
-
-export type AppStore = ReturnType<typeof setupStore>;
-
-export type RootState = ReturnType<typeof rootReducer>;
 
 export const setupStore = () => {
   return configureStore({

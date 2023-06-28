@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useZonesData } from 'hooks/queries/useZonesData';
-import { useAppSelector } from 'hooks/redux';
+import { useAppSelector } from 'store/hooks';
 import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props'; // TODO: use common type
 
 export function useSelectedZonesDetails() {
@@ -28,5 +28,3 @@ export function useSelectedZonesDetails() {
 }
 
 export const ZONES_COLORS = ['#62D0D7', '#B250FF', '#FF9900'];
-
-export const ZONES_SEARCH_KEY = 'zones';
