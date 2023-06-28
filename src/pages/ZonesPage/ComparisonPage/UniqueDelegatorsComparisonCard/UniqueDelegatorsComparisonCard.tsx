@@ -7,6 +7,8 @@ import {
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
+import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
+import { useGetUniqueDelegatorsComparisonQuery } from 'services/ComparisonPage/GetUniqueDelegatorsComparison';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ChartType } from 'types/ChartType';
 import { UNIQUE_DELEGATORS_TITLE } from 'types/constants/AnalysisTitles';
@@ -15,10 +17,7 @@ import { SkeletonTextWrapper } from 'ui';
 
 import styles from './UniqueDelegatorsComparisonCard.module.scss';
 import { UniqueDelegatorsComparisonCardProps } from './UniqueDelegatorsComparisonCard.props';
-import {
-  ZoneUniqueDelegatorsComparisonData,
-  useUniqueDelegatorsComparison,
-} from './useUniqueDelegatorsComparison';
+import { ZoneUniqueDelegatorsComparisonData } from './useUniqueDelegatorsComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
@@ -38,7 +37,13 @@ export function UniqueDelegatorsComparisonCard({
 
   const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, charts, loading } = useUniqueDelegatorsComparison(selectedZones, selectedPeriod);
+  const { data, isLoading: loading } = useGetUniqueDelegatorsComparisonQuery(
+    {
+      zones: selectedZones,
+      period: OVERVIEW_PERIODS_API_KEYS[selectedPeriod],
+    },
+    { skip: !selectedZones?.length }
+  );
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
@@ -56,7 +61,7 @@ export function UniqueDelegatorsComparisonCard({
 
       <div className={styles.legendContainer}>
         <AnalysisCard.Legend>
-          {data?.map((item: ZoneUniqueDelegatorsComparisonData) => {
+          {data?.data?.map((item: ZoneUniqueDelegatorsComparisonData) => {
             return (
               <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
                 <AnalysisCard.Legend.Item.Title
@@ -82,7 +87,7 @@ export function UniqueDelegatorsComparisonCard({
 
       <ChartContainer
         chartType={selectedChartType}
-        data={charts?.['delegatorsCount'] ?? []}
+        data={data?.charts?.['delegatorsCount'] ?? []}
         loading={loading}
         datasetInfo={selectedZonesDetailsByKey}
         dataFormatType={numberType}

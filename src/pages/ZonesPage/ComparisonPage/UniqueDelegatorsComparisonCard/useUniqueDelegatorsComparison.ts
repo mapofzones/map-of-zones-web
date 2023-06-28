@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';

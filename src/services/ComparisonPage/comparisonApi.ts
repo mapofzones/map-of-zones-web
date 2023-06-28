@@ -3,18 +3,18 @@ import {
   ZoneCompareBlockchainParametersQueryResult,
   ZoneCompareBlockchainParametersQueryVariables,
 } from 'graphql/v2/ZonesPage/ComparisonPage/__generated__/ZoneCompareBlockchainParameters.query.generated';
+import { graphqlApi } from 'services/baseGraphqlApi';
 import { ZoneAnalysisBlockchainParametersData } from 'types/models/Analysis/ZoneAnalysisBlockchainParametersData';
 import { nullsToUndefined } from 'utils/nullsToUndefinedConverter';
 import { resolveStackingApr } from 'utils/resolveStackingApr';
 import { sortDetailsByZoneKeys } from 'utils/sortDetailsByZoneKeys';
 
-import { api } from './baseApi';
 export interface ZoneComparisonBlockchainParametersData
   extends ZoneAnalysisBlockchainParametersData {
   zone: string;
 }
 
-export const comparisonApi = api.injectEndpoints({
+const comparisonApi = graphqlApi.injectEndpoints({
   endpoints: (builder) => ({
     getTokenSupply: builder.query<
       ZoneComparisonBlockchainParametersData[],

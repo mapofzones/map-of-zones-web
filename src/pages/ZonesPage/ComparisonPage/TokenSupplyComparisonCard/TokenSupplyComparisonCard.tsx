@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
-import { useGetTokenSupplyQuery } from 'services/comparisonApi';
+import { useGetTokenSupplyQuery } from 'services/ComparisonPage/comparisonApi';
 import { INFLATION, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 

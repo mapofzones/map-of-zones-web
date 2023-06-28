@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { graphqlRequestBaseQuery } from '@rtk-query/graphql-request-base-query';
 
-export const baseQuery = graphqlRequestBaseQuery({
+export const baseGraphqlQuery = graphqlRequestBaseQuery({
   url: process.env.REACT_APP_GRAPHQL_HTTP_URI || '',
   customErrors: ({ name, stack, response }) => {
     const {
@@ -21,8 +21,8 @@ export const baseQuery = graphqlRequestBaseQuery({
 });
 
 // eslint-disable-next-line sort-exports/sort-exports
-export const api = createApi({
-  reducerPath: 'api',
-  baseQuery,
+export const graphqlApi = createApi({
+  reducerPath: 'graphqlApi',
+  baseQuery: baseGraphqlQuery,
   endpoints: () => ({}),
 });

@@ -7,13 +7,14 @@ import {
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
+import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
+import { useGetTransactionsChartQuery } from 'services/ComparisonPage/GetTransactionsChart';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ChartType } from 'types/ChartType';
 import { NumberType } from 'types/NumberType';
 import { SkeletonTextWrapper } from 'ui';
 
 import styles from './TransactionsComparisonCard.module.scss';
-import { ZoneTransactionsResult, useTransactionsComparison } from './useTransactionsComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
@@ -35,7 +36,13 @@ export function TransactionsComparisonCard({
 
   const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, charts, loading } = useTransactionsComparison(selectedZones, selectedPeriod);
+  const { data, isLoading: loading } = useGetTransactionsChartQuery(
+    {
+      zones: selectedZones,
+      period: OVERVIEW_PERIODS_API_KEYS[selectedPeriod],
+    },
+    { skip: !selectedZones?.length }
+  );
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
@@ -53,7 +60,7 @@ export function TransactionsComparisonCard({
 
       <div className={styles.legendContainer}>
         <AnalysisCard.Legend>
-          {data?.map((item: ZoneTransactionsResult) => {
+          {data?.data?.map((item) => {
             return (
               <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
                 <AnalysisCard.Legend.Item.Title
@@ -79,7 +86,7 @@ export function TransactionsComparisonCard({
 
       <ChartContainer
         chartType={selectedChartType}
-        data={charts?.['txsCount'] ?? []}
+        data={data?.charts?.['txsCount'] ?? []}
         loading={loading}
         datasetInfo={selectedZonesDetailsByKey}
         dataFormatType={numberType}

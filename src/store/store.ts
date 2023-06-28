@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { api } from 'services/baseApi';
+import { graphqlApi } from 'services/baseGraphqlApi';
+import { restApi } from 'services/baseRestApi';
 
 import selectedComparisonZonesReducer from './selectedComparisonZones.slice';
 
 const rootReducer = combineReducers({
   selectedComparisonZones: selectedComparisonZonesReducer,
-  [api.reducerPath]: api.reducer,
+  [graphqlApi.reducerPath]: graphqlApi.reducer,
+  [restApi.reducerPath]: restApi.reducer,
 });
 
 export type AppDispatch = AppStore['dispatch'];
@@ -18,6 +20,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(graphqlApi.middleware).concat(restApi.middleware),
   });
 };

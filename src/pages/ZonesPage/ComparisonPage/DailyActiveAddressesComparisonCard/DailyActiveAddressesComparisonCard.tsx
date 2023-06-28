@@ -6,6 +6,11 @@ import {
   AnalysisPeriodButtonsGroup,
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
+import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
+import {
+  ZoneDailyActiveAddressesItem,
+  useGetActiveAddressesCountChartQuery,
+} from 'services/ComparisonPage/GetActiveAddressesCountChart';
 import { AnalysisCardPeriod } from 'types/AnalysisCardPeriod';
 import { ChartType } from 'types/ChartType';
 import { ElementSize } from 'types/ElementSize';
@@ -18,10 +23,6 @@ import {
   DailyActiveAddressesComparisonCardProps,
   DailyActiveAddressesProperties,
 } from './DailyActiveAddressesComparisonCard.props';
-import {
-  ZoneDailyActiveAddressesItem,
-  useDailyActiveAddressesComparison,
-} from './useDailyActiveAddressesComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
@@ -60,11 +61,13 @@ export function DailyActiveAddressesComparisonCard({
 
   const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
 
-  const { data, charts, loading } = useDailyActiveAddressesComparison(
-    selectedZones,
-    selectedPeriod
+  const { data, isLoading: loading } = useGetActiveAddressesCountChartQuery(
+    {
+      zones: selectedZones,
+      period: OVERVIEW_PERIODS_API_KEYS[selectedPeriod],
+    },
+    { skip: !selectedZones?.length }
   );
-
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
@@ -87,14 +90,14 @@ export function DailyActiveAddressesComparisonCard({
       </AnalysisCard.ChartControls>
 
       <AnalysisCard.Legend className={styles.legendContainer}>
-        {data?.map((item: ZoneDailyActiveAddressesItem) => {
+        {data?.data?.map((item: ZoneDailyActiveAddressesItem) => {
           return (
             <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
               <AnalysisCard.Legend.Item.Title
                 title={selectedZonesDetailsByKey[item.zone].title}
                 circleColor={selectedZonesDetailsByKey[item.zone].color}
               />
-              <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
+              <SkeletonTextWrapper loading={loading} defaultText={'13 000'}>
                 <AnalysisCard.Legend.Item.ValueNumber
                   value={item[TOTAL_PROP_NAME_BY_SELECTED_PROP[selectedProperty]] as number}
                   numberType={numberType}
@@ -107,7 +110,7 @@ export function DailyActiveAddressesComparisonCard({
 
       <ChartContainer
         chartType={selectedChartType}
-        data={charts?.[selectedProperty] ?? []}
+        data={data?.charts?.[selectedProperty] ?? []}
         loading={loading}
         datasetInfo={selectedZonesDetailsByKey}
         dataFormatType={numberType}
