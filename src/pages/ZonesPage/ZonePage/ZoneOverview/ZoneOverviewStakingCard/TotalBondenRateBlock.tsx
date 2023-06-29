@@ -5,7 +5,7 @@ import { ZoneAnalysisBlockchainParametersData } from 'types/models/Analysis/Zone
 import { NumberType } from 'types/NumberType';
 import { NumberFormat } from 'ui';
 
-import styles from './ZoneOverviewParameters.module.scss';
+import styles from './ZoneOverviewStakingCard.module.scss';
 
 export function TotalBondenRateBlock({
   data,

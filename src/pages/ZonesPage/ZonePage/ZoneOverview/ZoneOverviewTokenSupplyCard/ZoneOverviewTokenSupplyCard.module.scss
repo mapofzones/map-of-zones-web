@@ -1,0 +1,36 @@
+.parameterCard {
+  padding: 24px;
+
+  .valuesContainer {
+    display: flex;
+    flex-direction: row;
+
+    .divider {
+      height: auto;
+      align-self: stretch;
+    }
+  }
+
+  .valueBlock {
+    flex-grow: 1;
+  }
+
+  .bondedRateValueContainer {
+    display: flex;
+
+    .secondValue {
+      color: var(--grey-500);
+    }
+  }
+
+  .additionalInfo {
+    margin-top: 6px;
+
+    color: var(--grey-500);
+    font-size: var(--font-secondary-size-md);
+
+    &_value {
+      color: var(--white);
+    }
+  }
+}

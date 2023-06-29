@@ -6,10 +6,12 @@ import { ZoneOverviewActiveUsers } from './ZoneOverviewActiveUsers';
 import { ZoneOverviewActivity } from './ZoneOverviewActivity/ZoneOverviewActivity';
 import { ZoneOverviewIbcTransfers } from './ZoneOverviewIbcTransfers';
 import { ZoneOverviewIbcVolume } from './ZoneOverviewIbcVolume';
+import { ZoneOverviewInfrastructureCard } from './ZoneOverviewInfrastructureCard';
 import { ZoneOverviewInterchain } from './ZoneOverviewInterchain';
-import { ZoneOverviewParameters } from './ZoneOverviewParameters/ZoneOverviewParameters';
 import { ZoneOverviewReturnedAddresses } from './ZoneOverviewReturnedAddresses';
+import { ZoneOverviewStakingCard } from './ZoneOverviewStakingCard';
 import { ZoneOverviewToken } from './ZoneOverviewToken/ZoneOverviewToken';
+import { ZoneOverviewTokenSupplyCard } from './ZoneOverviewTokenSupplyCard';
 import { ZoneOverviewTransactions } from './ZoneOverviewTransactions';
 import { ZoneOverviewUniqueDelegates } from './ZoneOverviewUniqueDelegates';
 
@@ -23,7 +25,9 @@ export function ZoneOverview() {
         </div>
         <ZoneOverviewToken className={styles.tokenBlock} />
         <ZoneOverviewIbcVolume className={cn(styles.volumesBlock, styles.chartCard)} />
-        <ZoneOverviewParameters className={styles.parametersBlock} />
+        <ZoneOverviewTokenSupplyCard className={styles.tokenSupplyCard} />
+        <ZoneOverviewStakingCard className={styles.stakingCard} />
+        <ZoneOverviewInfrastructureCard className={styles.infrastructureCard} />
         <ZoneOverviewTransactions className={cn(styles.chartCard, styles.transactionsBlock)} />
         <ZoneOverviewIbcTransfers className={cn(styles.ibcTransfersBlock, styles.chartCard)} />
         <ZoneOverviewActiveUsers className={cn(styles.activeUsersBlock, styles.chartCard)} />
