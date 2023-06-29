@@ -1,3 +1,9 @@
+@mixin gridColumn($startColumn, $totalColumns, $columns: 1, $gridSize: 12) {
+  $step: calc($gridSize / $totalColumns) * $columns;
+  grid-column-start: ($startColumn - 1) * $step + 1;
+  grid-column-end: $startColumn * $step + 1;
+}
+
 .container {
   --gap: 28px;
 
@@ -7,7 +13,7 @@
   padding: 0 24px 24px;
 
   .header {
-    grid-column: 1 / 13;
+    @include gridColumn(1, 1);
 
     margin: 24px 0 8px 0;
 
@@ -23,54 +29,106 @@
   }
 
   .activityCard {
-    grid-column: 1 / 10;
+    @include gridColumn(1, 4, 3);
   }
 
   .interchainCard {
-    grid-column: 10 / 13;
+    @include gridColumn(4, 4);
   }
 
   .tokenCard {
-    grid-column: 1 / 7;
+    @include gridColumn(1, 2);
     min-height: 468px;
   }
 
   .ibcVolumeCard {
-    grid-column: 7 / 13;
+    @include gridColumn(2, 2);
   }
 
   .tokenSupplyCard {
-    grid-column: 1 / 5;
+    @include gridColumn(1, 3);
   }
 
   .stakingCard {
-    grid-column: 5 / 9;
+    @include gridColumn(2, 3);
   }
 
   .infrastructureCard {
-    grid-column: 9 / 13;
+    @include gridColumn(3, 3);
   }
 
   .transactionCard {
-    grid-column: 1 / 7;
+    @include gridColumn(1, 2);
     min-height: 468px;
   }
 
   .transfersCard {
-    grid-column: 7 / 13;
+    @include gridColumn(2, 2);
   }
 
   .activeAddresses {
-    grid-column: 1 / 7;
+    @include gridColumn(1, 2);
     min-height: 468px;
   }
 
   .returnedAddresses {
-    grid-column: 7 / 13;
+    @include gridColumn(2, 2);
   }
 
   .uniqueDelegators {
-    grid-column: 1 / 7;
+    @include gridColumn(1, 2);
+
     min-height: 468px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .container {
+    .activityCard {
+      @include gridColumn(1, 1);
+    }
+
+    .interchainCard {
+      @include gridColumn(1, 1);
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .container {
+    .tokenCard,
+    .ibcVolumeCard,
+    .transactionCard,
+    .transfersCard,
+    .activeAddresses,
+    .returnedAddresses,
+    .uniqueDelegators {
+      @include gridColumn(1, 1);
+    }
+  }
+}
+
+@media (max-width: 880px) {
+  .container {
+    .tokenSupplyCard,
+    .stakingCard,
+    .infrastructureCard {
+      @include gridColumn(1, 1);
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    .tokenBlock {
+      min-height: 600px;
+    }
+
+    .chartCard {
+      min-height: 600px;
+    }
   }
 }

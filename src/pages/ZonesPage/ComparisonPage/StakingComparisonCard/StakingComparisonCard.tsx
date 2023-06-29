@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
-import { useGetTokenSupplyQuery } from 'services/ComparisonPage/comparisonApi';
+import { useGetTokenSupplyQuery } from 'services/ComparisonPage/GetTokenSupply';
 import {
   STACKING_APR_TITLE,
   STACKING_TITLE,
