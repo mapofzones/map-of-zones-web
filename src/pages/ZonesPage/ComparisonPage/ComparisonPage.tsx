@@ -28,16 +28,20 @@ export function ComparisonPage({ className, ...props }: ComparisonPageProps): JS
         </div>
         <ActivityComparisonCard className={styles.activityCard} />
         <InterchainComparisonCard className={styles.interchainCard} />
-        <TokenComparisonCard className={styles.tokenCard} />
-        <IbcVolumeComparisonCard className={styles.ibcVolumeCard} />
+        <TokenComparisonCard className={cn(styles.tokenCard, styles.chartCard)} />
+        <IbcVolumeComparisonCard className={cn(styles.ibcVolumeCard, styles.chartCard)} />
         <TokenSupplyComparisonCard className={styles.tokenSupplyCard} />
         <StakingComparisonCard className={styles.stakingCard} />
         <InfrastructureComparisonCard className={styles.infrastructureCard} />
-        <TransactionsComparisonCard className={styles.transactionCard} />
-        <IbcTransfersComparisonCard className={styles.transfersCard} />
-        <DailyActiveAddressesComparisonCard className={styles.activeAddresses} />
-        <ReturnedAddressesComparisonCard className={styles.returnedAddresses} />
-        <UniqueDelegatorsComparisonCard className={styles.uniqueDelegators} />
+        <TransactionsComparisonCard className={cn(styles.transactionCard, styles.chartCard)} />
+        <IbcTransfersComparisonCard className={cn(styles.transfersCard, styles.chartCard)} />
+        <DailyActiveAddressesComparisonCard
+          className={cn(styles.activeAddresses, styles.chartCard)}
+        />
+        <ReturnedAddressesComparisonCard
+          className={cn(styles.returnedAddresses, styles.chartCard)}
+        />
+        <UniqueDelegatorsComparisonCard className={cn(styles.uniqueDelegators, styles.chartCard)} />
       </div>
     </SelectedZonesSyncWithSearchParams>
   );

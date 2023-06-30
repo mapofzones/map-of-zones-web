@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 import { INTERCHAIN_TITLE } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
@@ -24,6 +25,10 @@ export function InterchainComparisonCard({
 
   const { data, loading } = useZonesComprisonInterchain(PeriodKeys.DAY, selectedZones);
 
+  const isRows2Layout = useMediaQuery('(min-width: 1281px) and (max-width: 1440px)');
+  const isRows3Layout = useMediaQuery('(min-width: 881px) and (max-width: 1280px)');
+  const compareGroupVariant = isRows2Layout ? 'rows-2' : isRows3Layout ? 'rows-3' : 'columns-3';
+
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
@@ -36,6 +41,7 @@ export function InterchainComparisonCard({
           data={data}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
+          layoutVariant={compareGroupVariant}
         />
       </AnalysisCard.Body>
     </AnalysisCard>

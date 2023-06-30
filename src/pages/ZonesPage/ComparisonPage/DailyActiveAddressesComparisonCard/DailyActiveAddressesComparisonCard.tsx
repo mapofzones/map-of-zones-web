@@ -94,8 +94,8 @@ export function DailyActiveAddressesComparisonCard({
           return (
             <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
               <AnalysisCard.Legend.Item.Title
-                title={selectedZonesDetailsByKey[item.zone].title}
-                circleColor={selectedZonesDetailsByKey[item.zone].color}
+                title={selectedZonesDetailsByKey[item.zone]?.title}
+                circleColor={selectedZonesDetailsByKey[item.zone]?.color}
               />
               <SkeletonTextWrapper loading={loading} defaultText={'13 000'}>
                 <AnalysisCard.Legend.Item.ValueNumber

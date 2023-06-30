@@ -1,10 +1,20 @@
+import cn from 'classnames';
+
 import styles from './PercentageBar.module.scss';
 
-export function PercentageBar({ rate, color }: { rate?: number; color: string }) {
+export function PercentageBar({
+  rate,
+  color,
+  className,
+}: {
+  rate?: number;
+  color: string;
+  className?: string;
+}) {
   const showBar = rate !== undefined && rate >= 0.01;
 
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, className)}>
       {showBar && (
         <div
           className={styles.bar}

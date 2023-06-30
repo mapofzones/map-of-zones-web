@@ -7,6 +7,7 @@ import { INFLATION, ON_CHAIN_SUPPLY } from 'types/constants/AnalysisTitles';
 import { NumberType } from 'types/NumberType';
 
 import styles from './TokenSupplyComparisonCard.module.scss';
+import { useBlockchainParametersCompareGroupLayoutVariant } from '../hooks/useBlockchainParametersCompareGroupLayoutVariant';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 import { TokenSupplyComparisonCardProps } from '.';
@@ -28,6 +29,8 @@ export function TokenSupplyComparisonCard({
 
   const { data, isLoading: loading } = useGetTokenSupplyQuery({ zones: selectedZones });
 
+  const compareGroupVariant = useBlockchainParametersCompareGroupLayoutVariant();
+
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
@@ -40,6 +43,7 @@ export function TokenSupplyComparisonCard({
           zonesDetailsByKey={selectedZonesDetailsByKey}
           data={data}
           loading={loading}
+          layoutVariant={compareGroupVariant}
         />
       </AnalysisCard.Body>
     </AnalysisCard>

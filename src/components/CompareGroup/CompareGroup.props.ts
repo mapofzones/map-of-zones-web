@@ -1,6 +1,8 @@
 import { NumberType } from 'types/NumberType';
 import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props'; // TODO: common DatasetInfo
 
+export type CompareGroupLayoutVariant = 'columns-3' | 'rows-2' | 'rows-3';
+
 export interface ComparisonGroupItem {
   zone: string;
 }
@@ -20,4 +22,5 @@ export interface VolumeComparisonGroupProps<K> {
   data?: (ComparisonGroupItem & ComparisonGroupValues<K>)[];
   loading: boolean;
   zonesDetailsByKey: Record<string, DatasetInfo>;
+  layoutVariant?: CompareGroupLayoutVariant;
 }

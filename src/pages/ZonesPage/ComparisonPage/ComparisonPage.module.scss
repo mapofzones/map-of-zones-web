@@ -38,7 +38,6 @@
 
   .tokenCard {
     @include gridColumn(1, 2);
-    min-height: 468px;
   }
 
   .ibcVolumeCard {
@@ -59,7 +58,6 @@
 
   .transactionCard {
     @include gridColumn(1, 2);
-    min-height: 468px;
   }
 
   .transfersCard {
@@ -68,7 +66,6 @@
 
   .activeAddresses {
     @include gridColumn(1, 2);
-    min-height: 468px;
   }
 
   .returnedAddresses {
@@ -77,7 +74,9 @@
 
   .uniqueDelegators {
     @include gridColumn(1, 2);
+  }
 
+  .chartCard {
     min-height: 468px;
   }
 }

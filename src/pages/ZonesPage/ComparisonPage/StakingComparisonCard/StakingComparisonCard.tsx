@@ -11,6 +11,7 @@ import {
 import { NumberType } from 'types/NumberType';
 
 import styles from './StakingComparisonCard.module.scss';
+import { useBlockchainParametersCompareGroupLayoutVariant } from '../hooks/useBlockchainParametersCompareGroupLayoutVariant';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 import { StakingComparisonCardProps } from '.';
@@ -30,6 +31,8 @@ export function StakingComparisonCard({ className }: StakingComparisonCardProps)
 
   const { data, isLoading: loading } = useGetTokenSupplyQuery({ zones: selectedZones });
 
+  const compareGroupVariant = useBlockchainParametersCompareGroupLayoutVariant();
+
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
@@ -42,6 +45,7 @@ export function StakingComparisonCard({ className }: StakingComparisonCardProps)
           zonesDetailsByKey={selectedZonesDetailsByKey}
           data={data}
           loading={loading}
+          layoutVariant={compareGroupVariant}
         />
       </AnalysisCard.Body>
     </AnalysisCard>

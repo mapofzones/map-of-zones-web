@@ -6,6 +6,7 @@ import { PeriodKeys } from 'components';
 import { AnalysisCard } from 'components/AnalysisCard';
 import { AnalysisCardActivityHeader } from 'components/AnalysisCardActivityHeader';
 import { CompareGroup, MetadataItem } from 'components/CompareGroup';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 import { NumberType } from 'types/NumberType';
 import { Divider } from 'ui';
 
@@ -43,6 +44,11 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
 
   const { data, loading } = useZonesComprisonActivity(selectedPeriod, selectedZones);
 
+  const isRows2Layout = useMediaQuery('(min-width: 881px) and (max-width: 1440px)');
+  const compareGroupVariant = isRows2Layout ? 'rows-2' : 'columns-3';
+
+  const isHorisontalBody = useMediaQuery('(max-width: 880px)');
+
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCardActivityHeader
@@ -50,30 +56,33 @@ export function ActivityComparisonCard({ className }: ActivityComparisonCardProp
         onPeriodSelected={setSelectedPeriod}
       />
 
-      <AnalysisCard.Body>
+      <AnalysisCard.Body className={styles.cardBody} horizontal={isHorisontalBody}>
         <CompareGroup<VolumeData>
           data={data}
           metadata={VOLUME_METADATA}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
+          layoutVariant={compareGroupVariant}
         />
 
-        <Divider size={24} />
+        <Divider size={24} horizontal={isHorisontalBody} />
 
         <CompareGroup<TransfersData>
           data={data}
           metadata={TRANSFERS_METADATA}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
+          layoutVariant={compareGroupVariant}
         />
 
-        <Divider size={24} />
+        <Divider size={24} horizontal={isHorisontalBody} />
 
         <CompareGroup<DauData>
           data={data}
           metadata={DAU_METADATA}
           zonesDetailsByKey={selectedZonesDetailsByKey}
           loading={loading}
+          layoutVariant={compareGroupVariant}
         />
       </AnalysisCard.Body>
     </AnalysisCard>

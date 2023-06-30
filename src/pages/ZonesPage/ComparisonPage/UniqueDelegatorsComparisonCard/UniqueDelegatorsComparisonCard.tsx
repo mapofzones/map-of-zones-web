@@ -65,8 +65,8 @@ export function UniqueDelegatorsComparisonCard({
             return (
               <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
                 <AnalysisCard.Legend.Item.Title
-                  title={selectedZonesDetailsByKey[item.zone].title}
-                  circleColor={selectedZonesDetailsByKey[item.zone].color}
+                  title={selectedZonesDetailsByKey[item.zone]?.title}
+                  circleColor={selectedZonesDetailsByKey[item.zone]?.color}
                 />
                 <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
                   <AnalysisCard.Legend.Item.ValueNumber

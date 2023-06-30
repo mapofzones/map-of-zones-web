@@ -13,6 +13,7 @@ import { NumberType } from 'types/NumberType';
 
 import styles from './InfrastructureComparisonCard.module.scss';
 import { InfrastructureComparisonCardProps } from './InfrastructureComparisonCard.props';
+import { useBlockchainParametersCompareGroupLayoutVariant } from '../hooks/useBlockchainParametersCompareGroupLayoutVariant';
 import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
 
 type InfrastructureData = Pick<
@@ -32,6 +33,8 @@ export function InfrastructureComparisonCard({
 
   const { data, isLoading: loading } = useGetTokenSupplyQuery({ zones: selectedZones });
 
+  const compareGroupVariant = useBlockchainParametersCompareGroupLayoutVariant();
+
   return (
     <AnalysisCard className={cn(className, styles.container)}>
       <AnalysisCard.Header>
@@ -44,6 +47,7 @@ export function InfrastructureComparisonCard({
           zonesDetailsByKey={selectedZonesDetailsByKey}
           data={data}
           loading={loading}
+          layoutVariant={compareGroupVariant}
         />
       </AnalysisCard.Body>
     </AnalysisCard>
