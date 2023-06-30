@@ -47,7 +47,7 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
-      <AnalysisCard.Header>
+      <AnalysisCard.Header className={styles.cardHeader}>
         <AnalysisCard.Title>IBC Volume</AnalysisCard.Title>
 
         <ButtonGroup

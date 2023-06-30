@@ -70,7 +70,7 @@ export function DailyActiveAddressesComparisonCard({
   );
   return (
     <AnalysisCard className={cn(className, styles.container)}>
-      <AnalysisCard.Header>
+      <AnalysisCard.Header className={styles.cardHeader}>
         <AnalysisCard.Title>Daily Active Addresses</AnalysisCard.Title>
 
         <ButtonGroup

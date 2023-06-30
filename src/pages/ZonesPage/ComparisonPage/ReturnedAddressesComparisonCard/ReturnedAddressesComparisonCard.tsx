@@ -8,7 +8,6 @@ import {
 } from 'components/AnalysisCard';
 import { AnalysisReturnedAddressesChart } from 'components/AnalysisReturnedAddressesChart';
 import { ChartType } from 'types/ChartType';
-import { RETURNED_ADDRESSES_TITLE } from 'types/constants/AnalysisTitles';
 import { ElementSize } from 'types/ElementSize';
 import {
   RETURNED_ADDRESSES_PROPERTIES_OPTIONS,
@@ -48,15 +47,11 @@ export function ReturnedAddressesComparisonCard({
       prevTotalAddresses: isIbc ? item?.ibcPrevTotalAddresses : item?.prevTotalAddresses,
     })) ?? [];
 
-  const legendTitle = isIbc
-    ? `IBC ${RETURNED_ADDRESSES_TITLE}`
-    : `Total ${RETURNED_ADDRESSES_TITLE}`;
-
   const additionalInfo = `% of returning addresses in the last ${selectedPeriod} from the previous ${selectedPeriod}`;
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
-      <AnalysisCard.Header>
+      <AnalysisCard.Header className={styles.cardHeader}>
         <AnalysisCard.Title>Returned Addresses</AnalysisCard.Title>
 
         <ButtonGroup

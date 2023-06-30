@@ -29,7 +29,7 @@ export function ZoneOverview() {
         <ZoneOverviewStakingCard className={cn(styles.card, styles.stakingCard)} />
         <ZoneOverviewInfrastructureCard className={cn(styles.card, styles.infrastructureCard)} />
         <ZoneOverviewTransactions
-          className={cn(styles.card, styles.chartCard, styles.transactionsBlock)}
+          className={cn(styles.card, styles.transactionsBlock, styles.chartCard)}
         />
         <ZoneOverviewIbcTransfers
           className={cn(styles.card, styles.ibcTransfersBlock, styles.chartCard)}

@@ -45,7 +45,7 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
 
   return (
     <AnalysisCard className={cn(className, styles.container)}>
-      <AnalysisCard.Header>
+      <AnalysisCard.Header className={styles.cardHeader}>
         <AnalysisCard.Title>Token</AnalysisCard.Title>
 
         <ButtonGroup
