@@ -41,31 +41,35 @@
   }
 }
 
-@media (max-width: 980px) {
-  .bodyGroup {
-    flex-direction: row;
+@media (max-width: 880px) {
+  .cardBody {
+    flex-direction: column;
 
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--black-900);
-      margin-bottom: 24px;
-    }
+    .bodyGroup {
+      flex-direction: row;
 
-    &:last-child {
-      .valueBlock {
-        margin-bottom: 0;
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--black-900);
+        margin-bottom: 24px;
       }
-    }
 
-    .valueBlock {
-      flex: 1;
-    }
+      &:last-child {
+        .valueBlock {
+          margin-bottom: 0;
+        }
+      }
 
-    &.volumeGroup {
-      flex-direction: column;
-      padding-bottom: 24px;
+      .valueBlock {
+        flex: 1;
+      }
 
-      .ibcVolume {
-        margin-bottom: 20px;
+      &.volumeGroup {
+        flex-direction: column;
+        padding-bottom: 24px;
+
+        .ibcVolume {
+          margin-bottom: 20px;
+        }
       }
     }
   }

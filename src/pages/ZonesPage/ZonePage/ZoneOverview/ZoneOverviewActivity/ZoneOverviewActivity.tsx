@@ -25,13 +25,13 @@ export function ZoneOverviewActivity({ className }: { className?: string }) {
   };
 
   return (
-    <AnalysisCard className={cn(className)}>
+    <AnalysisCard className={className}>
       <AnalysisCardActivityHeader
         selectedPeriod={selectedPeriod}
         onPeriodSelected={onPeriodSelected}
       />
 
-      <AnalysisCard.Body>
+      <AnalysisCard.Body className={styles.cardBody}>
         <AnalysisCard.Body.Group className={cn(styles.bodyGroup, styles.volumeGroup)}>
           <ValueWithPending
             className={cn(styles.valueBlock, styles.ibcVolume)}

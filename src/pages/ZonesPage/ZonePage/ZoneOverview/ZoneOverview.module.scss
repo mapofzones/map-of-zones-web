@@ -1,21 +1,17 @@
+@import 'src/scss/_mixins.scss';
+
 .container {
   --gap: 28px;
+  $columns: 6;
 
   display: grid;
-  grid-template-areas:
-    'overview overview'
-    'token volumes'
-    'parameters parameters'
-    'transactions ibcTransfers'
-    'activeUsers returnedAddresses'
-    'delegates .';
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat($columns, 1fr);
   gap: var(--gap);
   padding: 0 24px 24px;
   overflow: hidden;
 
   .overview {
-    grid-area: overview;
+    grid-column: span $columns;
 
     display: grid;
     gap: var(--gap);
@@ -24,40 +20,47 @@
   }
 
   .tokenBlock {
-    grid-area: token;
-    min-height: 447px;
+    @include gridColumn(1, 2, 1, $columns);
   }
 
   .volumesBlock {
-    grid-area: volumes;
+    @include gridColumn(2, 2, 1, $columns);
   }
 
-  .parametersBlock {
-    grid-area: parameters;
+  .tokenSupplyCard {
+    @include gridColumn(1, 3, 1, $columns);
+  }
+
+  .stakingCard {
+    @include gridColumn(2, 3, 1, $columns);
+  }
+
+  .infrastructureCard {
+    @include gridColumn(3, 3, 1, $columns);
   }
 
   .transactionsBlock {
-    grid-area: transactions;
+    @include gridColumn(1, 2, 1, $columns);
   }
 
   .ibcTransfersBlock {
-    grid-area: ibcTransfers;
+    @include gridColumn(2, 2, 1, $columns);
   }
 
   .activeUsersBlock {
-    grid-area: activeUsers;
+    @include gridColumn(1, 2, 1, $columns);
   }
 
   .returnedAddressesBlock {
-    grid-area: returnedAddresses;
+    @include gridColumn(2, 2, 1, $columns);
   }
 
   .delegatesBlock {
-    grid-area: delegates;
+    @include gridColumn(1, 2, 1, $columns);
   }
 
   .delegationsBlock {
-    grid-area: delegations;
+    @include gridColumn(2, 2, 1, $columns);
   }
 
   .chartCard {
@@ -68,27 +71,27 @@
 @media (min-width: 980px) and (max-width: 1280px) {
   .container {
     .overview {
-      grid-template-columns: 1fr calc((100% - var(--gap) * 2) / 3);
+      $overviewColumns: 3;
+      grid-template-columns: repeat($overviewColumns, 1fr);
+
+      .activityBlock {
+        @include gridColumn(1, 3, 2, $overviewColumns);
+      }
+
+      .interchainBlock {
+        @include gridColumn(3, 3, 1, $overviewColumns);
+      }
     }
   }
 }
 
 @media (max-width: 980px) {
   .container {
-    display: grid;
-    grid-template-areas:
-      'overview'
-      'token'
-      'volumes'
-      'parameters'
-      'transactions'
-      'ibcTransfers'
-      'activeUsers'
-      'returnedAddresses'
-      'delegates'
-      'delegations';
-    grid-template-columns: 1fr;
     gap: 25px;
+
+    .card {
+      grid-column: span 6;
+    }
 
     .overview {
       grid-auto-flow: row;

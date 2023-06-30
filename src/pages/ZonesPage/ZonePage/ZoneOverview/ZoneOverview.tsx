@@ -23,18 +23,26 @@ export function ZoneOverview() {
           <ZoneOverviewActivity className={styles.activityBlock} />
           <ZoneOverviewInterchain className={styles.interchainBlock} />
         </div>
-        <ZoneOverviewToken className={styles.tokenBlock} />
-        <ZoneOverviewIbcVolume className={cn(styles.volumesBlock, styles.chartCard)} />
-        <ZoneOverviewTokenSupplyCard className={styles.tokenSupplyCard} />
-        <ZoneOverviewStakingCard className={styles.stakingCard} />
-        <ZoneOverviewInfrastructureCard className={styles.infrastructureCard} />
-        <ZoneOverviewTransactions className={cn(styles.chartCard, styles.transactionsBlock)} />
-        <ZoneOverviewIbcTransfers className={cn(styles.ibcTransfersBlock, styles.chartCard)} />
-        <ZoneOverviewActiveUsers className={cn(styles.activeUsersBlock, styles.chartCard)} />
-        <ZoneOverviewReturnedAddresses
-          className={cn(styles.returnedAddressesBlock, styles.chartCard)}
+        <ZoneOverviewToken className={cn(styles.card, styles.tokenBlock, styles.chartCard)} />
+        <ZoneOverviewIbcVolume className={cn(styles.card, styles.volumesBlock, styles.chartCard)} />
+        <ZoneOverviewTokenSupplyCard className={cn(styles.card, styles.tokenSupplyCard)} />
+        <ZoneOverviewStakingCard className={cn(styles.card, styles.stakingCard)} />
+        <ZoneOverviewInfrastructureCard className={cn(styles.card, styles.infrastructureCard)} />
+        <ZoneOverviewTransactions
+          className={cn(styles.card, styles.chartCard, styles.transactionsBlock)}
         />
-        <ZoneOverviewUniqueDelegates className={cn(styles.delegatesBlock, styles.chartCard)} />
+        <ZoneOverviewIbcTransfers
+          className={cn(styles.card, styles.ibcTransfersBlock, styles.chartCard)}
+        />
+        <ZoneOverviewActiveUsers
+          className={cn(styles.card, styles.activeUsersBlock, styles.chartCard)}
+        />
+        <ZoneOverviewReturnedAddresses
+          className={cn(styles.card, styles.returnedAddressesBlock, styles.chartCard)}
+        />
+        <ZoneOverviewUniqueDelegates
+          className={cn(styles.card, styles.delegatesBlock, styles.chartCard)}
+        />
       </div>
     </OverviewTokenContextProvider>
   );

@@ -1,8 +1,4 @@
-@mixin gridColumn($startColumn, $totalColumns, $columns: 1, $gridSize: 12) {
-  $step: calc($gridSize / $totalColumns) * $columns;
-  grid-column-start: ($startColumn - 1) * $step + 1;
-  grid-column-end: $startColumn * $step + 1;
-}
+@import 'scss/_mixins.scss';
 
 .container {
   --gap: 28px;
