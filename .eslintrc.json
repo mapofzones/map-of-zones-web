@@ -18,6 +18,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
+    "plugin:storybook/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -76,7 +77,11 @@
     ],
     "sort-exports/sort-exports": [
       "error",
-      { "sortDir": "asc", "ignoreCase": true, "sortExportKindFirst": "type" }
+      {
+        "sortDir": "asc",
+        "ignoreCase": true,
+        "sortExportKindFirst": "type"
+      }
     ]
   },
   "overrides": [
@@ -86,7 +91,12 @@
       "plugins": ["@graphql-eslint"],
       "rules": {
         "@graphql-eslint/no-duplicate-fields": "error",
-        "@graphql-eslint/match-document-filename": ["warn", { "fileExtension": ".graphql" }]
+        "@graphql-eslint/match-document-filename": [
+          "warn",
+          {
+            "fileExtension": ".graphql"
+          }
+        ]
       }
     }
   ]
