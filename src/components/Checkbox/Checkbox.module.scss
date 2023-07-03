@@ -1,0 +1,55 @@
+.label {
+  // width: 16px;
+  // height: 16px;
+  // background-color: red;
+  // border: 1px solid green;
+  // border-radius: 1.5px;
+
+  input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 1.5px;
+    // margin-right: 0.5em;
+    background-color: var(--blach-400);
+    border: 1px solid var(--grey-300);
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      border-width: 2px;
+    }
+
+    &:checked {
+      background-color: var(--white);
+      border-color: var(--white);
+      position: relative;
+
+      &:hover {
+        border-width: 1px;
+      }
+
+      &::before {
+        content: url('../../../src/assets/icons/checkbox-check-mark.svg');
+        position: absolute;
+        left: -1px;
+        top: -1px;
+        transition: all 0.2s;
+      }
+    }
+
+    &:disabled {
+      border-color: var(--grey-100);
+      border-width: 2px;
+    }
+
+    &:focus {
+      box-shadow: 0 0 10px var(--grey-100);
+    }
+  }
+
+  // &.selected {
+  //   background-color: green;
+  // }
+}
