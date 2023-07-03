@@ -1,7 +1,8 @@
 .header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   margin: 24px 24px 16px;
+  gap: 16px;
 
   .titleContainer {
     display: flex;
@@ -23,5 +24,9 @@
       color: var(--grey-500);
       font-size: var(--font-base-size-md);
     }
+  }
+
+  .periodSelector {
+    margin-left: auto;
   }
 }

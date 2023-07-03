@@ -3,6 +3,8 @@ import cn from 'classnames';
 import { PeriodSelector } from 'components';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
+import { CompareButton } from 'pages/ZonesPage/ComparisonPage/CompareButton';
+import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
 import { SkeletonRectangle } from 'ui';
 
 import styles from './ZonesPageTitle.module.scss';
@@ -14,6 +16,8 @@ export function ZonesPageTitle() {
   const isSmallTablet = useTabletSmallMediaQuery();
 
   const { data: zonesCountData, loading: zonesCountLoading } = useZonesCount(selectedPeriod);
+
+  const { switchCompareMode } = useZonesPageComparisonModeActionsCreator();
 
   return (
     <div className={styles.header}>
@@ -32,7 +36,9 @@ export function ZonesPageTitle() {
         </div>
       )}
 
-      <PeriodSelector useDropdown={isSmallTablet} />
+      <CompareButton onClick={() => switchCompareMode()} />
+
+      <PeriodSelector className={styles.periodSelector} useDropdown={isSmallTablet} />
     </div>
   );
 }
