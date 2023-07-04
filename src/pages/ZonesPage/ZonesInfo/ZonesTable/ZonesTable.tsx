@@ -2,6 +2,8 @@ import { Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { useSortedTableData } from 'hooks/useSortedTableData';
+import { useAppSelector } from 'store/hooks';
+import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
 
 import { TableRow } from './TableRow/TableRow';
 import { ColumnKeys, getTableHeaderConfigByPeriod, SORTING_COLUMN_KEYS } from './Types';
@@ -23,6 +25,11 @@ export function ZonesTable() {
 
   const tableHeaderConfig = getTableHeaderConfigByPeriod(selectedPeriod);
 
+  const { isComparison, zones } = useAppSelector((state) => state.zonesPageComparisonMode);
+  const { addZoneToCompare, removeZoneFromCompare } = useZonesPageComparisonModeActionsCreator();
+
+  console.log(zones.length);
+
   return (
     <div className={styles.container}>
       {!zonesLoading && (
@@ -38,6 +45,16 @@ export function ZonesTable() {
               index={index}
               selectedColumnKey={selectedColumnKey}
               zone={zone}
+              isCompareMode={isComparison}
+              checked={zones.includes(zone.zone)}
+              disabledCheckbox={zones.length >= 3 && !zones.includes(zone.zone)}
+              onCheckedChange={(value) => {
+                if (value) {
+                  addZoneToCompare(zone.zone);
+                } else {
+                  removeZoneFromCompare(zone.zone);
+                }
+              }}
             />
           ))}
         </Table>

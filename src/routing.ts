@@ -37,6 +37,10 @@ export const getZonesOverviewPath = (zonePart: string = zoneWithParamPath) => {
   return `${zonesPath}/${zonePart}/${overviewPath}`;
 };
 
+export const getZonesComparisonPath = () => {
+  return `${zonesPath}/${zonesComparison}`;
+};
+
 export const getZonesPeersPath = (zonePart: string = zoneWithParamPath) => {
   return `${zonesPath}/${zonePart}/${peersPath}`;
 };

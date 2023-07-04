@@ -11,12 +11,18 @@ export function Checkbox({
   children,
   disabled,
 }: CheckboxProps): JSX.Element {
+  const handleOnChange = () => {
+    if (disabled) return;
+
+    onCheckedChange?.(!checked);
+  };
+
   return (
     <label className={cn(styles.label, className)}>
       <input
         id="checkbox"
         checked={checked}
-        onChange={() => onCheckedChange?.(!checked)}
+        onChange={handleOnChange}
         type="checkbox"
         disabled={disabled}
       />

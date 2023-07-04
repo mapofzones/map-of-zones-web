@@ -8,12 +8,23 @@ export const useZonesPageComparisonModeActionsCreator = () =>
 export const zonesPageComparisonModeSlice = createSlice({
   name: 'zonesPageComparisonMode',
   initialState: {
-    zones: [],
+    zones: [] as string[],
     isComparison: false,
   },
   reducers: {
     addZoneToCompare: (state, action) => {
-      console.log(state);
+      if (state.zones.length >= 3) return;
+
+      state.zones.push(action.payload);
+    },
+    removeZoneFromCompare: (state, action) => {
+      const index = state.zones.findIndex((item) => item === action.payload);
+      if (index > -1) {
+        state.zones.splice(index, 1);
+      }
+    },
+    resetZones: (state, action) => {
+      state.zones = [];
     },
     switchCompareMode: (state, action) => {
       state.isComparison = !state.isComparison;

@@ -1,11 +1,15 @@
+import { useState } from 'react';
+
 import cn from 'classnames';
 
 import { PeriodSelector } from 'components';
+import { Checkbox } from 'components/Checkbox';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { CompareButton } from 'pages/ZonesPage/ComparisonPage/CompareButton';
+import { useAppSelector } from 'store/hooks';
 import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
-import { SkeletonRectangle } from 'ui';
+import { Button, ButtonSize, ButtonVariant, SkeletonRectangle } from 'ui';
 
 import styles from './ZonesPageTitle.module.scss';
 import { useZonesCount } from '../ZonesTable/useZonesCount';
@@ -17,7 +21,8 @@ export function ZonesPageTitle() {
 
   const { data: zonesCountData, loading: zonesCountLoading } = useZonesCount(selectedPeriod);
 
-  const { switchCompareMode } = useZonesPageComparisonModeActionsCreator();
+  const { isComparison } = useAppSelector((state) => state.zonesPageComparisonMode);
+  const { switchCompareMode, resetZones } = useZonesPageComparisonModeActionsCreator();
 
   return (
     <div className={styles.header}>
@@ -36,7 +41,19 @@ export function ZonesPageTitle() {
         </div>
       )}
 
-      <CompareButton onClick={() => switchCompareMode()} />
+      {!isComparison && <CompareButton onClick={() => switchCompareMode()} />}
+      {isComparison && (
+        <Button
+          variant={ButtonVariant.PRIMARY}
+          size={ButtonSize.LARGE}
+          onClick={() => {
+            switchCompareMode();
+            resetZones();
+          }}
+        >
+          Cancel
+        </Button>
+      )}
 
       <PeriodSelector className={styles.periodSelector} useDropdown={isSmallTablet} />
     </div>

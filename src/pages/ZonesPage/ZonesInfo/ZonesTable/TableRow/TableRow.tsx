@@ -7,6 +7,7 @@ import {
   ZoneStatus,
   TableRowItem,
 } from 'components';
+import { Checkbox } from 'components/Checkbox';
 import { overviewPath } from 'routing';
 import { NumberType } from 'types/NumberType';
 import { LineChart } from 'ui';
@@ -30,19 +31,28 @@ export function TableRow({
   isTableHorizontalScrollable,
   selectedColumnKey,
   zone,
+  isCompareMode = false,
+  disabledCheckbox,
+  checked,
+  onCheckedChange,
 }: TableRowProps) {
   const navigate = useNavigate();
 
   const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
 
   const onClick = () => {
-    navigate(`${zone.zone}/${overviewPath}`);
+    if (!isCompareMode) {
+      navigate(`${zone.zone}/${overviewPath}`);
+    } else {
+      onCheckedChange(!checked);
+    }
   };
 
   return (
     <tr className={styles.container} onClick={onClick}>
       <TableRowItem isSticky={isTableHorizontalScrollable}>
-        <span className={styles.position}>{index + 1}</span>
+        {!isCompareMode && <span className={styles.position}>{index + 1}</span>}
+        {isCompareMode && <Checkbox checked={checked} disabled={disabledCheckbox} />}
       </TableRowItem>
 
       <TableRowItem isSticky={isTableHorizontalScrollable} withBorder={isTableHorizontalScrollable}>
