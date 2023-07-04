@@ -3,13 +3,36 @@
   bottom: 0;
   z-index: 10000;
   background: var(--black-600);
-  display: flex;
-  align-items: center;
   height: 60px;
   width: 100%;
 
+  .content {
+    display: flex;
+    align-items: center;
+    max-width: var(--max-page-width);
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding-left: 24px;
+  }
+
   .defaultTitle {
     margin-left: 8px;
-    margin-right: 12px;
+  }
+
+  .compareBtn {
+    background-color: var(--grey-1100);
+    color: var(--black-100);
+    font-weight: 600;
+  }
+
+  .cancelBtn {
+    background-color: var(--black-900);
+    color: var(--white);
+    margin-left: 12px;
+
+    svg {
+      stroke: var(--white);
+    }
   }
 }

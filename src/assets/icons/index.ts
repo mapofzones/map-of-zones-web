@@ -25,6 +25,7 @@ export { ReactComponent as ScrollUpIcon } from './scroll-up.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
 export { ReactComponent as TgLogo } from './tg-logo.svg';
 export { ReactComponent as TickIcon } from './tick.svg';
+export { ReactComponent as TrashIcon } from './trash.svg';
 export { ReactComponent as TwitterLogo } from './twitter-logo.svg';
 export { ReactComponent as ZoomIn } from './zoom-in.svg';
 export { ReactComponent as ZoomOut } from './zoom-out.svg';
