@@ -13,6 +13,7 @@ export { ReactComponent as GithubLogo } from './github-logo.svg';
 export { ReactComponent as GlobalSearchIcon } from './global-search.svg';
 export { ReactComponent as Icon2d } from './2d.svg';
 export { ReactComponent as Icon3d } from './3d.svg';
+export { ReactComponent as InfoDarkIcon } from './info-dark.svg';
 export { ReactComponent as InfoIcon } from './info.svg';
 export { ReactComponent as Logo } from './logo.svg';
 export { ReactComponent as MaintenanceIcon } from './maintenance.svg';
