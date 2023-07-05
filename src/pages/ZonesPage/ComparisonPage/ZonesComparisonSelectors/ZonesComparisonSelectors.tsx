@@ -3,11 +3,10 @@ import cn from 'classnames';
 import { AddToCompareButton } from 'components/AddToCompareButton';
 import { ZonesSelectorWrapper } from 'components/ZonesSelector/ZonesSelectorWrapper';
 import { useZonesData } from 'hooks/queries/useZonesData';
-import { useSelectedComparisonZonesActionsCreator } from 'store/selectedComparisonZones.slice';
 
 import { ComparisonZoneSelector } from './ComparisonZoneSelector';
 import styles from './ZonesComparisonSelectors.module.scss';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { ZonesComparisonSelectorsProps } from '.';
 
@@ -19,12 +18,10 @@ export function ZonesComparisonSelectors({
 }: ZonesComparisonSelectorsProps): JSX.Element {
   const { data: zonesList, loading } = useZonesData();
 
-  const { selectedZones } = useSelectedZonesDetails();
-
-  const { selectZone, deleteZone } = useSelectedComparisonZonesActionsCreator();
+  const { selectedZones, selectZone, deleteZone } = useComparisonSelectedZones();
 
   const onZoneSelected = (zone: string, index: number) => {
-    selectZone({ zone, index });
+    selectZone(zone, index);
   };
 
   const onZoneDelete = (zone: string) => {

@@ -19,7 +19,7 @@ import { ButtonGroup, SkeletonTextWrapper } from 'ui';
 import styles from './ReturnedAddressesComparisonCard.module.scss';
 import { useZonesReturnedAddressesComparison } from './useZonesReturnedAddressesComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { TokenComparisonCardProps as ReturnedAddressesComparisonCardProps } from '.';
 
@@ -35,7 +35,7 @@ export function ReturnedAddressesComparisonCard({
       ChartType
     >('total', PeriodKeys.DAY, ChartType.BAR);
 
-  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, loading } = useZonesReturnedAddressesComparison(selectedZones, selectedPeriod);
 

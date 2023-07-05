@@ -8,7 +8,7 @@ import { NumberType } from 'types/NumberType';
 
 import styles from './TokenSupplyComparisonCard.module.scss';
 import { useBlockchainParametersCompareGroupLayoutVariant } from '../hooks/useBlockchainParametersCompareGroupLayoutVariant';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { TokenSupplyComparisonCardProps } from '.';
 
@@ -25,7 +25,7 @@ const TOKEN_SUPPLY_METADATA: Record<keyof TokenSupplyData, MetadataItem> = {
 export function TokenSupplyComparisonCard({
   className,
 }: TokenSupplyComparisonCardProps): JSX.Element {
-  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, isLoading: loading } = useGetTokenSupplyQuery({ zones: selectedZones });
 

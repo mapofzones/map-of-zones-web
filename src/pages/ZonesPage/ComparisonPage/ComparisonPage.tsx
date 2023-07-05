@@ -7,8 +7,8 @@ import { IbcTransfersComparisonCard } from './IbcTransfersComparisonCard';
 import { IbcVolumeComparisonCard } from './IbcVolumeComparisonCard';
 import { InfrastructureComparisonCard } from './InfrastructureComparisonCard';
 import { InterchainComparisonCard } from './InterchainComparisonCard';
+import { ComparisonSelectedZonesProvider } from './providers/ComparisonSelectedZonesProvider';
 import { ReturnedAddressesComparisonCard } from './ReturnedAddressesComparisonCard';
-import { SelectedZonesSyncWithSearchParams } from './SelectedZonesSyncWithSearchParams';
 import { StakingComparisonCard } from './StakingComparisonCard';
 import { TokenComparisonCard } from './TokenComparisonCard';
 import { TokenSupplyComparisonCard } from './TokenSupplyComparisonCard';
@@ -20,7 +20,7 @@ import { ComparisonPageProps } from '.';
 
 export function ComparisonPage({ className, ...props }: ComparisonPageProps): JSX.Element {
   return (
-    <SelectedZonesSyncWithSearchParams>
+    <ComparisonSelectedZonesProvider>
       <div className={cn(className, styles.container)} {...props}>
         <div className={styles.header}>
           <div className={styles.title}>Comparison</div>
@@ -43,6 +43,6 @@ export function ComparisonPage({ className, ...props }: ComparisonPageProps): JS
         />
         <UniqueDelegatorsComparisonCard className={cn(styles.uniqueDelegators, styles.chartCard)} />
       </div>
-    </SelectedZonesSyncWithSearchParams>
+    </ComparisonSelectedZonesProvider>
   );
 }

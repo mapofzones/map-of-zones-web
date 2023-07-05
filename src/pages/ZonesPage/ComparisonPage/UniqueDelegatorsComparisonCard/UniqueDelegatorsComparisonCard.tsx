@@ -19,7 +19,7 @@ import styles from './UniqueDelegatorsComparisonCard.module.scss';
 import { UniqueDelegatorsComparisonCardProps } from './UniqueDelegatorsComparisonCard.props';
 import { ZoneUniqueDelegatorsComparisonData } from './useUniqueDelegatorsComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 const PERIODS: AnalysisCardPeriod[] = ['1w', '1m'];
 
@@ -35,7 +35,7 @@ export function UniqueDelegatorsComparisonCard({
       ChartType.AREA
     );
 
-  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, isLoading: loading } = useGetUniqueDelegatorsComparisonQuery(
     {

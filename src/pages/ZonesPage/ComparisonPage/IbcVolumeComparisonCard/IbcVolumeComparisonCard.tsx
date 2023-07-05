@@ -16,7 +16,7 @@ import { ButtonGroupItem } from 'ui/ButtonGroup/ButtonGroup.props';
 import styles from './IbcVolumeComparisonCard.module.scss';
 import { useZonesIbcVolumeComparison } from './useZonesIbcVolumeComparison';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { IbcVolumeComparisonCardProps, IbcVolumeProperties } from '.';
 
@@ -41,7 +41,7 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
     ChartType.AREA
   );
 
-  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, charts, loading } = useZonesIbcVolumeComparison(selectedZones, selectedPeriod);
 

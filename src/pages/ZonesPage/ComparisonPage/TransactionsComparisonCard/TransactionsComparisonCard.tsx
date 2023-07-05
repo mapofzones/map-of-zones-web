@@ -16,7 +16,7 @@ import { SkeletonTextWrapper } from 'ui';
 
 import styles from './TransactionsComparisonCard.module.scss';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { TransactionsComparisonCardProps } from '.';
 
@@ -34,7 +34,7 @@ export function TransactionsComparisonCard({
       ChartType.AREA
     );
 
-  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, isLoading: loading } = useGetTransactionsChartQuery(
     {

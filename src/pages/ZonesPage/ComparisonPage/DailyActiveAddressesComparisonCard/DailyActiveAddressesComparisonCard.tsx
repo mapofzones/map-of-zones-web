@@ -24,7 +24,7 @@ import {
   DailyActiveAddressesProperties,
 } from './DailyActiveAddressesComparisonCard.props';
 import { useComparisonChartCardSelectedParameters } from '../hooks/useComparisonChartCardSelectedParameters';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 const DAILY_ACTIVE_ADDRESSES_CARD_OPTIONS: ButtonGroupItem<DailyActiveAddressesProperties>[] = [
   { key: 'activeAddressesCount', title: 'Active Addresses' },
@@ -59,7 +59,7 @@ export function DailyActiveAddressesComparisonCard({
     ChartType
   >('activeAddressesCount', '1w', ChartType.AREA);
 
-  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, isLoading: loading } = useGetActiveAddressesCountChartQuery(
     {

@@ -12,7 +12,7 @@ import { NumberType } from 'types/NumberType';
 
 import styles from './StakingComparisonCard.module.scss';
 import { useBlockchainParametersCompareGroupLayoutVariant } from '../hooks/useBlockchainParametersCompareGroupLayoutVariant';
-import { useSelectedZonesDetails } from '../hooks/useSelectedZonesDetails';
+import { useComparisonSelectedZones } from '../providers/ComparisonSelectedZonesProvider';
 
 import { StakingComparisonCardProps } from '.';
 
@@ -27,7 +27,7 @@ const STAKING_METADATA: Record<keyof StakingData, MetadataItem> = {
 };
 
 export function StakingComparisonCard({ className }: StakingComparisonCardProps): JSX.Element {
-  const { selectedZones, selectedZonesDetailsByKey } = useSelectedZonesDetails();
+  const { selectedZones, selectedZonesDetailsByKey } = useComparisonSelectedZones();
 
   const { data, isLoading: loading } = useGetTokenSupplyQuery({ zones: selectedZones });
 
