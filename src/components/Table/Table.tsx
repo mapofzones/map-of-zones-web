@@ -3,6 +3,7 @@ import React, { ReactNode, useRef } from 'react';
 import cn from 'classnames';
 
 import { useLaptopLargeMediaQuery } from 'hooks/useMediaQuery';
+import { ZonesTableMetadataProvider } from 'pages/ZonesPage/ZonesInfo/ZonesTable/ZonesTableMetadataProvider';
 
 import styles from './Table.module.scss';
 import { TableProps } from './Table.props';
@@ -11,10 +12,28 @@ import { TableHeader } from './TableHeader/TableHeader';
 export function Table<T extends string>({
   children,
   className,
-  headerConfig,
+  headerMetadata,
   selectedColumnKey,
   setSelectedColumnKey,
+  isComparisonMode = false,
+  isCheckedFunc,
+  onCheckedChange,
 }: TableProps<T>) {
+  return (
+    <ZonesTableMetadataProvider
+      headerMetadata={headerMetadata}
+      selectedColumnKey={selectedColumnKey}
+      setSelectedColumnKey={setSelectedColumnKey}
+      isComparisonMode={isComparisonMode}
+      isCheckedFunc={isCheckedFunc}
+      onCheckedChange={onCheckedChange}
+    >
+      <TableContentMemo className={className}>{children}</TableContentMemo>
+    </ZonesTableMetadataProvider>
+  );
+}
+
+export function TableContent({ children, className }: { children: ReactNode; className?: string }) {
   const tableRef = useRef<HTMLTableElement>(null);
 
   const isTableHorizontalScrollable = useLaptopLargeMediaQuery();
@@ -28,11 +47,7 @@ export function Table<T extends string>({
       )}
     >
       <table className={styles.table} ref={tableRef}>
-        <TableHeader
-          config={headerConfig}
-          selectedColumnKey={selectedColumnKey}
-          setSelectedColumnKey={setSelectedColumnKey}
-        />
+        <TableHeader />
 
         <tbody>
           {children &&
@@ -50,3 +65,5 @@ export function Table<T extends string>({
     </div>
   );
 }
+
+export const TableContentMemo = React.memo(TableContent) as typeof TableContent;

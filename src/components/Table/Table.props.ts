@@ -1,12 +1,10 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
-import { ConfigItem } from './TableHeader/TableHeader.props';
+import { IZonesTableMetadata } from 'pages/ZonesPage/ZonesInfo/ZonesTable/ZonesTableMetadataProvider';
 
 export interface TableProps<T extends string>
-  extends DetailedHTMLProps<HTMLAttributes<HTMLTableElement>, HTMLTableElement> {
+  extends IZonesTableMetadata<T>,
+    DetailedHTMLProps<HTMLAttributes<HTMLTableElement>, HTMLTableElement> {
   children: ReactNode;
   className?: string;
-  headerConfig: ConfigItem<T>[];
-  selectedColumnKey: T;
-  setSelectedColumnKey: (value: T) => void;
 }

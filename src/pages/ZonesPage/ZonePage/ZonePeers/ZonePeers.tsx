@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -50,6 +50,13 @@ export function ZonePeers() {
 
   const headerConfig = getTableHeaderConfig(parentZoneData);
 
+  const onSelectedColumnKey = useCallback(
+    (value: string) => {
+      return setSelectedColumnKey(value as ColumnKeys);
+    },
+    [setSelectedColumnKey]
+  );
+
   return (
     <div className={styles.container}>
       <PeriodSelector className={styles.periodContainer} useDropdown={isTabletSmall} />
@@ -57,9 +64,9 @@ export function ZonePeers() {
       {!!parentZoneData && !parentZoneDataLoading && !peersLoading && (
         <Table
           className={styles.table}
-          headerConfig={headerConfig}
+          headerMetadata={headerConfig}
           selectedColumnKey={selectedColumnKey}
-          setSelectedColumnKey={setSelectedColumnKey}
+          setSelectedColumnKey={onSelectedColumnKey}
         >
           {sortedPeers.map((zone) => (
             <TableRow

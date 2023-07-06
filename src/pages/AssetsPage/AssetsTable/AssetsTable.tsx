@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
 import { useSortedTableData } from 'hooks/useSortedTableData';
@@ -28,7 +26,7 @@ export function AssetsTable() {
       {!loading && (
         <Table
           className={styles.table}
-          headerConfig={TABLE_HEADER_CONFIG}
+          headerMetadata={TABLE_HEADER_CONFIG}
           selectedColumnKey={selectedColumnKey}
           setSelectedColumnKey={setSelectedColumnKey}
         >

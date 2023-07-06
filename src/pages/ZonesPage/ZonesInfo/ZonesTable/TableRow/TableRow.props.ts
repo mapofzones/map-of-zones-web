@@ -12,10 +12,6 @@ export interface TableRowProps
   isTableHorizontalScrollable?: boolean;
   selectedColumnKey: ColumnKeys;
   zone: ZoneData;
-  isCompareMode: boolean;
-  checked: boolean;
-  onCheckedChange: (value: boolean) => void;
-  disabledCheckbox?: boolean;
 }
 
 export interface ZoneData extends ZoneBase {

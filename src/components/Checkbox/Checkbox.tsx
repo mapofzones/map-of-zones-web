@@ -1,3 +1,5 @@
+import { MouseEvent } from 'react';
+
 import cn from 'classnames';
 
 import styles from './Checkbox.module.scss';
@@ -17,12 +19,17 @@ export function Checkbox({
     onCheckedChange?.(!checked);
   };
 
+  const onClick = (e: MouseEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <label className={cn(styles.label, className)}>
       <input
         id="checkbox"
         checked={checked}
         onChange={handleOnChange}
+        onClick={onClick}
         type="checkbox"
         disabled={disabled}
       />
