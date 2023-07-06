@@ -167,6 +167,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
       >
         <GlobalSearchInput
           autoFocus
+          showCompareSwitcher
           onSearchChange={onSearchChange}
           onCancel={onModalCloseInternal}
           onKeyDown={handleArrowKeys}

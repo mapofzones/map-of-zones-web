@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import { SearchIcon } from 'assets/icons';
+import { CompareModeSwitcher } from 'components/CompareModeSwitcher';
 import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { Search } from 'ui';
 
@@ -10,6 +11,7 @@ import { GlobalSearchInputProps } from '.';
 
 export function GlobalSearchInput({
   className,
+  showCompareSwitcher = false,
   onCancel,
   onClick,
   ...props
@@ -25,6 +27,9 @@ export function GlobalSearchInput({
         showIcon={false}
         {...props}
       />
+
+      {showCompareSwitcher && <CompareModeSwitcher />}
+
       {isTablet && (
         <div className={styles.cancelBtn} onClick={onCancel}>
           Cancel
