@@ -110,7 +110,7 @@
     "react-force-graph-2d": "^1.23.10",
     "sass": "^1.52.3",
     "stream-browserify": "^3.0.0",
-    "stylelint": "^14.9.1",
+    "stylelint": "^15.10.1",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-sass-guidelines": "^9.0.1",
