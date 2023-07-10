@@ -1,4 +1,3 @@
-import { ComparisonZonesFooter } from 'components/ComparisonZonesFooter';
 import { ScrollUpButton } from 'ui';
 
 import { ZonesPageTitle } from './ZonesPageTitle/ZonesPageTitle';
@@ -15,8 +14,6 @@ export function ZonesInfo() {
       <ZonesTable />
 
       <ScrollUpButton />
-
-      <ComparisonZonesFooter />
     </>
   );
 }

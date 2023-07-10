@@ -10,7 +10,7 @@ import styles from './ComparisonZonesFooter.module.scss';
 
 export function ComparisonZonesFooter(): JSX.Element {
   const { isComparison, zones } = useAppSelector((state) => state.zonesPageComparisonMode);
-  const { resetZones } = useZonesPageComparisonModeActionsCreator();
+  const { resetZones, resetState } = useZonesPageComparisonModeActionsCreator();
 
   const onClearClick = () => {
     resetZones();
@@ -27,6 +27,7 @@ export function ComparisonZonesFooter(): JSX.Element {
         replace: true,
       }
     );
+    resetState();
   };
 
   if (!isComparison) return <></>;

@@ -11,7 +11,7 @@
   border-radius: 5px;
 
   .itemsContainer {
-    height: 100%;
+    height: calc(100% - 60px);
     max-height: 90vh;
   }
 }

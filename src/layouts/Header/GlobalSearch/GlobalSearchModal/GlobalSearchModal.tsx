@@ -48,7 +48,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
         maxHeight: 0,
       });
       await animationControls.start({
-        maxHeight: '90vh',
+        maxHeight: '85vh',
         transition: {
           duration: 0.5,
           delay: 0.3,
