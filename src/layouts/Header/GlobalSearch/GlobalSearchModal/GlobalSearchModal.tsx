@@ -1,7 +1,7 @@
 import { KeyboardEvent, useCallback, useEffect, useState } from 'react';
 
 import { motion, useAnimation } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ZoneLinkItemsWithSearch } from 'components';
 import { useGlobalSearchItemSelectedAnalytics } from 'hooks/analytics/Multipage/useGlobalSearchItemSelectedAnalytics';
@@ -66,6 +66,11 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     setActiveItem(getDefaultActiveItem());
     onModalClose?.();
   };
+
+  const location = useLocation();
+  useEffect(() => {
+    onModalCloseInternal();
+  }, [location]);
 
   const trackSelectedGlobalSearchItem = useGlobalSearchItemSelectedAnalytics();
   const onItemClick = (zone: string) => {
