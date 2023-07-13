@@ -1,11 +1,17 @@
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { matchPath, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
+import { CompareButton } from 'components/CompareButton';
 import { ZonesSelector } from 'components/ZonesSelector/ZonesSelector';
+import { ZonesSelectorWrapper } from 'components/ZonesSelector/ZonesSelectorWrapper';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useZonesData } from 'hooks/queries/useZonesData';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
-import { getZonesOverviewPath } from 'routing';
+import {
+  getZonesComparisonPath,
+  getZonesComparisonSearchPath,
+  getZonesOverviewPath,
+} from 'routing';
 import { ExternalLink, SkeletonTextWrapper } from 'ui';
 
 import { useZonesListZoneDetails } from './useZonesListZoneDetails';
@@ -14,6 +20,10 @@ import styles from './ZonePage.module.scss';
 
 export function ZonePage() {
   const isTabletMedium = useTabletMediumMediaQuery();
+
+  const location = useLocation();
+  const matchResult = matchPath({ path: getZonesOverviewPath() }, location.pathname);
+  const showCompareButton = !!matchResult;
 
   const { zone = '' } = useParams();
   const { data, loading } = useZonesListZoneDetails(zone);
@@ -25,6 +35,10 @@ export function ZonePage() {
   const navigate = useNavigate();
   function onZonesSelected(zone: string) {
     navigate(`/${getZonesOverviewPath(zone)}`);
+  }
+
+  function onZonesToCompareSelected(zoneToCompare: string) {
+    navigate(`/${getZonesComparisonPath()}${getZonesComparisonSearchPath([zone, zoneToCompare])}`);
   }
 
   return (
@@ -84,6 +98,16 @@ export function ZonePage() {
           peersCount={data?.peersCount}
           useSmallView={isTabletMedium}
         />
+
+        {showCompareButton && (
+          <ZonesSelectorWrapper
+            modalPosition="right"
+            zonesList={zonesList}
+            onZoneSelected={onZonesToCompareSelected}
+          >
+            <CompareButton />
+          </ZonesSelectorWrapper>
+        )}
       </div>
 
       <Outlet />

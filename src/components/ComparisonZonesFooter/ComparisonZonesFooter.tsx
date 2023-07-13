@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { InfoDarkIcon, TrashIcon } from 'assets/icons';
-import { getZonesComparisonPath } from 'routing';
+import { getZonesComparisonPath, getZonesComparisonSearchPath } from 'routing';
 import { useAppSelector } from 'store/hooks';
 import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
 import { Button, ButtonSize, ButtonVariant, Portal } from 'ui';
@@ -21,7 +21,7 @@ export function ComparisonZonesFooter(): JSX.Element {
     navigate(
       {
         pathname: `/${getZonesComparisonPath()}`,
-        search: '?' + zones.map((zone) => `zones=${zone}`).join('&'),
+        search: getZonesComparisonSearchPath(zones),
       },
       {
         replace: true,

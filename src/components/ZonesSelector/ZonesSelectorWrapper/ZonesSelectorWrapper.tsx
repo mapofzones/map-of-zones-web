@@ -14,6 +14,7 @@ export function ZonesSelectorWrapper({
   className,
   children,
   zonesList,
+  modalPosition = 'left',
   onModalStateChanged,
   onZoneSelected,
   ...props
@@ -37,6 +38,7 @@ export function ZonesSelectorWrapper({
       </Button>
       {isSearchVisible && (
         <ZonesSelectorModal
+          modalPosition={modalPosition}
           currentZone={undefined}
           zonesList={zonesList}
           onZoneSelected={onZoneSelected}

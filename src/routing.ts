@@ -41,6 +41,10 @@ export const getZonesComparisonPath = () => {
   return `${zonesPath}/${zonesComparison}`;
 };
 
+export const getZonesComparisonSearchPath = (zones: string[] = []) => {
+  return zones && zones.length ? '?' + zones.map((zone) => `zones=${zone}`).join('&') : '';
+};
+
 export const getZonesPeersPath = (zonePart: string = zoneWithParamPath) => {
   return `${zonesPath}/${zonePart}/${peersPath}`;
 };

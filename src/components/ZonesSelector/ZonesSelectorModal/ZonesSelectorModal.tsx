@@ -12,6 +12,7 @@ import { ZonesSearchProps } from './ZonesSelectorModal.props';
 export function ZonesSelectorModal({
   currentZone,
   zonesList,
+  modalPosition,
   onZoneSelected,
 }: ZonesSearchProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
@@ -23,7 +24,7 @@ export function ZonesSelectorModal({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, { [styles.right]: modalPosition === 'right' })}>
       <Search
         autoFocus={true}
         className={styles.searchContainer}
