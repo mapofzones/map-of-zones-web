@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { ZoneInfoWithSearch } from 'components';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import { ScrollableContainer, Search } from 'ui';
+import { Modal } from 'ui/Modal/Modal';
 
 import styles from './ZonesSelectorModal.module.scss';
 import { ZonesSearchProps } from './ZonesSelectorModal.props';
@@ -13,6 +14,8 @@ export function ZonesSelectorModal({
   currentZone,
   zonesList,
   modalPosition,
+  isOpen,
+  onClose,
   onZoneSelected,
   offset,
 }: ZonesSearchProps): JSX.Element {
@@ -48,7 +51,7 @@ export function ZonesSelectorModal({
   }, [modalPosition, offset]);
 
   return (
-    <div className={cn(styles.container)} style={style}>
+    <Modal className={cn(styles.container)} style={style} isOpen={isOpen} onClose={onClose}>
       <Search
         autoFocus={true}
         className={styles.searchContainer}
@@ -71,6 +74,6 @@ export function ZonesSelectorModal({
           </div>
         ))}
       </ScrollableContainer>
-    </div>
+    </Modal>
   );
 }

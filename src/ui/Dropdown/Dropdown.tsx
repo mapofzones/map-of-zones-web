@@ -53,13 +53,11 @@ function Dropdown({
       <DropdownTooltip body={selectedOption.description}>
         <div className={cn(styles.dropDownHeader, { [styles.active]: isVisible })} onClick={toggle}>
           <div className={styles.itemTitle}>{getTitle(selectedOption)}</div>
-          {isVisible ? (
-            <ArrowUp className={styles.arrowIcon} />
-          ) : (
-            <ArrowDown className={styles.arrowIcon} />
-          )}
+          {isVisible && <ArrowUp className={styles.arrowIcon} />}
+          {!isVisible && <ArrowDown className={styles.arrowIcon} />}
         </div>
       </DropdownTooltip>
+
       {isVisible && (
         <ul className={styles.dropDownList}>
           {options.map((option: DropdownOption) => (

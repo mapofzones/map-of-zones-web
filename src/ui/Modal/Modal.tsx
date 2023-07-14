@@ -1,23 +1,10 @@
-import { ReactNode } from 'react';
-
 import cn from 'classnames';
 import ReactModal from 'react-modal';
 
 import styles from './Modal.module.scss';
+import { ModalProps } from './Modal.props';
 
-export function Modal({
-  className,
-  children,
-  isOpen,
-  onClose,
-  style,
-}: {
-  className?: string;
-  children: ReactNode;
-  isOpen: boolean;
-  onClose?: () => void;
-  style?: React.CSSProperties;
-}): JSX.Element {
+export function Modal({ className, children, isOpen, onClose, style }: ModalProps): JSX.Element {
   return (
     <ReactModal
       isOpen={isOpen}
