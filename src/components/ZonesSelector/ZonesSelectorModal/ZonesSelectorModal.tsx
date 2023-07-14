@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -14,6 +14,7 @@ export function ZonesSelectorModal({
   zonesList,
   modalPosition,
   onZoneSelected,
+  offset,
 }: ZonesSearchProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
 
@@ -23,8 +24,31 @@ export function ZonesSelectorModal({
     setSearchValue(value);
   };
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.body.style.marginRight = 'var(--scrollbar-width)';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.body.style.marginRight = '';
+    };
+  }, []);
+
+  const style = useMemo(() => {
+    if (!offset) {
+      return;
+    }
+    if (modalPosition === 'right') {
+      return {
+        right: window.innerWidth - offset.right,
+        top: offset.top + offset.height,
+      };
+    }
+    return { left: offset.left, top: offset.top + offset.height };
+  }, [modalPosition, offset]);
+
   return (
-    <div className={cn(styles.container, { [styles.right]: modalPosition === 'right' })}>
+    <div className={cn(styles.container)} style={style}>
       <Search
         autoFocus={true}
         className={styles.searchContainer}

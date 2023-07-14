@@ -11,4 +11,5 @@ export interface ZonesSearchProps
   zonesList: ZoneData[];
   onZoneSelected: (zone: string) => void;
   modalPosition?: ModalPosition;
+  offset?: any;
 }

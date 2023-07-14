@@ -3,7 +3,6 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 import { ZoneLogo } from 'components';
-import { useComponentVisible } from 'hooks/useComponentVisible';
 import { AnimatedArrowDown, Button } from 'ui';
 
 import styles from './ZonesSelector.module.scss';

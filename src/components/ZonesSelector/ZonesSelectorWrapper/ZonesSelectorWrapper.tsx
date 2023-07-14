@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
+import { useLocation } from 'react-router-dom';
 
-import { useComponentVisible } from 'hooks/useComponentVisible';
 import { Button } from 'ui';
+import { Modal } from 'ui/Modal/Modal';
 
 import styles from './ZonesSelectorWrapper.module.scss';
 import { ZonesSelectorModal } from '../ZonesSelectorModal/ZonesSelectorModal';
@@ -17,13 +18,11 @@ export function ZonesSelectorWrapper({
   modalPosition = 'left',
   onModalStateChanged,
   onZoneSelected,
-  ...props
 }: ZonesSelectorWrapperProps): JSX.Element {
-  const {
-    ref,
-    isVisible: isSearchVisible,
-    setIsVisible: setSearchVisible,
-  } = useComponentVisible<HTMLButtonElement>(false);
+  const [isSearchVisible, setSearchVisible] = useState(false);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState<any>();
 
   const toggleSearch = () => setSearchVisible((value) => !value);
 
@@ -31,19 +30,36 @@ export function ZonesSelectorWrapper({
     onModalStateChanged?.(isSearchVisible);
   }, [isSearchVisible, onModalStateChanged]);
 
+  useEffect(() => {
+    if (isSearchVisible) {
+      const offset = wrapperRef.current?.getBoundingClientRect();
+      setOffset(offset);
+    }
+  }, [isSearchVisible]);
+
+  const location = useLocation();
+  useEffect(() => {
+    setSearchVisible(false);
+  }, [location]);
+
   return (
-    <div className={styles.container}>
-      <Button ref={ref} className={cn(className, styles.button)} onClick={toggleSearch} {...props}>
-        {children}
-      </Button>
+    <>
+      <div ref={wrapperRef} className={cn(styles.container, { [styles.active]: isSearchVisible })}>
+        <Button className={cn(className, styles.button)} onClick={toggleSearch}>
+          {children}
+        </Button>
+      </div>
       {isSearchVisible && (
-        <ZonesSelectorModal
-          modalPosition={modalPosition}
-          currentZone={undefined}
-          zonesList={zonesList}
-          onZoneSelected={onZoneSelected}
-        />
+        <Modal isOpen={isSearchVisible} onClose={() => setSearchVisible(false)}>
+          <ZonesSelectorModal
+            modalPosition={modalPosition}
+            currentZone={undefined}
+            zonesList={zonesList}
+            onZoneSelected={onZoneSelected}
+            offset={offset}
+          />
+        </Modal>
       )}
-    </div>
+    </>
   );
 }

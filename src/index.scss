@@ -81,7 +81,7 @@ body {
 
 ::-webkit-scrollbar {
   background-color: transparent;
-  width: 15px;
+  width: var(--scrollbar-width);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -149,4 +149,5 @@ a {
   --max-page-width: 1440px;
   --widget-width: 420px;
   --widget-height: 641px;
+  --scrollbar-width: 15px;
 }

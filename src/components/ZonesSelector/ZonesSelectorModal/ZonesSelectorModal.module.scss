@@ -1,5 +1,5 @@
 .container {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
 
   display: flex;
@@ -7,15 +7,13 @@
   width: 360px;
   max-width: calc(100vw - 48px);
   max-height: 570px;
+  margin-top: 8px;
 
   background-color: var(--black-500);
   border-radius: 5px;
 
   box-shadow: 0 8px 15px rgb(0 0 0 / 30%);
-
-  &.right {
-    right: 0;
-  }
+  margin-right: calc(100% - 100vw);
 
   .searchContainer {
     margin: 16px;

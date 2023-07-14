@@ -102,7 +102,7 @@ export function ZonePage() {
         {showCompareButton && (
           <ZonesSelectorWrapper
             modalPosition="right"
-            zonesList={zonesList}
+            zonesList={zonesList.filter((item) => item.zone !== zone)}
             onZoneSelected={onZonesToCompareSelected}
           >
             <CompareButton />

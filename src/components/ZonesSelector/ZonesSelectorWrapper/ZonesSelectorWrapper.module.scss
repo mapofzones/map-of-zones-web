@@ -1,6 +1,10 @@
 .container {
   position: relative;
 
+  &.active {
+    z-index: 10000;
+  }
+
   .button {
     display: flex;
     align-items: center;

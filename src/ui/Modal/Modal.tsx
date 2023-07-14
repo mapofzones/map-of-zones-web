@@ -15,7 +15,7 @@ export function Modal({
   className?: string;
   children: ReactNode;
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   style?: React.CSSProperties;
 }): JSX.Element {
   return (
