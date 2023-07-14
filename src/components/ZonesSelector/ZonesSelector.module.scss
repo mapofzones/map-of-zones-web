@@ -2,6 +2,15 @@
   margin-right: 12px;
 }
 
+.button {
+  background-color: transparent;
+  color: var(--white);
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
 .zoneName {
   font-size: var(--font-heading-size-lg);
   font-weight: 600;

@@ -31,15 +31,17 @@ export function ZonesSelector({
         onModalStateChanged={onModalStateChanged}
         onZoneSelected={onZonesSelected}
       >
-        <ZoneLogo
-          logoUrl={selectedZone?.logoUrl}
-          name={selectedZone?.name}
-          size={'36px'}
-          loading={loading}
-          className={styles.zoneLogo}
-        />
-        <span className={styles.zoneName}>{selectedZone?.name}</span>
-        <AnimatedArrowDown className={styles.arrowContainer} isReverted={isOpened} />
+        <Button className={styles.button}>
+          <ZoneLogo
+            logoUrl={selectedZone?.logoUrl}
+            name={selectedZone?.name}
+            size={'36px'}
+            loading={loading}
+            className={styles.zoneLogo}
+          />
+          <span className={styles.zoneName}>{selectedZone?.name}</span>
+          <AnimatedArrowDown className={styles.arrowContainer} isReverted={isOpened} />
+        </Button>
       </ZonesSelectorWrapper>
     </>
   );

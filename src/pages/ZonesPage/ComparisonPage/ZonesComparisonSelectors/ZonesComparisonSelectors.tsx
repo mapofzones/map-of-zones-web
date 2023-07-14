@@ -34,10 +34,10 @@ export function ZonesComparisonSelectors({
         <ComparisonZoneSelector
           key={zone}
           zone={zone}
-          zonesList={zonesList}
           loading={loading}
-          onZoneDelete={onZoneDelete}
+          zonesList={zonesList}
           onZonesSelected={(newZone) => onZoneSelected(newZone, index)}
+          onZoneDelete={onZoneDelete}
         />
       ))}
 

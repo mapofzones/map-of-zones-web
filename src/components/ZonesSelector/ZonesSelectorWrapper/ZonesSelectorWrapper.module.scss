@@ -4,18 +4,4 @@
   &.active {
     z-index: 10000;
   }
-
-  .button {
-    display: flex;
-    align-items: center;
-
-    color: var(--white);
-    background-color: transparent;
-    cursor: pointer;
-    white-space: nowrap;
-
-    &:hover {
-      background-color: transparent;
-    }
-  }
 }

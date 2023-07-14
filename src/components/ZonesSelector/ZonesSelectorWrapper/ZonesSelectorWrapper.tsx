@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import { useLocation } from 'react-router-dom';
 
-import { Button } from 'ui';
 import { Modal } from 'ui/Modal/Modal';
 
 import styles from './ZonesSelectorWrapper.module.scss';
@@ -12,7 +11,6 @@ import { ZonesSelectorModal } from '../ZonesSelectorModal/ZonesSelectorModal';
 import { ZonesSelectorWrapperProps } from '.';
 
 export function ZonesSelectorWrapper({
-  className,
   children,
   zonesList,
   modalPosition = 'left',
@@ -45,9 +43,16 @@ export function ZonesSelectorWrapper({
   return (
     <>
       <div ref={wrapperRef} className={cn(styles.container, { [styles.active]: isSearchVisible })}>
-        <Button className={cn(className, styles.button)} onClick={toggleSearch}>
-          {children}
-        </Button>
+        {children &&
+          React.Children.map<ReactNode, ReactNode>(children, (child) => {
+            if (!React.isValidElement(child)) {
+              return child;
+            }
+            return React.cloneElement(child, {
+              className: cn(child.props.className, styles.button),
+              onClick: toggleSearch,
+            } as any);
+          })}
       </div>
       {isSearchVisible && (
         <Modal isOpen={isSearchVisible} onClose={() => setSearchVisible(false)}>
