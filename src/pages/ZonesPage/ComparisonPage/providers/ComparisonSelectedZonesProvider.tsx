@@ -3,7 +3,7 @@ import { ReactNode, createContext, useContext, useEffect, useMemo, useState } fr
 import { useSearchParams } from 'react-router-dom';
 
 import { useZonesData } from 'hooks/queries/useZonesData';
-import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props';
+import { DatasetInfo } from 'types/DatasetInfo';
 
 interface SelectedZones {
   selectedZones: string[];

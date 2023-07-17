@@ -1,9 +1,9 @@
 import { TooltipProps } from 'recharts';
 
+import { DatasetInfo } from 'types/DatasetInfo';
 import { ZoneAnalysisReturnedAddressesDataByType } from 'types/models/Analysis/ZoneAnalysisReturnedAddressesData';
 import { NumberType } from 'types/NumberType';
 import { Circle } from 'ui';
-import { DatasetInfo } from 'ui/Charts/BarChart/BarChart.props';
 import { NumberFormat } from 'ui/NumberFormat/NumberFormat';
 
 import styles from './AnalysisReturnedAddressesChart.module.scss';

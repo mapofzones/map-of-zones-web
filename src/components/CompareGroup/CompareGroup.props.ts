@@ -1,5 +1,5 @@
+import { DatasetInfo } from 'types/DatasetInfo';
 import { NumberType } from 'types/NumberType';
-import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props'; // TODO: common DatasetInfo
 
 export type CompareGroupLayoutVariant = 'columns-3' | 'rows-2' | 'rows-3';
 

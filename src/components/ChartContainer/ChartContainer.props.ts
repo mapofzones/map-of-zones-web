@@ -1,7 +1,6 @@
+import { ChartType } from 'types/ChartType';
+import { DatasetInfo } from 'types/DatasetInfo';
 import { NumberType } from 'types/NumberType';
-import { DatasetInfo } from 'ui/Charts/AreaChart/AreaChart.props';
-
-import { ChartType } from '../../types/ChartType';
 
 type ChartKeys<T> = Omit<T, 'time'>; //
 
