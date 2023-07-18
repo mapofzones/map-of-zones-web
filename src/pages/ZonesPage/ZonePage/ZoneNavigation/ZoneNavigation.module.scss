@@ -1,16 +1,11 @@
 .navigationButtonsContainer {
   display: flex;
-  grid-area: navigationButtonsContainer;
   grid-gap: 21px;
 
   border-bottom: 1px solid var(--black-900);
 }
 
 .pagesSwitcher {
-  grid-area: pagesSwitcher;
-
-  margin: 33px 0 8px;
-
   .peersTab {
     white-space: nowrap;
   }

@@ -105,7 +105,7 @@ export function ZonePage() {
             zonesList={zonesList.filter((item) => item.zone !== zone)}
             onZoneSelected={onZonesToCompareSelected}
           >
-            <CompareButton />
+            <CompareButton className={styles.compareBtn} />
           </ZonesSelectorWrapper>
         )}
       </div>

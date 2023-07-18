@@ -34,6 +34,10 @@
     .periodContainer {
       grid-area: periodContainer;
     }
+
+    .compareBtn {
+      width: 100%;
+    }
   }
 }
 
@@ -44,7 +48,8 @@
       display: flex;
       flex-direction: column;
 
-      margin: 24px 12px 40px;
+      margin: 24px 12px 28px;
+      gap: 28px;
 
       .tabsContainer {
         position: initial;
