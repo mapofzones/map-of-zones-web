@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { InfoDarkIcon, TrashIcon } from 'assets/icons';
 import { getZonesComparisonPath, getZonesComparisonSearchPath } from 'routing';
@@ -27,8 +29,12 @@ export function ComparisonZonesFooter(): JSX.Element {
         replace: true,
       }
     );
-    resetState();
   };
+
+  const location = useLocation();
+  useEffect(() => {
+    resetState();
+  }, [location]);
 
   if (!isComparison) return <></>;
 
