@@ -6,5 +6,5 @@ export const ExternalLinks = {
   mozEmail: 'mailto:support@mapofzones.com',
   squidDocs: 'https://docs.widget.squidrouter.com/troubleshooting',
   listingForm:
-    'https://docs.google.com/forms/d/e/1FAIpQLSczp-YbmECgX3_DsycgHVsZiJlQZLhB46jFfchQKPxiwFR4ig/viewform?usp=sf_link',
+    'https://docs.google.com/forms/d/e/1FAIpQLSdts9X9KOeQMjXnU-bBgdx1X2EJvJ4tkuc6N5IOMARz6-dJoQ/viewform?usp=pp_url',
 };
