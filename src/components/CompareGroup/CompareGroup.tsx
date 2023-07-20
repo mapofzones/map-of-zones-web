@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import cn from 'classnames';
 
@@ -54,7 +54,7 @@ export function CompareGroup<K>({
         {!loading &&
           data &&
           data.map((item) => (
-            <>
+            <React.Fragment key={item.zone}>
               <span className={styles.title}>{zonesDetailsByKey[item.zone]?.title}</span>
               <PercentageBar
                 className={styles.bar}
@@ -69,7 +69,7 @@ export function CompareGroup<K>({
                 value={item[selectedProperty]}
                 numberType={metadata[selectedProperty]?.numberType}
               />
-            </>
+            </React.Fragment>
           ))}
       </div>
     </div>

@@ -8,6 +8,8 @@ import styles from './CompareButton.module.scss';
 import { CompareButtonProps } from '.';
 
 export function CompareButton({ className, onClick }: CompareButtonProps): JSX.Element {
+  const showNewLabel = process.env.REACT_APP_MARK_COMPARE_AS_NEW?.toUpperCase() === 'TRUE';
+
   return (
     <Button
       className={cn(className, styles.container)}
@@ -17,6 +19,7 @@ export function CompareButton({ className, onClick }: CompareButtonProps): JSX.E
       onClick={onClick}
     >
       Compare Zones
+      {showNewLabel && <div className={styles.newLabel}>New</div>}
     </Button>
   );
 }

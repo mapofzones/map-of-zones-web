@@ -24,7 +24,7 @@ export function AnalysisReturnedAddressesChartTooltip({
     return <></>;
   }
 
-  const item = data[props.label];
+  const item = data[props.label] ?? {};
   const itemMetadata = Object.values(metadata)[props.label] as DatasetInfo;
   const { returnedRate, returnedAddresses, prevTotalAddresses } = item;
 

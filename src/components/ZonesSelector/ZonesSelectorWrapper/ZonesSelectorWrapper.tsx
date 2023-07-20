@@ -18,7 +18,7 @@ export function ZonesSelectorWrapper({
   const [isVisible, setVisible] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState<any>();
+  const [offset, setOffset] = useState<DOMRect | undefined>(undefined);
 
   const toggleSearch = () => setVisible((value) => !value);
 
