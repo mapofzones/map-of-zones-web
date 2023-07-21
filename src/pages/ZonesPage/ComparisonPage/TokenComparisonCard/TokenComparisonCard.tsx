@@ -50,7 +50,7 @@ export function TokenComparisonCard({ className }: TokenComparisonCardProps): JS
 
         <ButtonGroup
           className={styles.groupTabSelector}
-          size={ElementSize.SMALL}
+          size={ElementSize.MEDIUM}
           buttons={TOKEN_CARD_PROPERTIES_OPTIONS}
           setSelectedButton={onPropertyTabSelected}
         />

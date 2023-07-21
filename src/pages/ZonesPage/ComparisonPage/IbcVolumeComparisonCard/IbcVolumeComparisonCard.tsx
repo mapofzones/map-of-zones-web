@@ -52,7 +52,7 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
 
         <ButtonGroup
           className={styles.groupTabSelector}
-          size={ElementSize.SMALL}
+          size={ElementSize.MEDIUM}
           buttons={IBC_VOLUME_CARD_OPTIONS}
           setSelectedButton={onPropertyTabSelected}
         />

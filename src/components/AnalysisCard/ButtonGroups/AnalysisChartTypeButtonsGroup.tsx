@@ -20,7 +20,7 @@ export function AnalysisChartTypeButtonsGroup({
       {chartTypes.length > 1 && (
         <ButtonGroup
           disabled={disabled}
-          size={ElementSize.SMALL}
+          size={ElementSize.MEDIUM}
           buttons={chartTypes.map((type: ChartType) => ({
             key: type,
             icon: CHART_ICONS[type],

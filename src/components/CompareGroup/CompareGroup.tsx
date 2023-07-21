@@ -37,7 +37,7 @@ export function CompareGroup<K>({
     <div className={cn(className, styles.container)} {...props}>
       <ButtonGroup<keyof K>
         className={styles.groupTabSelector}
-        size={ElementSize.SMALL}
+        size={ElementSize.MEDIUM}
         buttons={tabOptions}
         setSelectedButton={onTabSelected}
       />

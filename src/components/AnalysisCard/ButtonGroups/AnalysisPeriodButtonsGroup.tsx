@@ -24,7 +24,7 @@ export function AnalysisPeriodButtonsGroup<T extends AnalysisCardPeriod | Period
   return (
     <ButtonGroup
       disabled={disabled}
-      size={ElementSize.SMALL}
+      size={ElementSize.MEDIUM}
       buttons={periods.map((period: T) => ({
         key: period,
         title: getTitleByKey(period),

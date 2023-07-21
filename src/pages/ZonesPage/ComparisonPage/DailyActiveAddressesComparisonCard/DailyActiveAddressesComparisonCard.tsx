@@ -75,7 +75,7 @@ export function DailyActiveAddressesComparisonCard({
 
         <ButtonGroup
           className={styles.groupTabSelector}
-          size={ElementSize.SMALL}
+          size={ElementSize.MEDIUM}
           buttons={DAILY_ACTIVE_ADDRESSES_CARD_OPTIONS}
           setSelectedButton={onPropertyTabSelected}
         />

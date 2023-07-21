@@ -56,7 +56,7 @@ export function ReturnedAddressesComparisonCard({
 
         <ButtonGroup
           className={styles.groupTabSelector}
-          size={ElementSize.SMALL}
+          size={ElementSize.MEDIUM}
           buttons={RETURNED_ADDRESSES_PROPERTIES_OPTIONS}
           setSelectedButton={onPropertyTabSelected}
         />
