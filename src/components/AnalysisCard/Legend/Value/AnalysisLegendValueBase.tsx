@@ -5,11 +5,11 @@ import styles from './AnalysisLegendValueBase.module.scss';
 interface LegendValueBaseProps {
   children?: React.ReactNode;
   className?: string;
-  size?: LegendVelueSize;
+  size?: LegendValueSize;
 }
 
-export type LegendVelueSize = 'sm' | 'md' | 'lg';
+export type LegendValueSize = 'sm' | 'md' | 'lg';
 
-export function LegendValueBase({ children, className, size = 'md' }: LegendValueBaseProps) {
+export function LegendValueBase({ children, className, size = 'sm' }: LegendValueBaseProps) {
   return <span className={cn(className, styles[size])}>{children}</span>;
 }

@@ -10,11 +10,27 @@ import { LegendValueBase } from './Value/AnalysisLegendValueBase';
 
 export interface AnalysisCardLegendItemProps {
   className?: string;
+  horizontal?: boolean;
   children?: ReactNode;
+  showBorder?: boolean;
 }
 
-export function AnalysisLegendItem({ className, children }: AnalysisCardLegendItemProps) {
-  return <div className={cn(className, styles.container)}>{children}</div>;
+export function AnalysisLegendItem({
+  className,
+  children,
+  horizontal,
+  showBorder = false,
+}: AnalysisCardLegendItemProps) {
+  return (
+    <div
+      className={cn(className, styles.container, {
+        [styles.horizontal]: horizontal,
+        [styles.withDivider]: showBorder,
+      })}
+    >
+      {children}
+    </div>
+  );
 }
 
 AnalysisLegendItem.Title = AnalysisLegendTitle;

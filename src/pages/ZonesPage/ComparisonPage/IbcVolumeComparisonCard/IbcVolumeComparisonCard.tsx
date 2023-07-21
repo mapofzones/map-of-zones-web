@@ -68,13 +68,14 @@ export function IbcVolumeComparisonCard({ className }: IbcVolumeComparisonCardPr
 
       <AnalysisCard.Legend className={styles.chartLegend}>
         {data?.map((item) => (
-          <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+          <AnalysisCard.Legend.Item horizontal key={item.zone} className={styles.legendItem}>
             <AnalysisCard.Legend.Item.Title
-              title={selectedZonesDetailsByKey[item.zone]?.title}
+              title={`${selectedZonesDetailsByKey[item.zone]?.title}:`}
               circleColor={selectedZonesDetailsByKey[item.zone]?.color}
             />
             <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
               <AnalysisCard.Legend.Item.ValueNumber
+                size="md"
                 value={item[selectedProperty]}
                 numberType={NumberType.Currency}
               />

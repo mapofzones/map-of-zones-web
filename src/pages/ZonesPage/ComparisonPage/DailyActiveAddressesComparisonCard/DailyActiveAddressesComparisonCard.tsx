@@ -92,13 +92,14 @@ export function DailyActiveAddressesComparisonCard({
       <AnalysisCard.Legend className={styles.legendContainer}>
         {data?.data?.map((item: ZoneDailyActiveAddressesItem) => {
           return (
-            <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+            <AnalysisCard.Legend.Item horizontal key={item.zone} className={styles.legendItem}>
               <AnalysisCard.Legend.Item.Title
-                title={selectedZonesDetailsByKey[item.zone]?.title}
+                title={`${selectedZonesDetailsByKey[item.zone]?.title}:`}
                 circleColor={selectedZonesDetailsByKey[item.zone]?.color}
               />
               <SkeletonTextWrapper loading={loading} defaultText={'13 000'}>
                 <AnalysisCard.Legend.Item.ValueNumber
+                  size="md"
                   value={item[TOTAL_PROP_NAME_BY_SELECTED_PROP[selectedProperty]] as number}
                   numberType={numberType}
                 />

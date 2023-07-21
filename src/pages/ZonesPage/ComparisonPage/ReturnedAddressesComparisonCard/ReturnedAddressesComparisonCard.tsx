@@ -71,13 +71,14 @@ export function ReturnedAddressesComparisonCard({
         <AnalysisCard.Legend>
           {data?.map((item, index) => {
             return (
-              <AnalysisCard.Legend.Item key={item.zone} className={styles.legendItem}>
+              <AnalysisCard.Legend.Item horizontal key={item.zone} className={styles.legendItem}>
                 <AnalysisCard.Legend.Item.Title
-                  title={selectedZonesDetailsByKey[item.zone]?.title}
+                  title={`${selectedZonesDetailsByKey[item.zone]?.title}:`}
                   circleColor={selectedZonesDetailsByKey[item.zone]?.color}
                 />
                 <SkeletonTextWrapper loading={loading} defaultText={'$1,56'}>
                   <AnalysisCard.Legend.Item.ValueNumber
+                    size="md"
                     value={
                       dataBySelectedType[index]?.returnedRate !== undefined
                         ? dataBySelectedType[index].returnedRate! * 100
