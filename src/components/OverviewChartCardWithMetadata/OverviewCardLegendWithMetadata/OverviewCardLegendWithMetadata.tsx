@@ -27,7 +27,7 @@ export function OverviewCardLegendWithMetadata({
         const value = values[key];
 
         return (
-          <AnalysisLegendItem key={key} className={styles.legendItem}>
+          <AnalysisLegendItem showBorder key={key} className={styles.legendItem}>
             <AnalysisLegendTitle
               title={conf.title}
               circleColor={conf.color}
@@ -35,7 +35,7 @@ export function OverviewCardLegendWithMetadata({
               tooltipText={conf.tooltipText}
             />
             <SkeletonTextWrapper loading={loading} defaultText={conf.defaultSkeletonText}>
-              <LegendNumberValue value={value} numberType={conf.numberType} />
+              <LegendNumberValue size="lg" value={value} numberType={conf.numberType} />
             </SkeletonTextWrapper>
           </AnalysisLegendItem>
         );

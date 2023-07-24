@@ -1,8 +1,18 @@
 .container {
   .chartLegend {
     display: flex;
+    row-gap: 24px;
 
     .legendItem {
+      &:first-child {
+        border: none;
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
       .infoGroup {
         display: flex;
 
@@ -50,7 +60,6 @@
       .legendItem {
         &:first-child {
           flex: 1 0 100%;
-          margin-bottom: 24px;
         }
 
         &:nth-child(2) {

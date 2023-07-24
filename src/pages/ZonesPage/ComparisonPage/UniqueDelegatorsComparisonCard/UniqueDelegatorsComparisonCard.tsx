@@ -65,6 +65,7 @@ export function UniqueDelegatorsComparisonCard({
             return (
               <AnalysisCard.Legend.Item horizontal key={item.zone} className={styles.legendItem}>
                 <AnalysisCard.Legend.Item.Title
+                  size="md"
                   title={`${selectedZonesDetailsByKey[item.zone]?.title}:`}
                   circleColor={selectedZonesDetailsByKey[item.zone]?.color}
                 />
@@ -73,6 +74,7 @@ export function UniqueDelegatorsComparisonCard({
                     size="md"
                     value={item.totalDelegatorsCount}
                     numberType={numberType}
+                    compact
                   />
                 </SkeletonTextWrapper>
               </AnalysisCard.Legend.Item>

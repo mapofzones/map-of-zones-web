@@ -44,7 +44,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
   return (
     <AnalysisCard title="Token" className={cn(className, styles.container)}>
       <AnalysisCardLegend className={cn(styles.chartLegend, styles.wrapped)}>
-        <AnalysisLegendItem className={styles.legendItem}>
+        <AnalysisLegendItem showBorder className={styles.legendItem}>
           <AnalysisLegendTitleBase>Price</AnalysisLegendTitleBase>
           <LegendValueBase>
             <div className={cn(styles.infoGroup, styles.tokenNamePrice)}>
@@ -81,20 +81,22 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
           </LegendValueBase>
         </AnalysisLegendItem>
 
-        <AnalysisLegendItem className={styles.legendItem}>
+        <AnalysisLegendItem showBorder className={styles.legendItem}>
           <AnalysisLegendTitleBase>Market Cap</AnalysisLegendTitleBase>
           <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
             <LegendNumberValue
+              size="lg"
               value={data?.marketCap || undefined}
               numberType={NumberType.Currency}
             />
           </SkeletonTextWrapper>
         </AnalysisLegendItem>
 
-        <AnalysisLegendItem className={styles.legendItem}>
+        <AnalysisLegendItem showBorder className={styles.legendItem}>
           <AnalysisLegendTitleBase>Trading Volume (24h)</AnalysisLegendTitleBase>
           <SkeletonTextWrapper loading={loading} defaultText={'$13 952 000'}>
             <LegendNumberValue
+              size="lg"
               value={data?.tradingVolumeDay || undefined}
               numberType={NumberType.Currency}
             />

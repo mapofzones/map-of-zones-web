@@ -64,6 +64,7 @@ export function TransactionsComparisonCard({
             return (
               <AnalysisCard.Legend.Item horizontal key={item.zone} className={styles.legendItem}>
                 <AnalysisCard.Legend.Item.Title
+                  size="md"
                   title={`${selectedZonesDetailsByKey[item.zone]?.title}:`}
                   circleColor={selectedZonesDetailsByKey[item.zone]?.color}
                 />
@@ -72,6 +73,7 @@ export function TransactionsComparisonCard({
                     size="md"
                     value={item.totalTxsCount}
                     numberType={numberType}
+                    compact
                   />
                 </SkeletonTextWrapper>
               </AnalysisCard.Legend.Item>

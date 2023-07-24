@@ -1,10 +1,8 @@
 .cardLegend {
   display: flex;
+  row-gap: 20px;
 
   .legendItem {
-    border-left: 1px solid var(--black-900);
-    padding: 0 16px;
-
     &:first-child {
       border: none;
       padding-left: 0;
@@ -24,7 +22,6 @@
       .legendItem {
         &:first-child {
           flex: 1 0 100%;
-          margin-bottom: 24px;
         }
 
         &:nth-child(2) {

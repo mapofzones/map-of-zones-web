@@ -73,6 +73,7 @@ export function ReturnedAddressesComparisonCard({
             return (
               <AnalysisCard.Legend.Item horizontal key={item.zone} className={styles.legendItem}>
                 <AnalysisCard.Legend.Item.Title
+                  size="md"
                   title={`${selectedZonesDetailsByKey[item.zone]?.title}:`}
                   circleColor={selectedZonesDetailsByKey[item.zone]?.color}
                 />
@@ -85,6 +86,7 @@ export function ReturnedAddressesComparisonCard({
                         : undefined
                     }
                     numberType={NumberType.Percent}
+                    compact
                   />
                 </SkeletonTextWrapper>
               </AnalysisCard.Legend.Item>

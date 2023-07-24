@@ -3,13 +3,14 @@ import { ExplanationTooltip } from 'ui';
 import { Circle } from 'ui/Circle';
 
 import styles from './AnalysisLegendTitle.module.scss';
-import { AnalysisLegendTitleBase } from './AnalysisLegendTitleBase';
+import { AnalysisLegendTitleBase, AnalysisLegendTitleBaseSizes } from './AnalysisLegendTitleBase';
 
 interface AnalysisLegendTitleProps {
   title?: string;
   circleColor?: string;
   tooltipText?: string;
   showPeriod?: boolean;
+  size?: AnalysisLegendTitleBaseSizes;
 }
 
 export function AnalysisLegendTitle({
@@ -17,9 +18,10 @@ export function AnalysisLegendTitle({
   circleColor,
   tooltipText,
   showPeriod = false,
+  size = 'sm',
 }: AnalysisLegendTitleProps) {
   return (
-    <AnalysisLegendTitleBase>
+    <AnalysisLegendTitleBase size={size}>
       {circleColor && <Circle className={styles.icon} color={circleColor} />}
       {title}
       {showPeriod && <PeriodBlock className={styles.periodText} />}

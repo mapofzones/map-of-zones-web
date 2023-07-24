@@ -2,5 +2,16 @@
   display: inline-block;
 
   color: var(--grey-500);
-  font-size: var(--font-base-size-md);
+
+  &.sm {
+    font-size: var(--font-base-size-md);
+  }
+
+  &.md {
+    font-size: var(--font-navigation-size);
+  }
+
+  &.lg {
+    font-size: var(--font-heading-size-sm);
+  }
 }
