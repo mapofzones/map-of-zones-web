@@ -11,6 +11,7 @@ import { ZonesSelectorWrapper } from './ZonesSelectorWrapper';
 
 export function ZonesSelector({
   className,
+  classNameButton,
   zone,
   loading,
   zonesList,
@@ -31,7 +32,7 @@ export function ZonesSelector({
         onModalStateChanged={onModalStateChanged}
         onZoneSelected={onZonesSelected}
       >
-        <Button className={styles.button}>
+        <Button className={cn(styles.button, classNameButton)}>
           <ZoneLogo
             logoUrl={selectedZone?.logoUrl}
             name={selectedZone?.name}

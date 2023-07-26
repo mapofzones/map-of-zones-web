@@ -18,7 +18,8 @@ export function ZonesComparisonSelectors({
 }: ZonesComparisonSelectorsProps): JSX.Element {
   const { data: zonesList, loading } = useZonesData();
 
-  const { selectedZones, selectZone, deleteZone } = useComparisonSelectedZones();
+  const { selectedZones, selectedZonesDetailsByKey, selectZone, deleteZone } =
+    useComparisonSelectedZones();
 
   const onZoneSelected = (zone: string, index: number) => {
     selectZone(zone, index);
@@ -34,6 +35,7 @@ export function ZonesComparisonSelectors({
         <ComparisonZoneSelector
           key={zone}
           zone={zone}
+          color={selectedZonesDetailsByKey[zone]?.color}
           loading={loading}
           zonesList={zonesList}
           onZonesSelected={(newZone) => onZoneSelected(newZone, index)}

@@ -7,6 +7,7 @@ import { ComparisonZoneSelectorProps } from '.';
 
 export function ComparisonZoneSelector({
   zone,
+  color,
   onZoneDelete,
   ...props
 }: ComparisonZoneSelectorProps): JSX.Element {
@@ -18,7 +19,10 @@ export function ComparisonZoneSelector({
 
   return (
     <div className={styles.container}>
-      <ZonesSelector zone={zone} className={styles.selector} {...props} />
+      <div className={styles.border} style={{ borderColor: color }}></div>
+
+      <ZonesSelector zone={zone} classNameButton={styles.selector} {...props} />
+
       <CloseCircleIcon className={styles.deleteIcon} onClick={deleteZone} />
     </div>
   );

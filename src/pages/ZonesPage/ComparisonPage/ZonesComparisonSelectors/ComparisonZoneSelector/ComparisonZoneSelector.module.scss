@@ -1,11 +1,17 @@
 .container {
   position: relative;
 
+  .border {
+    display: none;
+    position: absolute;
+    border: 1px solid var(--grey-100);
+    border-radius: 50px;
+  }
+
   .selector {
     border: 1px solid var(--grey-100);
     border-radius: 50px;
     padding: 8px 16px 8px 8px;
-    margin: 1px;
 
     span {
       font-size: var(--font-heading-size-sm);
@@ -13,9 +19,15 @@
   }
 
   &:hover {
+    .border {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-width: 2px;
+    }
+
     .selector {
-      border: 2px solid var(--orange);
-      margin: 0;
+      border-color: transparent;
     }
 
     .deleteIcon {
@@ -36,7 +48,8 @@
 
     fill: var(--black-900);
     stroke: var(--white);
-    border: 2px solid var(--black-100);
+    outline: 2px solid var(--black-100);
+    outline-offset: -1px;
     border-radius: 50%;
 
     :hover {
