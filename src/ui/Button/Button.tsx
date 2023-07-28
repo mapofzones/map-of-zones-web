@@ -23,7 +23,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         type="button"
         ref={ref}
-        className={cn(className, styles.button, {
+        className={cn(styles.button, className, {
           [styles.sm]: size === ButtonSize.SMALL,
           [styles.md]: size === ButtonSize.MEDIUM,
           [styles.lg]: size === ButtonSize.LARGE,

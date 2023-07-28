@@ -7,13 +7,15 @@ import { Button, ButtonSize, ButtonVariant } from 'ui';
 
 import styles from './CompareModeSwitcher.module.scss';
 
-export function CompareModeSwitcher({ className }: { className?: string }) {
+export function CompareModeSwitcher({ className, text }: { className?: string; text?: string }) {
   const { isComparison } = useAppSelector((state) => state.zonesPageComparisonMode);
   const { switchCompareMode, resetZones } = useZonesPageComparisonModeActionsCreator();
 
   return (
     <>
-      {!isComparison && <CompareButton className={className} onClick={() => switchCompareMode()} />}
+      {!isComparison && (
+        <CompareButton className={className} onClick={() => switchCompareMode()} text={text} />
+      )}
       {isComparison && (
         <Button
           className={cn(className, styles.cancelBtn)}

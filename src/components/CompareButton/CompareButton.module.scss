@@ -1,17 +1,29 @@
 .container {
-  position: relative;
   padding-top: 8px !important;
   padding-bottom: 8px !important;
+
+  // dublicate class to increase specificity
+  &.container {
+    &:hover svg,
+    svg {
+      stroke: none;
+    }
+  }
+
+  .content {
+    position: relative;
+  }
 
   .newLabel {
     position: absolute;
     right: 0;
     top: 0;
-    transform: translate(50%, -50%);
+    transform: translate(100%, -100%);
     padding: 3px 5px;
     border-radius: 50px;
     background: linear-gradient(90deg, #2af 0%, #705bea 100%);
     color: var(--white);
     font-size: var(--font-secondary-size-sm);
+    font-weight: 600;
   }
 }

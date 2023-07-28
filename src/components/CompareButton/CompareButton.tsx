@@ -7,19 +7,25 @@ import styles from './CompareButton.module.scss';
 
 import { CompareButtonProps } from '.';
 
-export function CompareButton({ className, onClick }: CompareButtonProps): JSX.Element {
+export function CompareButton({
+  className,
+  text = 'Compare Zones',
+  onClick,
+}: CompareButtonProps): JSX.Element {
   const showNewLabel = process.env.REACT_APP_MARK_COMPARE_AS_NEW?.toUpperCase() === 'TRUE';
 
   return (
     <Button
-      className={cn(className, styles.container)}
+      className={cn(styles.container, className)}
       size={ButtonSize.LARGE}
       variant={ButtonVariant.PRIMARY}
       IconBefore={CompareIcon}
       onClick={onClick}
     >
-      Compare Zones
-      {showNewLabel && <div className={styles.newLabel}>New</div>}
+      <span className={styles.content}>
+        {text}
+        {showNewLabel && <div className={styles.newLabel}>New</div>}
+      </span>
     </Button>
   );
 }

@@ -13,6 +13,7 @@ export function ZonesPageTitle() {
   const [selectedPeriod] = useSelectedPeriod(undefined);
 
   const isSmallTablet = useTabletSmallMediaQuery();
+  const compareBtnText = isSmallTablet ? 'Compare' : 'Compare Zone';
 
   const { data: zonesCountData, loading: zonesCountLoading } = useZonesCount(selectedPeriod);
 
@@ -33,7 +34,7 @@ export function ZonesPageTitle() {
         </div>
       )}
 
-      <CompareModeSwitcher />
+      <CompareModeSwitcher text={compareBtnText} />
 
       <PeriodSelector className={styles.periodSelector} useDropdown={isSmallTablet} />
     </div>
