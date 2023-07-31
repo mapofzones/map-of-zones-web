@@ -1,16 +1,18 @@
 import { matchPath, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { EarthIcon, GithubLogo, TgLogo, TwitterLogo } from 'assets/icons';
+import { PeriodSelector } from 'components';
 import { CompareButton } from 'components/CompareButton';
 import { ZonesSelector } from 'components/ZonesSelector/ZonesSelector';
 import { ZonesSelectorWrapper } from 'components/ZonesSelector/ZonesSelectorWrapper';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
 import { useZonesData } from 'hooks/queries/useZonesData';
-import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletMediumMediaQuery, useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import {
   getZonesComparisonPath,
   getZonesComparisonSearchPath,
   getZonesOverviewPath,
+  getZonesPeersPath,
 } from 'routing';
 import { ExternalLink, SkeletonTextWrapper } from 'ui';
 
@@ -20,10 +22,11 @@ import styles from './ZonePage.module.scss';
 
 export function ZonePage() {
   const isTabletMedium = useTabletMediumMediaQuery();
+  const isTabletSmall = useTabletSmallMediaQuery();
 
   const location = useLocation();
-  const matchResult = matchPath({ path: getZonesOverviewPath() }, location.pathname);
-  const showCompareButton = !!matchResult;
+  const showCompareButton = !!matchPath({ path: getZonesOverviewPath() }, location.pathname);
+  const showPeriodSelector = !!matchPath({ path: getZonesPeersPath() }, location.pathname);
 
   const { zone = '' } = useParams();
   const { data, loading } = useZonesListZoneDetails(zone);
@@ -98,6 +101,10 @@ export function ZonePage() {
           peersCount={data?.peersCount}
           useSmallView={isTabletMedium}
         />
+
+        {showPeriodSelector && (
+          <PeriodSelector className={styles.periodContainer} useDropdown={isTabletSmall} />
+        )}
 
         {showCompareButton && (
           <ZonesSelectorWrapper

@@ -2,9 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { Table, TableSkeleton, PeriodSelector } from 'components';
+import { Table, TableSkeleton } from 'components';
 import { useDefaultSearchParam } from 'hooks/useDefaultSearchParam';
-import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import { useSelectedPeriod } from 'hooks/useSelectedPeriod';
 import { SortRow } from 'hooks/useSortedTableData';
 import { ScrollUpButton } from 'ui';
@@ -18,7 +17,6 @@ import { useZonesListZoneDetails } from '../useZonesListZoneDetails';
 
 export function ZonePeers() {
   const [selectedPeriod] = useSelectedPeriod();
-  const isTabletSmall = useTabletSmallMediaQuery();
 
   const { zone = '' } = useParams();
   const [selectedColumnKey, setSelectedColumnKey] = useDefaultSearchParam<ColumnKeys>(
@@ -59,8 +57,6 @@ export function ZonePeers() {
 
   return (
     <div className={styles.container}>
-      <PeriodSelector className={styles.periodContainer} useDropdown={isTabletSmall} />
-
       {!!parentZoneData && !parentZoneDataLoading && !peersLoading && (
         <Table
           className={styles.table}
