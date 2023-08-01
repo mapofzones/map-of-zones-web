@@ -47,54 +47,12 @@ export function ZonePage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.zoneContainer}>
-          <ZonesSelector
-            zone={zone}
-            loading={loading}
-            zonesList={zonesList}
-            onZonesSelected={onZonesSelected}
-          />
-
-          <SkeletonTextWrapper
-            className={styles.zoneLinks}
-            loading={loading}
-            defaultText={'https://cosmos.network'}
-          >
-            {data?.website && (
-              <ExternalLink
-                Icon={EarthIcon}
-                href={data.website}
-                onClick={() => trackZoneLinksAnalytics('website')}
-              >
-                {data.website}
-              </ExternalLink>
-            )}
-
-            {data?.telegram && (
-              <ExternalLink
-                Icon={TgLogo}
-                href={data.telegram}
-                onClick={() => trackZoneLinksAnalytics('telegram')}
-              />
-            )}
-
-            {data?.twitter && (
-              <ExternalLink
-                Icon={TwitterLogo}
-                href={data.twitter}
-                onClick={() => trackZoneLinksAnalytics('twitter')}
-              />
-            )}
-
-            {data?.git && (
-              <ExternalLink
-                Icon={GithubLogo}
-                href={data.git}
-                onClick={() => trackZoneLinksAnalytics('git')}
-              />
-            )}
-          </SkeletonTextWrapper>
-        </div>
+        <ZonesSelector
+          zone={zone}
+          loading={loading}
+          zonesList={zonesList}
+          onZonesSelected={onZonesSelected}
+        />
 
         <ZoneNavigation
           className={styles.tabsContainer}
@@ -115,6 +73,48 @@ export function ZonePage() {
             <CompareButton className={styles.compareBtn} text="Compare Zone" />
           </ZonesSelectorWrapper>
         )}
+      </div>
+
+      <div className={styles.commonContent}>
+        <SkeletonTextWrapper
+          className={styles.zoneLinks}
+          loading={loading}
+          defaultText={'https://cosmos.network'}
+        >
+          {data?.website && (
+            <ExternalLink
+              Icon={EarthIcon}
+              href={data.website}
+              onClick={() => trackZoneLinksAnalytics('website')}
+            >
+              {data.website}
+            </ExternalLink>
+          )}
+
+          {data?.telegram && (
+            <ExternalLink
+              Icon={TgLogo}
+              href={data.telegram}
+              onClick={() => trackZoneLinksAnalytics('telegram')}
+            />
+          )}
+
+          {data?.twitter && (
+            <ExternalLink
+              Icon={TwitterLogo}
+              href={data.twitter}
+              onClick={() => trackZoneLinksAnalytics('twitter')}
+            />
+          )}
+
+          {data?.git && (
+            <ExternalLink
+              Icon={GithubLogo}
+              href={data.git}
+              onClick={() => trackZoneLinksAnalytics('git')}
+            />
+          )}
+        </SkeletonTextWrapper>
       </div>
 
       <Outlet />

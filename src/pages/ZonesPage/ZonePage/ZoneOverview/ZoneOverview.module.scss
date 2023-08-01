@@ -7,7 +7,6 @@
   display: grid;
   grid-template-columns: repeat($columns, 1fr);
   gap: var(--gap);
-  padding: 0 24px 24px;
   overflow: hidden;
 
   .overview {
@@ -102,9 +101,6 @@
 
 @media (max-width: 630px) {
   .container {
-    padding-left: 12px;
-    padding-right: 12px;
-
     .tokenBlock {
       min-height: 600px;
     }
