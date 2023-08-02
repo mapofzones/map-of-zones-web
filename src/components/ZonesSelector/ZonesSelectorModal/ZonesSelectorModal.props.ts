@@ -9,7 +9,6 @@ export interface ZonesSearchProps
   extends ModalProps,
     DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
-  currentZone?: string;
   zonesList: ZoneData[];
   onZoneSelected: (zone: string) => void;
   modalPosition?: ModalPosition;

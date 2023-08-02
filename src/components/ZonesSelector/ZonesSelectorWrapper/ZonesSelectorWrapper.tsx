@@ -56,7 +56,6 @@ export function ZonesSelectorWrapper({
         <ZonesSelectorModal
           isOpen={isVisible}
           onClose={() => setVisible(false)}
-          currentZone={undefined}
           zonesList={zonesList}
           onZoneSelected={onZoneSelected}
           modalPosition={modalPosition}

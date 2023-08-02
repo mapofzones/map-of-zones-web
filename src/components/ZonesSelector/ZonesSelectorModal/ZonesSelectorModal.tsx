@@ -1,17 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, KeyboardEvent } from 'react';
 
 import cn from 'classnames';
 
-import { ZoneInfoWithSearch } from 'components';
-import { useFilteredZones } from 'hooks/useFilteredZones';
-import { ScrollableContainer, Search } from 'ui';
+import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
+import { Search } from 'ui';
 import { Modal } from 'ui/Modal/Modal';
 
 import styles from './ZonesSelectorModal.module.scss';
 import { ZonesSearchProps } from './ZonesSelectorModal.props';
 
 export function ZonesSelectorModal({
-  currentZone,
   zonesList,
   modalPosition,
   isOpen,
@@ -21,7 +19,9 @@ export function ZonesSelectorModal({
 }: ZonesSearchProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
 
-  const filteredZones = useFilteredZones(zonesList, searchValue);
+  const onItemClick = (zone: string) => {
+    onZoneSelected(zone);
+  };
 
   const onSearchChange = (value: string) => {
     setSearchValue(value);
@@ -50,6 +50,13 @@ export function ZonesSelectorModal({
     return { left: offset.left, top: offset.top + offset.height };
   }, [modalPosition, offset]);
 
+  const keydownHandleRef = useRef<KeydownHandle>(null);
+  function handleArrowKeys(event: KeyboardEvent<HTMLDivElement>): void {
+    if (keydownHandleRef.current) {
+      keydownHandleRef.current.keydown(event);
+    }
+  }
+
   return (
     <Modal className={cn(styles.container)} style={style} isOpen={isOpen} onClose={onClose}>
       <Search
@@ -57,23 +64,15 @@ export function ZonesSelectorModal({
         className={styles.searchContainer}
         onSearchChange={onSearchChange}
         placeholder={zonesList.length + ' Zones'}
+        onKeyDown={handleArrowKeys}
       />
 
-      <ScrollableContainer className={styles.itemsContainer}>
-        {!!searchValue && !filteredZones?.length && (
-          <div className={styles.zonesNotFoundContainer}>No zones found.</div>
-        )}
-
-        {filteredZones.map((zone) => (
-          <div
-            className={cn(styles.zone, { [styles.activeZone]: currentZone === zone.zone })}
-            key={`zone_${zone.zone}`}
-            onClick={() => onZoneSelected(zone.zone)}
-          >
-            <ZoneInfoWithSearch searchValue={searchValue} zone={zone} />
-          </div>
-        ))}
-      </ScrollableContainer>
+      <ZonesGroupedListWithRef
+        ref={keydownHandleRef}
+        searchValue={searchValue}
+        zones={zonesList}
+        onItemClick={onItemClick}
+      />
     </Modal>
   );
 }
