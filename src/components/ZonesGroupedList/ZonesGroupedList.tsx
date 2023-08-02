@@ -29,7 +29,7 @@ export type KeydownHandle = {
 };
 
 function ZonesGroupedList(
-  { searchValue, zones, onItemClick }: ZonesGroupedListProps,
+  { className, searchValue, zones, onItemClick }: ZonesGroupedListProps,
   ref: ForwardedRef<KeydownHandle>
 ) {
   useImperativeHandle(ref, () => ({
@@ -137,7 +137,7 @@ function ZonesGroupedList(
   }, [searchValue]);
 
   return (
-    <ScrollableContainer className={styles.itemsContainer}>
+    <ScrollableContainer className={cn(styles.itemsContainer, className)}>
       <motion.div animate={animationControls}>
         {(!filteredPopularZones || !filteredPopularZones.length) &&
           (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState, KeyboardEvent } from 'react';
 import cn from 'classnames';
 
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
+import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
 import { Search } from 'ui';
 import { Modal } from 'ui/Modal/Modal';
 
@@ -41,13 +42,15 @@ export function ZonesSelectorModal({
     if (!offset) {
       return;
     }
+    const height = window.innerHeight - (offset.top + offset.height) - 80;
     if (modalPosition === 'right') {
       return {
         right: window.innerWidth - offset.right,
         top: offset.top + offset.height,
+        height,
       };
     }
-    return { left: offset.left, top: offset.top + offset.height };
+    return { left: offset.left, top: offset.top + offset.height, height };
   }, [modalPosition, offset]);
 
   const keydownHandleRef = useRef<KeydownHandle>(null);
@@ -56,23 +59,25 @@ export function ZonesSelectorModal({
       keydownHandleRef.current.keydown(event);
     }
   }
-
   return (
     <Modal className={cn(styles.container)} style={style} isOpen={isOpen} onClose={onClose}>
-      <Search
-        autoFocus={true}
-        className={styles.searchContainer}
-        onSearchChange={onSearchChange}
-        placeholder={zonesList.length + ' Zones'}
-        onKeyDown={handleArrowKeys}
-      />
+      <ZonesListModalContent>
+        <Search
+          autoFocus={true}
+          className={styles.searchContainer}
+          onSearchChange={onSearchChange}
+          placeholder={zonesList.length + ' Zones'}
+          onKeyDown={handleArrowKeys}
+        />
 
-      <ZonesGroupedListWithRef
-        ref={keydownHandleRef}
-        searchValue={searchValue}
-        zones={zonesList}
-        onItemClick={onItemClick}
-      />
+        <ZonesGroupedListWithRef
+          ref={keydownHandleRef}
+          className={styles.itemsContainer}
+          searchValue={searchValue}
+          zones={zonesList}
+          onItemClick={onItemClick}
+        />
+      </ZonesListModalContent>
     </Modal>
   );
 }

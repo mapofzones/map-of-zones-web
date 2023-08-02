@@ -14,6 +14,8 @@
 
   box-shadow: 0 8px 15px rgb(0 0 0 / 30%);
   margin-right: calc(100% - 100vw);
+  background-color: transparent;
+  overflow: hidden;
 
   .searchContainer {
     margin: 16px;
@@ -24,6 +26,7 @@
   }
 
   .itemsContainer {
+    height: calc(100% - 70px);
     padding-bottom: 8px;
   }
 
