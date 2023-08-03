@@ -21,8 +21,19 @@ export function ZonesListModalContent({
         collapsed: { opacity: 0 },
       }
     : {
-        open: { scaleX: '100%', opacity: 1 },
-        collapsed: { scaleX: 0, opacity: 0 },
+        open: {
+          scaleX: '100%',
+          height: '100%',
+          opacity: 1,
+          transition: {
+            duration: 0.3,
+            height: {
+              duration: 0.3,
+              delay: 0.3,
+            },
+          },
+        },
+        collapsed: { scaleX: 0, height: '60px', opacity: 0 },
       };
 
   return (
@@ -31,7 +42,6 @@ export function ZonesListModalContent({
       initial="collapsed"
       animate="open"
       variants={modalContainerVariants}
-      transition={{ duration: 0.3 }}
     >
       {children}
     </motion.div>

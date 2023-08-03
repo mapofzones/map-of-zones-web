@@ -2,12 +2,12 @@
   position: fixed;
   z-index: 1000;
 
-  display: flex;
-  flex-direction: column;
-  width: 360px;
+  // display: flex;
+  // flex-direction: column;
+  // width: 360px;
   max-width: calc(100vw - 48px);
   max-height: 570px;
-  margin-top: 10px;
+  margin-top: 12px;
 
   background-color: var(--black-500);
   border-radius: 5px;
@@ -18,7 +18,9 @@
   overflow: hidden;
 
   .searchContainer {
-    margin: 16px;
+    // margin: 16px;
+    margin: 0 16px;
+    padding: 16px 0;
 
     input {
       height: 32px;
@@ -26,7 +28,7 @@
   }
 
   .itemsContainer {
-    height: calc(100% - 70px);
+    // height: calc(100% - 70px);
     padding-bottom: 8px;
   }
 

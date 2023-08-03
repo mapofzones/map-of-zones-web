@@ -42,7 +42,7 @@ export function ZonesSelectorModal({
     if (!offset) {
       return;
     }
-    const height = window.innerHeight - (offset.top + offset.height) - 80;
+    const height = window.innerHeight - (offset.top + offset.height) - 80 - 32 - 23;
     if (modalPosition === 'right') {
       return {
         right: window.innerWidth - offset.right,
@@ -60,7 +60,12 @@ export function ZonesSelectorModal({
     }
   }
   return (
-    <Modal className={cn(styles.container)} style={style} isOpen={isOpen} onClose={onClose}>
+    <Modal
+      className={cn(styles.container)}
+      style={{ left: style?.left, right: style?.right, top: style?.top }}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <ZonesListModalContent>
         <Search
           autoFocus={true}
@@ -73,6 +78,7 @@ export function ZonesSelectorModal({
         <ZonesGroupedListWithRef
           ref={keydownHandleRef}
           className={styles.itemsContainer}
+          style={{ maxHeight: style?.height }}
           searchValue={searchValue}
           zones={zonesList}
           onItemClick={onItemClick}

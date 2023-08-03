@@ -9,6 +9,7 @@ import { SelectedZoneOverviewSource } from 'hooks/analytics/ZonesPage/ZonePage/Z
 import { getZonesOverviewPath } from 'routing';
 import { Modal } from 'ui/Modal/Modal';
 
+import styles from './GlobalSearchModal.module.scss';
 import { GlobalSearchModalProps } from './GlobalSearchModal.props';
 import { GlobalSearchInput } from '../GlobalSearchInput';
 
@@ -49,7 +50,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   }
 
   return (
-    <Modal isOpen={isVisible} onClose={onModalCloseInternal}>
+    <Modal className={styles.modalContainer} isOpen={isVisible} onClose={onModalCloseInternal}>
       <ZonesListModalContent>
         <GlobalSearchInput
           autoFocus
