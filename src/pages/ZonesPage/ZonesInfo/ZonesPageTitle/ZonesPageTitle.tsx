@@ -13,7 +13,7 @@ export function ZonesPageTitle() {
   const [selectedPeriod] = useSelectedPeriod(undefined);
 
   const isSmallTablet = useTabletSmallMediaQuery();
-  const compareBtnText = isSmallTablet ? 'Compare' : 'Compare Zone';
+  const compareBtnText = isSmallTablet ? 'Compare' : 'Compare Zones';
 
   const { data: zonesCountData, loading: zonesCountLoading } = useZonesCount(selectedPeriod);
 
