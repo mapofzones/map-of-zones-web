@@ -7,7 +7,8 @@
   bottom: var(--padding-bottom);
   position: absolute;
   background: transparent;
-  width: 620px;
+  max-width: 620px;
+  width: 100%;
 
   .itemsContainer {
     height: calc(100% - var(--search-height));

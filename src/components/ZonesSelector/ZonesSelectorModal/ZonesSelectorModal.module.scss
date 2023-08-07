@@ -2,34 +2,21 @@
   position: fixed;
   z-index: 1000;
 
-  // display: flex;
-  // flex-direction: column;
-  // width: 360px;
   max-width: calc(100vw - 48px);
   max-height: 570px;
   margin-top: 12px;
 
-  background-color: var(--black-500);
-  border-radius: 5px;
-
-  box-shadow: 0 8px 15px rgb(0 0 0 / 30%);
   margin-right: calc(100% - 100vw);
   background-color: transparent;
   overflow: hidden;
 
   .searchContainer {
-    // margin: 16px;
     margin: 0 16px;
     padding: 16px 0;
 
     input {
       height: 32px;
     }
-  }
-
-  .itemsContainer {
-    // height: calc(100% - 70px);
-    padding-bottom: 8px;
   }
 
   .zonesNotFoundContainer {

@@ -29,8 +29,6 @@
   &.activeZone {
     pointer-events: none;
 
-    > div {
-      background-color: var(--black-700);
-    }
+    background-color: var(--black-700);
   }
 }

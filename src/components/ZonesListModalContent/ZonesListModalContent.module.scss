@@ -1,20 +1,9 @@
 .modalContent {
-  // position: absolute;
-  // left: 0;
-  // top: 0;
-  // right: 0;
   z-index: 1000;
   max-width: 620px;
-  // height: 100%;
 
-  // margin: 8px auto;
   background-color: var(--black-500);
   border-radius: 5px;
-
-  // .itemsContainer {
-  //   height: calc(100% - 60px);
-  //   max-height: 90vh;
-  // }
 }
 
 @media (max-width: 640px) {
@@ -22,9 +11,5 @@
     width: calc(100% - 24px);
     margin-left: 12px;
     margin-right: 12px;
-
-    // .itemsContainer {
-    //   max-height: 60vh;
-    // }
   }
 }

@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 
 import cn from 'classnames';
-import { motion, useAnimation } from 'framer-motion';
 
 import { ZoneLinkItemsWithSearch } from 'components/ZoneLinkItemsWithSearch';
 import { ZoneData } from 'hooks/queries/useZonesData';
@@ -75,29 +74,10 @@ function ZonesGroupedList(
 
   const activeItemRef = useActiveItemScroll(activeItem);
 
-  const animationControls = useAnimation();
-
   const popularZones = zones.filter((zone: ZoneData) => POPULAR_ZONE_KEYS.includes(zone.zone));
 
   const filteredZones = useFilteredZones(zones, searchValue);
   const filteredPopularZones = useFilteredZones(popularZones, searchValue);
-
-  useEffect(() => {
-    const animate = async () => {
-      await animationControls.set({
-        maxHeight: 0,
-      });
-      await animationControls.start({
-        maxHeight: '85vh',
-        transition: {
-          duration: 0.5,
-          delay: 0.3,
-        },
-      });
-    };
-
-    animate();
-  }, [animationControls]);
 
   useEffect(() => {
     if (activeItem?.selectedZone) {
@@ -138,27 +118,25 @@ function ZonesGroupedList(
 
   return (
     <ScrollableContainer className={cn(styles.itemsContainer, className)} style={style}>
-      <motion.div animate={animationControls}>
-        {(!filteredPopularZones || !filteredPopularZones.length) &&
-          (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
-        <ZoneLinkItemsWithSearch
-          title="Popular"
-          zones={filteredPopularZones}
-          activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
-          selectedIndex={activeItem.popularIndex}
-          searchValue={searchValue}
-          onItemClick={onItemClick}
-        />
+      {(!filteredPopularZones || !filteredPopularZones.length) &&
+        (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
+      <ZoneLinkItemsWithSearch
+        title="Popular"
+        zones={filteredPopularZones}
+        activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
+        selectedIndex={activeItem.popularIndex}
+        searchValue={searchValue}
+        onItemClick={onItemClick}
+      />
 
-        <ZoneLinkItemsWithSearch
-          title="Alphabetically"
-          zones={filteredZones}
-          activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
-          selectedIndex={activeItem.alphabetIndex}
-          searchValue={searchValue}
-          onItemClick={onItemClick}
-        />
-      </motion.div>
+      <ZoneLinkItemsWithSearch
+        title="Alphabetically"
+        zones={filteredZones}
+        activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
+        selectedIndex={activeItem.alphabetIndex}
+        searchValue={searchValue}
+        onItemClick={onItemClick}
+      />
     </ScrollableContainer>
   );
 }
