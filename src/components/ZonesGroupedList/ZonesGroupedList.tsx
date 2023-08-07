@@ -138,27 +138,27 @@ function ZonesGroupedList(
 
   return (
     <ScrollableContainer className={cn(styles.itemsContainer, className)} style={style}>
-      {/* <motion.div animate={animationControls}> */}
-      {(!filteredPopularZones || !filteredPopularZones.length) &&
-        (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
-      <ZoneLinkItemsWithSearch
-        title="Popular"
-        zones={filteredPopularZones}
-        activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
-        selectedIndex={activeItem.popularIndex}
-        searchValue={searchValue}
-        onItemClick={onItemClick}
-      />
+      <motion.div animate={animationControls}>
+        {(!filteredPopularZones || !filteredPopularZones.length) &&
+          (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
+        <ZoneLinkItemsWithSearch
+          title="Popular"
+          zones={filteredPopularZones}
+          activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
+          selectedIndex={activeItem.popularIndex}
+          searchValue={searchValue}
+          onItemClick={onItemClick}
+        />
 
-      <ZoneLinkItemsWithSearch
-        title="Alphabetically"
-        zones={filteredZones}
-        activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
-        selectedIndex={activeItem.alphabetIndex}
-        searchValue={searchValue}
-        onItemClick={onItemClick}
-      />
-      {/* </motion.div> */}
+        <ZoneLinkItemsWithSearch
+          title="Alphabetically"
+          zones={filteredZones}
+          activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
+          selectedIndex={activeItem.alphabetIndex}
+          searchValue={searchValue}
+          onItemClick={onItemClick}
+        />
+      </motion.div>
     </ScrollableContainer>
   );
 }

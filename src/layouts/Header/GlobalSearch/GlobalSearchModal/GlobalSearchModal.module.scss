@@ -1,5 +1,15 @@
 .modalContainer {
-  height: calc(100% - 72px);
-  top: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 70px;
+  --search-height: 40px;
+
+  top: var(--padding-top);
+  bottom: var(--padding-bottom);
   position: absolute;
+  background: transparent;
+  width: 620px;
+
+  .itemsContainer {
+    height: calc(100% - var(--search-height));
+  }
 }

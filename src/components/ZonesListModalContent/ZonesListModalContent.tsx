@@ -10,9 +10,11 @@ import styles from './ZonesListModalContent.module.scss';
 export function ZonesListModalContent({
   children,
   className,
+  initialHeight = 0,
 }: {
   children: ReactNode;
   className?: string;
+  initialHeight?: string | number;
 }) {
   const isTablet = useTabletSmallMediaQuery();
   const modalContainerVariants = isTablet
@@ -33,7 +35,7 @@ export function ZonesListModalContent({
             },
           },
         },
-        collapsed: { scaleX: 0, height: '60px', opacity: 0 },
+        collapsed: { scaleX: 0, height: initialHeight, opacity: 0 },
       };
 
   return (

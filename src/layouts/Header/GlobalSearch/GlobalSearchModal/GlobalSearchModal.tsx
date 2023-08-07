@@ -51,7 +51,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
 
   return (
     <Modal className={styles.modalContainer} isOpen={isVisible} onClose={onModalCloseInternal}>
-      <ZonesListModalContent>
+      <ZonesListModalContent initialHeight="40">
         <GlobalSearchInput
           autoFocus
           showCompareSwitcher
@@ -61,6 +61,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
         />
         <ZonesGroupedListWithRef
           ref={keydownHandleRef}
+          className={styles.itemsContainer}
           searchValue={searchValue}
           zones={zones}
           onItemClick={onItemClick}

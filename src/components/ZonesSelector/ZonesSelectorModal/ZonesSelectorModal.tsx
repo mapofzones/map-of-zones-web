@@ -66,7 +66,7 @@ export function ZonesSelectorModal({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <ZonesListModalContent>
+      <ZonesListModalContent initialHeight="60">
         <Search
           autoFocus={true}
           className={styles.searchContainer}
