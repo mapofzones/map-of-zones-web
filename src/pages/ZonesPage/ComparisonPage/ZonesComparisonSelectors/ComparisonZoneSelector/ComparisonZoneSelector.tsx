@@ -1,8 +1,7 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
-
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { CloseCircleIcon } from 'assets/icons';
+import { PointerAreaWrapper } from 'components/PointerAreaWrapper';
 import { ZonesSelector } from 'components/ZonesSelector';
 
 import styles from './ComparisonZoneSelector.module.scss';
@@ -32,20 +31,14 @@ export function ComparisonZoneSelector({
     >
       <ZonesSelector zone={zone} logoSize={'28px'} classNameButton={styles.selector} {...props} />
 
-      <IconWrapper className={styles.iconWrapper} onClick={deleteZone}>
+      <PointerAreaWrapper
+        className={styles.iconWrapper}
+        onClick={deleteZone}
+        areaScale={1.5}
+        circle
+      >
         <CloseCircleIcon />
-      </IconWrapper>
+      </PointerAreaWrapper>
     </motion.div>
-  );
-}
-
-interface IconWrapperProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {}
-
-export function IconWrapper({ className, children, ...props }: IconWrapperProps) {
-  return (
-    <span className={className} {...props}>
-      {children}
-    </span>
   );
 }

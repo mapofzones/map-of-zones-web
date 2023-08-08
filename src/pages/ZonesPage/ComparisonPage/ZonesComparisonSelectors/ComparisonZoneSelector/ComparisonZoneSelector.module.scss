@@ -16,7 +16,6 @@
 
   &:hover {
     .iconWrapper {
-      display: flex;
       opacity: 1;
       transform: translate(0, 0);
     }
@@ -27,11 +26,6 @@
     position: absolute;
     top: -12px;
     left: -12px;
-    width: 32px;
-    height: 32px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
 
     transform: translate(50%, 50%);
     transition: transform 0.5s, opacity 0.5s;

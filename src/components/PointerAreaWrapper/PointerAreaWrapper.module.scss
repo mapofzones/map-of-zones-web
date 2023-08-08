@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  svg {
+    display: block;
+  }
+}
