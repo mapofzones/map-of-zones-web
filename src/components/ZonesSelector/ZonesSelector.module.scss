@@ -29,13 +29,8 @@
   }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 375px) {
   .zoneName {
-    font-size: 20px;
-    line-height: 25px;
-  }
-
-  .arrowContainer {
-    top: 0;
+    font-size: var(--font-heading-size-md);
   }
 }
