@@ -13,6 +13,7 @@ export function ZonesSelector({
   className,
   classNameButton,
   zone,
+  logoSize = '36px',
   loading,
   zonesList,
   onZonesSelected,
@@ -36,7 +37,7 @@ export function ZonesSelector({
           <ZoneLogo
             logoUrl={selectedZone?.logoUrl}
             name={selectedZone?.name}
-            size={'36px'}
+            size={logoSize}
             loading={loading}
             className={styles.zoneLogo}
           />

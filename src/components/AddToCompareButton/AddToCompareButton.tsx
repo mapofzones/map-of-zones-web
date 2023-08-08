@@ -10,7 +10,7 @@ export function AddToCompareButton({ className, ...props }: AddToCompareButtonPr
   return (
     <div className={cn(className, styles.container)} {...props}>
       <PlusIcon className={styles.icon} />
-      Add to compare
+      Add to Compare
     </div>
   );
 }

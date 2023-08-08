@@ -1,17 +1,13 @@
 .container {
   position: relative;
+  --border-width: 1px;
 
-  .border {
-    display: none;
-    position: absolute;
-    border: 1px solid var(--grey-100);
-    border-radius: 50px;
-  }
+  outline: var(--border-width) solid var(--grey-100);
+  border-radius: 50px;
 
   .selector {
-    border: 1px solid var(--grey-100);
-    border-radius: 50px;
-    padding: 8px 16px 8px 8px;
+    padding: calc(8px - var(--border-width));
+    padding-right: calc(12px - var(--border-width));
 
     span {
       font-size: var(--font-heading-size-sm);
@@ -19,41 +15,41 @@
   }
 
   &:hover {
-    .border {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-width: 2px;
-    }
-
-    .selector {
-      border-color: transparent;
-    }
-
-    .deleteIcon {
-      display: block;
+    .iconWrapper {
+      display: flex;
+      opacity: 1;
+      transform: translate(0, 0);
     }
   }
 
-  .deleteIcon {
-    display: none;
+  .iconWrapper {
+    opacity: 0;
     position: absolute;
-    top: -5px;
-    left: -5px;
-
-    width: 24px;
-    height: 24px;
-
+    top: -12px;
+    left: -12px;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 
-    fill: var(--black-900);
-    stroke: var(--white);
-    outline: 2px solid var(--black-100);
-    outline-offset: -1px;
-    border-radius: 50%;
+    transform: translate(50%, 50%);
+    transition: transform 0.5s, opacity 0.5s;
 
-    :hover {
-      fill: var(--grey-100);
+    svg {
+      height: 24px;
+      width: 24px;
+      fill: var(--black-900);
+      stroke: var(--white);
+      outline: 2px solid var(--black-100);
+      outline-offset: -1px;
+      border-radius: 50%;
+    }
+
+    &:hover {
+      svg {
+        fill: var(--grey-100);
+      }
     }
   }
 }

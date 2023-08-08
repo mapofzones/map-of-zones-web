@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { AnimatePresence } from 'framer-motion';
 
 import { AddToCompareButton } from 'components/AddToCompareButton';
 import { ZonesSelectorWrapper } from 'components/ZonesSelector/ZonesSelectorWrapper';
@@ -31,17 +32,19 @@ export function ZonesComparisonSelectors({
 
   return (
     <div className={cn(className, styles.container)} {...props}>
-      {selectedZones.map((zone, index) => (
-        <ComparisonZoneSelector
-          key={zone}
-          zone={zone}
-          color={selectedZonesDetailsByKey[zone]?.color}
-          loading={loading}
-          zonesList={zonesList}
-          onZonesSelected={(newZone) => onZoneSelected(newZone, index)}
-          onZoneDelete={onZoneDelete}
-        />
-      ))}
+      <AnimatePresence>
+        {selectedZones.map((zone, index) => (
+          <ComparisonZoneSelector
+            key={zone}
+            zone={zone}
+            color={selectedZonesDetailsByKey[zone]?.color}
+            loading={loading}
+            zonesList={zonesList}
+            onZonesSelected={(newZone) => onZoneSelected(newZone, index)}
+            onZoneDelete={onZoneDelete}
+          />
+        ))}
+      </AnimatePresence>
 
       {selectedZones.length < MAX_ZONES_COUNT && (
         <ZonesSelectorWrapper

@@ -12,8 +12,8 @@ export function AnimatedArrowDown({
   return (
     <motion.div
       variants={{
-        isReverted: { rotateX: 180 },
-        isNotReverted: { rotateX: 0 },
+        isReverted: { rotate: '-180deg' },
+        isNotReverted: { rotate: 0 },
       }}
       animate={isReverted ? 'isReverted' : 'isNotReverted'}
       initial={initialReverted ? 'isReverted' : 'isNotReverted'}
