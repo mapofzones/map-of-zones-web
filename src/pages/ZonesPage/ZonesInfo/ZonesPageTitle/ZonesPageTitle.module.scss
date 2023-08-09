@@ -1,7 +1,7 @@
 .header {
   display: flex;
   align-items: center;
-  margin: 24px 24px 16px;
+  margin: 16px;
   gap: 16px;
 
   .titleContainer {
@@ -28,5 +28,15 @@
 
   .periodSelector {
     margin-left: auto;
+  }
+}
+
+@media (max-width: 630px) {
+  .header {
+    .titleContainer {
+      .subtitle {
+        display: none;
+      }
+    }
   }
 }
