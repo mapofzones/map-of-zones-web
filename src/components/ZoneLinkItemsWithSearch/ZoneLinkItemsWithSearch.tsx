@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import cn from 'classnames';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
 
 import { ZoneInfoWithSearch } from 'components';
 import { Checkbox } from 'components/Checkbox';
@@ -10,6 +11,27 @@ import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageCompari
 import styles from './ZoneLinkItemsWithSearch.module.scss';
 
 import { ZoneLinkItemsWithSearchProps } from '.';
+
+const checkboxAnimationVariants = {
+  hidden: { opacity: 0, width: 0 },
+  visible: { opacity: 1, width: 'auto' },
+};
+
+const itemAnimationVariants: Variants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 300, damping: 24, duration: 1 },
+  },
+  hidden: { opacity: 0, y: -100, transition: { duration: 0.6 } },
+};
+
+const itemAnimationProps = {
+  initial: 'hidden',
+  animate: 'visible',
+  exit: 'hidden',
+  variants: itemAnimationVariants,
+};
 
 export function ZoneLinkItemsWithSearch({
   title,
@@ -47,23 +69,39 @@ export function ZoneLinkItemsWithSearch({
 
   return (
     <>
-      {title && <div className={styles.groupTitle}>{title}</div>}
+      {title && (
+        <motion.div className={styles.groupTitle} {...itemAnimationProps}>
+          {title}
+        </motion.div>
+      )}
+
       {zones.map((zone, index) => (
-        <div
+        <motion.div
           ref={index === selectedIndex ? activeItemRef : null}
           className={cn(styles.zone, { [styles.activeZone]: index === selectedIndex })}
           key={`zone_${zone.zone}`}
           onClick={() => onItemClick?.(zone.zone)}
+          layout
+          {...itemAnimationProps}
         >
-          {isComparison && (
-            <Checkbox
-              className={styles.checkbox}
-              checked={isCheckedFunc?.(zone.zone) ?? false}
-              onCheckedChange={(checked) => onCheckedChange?.(zone.zone, checked)}
-            />
-          )}
+          <AnimatePresence>
+            {isComparison && (
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={checkboxAnimationVariants}
+              >
+                <Checkbox
+                  className={styles.checkbox}
+                  checked={isCheckedFunc?.(zone.zone) ?? false}
+                  onCheckedChange={(checked) => onCheckedChange?.(zone.zone, checked)}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
           <ZoneInfoWithSearch className={styles.content} searchValue={searchValue} zone={zone} />
-        </div>
+        </motion.div>
       ))}
     </>
   );

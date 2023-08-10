@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import cn from 'classnames';
+import { AnimatePresence } from 'framer-motion';
 
 import { useAppSelector } from 'store/hooks';
 import { Modal } from 'ui/Modal/Modal';

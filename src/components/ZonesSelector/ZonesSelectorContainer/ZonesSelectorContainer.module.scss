@@ -9,7 +9,7 @@
   z-index: 1000;
   width: auto;
 
-  transition: all 0.5s;
+  transition: bottom 0.5s;
 
   &.compareMode {
     bottom: calc(var(--compare-footer-height) + var(--indent));
