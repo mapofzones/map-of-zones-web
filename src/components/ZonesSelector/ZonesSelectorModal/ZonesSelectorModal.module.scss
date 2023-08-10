@@ -1,21 +1,17 @@
 .container {
-  position: fixed;
-  z-index: 1000;
+  --search-height: 32px;
+  --search-padding: 16px;
 
-  max-width: calc(100vw - 48px);
-  max-height: 570px;
-  margin-top: 12px;
-
-  margin-right: calc(100% - 100vw);
-  background-color: transparent;
-  overflow: hidden;
+  .itemsContainer {
+    height: calc(100% - var(--search-height) - 2 * var(--search-padding));
+  }
 
   .searchContainer {
-    margin: 0 16px;
-    padding: 16px 0;
+    margin: 0 var(--search-padding);
+    padding: var(--search-padding) 0;
 
     input {
-      height: 32px;
+      height: var(--search-height);
     }
   }
 

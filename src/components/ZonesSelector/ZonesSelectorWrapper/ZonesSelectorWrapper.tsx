@@ -11,7 +11,6 @@ import { ZonesSelectorWrapperProps } from '.';
 export function ZonesSelectorWrapper({
   children,
   zonesList,
-  modalPosition = 'left',
   onModalStateChanged,
   onZoneSelected,
 }: ZonesSelectorWrapperProps): JSX.Element {
@@ -58,7 +57,6 @@ export function ZonesSelectorWrapper({
           onClose={() => setVisible(false)}
           zonesList={zonesList}
           onZoneSelected={onZoneSelected}
-          modalPosition={modalPosition}
           offset={offset}
         />
       )}

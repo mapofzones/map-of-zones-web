@@ -2,8 +2,6 @@ import { ReactElement } from 'react';
 
 import { ZoneData } from 'hooks/queries/useZonesData';
 
-import { ModalPosition } from '../ZonesSelectorModal/ZonesSelectorModal.props';
-
 interface ClickableComponentWithClassName<T> {
   className?: string;
   onClick?: React.MouseEventHandler<T> | undefined;
@@ -19,5 +17,4 @@ export interface ZonesSelectorWrapperProps {
   zonesList: ZoneData[];
   onModalStateChanged?: (opened: boolean) => void;
   onZoneSelected: (zone: string) => void;
-  modalPosition?: ModalPosition;
 }

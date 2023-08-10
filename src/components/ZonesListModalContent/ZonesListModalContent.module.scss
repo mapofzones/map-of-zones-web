@@ -1,15 +1,5 @@
 .modalContent {
-  z-index: 1000;
-  max-width: 620px;
-
+  height: 100%;
   background-color: var(--black-500);
   border-radius: 5px;
-}
-
-@media (max-width: 640px) {
-  .modalContent {
-    width: calc(100% - 24px);
-    margin-left: 12px;
-    margin-right: 12px;
-  }
 }

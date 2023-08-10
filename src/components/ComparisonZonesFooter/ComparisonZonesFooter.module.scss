@@ -3,7 +3,7 @@
   bottom: 0;
   z-index: 10000;
   background: var(--black-600);
-  height: 60px;
+  height: var(--compare-footer-height);
   width: 100%;
 
   .content {

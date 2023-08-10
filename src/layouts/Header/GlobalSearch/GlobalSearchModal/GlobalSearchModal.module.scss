@@ -1,16 +1,16 @@
-.modalContainer {
-  --padding-top: 12px;
-  --padding-bottom: 70px;
+.container {
   --search-height: 40px;
 
-  top: var(--padding-top);
-  bottom: var(--padding-bottom);
-  position: absolute;
-  background: transparent;
   max-width: 620px;
-  width: 100%;
+  margin: auto;
 
   .itemsContainer {
     height: calc(100% - var(--search-height));
+  }
+}
+
+@media (max-width: 880px) {
+  .container {
+    max-width: none;
   }
 }

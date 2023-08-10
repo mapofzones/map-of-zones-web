@@ -1,22 +1,20 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 
-import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
 
 import styles from './ZonesListModalContent.module.scss';
 
 export function ZonesListModalContent({
   children,
   className,
-  initialHeight = 0,
 }: {
   children: ReactNode;
   className?: string;
-  initialHeight?: string | number;
 }) {
-  const isTablet = useTabletSmallMediaQuery();
+  const isTablet = useTabletMediumMediaQuery();
   const modalContainerVariants = isTablet
     ? {
         open: { opacity: 1 },
@@ -35,7 +33,7 @@ export function ZonesListModalContent({
             },
           },
         },
-        collapsed: { scaleX: 0, height: initialHeight, opacity: 0 },
+        collapsed: { scaleX: 0, height: 0, opacity: 0 },
       };
 
   return (

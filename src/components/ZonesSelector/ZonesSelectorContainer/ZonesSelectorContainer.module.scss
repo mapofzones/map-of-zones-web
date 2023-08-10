@@ -1,0 +1,19 @@
+.container {
+  --indent: 12px;
+
+  position: absolute;
+  top: var(--indent);
+  bottom: var(--indent);
+  left: var(--indent);
+  right: var(--indent);
+  z-index: 1000;
+  width: auto;
+
+  transition: all 0.5s;
+
+  &.compareMode {
+    bottom: calc(var(--compare-footer-height) + var(--indent));
+  }
+
+  background-color: transparent;
+}

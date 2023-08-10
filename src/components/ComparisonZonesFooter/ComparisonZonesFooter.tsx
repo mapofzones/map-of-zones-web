@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { InfoDarkIcon, TrashIcon } from 'assets/icons';
@@ -36,44 +37,52 @@ export function ComparisonZonesFooter(): JSX.Element {
     resetState();
   }, [location]);
 
-  if (!isComparison) return <></>;
-
   return (
-    <Portal>
-      <div className={styles.container}>
-        <div className={styles.content}>
-          {(!zones || zones.length <= 1) && (
-            <>
-              <InfoDarkIcon className={styles.infoIcon} />
+    <AnimatePresence>
+      {isComparison && (
+        <Portal>
+          <motion.div
+            initial={{ translateY: '100%' }}
+            animate={{ translateY: 0 }}
+            exit={{ translateY: '100%' }}
+            transition={{ duration: 0.5 }}
+            className={styles.container}
+          >
+            <div className={styles.content}>
+              {(!zones || zones.length <= 1) && (
+                <>
+                  <InfoDarkIcon className={styles.infoIcon} />
 
-              <span className={styles.defaultTitle}>Select up to 3 zones</span>
-            </>
-          )}
+                  <span className={styles.defaultTitle}>Select up to 3 zones</span>
+                </>
+              )}
 
-          {zones?.length > 1 && (
-            <Button
-              className={styles.compareBtn}
-              size={ButtonSize.LARGE}
-              variant={ButtonVariant.PRIMARY}
-              onClick={onCompareClick}
-            >
-              Compare {zones.length} Selected
-            </Button>
-          )}
+              {zones?.length > 1 && (
+                <Button
+                  className={styles.compareBtn}
+                  size={ButtonSize.LARGE}
+                  variant={ButtonVariant.PRIMARY}
+                  onClick={onCompareClick}
+                >
+                  Compare {zones.length} Selected
+                </Button>
+              )}
 
-          {zones?.length > 0 && (
-            <Button
-              className={styles.cancelBtn}
-              size={ButtonSize.LARGE}
-              variant={ButtonVariant.SECONDARY}
-              IconBefore={TrashIcon}
-              onClick={onClearClick}
-            >
-              Clear
-            </Button>
-          )}
-        </div>
-      </div>
-    </Portal>
+              {zones?.length > 0 && (
+                <Button
+                  className={styles.cancelBtn}
+                  size={ButtonSize.LARGE}
+                  variant={ButtonVariant.SECONDARY}
+                  IconBefore={TrashIcon}
+                  onClick={onClearClick}
+                >
+                  Clear
+                </Button>
+              )}
+            </div>
+          </motion.div>
+        </Portal>
+      )}
+    </AnimatePresence>
   );
 }

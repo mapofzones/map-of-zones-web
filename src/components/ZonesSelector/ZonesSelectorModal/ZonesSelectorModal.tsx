@@ -1,18 +1,20 @@
-import { useEffect, useMemo, useRef, useState, KeyboardEvent } from 'react';
+import { useMemo, useRef, useState, KeyboardEvent } from 'react';
 
 import cn from 'classnames';
 
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
+import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
 import { Search } from 'ui';
-import { Modal } from 'ui/Modal/Modal';
 
 import styles from './ZonesSelectorModal.module.scss';
 import { ZonesSearchProps } from './ZonesSelectorModal.props';
+import { ZonesSelectorModalContainer } from '../ZonesSelectorContainer';
+
+const maxModalWidthPx = 360;
 
 export function ZonesSelectorModal({
   zonesList,
-  modalPosition,
   isOpen,
   onClose,
   onZoneSelected,
@@ -28,30 +30,28 @@ export function ZonesSelectorModal({
     setSearchValue(value);
   };
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    document.body.style.marginRight = 'var(--scrollbar-width)';
-
-    return () => {
-      document.body.style.overflow = 'auto';
-      document.body.style.marginRight = '';
-    };
-  }, []);
+  const isTableMedium = useTabletMediumMediaQuery();
 
   const style = useMemo(() => {
-    if (!offset) {
+    if (isTableMedium || !offset) {
       return;
     }
-    const height = window.innerHeight - (offset.top + offset.height) - 80 - 32 - 23;
-    if (modalPosition === 'right') {
+
+    const isRightPartOfWindow = window.innerWidth / 2 < offset.left;
+    if (isRightPartOfWindow) {
+      const right = window.innerWidth - offset.right;
       return {
-        right: window.innerWidth - offset.right,
+        right,
+        left: offset.right - maxModalWidthPx,
         top: offset.top + offset.height,
-        height,
       };
     }
-    return { left: offset.left, top: offset.top + offset.height, height };
-  }, [modalPosition, offset]);
+    return {
+      left: offset.left,
+      right: window.innerWidth - (offset.left + maxModalWidthPx),
+      top: offset.top + offset.height,
+    };
+  }, [isTableMedium, offset]);
 
   const keydownHandleRef = useRef<KeydownHandle>(null);
   function handleArrowKeys(event: KeyboardEvent<HTMLDivElement>): void {
@@ -60,13 +60,13 @@ export function ZonesSelectorModal({
     }
   }
   return (
-    <Modal
+    <ZonesSelectorModalContainer
       className={cn(styles.container)}
-      style={{ left: style?.left, right: style?.right, top: style?.top }}
+      style={style}
       isOpen={isOpen}
       onClose={onClose}
     >
-      <ZonesListModalContent initialHeight="60">
+      <ZonesListModalContent>
         <Search
           autoFocus={true}
           className={styles.searchContainer}
@@ -78,12 +78,11 @@ export function ZonesSelectorModal({
         <ZonesGroupedListWithRef
           ref={keydownHandleRef}
           className={styles.itemsContainer}
-          style={{ maxHeight: style?.height }}
           searchValue={searchValue}
           zones={zonesList}
           onItemClick={onItemClick}
         />
       </ZonesListModalContent>
-    </Modal>
+    </ZonesSelectorModalContainer>
   );
 }

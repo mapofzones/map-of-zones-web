@@ -4,10 +4,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
+import { ZonesSelectorModalContainer } from 'components/ZonesSelector/ZonesSelectorContainer';
 import { useGlobalSearchItemSelectedAnalytics } from 'hooks/analytics/Multipage/useGlobalSearchItemSelectedAnalytics';
 import { SelectedZoneOverviewSource } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
 import { getZonesOverviewPath } from 'routing';
-import { Modal } from 'ui/Modal/Modal';
 
 import styles from './GlobalSearchModal.module.scss';
 import { GlobalSearchModalProps } from './GlobalSearchModal.props';
@@ -50,8 +50,12 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   }
 
   return (
-    <Modal className={styles.modalContainer} isOpen={isVisible} onClose={onModalCloseInternal}>
-      <ZonesListModalContent initialHeight="40">
+    <ZonesSelectorModalContainer
+      className={styles.container}
+      isOpen={isVisible}
+      onClose={onModalCloseInternal}
+    >
+      <ZonesListModalContent>
         <GlobalSearchInput
           autoFocus
           showCompareSwitcher
@@ -67,6 +71,6 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
           onItemClick={onItemClick}
         ></ZonesGroupedListWithRef>
       </ZonesListModalContent>
-    </Modal>
+    </ZonesSelectorModalContainer>
   );
 }
