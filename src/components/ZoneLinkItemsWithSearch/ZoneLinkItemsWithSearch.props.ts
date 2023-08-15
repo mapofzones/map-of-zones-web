@@ -1,10 +1,10 @@
-import { ZoneData } from 'hooks/queries/useZonesData';
+import { ReactNode } from 'react';
 
 export interface ZoneLinkItemsWithSearchProps {
   title: string;
-  zones: ZoneData[];
-  selectedIndex?: number;
-  searchValue?: string;
-  onItemClick?: (zoneKey: string) => void;
-  activeItemRef: any;
+  // selectedIndex?: number;
+  // searchValue?: string;
+  // onItemClick?: (zoneKey: string) => void;
+  // activeItemRef: any;
+  children?: ReactNode;
 }

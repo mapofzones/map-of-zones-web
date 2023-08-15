@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import cn from 'classnames';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -40,15 +42,33 @@ const itemAnimationProps = {
 };
 
 export interface ZoneLinkItemProps {
-  activeItemRef: any;
+  // activeItemRef: any;
   zone: ZoneData;
+  isActive?: boolean;
   searchValue?: string;
 }
 
-function ZoneLinkItem({ activeItemRef, zone, searchValue }: ZoneLinkItemProps) {
+interface SelectableItemProps {
+  isComparison?: boolean;
+  onItemClick?: (zoneKey: string) => void;
+  isItemCheckedFunc?: (zoneKey: string) => boolean;
+  isItemDisabledFunc?: (zoneKey: string) => boolean;
+  onItemCheck?: (zoneKey: string, check: boolean) => void;
+}
+
+export function ZoneLinkItem({
+  zone,
+  searchValue,
+  isActive,
+  isComparison,
+  onItemClick,
+  isItemCheckedFunc,
+  isItemDisabledFunc,
+  onItemCheck,
+}: ZoneLinkItemProps & SelectableItemProps) {
   // const navigate = useNavigate();
 
-  const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
+  // const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
 
   // const checked = useAppSelector((state) => isZoneCheckedSelector(state, zone.zone));
 
@@ -69,14 +89,25 @@ function ZoneLinkItem({ activeItemRef, zone, searchValue }: ZoneLinkItemProps) {
   //   }
   // };
 
-  const { onItemClick, onItemCheck, isItemCheckedFunc, isItemDisabledFunc } =
-    useSelectableItemContext();
+  // const { onItemClick, onItemCheck, isItemCheckedFunc, isItemDisabledFunc } =
+  //   useSelectableItemContext();
+
+  // console.log('ZoneLinkItem actimeIteRef children: ', activeItemRef);
+
+  const activeItemRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!activeItemRef.current || !isActive) return;
+
+    activeItemRef.current.scrollIntoView({
+      block: 'center',
+    });
+  }, [isActive]);
 
   return (
     <motion.div
       ref={activeItemRef}
       className={cn(styles.zone, {
-        [styles.activeZone]: !!activeItemRef,
+        [styles.activeZone]: isActive,
       })}
       onClick={() => onItemClick?.(zone.zone)}
       layout
@@ -106,15 +137,11 @@ function ZoneLinkItem({ activeItemRef, zone, searchValue }: ZoneLinkItemProps) {
 
 export function ZoneLinkItemsWithSearch({
   title,
-  zones,
-  searchValue,
-  selectedIndex,
-  activeItemRef,
-}: ZoneLinkItemsWithSearchProps) {
-  if (!zones?.length) {
-    return <></>;
-  }
-
+  children,
+}: // searchValue,
+// selectedIndex,
+// activeItemRef,
+ZoneLinkItemsWithSearchProps) {
   return (
     <>
       {title && (
@@ -123,14 +150,16 @@ export function ZoneLinkItemsWithSearch({
         </motion.div>
       )}
 
-      {zones.map((zone, index) => (
+      {children}
+
+      {/* {zones.map((zone, index) => (
         <ZoneLinkItem
           key={`zone_${zone.zone}`}
           searchValue={searchValue}
           activeItemRef={index === selectedIndex ? activeItemRef : null}
           zone={zone}
         />
-      ))}
+      ))} */}
     </>
   );
 }

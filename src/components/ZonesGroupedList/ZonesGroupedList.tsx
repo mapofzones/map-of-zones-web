@@ -1,6 +1,7 @@
 import React, {
   ForwardedRef,
   KeyboardEvent,
+  ReactNode,
   useEffect,
   useImperativeHandle,
   useState,
@@ -29,7 +30,7 @@ export type KeydownHandle = {
 };
 
 function ZonesGroupedList(
-  { className, style, searchValue, zones }: ZonesGroupedListProps,
+  { className, style, searchValue, zones, children }: ZonesGroupedListProps,
   ref: ForwardedRef<KeydownHandle>
 ) {
   const { onItemClick } = useSelectableItemContext();
@@ -69,6 +70,8 @@ function ZonesGroupedList(
         filteredPopularZones,
         filteredZones
       );
+      console.log(key, newActiveItem);
+
       setActiveItem(newActiveItem);
     },
   }));
@@ -125,19 +128,47 @@ function ZonesGroupedList(
         (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
       <ZoneLinkItemsWithSearch
         title="Popular"
-        zones={filteredPopularZones}
-        activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
-        selectedIndex={activeItem.popularIndex}
-        searchValue={searchValue}
-      />
+        // activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
+        // selectedIndex={activeItem.popularIndex}
+        // searchValue={searchValue}
+      >
+        {filteredPopularZones.map((zone, index) =>
+          children(zone, activeItem.isPopularSelected && index === activeItem.popularIndex)
+        )}
+
+        {/* ref={activeItemRef}
+        className=
+        {cn(styles.zone, {
+          [styles.activeZone]: !!activeItemRef,
+        })} */}
+        {/* {filteredPopularZones.map((zone) => {
+          return React.Children.map(children, (child) => {
+            const element = child(zone);
+            if (!React.isValidElement(element)) {
+              return element;
+            }
+
+            return React.cloneElement(element, {
+              ref: activeItemRef,
+              className: cn(styles.zone, {
+                [styles.activeZone]: !!activeItemRef,
+              }),
+            } as any);
+          });
+        })} */}
+      </ZoneLinkItemsWithSearch>
 
       <ZoneLinkItemsWithSearch
         title="Alphabetically"
-        zones={filteredZones}
-        activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
-        selectedIndex={activeItem.alphabetIndex}
-        searchValue={searchValue}
-      />
+        // activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
+        // selectedIndex={activeItem.alphabetIndex}
+        // searchValue={searchValue}
+      >
+        {filteredZones.map((zone, index) => {
+          // console.log(index, zone.name, activeItem, activeItemRef);
+          return children(zone, activeItem.isAlpabetSelected && index === activeItem.alphabetIndex);
+        })}
+      </ZoneLinkItemsWithSearch>
     </ScrollableContainer>
   );
 }

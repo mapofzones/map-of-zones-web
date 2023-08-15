@@ -9,9 +9,12 @@ import {
 } from 'react';
 
 import cn from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 
+import { ZoneInfoWithSearch } from 'components/ZoneInfoWithSearch/ZoneInfoWithSearch';
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
+import { ZoneData } from 'hooks/queries/useZonesData';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
 import { useAppSelector } from 'store/hooks';
 import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
@@ -70,16 +73,6 @@ export function ZonesSelectorModal({
     }
   }
 
-  const selectedZonesToCompare = useAppSelector((state) => state.zonesPageComparisonMode.zones);
-  const isItemCheckedFunc = (zoneKey: string) => selectedZonesToCompare.includes(zoneKey);
-  const isItemDisabledFunc = (zoneKey: string) =>
-    selectedZonesToCompare.length >= 3 && !isItemCheckedFunc(zoneKey);
-  const { toggleZone } = useZonesPageComparisonModeActionsCreator();
-
-  const onItemCheck = (zoneKey: string, check: boolean) => {
-    toggleZone({ zone: zoneKey, check: check });
-  };
-
   return (
     <ZonesSelectorModalContainer
       className={cn(styles.container)}
@@ -95,20 +88,30 @@ export function ZonesSelectorModal({
           placeholder={zonesList.length + ' Zones'}
           onKeyDown={handleArrowKeys}
         />
-
-        {/* <SelectableItemProvider
-          onItemClick={onItemClick}
-          onItemCheck={onItemCheck}
-          isItemCheckedFunc={isItemCheckedFunc}
-          isItemDisabledFunc={isItemDisabledFunc}
-        > */}
         <ZonesGroupedListWithRef
           ref={keydownHandleRef}
           className={styles.itemsContainer}
           searchValue={searchValue}
           zones={zonesList}
-        />
-        {/* </SelectableItemProvider> */}
+        >
+          {(zone: ZoneData, activeItemRef) => (
+            <motion.div
+              ref={activeItemRef}
+              className={cn(styles.zone, {
+                [styles.activeZone]: !!activeItemRef,
+              })}
+              onClick={() => onItemClick?.(zone.zone)}
+              layout
+              // {...itemAnimationProps} // TODO: move from file
+            >
+              <ZoneInfoWithSearch
+                className={styles.content}
+                searchValue={searchValue}
+                zone={zone}
+              />
+            </motion.div>
+          )}
+        </ZonesGroupedListWithRef>
       </ZonesListModalContent>
     </ZonesSelectorModalContainer>
   );

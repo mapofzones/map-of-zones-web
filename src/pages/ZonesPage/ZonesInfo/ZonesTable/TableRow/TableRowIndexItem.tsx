@@ -40,8 +40,6 @@ export function TableRowIndexItem({
 
   const { toggleZone } = useZonesPageComparisonModeActionsCreator();
 
-  console.log(isComparison, zoneKey, isChecked);
-
   return (
     <TableRowItem isSticky={isTableHorizontalScrollable}>
       <AnimatePresence exitBeforeEnter>

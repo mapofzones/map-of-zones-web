@@ -25,21 +25,50 @@
 
   .zone {
     cursor: pointer;
-
-    > div {
-      padding: 9px 16px;
-
-      &:hover {
-        background-color: var(--black-700);
-      }
-    }
-
-    &.activeZone {
-      pointer-events: none;
-
-      > div {
-        background-color: var(--black-700);
-      }
-    }
   }
+}
+
+.zone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  cursor: pointer;
+
+  padding: 9px 16px;
+
+  &:hover {
+    background-color: var(--black-700);
+  }
+
+  .checkbox {
+    margin-right: 16px;
+  }
+
+  .content {
+    flex: 1;
+  }
+
+  &.activeZone {
+    // pointer-events: none;
+
+    // background-color: var(--black-700);
+    // background-color: green;
+  }
+
+  // > div {
+  //     padding: 9px 16px;
+
+  //     &:hover {
+  //       background-color: var(--black-700);
+  //     }
+  //   }
+
+  //   &.activeZone {
+  //     pointer-events: none;
+
+  //     > div {
+  //       background-color: var(--black-700);
+  //     }
+  //   }
 }

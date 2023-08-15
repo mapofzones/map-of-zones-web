@@ -2,12 +2,14 @@ import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { ZoneLinkItem } from 'components';
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
 import { ZonesSelectorModalContainer } from 'components/ZonesSelector/ZonesSelectorContainer';
 import { SelectableItemProvider } from 'components/ZonesSelector/ZonesSelectorModal/ZonesSelectorModal';
 import { useGlobalSearchItemSelectedAnalytics } from 'hooks/analytics/Multipage/useGlobalSearchItemSelectedAnalytics';
 import { SelectedZoneOverviewSource } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
+import { ZoneData } from 'hooks/queries/useZonesData';
 import { getZonesOverviewPath } from 'routing';
 import { useAppSelector } from 'store/hooks';
 import {
@@ -51,9 +53,8 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
         state: { source: SelectedZoneOverviewSource.GlobalSearch },
       });
       trackSelectedGlobalSearchItem(zone);
+      onModalCloseInternal();
     }
-
-    onModalCloseInternal();
   };
 
   const onItemCheck = (zoneKey: string, check: boolean) => {
@@ -88,19 +89,27 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
           onCancel={onModalCloseInternal}
           onKeyDown={handleArrowKeys}
         />
-        <SelectableItemProvider
-          onItemClick={onItemClick}
-          onItemCheck={onItemCheck}
-          isItemCheckedFunc={isItemCheckedFunc}
-          isItemDisabledFunc={isItemDisabledFunc}
+
+        <ZonesGroupedListWithRef
+          ref={keydownHandleRef}
+          className={styles.itemsContainer}
+          searchValue={searchValue}
+          zones={zones}
         >
-          <ZonesGroupedListWithRef
-            ref={keydownHandleRef}
-            className={styles.itemsContainer}
-            searchValue={searchValue}
-            zones={zones}
-          />
-        </SelectableItemProvider>
+          {(zone: ZoneData, isActive: boolean) => (
+            <ZoneLinkItem
+              key={zone.zone}
+              searchValue={searchValue}
+              isActive={isActive}
+              zone={zone}
+              isComparison={isComparison}
+              onItemClick={onItemClick}
+              onItemCheck={onItemCheck}
+              isItemCheckedFunc={isItemCheckedFunc}
+              isItemDisabledFunc={isItemDisabledFunc}
+            />
+          )}
+        </ZonesGroupedListWithRef>
       </ZonesListModalContent>
     </ZonesSelectorModalContainer>
   );
