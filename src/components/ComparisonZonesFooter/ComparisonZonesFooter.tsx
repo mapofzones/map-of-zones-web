@@ -12,7 +12,8 @@ import { Button, ButtonSize, ButtonVariant, Portal } from 'ui';
 import styles from './ComparisonZonesFooter.module.scss';
 
 export function ComparisonZonesFooter(): JSX.Element {
-  const { isComparison, zones } = useAppSelector((state) => state.zonesPageComparisonMode);
+  const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
+  const zones = useAppSelector((state) => state.zonesPageComparisonMode.zones);
   const { resetZones, resetState } = useZonesPageComparisonModeActionsCreator();
 
   const onClearClick = () => {

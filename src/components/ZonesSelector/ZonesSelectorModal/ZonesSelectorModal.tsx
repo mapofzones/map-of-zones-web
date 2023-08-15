@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState, KeyboardEvent } from 'react';
 
 import cn from 'classnames';
-import { AnimatePresence } from 'framer-motion';
 
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';

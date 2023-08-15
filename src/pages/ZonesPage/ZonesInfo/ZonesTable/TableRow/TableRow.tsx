@@ -8,6 +8,8 @@ import {
   TableRowItem,
 } from 'components';
 import { overviewPath } from 'routing';
+import { useAppSelector } from 'store/hooks';
+import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
 import { NumberType } from 'types/NumberType';
 import { LineChart } from 'ui';
 
@@ -36,8 +38,16 @@ export function TableRow({
 
   const ratingDiff = zone[ratingDiffKeysMap[selectedColumnKey]] as number;
 
+  const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
+
+  const { toggleZone } = useZonesPageComparisonModeActionsCreator();
+
   const onClick = () => {
-    navigate(`${zone.zone}/${overviewPath}`);
+    if (isComparison) {
+      toggleZone({ zone: zone.zone });
+    } else {
+      navigate(`${zone.zone}/${overviewPath}`);
+    }
   };
 
   return (
@@ -46,7 +56,7 @@ export function TableRow({
         zoneKey={zone.zone}
         index={index}
         isTableHorizontalScrollable={isTableHorizontalScrollable}
-      ></TableRowIndexItem>
+      />
 
       <TableRowItem isSticky={isTableHorizontalScrollable} withBorder={isTableHorizontalScrollable}>
         <div className={styles.zoneBaseInfoContainer}>

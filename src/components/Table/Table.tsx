@@ -15,18 +15,12 @@ export function Table<T extends string>({
   headerMetadata,
   selectedColumnKey,
   setSelectedColumnKey,
-  isComparisonMode = false,
-  isCheckedFunc,
-  onCheckedChange,
 }: TableProps<T>) {
   return (
     <ZonesTableMetadataProvider
       headerMetadata={headerMetadata}
       selectedColumnKey={selectedColumnKey}
       setSelectedColumnKey={setSelectedColumnKey}
-      isComparisonMode={isComparisonMode}
-      isCheckedFunc={isCheckedFunc}
-      onCheckedChange={onCheckedChange}
     >
       <TableContentMemo className={className}>{children}</TableContentMemo>
     </ZonesTableMetadataProvider>

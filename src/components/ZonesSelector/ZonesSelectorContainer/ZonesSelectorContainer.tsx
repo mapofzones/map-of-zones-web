@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import cn from 'classnames';
-import { AnimatePresence } from 'framer-motion';
 
 import { useAppSelector } from 'store/hooks';
 import { Modal } from 'ui/Modal/Modal';
@@ -16,7 +15,7 @@ export function ZonesSelectorModalContainer({
   className,
   ...props
 }: ZonesSelectorModalContainerProps) {
-  const { isComparison } = useAppSelector((state) => state.zonesPageComparisonMode);
+  const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';

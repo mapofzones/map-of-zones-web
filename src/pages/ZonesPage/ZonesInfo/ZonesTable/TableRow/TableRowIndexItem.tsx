@@ -2,9 +2,14 @@ import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 import { TableRowItem } from 'components';
 import { Checkbox } from 'components/Checkbox';
+import { useAppSelector } from 'store/hooks';
+import {
+  isZoneDisabledToCompareSelector,
+  isZoneCheckedSelector,
+  useZonesPageComparisonModeActionsCreator,
+} from 'store/ZonesPageComparisonMode.slice';
 
 import styles from './TableRow.module.scss';
-import { useTableMetadata } from '../ZonesTableMetadataProvider';
 
 const animationVariants: Variants = {
   hidden: { opacity: 0, translateX: -10 },
@@ -27,21 +32,29 @@ export function TableRowIndexItem({
   index: number;
   zoneKey: string;
 }) {
-  const { isComparisonMode, isCheckedFunc, onCheckedChange } = useTableMetadata();
+  const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
+
+  const isChecked = useAppSelector((state) => isZoneCheckedSelector(state, zoneKey));
+
+  const disabled = useAppSelector((state) => isZoneDisabledToCompareSelector(state, zoneKey));
+
+  const { toggleZone } = useZonesPageComparisonModeActionsCreator();
+
+  console.log(isComparison, zoneKey, isChecked);
 
   return (
     <TableRowItem isSticky={isTableHorizontalScrollable}>
       <AnimatePresence exitBeforeEnter>
-        {isComparisonMode && (
+        {isComparison && (
           <motion.div key="checkboxWrapper" {...animationProps}>
             <Checkbox
-              checked={isCheckedFunc?.(zoneKey) ?? false}
-              onCheckedChange={(checked) => onCheckedChange?.(zoneKey, checked)}
-              disabled={false}
+              checked={isChecked}
+              disabled={disabled}
+              onCheckedChange={(checked) => toggleZone({ zone: zoneKey, checked })}
             />
           </motion.div>
         )}
-        {!isComparisonMode && (
+        {!isComparison && (
           <motion.div key="indexWrapper" className={styles.position} {...animationProps}>
             {index + 1}
           </motion.div>

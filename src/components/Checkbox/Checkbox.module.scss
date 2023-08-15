@@ -11,11 +11,12 @@
     width: 16px;
     height: 16px;
     border-radius: 1.5px;
-    // margin-right: 0.5em;
     background-color: var(--blach-400);
     border: 1px solid var(--grey-300);
     outline: none;
     cursor: pointer;
+
+    transition: background-color 0.3s, border 0.1s;
 
     &:hover {
       border-width: 2px;
@@ -42,14 +43,13 @@
     &:disabled {
       border-color: var(--grey-100);
       border-width: 2px;
+
+      cursor: not-allowed;
+      pointer-events: all !important;
     }
 
     &:focus {
       box-shadow: 0 0 10px var(--grey-100);
     }
   }
-
-  // &.selected {
-  //   background-color: green;
-  // }
 }

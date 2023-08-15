@@ -8,7 +8,7 @@ import { Button, ButtonSize, ButtonVariant } from 'ui';
 import styles from './CompareModeSwitcher.module.scss';
 
 export function CompareModeSwitcher({ className, text }: { className?: string; text?: string }) {
-  const { isComparison } = useAppSelector((state) => state.zonesPageComparisonMode);
+  const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
   const { switchCompareMode, resetZones } = useZonesPageComparisonModeActionsCreator();
 
   return (

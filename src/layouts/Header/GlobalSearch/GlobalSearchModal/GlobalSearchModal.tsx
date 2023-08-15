@@ -69,7 +69,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
           searchValue={searchValue}
           zones={zones}
           onItemClick={onItemClick}
-        ></ZonesGroupedListWithRef>
+        />
       </ZonesListModalContent>
     </ZonesSelectorModalContainer>
   );
