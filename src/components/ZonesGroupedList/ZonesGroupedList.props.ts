@@ -7,5 +7,4 @@ export interface ZonesGroupedListProps {
   style?: CSSProperties;
   searchValue: string;
   zones: ZoneData[];
-  onItemClick: (zone: string) => void;
 }

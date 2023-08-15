@@ -1,10 +1,20 @@
-import { useMemo, useRef, useState, KeyboardEvent } from 'react';
+import {
+  useMemo,
+  useRef,
+  useState,
+  KeyboardEvent,
+  createContext,
+  ReactNode,
+  useContext,
+} from 'react';
 
 import cn from 'classnames';
 
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
+import { useAppSelector } from 'store/hooks';
+import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
 import { Search } from 'ui';
 
 import styles from './ZonesSelectorModal.module.scss';
@@ -59,6 +69,17 @@ export function ZonesSelectorModal({
       keydownHandleRef.current.keydown(event);
     }
   }
+
+  const selectedZonesToCompare = useAppSelector((state) => state.zonesPageComparisonMode.zones);
+  const isItemCheckedFunc = (zoneKey: string) => selectedZonesToCompare.includes(zoneKey);
+  const isItemDisabledFunc = (zoneKey: string) =>
+    selectedZonesToCompare.length >= 3 && !isItemCheckedFunc(zoneKey);
+  const { toggleZone } = useZonesPageComparisonModeActionsCreator();
+
+  const onItemCheck = (zoneKey: string, check: boolean) => {
+    toggleZone({ zone: zoneKey, check: check });
+  };
+
   return (
     <ZonesSelectorModalContainer
       className={cn(styles.container)}
@@ -75,14 +96,43 @@ export function ZonesSelectorModal({
           onKeyDown={handleArrowKeys}
         />
 
+        {/* <SelectableItemProvider
+          onItemClick={onItemClick}
+          onItemCheck={onItemCheck}
+          isItemCheckedFunc={isItemCheckedFunc}
+          isItemDisabledFunc={isItemDisabledFunc}
+        > */}
         <ZonesGroupedListWithRef
           ref={keydownHandleRef}
           className={styles.itemsContainer}
           searchValue={searchValue}
           zones={zonesList}
-          onItemClick={onItemClick}
         />
+        {/* </SelectableItemProvider> */}
       </ZonesListModalContent>
     </ZonesSelectorModalContainer>
   );
 }
+
+interface SelectableItemContextProps {
+  onItemClick?: (zoneKey: string) => void;
+  isItemCheckedFunc?: (zoneKey: string) => boolean;
+  isItemDisabledFunc?: (zoneKey: string) => boolean;
+  onItemCheck?: (zoneKey: string, check: boolean) => void;
+}
+
+const SelectableItemContext = createContext<SelectableItemContextProps>({});
+
+// eslint-disable-next-line sort-exports/sort-exports
+export function SelectableItemProvider({
+  children,
+  ...selectableItemContextProps
+}: { children: ReactNode } & SelectableItemContextProps) {
+  return (
+    <SelectableItemContext.Provider value={selectableItemContextProps}>
+      {children}
+    </SelectableItemContext.Provider>
+  );
+}
+
+export const useSelectableItemContext = () => useContext(SelectableItemContext);

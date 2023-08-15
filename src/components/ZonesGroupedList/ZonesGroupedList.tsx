@@ -9,6 +9,7 @@ import React, {
 import cn from 'classnames';
 
 import { ZoneLinkItemsWithSearch } from 'components/ZoneLinkItemsWithSearch';
+import { useSelectableItemContext } from 'components/ZonesSelector/ZonesSelectorModal/ZonesSelectorModal';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
 import {
@@ -28,9 +29,11 @@ export type KeydownHandle = {
 };
 
 function ZonesGroupedList(
-  { className, style, searchValue, zones, onItemClick }: ZonesGroupedListProps,
+  { className, style, searchValue, zones }: ZonesGroupedListProps,
   ref: ForwardedRef<KeydownHandle>
 ) {
+  const { onItemClick } = useSelectableItemContext();
+
   useImperativeHandle(ref, () => ({
     keydown(e: KeyboardEvent<HTMLDivElement>) {
       const { key } = e;
@@ -39,7 +42,7 @@ function ZonesGroupedList(
         e.preventDefault();
 
         if (activeItem?.selectedZone !== undefined) {
-          onItemClick(activeItem?.selectedZone);
+          onItemClick?.(activeItem?.selectedZone);
         }
 
         return;
@@ -126,7 +129,6 @@ function ZonesGroupedList(
         activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
         selectedIndex={activeItem.popularIndex}
         searchValue={searchValue}
-        onItemClick={onItemClick}
       />
 
       <ZoneLinkItemsWithSearch
@@ -135,7 +137,6 @@ function ZonesGroupedList(
         activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
         selectedIndex={activeItem.alphabetIndex}
         searchValue={searchValue}
-        onItemClick={onItemClick}
       />
     </ScrollableContainer>
   );

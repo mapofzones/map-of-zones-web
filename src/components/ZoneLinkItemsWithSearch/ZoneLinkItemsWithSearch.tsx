@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ZoneInfoWithSearch } from 'components';
 import { Checkbox } from 'components/Checkbox';
+import { useSelectableItemContext } from 'components/ZonesSelector/ZonesSelectorModal/ZonesSelectorModal';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { overviewPath } from 'routing';
 import { useAppSelector } from 'store/hooks';
@@ -42,32 +43,34 @@ export interface ZoneLinkItemProps {
   activeItemRef: any;
   zone: ZoneData;
   searchValue?: string;
-  onItemClick?: (zoneKey: string) => void;
 }
 
-function ZoneLinkItem({ activeItemRef, zone, searchValue, onItemClick }: ZoneLinkItemProps) {
-  const navigate = useNavigate();
+function ZoneLinkItem({ activeItemRef, zone, searchValue }: ZoneLinkItemProps) {
+  // const navigate = useNavigate();
 
   const isComparison = useAppSelector((state) => state.zonesPageComparisonMode.isComparison);
 
-  const checked = useAppSelector((state) => isZoneCheckedSelector(state, zone.zone));
+  // const checked = useAppSelector((state) => isZoneCheckedSelector(state, zone.zone));
 
-  const disabled = useAppSelector((state) => isZoneDisabledToCompareSelector(state, zone.zone));
+  // const disabled = useAppSelector((state) => isZoneDisabledToCompareSelector(state, zone.zone));
 
-  const { toggleZone } = useZonesPageComparisonModeActionsCreator();
+  // const { toggleZone } = useZonesPageComparisonModeActionsCreator();
 
-  const onClick = () => {
-    if (onItemClick) {
-      onItemClick(zone.zone);
-      return;
-    }
+  // const onClick = () => {
+  //   if (onItemClick) {
+  //     onItemClick(zone.zone);
+  //     return;
+  //   }
 
-    if (isComparison) {
-      toggleZone({ checked: !checked, zone: zone.zone });
-    } else {
-      navigate(`${zone.zone}/${overviewPath}`);
-    }
-  };
+  //   if (isComparison) {
+  //     toggleZone({ checked: !checked, zone: zone.zone });
+  //   } else {
+  //     navigate(`${zone.zone}/${overviewPath}`);
+  //   }
+  // };
+
+  const { onItemClick, onItemCheck, isItemCheckedFunc, isItemDisabledFunc } =
+    useSelectableItemContext();
 
   return (
     <motion.div
@@ -75,7 +78,7 @@ function ZoneLinkItem({ activeItemRef, zone, searchValue, onItemClick }: ZoneLin
       className={cn(styles.zone, {
         [styles.activeZone]: !!activeItemRef,
       })}
-      onClick={onClick}
+      onClick={() => onItemClick?.(zone.zone)}
       layout
       {...itemAnimationProps}
     >
@@ -89,9 +92,9 @@ function ZoneLinkItem({ activeItemRef, zone, searchValue, onItemClick }: ZoneLin
           >
             <Checkbox
               className={styles.checkbox}
-              checked={checked}
-              disabled={disabled}
-              onCheckedChange={(checked) => toggleZone({ zone: zone.zone, check: checked })}
+              checked={isItemCheckedFunc?.(zone.zone) ?? false}
+              disabled={isItemDisabledFunc?.(zone.zone) ?? false}
+              onCheckedChange={(checked) => onItemCheck?.(zone.zone, checked)}
             />
           </motion.div>
         )}
@@ -107,7 +110,6 @@ export function ZoneLinkItemsWithSearch({
   searchValue,
   selectedIndex,
   activeItemRef,
-  onItemClick,
 }: ZoneLinkItemsWithSearchProps) {
   if (!zones?.length) {
     return <></>;
@@ -127,7 +129,6 @@ export function ZoneLinkItemsWithSearch({
           searchValue={searchValue}
           activeItemRef={index === selectedIndex ? activeItemRef : null}
           zone={zone}
-          onItemClick={onItemClick}
         />
       ))}
     </>
