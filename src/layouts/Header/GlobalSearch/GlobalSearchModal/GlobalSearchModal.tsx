@@ -2,21 +2,16 @@ import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { ZoneLinkItem } from 'components';
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
+import { ZoneLinkItemWithComparison } from 'components/ZonesGroupedList/ZoneLinkItemWithComparison';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
 import { ZonesSelectorModalContainer } from 'components/ZonesSelector/ZonesSelectorContainer';
-import { SelectableItemProvider } from 'components/ZonesSelector/ZonesSelectorModal/ZonesSelectorModal';
 import { useGlobalSearchItemSelectedAnalytics } from 'hooks/analytics/Multipage/useGlobalSearchItemSelectedAnalytics';
 import { SelectedZoneOverviewSource } from 'hooks/analytics/ZonesPage/ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { getZonesOverviewPath } from 'routing';
 import { useAppSelector } from 'store/hooks';
-import {
-  isZoneCheckedSelector,
-  isZoneDisabledToCompareSelector,
-  useZonesPageComparisonModeActionsCreator,
-} from 'store/ZonesPageComparisonMode.slice';
+import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
 
 import styles from './GlobalSearchModal.module.scss';
 import { GlobalSearchModalProps } from './GlobalSearchModal.props';
@@ -33,7 +28,6 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
 
   const onModalCloseInternal = () => {
     setSearchValue('');
-    // setActiveItem(getDefaultActiveItem());
     onModalClose?.();
   };
 
@@ -57,10 +51,6 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
     }
   };
 
-  const onItemCheck = (zoneKey: string, check: boolean) => {
-    toggleZone({ zone: zoneKey, check: check });
-  };
-
   const keydownHandleRef = useRef<KeydownHandle>(null);
   function handleArrowKeys(event: KeyboardEvent<HTMLDivElement>): void {
     if (keydownHandleRef.current) {
@@ -74,6 +64,10 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
   const isItemCheckedFunc = (zoneKey: string) => selectedZonesToCompare.includes(zoneKey);
   const isItemDisabledFunc = (zoneKey: string) =>
     selectedZonesToCompare.length >= 3 && !isItemCheckedFunc(zoneKey);
+
+  const onItemCheck = (zoneKey: string, check: boolean) => {
+    toggleZone({ zone: zoneKey, check: check });
+  };
 
   return (
     <ZonesSelectorModalContainer
@@ -95,13 +89,14 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
           className={styles.itemsContainer}
           searchValue={searchValue}
           zones={zones}
+          onItemSelected={onItemClick}
         >
           {(zone: ZoneData, isActive: boolean) => (
-            <ZoneLinkItem
+            <ZoneLinkItemWithComparison
               key={zone.zone}
+              zone={zone}
               searchValue={searchValue}
               isActive={isActive}
-              zone={zone}
               isComparison={isComparison}
               onItemClick={onItemClick}
               onItemCheck={onItemCheck}

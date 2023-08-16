@@ -1,7 +1,7 @@
 export * from './PeriodSelector';
 export * from './Table';
 export * from './TotalInfo';
-export * from './ZoneLinkItemsWithSearch';
+export * from './ZonesGroupedList/ZoneLinkItemsGroupWithTitle';
 
 export { Analytics } from './Analytics/Analytics';
 export { IbcVolumeCard } from './IbcVolumeCard/IbcVolumeCard';

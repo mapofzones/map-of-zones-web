@@ -1,23 +1,13 @@
-import {
-  useMemo,
-  useRef,
-  useState,
-  KeyboardEvent,
-  createContext,
-  ReactNode,
-  useContext,
-} from 'react';
+import { useMemo, useRef, useState, KeyboardEvent } from 'react';
 
 import cn from 'classnames';
-import { AnimatePresence, motion } from 'framer-motion';
 
 import { ZoneInfoWithSearch } from 'components/ZoneInfoWithSearch/ZoneInfoWithSearch';
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
+import { ZoneLinkItemContainer } from 'components/ZonesGroupedList/ZoneLinkItemContainer';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
-import { useAppSelector } from 'store/hooks';
-import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
 import { Search } from 'ui';
 
 import styles from './ZonesSelectorModal.module.scss';
@@ -88,54 +78,30 @@ export function ZonesSelectorModal({
           placeholder={zonesList.length + ' Zones'}
           onKeyDown={handleArrowKeys}
         />
+
         <ZonesGroupedListWithRef
           ref={keydownHandleRef}
           className={styles.itemsContainer}
           searchValue={searchValue}
           zones={zonesList}
+          onItemSelected={onItemClick}
         >
-          {(zone: ZoneData, activeItemRef) => (
-            <motion.div
-              ref={activeItemRef}
-              className={cn(styles.zone, {
-                [styles.activeZone]: !!activeItemRef,
-              })}
-              onClick={() => onItemClick?.(zone.zone)}
-              layout
-              // {...itemAnimationProps} // TODO: move from file
+          {(zone: ZoneData, isActive: boolean) => (
+            <ZoneLinkItemContainer
+              key={zone.zone}
+              zoneKey={zone.zone}
+              isActive={isActive}
+              onItemClick={onItemClick}
             >
               <ZoneInfoWithSearch
                 className={styles.content}
                 searchValue={searchValue}
                 zone={zone}
               />
-            </motion.div>
+            </ZoneLinkItemContainer>
           )}
         </ZonesGroupedListWithRef>
       </ZonesListModalContent>
     </ZonesSelectorModalContainer>
   );
 }
-
-interface SelectableItemContextProps {
-  onItemClick?: (zoneKey: string) => void;
-  isItemCheckedFunc?: (zoneKey: string) => boolean;
-  isItemDisabledFunc?: (zoneKey: string) => boolean;
-  onItemCheck?: (zoneKey: string, check: boolean) => void;
-}
-
-const SelectableItemContext = createContext<SelectableItemContextProps>({});
-
-// eslint-disable-next-line sort-exports/sort-exports
-export function SelectableItemProvider({
-  children,
-  ...selectableItemContextProps
-}: { children: ReactNode } & SelectableItemContextProps) {
-  return (
-    <SelectableItemContext.Provider value={selectableItemContextProps}>
-      {children}
-    </SelectableItemContext.Provider>
-  );
-}
-
-export const useSelectableItemContext = () => useContext(SelectableItemContext);

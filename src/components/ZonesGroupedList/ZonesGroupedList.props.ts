@@ -7,5 +7,6 @@ export interface ZonesGroupedListProps {
   style?: CSSProperties;
   searchValue: string;
   zones: ZoneData[];
-  children: (zone: ZoneData, activeItemRef: any) => JSX.Element;
+  children: (zone: ZoneData, isActive: boolean) => JSX.Element;
+  onItemSelected?: (zoneKey: string) => void;
 }

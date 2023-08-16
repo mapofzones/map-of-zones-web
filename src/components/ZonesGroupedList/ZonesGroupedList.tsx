@@ -1,7 +1,6 @@
 import React, {
   ForwardedRef,
   KeyboardEvent,
-  ReactNode,
   useEffect,
   useImperativeHandle,
   useState,
@@ -9,18 +8,18 @@ import React, {
 
 import cn from 'classnames';
 
-import { ZoneLinkItemsWithSearch } from 'components/ZoneLinkItemsWithSearch';
-import { useSelectableItemContext } from 'components/ZonesSelector/ZonesSelectorModal/ZonesSelectorModal';
+import { NotFoundContainer } from 'components/NotFoundContainer';
+import { ZoneLinkItemsGroupWithTitle } from 'components/ZonesGroupedList/ZoneLinkItemsGroupWithTitle';
 import { ZoneData } from 'hooks/queries/useZonesData';
 import { useFilteredZones } from 'hooks/useFilteredZones';
-import {
-  ActiveItem,
-  getDefaultActiveItem,
-} from 'layouts/Header/GlobalSearch/GlobalSearchModal/ActiveItem';
-import { useActiveItemScroll } from 'layouts/Header/GlobalSearch/GlobalSearchModal/hooks/useActiveItemScroll';
-import { ZonesNotFoundContainer } from 'layouts/Header/GlobalSearch/GlobalSearchModal/ZonesNotFoundContainer';
 import { ScrollableContainer } from 'ui';
 
+import {
+  ActiveItem,
+  calculateActiveItemDetails,
+  getDefaultActiveItem,
+  getSelectedDetails,
+} from './ActiveItem';
 import styles from './ZonesGroupedList.module.scss';
 
 import { ZonesGroupedListProps } from '.';
@@ -29,12 +28,12 @@ export type KeydownHandle = {
   keydown: (event: KeyboardEvent<HTMLDivElement>) => void;
 };
 
+export const POPULAR_ZONE_KEYS = ['osmosis-1', 'cosmoshub-4', 'axelar-dojo-1'];
+
 function ZonesGroupedList(
-  { className, style, searchValue, zones, children }: ZonesGroupedListProps,
+  { className, style, searchValue, zones, children, onItemSelected }: ZonesGroupedListProps,
   ref: ForwardedRef<KeydownHandle>
 ) {
-  const { onItemClick } = useSelectableItemContext();
-
   useImperativeHandle(ref, () => ({
     keydown(e: KeyboardEvent<HTMLDivElement>) {
       const { key } = e;
@@ -43,7 +42,7 @@ function ZonesGroupedList(
         e.preventDefault();
 
         if (activeItem?.selectedZone !== undefined) {
-          onItemClick?.(activeItem?.selectedZone);
+          onItemSelected?.(activeItem?.selectedZone);
         }
 
         return;
@@ -70,15 +69,12 @@ function ZonesGroupedList(
         filteredPopularZones,
         filteredZones
       );
-      console.log(key, newActiveItem);
 
       setActiveItem(newActiveItem);
     },
   }));
 
   const [activeItem, setActiveItem] = useState<ActiveItem>(getDefaultActiveItem());
-
-  const activeItemRef = useActiveItemScroll(activeItem);
 
   const popularZones = zones.filter((zone: ZoneData) => POPULAR_ZONE_KEYS.includes(zone.zone));
 
@@ -125,90 +121,31 @@ function ZonesGroupedList(
   return (
     <ScrollableContainer className={cn(styles.itemsContainer, className)} style={style}>
       {(!filteredPopularZones || !filteredPopularZones.length) &&
-        (!filteredZones || !filteredZones.length) && <ZonesNotFoundContainer />}
-      <ZoneLinkItemsWithSearch
-        title="Popular"
-        // activeItemRef={activeItem.isPopularSelected ? activeItemRef : null}
-        // selectedIndex={activeItem.popularIndex}
-        // searchValue={searchValue}
-      >
-        {filteredPopularZones.map((zone, index) =>
-          children(zone, activeItem.isPopularSelected && index === activeItem.popularIndex)
+        (!filteredZones || !filteredZones.length) && (
+          <NotFoundContainer className={styles.zonesNotFoundContainer}>
+            No zones found.
+          </NotFoundContainer>
         )}
 
-        {/* ref={activeItemRef}
-        className=
-        {cn(styles.zone, {
-          [styles.activeZone]: !!activeItemRef,
-        })} */}
-        {/* {filteredPopularZones.map((zone) => {
-          return React.Children.map(children, (child) => {
-            const element = child(zone);
-            if (!React.isValidElement(element)) {
-              return element;
-            }
+      {!!filteredPopularZones.length && (
+        <ZoneLinkItemsGroupWithTitle title="Popular">
+          {filteredPopularZones.map((zone, index) =>
+            children(zone, activeItem.isPopularSelected && index === activeItem.popularIndex)
+          )}
+        </ZoneLinkItemsGroupWithTitle>
+      )}
 
-            return React.cloneElement(element, {
-              ref: activeItemRef,
-              className: cn(styles.zone, {
-                [styles.activeZone]: !!activeItemRef,
-              }),
-            } as any);
-          });
-        })} */}
-      </ZoneLinkItemsWithSearch>
-
-      <ZoneLinkItemsWithSearch
-        title="Alphabetically"
-        // activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
-        // selectedIndex={activeItem.alphabetIndex}
-        // searchValue={searchValue}
-      >
-        {filteredZones.map((zone, index) => {
-          // console.log(index, zone.name, activeItem, activeItemRef);
-          return children(zone, activeItem.isAlpabetSelected && index === activeItem.alphabetIndex);
-        })}
-      </ZoneLinkItemsWithSearch>
+      {!!filteredZones.length && (
+        <ZoneLinkItemsGroupWithTitle title="Alphabetically">
+          {filteredZones.map((zone, index) =>
+            children(zone, activeItem.isAlpabetSelected && index === activeItem.alphabetIndex)
+          )}
+        </ZoneLinkItemsGroupWithTitle>
+      )}
     </ScrollableContainer>
   );
 }
 
-export const POPULAR_ZONE_KEYS = ['osmosis-1', 'cosmoshub-4', 'axelar-dojo-1'];
-
 export const ZonesGroupedListWithRef = React.forwardRef<KeydownHandle, ZonesGroupedListProps>(
   ZonesGroupedList
 );
-function getSelectedDetails(zones: ZoneData[], activeItem: ActiveItem) {
-  const index = zones.findIndex((zone: ZoneData) => zone.zone === activeItem.selectedZone);
-  const isSelected = index >= 0;
-  const indexInGroup = isSelected ? index : undefined;
-  const selectedZone = isSelected ? activeItem.selectedZone : undefined;
-  return { indexInGroup, isSelected, selectedZone };
-}
-
-function calculateActiveItemDetails(
-  newIndex: number,
-  filteredPopularZones: ZoneData[],
-  filteredZones: ZoneData[]
-) {
-  const isPopularSelected = newIndex < filteredPopularZones.length;
-  const isAlpabetSelected = !isPopularSelected;
-  const popularIndex = isPopularSelected ? newIndex : undefined;
-  const alphabetIndex = isAlpabetSelected ? newIndex - filteredPopularZones.length : undefined;
-  const selectedZone =
-    popularIndex !== undefined
-      ? filteredPopularZones[popularIndex].zone
-      : alphabetIndex !== undefined
-      ? filteredZones[alphabetIndex].zone
-      : undefined;
-
-  const newActiveItem = {
-    totalIndex: newIndex,
-    isPopularSelected,
-    isAlpabetSelected,
-    popularIndex,
-    alphabetIndex,
-    selectedZone,
-  };
-  return newActiveItem;
-}
