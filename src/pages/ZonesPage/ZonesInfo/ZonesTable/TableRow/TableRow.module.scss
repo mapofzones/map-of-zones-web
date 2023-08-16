@@ -58,6 +58,13 @@
 
   &:hover > td {
     background-color: var(--black-500);
+
+    &:first-child {
+      input[type='checkbox']:not(:disabled) {
+        border-width: 2px;
+        border-color: var(--grey-600);
+      }
+    }
   }
 }
 

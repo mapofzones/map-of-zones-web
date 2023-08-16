@@ -1,3 +1,14 @@
 .checkbox {
   margin-right: 16px;
 }
+
+.container {
+  &:hover {
+    .checkbox {
+      input[type='checkbox']:not(:disabled) {
+        border-width: 2px;
+        border-color: var(--grey-600);
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Checkbox } from 'components/Checkbox';
@@ -26,7 +27,7 @@ export function ZoneLinkItemWithComparison({
 }: ZoneLinkItemWithComparisonProps) {
   return (
     <ZoneLinkItemContainer
-      className={className}
+      className={cn(styles.container, className)}
       zoneKey={zone.zone}
       isActive={isActive}
       onItemClick={onItemClick}
