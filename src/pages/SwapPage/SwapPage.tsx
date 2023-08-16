@@ -1,7 +1,5 @@
 import { Suspense, useState } from 'react';
 
-import cn from 'classnames';
-
 import { ExternalLink } from 'components';
 import { DefaultErrorFallback } from 'ErrorBoundary';
 import { ErrorBoundary } from 'ErrorBoundary/ErrorBoundary';
