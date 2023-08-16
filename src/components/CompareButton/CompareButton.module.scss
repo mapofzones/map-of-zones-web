@@ -1,6 +1,11 @@
 .container {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
+  background-color: var(--black-900);
+
+  &:hover {
+    background-color: var(--grey-100);
+  }
 
   // dublicate class to increase specificity
   &.container {

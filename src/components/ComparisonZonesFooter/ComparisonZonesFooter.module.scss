@@ -18,18 +18,23 @@
 
   .defaultTitle {
     margin-left: 8px;
+    font-size: var(--font-base-size-md);
   }
 
   .compareBtn {
     background-color: var(--grey-1100);
     color: var(--black-100);
+    font-size: var(--font-navigation-size);
     font-weight: 600;
+    padding: 10px 24px;
   }
 
   .cancelBtn {
     background-color: var(--black-900);
     color: var(--white);
     margin-left: 12px;
+    font-size: var(--font-base-size-md);
+    padding: 10px 16px;
 
     svg {
       stroke: var(--white);
