@@ -2,7 +2,7 @@
   position: relative;
   --border-width: 1px;
 
-  outline: var(--border-width) solid var(--grey-100);
+  box-shadow: 0 0 0 var(--border-width) var(--grey-100);
   border-radius: 50px;
 
   .selector {
@@ -35,8 +35,7 @@
       width: 24px;
       fill: var(--black-900);
       stroke: var(--white);
-      outline: 2px solid var(--black-100);
-      outline-offset: -1px;
+      box-shadow: 0 0 0 2px var(--black-100);
       border-radius: 50%;
     }
 

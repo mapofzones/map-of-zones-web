@@ -26,7 +26,7 @@ export function ComparisonZoneSelector({
       initial={{ scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ scale: 0 }}
-      whileHover={{ outlineColor: color, outlineWidth: '2px', outlineOffset: 0 }}
+      whileHover={{ boxShadow: `0 0 0 2px ${color}` }}
       transition={{ duration: 0.2 }}
     >
       <ZonesSelector zone={zone} logoSize={'28px'} classNameButton={styles.selector} {...props} />
