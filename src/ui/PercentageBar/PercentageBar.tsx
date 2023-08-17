@@ -11,21 +11,19 @@ export function PercentageBar({
   color: string;
   className?: string;
 }) {
-  const showBar = rate !== undefined && rate >= 0.01;
+  const roundedRate = rate !== undefined && rate >= 0.01 ? rate : 0;
 
   return (
     <div className={cn(styles.container, className)}>
-      {showBar && (
-        <div
-          className={styles.bar}
-          style={{
-            width: `${rate * 100}%`,
-            backgroundColor: color,
-            borderTopRightRadius: rate === 1 ? 4 : 0,
-            borderBottomRightRadius: rate === 1 ? 4 : 0,
-          }}
-        />
-      )}
+      <div
+        className={styles.bar}
+        style={{
+          width: `${roundedRate * 100}%`,
+          backgroundColor: color,
+          borderTopRightRadius: rate === 1 ? 4 : 0,
+          borderBottomRightRadius: rate === 1 ? 4 : 0,
+        }}
+      />
     </div>
   );
 }

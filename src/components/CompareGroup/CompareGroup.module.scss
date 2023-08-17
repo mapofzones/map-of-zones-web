@@ -31,13 +31,14 @@
   row-gap: var(--row-gap);
 
   align-items: center;
+  transition: 1s;
 
   .title {
     display: block;
   }
 
   &.columns-3 {
-    grid-template-columns: 1fr var(--bar-width) auto;
+    grid-template-columns: 1fr var(--bar-width) 60px;
   }
 
   &.rows-2 {

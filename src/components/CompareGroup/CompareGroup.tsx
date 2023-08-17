@@ -63,6 +63,7 @@ export function CompareGroup<K>({
                 }
                 color={zonesDetailsByKey[item.zone]?.color ?? '#62D0D7'}
               />
+
               <NumberFormat
                 className={styles.value}
                 compact
