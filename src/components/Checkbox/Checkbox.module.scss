@@ -38,6 +38,7 @@
     &:disabled {
       border-color: var(--grey-100);
       border-width: 2px;
+      opacity: 0.5;
 
       cursor: not-allowed;
       pointer-events: all !important;
