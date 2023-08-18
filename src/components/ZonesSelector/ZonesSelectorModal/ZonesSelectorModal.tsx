@@ -2,6 +2,7 @@ import { useMemo, useRef, useState, KeyboardEvent } from 'react';
 
 import cn from 'classnames';
 
+import { ArrowBack } from 'assets/icons';
 import { ZoneInfoWithSearch } from 'components/ZoneInfoWithSearch/ZoneInfoWithSearch';
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZoneLinkItemContainer } from 'components/ZonesGroupedList/ZoneLinkItemContainer';
@@ -70,14 +71,18 @@ export function ZonesSelectorModal({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <ZonesListModalContent>
-        <Search
-          autoFocus={true}
-          className={styles.searchContainer}
-          onSearchChange={onSearchChange}
-          placeholder={zonesList.length + ' Zones'}
-          onKeyDown={handleArrowKeys}
-        />
+      <ZonesListModalContent className={styles.modalContent}>
+        <div className={styles.modalHeader}>
+          <ArrowBack className={styles.arrowBack} onClick={onClose} />
+
+          <Search
+            autoFocus
+            className={styles.searchContainer}
+            onSearchChange={onSearchChange}
+            placeholder={zonesList.length + ' Zones'}
+            onKeyDown={handleArrowKeys}
+          />
+        </div>
 
         <ZonesGroupedListWithRef
           ref={keydownHandleRef}

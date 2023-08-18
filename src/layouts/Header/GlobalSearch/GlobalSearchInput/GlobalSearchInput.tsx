@@ -1,8 +1,8 @@
 import cn from 'classnames';
 
-import { SearchIcon } from 'assets/icons';
+import { ArrowBack, SearchIcon } from 'assets/icons';
 import { CompareModeSwitcher } from 'components/CompareModeSwitcher';
-import { useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
+import { useTabletMediumMediaQuery } from 'hooks/useMediaQuery';
 import { Search } from 'ui';
 
 import styles from './GlobalSearchInput.module.scss';
@@ -16,25 +16,20 @@ export function GlobalSearchInput({
   onClick,
   ...props
 }: GlobalSearchInputProps) {
-  const isTablet = useTabletSmallMediaQuery();
+  const isTablet = useTabletMediumMediaQuery();
 
   return (
-    <div className={cn(className, styles.container)} onClick={onClick}>
-      <SearchIcon className={styles.loopIcon} />
+    <div className={cn(styles.container, className)} onClick={onClick}>
+      {isTablet && <ArrowBack className={styles.arrowBack} onClick={onCancel} />}
+
+      {!isTablet && <SearchIcon className={styles.loopIcon} />}
       <Search
         className={styles.search}
         placeholder="Search and analyze zones"
         showIcon={false}
         {...props}
       />
-
       {showCompareSwitcher && <CompareModeSwitcher />}
-
-      {isTablet && (
-        <div className={styles.cancelBtn} onClick={onCancel}>
-          Cancel
-        </div>
-      )}
     </div>
   );
 }

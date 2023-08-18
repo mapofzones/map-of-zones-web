@@ -2,16 +2,52 @@
   --search-height: 32px;
   --search-padding: 16px;
 
-  .itemsContainer {
-    height: calc(100% - var(--search-height) - 2 * var(--search-padding));
+  .modalContent {
+    border-top: 1px solid var(--black-500); // need to fix collapse margin-top
+
+    .modalHeader {
+      display: inine-block;
+      background-color: var(--black-100);
+      border-radius: 5px;
+
+      margin: var(--search-padding);
+
+      .arrowBack {
+        display: none;
+        cursor: pointer;
+      }
+    }
+
+    .itemsContainer {
+      height: calc(100% - var(--search-height) - 2 * var(--search-padding));
+    }
+
+    .searchContainer {
+      input {
+        height: var(--search-height);
+      }
+    }
   }
+}
 
-  .searchContainer {
-    margin: 0 var(--search-padding);
-    padding: var(--search-padding) 0;
+@media (max-width: 880px) {
+  .container {
+    .modalContent {
+      .modalHeader {
+        display: flex;
+        justify-content: stretch;
+        align-items: center;
+        padding-left: 16px;
 
-    input {
-      height: var(--search-height);
+        .arrowBack {
+          display: block;
+        }
+
+        .searchContainer {
+          flex: 1;
+          padding-left: 0;
+        }
+      }
     }
   }
 }
