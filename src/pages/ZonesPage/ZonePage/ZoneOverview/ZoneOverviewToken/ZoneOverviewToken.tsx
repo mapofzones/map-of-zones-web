@@ -107,7 +107,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
       <div className={styles.chartControls}>
         <ButtonGroup
           className={styles.priceSwitcher}
-          size={ElementSize.SMALL}
+          size={ElementSize.MEDIUM}
           buttons={chartOptions}
           setSelectedButton={onChartSelected}
         ></ButtonGroup>
@@ -115,7 +115,7 @@ export function ZoneOverviewToken({ className }: { className?: string }) {
         {PERIODS.length > 1 && (
           <ButtonGroup
             className={styles.chartTypeSwitcher}
-            size={ElementSize.SMALL}
+            size={ElementSize.MEDIUM}
             buttons={PERIODS.map((period: PeriodKeys) => ({
               key: period,
               title: period.toUpperCase(),

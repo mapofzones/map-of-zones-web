@@ -37,6 +37,11 @@ export function ZonesSelectorWrapper({
     setVisible(false);
   }, [location]);
 
+  const onZoneSelectedInternal = (zone: string) => {
+    onZoneSelected(zone);
+    setVisible(false);
+  };
+
   return (
     <>
       <div ref={wrapperRef} className={cn(styles.container, { [styles.active]: isVisible })}>
@@ -56,7 +61,7 @@ export function ZonesSelectorWrapper({
           isOpen={isVisible}
           onClose={() => setVisible(false)}
           zonesList={zonesList}
-          onZoneSelected={onZoneSelected}
+          onZoneSelected={onZoneSelectedInternal}
           offset={offset}
         />
       )}

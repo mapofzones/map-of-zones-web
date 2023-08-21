@@ -22,7 +22,8 @@
     height: 32px;
 
     .item {
-      padding: 6px 16px;
+      padding: 6px 12px;
+      font-size: var(--font-base-size-md);
     }
   }
 
@@ -40,6 +41,8 @@
 
     border-radius: 5px;
 
+    transition: 300ms;
+
     &:hover {
       color: var(--grey-800);
 
@@ -51,6 +54,11 @@
       color: var(--white);
 
       background-color: var(--grey-100);
+
+      svg {
+        fill: var(--white);
+        stroke: var(--white);
+      }
     }
   }
 }
