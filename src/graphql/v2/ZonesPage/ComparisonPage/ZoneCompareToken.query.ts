@@ -9,6 +9,7 @@ export const ZONES_COMPARE_Token = gql`
         symbol
         price
         marketCap: market_cap
+        tradingVolumeDay: token_day_trading_volume
         chart: token_charts(
           where: { chart_type: { _eq: $chartType } }
           order_by: { point_index: asc }

@@ -19,6 +19,7 @@ export type ZoneCompareTokenQueryResult = {
       symbol?: string | null;
       price?: any | null;
       marketCap?: any | null;
+      tradingVolumeDay?: any | null;
       chart: Array<{ value?: any | null; time: number }>;
     } | null;
   }>;
@@ -105,6 +106,11 @@ export const ZoneCompareTokenDocument = {
                         kind: 'Field',
                         alias: { kind: 'Name', value: 'marketCap' },
                         name: { kind: 'Name', value: 'market_cap' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'tradingVolumeDay' },
+                        name: { kind: 'Name', value: 'token_day_trading_volume' },
                       },
                       {
                         kind: 'Field',

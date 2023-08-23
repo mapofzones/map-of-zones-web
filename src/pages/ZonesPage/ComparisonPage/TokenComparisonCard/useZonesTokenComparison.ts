@@ -53,7 +53,7 @@ export function useZonesTokenComparison(
       symbol: item.token?.symbol,
       price: item?.token?.price,
       marketCap: item?.token?.marketCap,
-      tradingVolume: undefined,
+      tradingVolume: item?.token?.tradingVolumeDay,
     }));
 
     const mappedChart = mapCharts(
@@ -78,7 +78,7 @@ function getChartType(period: PeriodKeys, chartType: TokenProperties) {
   } else if (chartType === 'tradingVolume') {
     type += 'volume';
   } else if (chartType === 'marketCap') {
-    type += 'volume';
+    type += 'marketCap';
   }
   type += '_';
   if (period === PeriodKeys.DAY) {
