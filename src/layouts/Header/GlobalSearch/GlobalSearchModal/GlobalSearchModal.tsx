@@ -2,7 +2,6 @@ import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { ArrowBack } from 'assets/icons';
 import { KeydownHandle, ZonesGroupedListWithRef } from 'components/ZonesGroupedList';
 import { ZoneLinkItemWithComparison } from 'components/ZonesGroupedList/ZoneLinkItemWithComparison';
 import { ZonesListModalContent } from 'components/ZonesListModalContent/ZonesListModalContent';

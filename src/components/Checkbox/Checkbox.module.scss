@@ -1,7 +1,5 @@
 .label {
   input {
-    -webkit-appearance: none;
-    appearance: none;
     width: 16px;
     height: 16px;
     border-radius: 1.5px;
@@ -9,6 +7,9 @@
     border: 1px solid var(--grey-300);
     outline: none;
     cursor: pointer;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 
     transition: background-color 0.3s, border 0.1s;
 

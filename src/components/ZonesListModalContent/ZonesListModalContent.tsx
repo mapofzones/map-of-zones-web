@@ -22,7 +22,7 @@ export function ZonesListModalContent({
       }
     : {
         open: {
-          scaleX: '100%',
+          scaleX: 1,
           height: '100%',
           opacity: 1,
           transition: {
