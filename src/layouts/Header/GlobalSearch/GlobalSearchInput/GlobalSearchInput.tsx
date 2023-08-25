@@ -17,6 +17,7 @@ export function GlobalSearchInput({
   ...props
 }: GlobalSearchInputProps) {
   const isTablet = useTabletMediumMediaQuery();
+  const compareBtnText = isTablet ? 'Compare' : 'Compare Zones';
 
   return (
     <div className={cn(styles.container, className)} onClick={onClick}>
@@ -29,7 +30,7 @@ export function GlobalSearchInput({
         showIcon={false}
         {...props}
       />
-      {showCompareSwitcher && <CompareModeSwitcher />}
+      {showCompareSwitcher && <CompareModeSwitcher text={compareBtnText} />}
     </div>
   );
 }

@@ -22,10 +22,9 @@ export function ComparisonPage({ className, ...props }: ComparisonPageProps): JS
   return (
     <ComparisonSelectedZonesProvider>
       <div className={cn(className, styles.container)} {...props}>
-        <div className={styles.header}>
-          <div className={styles.title}>Comparison</div>
-          <ZonesComparisonSelectors />
-        </div>
+        <div className={styles.title}>Comparison</div>
+        <ZonesComparisonSelectors className={styles.zonesSelectors} />
+
         <ActivityComparisonCard className={styles.activityCard} />
         <InterchainComparisonCard className={styles.interchainCard} />
         <TokenComparisonCard className={cn(styles.tokenCard, styles.chartCard)} />

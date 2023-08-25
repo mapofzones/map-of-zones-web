@@ -2,4 +2,8 @@
   padding-top: 8px !important;
   padding-bottom: 8px !important;
   background-color: #ff445540;
+
+  &:hover {
+    background-color: #ff445573; // 45% opacity
+  }
 }

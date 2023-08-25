@@ -8,20 +8,31 @@
   gap: var(--gap);
   padding: 0 24px 24px;
 
-  .header {
+  .title {
     @include gridColumn(1, 1);
 
-    margin: 24px 0 8px 0;
+    font-size: var(--font-heading-size-lg);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: var(--white);
 
-    .title {
-      font-size: var(--font-heading-size-lg);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      font-feature-settings: 'tnum' on, 'lnum' on;
-      color: var(--white);
+    margin-top: 24px;
+    margin-bottom: -8px;
+  }
 
-      margin-bottom: 28px;
-    }
+  .zonesSelectors {
+    @include gridColumn(1, 1);
+
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    background-color: var(--black-100);
   }
 
   .activityCard {
