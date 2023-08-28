@@ -82,8 +82,8 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
               <motion.div
                 className={styles.logoContainer}
                 variants={{
-                  channelsVisible: { left: -22, scale: 0.5 },
-                  channelsHidden: { left: 0, scale: 1 },
+                  channelsVisible: { x: -22, scale: 0.5 },
+                  channelsHidden: { x: 0, scale: 1 },
                 }}
                 {...animationConfig}
               >
@@ -103,7 +103,7 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
 
             <motion.div
               className={styles.zoneContainer}
-              variants={{ channelsVisible: { left: 0 }, channelsHidden: { left: 233 } }}
+              variants={{ channelsVisible: { x: 0 }, channelsHidden: { x: 233 } }}
               {...animationConfig}
             >
               <div className={styles.logoContainer}>
@@ -112,7 +112,7 @@ export function TableRow({ isTableHorizontalScrollable, parentZone, zone }: Tabl
 
               <motion.div
                 className={styles.zoneInfoContainer}
-                variants={{ channelsVisible: { top: 0 }, channelsHidden: { top: 8 } }}
+                variants={{ channelsVisible: { y: 0 }, channelsHidden: { y: 8 } }}
                 {...animationConfig}
               >
                 <div className={styles.zoneNameContainer}>
