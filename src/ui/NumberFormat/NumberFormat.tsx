@@ -2,7 +2,9 @@
 
 import { NumberType } from 'types/NumberType';
 
-import { NUMBER_STYLE_MAP, NumberFormatProps } from './NumberFormat.props';
+import { NumberFormatProps, NUMBER_STYLE_MAP } from './NumberFormat.props';
+
+export const DEFAULT_VALUE = 'N/a';
 
 export function NumberFormat({
   className,
@@ -26,7 +28,7 @@ export function formatNumberToJSX(
   value?: number | null,
   numberType: NumberType = NumberType.Number,
   compact = false,
-  defaultValue = '—',
+  defaultValue = DEFAULT_VALUE,
   currency = 'USD'
 ): JSX.Element {
   const parts = getNumberFormatParts(value, numberType, compact, currency);
@@ -51,7 +53,7 @@ export function formatNumberToString(
   value?: number | null,
   numberType: NumberType = NumberType.Number,
   compact = false,
-  defaultValue = '—',
+  defaultValue = DEFAULT_VALUE,
   currency = 'USD'
 ): string {
   const parts = getNumberFormatParts(value, numberType, compact, currency);

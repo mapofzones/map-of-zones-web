@@ -50,6 +50,11 @@ export function TableRow({
     }
   };
 
+  const dataExist =
+    !!zone.ibcVolumeChart &&
+    !!zone.ibcVolumeChart.length &&
+    !!zone.ibcVolumeChart.filter((item) => !!item.volume).length;
+
   return (
     <tr className={styles.container} onClick={onClick}>
       <TableRowIndexItem
@@ -153,7 +158,8 @@ export function TableRow({
       </TableRowItem>
 
       <TableRowItem>
-        {zone.ibcVolumeChart && <LineChart data={zone.ibcVolumeChart} dataKey="volume" />}
+        {dataExist && <LineChart data={zone.ibcVolumeChart} dataKey="volume" />}
+        {!dataExist && <div className={styles.notAvailableContainer}>N/a</div>}
       </TableRowItem>
     </tr>
   );

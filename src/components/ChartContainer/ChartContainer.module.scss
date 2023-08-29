@@ -1,3 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  flex: 1 1 auto;
+
+  color: var(--grey-500);
+  font-size: var(--font-secondary-size-md);
+}
+
 .periodInfo {
   margin-top: 16px;
   margin-bottom: 16px;

@@ -29,7 +29,7 @@ export function StackingBlock({
           <NumberFormat
             value={data?.unbondingPeriod ? data.unbondingPeriod / SECONDS_IN_DAY : undefined}
           />
-          d
+          {data?.unbondingPeriod ? 'd' : undefined}
         </span>
       </div>
     </div>

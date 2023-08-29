@@ -19,6 +19,13 @@
       padding-left: 0;
     }
 
+    .notAvailableContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: var(--font-base-size-md);
+    }
+
     .position {
       display: block;
 

@@ -25,7 +25,7 @@ export const CHART_ICONS = {
 
 const PERIODS: AnalysisCardPeriod[] = ['1w', '1m'];
 
-export function OverviewChartCard<T extends DataWithChart<K>, K>({
+export function OverviewChartCard<T extends DataWithChart<K>, K extends object>({
   metadata,
   title,
   data,
