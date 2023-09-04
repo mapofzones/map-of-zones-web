@@ -3,6 +3,9 @@
   flex-direction: column;
   font-size: 16px;
   flex: 1;
+  width: 100%;
+  row-gap: 24px;
+  overflow-x: hidden;
 
   .skeletonItem {
     height: 19px;
@@ -16,7 +19,6 @@
 }
 
 .groupTabSelector {
-  margin-bottom: 24px;
   margin-right: auto;
 }
 

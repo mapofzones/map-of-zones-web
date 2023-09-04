@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 4px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.wrapper {
+  overflow-x: hidden;
+  width: calc(100% - 16px);
+}
+
+.arrowLeft {
+  transform: rotate(180deg);
+}
+
+.arrowLeft,
+.arrowRight {
+  width: 8px;
+  height: 13px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.shadow {
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.leftShadow {
+  background: linear-gradient(90deg, #1c1c25 0%, #1c1c2500 100%);
+  left: 10px;
+}
+
+.rightShadow {
+  background: linear-gradient(90deg, #1c1c2500 0%, #1c1c25 100%);
+  right: 10px;
+}

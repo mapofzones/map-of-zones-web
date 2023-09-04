@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import cn from 'classnames';
 
+import { ScrollableArrowWrapper } from 'components/ScrollableArrowWrapper';
 import { ElementSize } from 'types/ElementSize';
 import { ButtonGroup, NumberFormat, SkeletonRectangle } from 'ui';
 import { PercentageBar } from 'ui/PercentageBar';
@@ -35,12 +36,14 @@ export function CompareGroup<K>({
 
   return (
     <div className={cn(className, styles.container)} {...props}>
-      <ButtonGroup<keyof K>
-        className={styles.groupTabSelector}
-        size={ElementSize.MEDIUM}
-        buttons={tabOptions}
-        setSelectedButton={onTabSelected}
-      />
+      <ScrollableArrowWrapper className={className}>
+        <ButtonGroup<keyof K>
+          className={styles.groupTabSelector}
+          size={ElementSize.MEDIUM}
+          buttons={tabOptions}
+          setSelectedButton={onTabSelected}
+        />
+      </ScrollableArrowWrapper>
 
       {loading && (
         <div>

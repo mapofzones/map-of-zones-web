@@ -7,6 +7,7 @@ import {
 } from 'components/AnalysisCard';
 import { ChartContainer } from 'components/ChartContainer';
 import { OVERVIEW_PERIODS_API_KEYS } from 'components/OverviewChartCardWithMetadata';
+import { ScrollableArrowWrapper } from 'components/ScrollableArrowWrapper';
 import {
   ZoneDailyActiveAddressesItem,
   useGetActiveAddressesCountChartQuery,
@@ -73,12 +74,14 @@ export function DailyActiveAddressesComparisonCard({
       <AnalysisCard.Header className={styles.cardHeader}>
         <AnalysisCard.Title>Daily Active Addresses</AnalysisCard.Title>
 
-        <ButtonGroup
-          className={styles.groupTabSelector}
-          size={ElementSize.MEDIUM}
-          buttons={DAILY_ACTIVE_ADDRESSES_CARD_OPTIONS}
-          setSelectedButton={onPropertyTabSelected}
-        />
+        <ScrollableArrowWrapper className={styles.buttonGroupWrapper}>
+          <ButtonGroup
+            className={styles.groupTabSelector}
+            size={ElementSize.MEDIUM}
+            buttons={DAILY_ACTIVE_ADDRESSES_CARD_OPTIONS}
+            setSelectedButton={onPropertyTabSelected}
+          />
+        </ScrollableArrowWrapper>
       </AnalysisCard.Header>
 
       <AnalysisCard.ChartControls>

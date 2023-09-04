@@ -1,6 +1,7 @@
 .container {
   display: flex;
   justify-content: space-between;
+  column-gap: 20px;
 
   font-size: var(--font-heading-size-md);
   font-weight: 600;
