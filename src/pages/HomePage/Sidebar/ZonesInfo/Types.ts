@@ -24,7 +24,7 @@ export const getColumnOptions = (period: PeriodKeys) => [
   {
     key: ColumnKeys.Dau,
     title: getDauTitleByPeriod(period),
-    description: tooltips.ibcDau(period),
+    description: tooltips.dau(period),
   },
 ];
 
