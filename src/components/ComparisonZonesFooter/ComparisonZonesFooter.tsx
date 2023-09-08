@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { InfoDarkIcon, TrashIcon } from 'assets/icons';
+import { SelectedZonesComparisonSource } from 'hooks/analytics/ZonesPage/ZonesComparisonPage/useViewedZonesComparisonPageAnalytics';
 import { getZonesComparisonPath, getZonesComparisonSearchPath } from 'routing';
 import { useAppSelector } from 'store/hooks';
 import { useZonesPageComparisonModeActionsCreator } from 'store/ZonesPageComparisonMode.slice';
@@ -29,6 +30,7 @@ export function ComparisonZonesFooter(): JSX.Element {
       },
       {
         replace: true,
+        state: { source: SelectedZonesComparisonSource.FooterCompareButton },
       }
     );
   };

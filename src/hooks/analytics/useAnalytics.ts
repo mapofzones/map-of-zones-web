@@ -4,7 +4,15 @@ import * as amplitude from '@amplitude/analytics-browser';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
-import { homePath, assetsPath, overviewPath, peersPath, zonesPath, swapPath } from 'routing';
+import {
+  homePath,
+  assetsPath,
+  overviewPath,
+  peersPath,
+  zonesPath,
+  swapPath,
+  zonesComparison,
+} from 'routing';
 
 import { useAssetsPageAnalytics } from './AssetsPage/useAssetsPageAnalytics';
 import { useHomePageAnalytics } from './HomePage/useHomePageAnalytics';
@@ -27,6 +35,7 @@ export const getPageTitle = (pathname: string | null) => {
   if (pathname.includes(`/${zonesPath}`)) {
     if (pathname.includes(`/${overviewPath}`)) return PAGE_TITLE.ZoneOverview;
     if (pathname.includes(`/${peersPath}`)) return PAGE_TITLE.ZonePeers;
+    if (pathname.includes(`/${zonesComparison}`)) return PAGE_TITLE.ZonesComparison;
 
     return PAGE_TITLE.ZonesList;
   }

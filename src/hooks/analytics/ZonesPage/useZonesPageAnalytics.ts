@@ -5,6 +5,7 @@ import { useSwitchedZoneSubtabAnalytics } from './ZonePage/useSwitchedZoneSubtab
 import { useViewedZoneOverviewPageAnalytics } from './ZonePage/ZoneOverviewPage/useViewedZoneOverviewPageAnalytics';
 import { useSortedZonePeersListAnalytics } from './ZonePage/ZonePeersPage/useSortedZonePeersListAnalytics';
 import { useViewedZonePeersPageAnalytics } from './ZonePage/ZonePeersPage/useViewedZonePeersPageAnalytics';
+import { useViewedZonesComparisonPageAnalytics } from './ZonesComparisonPage/useViewedZonesComparisonPageAnalytics';
 import { Page } from '../Types';
 
 export function useZonesPageAnalytics(currentPage: Page, prevPage: Page) {
@@ -17,6 +18,9 @@ export function useZonesPageAnalytics(currentPage: Page, prevPage: Page) {
   // zonePeers
   useSortedZonePeersListAnalytics(currentPage, prevPage);
   useViewedZonePeersPageAnalytics(currentPage, prevPage);
+
+  // comparison
+  useViewedZonesComparisonPageAnalytics(currentPage, prevPage);
 
   // zones
   useSortedZonesListAnalytics(currentPage, prevPage);

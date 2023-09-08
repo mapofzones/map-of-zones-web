@@ -6,6 +6,7 @@ import { CompareButton } from 'components/CompareButton';
 import { ZonesSelector } from 'components/ZonesSelector/ZonesSelector';
 import { ZonesSelectorWrapper } from 'components/ZonesSelector/ZonesSelectorWrapper';
 import { useZoneLinksAnalytics } from 'hooks/analytics/Multipage/useZoneLinksAnalytics';
+import { SelectedZonesComparisonSource } from 'hooks/analytics/ZonesPage/ZonesComparisonPage/useViewedZonesComparisonPageAnalytics';
 import { useZonesData } from 'hooks/queries/useZonesData';
 import { useTabletMediumMediaQuery, useTabletSmallMediaQuery } from 'hooks/useMediaQuery';
 import {
@@ -41,7 +42,9 @@ export function ZonePage() {
   }
 
   function onZonesToCompareSelected(zoneToCompare: string) {
-    navigate(`/${getZonesComparisonPath()}${getZonesComparisonSearchPath([zone, zoneToCompare])}`);
+    navigate(`/${getZonesComparisonPath()}${getZonesComparisonSearchPath([zone, zoneToCompare])}`, {
+      state: { source: SelectedZonesComparisonSource.OverviewCompareButton },
+    });
   }
 
   return (

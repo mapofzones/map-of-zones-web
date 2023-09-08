@@ -13,6 +13,7 @@ export interface SearchProps {
   utm_source?: string;
   searchZone?: string;
   mapType?: string;
+  zones?: string[];
 }
 
 export const PAGE_TITLE: Record<string, string> = {
@@ -22,6 +23,7 @@ export const PAGE_TITLE: Record<string, string> = {
   HomePeers: 'home zone peers',
   ZoneOverview: 'zone overview page',
   ZonePeers: 'zone peers page',
+  ZonesComparison: 'zones comparison page',
   ZonesList: 'zones list page',
   Swap: 'swap',
 };
