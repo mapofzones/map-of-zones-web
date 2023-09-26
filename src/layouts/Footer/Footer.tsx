@@ -60,7 +60,7 @@ function Footer({ ...props }): JSX.Element {
       </div>
       <div className={styles.externalLinksBlock}>
         {'© '}
-        <ExternalLink href={ExternalLinks.ztake}>Ztake.org</ExternalLink>
+        <ExternalLink href={ExternalLinks.tfm}>TFM.com</ExternalLink>
       </div>
       <div className={styles.emailLinkBlock}>
         <ExternalLink href={ExternalLinks.mozEmail}>support@mapofzones.com</ExternalLink>
