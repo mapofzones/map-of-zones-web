@@ -135,7 +135,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
             selectedZone,
           };
         });
-      } else if (activeItem.isAlpabetSelected) {
+      } else if (activeItem.isAlphabetSelected) {
         const { indexInGroup, isSelected, selectedZone } = getSelectedDetails(
           filteredZones,
           activeItem
@@ -186,7 +186,7 @@ export function GlobalSearchModal({ isVisible, zones, onModalClose }: GlobalSear
             <ZoneLinkItemsWithSearch
               title="Alphabetically"
               zones={filteredZones}
-              activeItemRef={activeItem.isAlpabetSelected ? activeItemRef : null}
+              activeItemRef={activeItem.isAlphabetSelected ? activeItemRef : null}
               selectedIndex={activeItem.alphabetIndex}
               searchValue={searchValue}
               onItemClick={onItemClick}
@@ -211,9 +211,9 @@ function calculateActiveItemDetails(
   filteredZones: ZoneData[]
 ) {
   const isPopularSelected = newIndex < filteredPopularZones.length;
-  const isAlpabetSelected = !isPopularSelected;
+  const isAlphabetSelected = !isPopularSelected;
   const popularIndex = isPopularSelected ? newIndex : undefined;
-  const alphabetIndex = isAlpabetSelected ? newIndex - filteredPopularZones.length : undefined;
+  const alphabetIndex = isAlphabetSelected ? newIndex - filteredPopularZones.length : undefined;
   const selectedZone =
     popularIndex !== undefined
       ? filteredPopularZones[popularIndex].zone
@@ -224,7 +224,7 @@ function calculateActiveItemDetails(
   const newActiveItem = {
     totalIndex: newIndex,
     isPopularSelected,
-    isAlpabetSelected,
+    isAlphabetSelected,
     popularIndex,
     alphabetIndex,
     selectedZone,
