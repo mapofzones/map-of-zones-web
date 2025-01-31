@@ -10,7 +10,7 @@ export const tooltips = {
   ibcTransfers: () =>
     'Number of successfully relayed IBC transfers with pertinent quantity in progress',
   ibcTransfersIn: () =>
-    'Number of IBC transfers successfully reveived from other Zones with pertinent quantity in progress',
+    'Number of IBC transfers successfully received from other Zones with pertinent quantity in progress',
   ibcTransfersOut: () =>
     'Number of IBC transfers successfully transfered to other Zones with pertinent quantity in progress',
   ibcTransfersFailed: () =>
